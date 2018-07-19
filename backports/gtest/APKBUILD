@@ -3,6 +3,7 @@ pkgname=gtest
 pkgver=1.8.0
 pkgrel=2
 pkgdesc="Google Test - C++ testing utility based on the xUnit framework (like JUnit)"
+gmockdesc="Google Mock - The Google C++ mocking framework"
 url="https://github.com/google/googletest"
 arch="all"
 options="!check"  # No test suite.
@@ -11,7 +12,7 @@ depends="libgcc bash"
 depends_dev="python3 cmake"
 makedepends="$depends_dev"
 install=""
-subpackages="$pkgname-dev $pkgname-doc"
+subpackages="$pkgname-dev $pkgname-doc gmock:gmock gmock-dev:gmock_dev gmock-doc:gmock_doc"
 source="https://github.com/google/googletest/archive/release-$pkgver.tar.gz"
 
 builddir="$srcdir"/googletest-release-${pkgver}
@@ -43,6 +44,32 @@ package() {
 	install -m 0644 googletest/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/
 	install -m 0644 googletest/CMakeLists.txt "$pkgdir"/usr/src/gtest/
 	install -m 0644 googletest/cmake/* "$pkgdir"/usr/src/gtest/cmake/
+}
+
+gmock() {
+	pkgdesc="$gmockdesc"
+
+	cd "$builddir"
+	install -d -m 0755 "$subpkgdir"/usr/lib
+	install -m 0644 build/googlemock/libgmock*.so "$subpkgdir"/usr/lib
+}
+gmock_dev() {
+	pkgdesc="$gmockdesc (development files)"
+
+	cd "$builddir"
+	install -d -m 0755 "$subpkgdir"/usr/include/gmock/internal/custom
+	install -m 0644 googlemock/include/gmock/*.h "$subpkgdir"/usr/include/gmock
+	install -m 0644 googlemock/include/gmock/internal/*.h \
+		"$subpkgdir"/usr/include/gmock/internal/
+	install -m 0644 googlemock/include/gmock/internal/custom/*.h \
+		"$subpkgdir"/usr/include/gmock/internal/custom/
+}
+gmock_doc() {
+	pkgdesc="$gmockdesc (documentation)"
+
+	cd "$builddir"
+	install -d -m 0755 "$subpkgdir"/usr/share/licenses/gmock
+	install -m 0644 googlemock/LICENSE "$subpkgdir"/usr/share/licenses/gmock/
 }
 
 sha512sums="1dbece324473e53a83a60601b02c92c089f5d314761351974e097b2cf4d24af4296f9eb8653b6b03b1e363d9c5f793897acae1f0c7ac40149216035c4d395d9d  release-1.8.0.tar.gz"
