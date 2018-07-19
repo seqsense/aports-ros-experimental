@@ -10,7 +10,7 @@ license="BSD-2-Clause"
 subpackages="$pkgname-dev"
 source="$pkgname-$pkgver.tar.gz::https://github.com/ros/console_bridge/archive/$pkgver.tar.gz"
 
-builddir="$srcdir/$pkgver"
+builddir="$srcdir/console_bridge-$pkgver"
 
 build() {
 	cd "$builddir"
