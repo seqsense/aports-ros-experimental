@@ -8,9 +8,9 @@ url="https://github.com/ros/console_bridge/"
 arch="all"
 license="BSD-2-Clause"
 subpackages="$pkgname-dev"
-source="https://github.com/ros/console_bridge/archive/$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/ros/console_bridge/archive/$pkgver.tar.gz"
 
-builddir="$srcdir/$pkgname-$pkgver"
+builddir="$srcdir/$pkgver"
 
 build() {
 	cd "$builddir"
@@ -31,4 +31,4 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="ebfd2ee31bd27380db750e1c40d9f09f50cc7db72f4aceaac9c5bf94894eb8db8ac7cbf67d82cfc27aa154d0e8f2c25ad80b12d06ee90679b5fd6d10fd8d4037  0.4.0.tar.gz"
+sha512sums="ebfd2ee31bd27380db750e1c40d9f09f50cc7db72f4aceaac9c5bf94894eb8db8ac7cbf67d82cfc27aa154d0e8f2c25ad80b12d06ee90679b5fd6d10fd8d4037  console-bridge-0.4.0.tar.gz"
