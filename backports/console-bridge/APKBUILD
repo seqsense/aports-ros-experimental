@@ -18,9 +18,9 @@ build() {
 	cd "$builddir"
 	mkdir -p build && cd build
 	cmake .. \
-    -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DBUILD_SHARED_LIBS=ON
-  make
+	make
 }
 
 check() {
