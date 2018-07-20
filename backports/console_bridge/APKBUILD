@@ -10,7 +10,8 @@ license="BSD-3-Clause"
 depends=""
 makedepends="cmake"
 subpackages="$pkgname-dev"
-source="$pkgname-$pkgver.tar.gz::https://github.com/ros/console_bridge/archive/$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/ros/console_bridge/archive/$pkgver.tar.gz
+	cmake_config_install_dir.patch"
 
 builddir="$srcdir/$pkgname-$pkgver"
 
@@ -34,4 +35,5 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="ebfd2ee31bd27380db750e1c40d9f09f50cc7db72f4aceaac9c5bf94894eb8db8ac7cbf67d82cfc27aa154d0e8f2c25ad80b12d06ee90679b5fd6d10fd8d4037  console_bridge-0.4.0.tar.gz"
+sha512sums="ebfd2ee31bd27380db750e1c40d9f09f50cc7db72f4aceaac9c5bf94894eb8db8ac7cbf67d82cfc27aa154d0e8f2c25ad80b12d06ee90679b5fd6d10fd8d4037  console_bridge-0.4.0.tar.gz
+d06771cc5adcd5230d24e9e25751b3ee716024855b0d1c02d30e4792a82e2544cf48161527af27a033a003b85aaf52776ce16f56ef74006cc704fc987a220055  cmake_config_install_dir.patch"
