@@ -1,0 +1,50 @@
+# Contributor: Atsushi Watanabe<atsushi.w@ieee.org>
+# Maintainer:
+pkgname=py-empy
+_pkgname=empy
+pkgver=3.3.2
+pkgrel=1
+pkgdesc="A powerful and robust templating system for Python"
+url="https://pypi.python.org/pypi/EmPy/"
+arch="noarch"
+license="LGPL"
+makedepends="python2-dev python3-dev py-setuptools"
+subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	python2 setup.py build
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python2 setup.py check
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+}
+
+_py2() {
+	_py python2
+}
+
+_py3() {
+	_py python3
+}
+
+_py() {
+	local python="$1"
+	pkgdesc="$pkgdesc (for $python)"
+	depends="$python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
+
+	cd "$builddir"
+	$python setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+sha512sums="d9098823bbb26e4447aae9042e389e000f893615117512f9b786eedbc6875dee6b7f6be50021f68a4bd6e200b364852206b36bff5c48ae1754c8f0d49682d5f2  empy-3.3.2.tar.gz"
