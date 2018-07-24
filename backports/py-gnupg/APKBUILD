@@ -1,0 +1,50 @@
+# Contributor: Atsushi Watanabe<atsushi.w@ieee.org>
+# Maintainer:
+pkgname=py-gnupg
+_pkgname=gnupg
+pkgver=2.3.1
+pkgrel=1
+pkgdesc="A Python wrapper for GnuPG"
+url="https://pypi.python.org/pypi/gnupg/"
+arch="noarch"
+license="GPL3.0"
+makedepends="python2-dev python3-dev py-setuptools"
+subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	python2 setup.py build
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python2 setup.py check
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+}
+
+_py2() {
+	_py python2
+}
+
+_py3() {
+	_py python3
+}
+
+_py() {
+	local python="$1"
+	pkgdesc="$pkgdesc (for $python)"
+	depends="$python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
+
+	cd "$builddir"
+	$python setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+sha512sums="a640a85a14c93a1ceff7b77fb5a08ba43c30f9f6862413cbedbf9823b47c35a2e96dbc3bd983d2be12382f3146d50cf1db76c5b047e5bb288004d94996c9bf36  gnupg-2.3.1.tar.gz"
