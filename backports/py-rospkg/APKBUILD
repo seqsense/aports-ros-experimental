@@ -1,0 +1,51 @@
+# Contributor: Atsushi Watanabe<atsushi.w@ieee.org>
+# Maintainer:
+pkgname=py-rospkg
+_pkgname=rospkg
+pkgver=1.1.4_git20180715
+pkgrel=1
+pkgdesc="Standalone Python library for the ROS package system"
+url="https://pypi.python.org/pypi/rospkg/"
+arch="noarch"
+license="BSD-3-Clause"
+makedepends="python2-dev python3-dev py-setuptools"
+subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+#source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+source=""
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+	cd "$srcdir"
+	git clone --depth=1 https://github.com/ros-infrastructure/rospkg.git "$_pkgname-$pkgver"
+	cd "$builddir"
+	python2 setup.py build
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python2 setup.py check
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+}
+
+_py2() {
+	_py python2
+}
+
+_py3() {
+	_py python3
+}
+
+_py() {
+	local python="$1"
+	pkgdesc="$pkgdesc (for $python)"
+	depends="$python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
+
+	cd "$builddir"
+	$python setup.py install --prefix=/usr --root="$subpkgdir"
+}
