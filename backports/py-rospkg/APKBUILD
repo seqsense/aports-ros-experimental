@@ -34,12 +34,12 @@ package() {
 }
 
 _py2() {
-  depends="${depends//py-/py2-}"
+	depends="${depends//py-/py2-}"
 	_py python2
 }
 
 _py3() {
-  depends="${depends//py-/py3-}"
+	depends="${depends//py-/py3-}"
 	_py python3
 }
 
