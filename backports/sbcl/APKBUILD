@@ -28,6 +28,7 @@ prepare() {
 
 build() {
 	cd "$builddir"
+	ulimit -s 131072
 
 	GNUMAKE=make ./make.sh clisp \
 		--prefix=/usr \
@@ -39,12 +40,14 @@ build() {
 
 check() {
 	cd "$builddir"/tests
+	ulimit -s 131072
 
 	sh run-tests.sh
 }
 
 package() {
 	cd "$builddir"
+	ulimit -s 131072
 
 	INSTALL_ROOT="$pkgdir/usr" \
 		LIB_DIR="/usr/lib" \
