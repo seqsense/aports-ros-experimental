@@ -46,6 +46,6 @@ _py() {
 	depends="$depends $python"
 	install_if="$pkgname=$pkgver-r$pkgrel $python"
 
-	cd "$builddir/wxPython"
+	cd "$builddir"
 	$python build.py install --prefix=/usr --destdir="$subpkgdir"
 }
