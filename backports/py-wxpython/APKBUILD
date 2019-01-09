@@ -1,0 +1,51 @@
+# Contributor: Atsushi Watanabe<atsushi.w@ieee.org>
+# Maintainer:
+pkgname=py-wxpython
+_pkgname=wxPython
+pkgver=4.0.4
+pkgrel=1
+pkgdesc="Cross platform GUI toolkit for Python, \"Phoenix\" version"
+url="https://pypi.org/project/wxPython/"
+arch="all"
+license="wxWindows"
+depends=""
+makedepends="python2-dev python3-dev py-setuptools pytest gtk+3.0-dev wxgtk+3-dev"
+subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	python2 build.py build_py --jobs=4 --nodoc --release --use_syswx --gtk3
+	python3 build.py build_py --jobs=4 --nodoc --release --use_syswx --gtk3
+}
+
+check() {
+	cd "$builddir"
+	python2 build.py test
+	python3 build.py test
+}
+
+package() {
+	mkdir -p "$pkgdir"
+}
+
+_py2() {
+	depends="${depends//py-/py2-}"
+	_py python2
+}
+
+_py3() {
+	depends="${depends//py-/py3-}"
+	_py python3
+}
+
+_py() {
+	local python="$1"
+	pkgdesc="$pkgdesc (for $python)"
+	depends="$depends $python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
+
+	cd "$builddir"
+	$python build.py install_py --destdir="$subpkgdir"
+}
