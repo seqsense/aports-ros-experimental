@@ -1,17 +1,17 @@
 # Contributor: Pavel Kalian <pavel@kalian.cz>
 # Maintainer: ScrumpyJack <scrumpyjack@st.ilet.to>
-pkgname=wxgtk
+pkgname=wxgtk+3
 pkgver=3.0.4
 pkgrel=0
-pkgdesc="GTK2 port of wxWidgets GUI library"
+pkgdesc="GTK3 port of wxWidgets GUI library"
 url="http://www.wxwidgets.org/"
 arch="all"
 license="wxWidgets"
 depends=""
-depends_dev="gtk+2.0-dev mesa-dev zlib-dev tiff-dev libjpeg-turbo-dev expat-dev
+depends_dev="gtk+3.0-dev mesa-dev zlib-dev tiff-dev libjpeg-turbo-dev expat-dev
 	libsm-dev"
-makedepends="$depends_dev glu-dev sdl-dev gst-plugins-base0.10-dev
-	gstreamer0.10-dev gconf-dev webkit2gtk-dev"
+makedepends="$depends_dev glu-dev sdl-dev gst-plugins-base1.0-dev
+	gstreamer1.0-dev gconf-dev webkit2gtk-dev"
 install=""
 subpackages="$pkgname-dev $pkgname-lang $pkgname-media $pkgname-base $pkgname-webview"
 source="https://github.com/wxWidgets/wxWidgets/releases/download/v${pkgver}/wxWidgets-${pkgver}.tar.bz2"
