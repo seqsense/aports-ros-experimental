@@ -40,7 +40,7 @@ cd "$builddir"
 		--disable-rpath \
 		--disable-optimise \
 		|| return 1
-	make || return 1
+	make -j || return 1
 }
 
 package() {
@@ -59,14 +59,14 @@ media() {
 	pkgdesc="Multimedia add-on for the wxWidgets library"
 
 	mkdir -p "$subpkgdir"/usr/lib/
-	mv "$pkgdir"/usr/lib/libwx_gtk2u_media-*.so.* "$subpkgdir"/usr/lib/
+	mv "$pkgdir"/usr/lib/libwx_gtk3u_media-*.so.* "$subpkgdir"/usr/lib/
 }
 
 webview() {
 	pkgdesc="WebKit add-on for the wxWidgets library"
 
 	mkdir -p "$subpkgdir"/usr/lib/
-	mv "$pkgdir"/usr/lib/libwx_gtk2u_webview-*.so.* "$subpkgdir"/usr/lib/
+	mv "$pkgdir"/usr/lib/libwx_gtk3u_webview-*.so.* "$subpkgdir"/usr/lib/
 }
 
 base() {
