@@ -1,0 +1,51 @@
+# Contributor: Atsushi Watanabe<atsushi.w@ieee.org>
+# Maintainer:
+pkgname=py-wxpython
+_pkgname=wxpython
+pkgver=3.0.2.0
+pkgrel=1
+pkgdesc="A wrapper for the cross-platform, GUI API toolkit wxWidgets"
+url="https://sourceforge.net/projects/wxpython/"
+arch="all"
+license="wxWidgets"
+depends="wxgtk"
+makedepends="autoconf automake libtool wxgtk-dev"
+subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+source="https://jaist.dl.sourceforge.net/project/wxpython/wxPython/$pkgver/wxPython-src-$pkgver.tar.bz2"
+builddir="$srcdir/wxPython-src-$pkgver"
+
+build() {
+	cd "$builddir/wxPython"
+	python2 build-wxpython.py
+	python3 build-wxpython.py
+}
+
+check() {
+	cd "$builddir/wxPython"
+	python2 setup.py check
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+}
+
+_py2() {
+	depends="${depends//py-/py2-}"
+	_py python2
+}
+
+_py3() {
+	depends="${depends//py-/py3-}"
+	_py python3
+}
+
+_py() {
+	local python="$1"
+	pkgdesc="$pkgdesc (for $python)"
+	depends="$depends $python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
+
+	cd "$builddir/wxPython"
+	$python build-wxpython.py --install --installdir=$subpkgdir --wxpy_installdir=$subpkgdir
+}
