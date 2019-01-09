@@ -1,8 +1,8 @@
 # Contributor: Atsushi Watanabe<atsushi.w@ieee.org>
 # Maintainer:
 pkgname=py-wxpython
-_pkgname=wxpython
-pkgver=4.0.3
+_pkgname=wxPython
+pkgver=4.0.4
 pkgrel=1
 pkgdesc="Cross platform GUI toolkit for Python, \"Phoenix\" version"
 url="https://pypi.org/project/wxPython/"
