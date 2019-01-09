@@ -17,8 +17,8 @@ builddir="$srcdir/wxPython-src-$pkgver"
 build() {
 	mkdir -p "$builddir/wxPython/wxpy-bld"
 	cd "$builddir/wxPython/wxpy-bld"
-	# default options -(mediactrl,stc)
-	../../configure --enable-unicode --prefix=/usr/local --with-opengl --enable-sound --enable-graphics_ctx --enable-display --enable-geometry --enable-debug_flag --enable-optimise --disable-debugreport --enable-uiactionsim --with-sdl --disable-stc
+	# default options -(mediactrl)
+	../../configure --enable-unicode --prefix=/usr/local --with-opengl --enable-sound --enable-graphics_ctx --enable-display --enable-geometry --enable-debug_flag --enable-optimise --disable-debugreport --enable-uiactionsim --with-sdl CXXFLAGS="-std=C++03"
 
 	cd "$builddir/wxPython"
 	python2 build-wxpython.py --no_config --installdir=$subpkgdir
