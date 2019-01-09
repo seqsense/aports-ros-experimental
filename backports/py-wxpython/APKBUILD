@@ -16,8 +16,10 @@ builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
 	cd "$builddir"
-	python2 build.py build
-	python3 build.py build
+	python3 build.py build_wx
+
+	python2 build.py build_py --jobs=4
+	python3 build.py build_py --jobs=4
 }
 
 check() {
