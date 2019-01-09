@@ -10,8 +10,8 @@ license="wxWidgets"
 depends=""
 depends_dev="gtk+3.0-dev mesa-dev zlib-dev tiff-dev libjpeg-turbo-dev expat-dev
 	libsm-dev"
-makedepends="$depends_dev glu-dev sdl-dev gst-plugins-base1.0-dev
-	gstreamer1.0-dev gconf-dev webkit2gtk-dev"
+makedepends="$depends_dev glu-dev sdl-dev gst-plugins-base-dev
+	gstreamer-dev gconf-dev webkit2gtk-dev"
 install=""
 subpackages="$pkgname-dev $pkgname-lang $pkgname-media $pkgname-base $pkgname-webview"
 source="https://github.com/wxWidgets/wxWidgets/releases/download/v${pkgver}/wxWidgets-${pkgver}.tar.bz2"
@@ -36,6 +36,7 @@ cd "$builddir"
 		--enable-shared \
 		--enable-sound \
 		--enable-mediactrl \
+		--enable-webview \
 		--disable-rpath \
 		--disable-optimise \
 		|| return 1
