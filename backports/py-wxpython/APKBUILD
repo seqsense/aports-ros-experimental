@@ -15,9 +15,9 @@ source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
-	mkdir -p "$builddir/ext/wxWidgets/build/"
-	cd "$builddir/ext/wxWidgets/build/"
-	../configure --enable-unicode --with-gtk=3 --with-opengl --enable-sound --enable-graphics_ctx --enable-display --enable-geometry --enable-debug_flag --enable-optimise --disable-debugreport --enable-uiactionsim --enable-autoidman --with-sdl
+	mkdir -p "$builddir/build/wxbld/gtk3"
+	cd "$builddir/build/wxbld/gtk3"
+	$builddir/ext/wxWidgets/configure --enable-unicode --with-gtk=3 --with-opengl --enable-sound --enable-graphics_ctx --enable-display --enable-geometry --enable-debug_flag --enable-optimise --disable-debugreport --enable-uiactionsim --enable-autoidman --with-sdl
 
 	cd "$builddir"
 	python2 build.py build --no_config
