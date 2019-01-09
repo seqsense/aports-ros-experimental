@@ -16,10 +16,10 @@ builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
 	cd "$builddir"
-	python3 build.py build_wx
+	python3 build.py build_wx --nodoc --release
 
-	python2 build.py build_py --jobs=4
-	python3 build.py build_py --jobs=4
+	python2 build.py build_py --jobs=4 --nodoc --release
+	python3 build.py build_py --jobs=4 --nodoc --release
 }
 
 check() {
@@ -49,5 +49,5 @@ _py() {
 	install_if="$pkgname=$pkgver-r$pkgrel $python"
 
 	cd "$builddir"
-	$python build.py install --prefix=/usr --destdir="$subpkgdir"
+	$python build.py install --destdir="$subpkgdir"
 }
