@@ -9,21 +9,25 @@ url="https://pypi.org/project/wxPython/"
 arch="all"
 license="wxWindows"
 depends=""
-makedepends="python2-dev python3-dev py-setuptools gtk+3.0-dev glu-dev"
+makedepends="python2-dev python3-dev py-setuptools gtk+3.0-dev glu-dev tiff-dev"
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
+	mkdir -p "$builddir/ext/wxWidgets/build/"
+	cd "$builddir/ext/wxWidgets/build/"
+	../configure --enable-unicode --with-gtk=3 --with-opengl --enable-sound --enable-graphics_ctx --enable-display --enable-geometry --enable-debug_flag --enable-optimise --disable-debugreport --enable-uiactionsim --enable-autoidman --with-sdl
+
 	cd "$builddir"
-	python2 setup.py build
-	python3 setup.py build
+	python2 build.py build --no_config
+	python3 build.py build --no_config
 }
 
 check() {
 	cd "$builddir"
-	python2 setup.py check
-	python3 setup.py check
+	python2 build.py test
+	python3 build.py test
 }
 
 package() {
@@ -47,5 +51,5 @@ _py() {
 	install_if="$pkgname=$pkgver-r$pkgrel $python"
 
 	cd "$builddir/wxPython"
-	$python setup.py install --prefix=/usr --root="$subpkgdir"
+	$python build.py install --prefix=/usr --destdir="$subpkgdir"
 }
