@@ -15,13 +15,14 @@ source="https://jaist.dl.sourceforge.net/project/wxpython/wxPython/$pkgver/wxPyt
 builddir="$srcdir/wxPython-src-$pkgver"
 
 build() {
-	cd "$builddir/wxPython"
-
+	mkdir -p "$builddir/wxPython/wxpy-bld"
+	cd "$builddir/wxPython/wxpy-bld"
 	# default options -(--enable-mediactrl)
-	../configure --enable-unicode --prefix=/usr/local --with-opengl --enable-sound --enable-graphics_ctx --enable-display --enable-geometry --enable-debug_flag --enable-optimise --disable-debugreport --enable-uiactionsim --with-sdl
+	../../configure --enable-unicode --prefix=/usr/local --with-opengl --enable-sound --enable-graphics_ctx --enable-display --enable-geometry --enable-debug_flag --enable-optimise --disable-debugreport --enable-uiactionsim --with-sdl
 
-	python2 build-wxpython.py --no_config
-	python3 build-wxpython.py --no_config
+	cd "$builddir/wxPython"
+	python2 build-wxpython.py --no_config --installdir=$subpkgdir
+	python3 build-wxpython.py --no_config --installdir=$subpkgdir
 }
 
 check() {
