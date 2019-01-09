@@ -11,7 +11,7 @@ license="wxWidgets"
 depends=""
 makedepends="autoconf automake glu-dev libtool wxgtk-dev"
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
-source="https://jaist.dl.sourceforge.net/project/wxpython/wxPython/$pkgver/wxPython-src-$pkgver.tar.bz2"
+source="https://sourceforge.net/projects/wxpython/files/wxPython/$pkgver/wxPython-src-$pkgver.tar.bz2"
 builddir="$srcdir/wxPython-src-$pkgver"
 
 build() {
