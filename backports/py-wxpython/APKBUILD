@@ -8,18 +8,16 @@ pkgdesc="Cross platform GUI toolkit for Python, \"Phoenix\" version"
 url="https://pypi.org/project/wxPython/"
 arch="all"
 license="wxWindows"
-depends="wxgtk-base"
-makedepends="python2-dev python3-dev py-setuptools gtk+3.0-dev glu-dev tiff-dev webkit2gtk-dev gstreamer-dev gst-plugins-base-dev"
+depends=""
+makedepends="python2-dev python3-dev py-setuptools pytest gtk+2.0-dev wxgtk-dev"
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
 	cd "$builddir"
-	python3 build.py build_wx --nodoc --release
-
-	python2 build.py build_py --jobs=4 --nodoc --release
-	python3 build.py build_py --jobs=4 --nodoc --release
+	python2 build.py build_py --jobs=4 --nodoc --release --use_syswx --gtk2
+	python3 build.py build_py --jobs=4 --nodoc --release --use_syswx --gtk2
 }
 
 check() {
@@ -49,5 +47,5 @@ _py() {
 	install_if="$pkgname=$pkgver-r$pkgrel $python"
 
 	cd "$builddir"
-	$python build.py install --destdir="$subpkgdir"
+	$python build.py install_py --destdir="$subpkgdir"
 }
