@@ -35,6 +35,7 @@ package() {
         mkdir -p "$pkgdir"/usr/lib/cmake/eigen3
         cp "$builddir"/cmake/UseEigen3.cmake "$pkgdir"/usr/lib/cmake/eigen3
         cp "$builddir"/build/Eigen3Config.cmake "$pkgdir"/usr/lib/cmake/eigen3
+        cp "$builddir"/build/Eigen3Targets.cmake "$pkgdir"/usr/lib/cmake/eigen3
 
         mkdir -p "$pkgdir"/usr/lib/pkgconfig
         cp "$builddir"/build/eigen3.pc "$pkgdir"/usr/lib/pkgconfig
