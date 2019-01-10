@@ -9,14 +9,16 @@ arch="all"
 options="!check"  # Headers-only: no tests are possible.
 license="MPL-2.0"
 depends=""
-makedepends=""
+makedepends="cmake"
 install=""
 subpackages="$pkgname-dev"
 source="$pkgname-$pkgver.tar.gz::http://bitbucket.org/eigen/$pkgname/get/$pkgver.tar.gz"
 builddir="$srcdir/$pkgname-$pkgname"
 
 build() {
-        return 0
+        mkdir -p "$builddir"/build
+        cd "$builddir"/build
+        cmake ..
 }
 
 prepare() {
@@ -29,6 +31,13 @@ package() {
         cp -r "$builddir"/Eigen "$pkgdir"/usr/include/eigen3
         cp -r "$builddir"/unsupported "$pkgdir"/usr/include/eigen3
         cp "$builddir"/signature_of_eigen3_matrix_library "$pkgdir"/usr/include/eigen3
+
+        mkdir -p "$pkgdir"/usr/lib/cmake/eigen3
+        cp "$builddir"/cmake/UseEigen3.cmake "$pkgdir"/usr/lib/cmake/eigen3
+        cp "$builddir"/build/Eigen3Config.cmake "$pkgdir"/usr/lib/cmake/eigen3
+
+        mkdir -p "$pkgdir"/usr/lib/pkgconfig
+        cp "$builddir"/build/eigen3.pc "$pkgdir"/usr/lib/pkgconfig
 }
 
 sha512sums="4077a5c3b95e3573774ccd3fe6c7233cb4b83db2358c19b43ea796925bd0201451d8632bddc5d68b1b57bbf67c5473a8908926eed065a745689a2acec9711d5c  eigen-3.3.4.tar.gz"
