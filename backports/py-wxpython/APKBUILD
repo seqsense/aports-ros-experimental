@@ -48,4 +48,5 @@ _py() {
 
 	cd "$builddir"
 	$python build.py install_py --destdir="$subpkgdir"
+	find "$subpkgdir" -type f -print | xargs chmod 644
 }
