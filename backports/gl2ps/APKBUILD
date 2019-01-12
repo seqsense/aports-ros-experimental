@@ -1,7 +1,7 @@
 # Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
 # Maintainer:
 pkgname=gl2ps
-pkgver=1.4.0
+pkgver=1.3.8
 pkgrel=0
 pkgdesc="GL2PS: an OpenGL to PostScript printing library"
 url="http://geuz.org/gl2ps/"
