@@ -17,7 +17,8 @@ makedepends="cmake mesa-dev libjpeg-turbo-dev libpng-dev glew-dev gl2ps-dev
 subpackages="$pkgname-dev"
 source="$pkgname-$pkgver.tar.gz::https://github.com/Kitware/VTK/archive/v$pkgver.tar.gz
   use-system-glew.patch
-  fix-glew-link.patch"
+  fix-glew-link.patch
+  fix-gl2ps-func.patch"
 builddir="$srcdir/VTK-$pkgver"
 
 build() {

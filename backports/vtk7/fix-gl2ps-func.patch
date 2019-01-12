@@ -1,0 +1,189 @@
+diff --git a/Rendering/GL2PS/vtkGL2PSUtilities.cxx b/Rendering/GL2PS/vtkGL2PSUtilities.cxx
+index 632cb5dce0..6dd1b4abfd 100644
+--- a/Rendering/GL2PS/vtkGL2PSUtilities.cxx
++++ b/Rendering/GL2PS/vtkGL2PSUtilities.cxx
+@@ -644,7 +644,13 @@ void vtkGL2PSUtilities::DrawPathPDF(vtkPath *path, double rasterPos[3],
+   out << "Q" << endl; // Pop state
+ 
+   glRasterPos3dv(rasterPos);
+-  gl2psSpecial(gl2psGetFileFormat(), out.str().c_str());
++  GL2PSrgba colorRgba;
++  colorRgba[0] = rgba[0]/255.0;
++  colorRgba[1] = rgba[1]/255.0;
++  colorRgba[2] = rgba[2]/255.0;
++  colorRgba[3] = rgba[3]/255.0;
++
++  gl2psSpecialColor(gl2psGetFileFormat(), out.str().c_str(), colorRgba);
+ }
+ 
+ void vtkGL2PSUtilities::DrawPathSVG(vtkPath *path, double rasterPos[3],
+diff --git a/Rendering/GL2PSOpenGL2/Testing/Cxx/TestGL2PSAddPolyPrimitive.cxx b/Rendering/GL2PSOpenGL2/Testing/Cxx/TestGL2PSAddPolyPrimitive.cxx
+index 5b94081c15..6f789d80db 100644
+--- a/Rendering/GL2PSOpenGL2/Testing/Cxx/TestGL2PSAddPolyPrimitive.cxx
++++ b/Rendering/GL2PSOpenGL2/Testing/Cxx/TestGL2PSAddPolyPrimitive.cxx
+@@ -96,21 +96,21 @@ int TestGL2PSAddPolyPrimitive(int , char * [])
+   // Point:
+   setVertex(vertices[0], 200, 307.5, 0, 0.f, 0.f, 1.f, 1.f);
+   gl2psAddPolyPrimitive(GL2PS_POINT, 1, vertices, offset, ofactor, ounits,
+-                        pattern, factor, /*width=*/15, boundary);
++                        pattern, factor, /*width=*/15, 0, 0, boundary);
+ 
+   // Line:
+   // Note that the first vertex's color is used for the entire line.
+   setVertex(vertices[0], 100, 50, 0, 1.f, 0.f, 0.f, 1.f);
+   setVertex(vertices[1], 300, 50, 0, 0.f, 0.f, 1.f, 1.f);
+   gl2psAddPolyPrimitive(GL2PS_LINE, 2, vertices, offset, ofactor, ounits,
+-                        pattern, factor, width, boundary);
++                        pattern, factor, width, 0, 0, boundary);
+ 
+   // Triangle:
+   setVertex(vertices[0], 100, 100, 0, 1.f, 0.f, 0.f, 1.f);
+   setVertex(vertices[1], 300, 100, 0, 0.f, 1.f, 0.f, 1.f);
+   setVertex(vertices[2], 200, 300, 0, 0.f, 0.f, 1.f, 1.f);
+   gl2psAddPolyPrimitive(GL2PS_TRIANGLE, 3, vertices, offset, ofactor, ounits,
+-                        pattern, factor, width, boundary);
++                        pattern, factor, width, 0, 0, boundary);
+ 
+   // Text:
+   setVertex(vertices[0], 200, 325, 0, 0.f, 0.f, 0.f, 1.f);
+diff --git a/Rendering/GL2PSOpenGL2/vtkOpenGLGL2PSHelperImpl.cxx b/Rendering/GL2PSOpenGL2/vtkOpenGLGL2PSHelperImpl.cxx
+index 65c2d23172..a6efab6306 100644
+--- a/Rendering/GL2PSOpenGL2/vtkOpenGLGL2PSHelperImpl.cxx
++++ b/Rendering/GL2PSOpenGL2/vtkOpenGLGL2PSHelperImpl.cxx
+@@ -183,7 +183,7 @@ void vtkOpenGLGL2PSHelperImpl::ProcessTransformFeedback(
+     {
+       case GL_POINTS:
+         gl2psAddPolyPrimitive(GL2PS_POINT, 1, verts, 0, 0.f, 0.f, 0xffff, 1,
+-                              pointSize, 0);
++                              pointSize, 0, 0, 0);
+         break;
+ 
+       case GL_LINES:
+@@ -191,7 +191,7 @@ void vtkOpenGLGL2PSHelperImpl::ProcessTransformFeedback(
+         if (curVert == 0)
+         {
+           gl2psAddPolyPrimitive(GL2PS_LINE, 2, verts, 0, 0.f, 0.f,
+-                                this->LineStipple, 1, lineWidth, 0);
++                                this->LineStipple, 1, lineWidth, 0, 0, 0);
+         }
+         break;
+ 
+@@ -200,7 +200,7 @@ void vtkOpenGLGL2PSHelperImpl::ProcessTransformFeedback(
+         if (curVert == 0)
+         {
+           gl2psAddPolyPrimitive(GL2PS_TRIANGLE, 3, verts, 0, 0.f, 0.f, 0xffff,
+-                                1, 1, 0);
++                                1, 1, 0, 0, 0);
+         }
+         break;
+ 
+@@ -270,9 +270,9 @@ void vtkOpenGLGL2PSHelperImpl::DrawString(const std::string &str,
+       bgVerts[4].xyz[2] = bgVerts[0].xyz[2];
+ 
+       gl2psAddPolyPrimitive(GL2PS_TRIANGLE, 3, bgVerts,     0, 0, 0, 0xffff, 0,
+-                            0, 0);
++                            0, 0, 0, 0);
+       gl2psAddPolyPrimitive(GL2PS_TRIANGLE, 3, bgVerts + 2, 0, 0, 0, 0xffff, 0,
+-                            0, 0);
++                            0, 0, 0, 0);
+     }
+   }
+ 
+diff --git a/ThirdParty/gl2ps/vtkgl2ps/gl2ps.c b/ThirdParty/gl2ps/vtkgl2ps/gl2ps.c
+index 5ed8773236..9026cfd71c 100644
+--- a/ThirdParty/gl2ps/vtkgl2ps/gl2ps.c
++++ b/ThirdParty/gl2ps/vtkgl2ps/gl2ps.c
+@@ -167,7 +167,7 @@ typedef struct {
+   GLshort type, numverts;
+   GLushort pattern;
+   char boundary, offset, culled;
+-  GLint factor;
++  GLint factor, linecap, linejoin;
+   GLint sortid; /* Used to stabilize qsort sorting */
+   GLfloat width, ofactor, ounits;
+   GL2PSvertex *verts;
+@@ -2212,7 +2212,8 @@ GL2PSDLL_API void gl2psAddPolyPrimitive(GLshort type, GLshort numverts,
+                                         GL2PSvertex *verts, GLint offset,
+                                         GLfloat ofactor, GLfloat ounits,
+                                         GLushort pattern, GLint factor,
+-                                        GLfloat width, char boundary)
++                                        GLfloat width, GLint linecap,
++                                        GLint linejoin,char boundary)
+ {
+   GL2PSprimitive *prim;
+ 
+@@ -2228,6 +2229,8 @@ GL2PSDLL_API void gl2psAddPolyPrimitive(GLshort type, GLshort numverts,
+   prim->pattern = pattern;
+   prim->factor = factor;
+   prim->width = width;
++  prim->linecap = linecap;
++  prim->linejoin = linejoin;
+   prim->culled = 0;
+ 
+   /* FIXME: here we should have an option to split stretched
+@@ -2288,7 +2291,7 @@ static void gl2psParseFeedbackBuffer(GLint used)
+       current += i;
+       used    -= i;
+       gl2psAddPolyPrimitive(GL2PS_POINT, 1, vertices, 0, 0.0, 0.0,
+-                            pattern, factor, psize, 0);
++                            pattern, factor, psize, 0, 0, 0);
+       break;
+     case GL_LINE_TOKEN :
+     case GL_LINE_RESET_TOKEN :
+@@ -2301,7 +2304,7 @@ static void gl2psParseFeedbackBuffer(GLint used)
+       current += i;
+       used    -= i;
+       gl2psAddPolyPrimitive(GL2PS_LINE, 2, vertices, 0, 0.0, 0.0,
+-                            pattern, factor, lwidth, 0);
++                            pattern, factor, lwidth, 0, 0, 0);
+       break;
+     case GL_POLYGON_TOKEN :
+       count = (GLint)current[1];
+@@ -2325,7 +2328,7 @@ static void gl2psParseFeedbackBuffer(GLint used)
+           else
+             flag = 0;
+           gl2psAddPolyPrimitive(GL2PS_TRIANGLE, 3, vertices, offset, ofactor,
+-                                ounits, pattern, factor, 1, flag);
++                                ounits, pattern, factor, 1, 0, 0, flag);
+           vertices[1] = vertices[2];
+         }
+         else
+@@ -6001,6 +6004,11 @@ GL2PSDLL_API GLint gl2psText(const char *str, const char *fontname, GLshort font
+ }
+ 
+ GL2PSDLL_API GLint gl2psSpecial(GLint format, const char *str)
++{
++  return gl2psAddText(GL2PS_SPECIAL, str, "", 0, format, 0.0F, NULL, GL_FALSE, 0, 0);
++}
++
++GL2PSDLL_API GLint gl2psSpecialColor(GLint format, const char *str, GL2PSrgba rgba)
+ {
+   return gl2psAddText(GL2PS_SPECIAL, str, "", 0, format, 0.0F, NULL);
+ }
+diff --git a/ThirdParty/gl2ps/vtkgl2ps/gl2ps.h b/ThirdParty/gl2ps/vtkgl2ps/gl2ps.h
+index 7258061939..da4a982606 100644
+--- a/ThirdParty/gl2ps/vtkgl2ps/gl2ps.h
++++ b/ThirdParty/gl2ps/vtkgl2ps/gl2ps.h
+@@ -203,6 +203,12 @@ GL2PSDLL_API GLint gl2psTextOpt(const char *str, const char *fontname,
+ GL2PSDLL_API GLint gl2psTextOptColor(const char *str, const char *fontname,
+                                      GLshort fontsize, GLint align, GLfloat angle,
+                                      GL2PSrgba color);
++GL2PSDLL_API GLint gl2psTextOptColorBL(
++  const char *str, const char *fontname,
++  GLshort fontsize, GLint alignment, GLfloat angle,
++  GL2PSrgba color, GLfloat blx, GLfloat bly);
++
++GL2PSDLL_API GLint gl2psSpecialColor(GLint format, const char *str, GL2PSrgba rgba);
+ GL2PSDLL_API GLint gl2psSpecial(GLint format, const char *str);
+ GL2PSDLL_API GLint gl2psDrawPixels(GLsizei width, GLsizei height,
+                                    GLint xorig, GLint yorig,
+@@ -224,7 +230,8 @@ GL2PSDLL_API void gl2psAddPolyPrimitive(GLshort type, GLshort numverts,
+                                         GL2PSvertex *verts, GLint offset,
+                                         GLfloat ofactor, GLfloat ounits,
+                                         GLushort pattern, GLint factor,
+-                                        GLfloat width, char boundary);
++                                        GLfloat width, GLint linecap,
++                                        GLint linejoin, char boundary);
+ 
+ #if defined(__cplusplus)
+ }
