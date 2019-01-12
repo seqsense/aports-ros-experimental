@@ -11,7 +11,8 @@ license="BSD-3-Clause"
 makedepends="cmake mesa-dev libjpeg-turbo-dev libpng-dev glew-dev gl2ps-dev
  tiff-dev zlib-dev libxml2-dev expat-dev freetype-dev jsoncpp-dev"
 subpackages="$pkgname-dev"
-source="$pkgname-$pkgver.tar.gz::https://github.com/Kitware/VTK/archive/v$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/Kitware/VTK/archive/v$pkgver.tar.gz
+  use-system-glew.patch"
 builddir="$srcdir/VTK-$pkgver"
 
 build() {
