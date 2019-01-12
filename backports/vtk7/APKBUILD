@@ -8,8 +8,10 @@ url="https://vtk.org/"
 arch="all"
 options="!check"	# Build script downloads tons of the test data which often fails
 license="BSD-3-Clause"
-makedepends="cmake mesa-dev libjpeg-turbo-dev libpng-dev
- tiff-dev zlib-dev libxml2-dev expat-dev freetype-dev jsoncpp-dev"
+depends_dev="libjpeg-turbo-dev libpng-dev tiff-dev zlib-dev
+  libxml2-dev expat-dev freetype-dev jsoncpp-dev"
+makedepends="cmake libjpeg-turbo-dev libpng-dev tiff-dev zlib-dev
+  libxml2-dev expat-dev freetype-dev jsoncpp-dev"
 subpackages="$pkgname-dev"
 source="$pkgname-$pkgver.tar.gz::https://github.com/Kitware/VTK/archive/v$pkgver.tar.gz"
 builddir="$srcdir/VTK-$pkgver"
