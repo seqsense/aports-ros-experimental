@@ -1,0 +1,30 @@
+# Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
+# Maintainer:
+pkgname=gl2ps
+pkgver=1.4.0
+pkgrel=0
+pkgdesc="GL2PS: an OpenGL to PostScript printing library"
+url="http://geuz.org/gl2ps/"
+arch="all"
+options="!check"	# test is not provided
+license="BSD-3-Clause"
+makedepends="cmake mesa-dev"
+subpackages="$pkgname-dev $pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::http://geuz.org/$pkgname/src/$pkgname-$pkgver.tgz"
+builddir="$srcdir/$pkgname-$pkgver-source"
+
+build() {
+  cd "$builddir"
+
+  mkdir build && cd build
+
+  cmake .. \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release
+  make -j
+}
+
+package() {
+  cd "$builddir"/build
+  make DESTDIR="$pkgdir" install
+}
