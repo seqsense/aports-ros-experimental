@@ -9,12 +9,15 @@ arch="all"
 options="!check"	# Build script downloads tons of the test data which often fails
 license="BSD-3-Clause"
 depends_dev="libjpeg-turbo-dev libpng-dev glew-dev gl2ps-dev
-  tiff-dev zlib-dev libxml2-dev expat-dev freetype-dev jsoncpp-dev"
+  tiff-dev zlib-dev libxml2-dev expat-dev freetype-dev jsoncpp-dev
+  libx11-dev libxt-dev"
 makedepends="cmake mesa-dev libjpeg-turbo-dev libpng-dev glew-dev gl2ps-dev
-  tiff-dev zlib-dev libxml2-dev expat-dev freetype-dev jsoncpp-dev"
+  tiff-dev zlib-dev libxml2-dev expat-dev freetype-dev jsoncpp-dev
+  libx11-dev libxt-dev"
 subpackages="$pkgname-dev"
 source="$pkgname-$pkgver.tar.gz::https://github.com/Kitware/VTK/archive/v$pkgver.tar.gz
-  use-system-glew.patch"
+  use-system-glew.patch
+  fix-glew-link.patch"
 builddir="$srcdir/VTK-$pkgver"
 
 build() {
@@ -35,7 +38,7 @@ build() {
     -DVTK_USE_SYSTEM_PNG=ON \
     -DVTK_USE_SYSTEM_TIFF=ON \
     -DVTK_USE_SYSTEM_ZLIB=ON \
-    -DVTK_USE_X=OFF \
+    -DVTK_USE_X=ON \
     -DBUILD_TESTING=OFF
   make -j
 }
