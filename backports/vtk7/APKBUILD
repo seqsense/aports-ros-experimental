@@ -10,10 +10,10 @@ options="!check"	# Build script downloads tons of the test data which often fail
 license="BSD-3-Clause"
 depends_dev="libjpeg-turbo-dev libpng-dev glew-dev gl2ps-dev
   tiff-dev zlib-dev libxml2-dev expat-dev freetype-dev jsoncpp-dev
-  libx11-dev libxt-dev qt-dev"
+  libx11-dev libxt-dev qt5-qtbase-dev"
 makedepends="cmake mesa-dev libjpeg-turbo-dev libpng-dev glew-dev gl2ps-dev
   tiff-dev zlib-dev libxml2-dev expat-dev freetype-dev jsoncpp-dev
-  libx11-dev libxt-dev qt-dev"
+  libx11-dev libxt-dev qt5-qtbase-dev qt5-qtx11extras-dev"
 subpackages="$pkgname-dev"
 source="$pkgname-$pkgver.tar.gz::https://github.com/Kitware/VTK/archive/v$pkgver.tar.gz
   use-system-glew.patch
@@ -43,6 +43,7 @@ build() {
     -DModule_vtkGUISupportQt=ON \
     -DModule_vtkRenderingQt=ON \
     -DModule_vtkViewsQt=ON \
+    -DVTK_QT_VERSION=5 \
     -DBUILD_TESTING=OFF
   make -j
 }
