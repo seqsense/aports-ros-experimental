@@ -13,7 +13,7 @@ depends_dev="libjpeg-turbo-dev libpng-dev glew-dev gl2ps-dev
   libx11-dev libxt-dev qt5-qtbase-dev"
 makedepends="cmake mesa-dev libjpeg-turbo-dev libpng-dev glew-dev gl2ps-dev
   tiff-dev zlib-dev libxml2-dev expat-dev freetype-dev jsoncpp-dev
-  libx11-dev libxt-dev qt5-qtbase-dev qt5-qtx11extras-dev"
+  libx11-dev libxt-dev qt5-qtbase-dev qt5-qtx11extras-dev qt5-qttools-dev"
 subpackages="$pkgname-dev"
 source="$pkgname-$pkgver.tar.gz::https://github.com/Kitware/VTK/archive/v$pkgver.tar.gz
   use-system-glew.patch
