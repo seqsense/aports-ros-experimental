@@ -8,7 +8,8 @@ pkgdesc="A Python library for plots"
 url="https://matplotlib.org"
 arch="all"
 license="custom"
-depends="py-numpy py-dateutil py-parsing py-tz py-cycler py-cairo py-kiwisolver"
+# v3.7 doesn't provide py-cairo
+depends="py-numpy py-dateutil py-parsing py-tz py-cycler py2-cairo py3-cairo py-kiwisolver"
 makedepends="python3-dev python2-dev gfortran py-numpy-dev freetype-dev
 	libpng-dev tk-dev py-setuptools py2-backports_functools_lru_cache
 	python2-tkinter python3-tkinter"
