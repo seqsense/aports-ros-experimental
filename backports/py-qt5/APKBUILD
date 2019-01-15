@@ -30,7 +30,7 @@ build() {
 		--sip /usr/bin/sip \
 		--qsci-api
 	find -name 'Makefile' | xargs sed -i 's|-Wl,-rpath,/usr/lib||g;s|-Wl,-rpath,.* ||g'
-	make
+	make -j
 
 	cd "$builddir"
 	mkdir -p build3
@@ -41,7 +41,7 @@ build() {
 		--sip /usr/bin/sip \
 		--qsci-api
 	find -name 'Makefile' | xargs sed -i 's|-Wl,-rpath,/usr/lib||g;s|-Wl,-rpath,.* ||g'
-	make
+	make -j
 }
 
 check() {
