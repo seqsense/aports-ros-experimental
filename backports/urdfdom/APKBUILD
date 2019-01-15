@@ -1,0 +1,35 @@
+# Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
+# Maintainer:
+pkgname=urdfdom
+pkgver=1.0.0
+pkgrel=0
+pkgdesc="URDF (U-Robot Description Format) parser"
+url="http://ros.org/wiki/urdf"
+arch="all"
+license="BSD-3-Clause"
+depends=""
+makedepends="cmake console_bridge-dev urdfdom_headers-dev tinyxml-dev"
+subpackages="$pkgname-dev"
+source="$pkgname-$pkgver.tar.gz::https://github.com/ros/urdfdom/archive/$pkgver.tar.gz"
+
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	mkdir -p build && cd build
+	cmake .. \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DBUILD_SHARED_LIBS=ON
+	make
+}
+
+check() {
+	cd "$builddir"/build
+	make test
+}
+
+package() {
+	cd "$builddir"/build
+	make DESTDIR="$pkgdir" install
+}
