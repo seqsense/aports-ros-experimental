@@ -9,7 +9,7 @@ arch="all"
 license="MIT"
 depends=""
 makedepends="cmake boost-dev freetype-dev tinyxml-dev zziplib-dev zlib-dev mesa-dev glu-dev libxaw-dev libxt-dev libxrandr-dev"
-subpackages="$pkgname-dev $pkgname-doc"
+subpackages="$pkgname-dev"
 source="$pkgname-$pkgver.tar.gz::https://github.com/OGRECave/ogre/archive/v$pkgver.tar.gz
 	fix-for-musl.patch"
 
