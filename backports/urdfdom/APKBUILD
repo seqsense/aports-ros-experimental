@@ -10,7 +10,8 @@ license="BSD-3-Clause"
 depends=""
 makedepends="cmake console_bridge-dev urdfdom_headers tinyxml-dev"
 subpackages="$pkgname-dev"
-source="$pkgname-$pkgver.tar.gz::https://github.com/ros/urdfdom/archive/$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/ros/urdfdom/archive/$pkgver.tar.gz
+	cmake_config_install_dir.patch"
 
 builddir="$srcdir/$pkgname-$pkgver"
 
