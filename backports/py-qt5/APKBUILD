@@ -57,11 +57,13 @@ package() {
 }
 
 _py2() {
+	depends="${depends//py-/py2-}"
 	cd "$builddir"/build2
 	_py python2
 }
 
 _py3() {
+	depends="${depends//py-/py3-}"
 	cd "$builddir"/build3
 	_py python3
 }
@@ -69,7 +71,7 @@ _py3() {
 _py() {
 	local python="$1"
 	pkgdesc="$pkgdesc (for $python)"
-	depends="$python"
+	depends="$depends $python"
 	install_if="$pkgname=$pkgver-r$pkgrel $python"
 
 	make -j1 DESTDIR="${subpkgdir}" INSTALL_ROOT="${subpkgdir}" install
