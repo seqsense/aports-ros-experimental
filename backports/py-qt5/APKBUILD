@@ -22,9 +22,9 @@ prepare() {
 
 build() {
 	cd "$builddir"
-  mkdir -p build2
-  cd build2
-	python2 configure.py \
+	mkdir -p build2
+	cd build2
+	python2 ../configure.py \
 		--confirm-license \
 		--qmake /usr/lib/qt5/bin/qmake \
 		--sip /usr/bin/sip \
@@ -33,9 +33,9 @@ build() {
 	make
 
 	cd "$builddir"
-  mkdir -p build3
-  cd build3
-	python3 configure.py \
+	mkdir -p build3
+	cd build3
+	python3 ../configure.py \
 		--confirm-license \
 		--qmake /usr/lib/qt5/bin/qmake \
 		--sip /usr/bin/sip \
@@ -45,24 +45,24 @@ build() {
 }
 
 check() {
-    cd "$builddir"/build2
-    make check
-    cd "$builddir"/build3
-    make check
+		cd "$builddir"/build2
+		make check
+		cd "$builddir"/build3
+		make check
 }
 
 package() {
-  mkdir -p "$pkgdir"
+	mkdir -p "$pkgdir"
 }
 
 _py2() {
 	cd "$builddir"/build2
-  _py python2
+	_py python2
 }
 
 _py3() {
 	cd "$builddir"/build3
-  _py python3
+	_py python3
 }
 
 _py() {
