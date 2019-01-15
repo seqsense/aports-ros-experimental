@@ -8,7 +8,7 @@ url="http://ros.org/wiki/urdf"
 arch="all"
 license="BSD-3-Clause"
 depends=""
-makedepends="cmake console_bridge-dev urdfdom_headers-dev tinyxml-dev"
+makedepends="cmake console_bridge-dev urdfdom_headers tinyxml-dev"
 subpackages="$pkgname-dev"
 source="$pkgname-$pkgver.tar.gz::https://github.com/ros/urdfdom/archive/$pkgver.tar.gz"
 

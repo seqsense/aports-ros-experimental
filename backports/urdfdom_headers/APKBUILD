@@ -10,7 +10,6 @@ options="!check"	# test is not provided
 license="BSD-3-Clause"
 depends=""
 makedepends="cmake"
-subpackages="$pkgname-dev"
 source="$pkgname-$pkgver.tar.gz::https://github.com/ros/urdfdom_headers/archive/$pkgver.tar.gz"
 
 builddir="$srcdir/$pkgname-$pkgver"
