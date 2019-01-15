@@ -11,7 +11,7 @@ depends=""
 makedepends="cmake boost-dev freetype-dev tinyxml-dev zziplib-dev zlib-dev mesa-dev glu-dev libxaw-dev libxt-dev libxrandr-dev"
 subpackages="$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/OGRECave/ogre/archive/v$pkgver.tar.gz
-  fix-for-musl.patch"
+	fix-for-musl.patch"
 
 builddir="$srcdir/$pkgname-$pkgver"
 
@@ -21,8 +21,9 @@ build() {
 	cmake .. \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DOGRE_BUILD_TESTS=ON \
 		-DBUILD_SHARED_LIBS=ON
-	make
+	make -j
 }
 
 check() {
