@@ -11,6 +11,7 @@ license="GPL-2.0-or-later"
 depends="py-sip"
 makedepends="python2-dev python3-dev py-dbus-dev py-sip-dev
 	qt5-qtbase-dev libx11-dev qt5-qtsvg-dev qt5-qtwebsockets-dev"
+subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 source="https://sourceforge.net/projects/pyqt/files/$_pkgname/PyQt-$pkgver/${_pkgname}_gpl-$pkgver.zip"
 builddir="${srcdir}/${_pkgname}_gpl-${pkgver}"
 
