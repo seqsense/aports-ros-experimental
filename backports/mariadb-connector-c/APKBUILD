@@ -10,7 +10,8 @@ depends_dev="libressl-dev zlib-dev"
 makedepends="$depends_dev cmake"
 replaces="mariadb-client-libs"
 subpackages="$pkgname-dev"
-source="https://downloads.mariadb.org/interstitial/connector-c-$pkgver/mariadb-connector-c-$pkgver-src.tar.gz
+# Download url without from/http... postfix looks broken. Need explicit mirror URL.
+source="mariadb-connector-c-$pkgver-src.tar.gz::https://downloads.mariadb.org/interstitial/connector-c-$pkgver/mariadb-connector-c-$pkgver-src.tar.gz/from/http%3A//ftp.hosteurope.de/mirror/archive.mariadb.org/
 	cmake.patch
 	fix-ucontext-header.patch
 	"
