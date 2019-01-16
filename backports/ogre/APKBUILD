@@ -1,7 +1,7 @@
 # Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
 # Maintainer:
 pkgname=ogre
-pkgver=1.11.5
+pkgver=1.9.1
 pkgrel=0
 pkgdesc="Package for logging that seamlessly pipes into rosconsole/rosout for ROS-dependent packages"
 url="https://ogrecave.github.io/ogre/"
@@ -10,8 +10,7 @@ license="MIT"
 depends=""
 makedepends="cmake boost-dev freetype-dev tinyxml-dev zziplib-dev zlib-dev mesa-dev glu-dev libxaw-dev libxt-dev libxrandr-dev"
 subpackages="$pkgname-dev"
-source="$pkgname-$pkgver.tar.gz::https://github.com/OGRECave/ogre/archive/v$pkgver.tar.gz
-	fix-for-musl.patch"
+source="$pkgname-$pkgver.tar.gz::https://github.com/OGRECave/ogre/archive/v$pkgver.tar.gz"
 
 builddir="$srcdir/$pkgname-$pkgver"
 
