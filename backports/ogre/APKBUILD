@@ -3,7 +3,7 @@
 pkgname=ogre
 pkgver=1.9.1
 pkgrel=0
-pkgdesc="Package for logging that seamlessly pipes into rosconsole/rosout for ROS-dependent packages"
+pkgdesc="OGRE is a scene-oriented, flexible 3D engine written in C++"
 url="https://ogrecave.github.io/ogre/"
 arch="all"
 license="MIT"
@@ -18,6 +18,9 @@ build() {
 	cd "$builddir"
 	mkdir -p build && cd build
 	cmake .. \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_CXX_FLAGS="$CXXFLAGS" \
+		-DCMAKE_C_FLAGS="$CFLAGS" \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DOGRE_BUILD_TESTS=ON \
