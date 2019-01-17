@@ -1,0 +1,41 @@
+# Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
+# Maintainer:
+pkgname=ogre
+pkgver=1.9.1
+pkgrel=0
+pkgdesc="OGRE is a scene-oriented, flexible 3D engine written in C++"
+url="https://ogrecave.github.io/ogre/"
+arch="all"
+license="MIT"
+depends=""
+makedepends="cmake boost-dev freetype-dev tinyxml-dev zziplib-dev zlib-dev mesa-dev glu-dev libxaw-dev libxt-dev libxrandr-dev"
+subpackages="$pkgname-dev"
+source="$pkgname-$pkgver.tar.gz::https://github.com/OGRECave/ogre/archive/v$pkgver.tar.gz"
+
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	mkdir -p build && cd build
+	cmake .. \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_CXX_FLAGS="$CXXFLAGS" \
+		-DCMAKE_C_FLAGS="$CFLAGS" \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DOGRE_BUILD_TESTS=ON \
+		-DOGRE_INSTALL_SAMPLES=OFF \
+		-DOGRE_INSTALL_SAMPLES_SOURCE=OFF \
+		-DBUILD_SHARED_LIBS=ON
+	make -j
+}
+
+check() {
+	cd "$builddir"/build
+	make test
+}
+
+package() {
+	cd "$builddir"/build
+	make DESTDIR="$pkgdir" install
+}

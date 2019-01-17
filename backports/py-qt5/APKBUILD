@@ -1,0 +1,80 @@
+# Contributor: Francesco Colista <fcolista@alpinelinux.org>
+# Maintainer: Francesco Colista <fcolista@alpinelinux.org>
+pkgname=py-qt5
+_pkgname=PyQt5
+pkgver=5.10.1
+pkgrel=0
+pkgdesc="A set of Python bindings for the Qt toolkit"
+url="http://riverbankcomputing.co.uk/software/pyqt/intro"
+arch="all"
+license="GPL-2.0-or-later"
+depends="py-sip"
+makedepends="python2-dev python3-dev py-dbus-dev py-sip-dev
+	qt5-qtbase-dev libx11-dev qt5-qtsvg-dev qt5-qtwebsockets-dev"
+subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+source="https://sourceforge.net/projects/pyqt/files/$_pkgname/PyQt-$pkgver/${_pkgname}_gpl-$pkgver.zip"
+builddir="${srcdir}/${_pkgname}_gpl-${pkgver}"
+
+prepare() {
+	default_prepare
+	cd "$builddir"
+	sed -i '/target_config.dbus_inc_dirs = \[\]/d' configure.py
+}
+
+build() {
+	cd "$builddir"
+	mkdir -p build2
+	cd build2
+	python2 ../configure.py \
+		--confirm-license \
+		--qmake /usr/lib/qt5/bin/qmake \
+		--sip /usr/bin/sip \
+		--qsci-api
+	find -name 'Makefile' | xargs sed -i 's|-Wl,-rpath,/usr/lib||g;s|-Wl,-rpath,.* ||g'
+	make -j
+
+	cd "$builddir"
+	mkdir -p build3
+	cd build3
+	python3 ../configure.py \
+		--confirm-license \
+		--qmake /usr/lib/qt5/bin/qmake \
+		--sip /usr/bin/sip \
+		--qsci-api
+	find -name 'Makefile' | xargs sed -i 's|-Wl,-rpath,/usr/lib||g;s|-Wl,-rpath,.* ||g'
+	make -j
+}
+
+check() {
+		cd "$builddir"/build2
+		make check
+		cd "$builddir"/build3
+		make check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+}
+
+_py2() {
+	depends="${depends//py-/py2-}"
+	cd "$builddir"/build2
+	_py python2
+}
+
+_py3() {
+	depends="${depends//py-/py3-}"
+	cd "$builddir"/build3
+	_py python3
+}
+
+_py() {
+	local python="$1"
+	pkgdesc="$pkgdesc (for $python)"
+	depends="$depends $python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
+
+	make -j1 DESTDIR="${subpkgdir}" INSTALL_ROOT="${subpkgdir}" install
+}
+
+sha512sums="d261d81c08c568a331a69c1aab59818432d2d93781481f1f1f10533705a9fdbaa5bed8ada963d9165a017d4583eae6a00f9604213d40033e28d75755debfd595  PyQt5_gpl-5.11.3.zip"

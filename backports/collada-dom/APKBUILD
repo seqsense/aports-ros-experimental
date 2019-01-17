@@ -1,0 +1,30 @@
+# Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
+# Maintainer:
+pkgname=collada-dom
+pkgver=2.5.0
+pkgrel=0
+pkgdesc="COLLADA Document Object Model (DOM) C++ Library"
+url="https://github.com/rdiankov/collada-dom"
+arch="all"
+options="!check"	# the test looks unmaintained
+license="MIT"
+depends=""
+makedepends="cmake boost-dev zlib-dev libxml2-dev pcre-dev minizip-dev"
+subpackages="$pkgname-dev"
+source="$pkgname-$pkgver.tar.gz::https://github.com/rdiankov/collada-dom/archive/v$pkgver.tar.gz"
+
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	mkdir -p build && cd build
+	cmake .. \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DBUILD_SHARED_LIBS=ON
+	make -j
+}
+
+package() {
+	cd "$builddir"/build
+	make DESTDIR="$pkgdir" install
+}
