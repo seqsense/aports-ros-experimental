@@ -4,7 +4,7 @@ S3_APK_REPO_BUCKET_URI ?= s3://localhost
 REPOSITORY              = backports
 APK_REPO_PRIVATE_KEY   ?= # path to your private key
 
-ifeq ($(shell if [ -f ${APK_REPO_PRIVATE_KEY} ]; then echo true; fi), true)
+ifeq ($(shell if [ -f "${APK_REPO_PRIVATE_KEY}" ]; then echo true; fi), true)
 	PRIVATE_KEY_OPT = -v $(APK_REPO_PRIVATE_KEY):/home/builder/.abuild/builder@alpine-ros-experimental.rsa:ro
 endif
 
