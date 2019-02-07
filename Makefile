@@ -24,7 +24,8 @@ $(REPOSITORY):
 
 .PHONY: s3-pull
 s3-pull:
-	aws s3 sync $(S3_APK_REPO_BUCKET_URI)/v$(ALPINE_VERSION)/$(REPOSITORY) packages/v$(ALPINE_VERSION)/$(REPOSITORY)
+	aws s3 sync --no-sign-request $(S3_APK_REPO_BUCKET_URI)/v$(ALPINE_VERSION)/$(REPOSITORY) packages/v$(ALPINE_VERSION)/$(REPOSITORY)
+	chmod -R og+rw packages/v$(ALPINE_VERSION)/$(REPOSITORY)
 
 .PHONY: s3-push
 s3-push:
