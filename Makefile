@@ -36,4 +36,3 @@ all:
 	$(MAKE) s3-pull
 	$(MAKE) build-builder
 	$(MAKE) $(REPOSITORY)
-	$(MAKE) s3-push
