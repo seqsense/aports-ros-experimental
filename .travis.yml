@@ -1,0 +1,26 @@
+sudo: required
+services: docker
+language: bash
+
+cache:
+  directories:
+    - ${TRAVIS_BUILD_DIR}/packages
+    - ${HOME}/.local/bin
+    - ${HOME}/.local/lib
+
+branches:
+  only:
+    - master
+
+before_install:
+  - pip install --upgrade --user awscli
+
+install:
+  - make all
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: make s3-push
+  on:
+    branch: master
