@@ -1,0 +1,29 @@
+sudo: required
+services: docker
+language: bash
+
+cache:
+  directories:
+    - ${TRAVIS_BUILD_DIR}/packages
+    - ${HOME}/.local/bin
+    - ${HOME}/.local/lib
+
+branches:
+  only:
+    - master
+
+before_install:
+  - pip install --upgrade --user awscli
+  - |
+    aws s3 cp "${APK_REPO_PRIVATE_KEY_URI}" ${HOME}/key.rsa \
+    && export APK_REPO_PRIVATE_KEY=${HOME}/key.rsa || true
+
+install:
+  - make all
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: if [ -f "${APK_REPO_PRIVATE_KEY}" ]; then make s3-push; fi
+  on:
+    branch: master
