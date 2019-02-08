@@ -14,14 +14,12 @@ branches:
 
 before_install:
   - pip install --upgrade --user awscli
-
-install:
-  - make all
-
-before_deploy:
   - |
     aws s3 cp "${APK_REPO_PRIVATE_KEY_URI}" ${HOME}/key.rsa \
     && export APK_REPO_PRIVATE_KEY=${HOME}/key.rsa
+
+install:
+  - make all
 
 deploy:
   provider: script
