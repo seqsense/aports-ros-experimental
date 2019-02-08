@@ -16,7 +16,7 @@ before_install:
   - pip install --upgrade --user awscli
   - |
     aws s3 cp "${APK_REPO_PRIVATE_KEY_URI}" ${HOME}/key.rsa \
-    && export APK_REPO_PRIVATE_KEY=${HOME}/key.rsa
+    && export APK_REPO_PRIVATE_KEY=${HOME}/key.rsa || true
 
 install:
   - make all
@@ -24,6 +24,6 @@ install:
 deploy:
   provider: script
   skip_cleanup: true
-  script: make s3-push
+  script: if [ -f "${APK_REPO_PRIVATE_KEY}" ]; then make s3-push; fi
   on:
     branch: master
