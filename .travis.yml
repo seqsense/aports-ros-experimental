@@ -18,6 +18,11 @@ before_install:
 install:
   - make all
 
+before_deploy:
+  - |
+    aws s3 cp "${APK_REPO_PRIVATE_KEY_URI}" ${HOME}/key.rsa \
+    && export APK_REPO_PRIVATE_KEY=${HOME}/key.rsa
+
 deploy:
   provider: script
   skip_cleanup: true
