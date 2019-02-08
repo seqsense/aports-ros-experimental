@@ -14,8 +14,10 @@ build-builder:
 
 .PHONY: $(REPOSITORY)
 $(REPOSITORY):
-	mkdir -p packages/v$(ALPINE_VERSION)/$(REPOSITORY)
-	chmod og+rwx packages/v$(ALPINE_VERSION)/$(REPOSITORY)
+	if [ ! -d packages/v$(ALPINE_VERSION)/$(REPOSITORY) ]; then \
+		mkdir -p packages/v$(ALPINE_VERSION)/$(REPOSITORY); \
+		chmod og+rwx packages/v$(ALPINE_VERSION)/$(REPOSITORY); \
+	fi
 	docker run --rm -it \
 		-v `pwd`:/src \
 		-v `pwd`/packages/v$(ALPINE_VERSION)/$(REPOSITORY):/home/builder/packages/$(REPOSITORY) \
@@ -25,7 +27,7 @@ $(REPOSITORY):
 .PHONY: s3-pull
 s3-pull:
 	aws s3 sync --no-sign-request $(S3_APK_REPO_BUCKET_URI)/v$(ALPINE_VERSION)/$(REPOSITORY) packages/v$(ALPINE_VERSION)/$(REPOSITORY)
-	chmod -R og+rw packages/v$(ALPINE_VERSION)/$(REPOSITORY)
+	chmod -Rf og+rw packages/v$(ALPINE_VERSION)/$(REPOSITORY) || true
 
 .PHONY: s3-push
 s3-push:
