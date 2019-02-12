@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=py-catkin-pkg
 _pkgname=catkin_pkg
-pkgver=0.4.5
+pkgver=0.4.10
 pkgrel=1
 pkgdesc="Library for retrieving information about catkin packages"
 url="https://pypi.python.org/pypi/catkin_pkg/"
@@ -50,4 +50,4 @@ _py() {
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
 
-sha512sums="e9c00c751c4713fab079f6862aa072df892818eb7368b16aff52b1a60af7ab58625303c50cd2df98cfd59cd3744054a2e114dc16fe235a9ae8a781fa8e98fd9a  catkin_pkg-0.4.5.tar.gz"
+sha512sums="9eee61022c7a32f6804d1b3fd2a019058ec3f3f2713b7c239521ccefc667e0d93eebb6a3a0cd5063756bd169aacb39278b4ca1896fa0876755e6eb34e28138f9  catkin_pkg-0.4.10.tar.gz"

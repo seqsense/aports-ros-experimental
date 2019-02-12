@@ -1,23 +1,20 @@
 # Contributor: Atsushi Watanabe<atsushi.w@ieee.org>
 # Maintainer:
-pkgname=py-rosdep
-_pkgname=rosdep
-pkgver=0.15.0_git20190212
-pkgrel=1
-pkgdesc="rosdep package manager abstraction tool for ROS"
-url="https://pypi.python.org/pypi/rosdep/"
+pkgname=py-rosinstall
+_pkgname=rosinstall
+pkgver=0.7.8
+pkgrel=0
+pkgdesc="A tool for managing a workspace of multiple heterogenous SCM repositories"
+url="https://pypi.python.org/pypi/rosinstall/"
 arch="all"
 license="BSD-3-Clause"
-depends="py-catkin-pkg py-rospkg py-rosdistro py-yaml"
+depends="py-vcstools py-yaml py-rosdistro py-catkin-pkg py-wstool py-rospkg"
 makedepends="python2-dev python3-dev py-setuptools git"
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
-#source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
-source=""
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
-	cd "$srcdir"
-	git clone --depth=1 -b alpine-installer https://github.com/at-wat/rosdep.git "$_pkgname-$pkgver"
 	cd "$builddir"
 	python2 setup.py build
 	python3 setup.py build
@@ -52,3 +49,4 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
+sha512sums="a53ae8fb96f9dda4671b22dfd9dbadc18d1e4adbf34a50b6706baf971c1c7ee418e14641d334346b02638f06c10d1bc984b4759c92a39510dd0044fbc346be67  rosinstall-0.7.8.tar.gz"
