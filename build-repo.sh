@@ -2,20 +2,15 @@
 
 set -e
 
-APORTSDIR_BASE=${APORTSDIR}
-REPODIR_BASE=${REPODIR}
+aportsdir_base=${APORTSDIR}
+repodir_base=${REPODIR}
 
 repo=${1:-backports}
 
-if [ ! -d ${SRCDIR}/${repo} ]; then
-  echo "${repo} is not present. Skipping."
-  exit 0;
-fi
-
 basedir=.
 if [ ${repo} != $(basename ${repo}) ]; then
-  export APORTSDIR=${APORTSDIR}/$(dirname ${repo})
-  export REPODIR=${REPODIR}/$(dirname ${repo})
+  APORTSDIR=${APORTSDIR}/$(dirname ${repo})
+  REPODIR=${REPODIR}/$(dirname ${repo})
   basedir=$(dirname ${repo})
   repo=$(basename ${repo})
 fi
@@ -24,6 +19,12 @@ echo "REPODIR: ${REPODIR}"
 echo "target repository: ${repo}"
 echo "base directory: ${basedir}"
 echo
+
+if [ ! -d ${SRCDIR}/${basedir}/${repo} ]; then
+  echo "${repo} is not present. Skipping."
+  exit 0;
+fi
+
 
 if [ ! -f ${PACKAGER_PRIVKEY} ]; then
   abuild-keygen -a -i -n
@@ -37,13 +38,13 @@ if [ ! -f ${PACKAGER_PRIVKEY} ]; then
   fi
 fi
 
-find ${REPODIR_BASE} -name APKINDEX.tar.gz | while read path; do
+find ${repodir_base} -name APKINDEX.tar.gz | while read path; do
   arch_path=$(dirname ${path})
   repo_path=$(dirname ${arch_path})
   echo "${repo_path}" | sudo tee -a /etc/apk/repositories
 done
 
-cp -r ${SRCDIR}/* ${APORTSDIR_BASE}
+cp -r ${SRCDIR}/* ${aportsdir_base}
 mkdir -p ${APORTSDIR}/${repo}
 mkdir -p ${REPODIR}
 
