@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=py-rosdistro
 _pkgname=rosdistro
-pkgver=0.6.8
+pkgver=0.7.2
 pkgrel=1
 pkgdesc="A tool to work with rosdistro files"
 url="https://pypi.python.org/pypi/rosdistro/"
@@ -49,3 +49,4 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
+sha512sums="fb7b6a5b7c2591d3dcbd8b5c983f6c9acaecf801b6bc51559acf05ba0fa1a1abc4a162177e946045ecccaeca4ac7753fb448f9911c2b74f5ba9a69a4b9d1fa06  rosdistro-0.7.2.tar.gz"
