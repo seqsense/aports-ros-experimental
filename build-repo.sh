@@ -61,7 +61,7 @@ mkdir -p ${REPODIR}
 
 sudo apk update
 
-(cd ${basedir} && buildrepo -k ${repo} -d ${REPODIR} -a ${APORTSDIR})
+(cd ${basedir} && buildrepo ${repo} -d ${REPODIR} -a ${APORTSDIR})
 
 
 # Re-sign packages
