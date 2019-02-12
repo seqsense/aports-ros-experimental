@@ -2,7 +2,34 @@
 
 set -e
 
+aportsdir_base=${APORTSDIR}
+repodir_base=${REPODIR}
+
 repo=${1:-backports}
+
+
+# Normalize directory variables
+
+basedir=.
+if [ ${repo} != $(basename ${repo}) ]; then
+  APORTSDIR=${APORTSDIR}/$(dirname ${repo})
+  REPODIR=${REPODIR}/$(dirname ${repo})
+  basedir=$(dirname ${repo})
+  repo=$(basename ${repo})
+fi
+echo "APORTSDIR: ${APORTSDIR}"
+echo "REPODIR: ${REPODIR}"
+echo "target repository: ${repo}"
+echo "base directory: ${basedir}"
+echo
+
+if [ ! -d ${SRCDIR}/${basedir}/${repo} ]; then
+  echo "${repo} is not present. Skipping."
+  exit 0;
+fi
+
+
+# Generate temporary private key if not present
 
 if [ ! -f ${PACKAGER_PRIVKEY} ]; then
   abuild-keygen -a -i -n
@@ -16,17 +43,30 @@ if [ ! -f ${PACKAGER_PRIVKEY} ]; then
   fi
 fi
 
-echo "${REPODIR}/${repo}" | sudo tee -a /etc/apk/repositories
 
-cp -r ${SRCDIR}/* ${APORTSDIR}
+# Register existing local repositories
+
+find ${repodir_base} -name APKINDEX.tar.gz | while read path; do
+  arch_path=$(dirname ${path})
+  repo_path=$(dirname ${arch_path})
+  echo "${repo_path}" | sudo tee -a /etc/apk/repositories
+done
+
+
+# Build packages
+
+cp -r ${SRCDIR}/* ${aportsdir_base}
 mkdir -p ${APORTSDIR}/${repo}
 mkdir -p ${REPODIR}
 
 sudo apk update
 
-buildrepo -k ${repo}
+(cd ${basedir} && buildrepo -k ${repo} -d ${REPODIR} -a ${APORTSDIR})
 
-index=$(find ${REPODIR} -name APKINDEX.tar.gz || true)
+
+# Re-sign packages
+
+index=$(find ${REPODIR}/${repo} -name APKINDEX.tar.gz || true)
 if [ ! -f "${index}" ]; then
   exit 1
 fi
