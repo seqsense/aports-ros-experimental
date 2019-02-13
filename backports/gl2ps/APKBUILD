@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=gl2ps
 pkgver=1.4.0
-pkgrel=0
+pkgrel=1
 pkgdesc="GL2PS: an OpenGL to PostScript printing library"
 url="http://geuz.org/gl2ps/"
 arch="all"
@@ -28,3 +28,4 @@ package() {
   cd "$builddir"/build
   make DESTDIR="$pkgdir" install
 }
+sha512sums="420b21a5b4397c9a9a2323a8686b8635c2683354c94762d2d0172c661fc36c4298042498dd8ef2323adf32f45aa4e0a3dba146058ccde597e5a46c2027cbf7ce  gl2ps-1.4.0.tar.gz"

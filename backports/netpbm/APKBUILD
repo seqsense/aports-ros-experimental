@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=netpbm
 pkgver=10.77.04
-pkgrel=0
+pkgrel=1
 pkgdesc="Netpbm - graphics tools and converters"
 url="https://sourceforge.net/projects/netpbm/"
 arch="all"
@@ -50,3 +50,5 @@ lib_dev() {
 	install -d -m 0755 "$subpkgdir"/usr/include/netpbm
 	install -m 0644 /tmp/netpbm/include/netpbm/* "$subpkgdir"/usr/include/netpbm
 }
+sha512sums="783cec5712ec91ae7338432d47efe807637309ec9b1f7a542094b5e5b5eb24866601a98f41785a6dd0f132303535f86c604c225e0fb96fe6e213c967b414ea32  netpbm-10.77.04.tar.gz
+28ea14c45422a6faed1675422607ceb843f3587356b18cf3fd2265a39af460636c9780ad9e212d24a75cbcc20fe246647787a24e2cab9864583d082cb48f4be8  add-config.patch"

@@ -31,6 +31,7 @@ ENV PACKAGER_PRIVKEY="${HOME}/.abuild/builder@alpine-ros-experimental.rsa"
 RUN mkdir -p ${APORTSDIR}
 WORKDIR ${APORTSDIR}
 
+COPY update-checksum.sh /
 COPY build-repo.sh /
 
 ENTRYPOINT ["/build-repo.sh"]
