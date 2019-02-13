@@ -2,8 +2,8 @@
 # Contributor: Carlo Landmeter <clandmeter@gmail.com>
 # Maintainer:
 pkgname=clisp
-pkgver=2.49
-pkgrel=3
+pkgver=2.49_git20181112
+pkgrel=0
 pkgdesc="ANSI Common Lisp interpreter, compiler and debugger"
 url="http://clisp.cons.org/"
 arch="x86_64"
@@ -12,14 +12,10 @@ depends=""
 depends_dev="libsigsegv-dev ffcall ncurses-dev"
 makedepends="$depends_dev"
 subpackages="$pkgname-dev $pkgname-doc"
-source="http://downloads.sourceforge.net/sourceforge/$pkgname/$pkgname-$pkgver.tar.bz2
-	no-page.h.patch"
+source_commit_hash="df3b9f6fdcff22832898e89a989eb499c0f842ed"
+source="https://gitlab.com/gnu-clisp/clisp/-/archive/${source_commit_hash}/clisp-${source_commit_hash}.tar.bz2"
 
-builddir="$srcdir"/$pkgname-$pkgver
-prepare() {
-	default_prepare
-	update_config_sub
-}
+builddir="$srcdir"/$pkgname-${source_commit_hash}
 
 build() {
 	cd "$builddir"
@@ -45,5 +41,4 @@ package() {
 	make -j1 DESTDIR="$pkgdir" install
 }
 
-sha512sums="eef66fc85199a2c283b616db61bf67ff103eeb0f19fa907da48994dc790b6f5f8d0c74fb3bd723c6b827c0ff3cfd89fa6ba67934fc669ed5d5249044b5140d81  clisp-2.49.tar.bz2
-86273c5d5d05a8d41ab6311192e0c757d3f7fe4d78546590830aa00f8c2f170fcb08f66ea739ae8834cec00cdf0f6a20824eb6a3d0f6df97be405c26b1cc5d39  no-page.h.patch"
+sha512sums="33ffb625d34127ed0b82199af4c38cb6bfad710c9863d154b77def96d31bba68dcd4a9fd17318dbe0daeb9d5aadc2573c65239c1090a3d1ad8bc51f5c3a9f14b  clisp-df3b9f6fdcff22832898e89a989eb499c0f842ed.tar.bz2"
