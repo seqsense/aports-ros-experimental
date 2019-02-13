@@ -61,7 +61,16 @@ mkdir -p ${REPODIR}
 
 sudo apk update
 
-(cd ${basedir} && buildrepo ${repo} -d ${REPODIR} -a ${APORTSDIR})
+(cd ${basedir} && \
+  set -o pipefail && \
+  buildrepo ${repo} -d ${REPODIR} -a ${APORTSDIR} 2>&1 | \
+    grep --line-buffered \
+      -v -e "([0-9]*/[0-9]*) Purging " \
+      -v -e "([0-9]*/[0-9]*) Installing " \
+      -v -e "remote: Counting objects: " \
+      -v -e "remote: Compressing objects: " \
+      -v -e "Receiving objects: " \
+      -v -e "Resolving deltas: ")
 
 
 # Re-sign packages
