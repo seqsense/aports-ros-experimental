@@ -38,3 +38,10 @@ all:
 	$(MAKE) s3-pull
 	$(MAKE) build-builder
 	$(MAKE) $(REPOSITORY)
+
+.PHONY: update-checksum
+update-checksum:
+	docker run --rm -it \
+		-v `pwd`:/src \
+		--entrypoint /update-checksum.sh \
+		$(BUILDER_NAME):$(ALPINE_VERSION)

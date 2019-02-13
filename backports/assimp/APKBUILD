@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=assimp
 pkgver=4.1.0
-pkgrel=0
+pkgrel=1
 pkgdesc="A library to import and export various 3d-model-formats including scene-post-processing to generate missing render data."
 url="https://github.com/assimp/assimp"
 arch="all"
@@ -33,3 +33,4 @@ package() {
 	cd "$builddir"/build
 	make DESTDIR="$pkgdir" install
 }
+sha512sums="5f1292de873ae16c9921d1d44f2871474d74c0ddfd76cc928a7d9b3e03aa6eca4cc72af0513da20a86d09c55d48646e610fd4a4f2b05364f08ad09cf27cbc67a  assimp-4.1.0.tar.gz"
