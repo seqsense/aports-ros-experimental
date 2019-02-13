@@ -3,7 +3,7 @@
 pkgname=py-wstool
 _pkgname=wstool
 pkgver=0.1.17
-pkgrel=1
+pkgrel=2
 pkgdesc="A tool for managing a workspace of multiple heterogenous SCM repositories"
 url="https://pypi.python.org/pypi/wstool/"
 arch="all"
@@ -49,3 +49,4 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
+sha512sums="341a621c355f071728f682a5b61b5c18a64aeffdbcd78471d5f247642598b9d1d06e67ee8884ae3d22def98dcf6c12d6231ebafc4ed55dd0332f43af2490eb64  wstool-0.1.17.tar.gz"

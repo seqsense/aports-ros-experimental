@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=log4cxx
 pkgver=0.10.0_git20180321
-pkgrel=1
+pkgrel=2
 pkgdesc="Logging framework for C++ patterned after Apache log4j"
 url="https://logging.apache.org/log4cxx/latest_stable/index.html"
 arch="all"
@@ -38,4 +38,4 @@ package() {
 	install -m 0644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/log4cxx
 }
 
-sha512sums="7081368bce1d404459f96dc694c46a34bad6602b26fecc7e8ab78f31f7a77fc7b735749fef4631c39c8e51de08c2d293d766733baf980775fd3c6c134dfef491  logging-log4cxx-5f82518.tar.gz"
+sha512sums="7081368bce1d404459f96dc694c46a34bad6602b26fecc7e8ab78f31f7a77fc7b735749fef4631c39c8e51de08c2d293d766733baf980775fd3c6c134dfef491  log4cxx-0.10.0_git20180321.tar.gz"

@@ -3,7 +3,7 @@
 pkgname=py-vcstools
 _pkgname=vcstools
 pkgver=0.1.40
-pkgrel=1
+pkgrel=2
 pkgdesc="Python library for interacting with various VCS systems"
 url="https://pypi.python.org/pypi/vcstools/"
 arch="all"
@@ -49,3 +49,4 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
+sha512sums="535dfc916e4218f853158dfb774aeb6ba54fc4d38096db96d47c4de2e77e7df74504e1b11be229bbf2fea8fe28c359e3b976c254364e04cf63d2ebd1221da650  vcstools-0.1.40.tar.gz"

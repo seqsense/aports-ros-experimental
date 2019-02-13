@@ -3,7 +3,7 @@
 pkgname=py-pydot
 _pkgname=pydot
 pkgver=1.4.1
-pkgrel=0
+pkgrel=1
 pkgdesc="Python interface to Graphviz's Dot"
 url="https://pypi.org/project/pydot/"
 arch="all"
@@ -49,3 +49,4 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
+sha512sums="aae2d9d558cb8d70710324771a6c4b15df3dcb366fc8b2046f763a7feabb4369400a8062d24ebbea4dc40c7bbc5f398bf462fb237ea45ee840af0c3d0eb79c4a  pydot-1.4.1.tar.gz"

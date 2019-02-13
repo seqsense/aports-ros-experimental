@@ -3,7 +3,7 @@
 pkgname=py-wxpython
 _pkgname=wxPython
 pkgver=4.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Cross platform GUI toolkit for Python, \"Phoenix\" version"
 url="https://pypi.org/project/wxPython/"
 arch="all"
@@ -50,3 +50,4 @@ _py() {
 	$python build.py install_py --destdir="$subpkgdir"
 	find "$subpkgdir" -type f -print | xargs chmod 644
 }
+sha512sums="48895f191150c63c253eb4136b78ff7803b6df566ca92b9fcf3c3fff3c893a57ff52a51b331333cf2200a053b8d0ea7facb39d7bfb581a78e009a24c31437cae  wxPython-4.0.4.tar.gz"

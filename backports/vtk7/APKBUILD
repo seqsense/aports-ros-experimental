@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=vtk7
 pkgver=7.1.1
-pkgrel=0
+pkgrel=1
 pkgdesc="Visualization Toolkit"
 url="https://vtk.org/"
 arch="all"
@@ -60,3 +60,7 @@ check() {
   cd "$builddir"/build
   make tests
 }
+sha512sums="f1847b40cf4f54d60701787c8c03098bce7e28cdd76f4e6ef08976a5160d0c1f21977c9cf1c1c32abe2949409b4e2df8ec5d6e152417ec525712c0d5e91da1d5  vtk7-7.1.1.tar.gz
+df1e12ccf583a7ff8c7c5f71490b6a8a634bf61b57d64290dedfa3770b88a41905504ba55c135750993a49570268c7362d71ee077516ff88d069ec0d40bb8c85  use-system-glew.patch
+20dcbce2fdeffed696b64cb8723b611c846f94b40ddb019f4bacb8151228ed616eb58f4c844a35e0500d10794c5515f1b096fcc7dec6da6734b267d4c40ba611  fix-glew-link.patch
+4526834175c552c13824fdbedd821a093ab55842fd3c95a2b2829dffb7866e14332e87a2aeb1d327ce2d4adfdb264dd67109bee6fd48aadaed6b7a2abea4d693  fix-gl2ps-func.patch"

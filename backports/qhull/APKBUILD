@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=qhull
 pkgver=7.2.0
-pkgrel=0
+pkgrel=1
 pkgdesc="Convex hull, Delaunay triangulation, Voronoi diagrams, Halfspace intersection"
 url="http://www.qhull.org/"
 arch="all"
@@ -31,3 +31,4 @@ package() {
     "$pkgdir"/usr/share/man/man1/rbox.1 \
     "$pkgdir"/usr/share/man/man1/qhull.1
 }
+sha512sums="bb47f75dd65b90c0ef9edcbfb127bd26bfbdebc696be14e9f61802c37bf41c29e030c9701e215d724cdfc12638afbe5fd7e2a83f3a8f67fb693a50087401aca6  qhull-7.2.0.tar.gz"
