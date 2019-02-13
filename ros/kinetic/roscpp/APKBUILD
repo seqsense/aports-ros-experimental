@@ -1,0 +1,62 @@
+pkgname=ros-kinetic-roscpp
+_pkgname=roscpp
+pkgver=1.12.14
+pkgrel=0
+pkgdesc="$_pkgname package for ROS kinetic"
+url="http://ros.org/wiki/roscpp"
+arch="all"
+license="BSD"
+depends="ros-kinetic-cpp-common ros-kinetic-message-runtime ros-kinetic-rosconsole ros-kinetic-roscpp-serialization ros-kinetic-roscpp-traits ros-kinetic-rosgraph-msgs ros-kinetic-rostime ros-kinetic-std-msgs ros-kinetic-xmlrpcpp ros-kinetic-cpp-common ros-kinetic-message-runtime ros-kinetic-rosconsole ros-kinetic-roscpp-serialization ros-kinetic-roscpp-traits ros-kinetic-rosgraph-msgs ros-kinetic-rostime ros-kinetic-std-msgs ros-kinetic-xmlrpcpp"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool ros-kinetic-catkin ros-kinetic-cpp-common ros-kinetic-message-generation pkgconf ros-kinetic-rosconsole ros-kinetic-roscpp-serialization ros-kinetic-roscpp-traits ros-kinetic-rosgraph-msgs ros-kinetic-roslang ros-kinetic-rostime ros-kinetic-std-msgs ros-kinetic-xmlrpcpp"
+subpackages=""
+source=""
+builddir="$startdir/apk-build-temporary"
+srcdir="/tmp/dummy-src-dir"
+buildlog="$builddir/ros-abuild-build.log"
+checklog="$builddir/ros-abuild-check.log"
+statuslog="$builddir/ros-abuild-status.log"
+if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
+  buildlog="/dev/null"
+  checklog="/dev/null"
+  statuslog="/dev/null"
+fi
+rosinstall="- git: {local-name: roscpp, uri: 'https://github.com/ros-gbp/ros_comm-release.git',
+    version: release/kinetic/roscpp/1.12.14-0}
+"
+build() {
+  set -o pipefail
+  mkdir -p $builddir
+  echo "building" > $statuslog
+  cd "$builddir"
+  rm -rf src || true
+  mkdir -p src
+  echo "$rosinstall" > pkg.rosinstall
+  wstool init --shallow src pkg.rosinstall
+  source /usr/ros/kinetic/setup.sh
+  catkin_make_isolated -DCMAKE_BUILD_TYPE=Release 2>&1 | tee $buildlog
+}
+check() {
+  if [ -f $startdir/NOCHECK ]; then
+    echo "Check skipped" | tee $checklog
+    return 0
+  fi
+  set -o pipefail
+  echo "checking" >> $statuslog
+  cd "$builddir"
+  source /usr/ros/kinetic/setup.sh
+  source devel_isolated/setup.sh
+  catkin_make_isolated -DCMAKE_BUILD_TYPE=Release \
+    --catkin-make-args run_tests 2>&1 | tee $checklog
+  catkin_test_results 2>&1 | tee $checklog
+}
+package() {
+  echo "packaging" >> $statuslog
+  mkdir -p "$pkgdir"
+  cd "$builddir"
+  export DESTDIR="$pkgdir"
+  source /usr/ros/kinetic/setup.sh
+  catkin_make_isolated -DCMAKE_BUILD_TYPE=Release --install-space /usr/ros/kinetic
+  catkin_make_isolated -DCMAKE_BUILD_TYPE=Release --install --install-space /usr/ros/kinetic
+  rm "$pkgdir"/usr/ros/kinetic/setup.* "$pkgdir"/usr/ros/kinetic/.rosinstall "$pkgdir"/usr/ros/kinetic/_setup_util.py "$pkgdir"/usr/ros/kinetic/env.sh "$pkgdir"/usr/ros/kinetic/.catkin
+  echo "finished" >> $statuslog
+}

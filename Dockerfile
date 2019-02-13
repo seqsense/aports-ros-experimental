@@ -12,7 +12,7 @@ a17OJ4wWWaPvOq8PshcTZ2P3Me8kTCWr/fczjzq+8hB0MNEqfuENoSyZhmCypEuy\n\
 ewIDAQAB\n\
 -----END PUBLIC KEY-----' > /etc/apk/keys/builder@alpine-ros-experimental.rsa.pub
 
-RUN apk add --no-cache alpine-sdk lua-aports sudo \
+RUN apk add --no-cache alpine-sdk grep lua-aports sudo \
   && adduser -G abuild -D builder \
   && echo "builder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
