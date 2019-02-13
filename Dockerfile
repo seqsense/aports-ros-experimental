@@ -31,6 +31,12 @@ ENV PACKAGER_PRIVKEY="${HOME}/.abuild/builder@alpine-ros-experimental.rsa"
 RUN mkdir -p ${APORTSDIR}
 WORKDIR ${APORTSDIR}
 
+# Temporary fix missing deps
+# - python_orocos_kdl lack dep to python-dev
+RUN sudo apk add --no-cache \
+  python2-dev \
+  python3-dev
+
 COPY update-checksum.sh /
 COPY build-repo.sh /
 
