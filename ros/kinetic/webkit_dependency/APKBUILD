@@ -1,13 +1,13 @@
-pkgname=ros-kinetic-cv-bridge
-_pkgname=cv_bridge
-pkgver=1.12.8
+pkgname=ros-kinetic-webkit-dependency
+_pkgname=webkit_dependency
+pkgver=1.1.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
-url="http://www.ros.org/wiki/cv_bridge"
+url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
-depends="boost-dev ros-kinetic-opencv3 python2-dev ros-kinetic-rosconsole ros-kinetic-sensor-msgs"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool ros-kinetic-catkin boost-dev ros-kinetic-opencv3 python2-dev ros-kinetic-rosconsole ros-kinetic-sensor-msgs ros-kinetic-rostest py2-numpy py-numpy-dev"
+depends="py2-qt5 py2-qt5"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool ros-kinetic-catkin"
 subpackages=""
 source=""
 builddir="$startdir/apk-build-temporary"
@@ -20,8 +20,8 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
-rosinstall="- git: {local-name: cv_bridge, uri: 'https://github.com/ros-gbp/vision_opencv-release.git',
-    version: release/kinetic/cv_bridge/1.12.8-0}
+rosinstall="- git: {local-name: webkit_dependency, uri: 'https://github.com/ros-gbp/webkit_dependency-release.git',
+    version: release/kinetic/webkit_dependency/1.1.0-0}
 "
 build() {
   set -o pipefail
