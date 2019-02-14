@@ -7,7 +7,7 @@ url="http://ros.org/wiki/rviz"
 arch="all"
 license="BSD"
 depends="assimp-dev eigen-dev ros-kinetic-geometry-msgs ros-kinetic-image-transport ros-kinetic-interactive-markers ros-kinetic-laser-geometry ogre-dev qt5-qtbase-dev qt5-qtbase-dev qt5-qtbase-dev qt5-qtbase-dev ros-kinetic-map-msgs ros-kinetic-media-export ros-kinetic-message-filters ros-kinetic-nav-msgs ros-kinetic-pluginlib ros-kinetic-python-qt-binding ros-kinetic-resource-retriever ros-kinetic-rosbag ros-kinetic-rosconsole ros-kinetic-roscpp ros-kinetic-roslib ros-kinetic-rospy ros-kinetic-sensor-msgs ros-kinetic-std-msgs ros-kinetic-std-srvs ros-kinetic-tf tinyxml-dev ros-kinetic-urdf ros-kinetic-visualization-msgs yaml-cpp-dev mesa-dev urdfdom_headers assimp-dev eigen-dev ros-kinetic-geometry-msgs ros-kinetic-image-transport ros-kinetic-interactive-markers ros-kinetic-laser-geometry ogre-dev qt5-qtbase-dev qt5-qtbase-dev qt5-qtbase-dev qt5-qtbase-dev ros-kinetic-map-msgs ros-kinetic-media-export ros-kinetic-message-filters ros-kinetic-nav-msgs ros-kinetic-pluginlib ros-kinetic-python-qt-binding ros-kinetic-resource-retriever ros-kinetic-rosbag ros-kinetic-rosconsole ros-kinetic-roscpp ros-kinetic-roslib ros-kinetic-rospy ros-kinetic-sensor-msgs ros-kinetic-std-msgs ros-kinetic-std-srvs ros-kinetic-tf tinyxml-dev ros-kinetic-urdf ros-kinetic-visualization-msgs yaml-cpp-dev mesa-dev urdfdom_headers"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool ros-kinetic-catkin assimp-dev ros-kinetic-cmake-modules eigen-dev ros-kinetic-geometry-msgs ros-kinetic-image-transport ros-kinetic-interactive-markers ros-kinetic-laser-geometry ogre-dev qt5-qtbase-dev qt5-qtbase-dev ros-kinetic-map-msgs ros-kinetic-message-filters ros-kinetic-nav-msgs ros-kinetic-pluginlib ros-kinetic-python-qt-binding ros-kinetic-resource-retriever ros-kinetic-rosbag ros-kinetic-rosconsole ros-kinetic-roscpp ros-kinetic-roslib ros-kinetic-rospy ros-kinetic-sensor-msgs ros-kinetic-std-msgs ros-kinetic-std-srvs ros-kinetic-tf tinyxml-dev ros-kinetic-urdf ros-kinetic-visualization-msgs yaml-cpp-dev mesa-dev urdfdom_headers"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-kinetic-catkin assimp-dev ros-kinetic-cmake-modules eigen-dev ros-kinetic-geometry-msgs ros-kinetic-image-transport ros-kinetic-interactive-markers ros-kinetic-laser-geometry ogre-dev qt5-qtbase-dev qt5-qtbase-dev ros-kinetic-map-msgs ros-kinetic-message-filters ros-kinetic-nav-msgs ros-kinetic-pluginlib ros-kinetic-python-qt-binding ros-kinetic-resource-retriever ros-kinetic-rosbag ros-kinetic-rosconsole ros-kinetic-roscpp ros-kinetic-roslib ros-kinetic-rospy ros-kinetic-sensor-msgs ros-kinetic-std-msgs ros-kinetic-std-srvs ros-kinetic-tf tinyxml-dev ros-kinetic-urdf ros-kinetic-visualization-msgs yaml-cpp-dev mesa-dev urdfdom_headers"
 subpackages=""
 source=""
 builddir="$startdir/apk-build-temporary"
@@ -22,15 +22,24 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
 fi
 rosinstall="- git: {local-name: rviz, uri: 'https://github.com/ros-gbp/rviz-release.git', version: release/kinetic/rviz/1.12.16-0}
 "
-build() {
+prepare() {
   set -o pipefail
   mkdir -p $builddir
-  echo "building" > $statuslog
+  echo "preparing" > $statuslog
   cd "$builddir"
   rm -rf src || true
   mkdir -p src
   echo "$rosinstall" > pkg.rosinstall
   wstool init --shallow src pkg.rosinstall
+  find $startdir -name "*.patch" | while read patchfile; do
+    echo "Applying $patchfile"
+    (cd src/* && patch -p1 -i $patchfile)
+  done
+}
+build() {
+  set -o pipefail
+  echo "building" > $statuslog
+  cd "$builddir"
   source /usr/ros/kinetic/setup.sh
   catkin_make_isolated -DCMAKE_BUILD_TYPE=Release 2>&1 | tee $buildlog
 }
@@ -57,5 +66,19 @@ package() {
   catkin_make_isolated -DCMAKE_BUILD_TYPE=Release --install-space /usr/ros/kinetic
   catkin_make_isolated -DCMAKE_BUILD_TYPE=Release --install --install-space /usr/ros/kinetic
   rm "$pkgdir"/usr/ros/kinetic/setup.* "$pkgdir"/usr/ros/kinetic/.rosinstall "$pkgdir"/usr/ros/kinetic/_setup_util.py "$pkgdir"/usr/ros/kinetic/env.sh "$pkgdir"/usr/ros/kinetic/.catkin
+
+  find $pkgdir -name "*.so" | while read so; do
+    chrpath_out=$(chrpath ${so} || true)
+    if echo ${chrpath_out} | grep -q "RPATH="; then
+      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*RPATH=//")
+      if echo "${rpath}" | grep -q home; then
+        echo "RPATH contains home!: ${rpath}"
+        rpathfix=$(echo -n "${rpath}" | tr ":" "\n" | grep -v -e home | tr "\n" ":" | sed -e "s/:$//; s/:://;")
+        echo "Fixing to ${rpathfix}"
+        chrpath -r ${rpathfix} ${so} || (echo chrpath failed; false)
+      fi
+    fi
+  done
+
   echo "finished" >> $statuslog
 }
