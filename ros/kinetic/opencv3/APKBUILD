@@ -7,7 +7,7 @@ url="http://opencv.org"
 arch="all"
 license="BSD"
 depends="ros-kinetic-catkin ffmpeg-dev libjpeg-turbo-dev libpng-dev vtk7-dev libwebp-dev protobuf-dev python2-dev py2-numpy py-numpy-dev zlib-dev ros-kinetic-catkin ffmpeg-dev libjpeg-turbo-dev libpng-dev vtk7-dev libwebp-dev protobuf-dev python2-dev py2-numpy py-numpy-dev zlib-dev"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool cmake ffmpeg-dev libjpeg-turbo-dev libpng-dev tiff-dev v4l-utils-dev vtk7-dev libwebp-dev protobuf-dev python2-dev py2-numpy py-numpy-dev zlib-dev"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath cmake ffmpeg-dev libjpeg-turbo-dev libpng-dev tiff-dev v4l-utils-dev vtk7-dev libwebp-dev protobuf-dev python2-dev py2-numpy py-numpy-dev zlib-dev"
 subpackages=""
 source=""
 builddir="$startdir/apk-build-temporary"
@@ -23,15 +23,24 @@ fi
 rosinstall="- git: {local-name: opencv3, uri: 'https://github.com/ros-gbp/opencv3-release.git',
     version: release/kinetic/opencv3/3.3.1-5}
 "
-build() {
+prepare() {
   set -o pipefail
   mkdir -p $builddir
-  echo "building" > $statuslog
+  echo "preparing" > $statuslog
   cd "$builddir"
   rm -rf src || true
   mkdir -p src
   echo "$rosinstall" > pkg.rosinstall
   wstool init --shallow src pkg.rosinstall
+  find $startdir -name "*.patch" | while read patchfile; do
+    echo "Applying $patchfile"
+    (cd src/* && patch -p1 -i $patchfile)
+  done
+}
+build() {
+  set -o pipefail
+  echo "building" > $statuslog
+  cd "$builddir"
   mkdir src/$_pkgname/build
   cd src/$_pkgname/build
   cmake .. -DCMAKE_INSTALL_PREFIX=/usr/ros/kinetic -DCMAKE_INSTALL_LIBDIR=lib 2>&1 | tee $buildlog
@@ -57,5 +66,18 @@ package() {
   export DESTDIR="$pkgdir"
   cd src/$_pkgname/build
   make install
+  find $pkgdir -name "*.so" | while read so; do
+    chrpath_out=$(chrpath ${so} || true)
+    if echo ${chrpath_out} | grep -q "RPATH="; then
+      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*RPATH=//")
+      if echo "${rpath}" | grep -q home; then
+        echo "RPATH contains home!: ${rpath}"
+        rpathfix=$(echo -n "${rpath}" | tr ":" "\n" \
+          | grep -v -e home | tr "\n" ":" | sed -e "s/:$//; s/:://;")
+        echo "Fixing to ${rpathfix}"
+        chrpath -r ${rpathfix} ${so} || (echo chrpath failed; false)
+      fi
+    fi
+  done
   echo "finished" >> $statuslog
 }
