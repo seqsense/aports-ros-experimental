@@ -1,13 +1,13 @@
-pkgname=ros-kinetic-cv-bridge
-_pkgname=cv_bridge
-pkgver=1.12.8
+pkgname=ros-kinetic-rqt-gui-cpp
+_pkgname=rqt_gui_cpp
+pkgver=0.5.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
-url="http://www.ros.org/wiki/cv_bridge"
+url="http://ros.org/wiki/rqt_gui_cpp"
 arch="all"
 license="BSD"
-depends="boost-dev ros-kinetic-opencv3 python2-dev ros-kinetic-rosconsole ros-kinetic-sensor-msgs"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool ros-kinetic-catkin boost-dev ros-kinetic-opencv3 python2-dev ros-kinetic-rosconsole ros-kinetic-sensor-msgs ros-kinetic-rostest py2-numpy py-numpy-dev"
+depends="ros-kinetic-qt-gui ros-kinetic-qt-gui-cpp ros-kinetic-roscpp ros-kinetic-nodelet ros-kinetic-qt-gui ros-kinetic-qt-gui-cpp ros-kinetic-roscpp ros-kinetic-nodelet"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool ros-kinetic-catkin ros-kinetic-qt-gui ros-kinetic-qt-gui-cpp qt5-qtbase-dev ros-kinetic-roscpp ros-kinetic-nodelet"
 subpackages=""
 source=""
 builddir="$startdir/apk-build-temporary"
@@ -20,8 +20,8 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
-rosinstall="- git: {local-name: cv_bridge, uri: 'https://github.com/ros-gbp/vision_opencv-release.git',
-    version: release/kinetic/cv_bridge/1.12.8-0}
+rosinstall="- git: {local-name: rqt_gui_cpp, uri: 'https://github.com/ros-gbp/rqt-release.git',
+    version: release/kinetic/rqt_gui_cpp/0.5.0-0}
 "
 build() {
   set -o pipefail
