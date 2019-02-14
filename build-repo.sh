@@ -59,7 +59,8 @@ mkdir -p ${aportsdir_base}
 mkdir -p ${REPODIR}
 cp -r ${SRCDIR}/* ${aportsdir_base}
 
-sed -e 's/\<noarch\>/all/' -i `find ${aportsdir_base} -name APKBUILD`
+sed -e 's/arch="noarch"/arch="all"/' -i `find ${aportsdir_base} -name APKBUILD`
+sed -e 's/:noarch//' -i `find ${aportsdir_base} -name APKBUILD`
 
 sudo apk update
 
