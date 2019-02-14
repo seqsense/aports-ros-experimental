@@ -55,9 +55,9 @@ done
 
 # Build packages
 
-cp -r ${SRCDIR}/* ${aportsdir_base}
-mkdir -p ${APORTSDIR}/${repo}
+mkdir -p ${aportsdir_base}
 mkdir -p ${REPODIR}
+cp -r ${SRCDIR}/* ${aportsdir_base}
 
 sudo apk update
 
