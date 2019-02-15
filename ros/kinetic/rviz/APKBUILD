@@ -66,19 +66,18 @@ package() {
   catkin_make_isolated -DCMAKE_BUILD_TYPE=Release --install-space /usr/ros/kinetic
   catkin_make_isolated -DCMAKE_BUILD_TYPE=Release --install --install-space /usr/ros/kinetic
   rm "$pkgdir"/usr/ros/kinetic/setup.* "$pkgdir"/usr/ros/kinetic/.rosinstall "$pkgdir"/usr/ros/kinetic/_setup_util.py "$pkgdir"/usr/ros/kinetic/env.sh "$pkgdir"/usr/ros/kinetic/.catkin
-
   find $pkgdir -name "*.so" | while read so; do
     chrpath_out=$(chrpath ${so} || true)
     if echo ${chrpath_out} | grep -q "RPATH="; then
       rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*RPATH=//")
       if echo "${rpath}" | grep -q home; then
         echo "RPATH contains home!: ${rpath}"
-        rpathfix=$(echo -n "${rpath}" | tr ":" "\n" | grep -v -e home | tr "\n" ":" | sed -e "s/:$//; s/:://;")
+        rpathfix=$(echo -n "${rpath}" | tr ":" "\n" \
+          | grep -v -e home | tr "\n" ":" | sed -e "s/:$//; s/::/:/;")
         echo "Fixing to ${rpathfix}"
         chrpath -r ${rpathfix} ${so} || (echo chrpath failed; false)
       fi
     fi
   done
-
   echo "finished" >> $statuslog
 }
