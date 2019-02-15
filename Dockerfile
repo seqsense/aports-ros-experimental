@@ -19,6 +19,11 @@ RUN apk add --no-cache alpine-sdk grep lua-aports sudo \
 RUN mkdir -p /var/cache/apk \
   && ln -s /var/cache/apk /etc/apk/cache
 
+# Workaround for rospack on fakeroot
+RUN mkdir -p /root/.ros \
+  && chmod a+x /root \
+  && chmod a+rwx /root/.ros
+
 USER builder
 
 ENV HOME="/home/builder"
