@@ -1,0 +1,28 @@
+# Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
+# Maintainer:
+pkgname=festvox-cmu-us-clb-cg
+_pkgname=festvox_cmu_us_clb_cg
+pkgver=2.5.0
+pkgrel=0
+pkgdesc="Festival Speech Synthesis System, voice cmu-us-clb-cg"
+url="http://www.cstr.ed.ac.uk/projects/festival/"
+arch="all"
+license="custom:festival"
+depends="festlex-cmu festlex-poslex festival"
+source="$_pkgname-$pkgver.tar.gz::http://festvox.org/packed/festival/2.5/voices/$_pkgname.tar.gz"
+options="!check"  # test is not provided
+
+builddir="$srcdir/festival"
+
+package() {
+	cd "$builddir"
+
+  install -d -m 0755 "$pkgdir"/usr/share/festival
+  find "$builddir"/lib/voices -type f | sed -e "s|^$builddir/lib/||" | while read file; do
+    dirn=$(dirname $file)
+    install -d -m 0755 "$pkgdir"/usr/share/festival/$dirn
+    install -m 0644 "$builddir"/lib/$file "$pkgdir"/usr/share/festival/$dirn
+  done
+}
+
+sha512sums="489277cd56bcde9ede2234bf73c2f340cb02d2f119b4a8e55e8c22e397bd858daf1b4fa39c6581b6a18456e5803c82f2e9af76ef33b1c7c1fe019a1972fc92e1  festvox_cmu_us_clb_cg-2.5.0.tar.gz"
