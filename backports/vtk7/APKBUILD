@@ -48,7 +48,7 @@ build() {
     -DModule_vtkViewsQt=ON \
     -DVTK_QT_VERSION=5 \
     -DBUILD_TESTING=OFF
-  make -j
+  make
 }
 
 package() {

@@ -8,6 +8,18 @@ repodir_base=${REPODIR}
 repo=${1:-backports}
 
 
+# Overwrite make setting if provided
+
+if [ ! -z "${JOBS}" ]; then
+  sudo sed -i "s/export JOBS=.*/export JOBS=${JOBS}/" /etc/abuild.conf
+fi
+
+echo "/etc/abuild.conf:"
+grep CFLAGS /etc/abuild.conf
+grep JOBS /etc/abuild.conf
+echo
+
+
 # Normalize directory variables
 
 basedir=.
