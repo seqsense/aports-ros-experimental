@@ -15,6 +15,17 @@ sudo sed -i "s/export CFLAGS=\".*\"/export CFLAGS=\"${CFLAGS}\"/" /etc/abuild.co
 
 echo "/etc/abuild.conf:"
 head -n4 /etc/abuild.conf
+
+
+# Overwrite make setting if provided
+
+if [ ! -z "${JOBS}" ]; then
+  sudo sed -i "s/export JOBS=.*/export JOBS=${JOBS}/" /etc/abuild.conf
+fi
+
+echo "/etc/abuild.conf:"
+grep CFLAGS /etc/abuild.conf
+grep JOBS /etc/abuild.conf
 echo
 
 

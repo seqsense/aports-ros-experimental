@@ -27,7 +27,7 @@ build() {
 		-DOGRE_INSTALL_SAMPLES=OFF \
 		-DOGRE_INSTALL_SAMPLES_SOURCE=OFF \
 		-DBUILD_SHARED_LIBS=ON
-	make -j
+	make
 }
 
 check() {

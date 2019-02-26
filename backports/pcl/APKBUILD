@@ -58,7 +58,7 @@ build() {
     -DBUILD_tests_registration=OFF \
     -DGTEST_SRC_DIR=$srcdir/googletest-release-$_gtestver/googletest \
     -DGTEST_INCLUDE_DIR=$srcdir/googletest-release-$_gtestver/googletest/include
-  make -j
+  make
 }
 
 package() {
