@@ -40,7 +40,7 @@ cd "$builddir"
 		--disable-rpath \
 		--disable-optimise \
 		|| return 1
-	make -j || return 1
+	make || return 1
 }
 
 package() {
