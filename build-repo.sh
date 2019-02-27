@@ -8,6 +8,15 @@ repodir_base=${REPODIR}
 repo=${1:-backports}
 
 
+# Disable stack protection to improve performance
+
+CFLAGS="-fno-stack-protector -fomit-frame-pointer -march=x86-64 -mtune=generic -Os"
+sudo sed -i "s/export CFLAGS=\".*\"/export CFLAGS=\"${CFLAGS}\"/" /etc/abuild.conf
+
+echo "/etc/abuild.conf:"
+head -n4 /etc/abuild.conf
+
+
 # Overwrite make setting if provided
 
 if [ ! -z "${JOBS}" ]; then
