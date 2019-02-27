@@ -20,8 +20,8 @@ builddir="$srcdir/netpbm-mirror-$pkgver"
 build() {
 	cd "$builddir"
 
-	make
-	make package
+	make -j1  # parallel build looks broken
+	make package -j1
 }
 
 package() {
