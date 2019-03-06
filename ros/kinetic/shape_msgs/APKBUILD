@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 depends="ros-kinetic-geometry-msgs ros-kinetic-message-runtime ros-kinetic-std-msgs ros-kinetic-geometry-msgs ros-kinetic-message-runtime ros-kinetic-std-msgs"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-kinetic-catkin ros-kinetic-geometry-msgs ros-kinetic-message-generation ros-kinetic-std-msgs"
-subpackages=""
+subpackages="$pkgname-dbg"
 source=""
 builddir="$startdir/apk-build-temporary"
 srcdir="/tmp/dummy-src-dir"
@@ -32,7 +32,7 @@ prepare() {
   mkdir -p src
   echo "$rosinstall" > pkg.rosinstall
   wstool init --shallow src pkg.rosinstall
-  find $startdir -name "*.patch" | while read patchfile; do
+  find $startdir -maxdepth 1 -name "*.patch" | while read patchfile; do
     echo "Applying $patchfile"
     (cd src/* && patch -p1 -i $patchfile)
   done
@@ -42,7 +42,8 @@ build() {
   echo "building" > $statuslog
   cd "$builddir"
   source /usr/ros/kinetic/setup.sh
-  catkin_make_isolated -DCMAKE_BUILD_TYPE=Release 2>&1 | tee $buildlog
+  catkin_make_isolated \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo 2>&1 | tee $buildlog
 }
 check() {
   if [ -f $startdir/NOCHECK ]; then
@@ -54,9 +55,13 @@ check() {
   cd "$builddir"
   source /usr/ros/kinetic/setup.sh
   source devel_isolated/setup.sh
-  catkin_make_isolated -DCMAKE_BUILD_TYPE=Release \
+  catkin_make_isolated -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     --catkin-make-args run_tests 2>&1 | tee $checklog
   catkin_test_results 2>&1 | tee $checklog
+}
+dbg() {
+  mkdir -p "$subpkgdir"
+  default_dbg
 }
 package() {
   echo "packaging" >> $statuslog
@@ -64,8 +69,8 @@ package() {
   cd "$builddir"
   export DESTDIR="$pkgdir"
   source /usr/ros/kinetic/setup.sh
-  catkin_make_isolated -DCMAKE_BUILD_TYPE=Release --install-space /usr/ros/kinetic
-  catkin_make_isolated -DCMAKE_BUILD_TYPE=Release --install --install-space /usr/ros/kinetic
+  catkin_make_isolated -DCMAKE_BUILD_TYPE=RelWithDebInfo --install-space /usr/ros/kinetic
+  catkin_make_isolated -DCMAKE_BUILD_TYPE=RelWithDebInfo --install --install-space /usr/ros/kinetic
   rm "$pkgdir"/usr/ros/kinetic/setup.* "$pkgdir"/usr/ros/kinetic/.rosinstall "$pkgdir"/usr/ros/kinetic/_setup_util.py "$pkgdir"/usr/ros/kinetic/env.sh "$pkgdir"/usr/ros/kinetic/.catkin
   find $pkgdir -name "*.so" | while read so; do
     chrpath_out=$(chrpath ${so} || true)
