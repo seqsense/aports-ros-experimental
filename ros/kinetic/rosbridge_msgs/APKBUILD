@@ -1,13 +1,13 @@
-pkgname=ros-kinetic-rqt-pose-view
-_pkgname=rqt_pose_view
-pkgver=0.5.8
+pkgname=ros-kinetic-rosbridge-msgs
+_pkgname=rosbridge_msgs
+pkgver=0.11.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
-url="http://wiki.ros.org/rqt_pose_view"
+url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
-depends="ros-kinetic-rqt-gui-py ros-kinetic-rqt-py-common ros-kinetic-rostopic ros-kinetic-rqt-gui ros-kinetic-tf ros-kinetic-geometry-msgs py2-rospkg ros-kinetic-python-qt-binding>=0.2.19 ros-kinetic-rospy py-opengl ros-kinetic-gl-dependency ros-kinetic-rqt-gui-py ros-kinetic-rqt-py-common ros-kinetic-rostopic ros-kinetic-rqt-gui ros-kinetic-tf ros-kinetic-geometry-msgs py2-rospkg ros-kinetic-python-qt-binding>=0.2.19 ros-kinetic-rospy py-opengl ros-kinetic-gl-dependency"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-kinetic-catkin"
+depends="ros-kinetic-message-runtime ros-kinetic-std-msgs ros-kinetic-message-runtime ros-kinetic-std-msgs"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-kinetic-std-msgs ros-kinetic-message-generation ros-kinetic-catkin"
 subpackages="$pkgname-dbg"
 source=""
 builddir="$startdir/apk-build-temporary"
@@ -20,8 +20,8 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
-rosinstall="- git: {local-name: rqt_pose_view, uri: 'https://github.com/ros-gbp/rqt_pose_view-release.git',
-    version: release/kinetic/rqt_pose_view/0.5.8-0}
+rosinstall="- git: {local-name: rosbridge_msgs, uri: 'https://github.com/RobotWebTools-release/rosbridge_suite-release.git',
+    version: release/kinetic/rosbridge_msgs/0.11.0-0}
 "
 prepare() {
   set -o pipefail

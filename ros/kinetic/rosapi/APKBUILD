@@ -1,13 +1,13 @@
 pkgname=ros-kinetic-rosapi
 _pkgname=rosapi
-pkgver=0.10.2
+pkgver=0.11.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://ros.org/wiki/rosapi"
 arch="all"
 license="BSD"
-depends="ros-kinetic-rosbridge-library ros-kinetic-rospy ros-kinetic-rosnode ros-kinetic-rosgraph ros-kinetic-message-runtime "
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-kinetic-catkin ros-kinetic-message-generation"
+depends="ros-kinetic-rosbridge-library ros-kinetic-rosnode ros-kinetic-message-runtime ros-kinetic-rosgraph ros-kinetic-rospy "
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-kinetic-message-generation ros-kinetic-catkin"
 subpackages="$pkgname-dbg"
 source=""
 builddir="$startdir/apk-build-temporary"
@@ -21,7 +21,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 rosinstall="- git: {local-name: rosapi, uri: 'https://github.com/RobotWebTools-release/rosbridge_suite-release.git',
-    version: release/kinetic/rosapi/0.10.2-0}
+    version: release/kinetic/rosapi/0.11.0-0}
 "
 prepare() {
   set -o pipefail
