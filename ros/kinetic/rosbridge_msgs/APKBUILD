@@ -1,13 +1,13 @@
-pkgname=ros-kinetic-stereo-image-proc
-_pkgname=stereo_image_proc
-pkgver=1.12.23
+pkgname=ros-kinetic-rosbridge-msgs
+_pkgname=rosbridge_msgs
+pkgver=0.11.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
-url="http://www.ros.org/wiki/stereo_image_proc"
+url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
-depends="ros-kinetic-sensor-msgs ros-kinetic-message-filters ros-kinetic-image-proc ros-kinetic-image-geometry ros-kinetic-image-transport ros-kinetic-stereo-msgs ros-kinetic-dynamic-reconfigure ros-kinetic-cv-bridge ros-kinetic-nodelet ros-kinetic-sensor-msgs ros-kinetic-message-filters ros-kinetic-image-proc ros-kinetic-image-geometry ros-kinetic-image-transport ros-kinetic-stereo-msgs ros-kinetic-dynamic-reconfigure ros-kinetic-cv-bridge ros-kinetic-nodelet"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-kinetic-catkin ros-kinetic-rostest ros-kinetic-sensor-msgs ros-kinetic-message-filters ros-kinetic-image-proc ros-kinetic-image-geometry ros-kinetic-image-transport ros-kinetic-stereo-msgs ros-kinetic-dynamic-reconfigure ros-kinetic-cv-bridge ros-kinetic-nodelet"
+depends="ros-kinetic-std-msgs ros-kinetic-message-runtime ros-kinetic-std-msgs ros-kinetic-message-runtime"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-kinetic-catkin ros-kinetic-std-msgs ros-kinetic-message-generation"
 subpackages="$pkgname-dbg"
 source=""
 builddir="$startdir/apk-build-temporary"
@@ -20,8 +20,8 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
-rosinstall="- git: {local-name: stereo_image_proc, uri: 'https://github.com/ros-gbp/image_pipeline-release.git',
-    version: release/kinetic/stereo_image_proc/1.12.23-0}
+rosinstall="- git: {local-name: rosbridge_msgs, uri: 'https://github.com/RobotWebTools-release/rosbridge_suite-release.git',
+    version: release/kinetic/rosbridge_msgs/0.11.0-0}
 "
 prepare() {
   set -o pipefail
