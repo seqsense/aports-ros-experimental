@@ -8,6 +8,12 @@ repodir_base=${REPODIR}
 repo=${1:-backports}
 
 
+BUILD_REPO_OPTIONS=
+case "${PURGE_OBSOLETE:-no}" in
+  "y" | "yes" | "Yes" | "on" | "ON" ) BUILD_REPO_OPTIONS="-p";;
+esac
+
+
 # Disable stack protection to improve performance
 
 CFLAGS="-fno-stack-protector -fomit-frame-pointer -march=x86-64 -mtune=generic -Os"
@@ -87,7 +93,7 @@ sudo apk update
 
 (cd ${basedir} && \
   set -o pipefail && \
-  buildrepo ${repo} -d ${REPODIR} -a ${APORTSDIR} 2>&1 | \
+  buildrepo ${repo} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS} 2>&1 | \
     grep --line-buffered \
       -v -e "([0-9]*/[0-9]*) Purging " \
       -v -e "([0-9]*/[0-9]*) Installing " \

@@ -24,6 +24,7 @@ $(REPOSITORY):
 		-v `pwd`/packages/v$(ALPINE_VERSION):/home/builder/packages \
 		$(PRIVATE_KEY_OPT) \
 		-e JOBS=${JOBS} \
+		-e PURGE_OBSOLETE=yes \
 		$(BUILDER_NAME):$(ALPINE_VERSION) $@
 
 .PHONY: s3-pull
@@ -33,7 +34,8 @@ s3-pull:
 
 .PHONY: s3-push
 s3-push:
-	aws s3 sync --acl=public-read packages/v$(ALPINE_VERSION) $(S3_APK_REPO_BUCKET_URI)/v$(ALPINE_VERSION)
+	aws s3 sync --acl=public-read --delete packages/v$(ALPINE_VERSION) $(S3_APK_REPO_BUCKET_URI)/v$(ALPINE_VERSION)
+	aws s3 sync --acl=public-read packages/v$(ALPINE_VERSION) $(S3_APK_REPO_BUCKET_URI)/archives/v$(ALPINE_VERSION)
 
 .PHONY: all
 all:
