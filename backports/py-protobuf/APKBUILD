@@ -52,3 +52,4 @@ _py() {
 	# correct permissions
 	chmod +r "$subpkgdir"/usr/lib/*/site-packages/*/*
 }
+sha512sums="b9ad019476f12506c3176f41ed8935a16b6f2dacc167414075bc0a775c382b02e57b3fcf00df6e7dba28fafd631adad982128ff88efc84caf4f718a12b8d2ae6  py-protobuf-3.5.2.tar.gz"
