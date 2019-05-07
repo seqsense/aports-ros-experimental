@@ -7,7 +7,7 @@ pkgdesc="Package for gRPC Python."
 url="https://grpc.io/"
 arch="all"
 license="Apache License 2.0"
-depends="py-six py-futures py-enum34"
+depends="py-six>=1.5.2"
 makedepends="python2-dev python3-dev py-setuptools cython-dev"
 install=""
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
@@ -31,10 +31,12 @@ package() {
 }
 
 _py2() {
+	depends="$depends py-futures>=2.2.0 py-enum34>=1.0.4"
 	_py python2
 }
 
 _py3() {
+	depends="$depends py-futures>=3.6.8"
 	_py python3
 }
 
