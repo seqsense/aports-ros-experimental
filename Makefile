@@ -11,7 +11,9 @@ endif
 
 .PHONY: build-builder
 build-builder:
-	docker build -t $(BUILDER_NAME):$(ALPINE_VERSION) .
+	docker build \
+		--network=host \
+		-t $(BUILDER_NAME):$(ALPINE_VERSION) .
 
 .PHONY: $(REPOSITORY)
 $(REPOSITORY):
@@ -20,6 +22,7 @@ $(REPOSITORY):
 		chmod og+rwx packages/v$(ALPINE_VERSION)/$@; \
 	fi
 	docker run --rm -it \
+		--network=host \
 		-v `pwd`:/src \
 		-v `pwd`/packages/v$(ALPINE_VERSION):/home/builder/packages \
 		$(PRIVATE_KEY_OPT) \
@@ -44,6 +47,7 @@ all:
 .PHONY: update-checksum
 update-checksum:
 	docker run --rm -it \
+		--network=host \
 		-v `pwd`:/src \
 		--entrypoint /update-checksum.sh \
 		$(BUILDER_NAME):$(ALPINE_VERSION)
