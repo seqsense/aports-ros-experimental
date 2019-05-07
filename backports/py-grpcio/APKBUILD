@@ -1,0 +1,51 @@
+# Contributor: Daiki Maekawa <daikimaekawa29@gmail.com>
+# Maintainer: Daiki Maekawa <daikimaekawa29@gmail.com>
+pkgname=py-grpcio
+pkgver=1.20.0
+pkgrel=0
+pkgdesc="Package for gRPC Python."
+url="https://grpc.io/"
+arch="all"
+license="Apache License 2.0"
+depends="py-six>=1.5.2"
+makedepends="python2-dev python3-dev py-setuptools cython-dev"
+install=""
+subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+source="https://files.pythonhosted.org/packages/ae/b6/f58654d005ef714922ec75a3b208df31b27310cdafacc1f5d952e1a3ed30/grpcio-${pkgver}.tar.gz"
+builddir="$srcdir/grpcio-${pkgver}"
+
+build() {
+	cd "$builddir"
+	python2 setup.py build
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python2 setup.py test
+	python3 setup.py test
+}
+
+package() {
+	mkdir -p "$pkgdir"
+}
+
+_py2() {
+	depends="$depends py-futures>=2.2.0 py-enum34>=1.0.4"
+	_py python2
+}
+
+_py3() {
+	depends="$depends py-futures>=3.6.8"
+	_py python3
+}
+
+_py() {
+	local python="$1"
+	pkgdesc="$pkgdesc (for $python)"
+	install_if="$pkgname=$pkgver-$pkgrel $python"
+	
+	cd "$builddir"
+	$python setup.py install --prefix=/usr --root="$subpkgdir" || return 1
+}
+sha512sums="a8c3248fed03112676caf329a254f318d5a61d0f704f8d6aaa1a45337172d02b13bffdac5b9d552e7e324ed47d6d66cf2cec22e35dab64f815dc9cca700756d4  grpcio-1.20.0.tar.gz"
