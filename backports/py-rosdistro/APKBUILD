@@ -3,7 +3,7 @@
 pkgname=py-rosdistro
 _pkgname=rosdistro
 pkgver=0.7.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A tool to work with rosdistro files"
 url="https://pypi.python.org/pypi/rosdistro/"
 arch="all"
@@ -11,7 +11,8 @@ license="BSD-3-Clause"
 depends="py-argparse"
 makedepends="python2-dev python3-dev py-setuptools"
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
-source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz
+  force-to-enable-alpine-platform.patch"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
@@ -49,4 +50,5 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
-sha512sums="fb7b6a5b7c2591d3dcbd8b5c983f6c9acaecf801b6bc51559acf05ba0fa1a1abc4a162177e946045ecccaeca4ac7753fb448f9911c2b74f5ba9a69a4b9d1fa06  rosdistro-0.7.2.tar.gz"
+sha512sums="fb7b6a5b7c2591d3dcbd8b5c983f6c9acaecf801b6bc51559acf05ba0fa1a1abc4a162177e946045ecccaeca4ac7753fb448f9911c2b74f5ba9a69a4b9d1fa06  rosdistro-0.7.2.tar.gz
+03868fed1bf0e57ae4da6564d22b47eb56efab02edc262a283a8bcea7cf9089af04263964d6a2ee44b25a6375928c0e306e3f14a15dbc2c162d623396031bdd8  force-to-enable-alpine-platform.patch"
