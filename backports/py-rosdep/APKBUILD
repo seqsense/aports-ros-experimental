@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=py-rosdep
 _pkgname=rosdep
-pkgver=0.15.0_git20190212
+pkgver=0.15.1_git20190507
 pkgrel=1
 pkgdesc="rosdep package manager abstraction tool for ROS"
 url="https://pypi.python.org/pypi/rosdep/"
@@ -12,12 +12,11 @@ depends="py-catkin-pkg py-rospkg py-rosdistro py-yaml"
 makedepends="python2-dev python3-dev py-setuptools git"
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 #source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
-source=""
-builddir="$srcdir/$_pkgname-$pkgver"
+#builddir="$srcdir/$_pkgname-$pkgver"
+source="$_pkgname-$pkgver.tar.gz::https://github.com/ros-infrastructure/rosdep/tarball/c61b9182078720d7a8869c073c73392da7a28071"
+builddir="$srcdir/ros-infrastructure-rosdep-c61b918"
 
 build() {
-	cd "$srcdir"
-	git clone --depth=1 -b alpine-installer https://github.com/at-wat/rosdep.git "$_pkgname-$pkgver"
 	cd "$builddir"
 	python2 setup.py build
 	python3 setup.py build
@@ -52,3 +51,5 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
+
+sha512sums="b303c3191cff5fd8257dfae01063ca758b40cecae9859ff325cf5bfdd5eb989d3b62ba19ff5aa4f5a05cc5ca8c7c7115aeb42845aefbbd41cd8bff0680f5b1a0  rosdep-0.15.1_git20190507.tar.gz"
