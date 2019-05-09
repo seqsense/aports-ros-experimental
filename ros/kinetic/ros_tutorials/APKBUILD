@@ -1,13 +1,13 @@
-pkgname=ros-kinetic-rviz-imu-plugin
-_pkgname=rviz_imu_plugin
-pkgver=1.1.7
+pkgname=ros-kinetic-ros-tutorials
+_pkgname=ros_tutorials
+pkgver=0.7.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
-url="http://ros.org/wiki/rviz_imu_plugin"
+url="http://www.ros.org/wiki/ros_tutorials"
 arch="all"
 license="BSD"
-depends="qt5-qtbase-dev ros-kinetic-roscpp ros-kinetic-rviz qt5-qtbase-dev ros-kinetic-roscpp ros-kinetic-rviz"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath qt5-qtbase-dev ros-kinetic-catkin ros-kinetic-roscpp ros-kinetic-rviz"
+depends="ros-kinetic-roscpp-tutorials ros-kinetic-rospy-tutorials ros-kinetic-turtlesim ros-kinetic-roscpp-tutorials ros-kinetic-rospy-tutorials ros-kinetic-turtlesim"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-kinetic-catkin"
 subpackages="$pkgname-dbg"
 source=""
 builddir="$startdir/apk-build-temporary"
@@ -20,8 +20,8 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
-rosinstall="- git: {local-name: rviz_imu_plugin, uri: 'https://github.com/uos-gbp/imu_tools-release.git',
-    version: release/kinetic/rviz_imu_plugin/1.1.7-1}
+rosinstall="- git: {local-name: ros_tutorials, uri: 'https://github.com/ros-gbp/ros_tutorials-release.git',
+    version: release/kinetic/ros_tutorials/0.7.1-0}
 "
 prepare() {
   set -o pipefail
