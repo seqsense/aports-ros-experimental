@@ -2,8 +2,8 @@
 # Maintainer:
 pkgname=py-rospkg
 _pkgname=rospkg
-pkgver=1.1.7
-pkgrel=2
+pkgver=1.1.9
+pkgrel=0
 pkgdesc="Standalone Python library for the ROS package system"
 url="https://pypi.python.org/pypi/rospkg/"
 arch="all"
@@ -49,4 +49,4 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
-sha512sums="dc1ef62f539bb957dad1e6dba2b778aeeadc8e7525ba10711e9f995aa263ee287324f92ff870af64d6f3e1de5c4bc62d655f5b1e619e1433e079caa8baabe4a8  rospkg-1.1.7.tar.gz"
+sha512sums="180006da6893c90cd1225437428c77aa5ae8456b4bd1ef6e70b72e40c264458b648c24b40886c3025ef56d06970b87ef1d17529b4333db7d837288c06c1937e1  rospkg-1.1.9.tar.gz"
