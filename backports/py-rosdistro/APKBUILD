@@ -2,13 +2,13 @@
 # Maintainer:
 pkgname=py-rosdistro
 _pkgname=rosdistro
-pkgver=0.7.2
+pkgver=0.7.4
 pkgrel=1
 pkgdesc="A tool to work with rosdistro files"
 url="https://pypi.python.org/pypi/rosdistro/"
 arch="all"
 license="BSD-3-Clause"
-depends="py-argparse"
+depends="py-argparse py-yaml"
 makedepends="python2-dev python3-dev py-setuptools"
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
@@ -49,4 +49,4 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
-sha512sums="fb7b6a5b7c2591d3dcbd8b5c983f6c9acaecf801b6bc51559acf05ba0fa1a1abc4a162177e946045ecccaeca4ac7753fb448f9911c2b74f5ba9a69a4b9d1fa06  rosdistro-0.7.2.tar.gz"
+sha512sums="ca2e457fe9d53425680f1abdbc525f8f90d24cb31031bb1d0c32e28d9a364520ab570acdc261febd024616ba0bb0ddb969abdcd4b34480d22e38efdad32219f8  rosdistro-0.7.4.tar.gz"
