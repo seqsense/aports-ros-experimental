@@ -1,6 +1,6 @@
 pkgname=ros-kinetic-rosclean
 _pkgname=rosclean
-pkgver=1.14.4
+pkgver=1.14.6
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://ros.org/wiki/rosclean"
@@ -20,7 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
-rosinstall="- git: {local-name: rosclean, uri: 'https://github.com/ros-gbp/ros-release.git', version: release/kinetic/rosclean/1.14.4-0}
+rosinstall="- git: {local-name: rosclean, uri: 'https://github.com/ros-gbp/ros-release.git', version: release/kinetic/rosclean/1.14.6-1}
 "
 prepare() {
   set -o pipefail
