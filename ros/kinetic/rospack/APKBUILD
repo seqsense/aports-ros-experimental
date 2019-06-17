@@ -1,12 +1,12 @@
 pkgname=ros-kinetic-rospack
 _pkgname=rospack
-pkgver=2.4.4
+pkgver=2.4.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://wiki.ros.org/rospack"
 arch="all"
 license="BSD"
-depends="boost-dev pkgconf py2-catkin-pkg py2-rosdep python2-dev tinyxml-dev boost-dev pkgconf py2-catkin-pkg py2-rosdep python2-dev tinyxml-dev"
+depends="boost-dev pkgconf py2-catkin-pkg py2-rosdep python2-dev ros-kinetic-ros-environment tinyxml-dev boost-dev pkgconf py2-catkin-pkg py2-rosdep python2-dev ros-kinetic-ros-environment tinyxml-dev"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath boost-dev gtest gtest-dev pkgconf py2-coverage python2-dev ros-kinetic-catkin>=0.5.68 ros-kinetic-cmake-modules tinyxml-dev"
 subpackages="$pkgname-dbg"
 source=""
@@ -21,7 +21,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 rosinstall="- git: {local-name: rospack, uri: 'https://github.com/ros-gbp/rospack-release.git',
-    version: release/kinetic/rospack/2.4.4-0}
+    version: release/kinetic/rospack/2.4.5-1}
 "
 prepare() {
   set -o pipefail
@@ -71,7 +71,7 @@ package() {
   source /usr/ros/kinetic/setup.sh
   catkin_make_isolated -DCMAKE_BUILD_TYPE=RelWithDebInfo --install-space /usr/ros/kinetic
   catkin_make_isolated -DCMAKE_BUILD_TYPE=RelWithDebInfo --install --install-space /usr/ros/kinetic
-  rm "$pkgdir"/usr/ros/kinetic/setup.* "$pkgdir"/usr/ros/kinetic/.rosinstall "$pkgdir"/usr/ros/kinetic/_setup_util.py "$pkgdir"/usr/ros/kinetic/env.sh "$pkgdir"/usr/ros/kinetic/.catkin
+  rm -f "$pkgdir"/usr/ros/kinetic/setup.* "$pkgdir"/usr/ros/kinetic/local_setup.* "$pkgdir"/usr/ros/kinetic/.rosinstall "$pkgdir"/usr/ros/kinetic/_setup_util.py "$pkgdir"/usr/ros/kinetic/env.sh "$pkgdir"/usr/ros/kinetic/.catkin
   find $pkgdir -name "*.so" | while read so; do
     chrpath_out=$(chrpath ${so} || true)
     if echo ${chrpath_out} | grep -q "RPATH="; then
