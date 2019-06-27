@@ -1,6 +1,6 @@
 pkgname=ros-kinetic-joy
 _pkgname=joy
-pkgver=1.12.0
+pkgver=1.13.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://www.ros.org/wiki/joy"
@@ -21,7 +21,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 rosinstall="- git: {local-name: joy, uri: 'https://github.com/ros-gbp/joystick_drivers-release.git',
-    version: release/kinetic/joy/1.12.0-0}
+    version: release/kinetic/joy/1.13.0-1}
 "
 prepare() {
   set -o pipefail
