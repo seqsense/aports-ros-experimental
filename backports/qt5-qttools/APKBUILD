@@ -12,7 +12,7 @@ url="https://www.qt.io/developers/"
 arch="all"
 license="LGPL-2.0 with exceptions or GPL-3.0 with exceptions"
 makedepends="qt5-qtbase-dev"
-subpackages="$pkgname-static $pkgname-dev qt5-assistant:_assistant qt5-qdbusviewer:_dbusviewer"
+subpackages="$pkgname-dev qt5-assistant:_assistant qt5-qdbusviewer:_dbusviewer"
 
 case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
