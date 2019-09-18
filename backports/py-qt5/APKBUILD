@@ -2,21 +2,17 @@
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=py-qt5
 _pkgname=PyQt5
-pkgver=5.13.0
-pkgrel=2
+pkgver=5.10.1
+pkgrel=1
 pkgdesc="A set of Python bindings for the Qt toolkit"
 url="http://riverbankcomputing.co.uk/software/pyqt/intro"
 arch="all"
 license="GPL-2.0-or-later"
 depends="py-sip"
-makedepends="python3-dev py-dbus-dev py-sip-dev
-	qt5-qtbase-dev libx11-dev qt5-qtsvg-dev qt5-qtwebsockets-dev
-	py3-opengl qt5-qtconnectivity-dev qt5-qtmultimedia-dev qt5-qttools-dev
-	qt5-qtserialport-dev qt5-qtx11extras-dev qt5-qtdeclarative-dev
-	qt5-qtwebchannel-dev
-	"
+makedepends="python2-dev python3-dev py-dbus-dev py-sip-dev
+	qt5-qtbase-dev libx11-dev qt5-qtsvg-dev qt5-qtwebsockets-dev"
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
-source="https://www.riverbankcomputing.com/static/Downloads/PyQt5/$pkgver/PyQt5_gpl-$pkgver.tar.gz"
+source="https://sourceforge.net/projects/pyqt/files/$_pkgname/PyQt-$pkgver/${_pkgname}_gpl-$pkgver.zip"
 builddir="${srcdir}/${_pkgname}_gpl-${pkgver}"
 
 prepare() {
@@ -81,4 +77,4 @@ _py() {
 	make -j1 DESTDIR="${subpkgdir}" INSTALL_ROOT="${subpkgdir}" install
 }
 
-sha512sums="72cdd700956f8a5791fd38cac6a348f189eec9e69f3fd79a0c711ff49c770d4982fe62ec9057830d26abc4c12133922df915be0844449212f0bdf338fe1e4cb0  PyQt5_gpl-5.13.0.tar.gz"
+sha512sums="2b112edbedf47511e6c5b98e6fde52d862ac93ce456f0b6310a35b49dceea8cefdf25da6248dcfa6b3e7b09da9a346c1195fe0e34b4bcea796ff66810f10cee0  PyQt5_gpl-5.10.1.zip"
