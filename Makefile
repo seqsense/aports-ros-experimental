@@ -14,6 +14,7 @@ endif
 build-builder:
 	docker build \
 		--network=host \
+		--build-arg ALPINE_VERSION=$(ALPINE_VERSION) \
 		-t $(BUILDER_NAME):$(ALPINE_VERSION) .
 
 .PHONY: $(REPOSITORY)
