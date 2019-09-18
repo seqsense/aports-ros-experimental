@@ -29,6 +29,7 @@ USER builder
 ENV HOME="/home/builder"
 ENV APORTSDIR="${HOME}/aports"
 ENV REPODIR="${HOME}/packages"
+ENV ALPINE_VERSION=${ALPINE_VERSION}
 
 ENV SRCDIR="/src"
 ENV PACKAGER_PRIVKEY="${HOME}/.abuild/builder@alpine-ros-experimental.rsa"
