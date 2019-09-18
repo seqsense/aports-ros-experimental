@@ -2,13 +2,13 @@
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=qt5-qtwebsockets
 _pkgname=qtwebsockets-everywhere-src
-pkgver=5.12.5
+pkgver=5.10.1
 _ver=${pkgver/_p/-}
 _ver=${_ver/_/-}
 _ver=${_ver/beta0/beta}
 _ver=${_ver/rc0/rc}
 _V=${_ver/rc/RC}
-pkgrel=0
+pkgrel=1
 pkgdesc="Provides WebSocket communication compliant with RFC 6455"
 url="http://qt-project.org/"
 arch="all"
@@ -22,7 +22,7 @@ case $pkgver in
 *) _rel=official_releases;;
 esac
 options="!check"
-source="https://download.qt.io/official_releases/qt/${pkgver%.*}/$_ver/submodules/$_pkgname-$_ver.tar.xz"
+source="http://download.qt.io/official_releases/qt/${pkgver%.*}/$_ver/submodules/$_pkgname-$_ver.tar.xz"
 
 builddir="$srcdir"/$_pkgname-${_V%-*}
 
@@ -43,4 +43,4 @@ package() {
 	make INSTALL_ROOT="$pkgdir" install
 }
 
-sha512sums="970ad232ad1258630404d5e7347721505a780497e1775f88591098f11bca48cbf62c4f02491b133d31e4304eb9e16f923292c5b778e22d530d7a5a4e95d422ba  qtwebsockets-everywhere-src-5.12.5.tar.xz"
+sha512sums="c5ab093ec4e93a94f646adff1ff6ef3eeb70fe302be04ddb694a5f7781c5d68777d75a3e831128a23d852522a6a0ca4e54a6bc67d10fb6e395632df4e7e71596  qtwebsockets-everywhere-src-5.10.1.tar.xz"
