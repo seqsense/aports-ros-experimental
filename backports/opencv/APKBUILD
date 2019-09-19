@@ -8,24 +8,44 @@ url="https://opencv.org/"
 arch="all"
 options="check"
 license="BSD-3-Clause"
-makedepends="cmake linux-headers"
-subpackages="$pkgname-dev"
+makedepends="cmake linux-headers python2-dev python3-dev py-numpy-dev py-numpy"
+subpackages="$pkgname-dev py2-$pkgname:_py2 py3-$pkgname:_py3"
 source="$pkgname-$pkgver.tar.gz::https://github.com/opencv/$pkgname/archive/$pkgver.tar.gz"
 
 build() {
 	cd "$builddir"
 	cmake \
+		-DBUILD_opencv_python2=on \
+		-DBUILD_opencv_python3=on \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DBUILD_SHARED_LIBS=True \
 		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_CXX_FLAGS="$CXXFLAGS" \
 		-DCMAKE_C_FLAGS="$CFLAGS"
+	find -name 'Makefile' | xargs sed -i 's|-Wl,-rpath,\S* ||g'
 	make
+}
+
+_py2() {
+	depends="python2 py2-numpy"
+	_py 2
+}
+
+_py3() {
+	depends="python3 py3-numpy"
+	_py 3
+}
+
+_py() {
+	pythondir=usr/lib/$(basename $(find $pkgdir/usr/lib -name "python$1*"))
+	mkdir -p $(dirname $subpkgdir/$pythondir)
+	mv $pkgdir/$pythondir $subpkgdir/$pythondir
 }
 
 package() {
 	cd "$builddir"
 	make DESTDIR="$pkgdir" install
 }
+
 sha512sums="381fc8146722f7eeed5ec6f36a0180f3210a0bc8412f9f9d5d667827241a12709afee6fd42fb6f8b4e0ff4ed96cc645c55590ac89f65c529d4fbb6cd0ee752ed  opencv-3.2.0.tar.gz"
