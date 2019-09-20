@@ -86,8 +86,21 @@ mkdir -p ${aportsdir_base}
 mkdir -p ${REPODIR}
 cp -r ${SRCDIR}/* ${aportsdir_base}
 
-sed -e 's/arch="noarch"/arch="all"/' -i `find ${aportsdir_base} -name APKBUILD`
-sed -e 's/:noarch//' -i `find ${aportsdir_base} -name APKBUILD`
+sed -e 's/arch="noarch"/arch="all"/' -i $(find ${aportsdir_base} -name APKBUILD)
+sed -e 's/:noarch//' -i $(find ${aportsdir_base} -name APKBUILD)
+
+echo
+echo "Checking version constraint setting"
+find ${aportsdir_base} -name ENABLE_ON | while read path; do
+  echo -n "$(basename $(dirname $path))"
+  if grep -q -s "v${ALPINE_VERSION}" "${path}"; then
+    echo ": enabled"
+  else
+    echo ": disabled"
+    rm -rf $(dirname ${path})
+  fi
+done
+echo
 
 sudo apk update
 

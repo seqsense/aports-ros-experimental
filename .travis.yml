@@ -12,6 +12,10 @@ branches:
   only:
     - master
 
+env:
+  - ROS_DISTRO=kinetic
+  - ROS_DISTRO=melodic
+
 before_install:
   - pip install --upgrade --user awscli
   - |
