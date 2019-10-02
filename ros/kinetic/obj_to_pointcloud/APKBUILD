@@ -1,13 +1,13 @@
 pkgname=ros-kinetic-obj-to-pointcloud
 _pkgname=obj_to_pointcloud
-pkgver=0.3.1
+pkgver=0.4.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
-depends="eigen-dev ros-kinetic-eigen-conversions ros-kinetic-geometry-msgs ros-kinetic-neonavigation-common ros-kinetic-pcl-ros ros-kinetic-roscpp ros-kinetic-sensor-msgs eigen-dev ros-kinetic-eigen-conversions ros-kinetic-geometry-msgs ros-kinetic-neonavigation-common ros-kinetic-pcl-ros ros-kinetic-roscpp ros-kinetic-sensor-msgs"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath eigen-dev ros-kinetic-catkin ros-kinetic-eigen-conversions ros-kinetic-geometry-msgs ros-kinetic-neonavigation-common ros-kinetic-pcl-ros ros-kinetic-roscpp ros-kinetic-roslint ros-kinetic-rostest ros-kinetic-sensor-msgs"
+depends="eigen-dev pcl ros-kinetic-eigen-conversions ros-kinetic-geometry-msgs ros-kinetic-neonavigation-common ros-kinetic-pcl-conversions ros-kinetic-roscpp ros-kinetic-sensor-msgs eigen-dev ros-kinetic-eigen-conversions ros-kinetic-geometry-msgs ros-kinetic-neonavigation-common ros-kinetic-pcl-conversions ros-kinetic-roscpp ros-kinetic-sensor-msgs"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath eigen-dev pcl-dev ros-kinetic-catkin ros-kinetic-eigen-conversions ros-kinetic-geometry-msgs ros-kinetic-neonavigation-common ros-kinetic-pcl-conversions ros-kinetic-roscpp ros-kinetic-roslint ros-kinetic-rostest ros-kinetic-sensor-msgs"
 subpackages="$pkgname-dbg"
 source=""
 builddir="$startdir/apk-build-temporary"
@@ -21,7 +21,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 rosinstall="- git: {local-name: obj_to_pointcloud, uri: 'https://github.com/at-wat/neonavigation-release.git',
-    version: release/kinetic/obj_to_pointcloud/0.3.1-0}
+    version: release/kinetic/obj_to_pointcloud/0.4.3-1}
 "
 prepare() {
   set -o pipefail
@@ -71,7 +71,7 @@ package() {
   source /usr/ros/kinetic/setup.sh
   catkin_make_isolated -DCMAKE_BUILD_TYPE=RelWithDebInfo --install-space /usr/ros/kinetic
   catkin_make_isolated -DCMAKE_BUILD_TYPE=RelWithDebInfo --install --install-space /usr/ros/kinetic
-  rm "$pkgdir"/usr/ros/kinetic/setup.* "$pkgdir"/usr/ros/kinetic/.rosinstall "$pkgdir"/usr/ros/kinetic/_setup_util.py "$pkgdir"/usr/ros/kinetic/env.sh "$pkgdir"/usr/ros/kinetic/.catkin
+  rm -f "$pkgdir"/usr/ros/kinetic/setup.* "$pkgdir"/usr/ros/kinetic/local_setup.* "$pkgdir"/usr/ros/kinetic/.rosinstall "$pkgdir"/usr/ros/kinetic/_setup_util.py "$pkgdir"/usr/ros/kinetic/env.sh "$pkgdir"/usr/ros/kinetic/.catkin
   find $pkgdir -name "*.so" | while read so; do
     chrpath_out=$(chrpath ${so} || true)
     if echo ${chrpath_out} | grep -q "RPATH="; then

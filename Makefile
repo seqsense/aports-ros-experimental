@@ -1,7 +1,8 @@
+ROS_DISTRO             ?= kinetic
 BUILDER_NAME            = aports-builder
-ALPINE_VERSION          = 3.7
+ALPINE_VERSION          = $(shell ./alpine_version_from_ros_distro.sh $(ROS_DISTRO))
 S3_APK_REPO_BUCKET_URI ?= s3://localhost
-REPOSITORY              = backports ros/kinetic
+REPOSITORY              = backports ros/$(ROS_DISTRO)
 APK_REPO_PRIVATE_KEY   ?= # path to your private key
 JOBS                   ?= 2
 
@@ -13,6 +14,7 @@ endif
 build-builder:
 	docker build \
 		--network=host \
+		--build-arg ALPINE_VERSION=$(ALPINE_VERSION) \
 		-t $(BUILDER_NAME):$(ALPINE_VERSION) .
 
 .PHONY: $(REPOSITORY)
