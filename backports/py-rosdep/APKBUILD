@@ -2,8 +2,8 @@
 # Maintainer:
 pkgname=py-rosdep
 _pkgname=rosdep
-pkgver=0.15.1_git20190507
-pkgrel=2
+pkgver=0.16.1
+pkgrel=0
 pkgdesc="rosdep package manager abstraction tool for ROS"
 url="https://pypi.python.org/pypi/rosdep/"
 arch="all"
@@ -11,10 +11,8 @@ license="BSD-3-Clause"
 depends="py-catkin-pkg>=0.4.0 py-rospkg>=1.1.8 py-rosdistro>=0.7.0 py-yaml>=3.1"
 makedepends="python2-dev python3-dev py-setuptools git"
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
-#source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
-#builddir="$srcdir/$_pkgname-$pkgver"
-source="$_pkgname-$pkgver.tar.gz::https://github.com/ros-infrastructure/rosdep/tarball/c61b9182078720d7a8869c073c73392da7a28071"
-builddir="$srcdir/ros-infrastructure-rosdep-c61b918"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
 	cd "$builddir"
@@ -33,12 +31,12 @@ package() {
 }
 
 _py2() {
-	depends="${depends//py-/py2-}"
+	depends="${depends//py-/py2-} py-setuptools"
 	_py python2
 }
 
 _py3() {
-	depends="${depends//py-/py3-}"
+	depends="${depends//py-/py3-} py3-setuptools"
 	_py python3
 }
 
@@ -52,4 +50,4 @@ _py() {
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
 
-sha512sums="b303c3191cff5fd8257dfae01063ca758b40cecae9859ff325cf5bfdd5eb989d3b62ba19ff5aa4f5a05cc5ca8c7c7115aeb42845aefbbd41cd8bff0680f5b1a0  rosdep-0.15.1_git20190507.tar.gz"
+sha512sums="0ea976f081fa85484fd43b016bcda1f59ce0b018dc120ddf877385346716b3d1ac9a74a42df144cc364b4d89c6e695a8fdc313ff2c01074c035c72cdb2da3fee  rosdep-0.16.1.tar.gz"
