@@ -51,4 +51,4 @@ _py() {
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
 sha512sums="ca2e457fe9d53425680f1abdbc525f8f90d24cb31031bb1d0c32e28d9a364520ab570acdc261febd024616ba0bb0ddb969abdcd4b34480d22e38efdad32219f8  rosdistro-0.7.4.tar.gz
-03868fed1bf0e57ae4da6564d22b47eb56efab02edc262a283a8bcea7cf9089af04263964d6a2ee44b25a6375928c0e306e3f14a15dbc2c162d623396031bdd8  force-to-enable-alpine-platform.patch"
+4c8eced37ae9747430050afa29bb55b0d9c4e5123e62c23d29c142f8a01b5cf80cd2e7caa651d271b27e3fe9730969db07a2ca98788e2d0a239ec2d0666a67f8  force-to-enable-alpine-platform.patch"
