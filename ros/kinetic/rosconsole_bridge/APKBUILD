@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rosconsole_bridge, uri: 'https://github.com/ros-gbp/rosconsole_bridge-release.git',
     version: release/kinetic/rosconsole_bridge/0.5.2-0}
 "

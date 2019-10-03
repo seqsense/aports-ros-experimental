@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: kdl_conversions, uri: 'https://github.com/ros-gbp/geometry-release.git',
     version: release/kinetic/kdl_conversions/1.11.9-0}
 "

@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: smach_viewer, uri: 'https://github.com/jbohren/executive_smach_visualization-release.git',
     version: release/kinetic/smach_viewer/2.0.2-0}
 "

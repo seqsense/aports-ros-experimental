@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: robot_model, uri: 'https://github.com/ros-gbp/robot_model-release.git',
     version: release/kinetic/robot_model/1.12.11-0}
 "

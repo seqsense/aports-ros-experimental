@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: voxel_grid, uri: 'https://github.com/ros-gbp/navigation-release.git',
     version: release/kinetic/voxel_grid/1.14.4-0}
 "

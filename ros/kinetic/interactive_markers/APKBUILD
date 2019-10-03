@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: interactive_markers, uri: 'https://github.com/ros-gbp/interactive_markers-release.git',
     version: release/kinetic/interactive_markers/1.11.4-0}
 "

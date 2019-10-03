@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: collada_urdf, uri: 'https://github.com/ros-gbp/collada_urdf-release.git',
     version: release/kinetic/collada_urdf/1.12.12-0}
 "
