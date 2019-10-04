@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: mcl_3dl, uri: 'https://github.com/at-wat/mcl_3dl-release.git',
     version: release/melodic/mcl_3dl/0.1.5-1}
 "

@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: image_transport_plugins, uri: 'https://github.com/ros-gbp/image_transport_plugins-release.git',
     version: release/melodic/image_transport_plugins/1.9.5-0}
 "

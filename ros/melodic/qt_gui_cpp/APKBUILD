@@ -1,6 +1,6 @@
 pkgname=ros-melodic-qt-gui-cpp
 _pkgname=qt_gui_cpp
-pkgver=0.3.11
+pkgver=0.3.14
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/qt_gui_cpp"
@@ -20,8 +20,9 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: qt_gui_cpp, uri: 'https://github.com/ros-gbp/qt_gui_core-release.git',
-    version: release/melodic/qt_gui_cpp/0.3.11-0}
+    version: release/melodic/qt_gui_cpp/0.3.14-2}
 "
 prepare() {
   set -o pipefail

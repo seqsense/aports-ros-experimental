@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: tf2_eigen, uri: 'https://github.com/ros-gbp/geometry2-release.git',
     version: release/melodic/tf2_eigen/0.6.5-0}
 "

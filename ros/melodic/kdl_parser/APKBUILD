@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: kdl_parser, uri: 'https://github.com/ros-gbp/kdl_parser-release.git',
     version: release/melodic/kdl_parser/1.13.1-0}
 "

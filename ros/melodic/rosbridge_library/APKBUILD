@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rosbridge_library, uri: 'https://github.com/RobotWebTools-release/rosbridge_suite-release.git',
     version: release/melodic/rosbridge_library/0.11.3-1}
 "
