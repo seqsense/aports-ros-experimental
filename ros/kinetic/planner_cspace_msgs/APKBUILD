@@ -1,6 +1,6 @@
 pkgname=ros-kinetic-planner-cspace-msgs
 _pkgname=planner_cspace_msgs
-pkgver=0.3.1
+pkgver=0.5.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://wiki.ros.org/$_pkgname"
@@ -22,7 +22,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
 fi
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: planner_cspace_msgs, uri: 'https://github.com/at-wat/neonavigation_msgs-release.git',
-    version: release/kinetic/planner_cspace_msgs/0.3.1-0}
+    version: release/kinetic/planner_cspace_msgs/0.5.0-1}
 "
 prepare() {
   set -o pipefail
