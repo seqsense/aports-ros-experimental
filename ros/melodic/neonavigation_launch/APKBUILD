@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: neonavigation_launch, uri: 'https://github.com/at-wat/neonavigation-release.git',
     version: release/melodic/neonavigation_launch/0.4.3-1}
 "

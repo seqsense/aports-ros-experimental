@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: cpp_common, uri: 'https://github.com/ros-gbp/roscpp_core-release.git',
     version: release/melodic/cpp_common/0.6.12-0}
 "

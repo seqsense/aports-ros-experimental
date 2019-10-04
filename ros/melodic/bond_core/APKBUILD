@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: bond_core, uri: 'https://github.com/ros-gbp/bond_core-release.git',
     version: release/melodic/bond_core/1.8.3-0}
 "

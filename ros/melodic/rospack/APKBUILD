@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rospack, uri: 'https://github.com/ros-gbp/rospack-release.git',
     version: release/melodic/rospack/2.5.3-0}
 "

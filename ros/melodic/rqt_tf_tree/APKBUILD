@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rqt_tf_tree, uri: 'https://github.com/ros-gbp/rqt_tf_tree-release.git',
     version: release/melodic/rqt_tf_tree/0.6.0-0}
 "

@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: control_msgs, uri: 'https://github.com/ros-gbp/control_msgs-release.git',
     version: release/melodic/control_msgs/1.5.0-0}
 "

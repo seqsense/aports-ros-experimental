@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: dynamic_reconfigure, uri: 'https://github.com/ros-gbp/dynamic_reconfigure-release.git',
     version: release/melodic/dynamic_reconfigure/1.6.0-0}
 "

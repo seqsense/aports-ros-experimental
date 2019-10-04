@@ -1,12 +1,12 @@
 pkgname=ros-melodic-python-qt-binding
 _pkgname=python_qt_binding
-pkgver=0.3.5
+pkgver=0.3.6
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/python_qt_binding"
 arch="all"
 license="BSD"
-depends="py-sip py-sip-dev py2-qt5 py-sip py-sip-dev py2-qt5"
+depends="py-sip py-sip-dev py2-qt5 py-sip py-sip-dev py2-qt5 ros-melodic-catkin"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath py-sip py-sip-dev py2-qt5 qt5-qtbase-dev ros-melodic-catkin ros-melodic-rosbuild"
 subpackages="$pkgname-dbg"
 source=""
@@ -20,8 +20,9 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: python_qt_binding, uri: 'https://github.com/ros-gbp/python_qt_binding-release.git',
-    version: release/melodic/python_qt_binding/0.3.5-0}
+    version: release/melodic/python_qt_binding/0.3.6-2}
 "
 prepare() {
   set -o pipefail

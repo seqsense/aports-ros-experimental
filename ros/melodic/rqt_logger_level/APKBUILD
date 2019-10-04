@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rqt_logger_level, uri: 'https://github.com/ros-gbp/rqt_logger_level-release.git',
     version: release/melodic/rqt_logger_level/0.4.8-0}
 "
