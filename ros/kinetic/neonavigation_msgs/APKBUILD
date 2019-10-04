@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: neonavigation_msgs, uri: 'https://github.com/at-wat/neonavigation_msgs-release.git',
     version: release/kinetic/neonavigation_msgs/0.3.1-0}
 "

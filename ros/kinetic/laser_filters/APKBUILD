@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: laser_filters, uri: 'https://github.com/ros-gbp/laser_filters-release.git',
     version: release/kinetic/laser_filters/1.8.5-0}
 "

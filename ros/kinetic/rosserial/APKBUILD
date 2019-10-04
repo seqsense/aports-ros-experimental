@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rosserial, uri: 'https://github.com/ros-gbp/rosserial-release.git',
     version: release/kinetic/rosserial/0.7.7-0}
 "

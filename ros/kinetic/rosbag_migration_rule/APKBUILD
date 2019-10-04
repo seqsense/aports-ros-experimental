@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rosbag_migration_rule, uri: 'https://github.com/ros-gbp/rosbag_migration_rule-release.git',
     version: release/kinetic/rosbag_migration_rule/1.0.0-0}
 "

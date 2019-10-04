@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: random_numbers, uri: 'https://github.com/ros-gbp/random_numbers-release.git',
     version: release/kinetic/random_numbers/0.3.1-0}
 "

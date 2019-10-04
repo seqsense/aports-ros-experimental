@@ -20,6 +20,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: python_orocos_kdl, uri: 'https://github.com/smits/orocos-kdl-release.git',
     version: release/kinetic/python_orocos_kdl/1.3.1-0}
 "
