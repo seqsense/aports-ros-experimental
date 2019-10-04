@@ -1,0 +1,27 @@
+diff --git a/src/rosdistro/distribution_file.py b/src/rosdistro/distribution_file.py
+index c330329..17381e4 100644
+--- a/src/rosdistro/distribution_file.py
++++ b/src/rosdistro/distribution_file.py
+@@ -74,6 +74,22 @@ class DistributionFile(object):
+                     assert os_code_name not in self.release_platforms[os_name], "Distribution '%s' specifies the os_code_name '%s' multiple times for the os_name '%s'" % (self.name, os_code_name, os_name)
+                     self.release_platforms[os_name].append(os_code_name)
+ 
++        # Tweak for alpine platform
++        self.release_platforms['alpine'] = []
++        if name == 'kinetic':
++            self.release_platforms['alpine'].append('3.7')
++            self.release_platforms['alpine'].append('3.7.0')
++            self.release_platforms['alpine'].append('3.7.1')
++            self.release_platforms['alpine'].append('3.7.2')
++            self.release_platforms['alpine'].append('3.7.3')
++        if name == 'melodic':
++            self.release_platforms['alpine'].append('3.8')
++            self.release_platforms['alpine'].append('3.8.0')
++            self.release_platforms['alpine'].append('3.8.1')
++            self.release_platforms['alpine'].append('3.8.2')
++            self.release_platforms['alpine'].append('3.8.3')
++            self.release_platforms['alpine'].append('3.8.4')
++
+         self.tags = []
+         if 'tags' in data and data['tags']:
+             for tag in data['tags']:
