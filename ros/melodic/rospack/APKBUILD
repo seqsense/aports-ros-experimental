@@ -1,12 +1,12 @@
 pkgname=ros-melodic-rospack
 _pkgname=rospack
-pkgver=2.5.3
+pkgver=2.5.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/rospack"
 arch="all"
 license="BSD"
-depends="boost-dev pkgconf py2-catkin-pkg py2-rosdep python2-dev ros-melodic-ros-environment tinyxml2-dev boost-dev pkgconf py2-catkin-pkg py2-rosdep python2-dev ros-melodic-ros-environment tinyxml2-dev"
+depends="boost-dev pkgconf py2-catkin-pkg py2-rosdep python2-dev ros-melodic-ros-environment tinyxml2-dev boost-dev pkgconf python2-dev tinyxml2-dev"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath boost-dev gtest gtest-dev pkgconf py2-coverage python2-dev ros-melodic-catkin>=0.5.68 ros-melodic-cmake-modules tinyxml2-dev"
 subpackages="$pkgname-dbg"
 source=""
@@ -22,7 +22,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
 fi
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rospack, uri: 'https://github.com/ros-gbp/rospack-release.git',
-    version: release/melodic/rospack/2.5.3-0}
+    version: release/melodic/rospack/2.5.4-1}
 "
 prepare() {
   set -o pipefail
