@@ -1,6 +1,6 @@
 pkgname=ros-kinetic-python-orocos-kdl
 _pkgname=python_orocos_kdl
-pkgver=1.3.1
+pkgver=1.3.2
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://wiki.ros.org/python_orocos_kdl"
@@ -22,7 +22,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
 fi
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: python_orocos_kdl, uri: 'https://github.com/smits/orocos-kdl-release.git',
-    version: release/kinetic/python_orocos_kdl/1.3.1-0}
+    version: release/kinetic/python_orocos_kdl/1.3.2-1}
 "
 prepare() {
   set -o pipefail
