@@ -1,6 +1,6 @@
 pkgname=ros-melodic-perception-pcl
 _pkgname=perception_pcl
-pkgver=1.6.2
+pkgver=1.7.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/perception_pcl"
@@ -22,7 +22,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
 fi
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: perception_pcl, uri: 'https://github.com/ros-gbp/perception_pcl-release.git',
-    version: release/melodic/perception_pcl/1.6.2-0}
+    version: release/melodic/perception_pcl/1.7.0-2}
 "
 prepare() {
   set -o pipefail
