@@ -1,13 +1,13 @@
 pkgname=ros-melodic-urdfdom-py
 _pkgname=urdfdom_py
-pkgver=0.4.0
+pkgver=0.4.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/urdfdom_py"
 arch="all"
 license="BSD"
-depends="py2-lxml py2-yaml python2-dev python2-dev"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath py2-mock python2-dev ros-melodic-catkin"
+depends="py2-lxml py2-yaml ros-melodic-rospy"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath py2-mock ros-melodic-catkin"
 subpackages="$pkgname-dbg"
 source=""
 builddir="$startdir/apk-build-temporary"
@@ -22,7 +22,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
 fi
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: urdfdom_py, uri: 'https://github.com/ros-gbp/urdfdom_py-release.git',
-    version: release/melodic/urdfdom_py/0.4.0-0}
+    version: release/melodic/urdfdom_py/0.4.1-1}
 "
 prepare() {
   set -o pipefail
