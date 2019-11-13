@@ -6,9 +6,12 @@ pkgdesc="$_pkgname package for ROS kinetic"
 url="http://ros.org/wiki/laser_proc"
 arch="all"
 license="BSD"
+
 depends="ros-kinetic-nodelet ros-kinetic-pluginlib ros-kinetic-rosconsole ros-kinetic-roscpp ros-kinetic-sensor-msgs ros-kinetic-nodelet ros-kinetic-pluginlib ros-kinetic-rosconsole ros-kinetic-roscpp ros-kinetic-sensor-msgs"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-kinetic-catkin ros-kinetic-nodelet ros-kinetic-pluginlib ros-kinetic-rosconsole ros-kinetic-roscpp ros-kinetic-sensor-msgs"
+
 subpackages="$pkgname-dbg"
+
 source=""
 builddir="$startdir/apk-build-temporary"
 srcdir="/tmp/dummy-src-dir"
@@ -20,10 +23,12 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: laser_proc, uri: 'https://github.com/ros-gbp/laser_proc-release.git',
     version: release/kinetic/laser_proc/0.1.4-0}
 "
+
 prepare() {
   set -o pipefail
   mkdir -p $builddir
@@ -38,6 +43,7 @@ prepare() {
     (cd src/* && patch -p1 -i $patchfile)
   done
 }
+
 build() {
   set -o pipefail
   echo "building" > $statuslog
@@ -46,6 +52,7 @@ build() {
   catkin_make_isolated \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo 2>&1 | tee $buildlog
 }
+
 check() {
   if [ -f $startdir/NOCHECK ]; then
     echo "Check skipped" | tee $checklog
@@ -56,23 +63,38 @@ check() {
   cd "$builddir"
   source /usr/ros/kinetic/setup.sh
   source devel_isolated/setup.sh
-  catkin_make_isolated -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+  catkin_make_isolated \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     --catkin-make-args run_tests 2>&1 | tee $checklog
   catkin_test_results 2>&1 | tee $checklog
 }
+
 dbg() {
   mkdir -p "$subpkgdir"
   default_dbg
 }
+
 package() {
   echo "packaging" >> $statuslog
   mkdir -p "$pkgdir"
   cd "$builddir"
   export DESTDIR="$pkgdir"
+
   source /usr/ros/kinetic/setup.sh
-  catkin_make_isolated -DCMAKE_BUILD_TYPE=RelWithDebInfo --install-space /usr/ros/kinetic
-  catkin_make_isolated -DCMAKE_BUILD_TYPE=RelWithDebInfo --install --install-space /usr/ros/kinetic
-  rm -f "$pkgdir"/usr/ros/kinetic/setup.* "$pkgdir"/usr/ros/kinetic/local_setup.* "$pkgdir"/usr/ros/kinetic/.rosinstall "$pkgdir"/usr/ros/kinetic/_setup_util.py "$pkgdir"/usr/ros/kinetic/env.sh "$pkgdir"/usr/ros/kinetic/.catkin
+  catkin_make_isolated \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    --install-space /usr/ros/kinetic
+  catkin_make_isolated \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    --install --install-space /usr/ros/kinetic
+  rm -f \
+    "$pkgdir"/usr/ros/kinetic/setup.* \
+    "$pkgdir"/usr/ros/kinetic/local_setup.* \
+    "$pkgdir"/usr/ros/kinetic/.rosinstall \
+    "$pkgdir"/usr/ros/kinetic/_setup_util.py \
+    "$pkgdir"/usr/ros/kinetic/env.sh \
+    "$pkgdir"/usr/ros/kinetic/.catkin
+
   find $pkgdir -name "*.so" | while read so; do
     chrpath_out=$(chrpath ${so} || true)
     if echo ${chrpath_out} | grep -q "RPATH="; then
@@ -86,5 +108,6 @@ package() {
       fi
     fi
   done
+
   echo "finished" >> $statuslog
 }
