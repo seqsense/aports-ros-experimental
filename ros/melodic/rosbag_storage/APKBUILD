@@ -6,9 +6,12 @@ pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
+
 depends="boost-dev bzip2-dev console_bridge-dev gpgme-dev libressl-dev ros-melodic-cpp-common>=0.3.17 ros-melodic-pluginlib ros-melodic-roscpp-serialization ros-melodic-roscpp-traits>=0.3.17 ros-melodic-roslz4 ros-melodic-rostime boost-dev bzip2-dev console_bridge-dev gpgme-dev libressl-dev ros-melodic-cpp-common>=0.3.17 ros-melodic-pluginlib ros-melodic-roscpp-serialization ros-melodic-roscpp-traits>=0.3.17 ros-melodic-roslz4 ros-melodic-rostime"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath boost-dev bzip2-dev console_bridge-dev gpgme-dev libressl-dev ros-melodic-catkin ros-melodic-cpp-common>=0.3.17 ros-melodic-pluginlib ros-melodic-roscpp-serialization ros-melodic-roscpp-traits>=0.3.17 ros-melodic-roslz4 ros-melodic-rostest ros-melodic-rostime"
+
 subpackages="$pkgname-dbg"
+
 source=""
 builddir="$startdir/apk-build-temporary"
 srcdir="/tmp/dummy-src-dir"
@@ -20,10 +23,12 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rosbag_storage, uri: 'https://github.com/ros-gbp/ros_comm-release.git',
     version: release/melodic/rosbag_storage/1.14.3-0}
 "
+
 prepare() {
   set -o pipefail
   mkdir -p $builddir
@@ -38,6 +43,7 @@ prepare() {
     (cd src/* && patch -p1 -i $patchfile)
   done
 }
+
 build() {
   set -o pipefail
   echo "building" > $statuslog
@@ -46,6 +52,7 @@ build() {
   catkin_make_isolated \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo 2>&1 | tee $buildlog
 }
+
 check() {
   if [ -f $startdir/NOCHECK ]; then
     echo "Check skipped" | tee $checklog
@@ -56,23 +63,38 @@ check() {
   cd "$builddir"
   source /usr/ros/melodic/setup.sh
   source devel_isolated/setup.sh
-  catkin_make_isolated -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+  catkin_make_isolated \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     --catkin-make-args run_tests 2>&1 | tee $checklog
   catkin_test_results 2>&1 | tee $checklog
 }
+
 dbg() {
   mkdir -p "$subpkgdir"
   default_dbg
 }
+
 package() {
   echo "packaging" >> $statuslog
   mkdir -p "$pkgdir"
   cd "$builddir"
   export DESTDIR="$pkgdir"
+
   source /usr/ros/melodic/setup.sh
-  catkin_make_isolated -DCMAKE_BUILD_TYPE=RelWithDebInfo --install-space /usr/ros/melodic
-  catkin_make_isolated -DCMAKE_BUILD_TYPE=RelWithDebInfo --install --install-space /usr/ros/melodic
-  rm -f "$pkgdir"/usr/ros/melodic/setup.* "$pkgdir"/usr/ros/melodic/local_setup.* "$pkgdir"/usr/ros/melodic/.rosinstall "$pkgdir"/usr/ros/melodic/_setup_util.py "$pkgdir"/usr/ros/melodic/env.sh "$pkgdir"/usr/ros/melodic/.catkin
+  catkin_make_isolated \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    --install-space /usr/ros/melodic
+  catkin_make_isolated \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    --install --install-space /usr/ros/melodic
+  rm -f \
+    "$pkgdir"/usr/ros/melodic/setup.* \
+    "$pkgdir"/usr/ros/melodic/local_setup.* \
+    "$pkgdir"/usr/ros/melodic/.rosinstall \
+    "$pkgdir"/usr/ros/melodic/_setup_util.py \
+    "$pkgdir"/usr/ros/melodic/env.sh \
+    "$pkgdir"/usr/ros/melodic/.catkin
+
   find $pkgdir -name "*.so" | while read so; do
     chrpath_out=$(chrpath ${so} || true)
     if echo ${chrpath_out} | grep -q "RPATH="; then
@@ -86,5 +108,6 @@ package() {
       fi
     fi
   done
+
   echo "finished" >> $statuslog
 }

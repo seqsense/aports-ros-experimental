@@ -6,9 +6,12 @@ pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/orocos_kdl"
 arch="all"
 license="LGPL"
+
 depends="eigen-dev pkgconf ros-melodic-catkin eigen-dev pkgconf ros-melodic-catkin"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath cmake cppunit-dev eigen-dev"
+
 subpackages="$pkgname-dbg"
+
 source=""
 builddir="$startdir/apk-build-temporary"
 srcdir="/tmp/dummy-src-dir"
@@ -20,10 +23,12 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   checklog="/dev/null"
   statuslog="/dev/null"
 fi
+
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: orocos_kdl, uri: 'https://github.com/orocos/orocos-kdl-release.git',
     version: release/melodic/orocos_kdl/1.4.0-0}
 "
+
 prepare() {
   set -o pipefail
   mkdir -p $builddir
@@ -38,15 +43,20 @@ prepare() {
     (cd src/* && patch -p1 -i $patchfile)
   done
 }
+
 build() {
   set -o pipefail
   echo "building" > $statuslog
   cd "$builddir"
   mkdir src/$_pkgname/build
   cd src/$_pkgname/build
-  cmake .. -DCMAKE_INSTALL_PREFIX=/usr/ros/melodic -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_LIBDIR=lib 2>&1 | tee $buildlog
+  cmake .. \
+    -DCMAKE_INSTALL_PREFIX=/usr/ros/melodic \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_INSTALL_LIBDIR=lib 2>&1 | tee $buildlog
   make 2>&1 | tee -a $buildlog
 }
+
 check() {
   if [ -f $startdir/NOCHECK ]; then
     echo "Check skipped" | tee $checklog
@@ -56,21 +66,25 @@ check() {
   echo "checking" >> $statuslog
   cd "$builddir"
   cd src/$_pkgname/build
-  if [ `make -q test > /dev/null 2> /dev/null; echo $?` -eq 1 ]; then
+  if [ $(make -q test > /dev/null 2> /dev/null; echo $?) -eq 1 ]; then
     make test 2>&1 | tee $checklog
   fi
 }
+
 dbg() {
   mkdir -p "$subpkgdir"
   default_dbg
 }
+
 package() {
   echo "packaging" >> $statuslog
   mkdir -p "$pkgdir"
   cd "$builddir"
   export DESTDIR="$pkgdir"
+
   cd src/$_pkgname/build
   make install
+
   find $pkgdir -name "*.so" | while read so; do
     chrpath_out=$(chrpath ${so} || true)
     if echo ${chrpath_out} | grep -q "RPATH="; then
@@ -84,5 +98,6 @@ package() {
       fi
     fi
   done
+
   echo "finished" >> $statuslog
 }
