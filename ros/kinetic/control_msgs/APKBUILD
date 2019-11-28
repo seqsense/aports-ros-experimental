@@ -1,6 +1,6 @@
 pkgname=ros-kinetic-control-msgs
 _pkgname=control_msgs
-pkgver=1.5.0
+pkgver=1.5.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://ros.org/wiki/control_msgs"
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: control_msgs, uri: 'https://github.com/ros-gbp/control_msgs-release.git',
-    version: release/kinetic/control_msgs/1.5.0-0}
+    version: release/kinetic/control_msgs/1.5.1-1}
 "
 
 prepare() {
