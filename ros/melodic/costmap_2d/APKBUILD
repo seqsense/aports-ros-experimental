@@ -1,6 +1,6 @@
 pkgname=ros-melodic-costmap-2d
 _pkgname=costmap_2d
-pkgver=1.16.2
+pkgver=1.16.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/costmap_2d"
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: costmap_2d, uri: 'https://github.com/ros-gbp/navigation-release.git',
-    version: release/melodic/costmap_2d/1.16.2-0}
+    version: release/melodic/costmap_2d/1.16.3-1}
 "
 
 prepare() {

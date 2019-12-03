@@ -1,6 +1,6 @@
 pkgname=ros-melodic-navfn
 _pkgname=navfn
-pkgver=1.16.2
+pkgver=1.16.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/navfn"
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: navfn, uri: 'https://github.com/ros-gbp/navigation-release.git',
-    version: release/melodic/navfn/1.16.2-0}
+    version: release/melodic/navfn/1.16.3-1}
 "
 
 prepare() {
