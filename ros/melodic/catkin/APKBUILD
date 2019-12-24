@@ -1,6 +1,6 @@
 pkgname=ros-melodic-catkin
 _pkgname=catkin
-pkgver=0.7.19
+pkgver=0.7.20
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/catkin"
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: catkin, uri: 'https://github.com/ros-gbp/catkin-release.git',
-    version: release/melodic/catkin/0.7.19-1}
+    version: release/melodic/catkin/0.7.20-1}
 "
 
 prepare() {
