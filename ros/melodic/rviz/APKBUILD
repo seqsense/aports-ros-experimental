@@ -1,6 +1,6 @@
 pkgname=ros-melodic-rviz
 _pkgname=rviz
-pkgver=1.13.6
+pkgver=1.13.7
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/rviz"
@@ -25,7 +25,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
 fi
 
 ROS_PYTHON_VERSION=2
-rosinstall="- git: {local-name: rviz, uri: 'https://github.com/ros-gbp/rviz-release.git', version: release/melodic/rviz/1.13.6-1}
+rosinstall="- git: {local-name: rviz, uri: 'https://github.com/ros-gbp/rviz-release.git', version: release/melodic/rviz/1.13.7-1}
 "
 
 prepare() {
