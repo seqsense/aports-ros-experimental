@@ -1,13 +1,13 @@
 pkgname=ros-melodic-smach-viewer
 _pkgname=smach_viewer
-pkgver=2.0.2
+pkgver=3.0.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/smach_viewer"
 arch="all"
 license="BSD"
 
-depends="graphviz py2-wxpython ros-melodic-smach-msgs ros-melodic-smach-ros graphviz py2-wxpython ros-melodic-smach-msgs ros-melodic-smach-ros"
+depends="graphviz gtk+3.0-dev py2-gobject3 py2-wxpython ros-melodic-smach-msgs ros-melodic-smach-ros graphviz gtk+3.0-dev py2-gobject3 py2-wxpython ros-melodic-smach-msgs ros-melodic-smach-ros"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-catkin ros-melodic-rostest"
 
 subpackages="$pkgname-dbg"
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: smach_viewer, uri: 'https://github.com/jbohren/executive_smach_visualization-release.git',
-    version: release/melodic/smach_viewer/2.0.2-0}
+    version: release/melodic/smach_viewer/3.0.0-1}
 "
 
 prepare() {
