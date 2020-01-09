@@ -1,8 +1,8 @@
 diff --git a/cmake/pcl_find_sse.cmake b/cmake/pcl_find_sse.cmake
-index a1ebfe6..24b0c9a 100644
+index a1ebfe6..9081462 100644
 --- a/cmake/pcl_find_sse.cmake
 +++ b/cmake/pcl_find_sse.cmake
-@@ -16,156 +16,13 @@ macro(PCL_CHECK_FOR_SSE)
+@@ -16,18 +16,11 @@ macro(PCL_CHECK_FOR_SSE)
          execute_process(COMMAND ${CMAKE_CXX_COMPILER} "-dumpversion"
                          OUTPUT_VARIABLE GCC_VERSION_STRING)
          if(GCC_VERSION_STRING VERSION_GREATER 4.2 AND NOT APPLE AND NOT CMAKE_CROSSCOMPILING)
@@ -20,27 +20,13 @@ index a1ebfe6..24b0c9a 100644
 -    # precision). One solution would be to use "-ffloat-store" on 32bit (see 
 -    # http://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html), but that slows code down,
 -    # so the preferred solution is to try "-mpfmath=sse" first.
--    include(CheckCXXSourceRuns)
--    set(CMAKE_REQUIRED_FLAGS)
--
--    check_cxx_source_runs("
--        #include <mm_malloc.h>
--        int main()
--        {
--          void* mem = _mm_malloc (100, 16);
--          return 0;
--        }"
--        HAVE_MM_MALLOC)
--
--    check_cxx_source_runs("
--        #include <stdlib.h>
--        int main()
--        {
--          void* mem;
--          return posix_memalign (&mem, 16, 100);
--        }"
--        HAVE_POSIX_MEMALIGN)
--
+     include(CheckCXXSourceRuns)
+     set(CMAKE_REQUIRED_FLAGS)
+ 
+@@ -49,124 +42,11 @@ macro(PCL_CHECK_FOR_SSE)
+         }"
+         HAVE_POSIX_MEMALIGN)
+ 
 -    if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX OR CMAKE_COMPILER_IS_CLANG)
 -        set(CMAKE_REQUIRED_FLAGS "-msse4.2")
 -    endif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX OR CMAKE_COMPILER_IS_CLANG)
@@ -157,9 +143,11 @@ index a1ebfe6..24b0c9a 100644
 -        }"
 -        HAVE_SSE_EXTENSIONS)
 -
--    set(CMAKE_REQUIRED_FLAGS)
+     set(CMAKE_REQUIRED_FLAGS)
+ 
 +    # Force using SSE3 to make it available on most of the today's CPU.
 +    set(HAVE_SSSE3_EXTENSIONS 1)
- 
++
      if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX OR CMAKE_COMPILER_IS_CLANG)
          if(HAVE_SSE4_2_EXTENSIONS)
+             SET(SSE_FLAGS "${SSE_FLAGS} -msse4.2 -mfpmath=sse")
