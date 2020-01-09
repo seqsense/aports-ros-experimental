@@ -1,9 +1,9 @@
 pkgname=ros-kinetic-angles
 _pkgname=angles
-pkgver=1.9.11
+pkgver=1.9.12
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
-url="http://ros.org/wiki/angles"
+url="http://wiki.ros.org/angles"
 arch="all"
 license="BSD"
 
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: angles, uri: 'https://github.com/ros-gbp/geometry_angles_utils-release.git',
-    version: release/kinetic/angles/1.9.11-0}
+    version: release/kinetic/angles/1.9.12-1}
 "
 
 prepare() {
