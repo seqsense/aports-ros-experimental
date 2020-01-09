@@ -1,6 +1,6 @@
 pkgname=ros-melodic-trajectory-tracker
 _pkgname=trajectory_tracker
-pkgver=0.5.0
+pkgver=0.5.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/$_pkgname"
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: trajectory_tracker, uri: 'https://github.com/at-wat/neonavigation-release.git',
-    version: release/melodic/trajectory_tracker/0.5.0-1}
+    version: release/melodic/trajectory_tracker/0.5.1-1}
 "
 
 prepare() {
