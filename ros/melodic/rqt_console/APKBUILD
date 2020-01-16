@@ -1,13 +1,13 @@
 pkgname=ros-melodic-rqt-console
 _pkgname=rqt_console
-pkgver=0.4.8
+pkgver=0.4.9
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/rqt_console"
 arch="all"
 license="BSD"
 
-depends="py2-rospkg ros-melodic-python-qt-binding>=0.2.19 ros-melodic-roslib ros-melodic-rospy ros-melodic-rqt-gui ros-melodic-rqt-gui-py ros-melodic-rqt-logger-level ros-melodic-rqt-py-common py2-rospkg ros-melodic-python-qt-binding>=0.2.19 ros-melodic-roslib ros-melodic-rospy ros-melodic-rqt-gui ros-melodic-rqt-gui-py ros-melodic-rqt-logger-level ros-melodic-rqt-py-common"
+depends="py2-rospkg ros-melodic-python-qt-binding>=0.2.19 ros-melodic-roslib ros-melodic-rospy ros-melodic-rqt-gui ros-melodic-rqt-gui-py ros-melodic-rqt-logger-level ros-melodic-rqt-py-common"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-catkin"
 
 subpackages="$pkgname-dbg"
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rqt_console, uri: 'https://github.com/ros-gbp/rqt_console-release.git',
-    version: release/melodic/rqt_console/0.4.8-0}
+    version: release/melodic/rqt_console/0.4.9-1}
 "
 
 prepare() {

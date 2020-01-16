@@ -1,13 +1,13 @@
 pkgname=ros-melodic-rqt-topic
 _pkgname=rqt_topic
-pkgver=0.4.10
+pkgver=0.4.11
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/rqt_topic"
 arch="all"
 license="BSD"
 
-depends="py2-rospkg ros-melodic-python-qt-binding>=0.2.19 ros-melodic-rostopic ros-melodic-rqt-gui ros-melodic-rqt-gui-py ros-melodic-std-msgs py2-rospkg ros-melodic-python-qt-binding>=0.2.19 ros-melodic-rostopic ros-melodic-rqt-gui ros-melodic-rqt-gui-py ros-melodic-std-msgs"
+depends="py2-rospkg ros-melodic-python-qt-binding>=0.2.19 ros-melodic-rostopic ros-melodic-rqt-gui ros-melodic-rqt-gui-py ros-melodic-std-msgs"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-catkin"
 
 subpackages="$pkgname-dbg"
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rqt_topic, uri: 'https://github.com/ros-gbp/rqt_topic-release.git',
-    version: release/melodic/rqt_topic/0.4.10-0}
+    version: release/melodic/rqt_topic/0.4.11-1}
 "
 
 prepare() {
