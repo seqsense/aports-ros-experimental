@@ -1,13 +1,13 @@
 pkgname=ros-kinetic-joint-state-publisher
 _pkgname=joint_state_publisher
-pkgver=1.12.13
+pkgver=1.12.14
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://www.ros.org/wiki/joint_state_publisher"
 arch="all"
 license="BSD"
 
-depends="ros-kinetic-python-qt-binding ros-kinetic-rospy ros-kinetic-sensor-msgs"
+depends="ros-kinetic-rospy ros-kinetic-sensor-msgs"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-kinetic-catkin ros-kinetic-rostest"
 
 subpackages="$pkgname-dbg"
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: joint_state_publisher, uri: 'https://github.com/ros-gbp/joint_state_publisher-release.git',
-    version: release/kinetic/joint_state_publisher/1.12.13-0}
+    version: release/kinetic/joint_state_publisher/1.12.14-1}
 "
 
 prepare() {
