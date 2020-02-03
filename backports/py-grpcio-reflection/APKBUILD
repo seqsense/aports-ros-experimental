@@ -1,0 +1,42 @@
+# Contributor: Daiki Maekawa <daikimaekawa29@gmail.com>
+# Maintainer: Daiki Maekawa <daikimaekawa29@gmail.com>
+pkgname=py-grpcio-reflection
+pkgver=1.26.0
+pkgrel=0
+pkgdesc="Testing utilities for gRPC Python."
+url="https://grpc.io/"
+arch="all"
+license="Apache License 2.0"
+depends="py2-grpcio>=${pkgver} py2-protobuf>=3.5.2"
+makedepends="python2-dev py-setuptools cython-dev"
+install=""
+subpackages="py2-${pkgname#py-}:_py2"
+source="https://files.pythonhosted.org/packages/73/7e/66f152ce0f9ee54285c280820b67aa5607830a282f29193e2ada8b3e5901/grpcio-reflection-1.26.0.tar.gz"
+builddir="$srcdir/grpcio-reflection-${pkgver}"
+
+build() {
+	cd "$builddir"
+	python2 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python2 setup.py test
+}
+
+package() {
+	mkdir -p "$pkgdir"
+}
+
+_py2() {
+	_py python2
+}
+
+_py() {
+	local python="$1"
+	pkgdesc="$pkgdesc (for $python)"
+	install_if="$pkgname=$pkgver-$pkgrel $python"
+	
+	cd "$builddir"
+	$python setup.py install --prefix=/usr --root="$subpkgdir" || return 1
+}
