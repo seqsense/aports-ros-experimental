@@ -1,6 +1,7 @@
 # Contributor: Daiki Maekawa <daikimaekawa29@gmail.com>
 # Maintainer: Daiki Maekawa <daikimaekawa29@gmail.com>
 pkgname=py-grpcio-reflection
+_pkgname=${pkgname#py-}
 pkgver=1.26.0
 pkgrel=0
 pkgdesc="Testing utilities for gRPC Python."
@@ -11,7 +12,7 @@ depends="py2-grpcio>=${pkgver} py2-protobuf>=3.10.0"
 makedepends="python2-dev py-setuptools cython-dev"
 install=""
 subpackages="py2-${pkgname#py-}:_py2"
-source="https://files.pythonhosted.org/packages/73/7e/66f152ce0f9ee54285c280820b67aa5607830a282f29193e2ada8b3e5901/grpcio-reflection-1.26.0.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
 builddir="$srcdir/grpcio-reflection-${pkgver}"
 
 build() {
@@ -40,4 +41,5 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir" || return 1
 }
-sha512sums="fefb4e920dac2cffb4daaa6f823cd238b8f49b9c8e8c1b0d5f2840dd4b71a519064736ec314ec9700434297f1acef18014b5cf53626b7d827ac5fb434fe62d79  grpcio-reflection-1.26.0.tar.gz"
+
+sha512sums="fefb4e920dac2cffb4daaa6f823cd238b8f49b9c8e8c1b0d5f2840dd4b71a519064736ec314ec9700434297f1acef18014b5cf53626b7d827ac5fb434fe62d79  py-grpcio-reflection-1.26.0.tar.gz"
