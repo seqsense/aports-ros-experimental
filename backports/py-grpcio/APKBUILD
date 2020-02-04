@@ -1,6 +1,7 @@
 # Contributor: Daiki Maekawa <daikimaekawa29@gmail.com>
 # Maintainer: Daiki Maekawa <daikimaekawa29@gmail.com>
 pkgname=py-grpcio
+_pkgname=${pkgname#py-}
 pkgver=1.26.0
 pkgrel=0
 pkgdesc="Package for gRPC Python."
@@ -11,7 +12,7 @@ depends="py-six>=1.5.2"
 makedepends="python2-dev python3-dev py-setuptools cython-dev"
 install=""
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
-source="https://files.pythonhosted.org/packages/c8/3d/ee9ce5f0e6bd8b868849987a7dd7d356b82ba097eee40a3bbdaa295a16f4/grpcio-1.26.0.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
 builddir="$srcdir/grpcio-${pkgver}"
 
 build() {
@@ -48,4 +49,4 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir" || return 1
 }
-sha512sums="df3b6787449c202f3e70640907c76231dbbeb6b411167300ba8a53c17f7d45ffa513a81046a4a66a368f2c17c2d57a48a07cb236f44a005e4073bd5d8aa3865c  grpcio-1.26.0.tar.gz"
+sha512sums="df3b6787449c202f3e70640907c76231dbbeb6b411167300ba8a53c17f7d45ffa513a81046a4a66a368f2c17c2d57a48a07cb236f44a005e4073bd5d8aa3865c  py-grpcio-1.26.0.tar.gz"
