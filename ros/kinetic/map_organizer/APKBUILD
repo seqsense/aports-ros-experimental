@@ -1,6 +1,6 @@
 pkgname=ros-kinetic-map-organizer
 _pkgname=map_organizer
-pkgver=0.6.0
+pkgver=0.7.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://wiki.ros.org/$_pkgname"
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: map_organizer, uri: 'https://github.com/at-wat/neonavigation-release.git',
-    version: release/kinetic/map_organizer/0.6.0-1}
+    version: release/kinetic/map_organizer/0.7.0-1}
 "
 
 prepare() {
