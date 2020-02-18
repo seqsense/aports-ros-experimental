@@ -41,4 +41,4 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir" || return 1
 }
-sha512sums="c8b0babceb0d295c0c95f3d55578ffc1c1b671a9e27e773c40349f03a18cf1c7172103208fe06d164ca5cf7c394e32adbe72a72537fe092ad90da4807df3d806  grpcio-testing-1.20.0.tar.gz"
+sha512sums="7fae8c2e5dce79562005ae0c5e779e8ff157e245d849b573376aa36cc98fc6efa126f2aeed9431d2c41535ffbbac017ce69d83b5fffaf7f75b5493e778e8caf9  py-grpcio-testing-1.26.0.tar.gz"
