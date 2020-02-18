@@ -1,17 +1,18 @@
 # Contributor: Daiki Maekawa <daikimaekawa29@gmail.com>
 # Maintainer: Daiki Maekawa <daikimaekawa29@gmail.com>
 pkgname=py-grpcio-testing
-pkgver=1.20.0
+_pkgname=${pkgname#py-}
+pkgver=1.26.0
 pkgrel=0
 pkgdesc="Testing utilities for gRPC Python."
 url="https://grpc.io/"
 arch="all"
 license="Apache License 2.0"
-depends="py2-grpcio>=${pkgver} py2-protobuf>=3.5.2"
+depends="py2-grpcio>=${pkgver} py2-protobuf>=3.10.0"
 makedepends="python2-dev py-setuptools cython-dev"
 install=""
 subpackages="py2-${pkgname#py-}:_py2"
-source="https://files.pythonhosted.org/packages/27/b5/0d585ae3d44685e8b0876687a3c01e4de82a964d91ed4c57327c5884af71/grpcio-testing-${pkgver}.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
 builddir="$srcdir/grpcio-testing-${pkgver}"
 
 build() {
@@ -40,4 +41,4 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir" || return 1
 }
-sha512sums="c8b0babceb0d295c0c95f3d55578ffc1c1b671a9e27e773c40349f03a18cf1c7172103208fe06d164ca5cf7c394e32adbe72a72537fe092ad90da4807df3d806  grpcio-testing-1.20.0.tar.gz"
+sha512sums="7fae8c2e5dce79562005ae0c5e779e8ff157e245d849b573376aa36cc98fc6efa126f2aeed9431d2c41535ffbbac017ce69d83b5fffaf7f75b5493e778e8caf9  py-grpcio-testing-1.26.0.tar.gz"
