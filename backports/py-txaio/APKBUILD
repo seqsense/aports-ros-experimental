@@ -1,0 +1,53 @@
+# Contributor: Atsushi Watanabe<atsushi.w@ieee.org>
+# Maintainer:
+pkgname=py-txaio
+_pkgname=txaio
+pkgver=2.7.1
+pkgrel=0
+pkgdesc="Compatibility API between asyncio/Twisted/Trollius"
+url="https://crossbar.io/txaio"
+arch="all"
+license="MIT"
+depends="py-six"
+makedepends="python2-dev python3-dev py-setuptools"
+subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	python2 setup.py build
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python2 setup.py check
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+}
+
+_py2() {
+	depends="${depends//py-/py2-} py2-futures>=3.0.4 py2-trollius>=2.0"
+	_py python2
+}
+
+_py3() {
+	depends="${depends//py-/py3-}"
+	_py python3
+}
+
+_py() {
+	local python="$1"
+	pkgdesc="$pkgdesc (for $python)"
+	depends="$depends $python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
+
+	cd "$builddir"
+	$python setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+sha512sums="d77a8b5e8fc21be0bef43f2a6795229456a351abc1a5eb6d2b7de0da0a58e67a228cb06d1a7962efcc760099ef5df94e9421875ea5628985260911efc7deb85e  txaio-2.7.1.tar.gz"
