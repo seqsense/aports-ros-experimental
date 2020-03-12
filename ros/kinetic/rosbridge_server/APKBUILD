@@ -1,14 +1,14 @@
 pkgname=ros-kinetic-rosbridge-server
 _pkgname=rosbridge_server
-pkgver=0.11.3
+pkgver=0.11.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://ros.org/wiki/rosbridge_server"
 arch="all"
 license="BSD"
 
-depends="py-twisted py2-backports.ssl_match_hostname py2-tornado ros-kinetic-rosapi ros-kinetic-rosauth ros-kinetic-rosbridge-library ros-kinetic-rosbridge-msgs ros-kinetic-rospy"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-kinetic-catkin"
+depends="py-twisted py2-autobahn py2-backports.ssl_match_hostname py2-tornado ros-kinetic-rosapi ros-kinetic-rosauth ros-kinetic-rosbridge-library ros-kinetic-rosbridge-msgs ros-kinetic-rospy"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-kinetic-catkin ros-kinetic-rostest"
 
 subpackages="$pkgname-dbg"
 
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rosbridge_server, uri: 'https://github.com/RobotWebTools-release/rosbridge_suite-release.git',
-    version: release/kinetic/rosbridge_server/0.11.3-1}
+    version: release/kinetic/rosbridge_server/0.11.4-1}
 "
 
 prepare() {
