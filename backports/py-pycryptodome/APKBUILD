@@ -2,7 +2,7 @@
 # Maintainer: Kevin Daudt <kdaudt@alpinelinux.org>
 pkgname=py-pycryptodome
 pkgver=3.9.7
-pkgrel=2
+pkgrel=3
 pkgdesc="Self-contained cryptographic library"
 url="https://www.pycryptodome.org"
 arch="all"
@@ -16,6 +16,7 @@ builddir="$srcdir"/pycryptodome-$pkgver
 # provides="py-pycryptodome=$pkgver-r$pkgrel py3-crypto=$pkgrel-r$pkgrel" # Backwards compatibility
 
 build() {
+	touch .separate_namespace # install as pycryptodomex
 	python2 setup.py --quiet build
 	python3 setup.py --quiet build
 }
