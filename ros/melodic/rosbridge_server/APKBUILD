@@ -1,14 +1,14 @@
 pkgname=ros-melodic-rosbridge-server
 _pkgname=rosbridge_server
-pkgver=0.11.3
+pkgver=0.11.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/rosbridge_server"
 arch="all"
 license="BSD"
 
-depends="py-twisted py2-backports.ssl_match_hostname py2-tornado ros-melodic-rosapi ros-melodic-rosauth ros-melodic-rosbridge-library ros-melodic-rosbridge-msgs ros-melodic-rospy"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-catkin"
+depends="py-twisted py2-autobahn py2-backports.ssl_match_hostname py2-tornado py2-twisted py2-zope-interface ros-melodic-rosapi ros-melodic-rosauth ros-melodic-rosbridge-library ros-melodic-rosbridge-msgs ros-melodic-rospy"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-catkin ros-melodic-rostest"
 
 subpackages="$pkgname-dbg"
 
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rosbridge_server, uri: 'https://github.com/RobotWebTools-release/rosbridge_suite-release.git',
-    version: release/melodic/rosbridge_server/0.11.3-1}
+    version: release/melodic/rosbridge_server/0.11.4-1}
 "
 
 prepare() {

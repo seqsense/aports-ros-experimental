@@ -1,6 +1,6 @@
 pkgname=ros-melodic-media-export
 _pkgname=media_export
-pkgver=0.2.0
+pkgver=0.3.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/media_export"
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: media_export, uri: 'https://github.com/ros-gbp/media_export-release.git',
-    version: release/melodic/media_export/0.2.0-0}
+    version: release/melodic/media_export/0.3.0-1}
 "
 
 prepare() {

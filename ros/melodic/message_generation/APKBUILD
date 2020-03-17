@@ -1,6 +1,6 @@
 pkgname=ros-melodic-message-generation
 _pkgname=message_generation
-pkgver=0.4.0
+pkgver=0.4.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/message_generation"
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: message_generation, uri: 'https://github.com/ros-gbp/message_generation-release.git',
-    version: release/melodic/message_generation/0.4.0-0}
+    version: release/melodic/message_generation/0.4.1-1}
 "
 
 prepare() {

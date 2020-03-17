@@ -1,6 +1,6 @@
 pkgname=ros-melodic-rospack
 _pkgname=rospack
-pkgver=2.5.4
+pkgver=2.5.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/rospack"
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rospack, uri: 'https://github.com/ros-gbp/rospack-release.git',
-    version: release/melodic/rospack/2.5.4-1}
+    version: release/melodic/rospack/2.5.5-1}
 "
 
 prepare() {

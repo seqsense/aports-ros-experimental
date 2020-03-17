@@ -1,14 +1,14 @@
 pkgname=ros-melodic-genmsg
 _pkgname=genmsg
-pkgver=0.5.12
+pkgver=0.5.15
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
-url="http://www.ros.org/wiki/genmsg"
+url="http://wiki.ros.org/genmsg"
 arch="all"
 license="BSD"
 
-depends="py2-empy ros-melodic-catkin py2-empy ros-melodic-catkin"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-catkin>=0.5.74"
+depends="py2-empy ros-melodic-catkin"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath py2-setuptools ros-melodic-catkin>=0.5.74"
 
 subpackages="$pkgname-dbg"
 
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: genmsg, uri: 'https://github.com/ros-gbp/genmsg-release.git',
-    version: release/melodic/genmsg/0.5.12-0}
+    version: release/melodic/genmsg/0.5.15-1}
 "
 
 prepare() {
