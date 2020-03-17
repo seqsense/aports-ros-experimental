@@ -49,4 +49,4 @@ _py() {
 	$python setup.py --quiet install --prefix=/usr --root="$subpkgdir"
 }
 
-sha512sums="3b0361d7afc772d9dec068b42d6a36732faeec55b7317cbe31fa86d65069b314c735fcfce03e68381d86f64dcb7abd751b0225c05f760631266063c1664fca4c  py3-pycryptodome-3.9.7.tar.gz"
+sha512sums="3b0361d7afc772d9dec068b42d6a36732faeec55b7317cbe31fa86d65069b314c735fcfce03e68381d86f64dcb7abd751b0225c05f760631266063c1664fca4c  py-pycryptodome-3.9.7.tar.gz"
