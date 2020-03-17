@@ -1,13 +1,14 @@
 # Contributor: Leonardo Arena <rnalrd@alpinelinux.org>
 # Maintainer: Kevin Daudt <kdaudt@alpinelinux.org>
-pkgname=py3-pycryptodome
+pkgname=py-pycryptodome
 pkgver=3.9.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Self-contained cryptographic library"
 url="https://www.pycryptodome.org"
 arch="all"
 license="BSD-2-Clause Unlicense"
 makedepends="python2-dev python3-dev py-setuptools"
+subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 source="$pkgname-$pkgver.tar.gz::https://github.com/Legrandin/pycryptodome/archive/v$pkgver.tar.gz"
 builddir="$srcdir"/pycryptodome-$pkgver
 
