@@ -1,6 +1,6 @@
 pkgname=ros-melodic-python-qt-binding
 _pkgname=python_qt_binding
-pkgver=0.3.6
+pkgver=0.4.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/python_qt_binding"
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: python_qt_binding, uri: 'https://github.com/ros-gbp/python_qt_binding-release.git',
-    version: release/melodic/python_qt_binding/0.3.6-2}
+    version: release/melodic/python_qt_binding/0.4.0-1}
 "
 
 prepare() {

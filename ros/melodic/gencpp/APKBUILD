@@ -1,14 +1,14 @@
 pkgname=ros-melodic-gencpp
 _pkgname=gencpp
-pkgver=0.6.2
+pkgver=0.6.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="https://github.com/ros/gencpp/issues"
 arch="all"
 license="BSD"
 
-depends="ros-melodic-genmsg ros-melodic-genmsg"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-catkin>=0.5.78 ros-melodic-genmsg"
+depends="ros-melodic-genmsg"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath py2-setuptools ros-melodic-catkin>=0.5.78 ros-melodic-genmsg"
 
 subpackages="$pkgname-dbg"
 
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: gencpp, uri: 'https://github.com/ros-gbp/gencpp-release.git',
-    version: release/melodic/gencpp/0.6.2-0}
+    version: release/melodic/gencpp/0.6.5-1}
 "
 
 prepare() {
