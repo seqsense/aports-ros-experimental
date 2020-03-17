@@ -1,0 +1,52 @@
+# Contributor: Leonardo Arena <rnalrd@alpinelinux.org>
+# Maintainer: Kevin Daudt <kdaudt@alpinelinux.org>
+pkgname=py-pycryptodome
+pkgver=3.9.7
+pkgrel=2
+pkgdesc="Self-contained cryptographic library"
+url="https://www.pycryptodome.org"
+arch="all"
+license="BSD-2-Clause Unlicense"
+makedepends="python2-dev python3-dev py-setuptools"
+subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+source="$pkgname-$pkgver.tar.gz::https://github.com/Legrandin/pycryptodome/archive/v$pkgver.tar.gz"
+builddir="$srcdir"/pycryptodome-$pkgver
+
+# replaces="py-pycryptodome py3-crypto" # Backwards compatibility
+# provides="py-pycryptodome=$pkgver-r$pkgrel py3-crypto=$pkgrel-r$pkgrel" # Backwards compatibility
+
+build() {
+	python2 setup.py --quiet build
+	python3 setup.py --quiet build
+}
+
+check() {
+	python2 setup.py test
+	python3 setup.py test
+}
+
+package() {
+	mkdir -p "$pkgdir"
+}
+
+_py2() {
+	depends="${depends//py-/py2-}"
+	_py python2
+}
+
+_py3() {
+	depends="${depends//py-/py3-}"
+	_py python3
+}
+
+_py() {
+	local python="$1"
+	pkgdesc="$pkgdesc (for $python)"
+	depends="$depends $python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
+
+	cd "$builddir"
+	$python setup.py --quiet install --prefix=/usr --root="$subpkgdir"
+}
+
+sha512sums="3b0361d7afc772d9dec068b42d6a36732faeec55b7317cbe31fa86d65069b314c735fcfce03e68381d86f64dcb7abd751b0225c05f760631266063c1664fca4c  py-pycryptodome-3.9.7.tar.gz"
