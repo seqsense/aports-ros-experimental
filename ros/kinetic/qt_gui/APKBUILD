@@ -1,13 +1,13 @@
 pkgname=ros-kinetic-qt-gui
 _pkgname=qt_gui
-pkgver=0.3.11
+pkgver=0.3.17
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://ros.org/wiki/qt_gui"
 arch="all"
 license="BSD"
 
-depends="py2-rospkg ros-kinetic-python-qt-binding>=0.3.0 tango-icon-theme py2-rospkg ros-kinetic-python-qt-binding>=0.3.0 tango-icon-theme"
+depends="py2-rospkg ros-kinetic-python-qt-binding>=0.3.0 tango-icon-theme"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath py-sip py-sip-dev py2-qt5 qt5-qtbase-dev ros-kinetic-catkin"
 
 subpackages="$pkgname-dbg"
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: qt_gui, uri: 'https://github.com/ros-gbp/qt_gui_core-release.git',
-    version: release/kinetic/qt_gui/0.3.11-0}
+    version: release/kinetic/qt_gui/0.3.17-1}
 "
 
 prepare() {
