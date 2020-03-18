@@ -1,6 +1,6 @@
 pkgname=ros-melodic-catkin
 _pkgname=catkin
-pkgver=0.7.20
+pkgver=0.7.23
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/catkin"
@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="py2-argparse py2-catkin-pkg>=0.4.3 py2-empy cmake gmock-dev gtest gtest-dev py2-argparse py2-catkin-pkg>=0.4.3 py2-empy py2-nose"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath cmake py2-argparse py2-catkin-pkg>=0.4.3 py2-empy py2-mock py2-nose"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath cmake py2-argparse py2-catkin-pkg>=0.4.3 py2-empy py2-mock py2-nose py2-setuptools"
 
 subpackages="$pkgname-dbg"
 
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: catkin, uri: 'https://github.com/ros-gbp/catkin-release.git',
-    version: release/melodic/catkin/0.7.20-1}
+    version: release/melodic/catkin/0.7.23-1}
 "
 
 prepare() {

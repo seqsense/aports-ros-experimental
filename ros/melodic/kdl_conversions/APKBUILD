@@ -1,6 +1,6 @@
 pkgname=ros-melodic-kdl-conversions
 _pkgname=kdl_conversions
-pkgver=1.12.0
+pkgver=1.12.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/kdl_conversions"
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: kdl_conversions, uri: 'https://github.com/ros-gbp/geometry-release.git',
-    version: release/melodic/kdl_conversions/1.12.0-0}
+    version: release/melodic/kdl_conversions/1.12.1-1}
 "
 
 prepare() {
