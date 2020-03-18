@@ -1,14 +1,14 @@
 pkgname=ros-kinetic-trajectory-tracker
 _pkgname=trajectory_tracker
-pkgver=0.7.0
+pkgver=0.8.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="eigen-dev ros-kinetic-geometry-msgs ros-kinetic-interactive-markers ros-kinetic-nav-msgs ros-kinetic-neonavigation-common ros-kinetic-roscpp ros-kinetic-tf2 ros-kinetic-tf2-geometry-msgs ros-kinetic-tf2-ros ros-kinetic-trajectory-tracker-msgs eigen-dev ros-kinetic-geometry-msgs ros-kinetic-interactive-markers ros-kinetic-nav-msgs ros-kinetic-neonavigation-common ros-kinetic-roscpp ros-kinetic-tf2 ros-kinetic-tf2-geometry-msgs ros-kinetic-tf2-ros ros-kinetic-trajectory-tracker-msgs"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath eigen-dev ros-kinetic-catkin ros-kinetic-geometry-msgs ros-kinetic-interactive-markers ros-kinetic-nav-msgs ros-kinetic-neonavigation-common ros-kinetic-roscpp ros-kinetic-roslint ros-kinetic-rostest ros-kinetic-rosunit ros-kinetic-tf2 ros-kinetic-tf2-geometry-msgs ros-kinetic-tf2-ros ros-kinetic-trajectory-tracker-msgs"
+depends="eigen-dev ros-kinetic-geometry-msgs ros-kinetic-interactive-markers ros-kinetic-nav-msgs ros-kinetic-neonavigation-common ros-kinetic-roscpp ros-kinetic-tf2 ros-kinetic-tf2-geometry-msgs ros-kinetic-tf2-ros ros-kinetic-trajectory-tracker-msgs>=0.8.0 eigen-dev ros-kinetic-geometry-msgs ros-kinetic-interactive-markers ros-kinetic-nav-msgs ros-kinetic-neonavigation-common ros-kinetic-roscpp ros-kinetic-tf2 ros-kinetic-tf2-geometry-msgs ros-kinetic-tf2-ros ros-kinetic-trajectory-tracker-msgs>=0.8.0"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath eigen-dev ros-kinetic-catkin ros-kinetic-geometry-msgs ros-kinetic-interactive-markers ros-kinetic-nav-msgs ros-kinetic-neonavigation-common ros-kinetic-roscpp ros-kinetic-roslint ros-kinetic-rostest ros-kinetic-rosunit ros-kinetic-tf2 ros-kinetic-tf2-geometry-msgs ros-kinetic-tf2-ros ros-kinetic-trajectory-tracker-msgs>=0.8.0"
 
 subpackages="$pkgname-dbg"
 
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: trajectory_tracker, uri: 'https://github.com/at-wat/neonavigation-release.git',
-    version: release/kinetic/trajectory_tracker/0.7.0-1}
+    version: release/kinetic/trajectory_tracker/0.8.1-1}
 "
 
 prepare() {
