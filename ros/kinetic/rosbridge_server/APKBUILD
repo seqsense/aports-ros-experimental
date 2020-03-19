@@ -7,7 +7,7 @@ url="http://ros.org/wiki/rosbridge_server"
 arch="all"
 license="BSD"
 
-depends="py-twisted py2-autobahn py2-backports.ssl_match_hostname py2-openssl py2-pynacl py2-service_identity py2-tornado py2-twisted py2-zope-interface ros-kinetic-rosapi ros-kinetic-rosauth ros-kinetic-rosbridge-library ros-kinetic-rosbridge-msgs ros-kinetic-rospy"
+depends="py2-autobahn py2-backports.ssl_match_hostname py2-openssl py2-pynacl py2-service_identity py2-tornado py2-twisted py2-zope-interface ros-kinetic-rosapi ros-kinetic-rosauth ros-kinetic-rosbridge-library ros-kinetic-rosbridge-msgs ros-kinetic-rospy"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-kinetic-catkin ros-kinetic-rostest"
 
 subpackages="$pkgname-dbg"
