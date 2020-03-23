@@ -1,14 +1,14 @@
 pkgname=ros-melodic-laser-geometry
 _pkgname=laser_geometry
-pkgver=1.6.4
+pkgver=1.6.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/laser_geometry"
 arch="all"
 license="BSD"
 
-depends="boost-dev eigen-dev py-numpy-dev py2-numpy ros-melodic-angles ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-tf boost-dev eigen-dev py-numpy-dev py2-numpy ros-melodic-angles ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-tf"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath boost-dev eigen-dev ros-melodic-angles ros-melodic-catkin>=0.5.68 ros-melodic-cmake-modules ros-melodic-roscpp ros-melodic-rosunit ros-melodic-sensor-msgs ros-melodic-tf"
+depends="boost-dev eigen-dev py-numpy-dev py2-numpy ros-melodic-angles ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-tf ros-melodic-tf2 boost-dev eigen-dev ros-melodic-angles ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-tf ros-melodic-tf2"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath boost-dev eigen-dev ros-melodic-angles ros-melodic-catkin>=0.5.68 ros-melodic-roscpp ros-melodic-rosunit ros-melodic-sensor-msgs ros-melodic-tf ros-melodic-tf2"
 
 subpackages="$pkgname-dbg"
 
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: laser_geometry, uri: 'https://github.com/ros-gbp/laser_geometry-release.git',
-    version: release/melodic/laser_geometry/1.6.4-0}
+    version: release/melodic/laser_geometry/1.6.5-1}
 "
 
 prepare() {
