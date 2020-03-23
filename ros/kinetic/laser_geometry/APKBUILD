@@ -1,14 +1,14 @@
 pkgname=ros-kinetic-laser-geometry
 _pkgname=laser_geometry
-pkgver=1.6.4
+pkgver=1.6.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://ros.org/wiki/laser_geometry"
 arch="all"
 license="BSD"
 
-depends="boost-dev eigen-dev py-numpy-dev py2-numpy ros-kinetic-angles ros-kinetic-roscpp ros-kinetic-sensor-msgs ros-kinetic-tf boost-dev eigen-dev py-numpy-dev py2-numpy ros-kinetic-angles ros-kinetic-roscpp ros-kinetic-sensor-msgs ros-kinetic-tf"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath boost-dev eigen-dev ros-kinetic-angles ros-kinetic-catkin>=0.5.68 ros-kinetic-cmake-modules ros-kinetic-roscpp ros-kinetic-rosunit ros-kinetic-sensor-msgs ros-kinetic-tf"
+depends="boost-dev eigen-dev py-numpy-dev py2-numpy ros-kinetic-angles ros-kinetic-roscpp ros-kinetic-sensor-msgs ros-kinetic-tf ros-kinetic-tf2 boost-dev eigen-dev ros-kinetic-angles ros-kinetic-roscpp ros-kinetic-sensor-msgs ros-kinetic-tf ros-kinetic-tf2"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath boost-dev eigen-dev ros-kinetic-angles ros-kinetic-catkin>=0.5.68 ros-kinetic-roscpp ros-kinetic-rosunit ros-kinetic-sensor-msgs ros-kinetic-tf ros-kinetic-tf2"
 
 subpackages="$pkgname-dbg"
 
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: laser_geometry, uri: 'https://github.com/ros-gbp/laser_geometry-release.git',
-    version: release/kinetic/laser_geometry/1.6.4-0}
+    version: release/kinetic/laser_geometry/1.6.5-1}
 "
 
 prepare() {
