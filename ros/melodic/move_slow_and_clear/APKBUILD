@@ -1,6 +1,6 @@
 pkgname=ros-melodic-move-slow-and-clear
 _pkgname=move_slow_and_clear
-pkgver=1.16.5
+pkgver=1.16.6
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/move_slow_and_clear"
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: move_slow_and_clear, uri: 'https://github.com/ros-gbp/navigation-release.git',
-    version: release/melodic/move_slow_and_clear/1.16.5-1}
+    version: release/melodic/move_slow_and_clear/1.16.6-1}
 "
 
 prepare() {
