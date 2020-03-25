@@ -1,13 +1,13 @@
 # Contributor: Atsushi Watanabe<atsushi.w@ieee.org>
 # Maintainer:
-pkgname=py-rospkg
-_pkgname=rospkg
-pkgver=1.2.3
+pkgname=py-distro
+_pkgname=distro
+pkgver=1.4.0
 pkgrel=0
-pkgdesc="Standalone Python library for the ROS package system"
-url="https://pypi.python.org/pypi/rospkg/"
+pkgdesc="Linux OS platform information API"
+url="https://pypi.python.org/pypi/distro/"
 arch="all"
-license="BSD-3-Clause"
+license="Apache-2.0"
 depends="py-catkin-pkg py-yaml py-distro"
 makedepends="python2-dev python3-dev py-setuptools"
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
@@ -49,4 +49,4 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
-sha512sums="c234063d093808de6f8653d16ab62d5ea733aa9eab11d1aed26cb97f26ab002239d528eb827aa642cb083b203fc89bdf4535108a7fd83b82bf8f2c55871b6a26  rospkg-1.2.3.tar.gz"
+sha512sums="eac7d32ea77c2074e57c6828a8b2e4d4d01e9c46cb0f7adbd99998630b0af4924bf18d05d5f5b42fef5603b024ef835dbb4c05fc88310f5e64d193514b2fc10f  distro-1.4.0.tar.gz"
