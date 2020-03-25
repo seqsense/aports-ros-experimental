@@ -9,7 +9,8 @@ url="https://github.com/DataDog/datadogpy"
 arch="noarch"
 license="The 3-Clause BSD"
 options="!check"
-depends="python2 python3"
+_py2deps="python2"
+_py3deps="python3"
 makedepends="python2-dev python3-dev py-setuptools"
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 source="$pkgname-$pkgver.tar.gz::https://github.com/DataDog/$_pkgname/archive/v$pkgver.tar.gz"
@@ -33,10 +34,12 @@ _py() {
 }
 
 _py2() {
+	depends="$_py2deps"
 	_py python2
 }
 
 _py3() {
+	depends="$_py3deps"
 	_py python3
 }
 
