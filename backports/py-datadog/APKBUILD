@@ -1,0 +1,30 @@
+# Contributor: Seiga Kiribayashi <skiribayashi@seqsense.com>
+# Maintainer:
+pkgname="py-datadog"
+_pkgname="datadogpy"
+pkgver="0.35.0"
+pkgrel=0
+pkgdesc="The Datadog Python library"
+url="https://github.com/DataDog/datadogpy"
+arch="noarch"
+license="The 3-Clause BSD"
+options="!check"
+depends="python2 python3"
+makedepends="python2-dev python3-dev py-setuptools"
+source="$pkgname-$pkgver.tar.gz::https://github.com/DataDog/$_pkgname/archive/v$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+	python2 setup.py build
+	python3 setup.py build
+}
+
+package() {
+	python2 setup.py install --prefix=/usr --root="$pkgdir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+	install -D -m 644 LICENSE \
+		"$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="6c7f12f869aaa46ba04f76c554ef24d8e62b62310bc99439e9deb08ded24be168e9bc6610f8c787d2e371cdc22c30b66476274aabe4fbac64687b18ab9626e68  py-datadog-0.35.0.tar.gz"
