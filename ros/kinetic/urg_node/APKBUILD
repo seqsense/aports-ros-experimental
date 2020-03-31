@@ -1,6 +1,6 @@
 pkgname=ros-kinetic-urg-node
 _pkgname=urg_node
-pkgver=0.1.12
+pkgver=0.1.13
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://ros.org/wiki/urg_node"
@@ -26,7 +26,7 @@ fi
 
 ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: urg_node, uri: 'https://github.com/ros-gbp/urg_node-release.git',
-    version: release/kinetic/urg_node/0.1.12-1}
+    version: release/kinetic/urg_node/0.1.13-1}
 "
 
 prepare() {
