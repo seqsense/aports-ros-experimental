@@ -1,14 +1,14 @@
 pkgname=ros-melodic-rviz
 _pkgname=rviz
-pkgver=1.13.7
+pkgver=1.13.8
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/rviz"
 arch="all"
 license="BSD"
 
-depends="assimp-dev mesa-dev ogre-dev qt5-qtbase-dev ros-melodic-geometry-msgs ros-melodic-image-transport ros-melodic-interactive-markers ros-melodic-laser-geometry ros-melodic-map-msgs ros-melodic-media-export ros-melodic-message-filters ros-melodic-nav-msgs ros-melodic-pluginlib ros-melodic-python-qt-binding ros-melodic-resource-retriever ros-melodic-rosbag ros-melodic-rosconsole ros-melodic-roscpp ros-melodic-roslib ros-melodic-rospy ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-std-srvs ros-melodic-tf ros-melodic-urdf ros-melodic-visualization-msgs tinyxml2-dev yaml-cpp-dev assimp-dev mesa-dev ogre-dev ros-melodic-geometry-msgs ros-melodic-image-transport ros-melodic-interactive-markers ros-melodic-laser-geometry ros-melodic-map-msgs ros-melodic-message-filters ros-melodic-nav-msgs ros-melodic-pluginlib ros-melodic-python-qt-binding ros-melodic-resource-retriever ros-melodic-rosbag ros-melodic-rosconsole ros-melodic-roscpp ros-melodic-roslib ros-melodic-rospy ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-std-srvs ros-melodic-tf ros-melodic-urdf ros-melodic-visualization-msgs tinyxml2-dev yaml-cpp-dev"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath assimp-dev eigen-dev mesa-dev ogre-dev qt5-qtbase-dev ros-melodic-catkin ros-melodic-cmake-modules ros-melodic-geometry-msgs ros-melodic-image-transport ros-melodic-interactive-markers ros-melodic-laser-geometry ros-melodic-map-msgs ros-melodic-message-filters ros-melodic-nav-msgs ros-melodic-pluginlib ros-melodic-python-qt-binding ros-melodic-resource-retriever ros-melodic-rosbag ros-melodic-rosconsole ros-melodic-roscpp ros-melodic-roslib ros-melodic-rospy ros-melodic-rostest ros-melodic-rosunit ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-std-srvs ros-melodic-tf ros-melodic-urdf ros-melodic-visualization-msgs tinyxml2-dev urdfdom-dev urdfdom_headers yaml-cpp-dev"
+depends="assimp-dev mesa-dev ogre qt5-qtbase-dev ros-melodic-geometry-msgs ros-melodic-image-transport ros-melodic-interactive-markers ros-melodic-laser-geometry ros-melodic-map-msgs ros-melodic-media-export ros-melodic-message-filters ros-melodic-nav-msgs ros-melodic-pluginlib ros-melodic-python-qt-binding ros-melodic-resource-retriever ros-melodic-rosbag ros-melodic-rosconsole ros-melodic-roscpp ros-melodic-roslib ros-melodic-rospy ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-std-srvs ros-melodic-tf ros-melodic-urdf ros-melodic-visualization-msgs tinyxml2-dev yaml-cpp-dev assimp-dev mesa-dev ogre ros-melodic-geometry-msgs ros-melodic-image-transport ros-melodic-interactive-markers ros-melodic-laser-geometry ros-melodic-map-msgs ros-melodic-message-filters ros-melodic-nav-msgs ros-melodic-pluginlib ros-melodic-python-qt-binding ros-melodic-resource-retriever ros-melodic-rosbag ros-melodic-rosconsole ros-melodic-roscpp ros-melodic-roslib ros-melodic-rospy ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-std-srvs ros-melodic-tf ros-melodic-urdf ros-melodic-visualization-msgs tinyxml2-dev yaml-cpp-dev"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath assimp-dev eigen-dev mesa-dev ogre ogre-dev qt5-qtbase-dev ros-melodic-catkin ros-melodic-cmake-modules ros-melodic-geometry-msgs ros-melodic-image-transport ros-melodic-interactive-markers ros-melodic-laser-geometry ros-melodic-map-msgs ros-melodic-message-filters ros-melodic-nav-msgs ros-melodic-pluginlib ros-melodic-python-qt-binding ros-melodic-resource-retriever ros-melodic-rosbag ros-melodic-rosconsole ros-melodic-roscpp ros-melodic-roslib ros-melodic-rospy ros-melodic-rostest ros-melodic-rosunit ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-std-srvs ros-melodic-tf ros-melodic-urdf ros-melodic-visualization-msgs tinyxml2-dev urdfdom-dev urdfdom_headers yaml-cpp-dev"
 
 subpackages="$pkgname-dbg"
 
@@ -25,7 +25,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
 fi
 
 ROS_PYTHON_VERSION=2
-rosinstall="- git: {local-name: rviz, uri: 'https://github.com/ros-gbp/rviz-release.git', version: release/melodic/rviz/1.13.7-1}
+rosinstall="- git: {local-name: rviz, uri: 'https://github.com/ros-gbp/rviz-release.git', version: release/melodic/rviz/1.13.8-1}
 "
 
 prepare() {
