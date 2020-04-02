@@ -1,6 +1,6 @@
 # Contributor: Pavel Kalian <pavel@kalian.cz>
 # Maintainer: ScrumpyJack <scrumpyjack@st.ilet.to>
-pkgname=wxgtk+3
+pkgname=wxgtk3
 pkgver=3.0.4
 pkgrel=0
 pkgdesc="GTK3 port of wxWidgets GUI library"
