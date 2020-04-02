@@ -9,7 +9,7 @@ url="https://github.com/google/protobuf"
 arch="noarch"
 license="BSD-3-Clause"
 depends="py-six>=1.9"
-makedepends="protobuf py-setuptools"
+makedepends="protobuf>=3.5.2 py-setuptools"
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 # NOTE: Always use releases of protobuf, not pypi or auto-generated GitHub
 # tarballs as they do not contain the necessary componenets to run tests.
