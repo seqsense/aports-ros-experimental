@@ -2,7 +2,7 @@
 # Maintainer: Stuart Cardall <developer@it-offshore.co.uk>
 pkgname=py-parameterized
 _pkgname=parameterized
-pkgver=0.7.0
+pkgver=0.7.1
 pkgrel=0
 pkgdesc="Parameterized testing with any Python test framework"
 url="https://pypi.python.org/pypi/parameterized"
@@ -10,7 +10,7 @@ arch="noarch"
 license="BSD"
 depends=""
 makedepends="python2-dev python3-dev py-setuptools"
-checkdepends="py-nose py2-nose py-mock py2-mock"
+checkdepends="py-nose py-mock"
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 source="$pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/p/parameterized/parameterized-$pkgver.tar.gz"
 builddir="$srcdir/"$_pkgname-$pkgver
@@ -23,8 +23,8 @@ build() {
 
 check() {
 	cd "$builddir"
-	nosetests
-	nosetests-2.7
+	python2 setup.py nosetests
+	python3 setup.py nosetests
 }
 
 package() {
@@ -49,4 +49,4 @@ _py() {
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
 
-sha512sums="b76e18a7eee62fcab4385fd5d053253c096d4c3fc3a6300e8539afc4d8decc995e533085297c52f8a26411d2591a326033a740cc30a250d510aa1c11ee904246  py-parameterized-0.7.0.tar.gz"
+sha512sums="331752b6bf27f88921d39567a58900c0e78f1740056d93755fc7e4528a032207f81e4938302c27cdfd82fe2ad455c01100d91da5f222a11e4bcf0210de68d9c2  py-parameterized-0.7.1.tar.gz"
