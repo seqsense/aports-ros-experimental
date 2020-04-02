@@ -2,20 +2,30 @@
 # Contributor: Corentin Henry <corentinhenry@gmail.com>
 pkgname=py-protobuf
 _pkgname=${pkgname#py-}
-pkgver=3.10.0
-pkgrel=1
+pkgver=3.11.4
+pkgrel=0
 pkgdesc="Google's data interchange format."
 url="https://github.com/google/protobuf"
 arch="noarch"
 license="BSD-3-Clause"
 depends="py-six>=1.9"
-makedepends="python2-dev python3-dev py-setuptools py-google-apputils"
+makedepends="protobuf py-setuptools"
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
-source="$pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
-builddir="$srcdir"/protobuf-$pkgver
+# NOTE: Always use releases of protobuf, not pypi or auto-generated GitHub
+# tarballs as they do not contain the necessary componenets to run tests.
+source="https://github.com/protocolbuffers/protobuf/releases/download/v$pkgver/protobuf-python-$pkgver.tar.gz"
+builddir="$srcdir"/protobuf-$pkgver/python
 
 build() {
-	cd "$builddir"
+	# Remove broken tests: https://github.com/protocolbuffers/protobuf/issues/6500
+	rm \
+		google/protobuf/internal/descriptor_pool_test.py \
+		google/protobuf/internal/descriptor_pool_test1.proto \
+		google/protobuf/internal/descriptor_pool_test2.proto \
+		google/protobuf/internal/keywords_test.py \
+		google/protobuf/internal/more_messages.proto \
+		google/protobuf/internal/reflection_test.py
+
 	python2 setup.py build
 	python3 setup.py build
 }
@@ -25,7 +35,6 @@ package() {
 }
 
 check() {
-	cd "$builddir"
 	python2 setup.py test
 	python3 setup.py test
 }
@@ -52,4 +61,5 @@ _py() {
 	# correct permissions
 	chmod +r "$subpkgdir"/usr/lib/*/site-packages/*/*
 }
-sha512sums="9a1d36ceb15b4ccfb66ad57180ab7aeff28072c99164480e6bc745e908dd19627b7c3e62598fc192a9973b05ce7bb75748d02e23461385e6b73106039895f7e7  py-protobuf-3.10.0.tar.gz"
+
+sha512sums="0118298be68dca4c3bae1593d1d69ae51121b3e2ef75c447623ec7db6fc2ad449f17f8c57d864cf26547e410dc7a6ee97e24a426ac6e6dc879470baa0d74b04e  protobuf-python-3.11.4.tar.gz"
