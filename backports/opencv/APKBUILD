@@ -1,7 +1,7 @@
 # Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
 # Maintainer:
 pkgname=opencv
-pkgver=3.2.0
+pkgver=3.4.9
 pkgrel=0
 pkgdesc="Open Source Computer Vision Library"
 url="https://opencv.org/"
@@ -13,10 +13,13 @@ subpackages="$pkgname-dev py2-$pkgname:_py2 py3-$pkgname:_py3"
 source="$pkgname-$pkgver.tar.gz::https://github.com/opencv/$pkgname/archive/$pkgver.tar.gz"
 
 build() {
-	cd "$builddir"
-	cmake \
-		-DBUILD_opencv_python2=on \
-		-DBUILD_opencv_python3=on \
+	mkdir "$builddir/build"
+	cd "$builddir/build"
+	python_opts=
+	python2 --version && python_opts="$python_opts -DBUILD_opencv_python2=on"
+	python3 --version && python_opts="$python_opts -DBUILD_opencv_python3=on"
+	cmake .. \
+		$python_opts \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DBUILD_SHARED_LIBS=True \
@@ -38,14 +41,15 @@ _py3() {
 }
 
 _py() {
+	cd "$builddir/build"
 	pythondir=usr/lib/$(basename $(find $pkgdir/usr/lib -name "python$1*"))
 	mkdir -p $(dirname $subpkgdir/$pythondir)
 	mv $pkgdir/$pythondir $subpkgdir/$pythondir
 }
 
 package() {
-	cd "$builddir"
+	cd "$builddir/build"
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="381fc8146722f7eeed5ec6f36a0180f3210a0bc8412f9f9d5d667827241a12709afee6fd42fb6f8b4e0ff4ed96cc645c55590ac89f65c529d4fbb6cd0ee752ed  opencv-3.2.0.tar.gz"
+sha512sums="f445970ca39794fc5fbcaed8b506c6b332cbce911ed8487f490bca9a565c8ed3071816261a1803a8f4b43f58d66ca5eaab30be478c4b7ee973a6b6fc2b370869  opencv-3.4.9.tar.gz"
