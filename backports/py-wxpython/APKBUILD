@@ -16,6 +16,8 @@ builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
 	cd "$builddir"
+	export CFLAGS="$CFLAGS -D__WXGTK3__"
+	export CXXFLAGS="$CXXFLAGS -D__WXGTK3__"
 	python2 build.py build_py --jobs=4 --nodoc --release --use_syswx --gtk3
 	python3 build.py build_py --jobs=4 --nodoc --release --use_syswx --gtk3
 }
