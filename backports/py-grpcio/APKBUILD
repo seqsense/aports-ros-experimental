@@ -1,28 +1,35 @@
-# Contributor: Daiki Maekawa <daikimaekawa29@gmail.com>
-# Maintainer: Daiki Maekawa <daikimaekawa29@gmail.com>
+# Contributor: Keith Maxwell <keith.maxwell@gmail.com>
+# Maintainer: Keith Maxwell <keith.maxwell@gmail.com>
 pkgname=py-grpcio
-_pkgname=${pkgname#py-}
 pkgver=1.26.0
-pkgrel=0
-pkgdesc="Package for gRPC Python."
-url="https://grpc.io/"
+pkgrel=1
+pkgdesc="gRPC Python HTTP/2-based RPC framework"
+url="https://grpc.io"
 arch="all"
-license="Apache License 2.0"
-depends="py-six>=1.5.2"
-makedepends="python2-dev python3-dev py-setuptools cython-dev"
-install=""
+license="Apache-2.0"
+makedepends="python3-dev python2-dev py-setuptools py-six cython-dev zlib-dev openssl-dev
+	c-ares-dev"
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
-source="$pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
-builddir="$srcdir/grpcio-${pkgver}"
+source="grpc-$pkgver.tar.gz::https://github.com/grpc/grpc/archive/v$pkgver.tar.gz"
+
+builddir="$srcdir/grpc-$pkgver"
+
+_set_environment_variables() {
+	export GRPC_PYTHON_DISABLE_LIBC_COMPATIBILITY=1
+	export GRPC_PYTHON_BUILD_SYSTEM_CARES=1
+	export GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1
+	export GRPC_PYTHON_BUILD_SYSTEM_ZLIB=1
+	export GRPC_PYTHON_BUILD_CYTHON=1
+}
 
 build() {
-	cd "$builddir"
+	_set_environment_variables
 	python2 setup.py build
 	python3 setup.py build
 }
 
 check() {
-	cd "$builddir"
+	_set_environment_variables
 	python2 setup.py test
 	python3 setup.py test
 }
@@ -32,12 +39,12 @@ package() {
 }
 
 _py2() {
-	depends="$depends py-futures>=2.2.0 py-enum34>=1.0.4"
+	depends="${depends//py-/py2-}"
 	_py python2
 }
 
 _py3() {
-	depends="$depends py-futures>=3.6.8"
+	depends="${depends//py-/py2-}"
 	_py python3
 }
 
@@ -49,4 +56,5 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir" || return 1
 }
-sha512sums="df3b6787449c202f3e70640907c76231dbbeb6b411167300ba8a53c17f7d45ffa513a81046a4a66a368f2c17c2d57a48a07cb236f44a005e4073bd5d8aa3865c  py-grpcio-1.26.0.tar.gz"
+sha512sums="4f7d067c582d0a9be7b7d4dd1e08acdbe6ff0686dfe92b5db5b7927f779410a4237acfd1c61d9f79eb2d00f86cf93cc7492fa372c1877e57c1aa23e9bb2648bb  grpc-1.26.0.tar.gz"
+
