@@ -12,7 +12,9 @@ depends=""
 makedepends="python2-dev python3-dev py-setuptools"
 checkdepends="py-nose py-mock"
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
-source="$pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/p/parameterized/parameterized-$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/p/parameterized/parameterized-$pkgver.tar.gz
+  py38-local-var-name.patch
+  "
 builddir="$srcdir/"$_pkgname-$pkgver
 
 build() {
@@ -49,4 +51,5 @@ _py() {
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
 
-sha512sums="331752b6bf27f88921d39567a58900c0e78f1740056d93755fc7e4528a032207f81e4938302c27cdfd82fe2ad455c01100d91da5f222a11e4bcf0210de68d9c2  py-parameterized-0.7.1.tar.gz"
+sha512sums="331752b6bf27f88921d39567a58900c0e78f1740056d93755fc7e4528a032207f81e4938302c27cdfd82fe2ad455c01100d91da5f222a11e4bcf0210de68d9c2  py-parameterized-0.7.1.tar.gz
+126497cf3c3eb8837ce5b59e839d20a3eefd62b2a85a6518b20958ba8c0ca86d4be59dfec30d9ced25a03ca50abc51491ac0d69cd9b94ac21f21fe262b65c86d  py38-local-var-name.patch"
