@@ -1,7 +1,7 @@
 # Contributor: Bradley J Chambers <brad.chambers@gmail.com>
 # Maintainer: Bradley J Chambers <brad.chambers@gmail.com>
 pkgname=pcl
-pkgver=1.9.1
+pkgver=1.10.1
 pkgrel=0
 pkgdesc="Point Cloud Library (PCL)"
 url="https://github.com/PointCloudLibrary/pcl"
@@ -74,5 +74,5 @@ check() {
   make tests
 }
 
-sha512sums="ca95028c23861ac2df0fa7e18fdd0202255cb2e49ab714325eb36c35289442c6eedbf489e6f9f232b30fa2a93eff4c9619f8a14d3fdfe58f353a4a6e26206bdf  pcl-1.9.1.tar.gz
+sha512sums="abb0acef3c6f49da02684200531cef8080baa67d9b94c30edc0d5244294a531e41c14b46b378bd927829de0e3921fec04fd389afe9db45cdd78a262c095a6a9f  pcl-1.10.1.tar.gz
 1dbece324473e53a83a60601b02c92c089f5d314761351974e097b2cf4d24af4296f9eb8653b6b03b1e363d9c5f793897acae1f0c7ac40149216035c4d395d9d  release-1.8.0.tar.gz"
