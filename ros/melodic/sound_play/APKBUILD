@@ -1,6 +1,6 @@
 pkgname=ros-melodic-sound-play
 _pkgname=sound_play
-pkgver=0.3.3
+pkgver=0.3.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/sound_play"
@@ -24,9 +24,9 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: sound_play, uri: 'https://github.com/ros-gbp/audio_common-release.git',
-    version: release/melodic/sound_play/0.3.3-0}
+    version: release/melodic/sound_play/0.3.4-1}
 "
 
 prepare() {

@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: costmap_2d, uri: 'https://github.com/ros-gbp/navigation-release.git',
     version: release/melodic/costmap_2d/1.16.6-1}
 "

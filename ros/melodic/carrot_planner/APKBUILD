@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: carrot_planner, uri: 'https://github.com/ros-gbp/navigation-release.git',
     version: release/melodic/carrot_planner/1.16.6-1}
 "

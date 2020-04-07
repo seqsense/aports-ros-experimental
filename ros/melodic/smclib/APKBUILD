@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: smclib, uri: 'https://github.com/ros-gbp/bond_core-release.git',
     version: release/melodic/smclib/1.8.3-0}
 "

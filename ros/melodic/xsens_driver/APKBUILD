@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: xsens_driver, uri: 'https://github.com/ethz-asl/ethzasl_xsens_driver-release.git',
     version: release/melodic/xsens_driver/2.2.2-0}
 "

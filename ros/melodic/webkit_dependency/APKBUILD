@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: webkit_dependency, uri: 'https://github.com/ros-gbp/webkit_dependency-release.git',
     version: release/melodic/webkit_dependency/1.1.0-0}
 "

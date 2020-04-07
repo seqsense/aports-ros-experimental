@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: tf2_sensor_msgs, uri: 'https://github.com/ros-gbp/geometry2-release.git',
     version: release/melodic/tf2_sensor_msgs/0.6.5-0}
 "

@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: imu_filter_madgwick, uri: 'https://github.com/uos-gbp/imu_tools-release.git',
     version: release/melodic/imu_filter_madgwick/1.2.1-1}
 "

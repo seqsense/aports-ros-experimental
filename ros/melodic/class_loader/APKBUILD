@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: class_loader, uri: 'https://github.com/ros-gbp/class_loader-release.git',
     version: release/melodic/class_loader/0.4.1-0}
 "
