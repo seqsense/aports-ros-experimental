@@ -7,22 +7,24 @@ pkgrel=0
 pkgdesc="Testing utilities for gRPC Python."
 url="https://grpc.io/"
 arch="all"
-license="Apache License 2.0"
-depends="py2-grpcio>=${pkgver} py2-protobuf>=3.10.0"
-makedepends="python2-dev py-setuptools cython-dev"
+license="Apache-2.0"
+depends="py-grpcio>=${pkgver} py-protobuf>=3.10.0 py-wheel"
+makedepends="python3-dev python2-dev py-setuptools cython-dev linux-headers"
 install=""
-subpackages="py2-${pkgname#py-}:_py2"
+subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 source="$pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
 builddir="$srcdir/grpcio-testing-${pkgver}"
 
 build() {
 	cd "$builddir"
 	python2 setup.py build
+	python3 setup.py build
 }
 
 check() {
 	cd "$builddir"
 	python2 setup.py test
+	python3 setup.py test
 }
 
 package() {
@@ -30,7 +32,13 @@ package() {
 }
 
 _py2() {
+	depends="${depends//py-/py2-}"
 	_py python2
+}
+
+_py3() {
+	depends="${depends//py-/py3-}"
+	_py python3
 }
 
 _py() {

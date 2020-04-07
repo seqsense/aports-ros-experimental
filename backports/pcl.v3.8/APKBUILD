@@ -1,8 +1,8 @@
 # Contributor: Bradley J Chambers <brad.chambers@gmail.com>
 # Maintainer: Bradley J Chambers <brad.chambers@gmail.com>
 pkgname=pcl
-pkgver=1.10.1
-pkgrel=0
+pkgver=1.8.1
+pkgrel=4
 pkgdesc="Point Cloud Library (PCL)"
 url="https://github.com/PointCloudLibrary/pcl"
 arch="all !x86 !s390x" # tests fails on x86 and s390x
@@ -12,7 +12,8 @@ makedepends="cmake eigen-dev boost-dev flann-dev qhull-dev vtk7-dev"
 subpackages="$pkgname-dev"
 _gtestver=1.8.0
 source="$pkgname-$pkgver.tar.gz::https://github.com/PointCloudLibrary/$pkgname/archive/$pkgname-$pkgver.tar.gz
-  release-$_gtestver.tar.gz::https://github.com/google/googletest/archive/release-$_gtestver.tar.gz"
+  release-$_gtestver.tar.gz::https://github.com/google/googletest/archive/release-$_gtestver.tar.gz
+  force-sse3.patch"
 builddir="$srcdir/$pkgname-$pkgname-$pkgver"
 
 build() {
@@ -32,9 +33,6 @@ build() {
   cmake .. \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DHAVE_SSE3_EXTENSIONS=1 \
-    -DHAVE_MM_MALLOC=1 \
-    -DCMAKE_CXX_FLAGS="$CFLAGS -march=x86-64 -msse3 -mfpmath=sse" \
     -DWITH_CUDA=OFF \
     -DWITH_DAVIDSDK=OFF \
     -DWITH_DSSDK=OFF \
@@ -74,5 +72,6 @@ check() {
   make tests
 }
 
-sha512sums="abb0acef3c6f49da02684200531cef8080baa67d9b94c30edc0d5244294a531e41c14b46b378bd927829de0e3921fec04fd389afe9db45cdd78a262c095a6a9f  pcl-1.10.1.tar.gz
-1dbece324473e53a83a60601b02c92c089f5d314761351974e097b2cf4d24af4296f9eb8653b6b03b1e363d9c5f793897acae1f0c7ac40149216035c4d395d9d  release-1.8.0.tar.gz"
+sha512sums="9e7c87fb750a176712f08d215a906012c9e8174b687bbc8c08fa65de083b4468951bd8017b10409015d5eff0fc343885d2aae5c340346118b1a251af7bdd5cd7  pcl-1.8.1.tar.gz
+1dbece324473e53a83a60601b02c92c089f5d314761351974e097b2cf4d24af4296f9eb8653b6b03b1e363d9c5f793897acae1f0c7ac40149216035c4d395d9d  release-1.8.0.tar.gz
+9a582bc8acea692874533e16d7ecc6ecd000c8aa3cb8087b870a828138c6bcd450bb5089f0278602b308d8614af613ad6631427cf8831eb02c77b9ab009600ab  force-sse3.patch"

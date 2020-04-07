@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=log4cxx
 pkgver=0.10.0_git20180321
-pkgrel=3
+pkgrel=4
 pkgdesc="Logging framework for C++ patterned after Apache log4j"
 url="https://logging.apache.org/log4cxx/latest_stable/index.html"
 arch="all"
@@ -18,20 +18,19 @@ build() {
 	cd "$builddir"
 
 	./autogen.sh
-	mkdir -p build && cd build
-	../configure \
+	./configure \
 		--prefix=/usr \
 		CXXFLAGS="-Os -Wno-narrowing"
-	make
+	make -j1
 }
 
 check() {
-	cd "$builddir"/build
+	cd "$builddir"
 	make check
 }
 
 package() {
-	cd "$builddir"/build
+	cd "$builddir"
 	make DESTDIR="$pkgdir" install
 
 	install -d -m 0755 "$pkgdir"/usr/share/licenses/log4cxx
