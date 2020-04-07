@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: message_runtime, uri: 'https://github.com/ros-gbp/message_runtime-release.git',
     version: release/melodic/message_runtime/0.4.12-0}
 "

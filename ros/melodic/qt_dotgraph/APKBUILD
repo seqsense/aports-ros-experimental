@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: qt_dotgraph, uri: 'https://github.com/ros-gbp/qt_gui_core-release.git',
     version: release/melodic/qt_dotgraph/0.4.0-1}
 "

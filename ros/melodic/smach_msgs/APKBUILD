@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: smach_msgs, uri: 'https://github.com/ros-gbp/executive_smach-release.git',
     version: release/melodic/smach_msgs/2.0.1-0}
 "

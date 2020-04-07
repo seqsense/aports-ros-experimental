@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rosparam, uri: 'https://github.com/ros-gbp/ros_comm-release.git',
     version: release/melodic/rosparam/1.14.5-1}
 "

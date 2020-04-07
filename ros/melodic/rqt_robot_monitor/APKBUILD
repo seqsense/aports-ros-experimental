@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rqt_robot_monitor, uri: 'https://github.com/ros-gbp/rqt_robot_monitor-release.git',
     version: release/melodic/rqt_robot_monitor/0.5.9-1}
 "

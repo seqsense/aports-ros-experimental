@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rqt_service_caller, uri: 'https://github.com/ros-gbp/rqt_service_caller-release.git',
     version: release/melodic/rqt_service_caller/0.4.8-0}
 "

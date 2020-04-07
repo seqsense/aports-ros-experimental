@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: cmake_modules, uri: 'https://github.com/ros-gbp/cmake_modules-release.git',
     version: release/melodic/cmake_modules/0.4.2-0}
 "
