@@ -39,7 +39,7 @@ package() {
 }
 
 _py2() {
-	depends="${depends//py-/py2-}"
+	depends="${depends//py-/py2-} py2-futures>=2.2.0 py-enum34>=1.0.4""
 	_py python2
 }
 
