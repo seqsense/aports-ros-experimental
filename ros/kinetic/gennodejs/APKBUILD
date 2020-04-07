@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: gennodejs, uri: 'https://github.com/RethinkRobotics-release/gennodejs-release.git',
     version: release/kinetic/gennodejs/2.0.1-0}
 "

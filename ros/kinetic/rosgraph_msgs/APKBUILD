@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rosgraph_msgs, uri: 'https://github.com/ros-gbp/ros_comm_msgs-release.git',
     version: release/kinetic/rosgraph_msgs/1.11.2-0}
 "

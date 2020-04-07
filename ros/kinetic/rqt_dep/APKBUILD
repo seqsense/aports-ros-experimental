@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rqt_dep, uri: 'https://github.com/ros-gbp/rqt_dep-release.git',
     version: release/kinetic/rqt_dep/0.4.9-0}
 "

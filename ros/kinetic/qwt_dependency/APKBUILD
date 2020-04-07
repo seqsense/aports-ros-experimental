@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: qwt_dependency, uri: 'https://github.com/ros-gbp/qwt_dependency-release.git',
     version: release/kinetic/qwt_dependency/1.1.0-0}
 "

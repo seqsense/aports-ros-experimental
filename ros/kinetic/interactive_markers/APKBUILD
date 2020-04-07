@@ -1,6 +1,6 @@
 pkgname=ros-kinetic-interactive-markers
 _pkgname=interactive_markers
-pkgver=1.11.4
+pkgver=1.11.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://ros.org/wiki/interactive_markers"
@@ -24,9 +24,9 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: interactive_markers, uri: 'https://github.com/ros-gbp/interactive_markers-release.git',
-    version: release/kinetic/interactive_markers/1.11.4-0}
+    version: release/kinetic/interactive_markers/1.11.5-1}
 "
 
 prepare() {

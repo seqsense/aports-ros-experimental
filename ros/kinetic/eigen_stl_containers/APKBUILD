@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: eigen_stl_containers, uri: 'https://github.com/ros-gbp/eigen_stl_containers-release.git',
     version: release/kinetic/eigen_stl_containers/0.1.8-0}
 "

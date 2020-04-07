@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: pcl_conversions, uri: 'https://github.com/ros-gbp/pcl_conversions-release.git',
     version: release/kinetic/pcl_conversions/0.2.1-0}
 "

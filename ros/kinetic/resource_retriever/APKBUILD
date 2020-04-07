@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: resource_retriever, uri: 'https://github.com/ros-gbp/resource_retriever-release.git',
     version: release/kinetic/resource_retriever/1.12.6-1}
 "

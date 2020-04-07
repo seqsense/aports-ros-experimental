@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rqt_py_console, uri: 'https://github.com/ros-gbp/rqt_py_console-release.git',
     version: release/kinetic/rqt_py_console/0.4.8-0}
 "
