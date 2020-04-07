@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: self_test, uri: 'https://github.com/ros-gbp/diagnostics-release.git',
     version: release/kinetic/self_test/1.9.3-0}
 "

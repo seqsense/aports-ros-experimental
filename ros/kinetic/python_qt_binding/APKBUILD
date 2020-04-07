@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: python_qt_binding, uri: 'https://github.com/ros-gbp/python_qt_binding-release.git',
     version: release/kinetic/python_qt_binding/0.3.7-1}
 "

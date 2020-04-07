@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: executive_smach_visualization, uri: 'https://github.com/jbohren/executive_smach_visualization-release.git',
     version: release/kinetic/executive_smach_visualization/2.0.2-0}
 "

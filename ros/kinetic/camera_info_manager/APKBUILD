@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: camera_info_manager, uri: 'https://github.com/ros-gbp/image_common-release.git',
     version: release/kinetic/camera_info_manager/1.11.13-0}
 "

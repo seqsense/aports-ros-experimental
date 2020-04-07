@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: planner_cspace_msgs, uri: 'https://github.com/at-wat/neonavigation_msgs-release.git',
     version: release/kinetic/planner_cspace_msgs/0.8.0-1}
 "

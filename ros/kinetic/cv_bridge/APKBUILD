@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: cv_bridge, uri: 'https://github.com/ros-gbp/vision_opencv-release.git',
     version: release/kinetic/cv_bridge/1.12.8-0}
 "

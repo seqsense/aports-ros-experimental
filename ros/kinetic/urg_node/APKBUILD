@@ -24,7 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-ROS_PYTHON_VERSION=2
+export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: urg_node, uri: 'https://github.com/ros-gbp/urg_node-release.git',
     version: release/kinetic/urg_node/0.1.13-1}
 "
