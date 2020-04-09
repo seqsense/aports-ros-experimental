@@ -1,14 +1,14 @@
-pkgname=ros-noetic-laser-geometry
-_pkgname=laser_geometry
-pkgver=1.6.5
+pkgname=ros-noetic-image-geometry
+_pkgname=image_geometry
+pkgver=1.14.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
-url="http://ros.org/wiki/laser_geometry"
+url="http://www.ros.org/wiki/image_geometry"
 arch="all"
 license="BSD"
 
-depends="boost-dev eigen-dev py3-numpy py3-numpy-dev ros-noetic-angles ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2 boost-dev eigen-dev ros-noetic-angles ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath boost-dev eigen-dev ros-noetic-angles ros-noetic-catkin>=0.5.68 ros-noetic-roscpp ros-noetic-rosunit ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2"
+depends="opencv-dev opencv-dev ros-noetic-sensor-msgs"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath opencv-dev ros-noetic-catkin ros-noetic-sensor-msgs"
 
 subpackages="$pkgname-dbg"
 
@@ -26,9 +26,9 @@ fi
 
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
-    local-name: laser_geometry
-    uri: https://github.com/ros-gbp/laser_geometry-release.git
-    version: release/noetic/laser_geometry/1.6.5-1
+    local-name: image_geometry
+    uri: https://github.com/ros-gbp/vision_opencv-release.git
+    version: release/noetic/image_geometry/1.14.0-1
 "
 
 prepare() {

@@ -1,14 +1,14 @@
-pkgname=ros-noetic-laser-geometry
-_pkgname=laser_geometry
-pkgver=1.6.5
+pkgname=ros-noetic-mcl-3dl
+_pkgname=mcl_3dl
+pkgver=0.2.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
-url="http://ros.org/wiki/laser_geometry"
+url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="boost-dev eigen-dev py3-numpy py3-numpy-dev ros-noetic-angles ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2 boost-dev eigen-dev ros-noetic-angles ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath boost-dev eigen-dev ros-noetic-angles ros-noetic-catkin>=0.5.68 ros-noetic-roscpp ros-noetic-rosunit ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2"
+depends="eigen-dev ros-noetic-diagnostic-updater ros-noetic-geometry-msgs ros-noetic-mcl-3dl-msgs ros-noetic-nav-msgs ros-noetic-pcl-ros ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-tf2-sensor-msgs ros-noetic-visualization-msgs eigen-dev ros-noetic-diagnostic-updater ros-noetic-geometry-msgs ros-noetic-mcl-3dl-msgs ros-noetic-nav-msgs ros-noetic-pcl-ros ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-tf2-sensor-msgs ros-noetic-visualization-msgs"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath eigen-dev ros-noetic-catkin ros-noetic-diagnostic-updater ros-noetic-geometry-msgs ros-noetic-mcl-3dl-msgs ros-noetic-nav-msgs ros-noetic-pcl-ros ros-noetic-roscpp ros-noetic-roslint ros-noetic-rostest ros-noetic-rosunit ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-tf2-sensor-msgs ros-noetic-visualization-msgs"
 
 subpackages="$pkgname-dbg"
 
@@ -26,9 +26,9 @@ fi
 
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
-    local-name: laser_geometry
-    uri: https://github.com/ros-gbp/laser_geometry-release.git
-    version: release/noetic/laser_geometry/1.6.5-1
+    local-name: mcl_3dl
+    uri: https://github.com/at-wat/mcl_3dl-release.git
+    version: release/noetic/mcl_3dl/0.2.3-1
 "
 
 prepare() {
