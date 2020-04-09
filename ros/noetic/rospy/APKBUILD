@@ -7,7 +7,7 @@ url="http://wiki.ros.org/rospy"
 arch="all"
 license="BSD"
 
-depends="py3-numpy py3-rospkg py3-yaml ros-noetic-genpy ros-noetic-roscpp ros-noetic-rosgraph ros-noetic-rosgraph-msgs>=1.10.3 ros-noetic-roslib ros-noetic-std-msgs"
+depends="py3-numpy py3-numpy-dev py3-rospkg py3-yaml ros-noetic-genpy ros-noetic-roscpp ros-noetic-rosgraph ros-noetic-rosgraph-msgs>=1.10.3 ros-noetic-roslib ros-noetic-std-msgs"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-noetic-catkin>=0.5.78"
 
 subpackages="$pkgname-dbg"
