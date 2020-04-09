@@ -1,14 +1,14 @@
 pkgname=ros-melodic-laser-filters
 _pkgname=laser_filters
-pkgver=1.8.8
+pkgver=1.8.10
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/laser_filters"
 arch="all"
 license="BSD"
 
-depends="ros-melodic-angles ros-melodic-filters ros-melodic-laser-geometry ros-melodic-message-filters ros-melodic-pluginlib ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-tf ros-melodic-angles ros-melodic-filters ros-melodic-laser-geometry ros-melodic-message-filters ros-melodic-pluginlib ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-tf"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-angles ros-melodic-catkin ros-melodic-filters ros-melodic-laser-geometry ros-melodic-message-filters ros-melodic-pluginlib ros-melodic-roscpp ros-melodic-rostest ros-melodic-sensor-msgs ros-melodic-tf"
+depends="ros-melodic-angles ros-melodic-dynamic-reconfigure ros-melodic-filters ros-melodic-laser-geometry ros-melodic-message-filters ros-melodic-pluginlib ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-tf ros-melodic-angles ros-melodic-dynamic-reconfigure ros-melodic-filters ros-melodic-laser-geometry ros-melodic-message-filters ros-melodic-pluginlib ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-tf"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-angles ros-melodic-catkin ros-melodic-dynamic-reconfigure ros-melodic-filters ros-melodic-laser-geometry ros-melodic-message-filters ros-melodic-pluginlib ros-melodic-roscpp ros-melodic-rostest ros-melodic-sensor-msgs ros-melodic-tf"
 
 subpackages="$pkgname-dbg"
 
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: laser_filters, uri: 'https://github.com/ros-gbp/laser_filters-release.git',
-    version: release/melodic/laser_filters/1.8.8-1}
+    version: release/melodic/laser_filters/1.8.10-1}
 "
 
 prepare() {
