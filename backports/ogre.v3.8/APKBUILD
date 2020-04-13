@@ -1,14 +1,14 @@
 # Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
 # Maintainer:
 pkgname=ogre
-pkgver=1.12.5
-pkgrel=0
+pkgver=1.9.1
+pkgrel=1
 pkgdesc="OGRE is a scene-oriented, flexible 3D engine written in C++"
 url="https://ogrecave.github.io/ogre/"
 arch="all"
 license="MIT"
 depends=""
-makedepends="cmake boost-dev freetype-dev pugixml-dev zziplib-dev zlib-dev mesa-dev glu-dev libxaw-dev libxt-dev libxrandr-dev"
+makedepends="cmake boost-dev freetype-dev tinyxml-dev zziplib-dev zlib-dev mesa-dev glu-dev libxaw-dev libxt-dev libxrandr-dev"
 subpackages="$pkgname-dev"
 source="$pkgname-$pkgver.tar.gz::https://github.com/OGRECave/ogre/archive/v$pkgver.tar.gz"
 
@@ -39,4 +39,4 @@ package() {
 	cd "$builddir"/build
 	make DESTDIR="$pkgdir" install
 }
-sha512sums="c7037c6224a2c3eff9aa0c07455b5f2bec6c74e57a42de897df07088819f50d26931d9ca7b10d1685c4202bf86056bd153a33e65409019737a7d36cda046c607  ogre-1.12.5.tar.gz"
+sha512sums="69e1ea27ef3126ac0e09be9c1f8a9fc762630cd236ce6c3352a550ad977925387b1dfb9d124cc27bb8ac5231e036155451db988a26de6fb2df6da6f7d961115d  ogre-1.9.1.tar.gz"
