@@ -21,8 +21,8 @@ build() {
 }
 
 check() {
-	python2 --version && pytest -v tests/unit
-	python3 --version && pytest-3 -v tests/unit
+	python2 -m pytest -v tests/unit
+	python3 -m pytest -v tests/unit
 }
 
 package() {
