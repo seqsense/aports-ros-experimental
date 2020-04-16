@@ -1,6 +1,6 @@
 pkgname=ros-kinetic-rosbridge-msgs
 _pkgname=rosbridge_msgs
-pkgver=0.11.4
+pkgver=0.11.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://wiki.ros.org/$_pkgname"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rosbridge_msgs, uri: 'https://github.com/RobotWebTools-release/rosbridge_suite-release.git',
-    version: release/kinetic/rosbridge_msgs/0.11.4-1}
+    version: release/kinetic/rosbridge_msgs/0.11.5-1}
 "
 
 prepare() {
