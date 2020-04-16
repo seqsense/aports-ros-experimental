@@ -8,6 +8,7 @@ pkgdesc="The Datadog Python library"
 url="https://github.com/DataDog/datadogpy"
 arch="noarch"
 license="BSD-3-Clause"
+options="!check" # seems broken or need tox which requires too large size of the dependencies
 depends="py-decorator>=3.3.2 py-requests>=2.6.0"
 makedepends="python2 python3 py-setuptools"
 checkdepends="pytest py-mock py-freezegun"
