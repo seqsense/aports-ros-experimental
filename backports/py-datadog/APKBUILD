@@ -7,12 +7,11 @@ pkgrel=0
 pkgdesc="The Datadog Python library"
 url="https://github.com/DataDog/datadogpy"
 arch="noarch"
-license="The 3-Clause BSD"
-options="!check"
-_py2deps="python2"
-_py3deps="python3"
+license="BSD-3-Clause"
+depends="py-decorator>=3.3.2 py-requests>=2.6.0"
 makedepends="python2-dev python3-dev py-setuptools"
-subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+checkdepends="py-pytest pytest py-mock py-freezegun"
+subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3 ${pkgname}-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/DataDog/$_pkgname/archive/v$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
 
@@ -21,8 +20,12 @@ build() {
 	python3 setup.py build
 }
 
+check() {
+	python2 --version && pytest test
+	python3 --version && pytest-3 test
+}
+
 package() {
-	depends="py2-${pkgname#py-} py3-${pkgname#py-}"
 	install -D -m 644 LICENSE \
 		"$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
@@ -30,16 +33,20 @@ package() {
 _py() {
 	cd "$builddir"
 	local python="$1"
+	pkgdesc="$pkgdesc (for $python)"
+	depends="$depends $python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
+
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
 
 _py2() {
-	depends="$_py2deps"
+	depends="${depends//py-/py2-}"
 	_py python2
 }
 
 _py3() {
-	depends="$_py3deps"
+	depends="${depends//py-/py3-}"
 	_py python3
 }
 
