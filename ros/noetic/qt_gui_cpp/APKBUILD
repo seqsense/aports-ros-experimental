@@ -27,8 +27,8 @@ fi
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: qt_gui_cpp
-    uri: https://github.com/ros-visualization/qt_gui_core.git
-    version: noetic-devel
+    uri: https://github.com/seanyen/qt_gui_core.git
+    version: seanyen/noetic_port
 "
 
 prepare() {
