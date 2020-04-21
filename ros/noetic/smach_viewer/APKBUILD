@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: smach_viewer
     uri: https://github.com/ros-visualization/executive_smach_visualization.git
-    version: noetic-devel
+    version: melodic-devel
 "
 
 prepare() {
