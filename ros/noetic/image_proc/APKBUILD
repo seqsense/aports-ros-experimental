@@ -1,4 +1,4 @@
-kgname=ros-noetic-image-proc
+pkgname=ros-noetic-image-proc
 _pkgname=image_proc
 pkgver=1.12.23_git20191106140656
 pkgrel=0
