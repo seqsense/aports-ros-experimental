@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: laser_proc
     uri: https://github.com/ros-perception/laser_proc.git
-    version: noetic-devel
+    version: melodic-devel
 "
 
 prepare() {
