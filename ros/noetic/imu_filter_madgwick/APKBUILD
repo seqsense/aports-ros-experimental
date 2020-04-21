@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: imu_filter_madgwick
     uri: https://github.com/ccny-ros-pkg/imu_tools.git
-    version: noetic
+    version: melodic
 "
 
 prepare() {

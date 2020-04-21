@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: rviz_imu_plugin
     uri: https://github.com/ccny-ros-pkg/imu_tools.git
-    version: noetic
+    version: melodic
 "
 
 prepare() {
