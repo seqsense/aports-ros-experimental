@@ -53,6 +53,7 @@ prepare() {
     echo "Applying $patchfile"
     (cd src/* && patch -p1 -i $patchfile)
   done
+  mv src/orocos_kdl/orocos_kdl/* src/orocos_kdl/
 }
 
 build() {

@@ -53,6 +53,8 @@ prepare() {
     echo "Applying $patchfile"
     (cd src/* && patch -p1 -i $patchfile)
   done
+  mv src/python_orocos_kdl/python_orocos_kdl/* src/python_orocos_kdl/
+  sed 's|find_package(catkin QUIET)|# \1|' -i src/python_orocos_kdl/CMakeLists.txt
 }
 
 build() {
