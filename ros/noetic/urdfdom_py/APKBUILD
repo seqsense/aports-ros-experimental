@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: urdfdom_py
     uri: https://github.com/ros/urdf_parser_py.git
-    version: noetic-devel
+    version: melodic-devel
 "
 
 prepare() {
