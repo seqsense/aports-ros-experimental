@@ -2,13 +2,13 @@
 # Maintainer:
 pkgname=ogre
 pkgver=1.12.5
-pkgrel=0
+pkgrel=1
 pkgdesc="OGRE is a scene-oriented, flexible 3D engine written in C++"
 url="https://ogrecave.github.io/ogre/"
 arch="all"
 license="MIT"
 depends=""
-makedepends="cmake boost-dev freetype-dev pugixml-dev zziplib-dev zlib-dev mesa-dev glu-dev libxaw-dev libxt-dev libxrandr-dev"
+makedepends="cmake boost-dev freetype-dev pugixml-dev zziplib-dev zlib-dev mesa-dev glu-dev libxaw-dev libxt-dev libxrandr-dev freeimage-dev"
 subpackages="$pkgname-dev"
 source="$pkgname-$pkgver.tar.gz::https://github.com/OGRECave/ogre/archive/v$pkgver.tar.gz"
 
