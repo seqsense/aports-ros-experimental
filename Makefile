@@ -42,6 +42,9 @@ s3-pull:
 s3-push:
 	aws s3 sync --acl=public-read --delete packages/v$(ALPINE_VERSION) $(S3_APK_REPO_BUCKET_URI)/v$(ALPINE_VERSION)
 	aws s3 sync --acl=public-read packages/v$(ALPINE_VERSION) $(S3_APK_REPO_BUCKET_URI)/archives/v$(ALPINE_VERSION)
+
+.PHONY: s3-push-mirror
+s3-push-mirror:
 	if [ -n "$(S3_APK_REPO_MIRROR_URI)" ]; then \
 		aws s3 sync --delete packages/v$(ALPINE_VERSION) $(S3_APK_REPO_MIRROR_URI)/v$(ALPINE_VERSION); \
 		aws s3 sync packages/v$(ALPINE_VERSION) $(S3_APK_REPO_MIRROR_URI)/archives/v$(ALPINE_VERSION); \

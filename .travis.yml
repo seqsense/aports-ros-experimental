@@ -27,8 +27,13 @@ install:
   - make all
 
 deploy:
-  provider: script
-  skip_cleanup: true
-  script: if [ -f "${APK_REPO_PRIVATE_KEY}" ]; then make s3-push; fi
-  on:
-    branch: master
+  - provider: script
+    skip_cleanup: true
+    script: if [ -f "${APK_REPO_PRIVATE_KEY}" ]; then make s3-push; fi
+    on:
+      branch: master
+  - provider: script
+    skip_cleanup: true
+    script: if [ -f "${APK_REPO_PRIVATE_KEY}" ]; then make s3-push-mirror; fi
+    on:
+      branch: master
