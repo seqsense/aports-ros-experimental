@@ -25,6 +25,7 @@ before_install:
 
 install:
   - make all
+  - if [ -f "${APK_REPO_PRIVATE_KEY}" ]; then make s3-push-mirror; fi
 
 deploy:
   - provider: script
