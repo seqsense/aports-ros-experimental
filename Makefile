@@ -46,8 +46,8 @@ s3-push:
 .PHONY: s3-push-mirror
 s3-push-mirror:
 	if [ -n "$(S3_APK_REPO_MIRROR_URI)" ]; then \
-		aws s3 sync --delete packages/v$(ALPINE_VERSION) $(S3_APK_REPO_MIRROR_URI)/v$(ALPINE_VERSION); \
-		aws s3 sync packages/v$(ALPINE_VERSION) $(S3_APK_REPO_MIRROR_URI)/archives/v$(ALPINE_VERSION); \
+		aws s3 sync --delete --acl bucket-owner-full-control packages/v$(ALPINE_VERSION) $(S3_APK_REPO_MIRROR_URI)/v$(ALPINE_VERSION); \
+		aws s3 sync --acl bucket-owner-full-control packages/v$(ALPINE_VERSION) $(S3_APK_REPO_MIRROR_URI)/archives/v$(ALPINE_VERSION); \
 	fi
 
 .PHONY: all
