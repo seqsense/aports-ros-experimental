@@ -25,13 +25,6 @@ before_install:
 
 install:
   - make all
-  - if [ -f "${APK_REPO_PRIVATE_KEY}" ]; then
-      (
-        export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID_MIRROR};
-        export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY_MIRROR};
-        make s3-push-mirror;
-      );
-    fi
 
 deploy:
   - provider: script
