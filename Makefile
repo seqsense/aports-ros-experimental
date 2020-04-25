@@ -2,6 +2,7 @@ ROS_DISTRO             ?= kinetic
 BUILDER_NAME            = aports-builder
 ALPINE_VERSION          = $(shell ./alpine_version_from_ros_distro.sh $(ROS_DISTRO))
 S3_APK_REPO_BUCKET_URI ?= s3://localhost
+S3_APK_REPO_MIRROR_URI ?=
 REPOSITORY              = backports ros/$(ROS_DISTRO)
 APK_REPO_PRIVATE_KEY   ?= # path to your private key
 JOBS                   ?= 2
@@ -41,6 +42,13 @@ s3-pull:
 s3-push:
 	aws s3 sync --acl=public-read --delete packages/v$(ALPINE_VERSION) $(S3_APK_REPO_BUCKET_URI)/v$(ALPINE_VERSION)
 	aws s3 sync --acl=public-read packages/v$(ALPINE_VERSION) $(S3_APK_REPO_BUCKET_URI)/archives/v$(ALPINE_VERSION)
+
+.PHONY: s3-push-mirror
+s3-push-mirror:
+	if [ -n "$(S3_APK_REPO_MIRROR_URI)" ]; then \
+		aws s3 sync --delete --acl bucket-owner-full-control packages/v$(ALPINE_VERSION) $(S3_APK_REPO_MIRROR_URI)/v$(ALPINE_VERSION); \
+		aws s3 sync --acl bucket-owner-full-control packages/v$(ALPINE_VERSION) $(S3_APK_REPO_MIRROR_URI)/archives/v$(ALPINE_VERSION); \
+	fi
 
 .PHONY: all
 all:
