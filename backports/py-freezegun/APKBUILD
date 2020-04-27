@@ -1,0 +1,53 @@
+# Contributor: Robert Sacks <robert@sacks.email>
+# Maintainer: Robert Sacks <robert@sacks.email>
+pkgname=py-freezegun
+_pyname=freezegun
+pkgver=0.3.15
+pkgrel=0
+pkgdesc="Let your Python tests travel through time"
+url="https://pypi.org/project/freezegun/"
+arch="noarch"
+license="Apache-2.0"
+depends="py-dateutil py-six"
+makedepends="python3 python2 py-setuptools"
+checkdepends="py-mock pytest py-nose"
+subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+source="https://files.pythonhosted.org/packages/source/${_pyname%${_pyname#?}}/$_pyname/$_pyname-$pkgver.tar.gz"
+builddir="$srcdir/$_pyname-$pkgver"
+
+build() {
+	python2 setup.py build
+	python3 setup.py build
+}
+
+check() {
+	rm -f tests/test_uuid.py
+	python2 --version && pytest
+	python3 --version && pytest-3
+}
+
+package() {
+	mkdir -p "$pkgdir"
+}
+
+_py2() {
+	depends="${depends//py-/py2-}"
+	_py python2
+}
+
+_py3() {
+	depends="${depends//py-/py3-}"
+	_py python3
+}
+
+_py() {
+	local python="$1"
+	pkgdesc="$pkgdesc (for $python)"
+	depends="$depends $python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
+
+	cd "$builddir"
+	$python setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+sha512sums="9f3836f8c9f207d9bccbcaec3f1af977b26aa3699ad5f792d052e105a0de530c6dda1641480c9cd551627186bf0c65d92bf39a6f4a61f458f762d8aa999180ba  freezegun-0.3.15.tar.gz"
