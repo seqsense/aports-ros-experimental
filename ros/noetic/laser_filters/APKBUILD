@@ -1,14 +1,14 @@
 pkgname=ros-noetic-laser-filters
 _pkgname=laser_filters
-pkgver=1.8.8_git20200316194407
+pkgver=1.8.9
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/laser_filters"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-angles ros-noetic-filters ros-noetic-laser-geometry ros-noetic-message-filters ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-angles ros-noetic-filters ros-noetic-laser-geometry ros-noetic-message-filters ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-noetic-angles ros-noetic-catkin ros-noetic-filters ros-noetic-laser-geometry ros-noetic-message-filters ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-tf"
+depends="ros-noetic-angles ros-noetic-dynamic-reconfigure ros-noetic-filters ros-noetic-laser-geometry ros-noetic-message-filters ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-angles ros-noetic-dynamic-reconfigure ros-noetic-filters ros-noetic-laser-geometry ros-noetic-message-filters ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-noetic-angles ros-noetic-catkin ros-noetic-dynamic-reconfigure ros-noetic-filters ros-noetic-laser-geometry ros-noetic-message-filters ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-tf"
 
 subpackages="$pkgname-dbg"
 
@@ -27,8 +27,8 @@ fi
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: laser_filters
-    uri: https://github.com/ros-perception/laser_filters.git
-    version: indigo-devel
+    uri: https://github.com/ros-gbp/laser_filters-release.git
+    version: release/noetic/laser_filters/1.8.9-1
 "
 
 prepare() {
@@ -40,15 +40,6 @@ prepare() {
   mkdir -p src
   echo "$rosinstall" > pkg.rosinstall
   wstool init --shallow src pkg.rosinstall
-  find src -name package.xml | while read manifest; do
-    dir=$(dirname $manifest)
-    pkg=$(sed $manifest \
-          -e ':l1;N;$!b l1;s/.*<\s*name\s*>\s*\(.*\)\s*<\s*\/name\s*>.*/\1/;')
-    if [ $pkg != $_pkgname ]; then
-      echo Ignoring $pkg which is not $_pkgname
-      touch $dir/CATKIN_IGNORE
-    fi
-  done
   find $startdir -maxdepth 1 -name "*.patch" | while read patchfile; do
     echo "Applying $patchfile"
     (cd src/* && patch -p1 -i $patchfile)
