@@ -1,14 +1,14 @@
 pkgname=ros-kinetic-sound-play
 _pkgname=sound_play
-pkgver=0.3.4
+pkgver=0.3.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://ros.org/wiki/sound_play"
 arch="all"
 license="BSD"
 
-depends="festival festvox-kallpc16k gst-plugins-base gst-plugins-good gst-plugins-ugly gstreamer py2-gobject3 ros-kinetic-actionlib-msgs ros-kinetic-audio-common-msgs ros-kinetic-diagnostic-msgs ros-kinetic-message-runtime ros-kinetic-roscpp ros-kinetic-roslib ros-kinetic-rospy festival festvox-kallpc16k gst-plugins-base gst-plugins-good gst-plugins-ugly gstreamer py2-gobject3 ros-kinetic-actionlib-msgs ros-kinetic-audio-common-msgs ros-kinetic-diagnostic-msgs ros-kinetic-message-runtime ros-kinetic-roscpp ros-kinetic-roslib ros-kinetic-rospy"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-kinetic-actionlib ros-kinetic-actionlib-msgs ros-kinetic-audio-common-msgs ros-kinetic-catkin ros-kinetic-diagnostic-msgs ros-kinetic-message-generation ros-kinetic-roscpp ros-kinetic-roslib"
+depends="festival festvox-kallpc16k gst-plugins-base gst-plugins-good gst-plugins-ugly gstreamer py2-gobject3 ros-kinetic-actionlib-msgs ros-kinetic-audio-common-msgs ros-kinetic-diagnostic-msgs ros-kinetic-message-runtime ros-kinetic-roscpp ros-kinetic-roslib ros-kinetic-rospy"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath py2-setuptools ros-kinetic-actionlib ros-kinetic-actionlib-msgs ros-kinetic-audio-common-msgs ros-kinetic-catkin ros-kinetic-diagnostic-msgs ros-kinetic-message-generation ros-kinetic-roscpp ros-kinetic-roslib"
 
 subpackages="$pkgname-dbg"
 
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: sound_play, uri: 'https://github.com/ros-gbp/audio_common-release.git',
-    version: release/kinetic/sound_play/0.3.4-1}
+    version: release/kinetic/sound_play/0.3.5-1}
 "
 
 prepare() {
