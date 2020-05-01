@@ -1,14 +1,14 @@
 pkgname=ros-melodic-map-organizer
 _pkgname=map_organizer
-pkgver=0.8.2
+pkgver=0.8.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="eigen-dev pcl ros-melodic-cmake-modules ros-melodic-eigen-conversions ros-melodic-geometry-msgs ros-melodic-map-organizer-msgs ros-melodic-map-server ros-melodic-nav-msgs ros-melodic-neonavigation-common ros-melodic-pcl-conversions ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-tf2 ros-melodic-tf2-geometry-msgs ros-melodic-tf2-ros eigen-dev ros-melodic-cmake-modules ros-melodic-eigen-conversions ros-melodic-geometry-msgs ros-melodic-map-organizer-msgs ros-melodic-map-server ros-melodic-nav-msgs ros-melodic-neonavigation-common ros-melodic-pcl-conversions ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-tf2 ros-melodic-tf2-geometry-msgs ros-melodic-tf2-ros"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath eigen-dev pcl-dev ros-melodic-catkin ros-melodic-cmake-modules ros-melodic-eigen-conversions ros-melodic-geometry-msgs ros-melodic-map-organizer-msgs ros-melodic-map-server ros-melodic-nav-msgs ros-melodic-neonavigation-common ros-melodic-pcl-conversions ros-melodic-roscpp ros-melodic-roslint ros-melodic-rostest ros-melodic-sensor-msgs ros-melodic-tf2 ros-melodic-tf2-geometry-msgs ros-melodic-tf2-ros"
+depends="eigen-dev pcl ros-melodic-geometry-msgs ros-melodic-map-organizer-msgs ros-melodic-map-server ros-melodic-nav-msgs ros-melodic-neonavigation-common ros-melodic-pcl-conversions ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-tf2 ros-melodic-tf2-geometry-msgs ros-melodic-tf2-ros eigen-dev ros-melodic-geometry-msgs ros-melodic-map-organizer-msgs ros-melodic-map-server ros-melodic-nav-msgs ros-melodic-neonavigation-common ros-melodic-pcl-conversions ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-tf2 ros-melodic-tf2-geometry-msgs ros-melodic-tf2-ros"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath eigen-dev pcl-dev ros-melodic-catkin ros-melodic-geometry-msgs ros-melodic-map-organizer-msgs ros-melodic-map-server ros-melodic-nav-msgs ros-melodic-neonavigation-common ros-melodic-pcl-conversions ros-melodic-roscpp ros-melodic-roslint ros-melodic-rostest ros-melodic-sensor-msgs ros-melodic-tf2 ros-melodic-tf2-geometry-msgs ros-melodic-tf2-ros"
 
 subpackages="$pkgname-dbg"
 
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: map_organizer, uri: 'https://github.com/at-wat/neonavigation-release.git',
-    version: release/melodic/map_organizer/0.8.2-1}
+    version: release/melodic/map_organizer/0.8.4-1}
 "
 
 prepare() {
