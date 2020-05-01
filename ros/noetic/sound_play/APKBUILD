@@ -1,14 +1,14 @@
 pkgname=ros-noetic-sound-play
 _pkgname=sound_play
-pkgver=0.3.4_git20200402090349
+pkgver=0.3.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/sound_play"
 arch="all"
 license="BSD"
 
-depends="festival festvox-kallpc16k gst-plugins-base gst-plugins-good gst-plugins-ugly gstreamer py3-gobject3 ros-noetic-actionlib-msgs ros-noetic-audio-common-msgs ros-noetic-diagnostic-msgs ros-noetic-message-runtime ros-noetic-roscpp ros-noetic-roslib ros-noetic-rospy festival festvox-kallpc16k gst-plugins-base gst-plugins-good gst-plugins-ugly gstreamer py3-gobject3 ros-noetic-actionlib-msgs ros-noetic-audio-common-msgs ros-noetic-diagnostic-msgs ros-noetic-message-runtime ros-noetic-roscpp ros-noetic-roslib ros-noetic-rospy"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-noetic-actionlib ros-noetic-actionlib-msgs ros-noetic-audio-common-msgs ros-noetic-catkin ros-noetic-diagnostic-msgs ros-noetic-message-generation ros-noetic-roscpp ros-noetic-roslib"
+depends="festival festvox-kallpc16k gst-plugins-base gst-plugins-good gst-plugins-ugly gstreamer py3-gobject3 ros-noetic-actionlib-msgs ros-noetic-audio-common-msgs ros-noetic-diagnostic-msgs ros-noetic-message-runtime ros-noetic-roscpp ros-noetic-roslib ros-noetic-rospy"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath py3-setuptools ros-noetic-actionlib ros-noetic-actionlib-msgs ros-noetic-audio-common-msgs ros-noetic-catkin ros-noetic-diagnostic-msgs ros-noetic-message-generation ros-noetic-roscpp ros-noetic-roslib"
 
 subpackages="$pkgname-dbg"
 
@@ -27,8 +27,8 @@ fi
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: sound_play
-    uri: https://github.com/ros-drivers/audio_common.git
-    version: master
+    uri: https://github.com/ros-gbp/audio_common-release.git
+    version: release/noetic/sound_play/0.3.5-1
 "
 
 prepare() {
@@ -40,15 +40,6 @@ prepare() {
   mkdir -p src
   echo "$rosinstall" > pkg.rosinstall
   wstool init --shallow src pkg.rosinstall
-  find src -name package.xml | while read manifest; do
-    dir=$(dirname $manifest)
-    pkg=$(sed $manifest \
-          -e ':l1;N;$!b l1;s/.*<\s*name\s*>\s*\(.*\)\s*<\s*\/name\s*>.*/\1/;')
-    if [ $pkg != $_pkgname ]; then
-      echo Ignoring $pkg which is not $_pkgname
-      touch $dir/CATKIN_IGNORE
-    fi
-  done
   find $startdir -maxdepth 1 -name "*.patch" | while read patchfile; do
     echo "Applying $patchfile"
     (cd src/* && patch -p1 -i $patchfile)
