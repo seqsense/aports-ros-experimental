@@ -1,6 +1,6 @@
 pkgname=ros-kinetic-planner-cspace
 _pkgname=planner_cspace
-pkgver=0.8.3
+pkgver=0.8.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://wiki.ros.org/$_pkgname"
@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-kinetic-actionlib ros-kinetic-costmap-cspace ros-kinetic-costmap-cspace-msgs ros-kinetic-diagnostic-updater ros-kinetic-geometry-msgs ros-kinetic-move-base-msgs ros-kinetic-nav-msgs ros-kinetic-neonavigation-common ros-kinetic-planner-cspace-msgs>=0.7.0 ros-kinetic-roscpp ros-kinetic-sensor-msgs ros-kinetic-std-srvs ros-kinetic-tf2 ros-kinetic-tf2-geometry-msgs ros-kinetic-tf2-ros ros-kinetic-trajectory-msgs ros-kinetic-trajectory-tracker-msgs ros-kinetic-actionlib ros-kinetic-costmap-cspace ros-kinetic-costmap-cspace-msgs ros-kinetic-diagnostic-updater ros-kinetic-geometry-msgs ros-kinetic-move-base-msgs ros-kinetic-nav-msgs ros-kinetic-neonavigation-common ros-kinetic-planner-cspace-msgs>=0.7.0 ros-kinetic-roscpp ros-kinetic-sensor-msgs ros-kinetic-std-srvs ros-kinetic-tf2 ros-kinetic-tf2-geometry-msgs ros-kinetic-tf2-ros ros-kinetic-trajectory-msgs ros-kinetic-trajectory-tracker-msgs"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-kinetic-actionlib ros-kinetic-catkin ros-kinetic-costmap-cspace ros-kinetic-costmap-cspace-msgs ros-kinetic-diagnostic-updater ros-kinetic-geometry-msgs ros-kinetic-map-server ros-kinetic-move-base-msgs ros-kinetic-nav-msgs ros-kinetic-neonavigation-common ros-kinetic-planner-cspace-msgs>=0.7.0 ros-kinetic-roscpp ros-kinetic-roslint ros-kinetic-rostest ros-kinetic-rosunit ros-kinetic-sensor-msgs ros-kinetic-std-srvs ros-kinetic-tf2 ros-kinetic-tf2-geometry-msgs ros-kinetic-tf2-ros ros-kinetic-trajectory-msgs ros-kinetic-trajectory-tracker ros-kinetic-trajectory-tracker-msgs"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-kinetic-actionlib ros-kinetic-catkin ros-kinetic-costmap-cspace ros-kinetic-costmap-cspace-msgs ros-kinetic-diagnostic-updater ros-kinetic-geometry-msgs ros-kinetic-map-server ros-kinetic-move-base-msgs ros-kinetic-nav-msgs ros-kinetic-neonavigation-common ros-kinetic-planner-cspace-msgs>=0.7.0 ros-kinetic-roscpp ros-kinetic-roslint ros-kinetic-rostest ros-kinetic-sensor-msgs ros-kinetic-std-srvs ros-kinetic-tf2 ros-kinetic-tf2-geometry-msgs ros-kinetic-tf2-ros ros-kinetic-trajectory-msgs ros-kinetic-trajectory-tracker ros-kinetic-trajectory-tracker-msgs"
 
 subpackages="$pkgname-dbg"
 
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: planner_cspace, uri: 'https://github.com/at-wat/neonavigation-release.git',
-    version: release/kinetic/planner_cspace/0.8.3-1}
+    version: release/kinetic/planner_cspace/0.8.5-1}
 "
 
 prepare() {
