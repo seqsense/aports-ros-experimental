@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: media_export
     uri: https://github.com/ros-gbp/media_export-release.git
-    version: release/melodic/media_export/0.3.0-1
+    version: release/noetic/media_export/0.3.0-1
 "
 
 prepare() {
