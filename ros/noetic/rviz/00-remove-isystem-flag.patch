@@ -1,0 +1,22 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 939a95fb..da9d44dd 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -204,7 +204,7 @@ catkin_package(
+     visualization_msgs
+ )
+ 
+-include_directories(SYSTEM
++include_directories(
+   ${EIGEN3_INCLUDE_DIRS}
+   ${OGRE_INCLUDE_DIRS}
+   ${OPENGL_INCLUDE_DIR}
+@@ -214,7 +214,7 @@ include_directories(SYSTEM
+ )
+ #catkin_lint: ignore_once external_directory
+ include_directories(src ${EXPORT_HEADER_DIR})
+-include_directories(SYSTEM ${catkin_INCLUDE_DIRS})
++include_directories(${catkin_INCLUDE_DIRS})
+ 
+ #### If gtk ends up being the best way to get the correct window
+ #### position under X11, this is how to compile it in.
