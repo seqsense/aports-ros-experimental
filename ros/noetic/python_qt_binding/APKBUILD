@@ -1,14 +1,14 @@
 pkgname=ros-noetic-python-qt-binding
 _pkgname=python_qt_binding
-pkgver=0.4.0
+pkgver=0.4.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/python_qt_binding"
 arch="all"
 license="BSD"
 
-depends="py-sip py-sip-dev py3-qt5 py-sip py-sip-dev py3-qt5 ros-noetic-catkin"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath py-sip py-sip-dev py3-qt5 qt5-qtbase-dev ros-noetic-catkin ros-noetic-rosbuild"
+depends="py-sip py-sip-dev py3-qt5 py3-sip py-sip py-sip-dev py3-qt5 py3-sip ros-noetic-catkin"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath py-sip py-sip-dev py3-qt5 py3-sip qt5-qtbase-dev ros-noetic-catkin ros-noetic-rosbuild"
 
 subpackages="$pkgname-dbg"
 
@@ -25,8 +25,10 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
 fi
 
 export ROS_PYTHON_VERSION=3
-rosinstall="- git: {local-name: python_qt_binding, uri: 'https://github.com/ros-gbp/python_qt_binding-release.git',
-    version: release/melodic/python_qt_binding/0.4.0-1}
+rosinstall="- git:
+    local-name: python_qt_binding
+    uri: https://github.com/ros-gbp/python_qt_binding-release.git
+    version: release/noetic/python_qt_binding/0.4.1-1
 "
 
 prepare() {

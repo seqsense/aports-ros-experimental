@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: resource_retriever
     uri: https://github.com/ros-gbp/resource_retriever-release.git
-    version: release/melodic/resource_retriever/1.12.6-1
+    version: release/noetic/resource_retriever/1.12.6-1
 "
 
 prepare() {
