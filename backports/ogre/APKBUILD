@@ -19,8 +19,8 @@ build() {
 	mkdir -p build && cd build
 	cmake .. \
 		-DCMAKE_BUILD_TYPE=Release \
-		-DCMAKE_CXX_FLAGS="$CXXFLAGS" \
-		-DCMAKE_C_FLAGS="$CFLAGS -Wno-error -Wno-deprecated-copy" \
+		-DCMAKE_CXX_FLAGS="$CXXFLAGS -Wno-deprecated-copy" \
+		-DCMAKE_C_FLAGS="$CFLAGS -Wno-error" \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DOGRE_BUILD_TESTS=ON \
