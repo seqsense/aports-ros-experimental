@@ -13,9 +13,10 @@ endif
 
 .PHONY: build-builder
 build-builder:
-	docker build \
+	DOCKER_BUILDKIT=0 docker build \
 		--network=host \
 		--build-arg ALPINE_VERSION=$(ALPINE_VERSION) \
+		--cache-from=$(BUILDER_NAME):$(ROS_DISTRO) \
 		-t $(BUILDER_NAME):$(ROS_DISTRO) .
 
 .PHONY: $(REPOSITORY)

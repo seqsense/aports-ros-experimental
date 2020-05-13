@@ -1,6 +1,5 @@
 ARG ALPINE_VERSION=3.7
 FROM alpine:${ALPINE_VERSION}
-ARG ALPINE_VERSION=3.7
 
 RUN echo $'-----BEGIN PUBLIC KEY-----\n\
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnSO+a+rIaTorOowj3c8e\n\
@@ -24,26 +23,28 @@ RUN mkdir -p /root/.ros \
   && chmod a+x /root \
   && chmod a+rwx /root/.ros
 
+# Temporary fix missing deps
+# - python_orocos_kdl lack dep to python-dev
+RUN apk add --no-cache \
+  python2-dev \
+  python3-dev
+
 USER builder
 
 ENV HOME="/home/builder"
 ENV APORTSDIR="${HOME}/aports"
 ENV REPODIR="${HOME}/packages"
-ENV ALPINE_VERSION=${ALPINE_VERSION}
-
 ENV SRCDIR="/src"
 ENV PACKAGER_PRIVKEY="${HOME}/.abuild/builder@alpine-ros-experimental.rsa"
 
 RUN mkdir -p ${APORTSDIR}
 WORKDIR ${APORTSDIR}
 
-# Temporary fix missing deps
-# - python_orocos_kdl lack dep to python-dev
-RUN sudo apk add --no-cache \
-  python2-dev \
-  python3-dev
-
 COPY update-checksum.sh /
 COPY build-repo.sh /
+
+
+ARG ALPINE_VERSION=3.7
+ENV ALPINE_VERSION=${ALPINE_VERSION}
 
 ENTRYPOINT ["/build-repo.sh"]
