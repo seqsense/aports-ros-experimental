@@ -19,6 +19,7 @@ function alpine_version() {
   esac
 }
 
+echo "Checkout dockerhub branch"
 git checkout dockerhub
 git pull origin dockerhub
 
@@ -49,4 +50,4 @@ git commit -m "Update (${master_hash})"
 
 git push origin ${BRANCH}
 
-git checkout master
+echo "Note: you are still in dockerhub branch"
