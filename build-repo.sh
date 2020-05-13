@@ -138,7 +138,7 @@ sudo apk update
 
 (cd ${basedir} && \
   set -o pipefail && \
-  buildrepo ${repo} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS} 2>&1 | \
+  time buildrepo ${repo} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS} 2>&1 | \
     grep --line-buffered \
       -v -e "([0-9]*/[0-9]*) Purging " \
       -v -e "([0-9]*/[0-9]*) Installing " \
