@@ -1,3 +1,5 @@
+SHELL                   = /bin/bash
+
 ROS_DISTRO             ?= kinetic
 BUILDER_NAME            = seqsense/aports-ros-builder
 ALPINE_VERSION          = $(shell . ./alpine_version_from_ros_distro.sh; alpine_version_from_ros_distro $(ROS_DISTRO))
