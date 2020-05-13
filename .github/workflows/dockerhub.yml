@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - build-builder-on-dockerhub
 
 jobs:
   dockerhub-branch:
