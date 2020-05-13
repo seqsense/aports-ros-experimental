@@ -1,6 +1,6 @@
 pkgname=ros-melodic-neonavigation-rviz-plugins
 _pkgname=neonavigation_rviz_plugins
-pkgver=0.3.0
+pkgver=0.3.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/$_pkgname"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: neonavigation_rviz_plugins, uri: 'https://github.com/at-wat/neonavigation_rviz_plugins-release.git',
-    version: release/melodic/neonavigation_rviz_plugins/0.3.0-0}
+    version: release/melodic/neonavigation_rviz_plugins/0.3.1-1}
 "
 
 prepare() {
