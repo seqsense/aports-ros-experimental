@@ -162,4 +162,6 @@ if [ "${index_sum}" != "${index_sum2}" ]; then
   rm -f ${index}
   apk index -o ${index} `find $(dirname ${index}) -name '*.apk'`
   abuild-sign -k /home/builder/.abuild/*.rsa ${index}
+else
+  echo "Index is up-to-date"
 fi
