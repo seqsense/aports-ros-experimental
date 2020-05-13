@@ -5,19 +5,7 @@ set -eu
 BRANCH=dockerhub
 ROS_DISTROS="kinetic melodic noetic"
 
-function alpine_version() {
-  case $1 in
-    kinetic)
-      echo "3.7";;
-    melodic)
-      echo "3.8";;
-    noetic)
-      echo "3.11";;
-    *)
-      echo "Unknown ROS_DISTRO" >&2;
-      exit 1;;
-  esac
-}
+. ./alpine_version_from_ros_distro.sh
 
 master_hash=$(git show-ref --hash=8 --heads | head -n1)
 
@@ -37,7 +25,7 @@ for ros_distro in ${ROS_DISTROS}
 do
   echo "Updating ${ros_distro}"
   mkdir -p ${ros_distro}
-  alpine_version=$(alpine_version ${ros_distro})
+  alpine_version=$(alpine_version_from_ros_distro ${ros_distro})
   echo "- Alpine version: ${alpine_version}"
 
   cp Dockerfile update-checksum.sh build-repo.sh ${ros_distro}/

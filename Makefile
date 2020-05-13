@@ -1,6 +1,6 @@
 ROS_DISTRO             ?= kinetic
 BUILDER_NAME            = seqsense/aports-ros-builder
-ALPINE_VERSION          = $(shell ./alpine_version_from_ros_distro.sh $(ROS_DISTRO))
+ALPINE_VERSION          = $(shell . ./alpine_version_from_ros_distro.sh; alpine_version_from_ros_distro $(ROS_DISTRO))
 S3_APK_REPO_BUCKET_URI ?= s3://localhost
 S3_APK_REPO_MIRROR_URI ?=
 REPOSITORY              = backports ros/$(ROS_DISTRO)
