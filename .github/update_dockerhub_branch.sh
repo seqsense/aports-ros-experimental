@@ -19,11 +19,13 @@ function alpine_version() {
   esac
 }
 
+master_hash=$(git show-ref --hash=8 --heads | head -n1)
+
 echo "Checkout dockerhub branch"
 git checkout dockerhub
 git pull origin dockerhub
 
-git checkout master Dockerfile update-checksum.sh build-repo.sh
+git checkout ${master_hash} Dockerfile update-checksum.sh build-repo.sh
 
 for ros_distro in ${ROS_DISTROS}
 do
@@ -45,7 +47,6 @@ then
   exit 0
 fi
 
-master_hash=$(git show-ref --hash=7 --heads master | head -n1)
 git commit -m "Update (${master_hash})"
 
 git push origin ${BRANCH}
