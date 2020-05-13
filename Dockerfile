@@ -33,8 +33,8 @@ RUN mkdir -p /root/.ros \
 
 USER builder
 
-ENV HOME="/home/builder" \
-  APORTSDIR="${HOME}/aports" \
+ENV HOME="/home/builder"
+ENV APORTSDIR="${HOME}/aports" \
   REPODIR="${HOME}/packages" \
   SRCDIR="/src" \
   PACKAGER_PRIVKEY="${HOME}/.abuild/builder@alpine-ros-experimental.rsa"
