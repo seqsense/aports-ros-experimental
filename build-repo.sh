@@ -157,6 +157,8 @@ fi
 
 index_sum2=$(sha512sum ${index})
 if [ "${index_sum}" != "${index_sum2}" ]; then
+  echo "Previous index: ${index_sum}"
+  echo "New index:      ${index_sum2}"
   rm -f ${index}
   apk index -o ${index} `find $(dirname ${index}) -name '*.apk'`
   abuild-sign -k /home/builder/.abuild/*.rsa ${index}
