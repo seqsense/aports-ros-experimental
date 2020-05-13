@@ -1,5 +1,3 @@
-#!/bin/bash
-
 function alpine_version_from_ros_distro() {
   case "$(basename ${1})" in
     kinetic ) echo 3.7;;
