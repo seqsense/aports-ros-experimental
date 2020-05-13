@@ -21,6 +21,12 @@ function alpine_version() {
 
 master_hash=$(git show-ref --hash=8 --heads | head -n1)
 
+if ! git config --get user.email
+then
+  git config user.name "Alpine ROS aports builder bot"
+  git config user.email "noreply@seqsense.com"
+fi
+
 echo "Checkout dockerhub branch"
 git checkout dockerhub
 git pull origin dockerhub
