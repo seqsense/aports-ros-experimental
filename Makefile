@@ -1,5 +1,5 @@
 ROS_DISTRO             ?= kinetic
-BUILDER_NAME            = aports-builder
+BUILDER_NAME            = seqsense/aports-ros-builder
 ALPINE_VERSION          = $(shell ./alpine_version_from_ros_distro.sh $(ROS_DISTRO))
 S3_APK_REPO_BUCKET_URI ?= s3://localhost
 S3_APK_REPO_MIRROR_URI ?=
@@ -16,7 +16,7 @@ build-builder:
 	docker build \
 		--network=host \
 		--build-arg ALPINE_VERSION=$(ALPINE_VERSION) \
-		-t $(BUILDER_NAME):$(ALPINE_VERSION) .
+		-t $(BUILDER_NAME):$(ROS_DISTRO) .
 
 .PHONY: $(REPOSITORY)
 $(REPOSITORY):
@@ -31,7 +31,7 @@ $(REPOSITORY):
 		$(PRIVATE_KEY_OPT) \
 		-e JOBS=${JOBS} \
 		-e PURGE_OBSOLETE=yes \
-		$(BUILDER_NAME):$(ALPINE_VERSION) $@
+		$(BUILDER_NAME):$(ROS_DISTRO) $@
 
 .PHONY: s3-pull
 s3-pull:
@@ -62,4 +62,4 @@ update-checksum:
 		--network=host \
 		-v `pwd`:/src \
 		--entrypoint /update-checksum.sh \
-		$(BUILDER_NAME):$(ALPINE_VERSION)
+		$(BUILDER_NAME):$(ROS_DISTRO)
