@@ -56,6 +56,15 @@ if [ ! -d ${SRCDIR}/${basedir}/${repo} ]; then
 fi
 
 
+# Store previous APKINDEX sum
+
+index_sum=
+index=$(find ${REPODIR}/${repo} -name APKINDEX.tar.gz || true)
+if [ -f "${index}" ]; then
+  index_sum=$(sha512sum ${index})
+fi
+
+
 # Generate temporary private key if not present
 
 if [ ! -f ${PACKAGER_PRIVKEY} ]; then
@@ -139,12 +148,16 @@ sudo apk update
       -v -e "Resolving deltas: ")
 
 
-# Re-sign packages
+# Re-sign packages if there is a change
 
 index=$(find ${REPODIR}/${repo} -name APKINDEX.tar.gz || true)
 if [ ! -f "${index}" ]; then
   exit 1
 fi
-rm -f ${index}
-apk index -o ${index} `find $(dirname ${index}) -name '*.apk'`
-abuild-sign -k /home/builder/.abuild/*.rsa ${index}
+
+index_sum2=$(sha512sum ${index})
+if [ "${index_sum}" != "${index_sum2}" ]; then
+  rm -f ${index}
+  apk index -o ${index} `find $(dirname ${index}) -name '*.apk'`
+  abuild-sign -k /home/builder/.abuild/*.rsa ${index}
+fi
