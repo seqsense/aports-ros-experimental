@@ -22,6 +22,7 @@ before_install:
   - |
     aws s3 cp "${APK_REPO_PRIVATE_KEY_URI}" ${HOME}/key.rsa \
     && export APK_REPO_PRIVATE_KEY=${HOME}/key.rsa || true
+  - make pull-builder
 
 install:
   - make all

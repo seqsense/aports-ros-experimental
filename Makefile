@@ -19,6 +19,10 @@ build-builder:
 		--cache-from=$(BUILDER_NAME):$(ROS_DISTRO) \
 		-t $(BUILDER_NAME):$(ROS_DISTRO) .
 
+.PHONY: pull-builder
+pull-builder:
+	docker pull $(BUILDER_NAME):$(ROS_DISTRO)
+
 .PHONY: $(REPOSITORY)
 $(REPOSITORY):
 	if [ ! -d packages/v$(ALPINE_VERSION)/$@ ]; then \
