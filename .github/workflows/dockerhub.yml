@@ -1,0 +1,14 @@
+name: dockerhub
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  dockerhub-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: update
+        run: .github/update_dockerhub_branch.sh
