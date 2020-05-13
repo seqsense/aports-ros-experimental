@@ -12,6 +12,6 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       - name: fetch
-        run: git fetch --no-tags --prune --depth=1 origin +refs/heads/dockerhub:refs/remotes/origin/dockerhub
+        run: git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
       - name: update
         run: .github/update_dockerhub_branch.sh
