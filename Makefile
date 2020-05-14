@@ -33,8 +33,8 @@ $(REPOSITORY):
 	fi
 	docker run --rm -it \
 		--network=host \
-		-v `pwd`:/src \
-		-v `pwd`/packages/v$(ALPINE_VERSION):/home/builder/packages \
+		-v $(CURDIR):/src \
+		-v $(CURDIR)/packages/v$(ALPINE_VERSION):/home/builder/packages \
 		$(PRIVATE_KEY_OPT) \
 		-e JOBS=${JOBS} \
 		-e PURGE_OBSOLETE=yes \
@@ -67,6 +67,6 @@ all:
 update-checksum:
 	docker run --rm -it \
 		--network=host \
-		-v `pwd`:/src \
+		-v $(CURDIR):/src \
 		--entrypoint /update-checksum.sh \
 		$(BUILDER_NAME):$(ROS_DISTRO)
