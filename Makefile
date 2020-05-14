@@ -31,7 +31,7 @@ $(REPOSITORY):
 		mkdir -p packages/v$(ALPINE_VERSION)/$@; \
 		chmod og+rwx packages/v$(ALPINE_VERSION)/$@; \
 	fi
-	docker run --rm -it \
+	docker run --rm \
 		--network=host \
 		-v $(CURDIR):/src \
 		-v $(CURDIR)/packages/v$(ALPINE_VERSION):/home/builder/packages \
@@ -65,7 +65,7 @@ all:
 
 .PHONY: update-checksum
 update-checksum:
-	docker run --rm -it \
+	docker run --rm \
 		--network=host \
 		-v $(CURDIR):/src \
 		--entrypoint /update-checksum.sh \
