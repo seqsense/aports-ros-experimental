@@ -44,8 +44,4 @@ WORKDIR ${APORTSDIR}
 
 COPY update-checksum.sh build-repo.sh /
 
-
-ARG ALPINE_VERSION=3.7
-ENV ALPINE_VERSION=${ALPINE_VERSION}
-
 ENTRYPOINT ["/build-repo.sh"]
