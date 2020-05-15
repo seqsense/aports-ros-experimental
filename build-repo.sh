@@ -2,6 +2,8 @@
 
 set -e
 
+ALPINE_VERSION=${ALPINE_VERSION:-$(cat /etc/alpine-release | cut -d. -f1-2)}
+
 aportsdir_base=${APORTSDIR}
 repodir_base=${REPODIR}
 
@@ -53,6 +55,15 @@ echo
 if [ ! -d ${SRCDIR}/${basedir}/${repo} ]; then
   echo "${repo} is not present. Skipping."
   exit 0;
+fi
+
+
+# Store previous APKINDEX sum
+
+index_sum=
+index=$(find ${REPODIR}/${repo} -name APKINDEX.tar.gz || true)
+if [ -f "${index}" ]; then
+  index_sum=$(sha512sum ${index})
 fi
 
 
@@ -129,7 +140,7 @@ sudo apk update
 
 (cd ${basedir} && \
   set -o pipefail && \
-  buildrepo ${repo} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS} 2>&1 | \
+  time buildrepo ${repo} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS} 2>&1 | \
     grep --line-buffered \
       -v -e "([0-9]*/[0-9]*) Purging " \
       -v -e "([0-9]*/[0-9]*) Installing " \
@@ -139,12 +150,20 @@ sudo apk update
       -v -e "Resolving deltas: ")
 
 
-# Re-sign packages
+# Re-sign packages if there is a change
 
 index=$(find ${REPODIR}/${repo} -name APKINDEX.tar.gz || true)
 if [ ! -f "${index}" ]; then
   exit 1
 fi
-rm -f ${index}
-apk index -o ${index} `find $(dirname ${index}) -name '*.apk'`
-abuild-sign -k /home/builder/.abuild/*.rsa ${index}
+
+index_sum2=$(sha512sum ${index})
+if [ "${index_sum}" != "${index_sum2}" ]; then
+  echo "Previous index: ${index_sum}"
+  echo "New index:      ${index_sum2}"
+  rm -f ${index}
+  apk index -o ${index} `find $(dirname ${index}) -name '*.apk'`
+  abuild-sign -k /home/builder/.abuild/*.rsa ${index}
+else
+  echo "Index is up-to-date"
+fi

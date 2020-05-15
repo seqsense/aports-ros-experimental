@@ -1,6 +1,5 @@
 ARG ALPINE_VERSION=3.7
 FROM alpine:${ALPINE_VERSION}
-ARG ALPINE_VERSION=3.7
 
 RUN echo $'-----BEGIN PUBLIC KEY-----\n\
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnSO+a+rIaTorOowj3c8e\n\
@@ -12,7 +11,15 @@ a17OJ4wWWaPvOq8PshcTZ2P3Me8kTCWr/fczjzq+8hB0MNEqfuENoSyZhmCypEuy\n\
 ewIDAQAB\n\
 -----END PUBLIC KEY-----' > /etc/apk/keys/builder@alpine-ros-experimental.rsa.pub
 
-RUN apk add --no-cache alpine-sdk grep lua-aports sudo \
+RUN apk add --no-cache \
+    alpine-sdk \
+    grep \
+    lua-aports \
+    sudo \
+    # Temporary fix missing deps
+    # - python_orocos_kdl lack dep to python-dev
+    python2-dev \
+    python3-dev \
   && adduser -G abuild -D builder \
   && echo "builder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
@@ -27,23 +34,14 @@ RUN mkdir -p /root/.ros \
 USER builder
 
 ENV HOME="/home/builder"
-ENV APORTSDIR="${HOME}/aports"
-ENV REPODIR="${HOME}/packages"
-ENV ALPINE_VERSION=${ALPINE_VERSION}
-
-ENV SRCDIR="/src"
-ENV PACKAGER_PRIVKEY="${HOME}/.abuild/builder@alpine-ros-experimental.rsa"
+ENV APORTSDIR="${HOME}/aports" \
+  REPODIR="${HOME}/packages" \
+  SRCDIR="/src" \
+  PACKAGER_PRIVKEY="${HOME}/.abuild/builder@alpine-ros-experimental.rsa"
 
 RUN mkdir -p ${APORTSDIR}
 WORKDIR ${APORTSDIR}
 
-# Temporary fix missing deps
-# - python_orocos_kdl lack dep to python-dev
-RUN sudo apk add --no-cache \
-  python2-dev \
-  python3-dev
-
-COPY update-checksum.sh /
-COPY build-repo.sh /
+COPY update-checksum.sh build-repo.sh /
 
 ENTRYPOINT ["/build-repo.sh"]
