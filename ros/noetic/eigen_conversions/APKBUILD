@@ -1,13 +1,13 @@
 pkgname=ros-noetic-eigen-conversions
 _pkgname=eigen_conversions
-pkgver=1.13.0
+pkgver=1.13.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/eigen_conversions"
 arch="all"
 license="BSD"
 
-depends="eigen-dev orocos-kdl ros-noetic-geometry-msgs ros-noetic-std-msgs eigen-dev orocos-kdl ros-noetic-geometry-msgs ros-noetic-std-msgs"
+depends="eigen-dev orocos-kdl ros-noetic-geometry-msgs ros-noetic-std-msgs orocos-kdl-dev"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath eigen-dev orocos-kdl-dev ros-noetic-catkin ros-noetic-geometry-msgs ros-noetic-std-msgs"
 
 subpackages="$pkgname-dbg"
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: eigen_conversions
     uri: https://github.com/ros-gbp/geometry-release.git
-    version: release/noetic/eigen_conversions/1.13.0-1
+    version: release/noetic/eigen_conversions/1.13.1-1
 "
 
 prepare() {
