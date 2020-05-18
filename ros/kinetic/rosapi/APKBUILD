@@ -1,6 +1,6 @@
 pkgname=ros-kinetic-rosapi
 _pkgname=rosapi
-pkgver=0.11.6
+pkgver=0.11.7
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://ros.org/wiki/rosapi"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rosapi, uri: 'https://github.com/RobotWebTools-release/rosbridge_suite-release.git',
-    version: release/kinetic/rosapi/0.11.6-2}
+    version: release/kinetic/rosapi/0.11.7-1}
 "
 
 prepare() {
