@@ -1,6 +1,6 @@
 pkgname=ros-melodic-safety-limiter
 _pkgname=safety_limiter
-pkgver=0.8.5
+pkgver=0.8.6
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/$_pkgname"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: safety_limiter, uri: 'https://github.com/at-wat/neonavigation-release.git',
-    version: release/melodic/safety_limiter/0.8.5-1}
+    version: release/melodic/safety_limiter/0.8.6-1}
 "
 
 prepare() {
