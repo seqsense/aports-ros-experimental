@@ -1,6 +1,6 @@
 pkgname=ros-noetic-image-pipeline
 _pkgname=image_pipeline
-pkgver=1.15.0
+pkgver=1.15.2
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/image_pipeline"
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: image_pipeline
     uri: https://github.com/ros-gbp/image_pipeline-release.git
-    version: release/noetic/image_pipeline/1.15.0-1
+    version: release/noetic/image_pipeline/1.15.2-1
 "
 
 prepare() {
