@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=py-rosdistro
 _pkgname=rosdistro
-pkgver=0.8.0
+pkgver=0.8.2
 pkgrel=0
 pkgdesc="A tool to work with rosdistro files"
 url="https://pypi.python.org/pypi/rosdistro/"
@@ -50,5 +50,5 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
-sha512sums="382fc8e4250b5586fd4c7928b95fe9c2522b6f8f0d762b550bbca395f1565eaf93b658ae2f5186963efa6d2d3691079788f44965eea156efdf3a953e1462d260  rosdistro-0.8.0.tar.gz
+sha512sums="51e203367a68090a7ea28624897847c4796e6c95c771641ef90b24bb13fc6ff47b9d2bd702b450cffc1156a9abe74b5d1dca967727b5e4c426589559b064dfe8  rosdistro-0.8.2.tar.gz
 25f681701e020f441ed963bfb8044c01e218491803b6c417e7667d7cf25f5d91d5cf28b2a69dae3516410b1ee669fe68ae1afeca31d6ec631c07c54f91897437  force-to-enable-alpine-platform.patch"

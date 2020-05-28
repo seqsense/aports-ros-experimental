@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=py-rosinstall-generator
 _pkgname=rosinstall_generator
-pkgver=0.1.16
+pkgver=0.1.19
 pkgrel=0
 pkgdesc="A tool for generating rosinstall files"
 url="https://pypi.python.org/pypi/rosinstall_generator/"
@@ -49,4 +49,4 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
-sha512sums="f8e4f2446475cd3f96e1726fa57f728a8e10fffd300d13f157391fe6c80e8245c4bcdc99310d422884f4ad4ed4f40818e929879b6b04e727a02d86e3c0d943cc  rosinstall_generator-0.1.16.tar.gz"
+sha512sums="7b0685e359fb0a46ac52ac4d6eceb046d0592244b36318cb7816ca5a28fc9616fabe48a607a687433e53c6f34ecbbdfdfc443209e6abb1559213642155b66292  rosinstall_generator-0.1.19.tar.gz"
