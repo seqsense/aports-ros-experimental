@@ -10,17 +10,10 @@ index c330329..17381e4 100644
 +        self.release_platforms['alpine'] = []
 +        if name == 'kinetic':
 +            self.release_platforms['alpine'].append('3.7')
-+            self.release_platforms['alpine'].append('3.7.0')
-+            self.release_platforms['alpine'].append('3.7.1')
-+            self.release_platforms['alpine'].append('3.7.2')
-+            self.release_platforms['alpine'].append('3.7.3')
 +        if name == 'melodic':
 +            self.release_platforms['alpine'].append('3.8')
-+            self.release_platforms['alpine'].append('3.8.0')
-+            self.release_platforms['alpine'].append('3.8.1')
-+            self.release_platforms['alpine'].append('3.8.2')
-+            self.release_platforms['alpine'].append('3.8.3')
-+            self.release_platforms['alpine'].append('3.8.4')
++        if name == 'noetic':
++            self.release_platforms['alpine'].append('3.11')
 +
          self.tags = []
          if 'tags' in data and data['tags']:
