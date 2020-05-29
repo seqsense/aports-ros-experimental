@@ -1,6 +1,6 @@
 pkgname=ros-noetic-rosbuild
 _pkgname=rosbuild
-pkgver=1.15.1
+pkgver=1.15.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/rosbuild"
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: rosbuild
     uri: https://github.com/ros-gbp/ros-release.git
-    version: release/noetic/rosbuild/1.15.1-1
+    version: release/noetic/rosbuild/1.15.4-1
 "
 
 prepare() {
