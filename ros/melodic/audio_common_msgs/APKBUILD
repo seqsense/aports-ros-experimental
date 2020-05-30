@@ -1,6 +1,6 @@
 pkgname=ros-melodic-audio-common-msgs
 _pkgname=audio_common_msgs
-pkgver=0.3.5
+pkgver=0.3.6
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/audio_common_msgs"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: audio_common_msgs, uri: 'https://github.com/ros-gbp/audio_common-release.git',
-    version: release/melodic/audio_common_msgs/0.3.5-1}
+    version: release/melodic/audio_common_msgs/0.3.6-1}
 "
 
 prepare() {
