@@ -1,6 +1,6 @@
 pkgname=ros-noetic-urg-node
 _pkgname=urg_node
-pkgver=0.1.13_git20200327230746
+pkgver=0.1.14
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/urg_node"
@@ -27,8 +27,8 @@ fi
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: urg_node
-    uri: https://github.com/ros-drivers/urg_node.git
-    version: indigo-devel
+    uri: https://github.com/ros-gbp/urg_node-release.git
+    version: release/noetic/urg_node/0.1.14-1
 "
 
 prepare() {
@@ -40,15 +40,6 @@ prepare() {
   mkdir -p src
   echo "$rosinstall" > pkg.rosinstall
   wstool init --shallow src pkg.rosinstall
-  find src -name package.xml | while read manifest; do
-    dir=$(dirname $manifest)
-    pkg=$(sed $manifest \
-          -e ':l1;N;$!b l1;s/.*<\s*name\s*>\s*\(.*\)\s*<\s*\/name\s*>.*/\1/;')
-    if [ $pkg != $_pkgname ]; then
-      echo Ignoring $pkg which is not $_pkgname
-      touch $dir/CATKIN_IGNORE
-    fi
-  done
   find $startdir -maxdepth 1 -name "*.patch" | while read patchfile; do
     echo "Applying $patchfile"
     (cd src/* && patch -p1 -i $patchfile)
