@@ -1,6 +1,6 @@
 pkgname=ros-kinetic-collada-parser
 _pkgname=collada_parser
-pkgver=1.12.12
+pkgver=1.12.13
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://ros.org/wiki/collada_parser"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: collada_parser, uri: 'https://github.com/ros-gbp/collada_urdf-release.git',
-    version: release/kinetic/collada_parser/1.12.12-0}
+    version: release/kinetic/collada_parser/1.12.13-1}
 "
 
 prepare() {
