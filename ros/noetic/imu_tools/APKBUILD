@@ -1,14 +1,14 @@
-pkgname=ros-noetic-imu-filter-madgwick
-_pkgname=imu_filter_madgwick
+pkgname=ros-noetic-imu-tools
+_pkgname=imu_tools
 pkgver=1.2.2
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
-url="http://ros.org/wiki/imu_filter_madgwick"
+url="http://ros.org/wiki/imu_tools"
 arch="all"
-license="GPL"
+license="BSD, GPL"
 
-depends="ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-message-filters ros-noetic-nodelet ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-message-filters ros-noetic-nodelet ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-noetic-catkin ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-message-filters ros-noetic-nodelet ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-rosunit ros-noetic-sensor-msgs ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros"
+depends="ros-noetic-imu-complementary-filter ros-noetic-imu-filter-madgwick ros-noetic-rviz-imu-plugin ros-noetic-imu-complementary-filter ros-noetic-imu-filter-madgwick ros-noetic-rviz-imu-plugin"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-noetic-catkin"
 
 subpackages="$pkgname-dbg"
 
@@ -26,9 +26,9 @@ fi
 
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
-    local-name: imu_filter_madgwick
+    local-name: imu_tools
     uri: https://github.com/uos-gbp/imu_tools-release.git
-    version: release/noetic/imu_filter_madgwick/1.2.2-1
+    version: release/noetic/imu_tools/1.2.2-1
 "
 
 prepare() {
