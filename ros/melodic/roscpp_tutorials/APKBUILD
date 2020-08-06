@@ -1,6 +1,6 @@
 pkgname=ros-melodic-roscpp-tutorials
 _pkgname=roscpp_tutorials
-pkgver=0.9.2
+pkgver=0.9.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://www.ros.org/wiki/roscpp_tutorials"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: roscpp_tutorials, uri: 'https://github.com/ros-gbp/ros_tutorials-release.git',
-    version: release/melodic/roscpp_tutorials/0.9.2-1}
+    version: release/melodic/roscpp_tutorials/0.9.3-1}
 "
 
 prepare() {

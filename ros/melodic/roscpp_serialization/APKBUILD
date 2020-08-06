@@ -1,6 +1,6 @@
 pkgname=ros-melodic-roscpp-serialization
 _pkgname=roscpp_serialization
-pkgver=0.6.13
+pkgver=0.6.14
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/roscpp_serialization"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: roscpp_serialization, uri: 'https://github.com/ros-gbp/roscpp_core-release.git',
-    version: release/melodic/roscpp_serialization/0.6.13-1}
+    version: release/melodic/roscpp_serialization/0.6.14-1}
 "
 
 prepare() {
