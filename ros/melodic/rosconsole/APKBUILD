@@ -1,13 +1,13 @@
 pkgname=ros-melodic-rosconsole
 _pkgname=rosconsole
-pkgver=1.13.11
+pkgver=1.13.16
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://www.ros.org/wiki/rosconsole"
 arch="all"
 license="BSD"
 
-depends="apr apr-util log4cxx-dev ros-melodic-cpp-common ros-melodic-rosbuild ros-melodic-rostime apr apr-util log4cxx-dev ros-melodic-cpp-common ros-melodic-rosbuild ros-melodic-rostime"
+depends="apr apr-util boost-dev log4cxx-dev ros-melodic-cpp-common ros-melodic-rosbuild ros-melodic-rostime apr apr-util boost-dev log4cxx-dev ros-melodic-cpp-common ros-melodic-rosbuild ros-melodic-rostime"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath apr apr-util boost-dev log4cxx-dev ros-melodic-catkin ros-melodic-cpp-common ros-melodic-rostime ros-melodic-rosunit"
 
 subpackages="$pkgname-dbg"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rosconsole, uri: 'https://github.com/ros-gbp/rosconsole-release.git',
-    version: release/melodic/rosconsole/1.13.11-1}
+    version: release/melodic/rosconsole/1.13.16-1}
 "
 
 prepare() {

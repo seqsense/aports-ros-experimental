@@ -1,6 +1,6 @@
 pkgname=ros-melodic-rosparam
 _pkgname=rosparam
-pkgver=1.14.6
+pkgver=1.14.7
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/rosparam"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rosparam, uri: 'https://github.com/ros-gbp/ros_comm-release.git',
-    version: release/melodic/rosparam/1.14.6-1}
+    version: release/melodic/rosparam/1.14.7-1}
 "
 
 prepare() {
