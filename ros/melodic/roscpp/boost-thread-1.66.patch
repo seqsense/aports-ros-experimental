@@ -1,7 +1,7 @@
-diff --git a/clients/roscpp/include/ros/internal/condition_variable.h b/clients/roscpp/include/ros/internal/condition_variable.h
+diff --git a/include/ros/internal/condition_variable.h b/include/ros/internal/condition_variable.h
 index 98b9289da..f8a4d5a58 100644
---- a/clients/roscpp/include/ros/internal/condition_variable.h
-+++ b/clients/roscpp/include/ros/internal/condition_variable.h
+--- a/include/ros/internal/condition_variable.h
++++ b/include/ros/internal/condition_variable.h
 @@ -156,7 +156,10 @@ public:
        pthread_mutex_t *the_mutex = &internal_mutex;
        guard.activate(m);
