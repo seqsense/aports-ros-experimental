@@ -1,14 +1,14 @@
 pkgname=ros-melodic-trajectory-tracker
 _pkgname=trajectory_tracker
-pkgver=0.9.1
+pkgver=0.10.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="eigen-dev ros-melodic-geometry-msgs ros-melodic-interactive-markers ros-melodic-nav-msgs ros-melodic-neonavigation-common ros-melodic-roscpp ros-melodic-std-srvs ros-melodic-tf2 ros-melodic-tf2-geometry-msgs ros-melodic-tf2-ros ros-melodic-trajectory-tracker-msgs>=0.8.0 eigen-dev ros-melodic-geometry-msgs ros-melodic-interactive-markers ros-melodic-nav-msgs ros-melodic-neonavigation-common ros-melodic-roscpp ros-melodic-std-srvs ros-melodic-tf2 ros-melodic-tf2-geometry-msgs ros-melodic-tf2-ros ros-melodic-trajectory-tracker-msgs>=0.8.0"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath eigen-dev ros-melodic-catkin ros-melodic-geometry-msgs ros-melodic-interactive-markers ros-melodic-nav-msgs ros-melodic-neonavigation-common ros-melodic-roscpp ros-melodic-roslint ros-melodic-rostest ros-melodic-std-srvs ros-melodic-tf2 ros-melodic-tf2-geometry-msgs ros-melodic-tf2-ros ros-melodic-trajectory-tracker-msgs>=0.8.0"
+depends="eigen-dev ros-melodic-dynamic-reconfigure ros-melodic-geometry-msgs ros-melodic-interactive-markers ros-melodic-nav-msgs ros-melodic-neonavigation-common ros-melodic-roscpp ros-melodic-std-srvs ros-melodic-tf2 ros-melodic-tf2-geometry-msgs ros-melodic-tf2-ros ros-melodic-trajectory-tracker-msgs>=0.8.0 eigen-dev ros-melodic-dynamic-reconfigure ros-melodic-geometry-msgs ros-melodic-interactive-markers ros-melodic-nav-msgs ros-melodic-neonavigation-common ros-melodic-roscpp ros-melodic-std-srvs ros-melodic-tf2 ros-melodic-tf2-geometry-msgs ros-melodic-tf2-ros ros-melodic-trajectory-tracker-msgs>=0.8.0"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath eigen-dev ros-melodic-catkin ros-melodic-dynamic-reconfigure ros-melodic-geometry-msgs ros-melodic-interactive-markers ros-melodic-nav-msgs ros-melodic-neonavigation-common ros-melodic-roscpp ros-melodic-roslint ros-melodic-rostest ros-melodic-std-srvs ros-melodic-tf2 ros-melodic-tf2-geometry-msgs ros-melodic-tf2-ros ros-melodic-trajectory-tracker-msgs>=0.8.0"
 
 subpackages="$pkgname-dbg"
 
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: trajectory_tracker, uri: 'https://github.com/at-wat/neonavigation-release.git',
-    version: release/melodic/trajectory_tracker/0.9.1-1}
+    version: release/melodic/trajectory_tracker/0.10.0-1}
 "
 
 prepare() {

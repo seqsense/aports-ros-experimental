@@ -1,6 +1,6 @@
 pkgname=ros-melodic-rosconsole
 _pkgname=rosconsole
-pkgver=1.13.16
+pkgver=1.13.17
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://www.ros.org/wiki/rosconsole"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rosconsole, uri: 'https://github.com/ros-gbp/rosconsole-release.git',
-    version: release/melodic/rosconsole/1.13.16-1}
+    version: release/melodic/rosconsole/1.13.17-1}
 "
 
 prepare() {
