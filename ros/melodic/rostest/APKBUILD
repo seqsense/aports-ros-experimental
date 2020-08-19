@@ -1,6 +1,6 @@
 pkgname=ros-melodic-rostest
 _pkgname=rostest
-pkgver=1.14.7
+pkgver=1.14.8
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/rostest"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rostest, uri: 'https://github.com/ros-gbp/ros_comm-release.git',
-    version: release/melodic/rostest/1.14.7-1}
+    version: release/melodic/rostest/1.14.8-1}
 "
 
 prepare() {
