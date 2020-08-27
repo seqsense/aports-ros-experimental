@@ -1,6 +1,6 @@
 pkgname=ros-noetic-executive-smach-visualization
 _pkgname=executive_smach_visualization
-pkgver=3.0.0_git20191211053002
+pkgver=3.0.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/smach"
@@ -27,8 +27,8 @@ fi
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: executive_smach_visualization
-    uri: https://github.com/ros-visualization/executive_smach_visualization.git
-    version: melodic-devel
+    uri: https://github.com/jbohren/executive_smach_visualization-release.git
+    version: release/noetic/executive_smach_visualization/3.0.1-1
 "
 
 prepare() {
@@ -40,15 +40,6 @@ prepare() {
   mkdir -p src
   echo "$rosinstall" > pkg.rosinstall
   wstool init --shallow src pkg.rosinstall
-  find src -name package.xml | while read manifest; do
-    dir=$(dirname $manifest)
-    pkg=$(sed $manifest \
-          -e ':l1;N;$!b l1;s/.*<\s*name\s*>\s*\(.*\)\s*<\s*\/name\s*>.*/\1/;')
-    if [ $pkg != $_pkgname ]; then
-      echo Ignoring $pkg which is not $_pkgname
-      touch $dir/CATKIN_IGNORE
-    fi
-  done
   find $startdir -maxdepth 1 -name "*.patch" | while read patchfile; do
     echo "Applying $patchfile"
     (cd src/* && patch -p1 -i $patchfile)
