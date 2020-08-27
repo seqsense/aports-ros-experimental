@@ -1,6 +1,6 @@
 pkgname=ros-melodic-rosgraph
 _pkgname=rosgraph
-pkgver=1.14.8
+pkgver=1.14.9
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/rosgraph"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rosgraph, uri: 'https://github.com/ros-gbp/ros_comm-release.git',
-    version: release/melodic/rosgraph/1.14.8-1}
+    version: release/melodic/rosgraph/1.14.9-1}
 "
 
 prepare() {
