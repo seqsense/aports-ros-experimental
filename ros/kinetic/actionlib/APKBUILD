@@ -1,6 +1,6 @@
 pkgname=ros-kinetic-actionlib
 _pkgname=actionlib
-pkgver=1.11.13
+pkgver=1.11.16
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://www.ros.org/wiki/actionlib"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: actionlib, uri: 'https://github.com/ros-gbp/actionlib-release.git',
-    version: release/kinetic/actionlib/1.11.13-0}
+    version: release/kinetic/actionlib/1.11.16-2}
 "
 
 prepare() {
