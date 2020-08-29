@@ -1,6 +1,6 @@
 pkgname=ros-kinetic-rosmaster
 _pkgname=rosmaster
-pkgver=1.12.15
+pkgver=1.12.16
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://ros.org/wiki/rosmaster"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rosmaster, uri: 'https://github.com/ros-gbp/ros_comm-release.git',
-    version: release/kinetic/rosmaster/1.12.15-1}
+    version: release/kinetic/rosmaster/1.12.16-1}
 "
 
 prepare() {
