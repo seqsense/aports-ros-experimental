@@ -1,6 +1,6 @@
 pkgname=ros-melodic-global-planner
 _pkgname=global_planner
-pkgver=1.16.6
+pkgver=1.16.7
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/global_planner"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: global_planner, uri: 'https://github.com/ros-gbp/navigation-release.git',
-    version: release/melodic/global_planner/1.16.6-1}
+    version: release/melodic/global_planner/1.16.7-1}
 "
 
 prepare() {
