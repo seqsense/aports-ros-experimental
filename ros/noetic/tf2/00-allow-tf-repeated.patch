@@ -1,43 +1,12 @@
-diff --git a/include/tf2/transform_storage.h b/include/tf2/transform_storage.h
-index 7856bb8..b611a02 100644
---- a/include/tf2/transform_storage.h
-+++ b/include/tf2/transform_storage.h
-@@ -73,11 +73,26 @@ public:
-     return *this;
-   }
- 
-+  static bool allow_tf_repeated()
-+  {
-+    static bool allow_tf_repeated_checked = false;
-+    if (!allow_tf_repeated_checked)
-+    {
-+      const char* env_var = std::getenv("ALLOW_TF_REPEATED");
-+      allow_tf_repeated_ = env_var ? std::string(env_var) == "true" : false;
-+      allow_tf_repeated_checked = true;
-+    }
-+    return allow_tf_repeated_;
-+  }
-+
-   tf2::Quaternion rotation_;
-   tf2::Vector3 translation_;
-   ros::Time stamp_;
-   CompactFrameID frame_id_;
-   CompactFrameID child_frame_id_;
-+
-+private:
-+  static bool allow_tf_repeated_;
- };
- 
- }
 diff --git a/src/cache.cpp b/src/cache.cpp
-index f9614c7..ea3c28f 100644
+index f9614c7..117aece 100644
 --- a/src/cache.cpp
 +++ b/src/cache.cpp
 @@ -40,6 +40,8 @@
  
  namespace tf2 {
  
-+bool TransformStorage::allow_tf_repeated_;
++const static bool ALLOW_TF_REPEATED = std::getenv("ALLOW_TF_REPEATED") ? std::string(std::getenv("ALLOW_TF_REPEATED")) == "true" : false;
 +
  TransformStorage::TransformStorage()
  {
@@ -47,7 +16,7 @@ index f9614c7..ea3c28f 100644
      storage_it++;
    }
 -  if (storage_it != storage_.end() && storage_it->stamp_ == new_data.stamp_)
-+  if (TransformStorage::allow_tf_repeated())
++  if (ALLOW_TF_REPEATED)
    {
 -    if (error_str)
 -    {
