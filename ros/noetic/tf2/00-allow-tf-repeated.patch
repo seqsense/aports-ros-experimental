@@ -1,12 +1,12 @@
 diff --git a/src/cache.cpp b/src/cache.cpp
-index f9614c7..3994ab2 100644
+index f9614c7..117aece 100644
 --- a/src/cache.cpp
 +++ b/src/cache.cpp
 @@ -40,6 +40,8 @@
-
+ 
  namespace tf2 {
-
-+const static bool ALLOW_TF_REAPEATED = std::getenv("ALLOW_TF_REPEATED") == "true";
+ 
++const static bool ALLOW_TF_REPEATED = std::getenv("ALLOW_TF_REPEATED") ? std::string(std::getenv("ALLOW_TF_REPEATED")) == "true" : false;
 +
  TransformStorage::TransformStorage()
  {
@@ -16,7 +16,7 @@ index f9614c7..3994ab2 100644
      storage_it++;
    }
 -  if (storage_it != storage_.end() && storage_it->stamp_ == new_data.stamp_)
-+  if (ALLOW_TF_REAPEATED)
++  if (ALLOW_TF_REPEATED)
    {
 -    if (error_str)
 -    {
@@ -41,5 +41,5 @@ index f9614c7..3994ab2 100644
 +      storage_.insert(storage_it, new_data);
 +    }
    }
-
+ 
    pruneList();
