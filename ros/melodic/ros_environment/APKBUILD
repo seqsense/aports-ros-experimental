@@ -1,6 +1,6 @@
 pkgname=ros-melodic-ros-environment
 _pkgname=ros_environment
-pkgver=1.2.2
+pkgver=1.2.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="https://github.com/ros/ros_environment"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: ros_environment, uri: 'https://github.com/ros-gbp/ros_environment-release.git',
-    version: release/melodic/ros_environment/1.2.2-1}
+    version: release/melodic/ros_environment/1.2.3-1}
 "
 
 prepare() {
