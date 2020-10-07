@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=collada-dom
 pkgver=2.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="COLLADA Document Object Model (DOM) C++ Library"
 url="https://github.com/rdiankov/collada-dom"
 arch="all"
