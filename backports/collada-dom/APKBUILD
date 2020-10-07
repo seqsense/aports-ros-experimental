@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=collada-dom
 pkgver=2.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="COLLADA Document Object Model (DOM) C++ Library"
 url="https://github.com/rdiankov/collada-dom"
 arch="all"
@@ -10,7 +10,7 @@ options="!check"	# the test looks unmaintained
 license="MIT"
 depends=""
 makedepends="cmake boost-dev zlib-dev libxml2-dev pcre-dev minizip-dev"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/rdiankov/collada-dom/archive/v$pkgver.tar.gz"
 
 builddir="$srcdir/$pkgname-$pkgver"
@@ -27,5 +27,10 @@ build() {
 package() {
 	cd "$builddir"/build
 	make DESTDIR="$pkgdir" install
+
+  cd "$builddir/licenses"
+  find . -type f | while read file; do
+    install -Dm644 $file "$pkgdir"/usr/share/licenses/$pkgname/$file
+  done
 }
 sha512sums="f189d09e2396faa266734981bb7b5e91ec34b6faa9ad340206e769dae316496bf4271c129980668dc2756874dbb8c1157162197d0d3a74075e35200821875156  collada-dom-2.5.0.tar.gz"
