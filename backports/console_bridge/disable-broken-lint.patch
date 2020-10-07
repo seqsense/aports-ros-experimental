@@ -1,5 +1,5 @@
 diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
-index fc60a02..a7d5129 100644
+index fc60a02..a9c7be6 100644
 --- a/test/CMakeLists.txt
 +++ b/test/CMakeLists.txt
 @@ -67,22 +67,24 @@ if(WGET_EXE)
@@ -38,8 +38,8 @@ index fc60a02..a7d5129 100644
 +#           "${PROJECT_SOURCE_DIR}/include/console_bridge/console.h"
 +#           "${PROJECT_SOURCE_DIR}/src/console.cpp"
 +#  )
-+#
-+#  add_dependencies(console_bridge wget_cppcheck wget_cpplint)
++
++  add_dependencies(console_bridge wget_cppcheck)
  
  else()
    message(WARNING "wget not found. Linters will not be executed")
