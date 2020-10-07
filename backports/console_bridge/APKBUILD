@@ -9,7 +9,7 @@ arch="all"
 license="BSD-3-Clause"
 depends=""
 makedepends="cmake"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/ros/console_bridge/archive/$pkgver.tar.gz
 	cmake_config_install_dir.patch"
 
@@ -33,6 +33,9 @@ check() {
 package() {
 	cd "$builddir"/build
 	make DESTDIR="$pkgdir" install
+
+  cd "$builddir"
+  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 sha512sums="41fa5340d7ba79c887ef73eb4fda7b438ed91febd224934ae4658697e4c9e43357207e1b3e191ecce3c97cb9a87b0556372832735a268261bc798cc7683aa207  console_bridge-0.3.2.tar.gz
 d06771cc5adcd5230d24e9e25751b3ee716024855b0d1c02d30e4792a82e2544cf48161527af27a033a003b85aaf52776ce16f56ef74006cc704fc987a220055  cmake_config_install_dir.patch"

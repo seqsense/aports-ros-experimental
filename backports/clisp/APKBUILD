@@ -39,6 +39,10 @@ package() {
 	ulimit -s 131072
 
 	make -j1 DESTDIR="$pkgdir" install
+
+  cd "$builddir"
+  install -Dm644 COPYRIGHT "$pkgdir"/usr/share/licenses/$pkgname/COPYRIGHT
+  install -Dm644 GNU-GPL "$pkgdir"/usr/share/licenses/$pkgname/GNU-GPL
 }
 
 sha512sums="33ffb625d34127ed0b82199af4c38cb6bfad710c9863d154b77def96d31bba68dcd4a9fd17318dbe0daeb9d5aadc2573c65239c1090a3d1ad8bc51f5c3a9f14b  clisp-df3b9f6fdcff22832898e89a989eb499c0f842ed.tar.bz2"

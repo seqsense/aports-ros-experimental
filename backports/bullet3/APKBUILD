@@ -9,7 +9,7 @@ arch="all"
 options="!check"	# the test deeply depends on the examples using embedded pre-built binaries which are incompatible with alpine
 license="zlib"
 makedepends="cmake linux-headers"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/bulletphysics/$pkgname/archive/$pkgver.tar.gz"
 
 build() {
@@ -33,5 +33,8 @@ build() {
 package() {
 	cd "$builddir"
 	make DESTDIR="$pkgdir" install
+
+  cd "$builddir"
+  install -Dm644 LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
 }
 sha512sums="15face1940d496c96fd19a44139d11d2cbb629526c40432be4a0eef5fa9a532c842ec7318248c0359a080f2034111bf1a3c2d3a6fd789bec675bd368fac7bd93  bullet3-2.88.tar.gz"
