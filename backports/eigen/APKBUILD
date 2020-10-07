@@ -11,7 +11,7 @@ license="MPL-2.0 LGPL-2.1-only LGPL-2.1-or-later"
 options="!check"  # checks take a long time, and tend to fail randomly
 makedepends="cmake openblas-dev suitesparse-dev mpfr-dev fftw-dev boost-dev gmp-dev glu-dev freeglut-dev"
 subpackages="$pkgname-dev $pkgname-doc"
-source="$pkgname-$pkgver.tar.gz::http://bitbucket.org/eigen/eigen/get/$pkgver.tar.gz
+source="$pkgname-$pkgver.tar.gz::https://gitlab.com/libeigen/eigen/-/archive/$pkgver/eigen-$pkgver.tar.gz
 	fftw-test-fix.patch
 	fix-build.patch
 	"
