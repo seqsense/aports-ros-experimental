@@ -3,11 +3,11 @@
 # Maintainer: Bradley J Chambers <brad.chambers@gmail.com>
 pkgname=eigen
 pkgver=3.3.7
-pkgrel=3
+pkgrel=4
 pkgdesc="Eigen is a C++ template library for linear algebra"
 url="http://eigen.tuxfamily.org/index.php?title=Main_Page"
 arch="noarch !mips !mips64"
-license="MPL-2.0"
+license="MPL-2.0 LGPL-2.1-only LGPL-2.1-or-later"
 options="!check"  # checks take a long time, and tend to fail randomly
 makedepends="cmake openblas-dev suitesparse-dev mpfr-dev fftw-dev boost-dev gmp-dev glu-dev freeglut-dev"
 subpackages="$pkgname-dev $pkgname-doc"
@@ -42,6 +42,10 @@ package() {
 	cp -r "$builddir"/doc/ "$pkgdir"/usr/share/doc/$pkgname
 	mkdir -p $pkgdir/usr/lib/pkgconfig
 	mv $pkgdir/usr/share/pkgconfig/eigen3.pc $pkgdir/usr/lib/pkgconfig
+
+	find . -name "COPYING.*" | while read file; do
+		install -Dm644 $file "$pkgdir"/usr/share/licenses/$pkgname/$file
+	done
 }
 
 dev() {
