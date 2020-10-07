@@ -15,12 +15,7 @@ source="$pkgname-$pkgver.tar.gz::https://gitlab.com/libeigen/eigen/-/archive/$pk
 	fftw-test-fix.patch
 	fix-build.patch
 	"
-builddir="$srcdir/$pkgname-$pkgname"
-
-prepare() {
-	mv "$builddir"-* "$builddir"  # directory name contains hash
-	default_prepare
-}
+builddir="$srcdir/$pkgname-$pkgver"
 
 build() {
 	# needs -std so c11 tests are being built
