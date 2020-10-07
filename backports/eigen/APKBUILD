@@ -21,7 +21,7 @@ build() {
 	# needs -std so c11 tests are being built
 	CXXFLAGS="$CXXFLAGS -std=c++11" \
 	mkdir -p build  # old cmake doesn't handle cmake -B correctly
-	(cd build && cmake . \
+	(cd build && cmake .. \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=None)
 	make -C build
