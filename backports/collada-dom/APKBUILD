@@ -28,7 +28,9 @@ package() {
 	cd "$builddir"/build
 	make DESTDIR="$pkgdir" install
 
-  cd "$builddir"
-  install -Dm644 licenses/* "$pkgdir"/usr/share/licenses/$pkgname/
+  cd "$builddir/licenses"
+  find . -type f | while read file; do
+    install -Dm644 licenses/$file "$pkgdir"/usr/share/licenses/$pkgname/$file
+  done
 }
 sha512sums="f189d09e2396faa266734981bb7b5e91ec34b6faa9ad340206e769dae316496bf4271c129980668dc2756874dbb8c1157162197d0d3a74075e35200821875156  collada-dom-2.5.0.tar.gz"
