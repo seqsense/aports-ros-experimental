@@ -54,7 +54,7 @@ echo
 
 if [ ! -d ${SRCDIR}/${basedir}/${repo} ]; then
   echo "${repo} is not present. Skipping."
-  exit 0;
+  exit 0
 fi
 
 
@@ -70,6 +70,7 @@ fi
 # Generate temporary private key if not present
 
 if [ ! -f ${PACKAGER_PRIVKEY} ]; then
+  echo "======== WARN: PACKAGER_PRIVKEY is not present ======="
   abuild-keygen -a -i -n
 
   # Re-sign packages if private key is updated
