@@ -3,7 +3,7 @@
 # Maintainer: Bradley J Chambers <brad.chambers@gmail.com>
 pkgname=eigen
 pkgver=3.3.7
-pkgrel=4
+pkgrel=5
 pkgdesc="Eigen is a C++ template library for linear algebra"
 url="http://eigen.tuxfamily.org/index.php?title=Main_Page"
 arch="noarch !mips !mips64"
@@ -42,12 +42,6 @@ package() {
 	find . -name "COPYING.*" | while read file; do
 		install -Dm644 $file "$pkgdir"/usr/share/licenses/$pkgname/$file
 	done
-}
-
-dev() {
-	default_dev
-	mkdir -p $subpkgdir/usr/share/cmake/Modules
-	mv $pkgdir/usr/share/eigen3/cmake/*.cmake $subpkgdir/usr/share/cmake/Modules
 }
 
 sha512sums="4cc3717b9cbe78335e05f724919497214edd482d4812aeb1a9fd6da5b3f6d1b194bb93ed0dab9e734b4334a5b88e8f8c339c43c1b2044332286ef5e758f9ecf4  eigen-3.3.7.tar.gz
