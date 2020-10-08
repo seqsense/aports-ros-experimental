@@ -1,7 +1,7 @@
 pkgname=ros-kinetic-global-planner
 _pkgname=global_planner
 pkgver=1.14.8
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://wiki.ros.org/global_planner"
 arch="all"

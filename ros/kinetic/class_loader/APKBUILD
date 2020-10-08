@@ -1,7 +1,7 @@
 pkgname=ros-kinetic-class-loader
 _pkgname=class_loader
 pkgver=0.3.9
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://ros.org/wiki/class_loader"
 arch="all"

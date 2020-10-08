@@ -1,7 +1,7 @@
 pkgname=ros-kinetic-rviz-imu-plugin
 _pkgname=rviz_imu_plugin
 pkgver=1.1.8
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://ros.org/wiki/rviz_imu_plugin"
 arch="all"
