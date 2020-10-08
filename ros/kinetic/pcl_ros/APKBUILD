@@ -1,7 +1,7 @@
 pkgname=ros-kinetic-pcl-ros
 _pkgname=pcl_ros
 pkgver=1.4.4
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://ros.org/wiki/perception_pcl"
 arch="all"
