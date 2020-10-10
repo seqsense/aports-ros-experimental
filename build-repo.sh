@@ -169,7 +169,7 @@ fi
 index_sum2=$(sha512sum ${index})
 
 tmpdir=$(mktemp -d)
-(cd ${tmpdir} && tar xzf ${index})
+(cd ${tmpdir} && tar xzf ${index} && ls -la)
 
 rm ${REPODIR}/${repo}/noarch/*.apk || true
 cat ${tmpdir}/APKINDEX \
@@ -178,6 +178,7 @@ cat ${tmpdir}/APKINDEX \
   | while read apk; do
   pkg=$(echo ${apk} | cut -f1 -d" ")
   arch=$(echo ${apk} | cut -f2 -d" ")
+  echo ${arch} ${pkg}
   if [ "${arch}" = "noarch" ]; then
     echo "${pkg} is noarch"
     mkdir -p ${REPODIR}/${repo}/noarch/
