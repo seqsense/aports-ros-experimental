@@ -58,15 +58,6 @@ if [ ! -d ${SRCDIR}/${basedir}/${repo} ]; then
 fi
 
 
-# Store previous APKINDEX sum
-
-index_sum=
-index=$(find ${REPODIR}/${repo} -name APKINDEX.tar.gz || true)
-if [ -f "${index}" ]; then
-  index_sum=$(sha512sum ${index})
-fi
-
-
 # Copy noarch pkgs
 
 cp ${REPODIR}/${repo}/noarch/* ${REPODIR}/${repo}/x86_64/ || true
@@ -159,17 +150,17 @@ sudo apk update
       -v -e "Resolving deltas: ")
 
 
-# Re-sign packages if there is a change
+# Generate package index
 
-index=$(find ${REPODIR}/${repo} -name APKINDEX.tar.gz || true)
-if [ ! -f "${index}" ]; then
-  exit 1
-fi
-
-index_sum2=$(sha512sum ${index})
+index=${REPODIR}/${repo}/x86_64/APKINDEX.tar.gz
+apk index -o ${index} \
+  $(find $(dirname ${index}) -name '*.apk')
 
 tmpdir=$(mktemp -d)
 (cd ${tmpdir} && tar xzf ${index} && ls -la)
+
+
+# Move noarch packages
 
 rm ${REPODIR}/${repo}/noarch/*.apk || true
 cat ${tmpdir}/APKINDEX \
@@ -178,7 +169,6 @@ cat ${tmpdir}/APKINDEX \
   | while read apk; do
   pkg=$(echo ${apk} | cut -f1 -d" ")
   arch=$(echo ${apk} | cut -f2 -d" ")
-  echo ${arch} ${pkg}
   if [ "${arch}" = "noarch" ]; then
     echo "${pkg} is noarch"
     mkdir -p ${REPODIR}/${repo}/noarch/
@@ -188,13 +178,10 @@ done
 
 rm -rf ${tmpdir}
 
-if [ "${index_sum}" != "${index_sum2}" ]; then
-  echo "Previous index: ${index_sum}"
-  echo "New index:      ${index_sum2}"
-  rm -f ${index}
-  apk index -o ${index} \
-    $(find $(dirname ${index})/../ -name '*.apk')
-  abuild-sign -k /home/builder/.abuild/*.rsa ${index}
-else
-  echo "Index is up-to-date"
-fi
+
+# Re-sign
+
+rm -f ${index}
+apk index -o ${index} \
+  $(find $(dirname ${index})/../ -name '*.apk')
+abuild-sign -k /home/builder/.abuild/*.rsa ${index}
