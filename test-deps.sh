@@ -19,8 +19,7 @@ find /packages -name APKINDEX.tar.gz | while read path; do
   rm -rf ${tmpdir}
 done
 
-sed -i /local_pkgs \
-  '/py2-backports\.ssl_match_hostname/d'
+sed '/^py2-backports\.ssl_match_hostname$/d' -i /local_pkgs
 
 echo
 echo "Installing all local packages"
