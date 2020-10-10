@@ -70,3 +70,13 @@ update-checksum:
 		-v $(CURDIR):/src \
 		--entrypoint /update-checksum.sh \
 		$(BUILDER_NAME):$(ROS_DISTRO)
+
+.PHONY: test-deps
+test-deps:
+	DOCKER_BUILDKIT=0 docker build \
+		--build-arg ALPINE_VERSION=$(ALPINE_VERSION) \
+		-t test-deps:$(ROS_DISTRO) -f test-deps.Dockerfile .
+	docker run --rm \
+		--network=host \
+		-v $(CURDIR)/packages/v$(ALPINE_VERSION):/packages \
+		test-deps:$(ROS_DISTRO)
