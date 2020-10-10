@@ -19,9 +19,21 @@ find /packages -name APKINDEX.tar.gz | while read path; do
   rm -rf ${tmpdir}
 done
 
-sed '/^py2-backports\.ssl_match_hostname$/d' -i /local_pkgs
+SEPARATED_PKGS="
+  ros-${ROS_DISTRO}-rosbridge-server"
+
+for pkg in ${SEPARATED_PKGS}; do
+  sed "/^${pkg}\$/d" -i /local_pkgs
+done
+
+apk update
+
+echo
+echo "Installing packages"
+apk add --virtual .test ${SEPARATED_PKGS}
+echo "Removing packages"
+apk del .test
 
 echo
 echo "Installing all local packages"
-apk update
 exec apk add $(cat /local_pkgs)
