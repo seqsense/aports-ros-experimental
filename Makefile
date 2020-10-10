@@ -75,6 +75,7 @@ update-checksum:
 test-deps:
 	DOCKER_BUILDKIT=0 docker build \
 		--build-arg ALPINE_VERSION=$(ALPINE_VERSION) \
+		--build-arg ROS_DISTRO=$(ROS_DISTRO) \
 		-t test-deps:$(ROS_DISTRO) -f test-deps.Dockerfile .
 	docker run --rm \
 		--network=host \

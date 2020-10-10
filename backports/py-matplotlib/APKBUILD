@@ -3,7 +3,7 @@
 pkgname=py-matplotlib
 _pkgname=matplotlib
 pkgver=2.2.3
-pkgrel=1
+pkgrel=2
 pkgdesc="A Python library for plots"
 url="https://matplotlib.org"
 arch="all"
@@ -51,6 +51,7 @@ doc() {
 _py() {
 	local python="$1"
 	pkgdesc="$pkgdesc (for $python)"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
 	cd "$builddir"
 
 	$python setup.py install --prefix=/usr --root="$subpkgdir"

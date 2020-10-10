@@ -11,8 +11,13 @@ a17OJ4wWWaPvOq8PshcTZ2P3Me8kTCWr/fczjzq+8hB0MNEqfuENoSyZhmCypEuy\n\
 ewIDAQAB\n\
 -----END PUBLIC KEY-----' > /etc/apk/keys/builder@alpine-ros-experimental.rsa.pub
 
+RUN mkdir -p /var/cache/apk \
+  && ln -s /var/cache/apk /etc/apk/cache
+
 VOLUME /packages
 
 COPY test-deps.sh /
+ARG ROS_DISTRO=kinetic
+ENV ROS_DISTRO=${ROS_DISTRO}
 
 ENTRYPOINT ["/test-deps.sh"]

@@ -58,15 +58,6 @@ if [ ! -d ${SRCDIR}/${basedir}/${repo} ]; then
 fi
 
 
-# Store previous APKINDEX sum
-
-index_sum=
-index=$(find ${REPODIR}/${repo} -name APKINDEX.tar.gz || true)
-if [ -f "${index}" ]; then
-  index_sum=$(sha512sum ${index})
-fi
-
-
 # Copy noarch pkgs
 
 cp ${REPODIR}/${repo}/noarch/* ${REPODIR}/${repo}/x86_64/ || true
@@ -118,12 +109,14 @@ echo "ALPINE_VERSION: major(${ALPINE_VERSION_MAJOR}) minor(${ALPINE_VERSION_MINO
 ls ${APORTSDIR}
 if [ ${ALPINE_VERSION_MAJOR} -eq 3 -a ${ALPINE_VERSION_MINOR} -ge 11 ]; then
   echo "Removing py2 from v3.11 aports"
-  py_apkbuilds=$(find $(find ${APORTSDIR}/backports/ -name "py-*" -type d) -name APKBUILD)
+  py_apkbuilds=$(find $(find ${APORTSDIR}/backports/ -type d) -name APKBUILD)
   if [ ! -z "${py_apkbuilds}" ]; then
     echo "${py_apkbuilds}" | xargs -r -n1 echo "-"
     sed "s/\<python2-dev\>//g" -i ${py_apkbuilds}              # Remove python2-dev dep
     sed "s/\<py2-\${pkgname#py-}:_py2\>//g" -i ${py_apkbuilds} # Remove py2- subpackage
+    sed "s/\<py2-\$\S*pkgname:_py2\>//g" -i ${py_apkbuilds}    # Remove py2- subpackage
     sed "s/^\s*python2\s/#\0/g" -i ${py_apkbuilds}             # Remove python2 commands
+    sed "/depends/s/\<py2-\S*\>//g" -i ${py_apkbuilds}         # Remove py2- dependencies
   else
     echo "Skipping py2 removal"
   fi
@@ -157,19 +150,19 @@ sudo apk update
       -v -e "Resolving deltas: ")
 
 
-# Re-sign packages if there is a change
+# Generate package index
 
-index=$(find ${REPODIR}/${repo} -name APKINDEX.tar.gz || true)
-if [ ! -f "${index}" ]; then
-  exit 1
-fi
-
-index_sum2=$(sha512sum ${index})
+index=${REPODIR}/${repo}/x86_64/APKINDEX.tar.gz
+apk index -o ${index} \
+  $(find $(dirname ${index}) -name '*.apk')
 
 tmpdir=$(mktemp -d)
-(cd ${tmpdir} && tar xzf ${index})
+(cd ${tmpdir} && tar xzf ${index} && ls -la)
 
-force_resign=$(mktemp)
+
+# Move noarch packages
+
+rm ${REPODIR}/${repo}/noarch/*.apk || true
 cat ${tmpdir}/APKINDEX \
   | sed -n '/^P:/{s/^\S:\(.*\)$/\1 ARCH/p; {:l; n; /^A:/{s/^\S://p; d;}; b l;}};' \
   | sed -n '/ARCH$/{N; s/ARCH\n//p;}' \
@@ -179,22 +172,16 @@ cat ${tmpdir}/APKINDEX \
   if [ "${arch}" = "noarch" ]; then
     echo "${pkg} is noarch"
     mkdir -p ${REPODIR}/${repo}/noarch/
-    mv ${REPODIR}/${repo}/x86_64/${pkg}* ${REPODIR}/${repo}/noarch/
-    echo 1 >> ${force_resign}
+    mv ${REPODIR}/${repo}/x86_64/${pkg}-* ${REPODIR}/${repo}/noarch/
   fi
 done
 
 rm -rf ${tmpdir}
 
-if [ "${index_sum}" != "${index_sum2}" ] || [ -n "$(cat ${force_resign})" ]; then
-  echo "Previous index: ${index_sum}"
-  echo "New index:      ${index_sum2}"
-  rm -f ${index}
-  apk index -o ${index} \
-    $(find $(dirname ${index})/../ -name '*.apk')
-  abuild-sign -k /home/builder/.abuild/*.rsa ${index}
-else
-  echo "Index is up-to-date"
-fi
 
-rm ${force_resign}
+# Re-sign
+
+rm -f ${index}
+apk index -o ${index} \
+  $(find $(dirname ${index})/../ -name '*.apk')
+abuild-sign -k /home/builder/.abuild/*.rsa ${index}

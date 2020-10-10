@@ -19,8 +19,8 @@ find /packages -name APKINDEX.tar.gz | while read path; do
   rm -rf ${tmpdir}
 done
 
+apk update
 
 echo
 echo "Installing all local packages"
-apk update
-exec apk add $(cat /local_pkgs)
+exec apk add --force-overwrite $(cat /local_pkgs)

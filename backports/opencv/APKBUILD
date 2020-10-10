@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=opencv
 pkgver=4.3.0
-pkgrel=0
+pkgrel=1
 pkgdesc="Open Source Computer Vision Library"
 url="https://opencv.org/"
 arch="all"
