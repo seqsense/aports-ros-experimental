@@ -23,4 +23,4 @@ done
 echo
 echo "Installing all local packages"
 apk update
-apk add $(cat /local_pkgs)
+exec apk add $(cat /local_pkgs)
