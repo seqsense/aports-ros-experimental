@@ -27,6 +27,9 @@ before_install:
 install:
   - make all
 
+script:
+  - make test-deps
+
 deploy:
   - provider: script
     skip_cleanup: true
