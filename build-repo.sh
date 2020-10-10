@@ -123,6 +123,7 @@ if [ ${ALPINE_VERSION_MAJOR} -eq 3 -a ${ALPINE_VERSION_MINOR} -ge 11 ]; then
     echo "${py_apkbuilds}" | xargs -r -n1 echo "-"
     sed "s/\<python2-dev\>//g" -i ${py_apkbuilds}              # Remove python2-dev dep
     sed "s/\<py2-\${pkgname#py-}:_py2\>//g" -i ${py_apkbuilds} # Remove py2- subpackage
+    sed "s/\<py2-\$_pkgname:_py2\>//g" -i ${py_apkbuilds}      # Remove py2- subpackage
     sed "s/^\s*python2\s/#\0/g" -i ${py_apkbuilds}             # Remove python2 commands
   else
     echo "Skipping py2 removal"

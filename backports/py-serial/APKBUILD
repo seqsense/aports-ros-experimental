@@ -3,12 +3,12 @@
 pkgname=py-serial
 _pkgname=pyserial
 pkgver=3.4
-pkgrel=0
+pkgrel=1
 pkgdesc="Python Serial Port Extension"
 url="http://pyserial.sourceforge.net/"
 arch="noarch"
 license="Python"
-depends="python2"
+depends=""
 makedepends="python2-dev python3-dev py-setuptools"
 install=""
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3 $pkgname-doc $pkgname-examples"
@@ -23,7 +23,6 @@ build() {
 }
 
 package() {
-	depends="py2-${pkgname#py-} py3-${pkgname#py-}"
 	mkdir -p "$pkgdir"
 }
 
@@ -38,7 +37,9 @@ _py3() {
 
 _py_common() {
 	local python="$1"
+	pkgdesc="$pkgdesc (for $python)"
 	depends="$python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
 
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
