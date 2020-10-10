@@ -171,6 +171,7 @@ index_sum2=$(sha512sum ${index})
 tmpdir=$(mktemp -d)
 (cd ${tmpdir} && tar xzf ${index})
 
+rm ${REPODIR}/${repo}/noarch/*.apk || true
 cat ${tmpdir}/APKINDEX \
   | sed -n '/^P:/{s/^\S:\(.*\)$/\1 ARCH/p; {:l; n; /^A:/{s/^\S://p; d;}; b l;}};' \
   | sed -n '/ARCH$/{N; s/ARCH\n//p;}' \
