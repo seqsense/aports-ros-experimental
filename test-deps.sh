@@ -19,10 +19,15 @@ find /packages -name APKINDEX.tar.gz | while read path; do
   rm -rf ${tmpdir}
 done
 
+# py2-backports.ssl_match_hostname conflicts with py2-backports_functools_lru_cache
 SEPARATED_PKGS="
-  ros-${ROS_DISTRO}-rosbridge-server"
+  py[23]\{0,1\}-matplotlib
+  py2-backports_functools_lru_cache
+  ros-${ROS_DISTRO}-rqtplot"
 
+touch /separated_pkgs
 for pkg in ${SEPARATED_PKGS}; do
+  sed -n "/^${pkg}\$/p" /local_pkgs >> /separated_pkgs
   sed "/^${pkg}\$/d" -i /local_pkgs
 done
 
@@ -30,7 +35,7 @@ apk update
 
 echo
 echo "Installing packages"
-apk add --virtual .test ${SEPARATED_PKGS}
+apk add --virtual .test $(cat /separated_pkgs)
 echo "Removing packages"
 apk del .test
 
