@@ -67,6 +67,11 @@ if [ -f "${index}" ]; then
 fi
 
 
+# Copy noarch pkgs
+
+cp ${REPODIR}/${repo}/noarch/* ${REPODIR}/${repo}/x86_64/ || true
+
+
 # Generate temporary private key if not present
 
 if [ ! -f ${PACKAGER_PRIVKEY} ]; then
@@ -77,7 +82,8 @@ if [ ! -f ${PACKAGER_PRIVKEY} ]; then
   index=$(find ${REPODIR} -name APKINDEX.tar.gz || true)
   if [ -f "${index}" ]; then
     rm -f ${index}
-    apk index -o ${index} `find $(dirname ${index}) -name '*.apk'`
+    apk index -o ${index} \
+      $(find $(dirname ${index})/../ -name '*.apk')
     abuild-sign -k /home/builder/.abuild/*.rsa ${index}
   fi
 fi
@@ -159,12 +165,36 @@ if [ ! -f "${index}" ]; then
 fi
 
 index_sum2=$(sha512sum ${index})
-if [ "${index_sum}" != "${index_sum2}" ]; then
+
+tmpdir=$(mktemp -d)
+(cd ${tmpdir} && tar xzf ${index})
+
+force_resign=$(mktemp)
+cat ${tmpdir}/APKINDEX \
+  | sed -n '/^P:/{s/^\S:\(.*\)$/\1 ARCH/p; {:l; n; /^A:/{s/^\S://p; d;}; b l;}};' \
+  | sed -n '/ARCH$/{N; s/ARCH\n//p;}' \
+  | while read apk; do
+  pkg=$(echo ${apk} | cut -f1 -d" ")
+  arch=$(echo ${apk} | cut -f2 -d" ")
+  if [ "${arch}" = "noarch" ]; then
+    echo "${pkg} is noarch"
+    mkdir -p ${REPODIR}/${repo}/noarch/
+    mv ${REPODIR}/${repo}/x86_64/${pkg}* ${REPODIR}/${repo}/noarch/
+    echo 1 >> ${force_resign}
+  fi
+done
+
+rm -rf ${tmpdir}
+
+if [ "${index_sum}" != "${index_sum2}" ] || [ -n "$(cat ${force_resign})" ]; then
   echo "Previous index: ${index_sum}"
   echo "New index:      ${index_sum2}"
   rm -f ${index}
-  apk index -o ${index} `find $(dirname ${index}) -name '*.apk'`
+  apk index -o ${index} \
+    $(find $(dirname ${index})/../ -name '*.apk')
   abuild-sign -k /home/builder/.abuild/*.rsa ${index}
 else
   echo "Index is up-to-date"
 fi
+
+rm ${force_resign}
