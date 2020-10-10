@@ -51,6 +51,7 @@ doc() {
 _py() {
 	local python="$1"
 	pkgdesc="$pkgdesc (for $python)"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
 	cd "$builddir"
 
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
