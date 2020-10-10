@@ -118,14 +118,14 @@ echo "ALPINE_VERSION: major(${ALPINE_VERSION_MAJOR}) minor(${ALPINE_VERSION_MINO
 ls ${APORTSDIR}
 if [ ${ALPINE_VERSION_MAJOR} -eq 3 -a ${ALPINE_VERSION_MINOR} -ge 11 ]; then
   echo "Removing py2 from v3.11 aports"
-  py_apkbuilds=$(find $(find ${APORTSDIR}/backports/ -name "py-*" -type d) -name APKBUILD)
+  py_apkbuilds=$(find $(find ${APORTSDIR}/backports/ -type d) -name APKBUILD)
   if [ ! -z "${py_apkbuilds}" ]; then
     echo "${py_apkbuilds}" | xargs -r -n1 echo "-"
     sed "s/\<python2-dev\>//g" -i ${py_apkbuilds}              # Remove python2-dev dep
     sed "s/\<py2-\${pkgname#py-}:_py2\>//g" -i ${py_apkbuilds} # Remove py2- subpackage
     sed "s/\<py2-\$\S*pkgname:_py2\>//g" -i ${py_apkbuilds}    # Remove py2- subpackage
     sed "s/^\s*python2\s/#\0/g" -i ${py_apkbuilds}             # Remove python2 commands
-    sed "s/\<py2-\S*\>//g" -i ${py_apkbuilds}                  # Remove py2- dependencies
+    sed "/depends/s/\<py2-\S*\>//g" -i ${py_apkbuilds}         # Remove py2- dependencies
   else
     echo "Skipping py2 removal"
   fi
