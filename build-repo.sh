@@ -171,7 +171,6 @@ index_sum2=$(sha512sum ${index})
 tmpdir=$(mktemp -d)
 (cd ${tmpdir} && tar xzf ${index})
 
-force_resign=$(mktemp)
 cat ${tmpdir}/APKINDEX \
   | sed -n '/^P:/{s/^\S:\(.*\)$/\1 ARCH/p; {:l; n; /^A:/{s/^\S://p; d;}; b l;}};' \
   | sed -n '/ARCH$/{N; s/ARCH\n//p;}' \
@@ -181,14 +180,13 @@ cat ${tmpdir}/APKINDEX \
   if [ "${arch}" = "noarch" ]; then
     echo "${pkg} is noarch"
     mkdir -p ${REPODIR}/${repo}/noarch/
-    mv ${REPODIR}/${repo}/x86_64/${pkg}* ${REPODIR}/${repo}/noarch/
-    echo 1 >> ${force_resign}
+    mv ${REPODIR}/${repo}/x86_64/${pkg}-* ${REPODIR}/${repo}/noarch/
   fi
 done
 
 rm -rf ${tmpdir}
 
-if [ "${index_sum}" != "${index_sum2}" ] || [ -n "$(cat ${force_resign})" ]; then
+if [ "${index_sum}" != "${index_sum2}" ]; then
   echo "Previous index: ${index_sum}"
   echo "New index:      ${index_sum2}"
   rm -f ${index}
@@ -198,5 +196,3 @@ if [ "${index_sum}" != "${index_sum2}" ] || [ -n "$(cat ${force_resign})" ]; the
 else
   echo "Index is up-to-date"
 fi
-
-rm ${force_resign}
