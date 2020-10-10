@@ -1,0 +1,26 @@
+# Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
+# Maintainer:
+pkgname=py-numpy
+pkgver=1.17.4
+pkgrel=1
+pkgdesc="Scientific tools for Python"
+url="http://numpy.scipy.org/"
+arch="all"
+license="BSD"
+options="!check"
+makedepends=""
+subpackages="$pkgname-dev
+	$pkgname-doc
+	$pkgname-f2py:_f2py:noarch"
+
+dev() {
+  depends="py3-numpy-dev"
+}
+
+doc() {
+  depends="py3-numpy-doc "
+}
+
+_f2py() {
+  depends="py3-numpy-f2py"
+}

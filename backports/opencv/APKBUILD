@@ -8,7 +8,7 @@ url="https://opencv.org/"
 arch="all"
 options="check"
 license="BSD-3-Clause"
-makedepends="cmake linux-headers python2-dev python3-dev py2-numpy-dev py2-numpy py3-numpy-dev py3-numpy"
+makedepends="cmake linux-headers python2-dev python3-dev py-numpy-dev py-numpy"
 subpackages="$pkgname-dev py2-$pkgname:_py2 py3-$pkgname:_py3"
 source="$pkgname-$pkgver.tar.gz::https://github.com/opencv/$pkgname/archive/$pkgver.tar.gz"
 
