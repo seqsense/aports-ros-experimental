@@ -1,7 +1,7 @@
 pkgname=ros-kinetic-safety-limiter
 _pkgname=safety_limiter
 pkgver=0.10.2
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://wiki.ros.org/$_pkgname"
 arch="all"
