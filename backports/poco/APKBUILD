@@ -11,7 +11,7 @@ depends=
 depends_dev=
 makedepends="$depends_dev libressl-dev linux-headers"
 install=
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 source="https://pocoproject.org/releases/$pkgname-$pkgver/$pkgname-$pkgver-all.tar.gz
 	200-strerror.patch
 	cxxflags.patch
@@ -56,6 +56,8 @@ package() {
 	# remove the 2 lines below (and this) if there is no init.d script
 	# install -m755 -D "$srcdir"/$pkgname.initd "$pkgdir"/etc/init.d/$pkgname
 	# install -m644 -D "$srcdir"/$pkgname.confd "$pkgdir"/etc/conf.d/$pkgname
+
+	install -Dm 0644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 sha512sums="8fecc361fd0388670ac6d92cf17a9f109d9600e50a3725d38466dc0035d4b010046ca5b162e1a4d8e42e04f9a7fef94dad56331dc4b27ed0ef67252b4be6a5f1  poco-1.7.7-all.tar.gz
