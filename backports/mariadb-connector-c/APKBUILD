@@ -52,7 +52,7 @@ package() {
 	ln -s mariadb_config "$pkgdir"/usr/bin/mysql_config
 	ln -s mariadb_version.h "$pkgdir"/usr/include/mysql/mysql_version.h
 
-	install -m 0644 "$builddir"/COPYING.LIB "$pkgdir"/usr/share/licenses/$pkgname
+	install -Dm 0644 "$builddir"/COPYING.LIB "$pkgdir"/usr/share/licenses/$pkgname/COPYING.LIB
 }
 
 dev() {
