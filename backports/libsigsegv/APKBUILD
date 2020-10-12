@@ -7,7 +7,7 @@ pkgdesc="Page fault detection library"
 url="http://www.gnu.org/software/libsigsegv/"
 arch="all"
 license="GPL-2.0"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 source="http://ftp.gnu.org/gnu/libsigsegv/libsigsegv-$pkgver.tar.gz
 	0001-Avoid-use-of-glibc-internal-macros.patch
 	"
@@ -35,6 +35,8 @@ check() {
 package() {
 	make DESTDIR="$pkgdir" \
 		-C "$builddir" install
+
+	install -Dm 0644 "$builddir"/COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
 }
 
 sha512sums="6d60bbaa704b86c12a32a6b0eadd30fa7736d0e0ff8a1c45af1b15b7b7d4524f39902fe3f7f47a100bc2586e32aa25bb575e3d859d9ccb5fd7e99ba4e62f7b02  libsigsegv-2.11.tar.gz
