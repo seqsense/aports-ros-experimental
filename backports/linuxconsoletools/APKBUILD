@@ -21,9 +21,7 @@ package() {
 	cd "$builddir"
 	make PREFIX=/usr  DESTDIR="$pkgdir" install
 
-	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
-	install -m 0644 "$builddir"/COPYING "$pkgdir"/usr/share/licenses/$pkgname
-	install -m 0644 "$builddir"/COPYING.1 "$pkgdir"/usr/share/licenses/$pkgname
+	install -Dm 0644 "$builddir"/COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
 }
 
 sha512sums="35ca923cceca729bcbab95dff18682abd0d87a297e70aa8707fbabccde018fef0775a99195af4bf9111ba33210a14c10d1a766f83112cd535930a1ae430c7c75  linuxconsoletools-1.6.0.tar.bz2"
