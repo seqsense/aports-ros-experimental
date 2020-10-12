@@ -7,12 +7,12 @@ pkgrel=1
 pkgdesc="Orocos Kinematics and Dynamics C++ library"
 url="https://github.com/orocos/orocos_kinematics_dynamics"
 arch="all"
-license="LGPL-2"
+license="LGPL-2.1-only"
 depends=""
 depends_dev="eigen-dev"
 makedepends="cmake eigen-dev pkgconfig"
 checkdepends="cppunit-dev"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 options="!check"  # test code is broken on the latest compiler and cppunit
 source="$_pkgname-$pkgver.tar.gz::https://github.com/orocos/$_pkgname/tarball/5145b19a7ed52cec59af9d6e626cb323f22b1b85"
 
@@ -33,6 +33,8 @@ build() {
 package() {
   cd $builddir/orocos_kdl/build
   make DESTDIR="$pkgdir" install
+
+  install -Dm 0644 "$builddir"/orocos_kdl/COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
 }
 
 sha512sums="41388e005439b9b1c217b3a4df971dab2d9f350aba55b8be2acc2acabef652b048fbeaacf1703dd85c74d8c81e0690c279367e98dec83e7df2a73f6bd1048846  orocos_kinematics_dynamics-1.3.2_git20200313.tar.gz"
