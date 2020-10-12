@@ -9,7 +9,7 @@ arch="all !x86 !s390x" # tests fails on x86 and s390x
 license="BSD-3-Clause"
 depends_dev="eigen-dev boost-dev flann-dev qhull-dev vtk7-dev"
 makedepends="cmake eigen-dev boost-dev flann-dev qhull-dev vtk7-dev"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 _gtestver=1.8.0
 source="$pkgname-$pkgver.tar.gz::https://github.com/PointCloudLibrary/$pkgname/archive/$pkgname-$pkgver.tar.gz
   release-$_gtestver.tar.gz::https://github.com/google/googletest/archive/release-$_gtestver.tar.gz
@@ -65,6 +65,8 @@ build() {
 package() {
   cd "$builddir"/build
   make DESTDIR="$pkgdir" install
+
+  install -Dm 0644 "$builddir"/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
 }
 
 check() {
