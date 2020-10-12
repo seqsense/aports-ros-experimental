@@ -9,7 +9,7 @@ license="LGPLv2+"
 depends_dev="libressl-dev zlib-dev"
 makedepends="$depends_dev cmake"
 replaces="mariadb-client-libs"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 # Download url without from/http... postfix looks broken. Need explicit mirror URL.
 source="mariadb-connector-c-$pkgver-src.tar.gz::https://downloads.mariadb.org/interstitial/connector-c-$pkgver/mariadb-connector-c-$pkgver-src.tar.gz/from/http%3A//ftp.hosteurope.de/mirror/archive.mariadb.org/
 	cmake.patch
@@ -51,6 +51,8 @@ package() {
 	# compat symlinks
 	ln -s mariadb_config "$pkgdir"/usr/bin/mysql_config
 	ln -s mariadb_version.h "$pkgdir"/usr/include/mysql/mysql_version.h
+
+	install -Dm 0644 "$builddir"/COPYING.LIB "$pkgdir"/usr/share/licenses/$pkgname/COPYING.LIB
 }
 
 dev() {
