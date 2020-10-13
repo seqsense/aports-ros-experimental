@@ -7,7 +7,7 @@ pkgrel=6
 pkgdesc="A featureful, general-purpose sound server"
 url="http://www.freedesktop.org/wiki/Software/PulseAudio"
 arch="all !s390x"
-license="LGPL"
+license="LGPL-2.1-or-later"
 makedepends="m4 automake libtool intltool bash
 	dbus-dev libcap-dev alsa-lib-dev bluez-dev speexdsp-dev avahi-dev libressl-dev eudev-dev
 	libsndfile-dev gtk+3.0-dev json-c-dev fftw-dev gconf-dev sbc-dev jack-dev"
