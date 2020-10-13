@@ -36,6 +36,11 @@ license+=" $(find * -iname "*copyright*")"
 license=$(echo ${license})
 echo ${license} | xargs -n1 echo "-"
 
+if [ $(echo ${license} | wc -w) -eq 0 ]; then
+  echo "license not found"
+  exit 1
+fi
+
 tmpfile=$(mktemp)
 
 echo
