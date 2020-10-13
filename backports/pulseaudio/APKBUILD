@@ -3,11 +3,11 @@
 # Maintainer: William Pitcock <nenolod@dereferenced.org>
 pkgname=pulseaudio
 pkgver=9.0
-pkgrel=5
+pkgrel=6
 pkgdesc="A featureful, general-purpose sound server"
 url="http://www.freedesktop.org/wiki/Software/PulseAudio"
 arch="all !s390x"
-license="LGPL"
+license="LGPL-2.1-or-later"
 makedepends="m4 automake libtool intltool bash
 	dbus-dev libcap-dev alsa-lib-dev bluez-dev speexdsp-dev avahi-dev libressl-dev eudev-dev
 	libsndfile-dev gtk+3.0-dev json-c-dev fftw-dev gconf-dev sbc-dev jack-dev"
@@ -42,6 +42,11 @@ build() {
 package() {
 	cd "$builddir"
 	make -j1 DESTDIR="$pkgdir" install || return 1
+
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/GPL "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LGPL "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname
 }
 
 system() {
