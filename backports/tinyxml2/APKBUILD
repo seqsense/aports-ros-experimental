@@ -9,7 +9,8 @@ arch="all"
 license="zlib"
 makedepends="cmake"
 subpackages="$pkgname-dev $pkgname-doc"
-source="$pkgname-$pkgver.tar.gz::https://github.com/leethomason/tinyxml2/archive/$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/leethomason/tinyxml2/archive/$pkgver.tar.gz
+	LICENSE.txt"
 
 build() {
 	cd "$builddir"
@@ -36,7 +37,8 @@ package() {
 	cd "$builddir"
 	make DESTDIR="$pkgdir" install
 
-	install -Dm 0644 "$builddir"/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
+	install -Dm 0644 "$startdir"/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
 }
 
-sha512sums="ef784240aeb090ab04aad659352ad4b224c431feecf485f33aca7936bcaa0ef4ab9d0a2e0692d3cf6036ac3e8012019d65665e780a920bbad3d4820f736445b1  tinyxml2-6.2.0.tar.gz"
+sha512sums="ef784240aeb090ab04aad659352ad4b224c431feecf485f33aca7936bcaa0ef4ab9d0a2e0692d3cf6036ac3e8012019d65665e780a920bbad3d4820f736445b1  tinyxml2-6.2.0.tar.gz
+e063cc0bea3e3a4a8f79641fad09ed7c829bff23a89180e0bf4b91dffad941a56cd669b5efcc7058d17ef018742ce87f13e70fc2a745c9689ea33e0c53841fc8  LICENSE.txt"
