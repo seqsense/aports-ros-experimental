@@ -13,7 +13,7 @@ depends_dev="gtk+3.0-dev mesa-dev zlib-dev tiff-dev libjpeg-turbo-dev expat-dev
 makedepends="$depends_dev glu-dev sdl-dev gst-plugins-base-dev
 	gstreamer-dev gconf-dev webkit2gtk-dev"
 install=""
-subpackages="$pkgname-dev $pkgname-lang $pkgname-media $pkgname-base $pkgname-webview"
+subpackages="$pkgname-dev $pkgname-lang $pkgname-media $pkgname-base $pkgname-webview $pkgname-doc"
 source="https://github.com/wxWidgets/wxWidgets/releases/download/v${pkgver}/wxWidgets-${pkgver}.tar.bz2"
 builddir="$srcdir/wxWidgets-$pkgver"
 
@@ -46,6 +46,14 @@ cd "$builddir"
 package() {
 	cd "$builddir"
 	make DESTDIR="$pkgdir" install || return 1
+
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/docs/gpl.txt "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/docs/lgpl.txt "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/docs/licence.txt "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/docs/licendoc.txt "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/docs/preamble.txt "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/docs/xserver.txt "$pkgdir"/usr/share/licenses/$pkgname
 }
 
 dev() {
