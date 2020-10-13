@@ -12,6 +12,7 @@ url="http://qt-project.org/"
 arch="all"
 license="LGPL-2.0 with exceptions or GPL-3.0 with exceptions"
 makedepends="qt5-qtbase-dev libmng-dev tiff-dev jasper-dev libwebp-dev"
+subpackages="$pkgname-doc"
 
 case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
@@ -34,6 +35,10 @@ check() {
 package() {
 	cd "$builddir"
 	make install INSTALL_ROOT="$pkgdir"
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
 sha512sums="47079aa2a503c3eb0b7206f05c62db5554390e7a2eaa610d8ee082dff55b27409f85827dac765a6cf5759765ce0a65c972f644504e28d4c5d3fb0519ddc6c4d6  qtimageformats-everywhere-src-5.10.1.tar.xz"

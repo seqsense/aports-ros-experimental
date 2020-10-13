@@ -7,7 +7,7 @@ _ver=${_ver/_/-}
 _ver=${_ver/beta0/beta}
 _ver=${_ver/rc0/rc}
 _V=${_ver/rc/RC}
-pkgrel=0
+pkgrel=1
 pkgdesc="Qt5 - QtBase components"
 url="http://qt-project.org/"
 arch="all"
@@ -129,6 +129,10 @@ package() {
 		esac
 		ln -s ../lib/qt5/bin/"${_name}" "$_dest"
 	done
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
 _mv_files() {

@@ -14,7 +14,7 @@ arch="all"
 license="LGPL-2.0 with exceptions or GPL-3.0 with exceptions"
 makedepends="qt5-qtbase-dev qt5-qtdeclarative-dev
 	alsa-lib-dev libxv-dev gstreamer-dev gst-plugins-base-dev"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 
 case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
@@ -36,6 +36,10 @@ check() {
 package() {
 	cd "$builddir"
 	make install INSTALL_ROOT="$pkgdir"
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
 sha512sums="cbab1907b68ec6fced251f04ea5f1dc519b55152f0f90bfa3f14c3011630a9611ae75bf1e7047538a2612358d3e1def3ad64eb2c18f11dda36e7e75d2b765a91  qtmultimedia-everywhere-src-5.10.1.tar.xz"

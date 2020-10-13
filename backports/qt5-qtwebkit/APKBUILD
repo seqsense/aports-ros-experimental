@@ -25,7 +25,7 @@ makedepends="$depends_dev
 	sqlite-dev
 	zlib-dev
 	"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 
 _ver=${pkgver/_/-}
 _ver=${_ver/beta0/beta}
@@ -77,6 +77,10 @@ package() {
 	# remove rpath
 #	chrpath --delete "$pkgdir"/usr/lib/qt5/libexec/* || return 1
 	sed -i -e 's:-L/home[^ ]\+::g' "$pkgdir"/usr/lib/pkgconfig/*.pc
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
 sha512sums="79316ab746a230fdb290e28629d7cec5fca75119ba8868060742c682ab86490de9ffd8e517569aa7412f35fd709568dbb5f7d2d467bdb4461e192f8b05d6f1e5  qtwebkit-opensource-src-5.9.1.tar.xz

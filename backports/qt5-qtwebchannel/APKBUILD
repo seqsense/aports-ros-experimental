@@ -14,7 +14,7 @@ arch="all"
 license="LGPL-2.0 with exceptions or GPL-3.0 with exceptions"
 options="!check" #upstream does not provide check
 makedepends="qt5-qtbase-dev qt5-qtwebsockets-dev qt5-qtdeclarative-dev"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 
 case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
@@ -39,5 +39,9 @@ build() {
 package() {
 	cd "$builddir"/build
 	make INSTALL_ROOT="$pkgdir" install
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 sha512sums="aea4c82d3873be24aa1648e197d6b3403f11658793dff40fe37cd3726a34360286638424cba83de530049e4ff5a69d9f251cb105c65da5142376dc2827510d47  qtwebchannel-everywhere-src-5.10.1.tar.xz"

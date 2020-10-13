@@ -12,7 +12,7 @@ url="http://qt-project.org/"
 arch="all"
 license="LGPL-2.0 with exceptions or GPL-3.0 with exceptions"
 makedepends="qt5-qtbase-dev"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 
 case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
@@ -36,6 +36,10 @@ check() {
 package() {
 	cd "$builddir"
 	make INSTALL_ROOT="$pkgdir" install
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
 sha512sums="9ebcd57c2095e4e31f9ce38c17cc17f483fabcf4ef0247b87189fdc3651d950d5ec63a013f5a0fab4fb5af44f1f5271231900c0c9a7760772d888fc36473b80c  qtscript-everywhere-src-5.10.1.tar.xz

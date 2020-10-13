@@ -12,6 +12,7 @@ url="http://qt-project.org/"
 arch="all"
 license="LGPL-2.0 with exceptions or GPL-3.0 with exceptions"
 makedepends="qt5-qtbase-dev qt5-qtdeclarative-dev"
+subpackages="$pkgname-doc"
 
 case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
@@ -35,6 +36,10 @@ check() {
 package() {
 	cd "$builddir"
 	make install INSTALL_ROOT="$pkgdir"
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
 sha512sums="7dd015e551495bbb601e21b4ecd3ed846595b946534a10cd16e54397808b113356d9f231a468fcda315bcfeadb9c080ce57dcce10e32ee88eb8393bd73555772  qtgraphicaleffects-everywhere-src-5.10.1.tar.xz"

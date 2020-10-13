@@ -14,7 +14,7 @@ arch="all"
 license="LGPL-2.0 with exceptions or GPL-3.0 with exceptions"
 options="!check" #upstream does not provide check
 makedepends="qt5-qtbase-dev"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 
 case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
@@ -39,5 +39,9 @@ build() {
 package() {
 	cd "$builddir"/build
 	make INSTALL_ROOT="$pkgdir" install
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 sha512sums="69387989640b2ea918706d5e0ae91d7f0e978b9946e0cf4da39344c05e5acb6ad48e6a5635c1651f2f4df321be2ae7b8596e836c6ec8e56c070c86f684dc2733  qtconnectivity-everywhere-src-5.10.1.tar.xz"

@@ -14,7 +14,7 @@ url="http://wiki.qt.io/QtSerialPort"
 arch="all"
 license="LGPL-2.0 with exceptions or GPL-3.0 with exceptions"
 makedepends="qt5-qtbase-dev eudev-dev"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 
 case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
@@ -37,6 +37,10 @@ check() {
 package() {
 	cd "$builddir"
 	make INSTALL_ROOT="$pkgdir" install
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
 sha512sums="6c0a47adbc1f518634ca1313f2d22a9e3e7734ddbf8db85ea17c777dee5feae2e9120236479e0c4163702e636d6a2c1dc61462c392fbd79f3332e05d4e0afc1d  qtserialport-everywhere-src-5.10.1.tar.xz"

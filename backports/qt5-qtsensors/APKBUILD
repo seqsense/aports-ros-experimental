@@ -14,7 +14,7 @@ arch="all"
 license="LGPL-2.0 with exceptions or GPL-3.0 with exceptions"
 options="!check" #upstream does not provide check
 makedepends="qt5-qtbase-dev qt5-qtdeclarative-dev"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 
 case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
@@ -39,5 +39,9 @@ build() {
 package() {
 	cd "$builddir"/build
 	make INSTALL_ROOT="$pkgdir" install
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 sha512sums="28491cc63fdf0036168882263faf7d3309920c4cd2749a96514f5bcaf8d26a225b2beb1006fa3aaa052b7a426d98a37b7dd59897b30e82b1ceb111eb4fc8124c  qtsensors-everywhere-src-5.10.1.tar.xz"

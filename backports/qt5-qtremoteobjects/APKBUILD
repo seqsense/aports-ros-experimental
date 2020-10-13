@@ -14,7 +14,7 @@ arch="all"
 license="LGPL-2.0 with exceptions or GPL-3.0 with exceptions"
 options="!check" #upstream does not provide check
 makedepends="qt5-qtbase-dev"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 
 case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
@@ -44,5 +44,9 @@ check() {
 package() {
 	cd "$builddir"/build
 	make INSTALL_ROOT="$pkgdir" install
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 sha512sums="f7cee2a030edac8e6bc2846d77068bc5679d23278ef6c0af0a2f80665d34fdcc7ccd1cd5623116e430b8060acbbcfcd6597cb9aef82afe8d4fea7efeda2b3789  qtremoteobjects-everywhere-src-5.10.1.tar.xz"
