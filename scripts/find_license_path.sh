@@ -19,9 +19,32 @@ tmpdir=$(mktemp -d)
 wget -q -O ${tmpdir}/archive ${url}
 cd ${tmpdir}
 tar xf archive
+rm archive
+
+if [ $(ls -1 | wc -l) -eq 1 ]; then
+  cd *
+fi
 
 echo "license files:"
-find . -iname "*license*"
-find . -iname "*gpl*"
-find . -iname "*copying*"
-find . -iname "*copyright*"
+license="$(find * -iname "*license*")"
+license+=" $(find * -iname "gpl*")"
+license+=" $(find * -iname "lgpl*")"
+license+=" $(find * -iname "*copying*")"
+license+=" $(find * -iname "*copyright*")"
+license=$(echo ${license})
+echo ${license} | xargs -n1 echo "-"
+
+echo
+echo "install script:"
+echo
+echo
+if [ $(echo ${license} | wc -w) -eq 1 ]; then
+  echo "	install -Dm644 \"\$builddir\"/${license} \"\$pkgdir\"/usr/share/licenses/\$pkgname/${license}"
+else
+  echo "	install -d -m 0755 \"\$pkgdir\"/usr/share/licenses/\$pkgname"
+  for l in ${license}; do
+    echo "	install -m644 \"\$builddir\"/$l \"\$pkgdir\"/usr/share/licenses/\$pkgname/$l"
+  done
+fi
+echo
+echo
