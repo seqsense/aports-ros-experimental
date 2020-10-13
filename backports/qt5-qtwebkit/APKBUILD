@@ -70,6 +70,9 @@ build() {
 	sed -i 's:-isystem /usr/include ::' \
 		Source/JavaScriptCore/Makefile.LLIntOffsetsExtractor || return 1
 
+	# avoid log size exceed error on buildfarm
+	sed 's/\<-Wall\>//g' -i $(find . -name Makefile)
+
 	make || return 1
 }
 
