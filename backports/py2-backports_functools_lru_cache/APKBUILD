@@ -8,6 +8,7 @@ url="https://pypi.org/project/backports.functools_lru_cache/"
 arch="noarch"
 license="BSD-2-Clause"
 makedepends="python2-dev py-setuptools"
+subpackages="$pkgname-doc"
 source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
 builddir="$srcdir"/$_pkgname-$pkgver
 
@@ -19,6 +20,9 @@ build() {
 package() {
 	cd "$builddir"
 	python2 setup.py install --prefix=/usr --root="$pkgdir"
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 check() {
