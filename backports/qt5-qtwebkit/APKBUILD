@@ -71,7 +71,7 @@ build() {
 		Source/JavaScriptCore/Makefile.LLIntOffsetsExtractor || return 1
 
 	# avoid log size exceed error on buildfarm
-	sed 's/\<-Wall\>//g' -i $(find . -name Makefile)
+	echo 'QMAKE_CXXFLAGS += -Wno-expansion-to-defined' >> WebKit.pro
 
 	make || return 1
 }
