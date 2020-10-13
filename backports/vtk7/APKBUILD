@@ -55,7 +55,7 @@ package() {
   cd "$builddir"/build
   make DESTDIR="$pkgdir" install
 
-	install -Dm 0644 "$builddir"/Copyright.txt "$pkgdir"/usr/share/licenses/$pkgname/Copyright.txt
+  install -Dm 0644 "$builddir"/Copyright.txt "$pkgdir"/usr/share/licenses/$pkgname/Copyright.txt
 }
 
 check() {
