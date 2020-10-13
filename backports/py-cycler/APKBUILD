@@ -11,7 +11,7 @@ license="BSD"
 depends="py-six"
 makedepends="py-setuptools"
 checkdepends="py-nose"
-subpackages="py2-$_pkgname:_py2 py3-$_pkgname:_py3"
+subpackages="$pkgname-doc py2-$_pkgname:_py2 py3-$_pkgname:_py3"
 source="https://files.pythonhosted.org/packages/source/C/Cycler/$_pkgname-$pkgver.tar.gz"
 builddir="${srcdir}/${_pkgname}-$pkgver"
 
@@ -29,6 +29,9 @@ check() {
 
 package() {
 	mkdir -p "$pkgdir"
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 _py2() {
