@@ -2,12 +2,12 @@
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=qt5-qtremoteobjects
 _pkgname=${pkgname/qt5-//}-everywhere-src
-pkgver=5.10.1
+pkgver=5.12.5
 _ver=${pkgver/_/-}
 _ver=${_ver/beta0/beta}
 _ver=${_ver/rc0/rc}
 _V=${_ver/rc/RC}
-pkgrel=0
+pkgrel=1
 pkgdesc="Qt Remote Objects (QtRO) is an inter-process communication (IPC) module developed for Qt"
 url="http://qt-project.org/"
 arch="all"
@@ -49,4 +49,4 @@ package() {
 	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
-sha512sums="f7cee2a030edac8e6bc2846d77068bc5679d23278ef6c0af0a2f80665d34fdcc7ccd1cd5623116e430b8060acbbcfcd6597cb9aef82afe8d4fea7efeda2b3789  qtremoteobjects-everywhere-src-5.10.1.tar.xz"
+sha512sums="ed3314b1c66f9375bdc101029eaf730a630157ee41c094de2ff9cc5340c3c92a781dcb2b2cf0b8bbad8b19e566fb80f2d3b76e58624e990f90f23b8cdd21bd54  qtremoteobjects-everywhere-src-5.12.5.tar.xz"

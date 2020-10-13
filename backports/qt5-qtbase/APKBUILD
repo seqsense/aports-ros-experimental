@@ -1,7 +1,7 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=qt5-qtbase
 _pkgname=${pkgname/qt5-//}-everywhere-src
-pkgver=5.10.1
+pkgver=5.12.5
 _ver=${pkgver/_p/-}
 _ver=${_ver/_/-}
 _ver=${_ver/beta0/beta}
@@ -9,15 +9,16 @@ _ver=${_ver/rc0/rc}
 _V=${_ver/rc/RC}
 pkgrel=1
 pkgdesc="Qt5 - QtBase components"
-url="http://qt-project.org/"
+url="https://qt.io/developers/"
 arch="all"
-license="LGPL-2.0 with exceptions or GPL-3.0 with exceptions"
+license="LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only AND Qt-GPL-exception-1.0"
 _sub="$pkgname-sqlite $pkgname-odbc $pkgname-postgresql $pkgname-mysql
 	$pkgname-tds $pkgname-x11"
 depends_dev="mesa-dev libice-dev libsm-dev libx11-dev libxext-dev
-	libressl-dev fontconfig-dev freetype-dev glib-dev libpng-dev zlib-dev
+	openssl-dev fontconfig-dev freetype-dev glib-dev libpng-dev zlib-dev
 	sqlite-dev dbus-dev perl $_sub"
 makedepends="$depends_dev
+	at-spi2-atk-dev
 	bison
 	cups-dev
 	eudev-dev
@@ -48,6 +49,7 @@ makedepends="$depends_dev
 	xcb-util-renderutil-dev
 	"
 subpackages="$pkgname-dev $pkgname-doc $_sub"
+provides="qtbase"
 
 case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
@@ -55,7 +57,6 @@ case $pkgver in
 esac
 source="http://download.qt-project.org/$_rel/qt/${pkgver%.*}/$_ver/submodules/$_pkgname-$_V.tar.xz
 	qt-musl-iconv-no-bom.patch
-	libressl-compat.patch
 	"
 
 _qt5_prefix=/usr/lib/qt5
@@ -206,6 +207,5 @@ x11() {
 	return 0
 }
 
-sha512sums="abc8087bb7c5db2a668ba87cef67ab7ab9d884b770bce916b7fe7bf4e0a1fac47114eff50e15bd9efed66d63307d6aceed5cb097aa2ae5df98cffd11af8691ba  qtbase-everywhere-src-5.10.1.tar.xz
-7d68421a14f0259535c977d8a521c98918193c107b76ac664571b12f5b0d7588a0d0e1297af412a26753a393b21f3f44c3274fa8ab5bc87f03705a3a03acb444  qt-musl-iconv-no-bom.patch
-c23ceb261aeefdd1ba2b51a6487893b1a5d88e031646b06741e2f52f045bd0e387d1f9c033391bb187fedbb74add3e495909f9ebcc9da61617b21be33c597d57  libressl-compat.patch"
+sha512sums="9a95060318cadfcd6dace6b28353fa868a8dcfe9def0bd884edf7d9f72606bae625de0269323a94b81d594a6c398106c266304106329b79c7dae4e5b88269660  qtbase-everywhere-src-5.12.5.tar.xz
+7d68421a14f0259535c977d8a521c98918193c107b76ac664571b12f5b0d7588a0d0e1297af412a26753a393b21f3f44c3274fa8ab5bc87f03705a3a03acb444  qt-musl-iconv-no-bom.patch"
