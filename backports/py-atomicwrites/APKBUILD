@@ -10,7 +10,7 @@ arch="noarch"
 license="MIT"
 makedepends="python2-dev python3-dev py-setuptools"
 options="!check"  # requires pytest which depends on this aport (cyclic dep)
-subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+subpackages="$pkgname-doc py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 source="https://github.com/untitaker/python-atomicwrites/archive/$pkgver/$_pkgname-$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
 
@@ -22,6 +22,9 @@ build() {
 
 package() {
 	mkdir -p "$pkgdir"
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 _py2() {
