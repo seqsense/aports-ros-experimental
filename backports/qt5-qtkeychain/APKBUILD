@@ -35,7 +35,7 @@ package() {
 
 	# Install licenses
 	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
-	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/COPYING "$pkgdir"/usr/share/licenses/$pkgname
 }
 
 sha512sums="c80bd25a5b72c175d0d4a985b952924c807bf67be33eeb89e2b83757727e642c10d8d737cea9744d2faad74c50c1b55d82b306135559c35c91a088c3b198b33a  qt5-qtkeychain-0.9.1.tar.gz"
