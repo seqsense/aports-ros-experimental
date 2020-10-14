@@ -42,4 +42,4 @@ package() {
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
-sha512sums="4da434da5391f76f620df2689bc3de1e4dcb79caf6479839ecba0f2d9ce878b798d96e9e052f53d671d833adaccd7c70ae01398cab5e05121bcea60ff724b088  qtsvg-everywhere-src-5.10.1.tar.xz"
+sha512sums="878397ddfc0f3560c9ff1e86bbb6a2ae19c3f8328047bbaa7d475bd40a9c0d5f50cbdd6d12cce41fd03e177536aa99c52db0920b76849ea0b073d524c374cb4a  v5.10.1.tar.gz"

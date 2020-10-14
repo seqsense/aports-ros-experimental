@@ -51,4 +51,4 @@ package() {
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
-sha512sums="b429aa066c49d0f58f88fb774b49643eea21e41aa5ebfb03c2b4ba53c42a07bddc793a228b3a7cbf3bc57bd02879659a3ce7aeff260b77f4b8adc75a0b556778  qtx11extras-everywhere-src-5.10.1.tar.xz"
+sha512sums="878397ddfc0f3560c9ff1e86bbb6a2ae19c3f8328047bbaa7d475bd40a9c0d5f50cbdd6d12cce41fd03e177536aa99c52db0920b76849ea0b073d524c374cb4a  v5.10.1.tar.gz"
