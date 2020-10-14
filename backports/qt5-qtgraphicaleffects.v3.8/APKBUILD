@@ -1,6 +1,6 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=qt5-qtgraphicaleffects
-_pkgname=${pkgname/qt5-//}
+_pkgname=${pkgname/qt5-/}
 pkgver=5.10.1
 _ver=${pkgver/_/-}
 _ver=${_ver/beta0/beta}
@@ -18,7 +18,7 @@ case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
 *) _rel=official_releases;;
 esac
-source="https://github.com/qt/$_pkgname/archive/$pkgver.tar.gz"
+source="https://github.com/qt/$_pkgname/archive/v$pkgver.tar.gz"
 
 _qt5_prefix=/usr/lib/qt5
 builddir="$srcdir"/$_pkgname-$pkgver
@@ -42,4 +42,4 @@ package() {
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
-sha512sums="7dd015e551495bbb601e21b4ecd3ed846595b946534a10cd16e54397808b113356d9f231a468fcda315bcfeadb9c080ce57dcce10e32ee88eb8393bd73555772  qtgraphicaleffects-everywhere-src-5.10.1.tar.xz"
+sha512sums="878397ddfc0f3560c9ff1e86bbb6a2ae19c3f8328047bbaa7d475bd40a9c0d5f50cbdd6d12cce41fd03e177536aa99c52db0920b76849ea0b073d524c374cb4a  v5.10.1.tar.gz"

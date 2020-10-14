@@ -1,6 +1,6 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=qt5-qtscript
-_pkgname=${pkgname/qt5-//}
+_pkgname=${pkgname/qt5-/}
 pkgver=5.10.1
 _ver=${pkgver/_/-}
 _ver=${_ver/beta0/beta}
@@ -18,7 +18,7 @@ case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
 *) _rel=official_releases;;
 esac
-source="https://github.com/qt/$_pkgname/archive/$pkgver.tar.gz
+source="https://github.com/qt/$_pkgname/archive/v$pkgver.tar.gz
 	qtscript-everywhere-src-5.5.0-s390.patch"
 
 builddir="$srcdir"/$_pkgname-$pkgver
@@ -42,5 +42,5 @@ package() {
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
-sha512sums="9ebcd57c2095e4e31f9ce38c17cc17f483fabcf4ef0247b87189fdc3651d950d5ec63a013f5a0fab4fb5af44f1f5271231900c0c9a7760772d888fc36473b80c  qtscript-everywhere-src-5.10.1.tar.xz
+sha512sums="878397ddfc0f3560c9ff1e86bbb6a2ae19c3f8328047bbaa7d475bd40a9c0d5f50cbdd6d12cce41fd03e177536aa99c52db0920b76849ea0b073d524c374cb4a  v5.10.1.tar.gz
 9253275dc268c4b8900dcefb66e6280076dc948bdf0765e0ba3e7c0ec690efaa3c61c5403560a8b4ee9167b43079fff9383e412f8fb912274f410d46fef8acdb  qtscript-everywhere-src-5.5.0-s390.patch"

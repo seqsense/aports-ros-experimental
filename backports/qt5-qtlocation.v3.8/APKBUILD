@@ -1,7 +1,7 @@
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=qt5-qtlocation
-_pkgname=${pkgname/qt5-//}
+_pkgname=${pkgname/qt5-/}
 pkgver=5.10.1
 _ver=${pkgver/_/-}
 _ver=${_ver/beta0/beta}
@@ -20,7 +20,7 @@ case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
 *) _rel=official_releases;;
 esac
-source="https://github.com/qt/$_pkgname/archive/$pkgver.tar.gz"
+source="https://github.com/qt/$_pkgname/archive/v$pkgver.tar.gz"
 
 builddir="$srcdir"/$_pkgname-$pkgver
 
@@ -44,4 +44,4 @@ package() {
 	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
-sha512sums="c804de1026d8fd1d98aae2d8ac9e9383414f3d3316637463a059c2ed56e39d66d48126a2ad421df1a747cb4629fa4520a0ff18f56a5597fb6f73e8da7352fa0d  qtlocation-everywhere-src-5.10.1.tar.xz"
+sha512sums="878397ddfc0f3560c9ff1e86bbb6a2ae19c3f8328047bbaa7d475bd40a9c0d5f50cbdd6d12cce41fd03e177536aa99c52db0920b76849ea0b073d524c374cb4a  v5.10.1.tar.gz"

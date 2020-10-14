@@ -1,7 +1,7 @@
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=qt5-qtconnectivity
-_pkgname=${pkgname/qt5-//}
+_pkgname=${pkgname/qt5-/}
 pkgver=5.10.1
 _ver=${pkgver/_/-}
 _ver=${_ver/beta0/beta}
@@ -20,7 +20,7 @@ case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
 *) _rel=official_releases;;
 esac
-source="https://github.com/qt/$_pkgname/archive/$pkgver.tar.gz"
+source="https://github.com/qt/$_pkgname/archive/v$pkgver.tar.gz"
 
 builddir="$srcdir"/$_pkgname-$pkgver
 
@@ -44,4 +44,4 @@ package() {
 	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
-sha512sums="69387989640b2ea918706d5e0ae91d7f0e978b9946e0cf4da39344c05e5acb6ad48e6a5635c1651f2f4df321be2ae7b8596e836c6ec8e56c070c86f684dc2733  qtconnectivity-everywhere-src-5.10.1.tar.xz"
+sha512sums="878397ddfc0f3560c9ff1e86bbb6a2ae19c3f8328047bbaa7d475bd40a9c0d5f50cbdd6d12cce41fd03e177536aa99c52db0920b76849ea0b073d524c374cb4a  v5.10.1.tar.gz"

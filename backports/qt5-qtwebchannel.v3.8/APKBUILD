@@ -1,7 +1,7 @@
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=qt5-qtwebchannel
-_pkgname=${pkgname/qt5-//}
+_pkgname=${pkgname/qt5-/}
 pkgver=5.10.1
 _ver=${pkgver/_/-}
 _ver=${_ver/beta0/beta}
@@ -20,7 +20,7 @@ case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
 *) _rel=official_releases;;
 esac
-source="https://github.com/qt/$_pkgname/archive/$pkgver.tar.gz"
+source="https://github.com/qt/$_pkgname/archive/v$pkgver.tar.gz"
 
 builddir="$srcdir"/$_pkgname-$pkgver
 

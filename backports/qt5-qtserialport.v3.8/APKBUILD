@@ -1,7 +1,7 @@
 # Contributor: Denis Ryabyy <vv1r0x@gmail.com>
 # Maintainer: Denis Ryabyy <vv1r0x@gmail.com>
 pkgname=qt5-qtserialport
-_pkgname=${pkgname/qt5-//}
+_pkgname=${pkgname/qt5-/}
 pkgver=5.10.1
 _ver=${pkgver/_p/-}
 _ver=${_ver/_/-}
@@ -43,4 +43,3 @@ package() {
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
-sha512sums="6c0a47adbc1f518634ca1313f2d22a9e3e7734ddbf8db85ea17c777dee5feae2e9120236479e0c4163702e636d6a2c1dc61462c392fbd79f3332e05d4e0afc1d  qtserialport-everywhere-src-5.10.1.tar.xz"
