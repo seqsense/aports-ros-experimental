@@ -22,7 +22,7 @@ case $pkgver in
 *) _rel=official_releases;;
 esac
 options="!check"
-source="http://download.qt.io/official_releases/qt/${pkgver%.*}/$_ver/submodules/$_pkgname-$_ver.tar.xz"
+source="https://github.com/qt/$_pkgname/archive/v$pkgver.tar.gz"
 
 builddir="$srcdir"/$_pkgname-$pkgver
 
@@ -47,4 +47,3 @@ package() {
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
-sha512sums="c5ab093ec4e93a94f646adff1ff6ef3eeb70fe302be04ddb694a5f7781c5d68777d75a3e831128a23d852522a6a0ca4e54a6bc67d10fb6e395632df4e7e71596  qtwebsockets-everywhere-src-5.10.1.tar.xz"
