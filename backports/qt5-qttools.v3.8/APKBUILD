@@ -1,6 +1,6 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=qt5-qttools
-_pkgname=${pkgname/qt5-//}-everywhere-src
+_pkgname=${pkgname/qt5-//}
 pkgver=5.10.1
 _ver=${pkgver/_/-}
 _ver=${_ver/beta0/beta}
@@ -12,13 +12,13 @@ url="http://qt-project.org/"
 arch="all"
 license="LGPL-2.0 with exceptions or GPL-3.0 with exceptions"
 makedepends="qt5-qtbase-dev"
-subpackages="$pkgname-dev qt5-assistant:_assistant qt5-qdbusviewer:_dbusviewer"
+subpackages="$pkgname-dev $pkgname-doc qt5-assistant:_assistant qt5-qdbusviewer:_dbusviewer"
 
 case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
 *) _rel=official_releases;;
 esac
-source="http://download.qt-project.org/$_rel/qt/${pkgver%.*}/$_ver/submodules/$_pkgname-$_V.tar.xz
+source="https://github.com/qt/$_pkgname/archive/$pkgver.tar.gz
 	assistant-qt5.desktop
 	designer-qt5.desktop
 	linguist-qt5.desktop
@@ -26,7 +26,7 @@ source="http://download.qt-project.org/$_rel/qt/${pkgver%.*}/$_ver/submodules/$_
 	"
 
 _qt5_prefix=/usr/lib/qt5
-builddir="$srcdir"/$_pkgname-${_V%-*}
+builddir="$srcdir"/$_pkgname-$pkgver
 
 build() {
 	cd "$builddir"
@@ -66,6 +66,10 @@ package() {
 	    install -p -m644 -D ${icon} \
 		"$pkgdir"/usr/share/icons/hicolor/${size}x${size}/apps/linguist.png
 	done
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
 _mv_files() {

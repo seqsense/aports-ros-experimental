@@ -14,7 +14,7 @@ url="http://qt-project.org/"
 arch="all"
 license="GPL-3.0"
 makedepends="qt5-qtbase-dev"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 replaces="qt5-websockets"
 
 case $pkgver in
@@ -24,7 +24,7 @@ esac
 options="!check"
 source="http://download.qt.io/official_releases/qt/${pkgver%.*}/$_ver/submodules/$_pkgname-$_ver.tar.xz"
 
-builddir="$srcdir"/$_pkgname-${_V%-*}
+builddir="$srcdir"/$_pkgname-$pkgver
 
 prepare() {
 	default_prepare
@@ -41,6 +41,10 @@ build() {
 package() {
 	cd "$builddir"/build
 	make INSTALL_ROOT="$pkgdir" install
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
 sha512sums="c5ab093ec4e93a94f646adff1ff6ef3eeb70fe302be04ddb694a5f7781c5d68777d75a3e831128a23d852522a6a0ca4e54a6bc67d10fb6e395632df4e7e71596  qtwebsockets-everywhere-src-5.10.1.tar.xz"

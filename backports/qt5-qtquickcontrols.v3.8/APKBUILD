@@ -1,6 +1,6 @@
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=qt5-qtquickcontrols
-_pkgname=${pkgname/qt5-//}-everywhere-src
+_pkgname=${pkgname/qt5-//}
 pkgver=5.10.1
 _ver=${pkgver/_/-}
 _ver=${_ver/beta0/beta}
@@ -12,14 +12,15 @@ url="http://qt-project.org/"
 arch="all"
 license="BSD and (LGPL-2.0 with exceptions or GPL-3.0 with exceptions) and GFDL"
 makedepends="qt5-qtbase-dev qt5-qtdeclarative-dev"
+subpackages="$pkgname-doc"
 
 case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
 *) _rel=official_releases;;
 esac
-source="http://download.qt-project.org/$_rel/qt/${pkgver%.*}/$_ver/submodules/$_pkgname-$_V.tar.xz"
+source="https://github.com/qt/$_pkgname/archive/$pkgver.tar.gz"
 
-builddir="$srcdir"/$_pkgname-${_V%-*}
+builddir="$srcdir"/$_pkgname-$pkgver
 
 build() {
 	cd "$builddir"
@@ -34,6 +35,10 @@ check() {
 package() {
 	cd "$builddir"
 	make install INSTALL_ROOT="$pkgdir"
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
 sha512sums="b73e8aef52b8010d5db3516afd692a406a2c4c66360ad3212aaca35090ec65c8e13842b5dcce233787b77ddc9067a985690cf1b56d4534efc57fb2f580b12818  qtquickcontrols-everywhere-src-5.10.1.tar.xz"

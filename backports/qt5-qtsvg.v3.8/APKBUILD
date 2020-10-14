@@ -1,7 +1,7 @@
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=qt5-qtsvg
-_pkgname=${pkgname/qt5-//}-everywhere-src
+_pkgname=${pkgname/qt5-//}
 pkgver=5.10.1
 _ver=${pkgver/_/-}
 _ver=${_ver/beta0/beta}
@@ -13,15 +13,15 @@ url="http://qt-project.org/"
 arch="all"
 license="LGPL-2.0 with exceptions or GPL-3.0 with exceptions"
 makedepends="qt5-qtbase-dev zlib-dev"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 
 case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
 *) _rel=official_releases;;
 esac
-source="http://download.qt-project.org/$_rel/qt/${pkgver%.*}/$_ver/submodules/$_pkgname-$_V.tar.xz"
+source="https://github.com/qt/$_pkgname/archive/$pkgver.tar.gz"
 
-builddir="$srcdir"/$_pkgname-${_V%-*}
+builddir="$srcdir"/$_pkgname-$pkgver
 
 build() {
 	cd "$builddir"
@@ -36,6 +36,10 @@ check() {
 package() {
 	cd "$builddir"
 	make install INSTALL_ROOT="$pkgdir"
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
 sha512sums="4da434da5391f76f620df2689bc3de1e4dcb79caf6479839ecba0f2d9ce878b798d96e9e052f53d671d833adaccd7c70ae01398cab5e05121bcea60ff724b088  qtsvg-everywhere-src-5.10.1.tar.xz"
