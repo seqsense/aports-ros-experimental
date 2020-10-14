@@ -18,7 +18,7 @@ case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
 *) _rel=official_releases;;
 esac
-source="https://github.com/qt/$_pkgname/archive/v$pkgver.tar.gz"
+source="$_pkgname-$pkgver.tar.gz::https://github.com/qt/$_pkgname/archive/v$pkgver.tar.gz"
 
 builddir="$srcdir"/$_pkgname-$pkgver
 
