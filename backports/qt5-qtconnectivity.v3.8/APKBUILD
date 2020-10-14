@@ -44,4 +44,4 @@ package() {
 	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
-sha512sums="878397ddfc0f3560c9ff1e86bbb6a2ae19c3f8328047bbaa7d475bd40a9c0d5f50cbdd6d12cce41fd03e177536aa99c52db0920b76849ea0b073d524c374cb4a  v5.10.1.tar.gz"
+sha512sums="99b1104e0f95b55a138817bf97b7ba44eb2681cd09290906fa62ab409d1e7480ade388ab1b19b259d46cd045f4fa2e1c6fc90e763160fc1d5604096b396fa1ad  qtconnectivity-5.10.1.tar.gz"

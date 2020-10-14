@@ -1,7 +1,7 @@
 # Contributor: Carlo Landmeter <clandmeter@gmail.com>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=qt5-qtx11extras
-_pkgname=qtx11extras-everywhere-src
+_pkgname=qtx11extras
 pkgver=5.10.1
 _ver=${pkgver/_p/-}
 _ver=${_ver/_/-}
@@ -51,4 +51,4 @@ package() {
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
-sha512sums="878397ddfc0f3560c9ff1e86bbb6a2ae19c3f8328047bbaa7d475bd40a9c0d5f50cbdd6d12cce41fd03e177536aa99c52db0920b76849ea0b073d524c374cb4a  v5.10.1.tar.gz"
+sha512sums="0471dbdc141bde171ae3f701c8d19948846680585cb69311a9751e4199ea9b9d70e560fc17d501e48353dc75858754db30e8b8ce4e3f5336a44c821da9b7e325  qtx11extras-5.10.1.tar.gz"

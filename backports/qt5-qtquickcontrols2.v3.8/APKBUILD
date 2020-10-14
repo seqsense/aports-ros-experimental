@@ -45,4 +45,4 @@ package() {
 	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
-sha512sums="878397ddfc0f3560c9ff1e86bbb6a2ae19c3f8328047bbaa7d475bd40a9c0d5f50cbdd6d12cce41fd03e177536aa99c52db0920b76849ea0b073d524c374cb4a  v5.10.1.tar.gz"
+sha512sums="5833f596a8794047293ff1c622de4068d64982afbd1f9bb26c6289af40b1487f7a2b5fe46b3efded1395c45901a31bd19c9751eb5e34296580a3e00d4166f271  qtquickcontrols2-5.10.1.tar.gz"

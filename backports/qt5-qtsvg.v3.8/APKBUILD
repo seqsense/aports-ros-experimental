@@ -42,4 +42,4 @@ package() {
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
-sha512sums="878397ddfc0f3560c9ff1e86bbb6a2ae19c3f8328047bbaa7d475bd40a9c0d5f50cbdd6d12cce41fd03e177536aa99c52db0920b76849ea0b073d524c374cb4a  v5.10.1.tar.gz"
+sha512sums="55085a8e25a5a1ac37326f4a6336dc26fbc1775fe8c1383cc23d350b935a108ccea1aa0c7d1d3697ca954e58c96a3c53ec32e5e3a96343517f92fc98ff292ba7  qtsvg-5.10.1.tar.gz"

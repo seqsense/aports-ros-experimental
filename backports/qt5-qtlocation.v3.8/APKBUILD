@@ -44,4 +44,4 @@ package() {
 	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
-sha512sums="878397ddfc0f3560c9ff1e86bbb6a2ae19c3f8328047bbaa7d475bd40a9c0d5f50cbdd6d12cce41fd03e177536aa99c52db0920b76849ea0b073d524c374cb4a  v5.10.1.tar.gz"
+sha512sums="e8a8b5e3068e44f301a173b1be502e3090ebce73929e077d0b728fe1a23c9ec029ef2c76ac3f36e2024cb9e55b04bf41bb02bdafbd949e8effdb637bfd17373a  qtlocation-5.10.1.tar.gz"

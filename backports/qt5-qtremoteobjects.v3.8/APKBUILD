@@ -49,4 +49,4 @@ package() {
 	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
-sha512sums="878397ddfc0f3560c9ff1e86bbb6a2ae19c3f8328047bbaa7d475bd40a9c0d5f50cbdd6d12cce41fd03e177536aa99c52db0920b76849ea0b073d524c374cb4a  v5.10.1.tar.gz"
+sha512sums="54de116936ce0bb6784980774e5e553b96e4458271d5cb636a9f7708df43d0cbf4c0f5321232f7c38dcee15431c526437a32f43cbadb51e7ad2335932bd7864d  qtremoteobjects-5.10.1.tar.gz"

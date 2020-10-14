@@ -49,5 +49,5 @@ package() {
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
-sha512sums="878397ddfc0f3560c9ff1e86bbb6a2ae19c3f8328047bbaa7d475bd40a9c0d5f50cbdd6d12cce41fd03e177536aa99c52db0920b76849ea0b073d524c374cb4a  v5.10.1.tar.gz
+sha512sums="ee7257f717dbb41807fde4765f35710bf92701bfbdba9edf8a311e03e5e7f15f3ef2ecb41150a0395ed52ca05d6587571d7867574158ebd972291383a9ac21b4  qtdeclarative-5.10.1.tar.gz
 235091cc1da51c31165a99932c95543d999c0f21b2c6b4318306b647662d420f88d7270ec21db7417fe9f8d87bfa3e5f01b6465c3542da024dd1623ef0a87681  qt-musl-stackbottom.patch"

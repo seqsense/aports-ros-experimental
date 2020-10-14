@@ -42,4 +42,4 @@ package() {
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
-sha512sums="878397ddfc0f3560c9ff1e86bbb6a2ae19c3f8328047bbaa7d475bd40a9c0d5f50cbdd6d12cce41fd03e177536aa99c52db0920b76849ea0b073d524c374cb4a  v5.10.1.tar.gz"
+sha512sums="dd92ccd4f979fce4b5ed6d1c4dc7c3dbdcb3213f0fe70d70c40fe858c68f72730933f3881c03538595d76bb7b92c3d7a9fd766a92df4923da5e012333b8885b9  qtxmlpatterns-5.10.1.tar.gz"

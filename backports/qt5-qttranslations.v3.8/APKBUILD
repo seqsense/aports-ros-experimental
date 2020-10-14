@@ -40,4 +40,4 @@ package() {
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
-sha512sums="878397ddfc0f3560c9ff1e86bbb6a2ae19c3f8328047bbaa7d475bd40a9c0d5f50cbdd6d12cce41fd03e177536aa99c52db0920b76849ea0b073d524c374cb4a  v5.10.1.tar.gz"
+sha512sums="cfc76bee6419caedd686a43fc2a388e0149c6b1f3500e7280d3bf229f390643d578e327463e4bc98dfc87fa30c26b7ff0ff57ee112006648d9bd97b1a0452f9d  qttranslations-5.10.1.tar.gz"

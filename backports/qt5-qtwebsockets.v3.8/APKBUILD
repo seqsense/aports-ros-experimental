@@ -1,7 +1,7 @@
 # Contributor: Carlo Landmeter <clandmeter@gmail.com>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=qt5-qtwebsockets
-_pkgname=qtwebsockets-everywhere-src
+_pkgname=qtwebsockets
 pkgver=5.10.1
 _ver=${pkgver/_p/-}
 _ver=${_ver/_/-}
@@ -47,4 +47,4 @@ package() {
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
-sha512sums="878397ddfc0f3560c9ff1e86bbb6a2ae19c3f8328047bbaa7d475bd40a9c0d5f50cbdd6d12cce41fd03e177536aa99c52db0920b76849ea0b073d524c374cb4a  v5.10.1.tar.gz"
+sha512sums="a175998a4382429b441726e24b318075d57363d91664f4953b99e2f136dbac2c0b55e26637d47def944c0f11eec29352b89ac0e091494cc5ae19dcfdeff5a89b  qtwebsockets-5.10.1.tar.gz"

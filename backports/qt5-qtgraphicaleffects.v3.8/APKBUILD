@@ -42,4 +42,4 @@ package() {
 	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
-sha512sums="878397ddfc0f3560c9ff1e86bbb6a2ae19c3f8328047bbaa7d475bd40a9c0d5f50cbdd6d12cce41fd03e177536aa99c52db0920b76849ea0b073d524c374cb4a  v5.10.1.tar.gz"
+sha512sums="f62aba3ff7f1e189d89019b1bf215b75527cf5db594c83985dc7633d45f553a90925ae5c322845ac204c2feeb4066571f8f0f03ab77de9456d9b10d4d782bde8  qtgraphicaleffects-5.10.1.tar.gz"
