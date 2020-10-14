@@ -1,33 +1,34 @@
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=qt5-qtwebchannel
-_pkgname=${pkgname/qt5-//}-everywhere-src
+_pkgname=${pkgname/qt5-/}
 pkgver=5.10.1
 _ver=${pkgver/_/-}
 _ver=${_ver/beta0/beta}
 _ver=${_ver/rc0/rc}
 _V=${_ver/rc/RC}
-pkgrel=0
+pkgrel=1
 pkgdesc="library for seamless integration of C++ +and QML applications with HTML/JavaScript clients."
 url="http://qt-project.org/"
 arch="all"
 license="LGPL-2.0 with exceptions or GPL-3.0 with exceptions"
 options="!check" #upstream does not provide check
 makedepends="qt5-qtbase-dev qt5-qtwebsockets-dev qt5-qtdeclarative-dev"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 
 case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
 *) _rel=official_releases;;
 esac
-source="http://download.qt-project.org/$_rel/qt/${pkgver%.*}/$_ver/submodules/$_pkgname-$_V.tar.xz"
+source="$_pkgname-$pkgver.tar.gz::https://github.com/qt/$_pkgname/archive/v$pkgver.tar.gz"
 
-builddir="$srcdir"/$_pkgname-${_V%-*}
+builddir="$srcdir"/$_pkgname-$pkgver
 
 prepare() {
 	default_prepare
 	cd "$builddir"
 	mkdir -p build
+	/usr/lib/qt5/bin/syncqt.pl -version $pkgver .
 }
 
 build() {
@@ -39,5 +40,9 @@ build() {
 package() {
 	cd "$builddir"/build
 	make INSTALL_ROOT="$pkgdir" install
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
-sha512sums="aea4c82d3873be24aa1648e197d6b3403f11658793dff40fe37cd3726a34360286638424cba83de530049e4ff5a69d9f251cb105c65da5142376dc2827510d47  qtwebchannel-everywhere-src-5.10.1.tar.xz"
+sha512sums="379c4e51915a693ec65670099dccac4d1e1c7e0b119edc6bdff69fb1a1c24eec9848448393d39d7c85821a9834c0244b7224102e3df0b4be6ac7a4fad3236e7f  qtwebchannel-5.10.1.tar.gz"

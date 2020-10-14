@@ -1,31 +1,32 @@
 # Contributor: Denis Ryabyy <vv1r0x@gmail.com>
 # Maintainer: Denis Ryabyy <vv1r0x@gmail.com>
 pkgname=qt5-qtserialport
-_pkgname=${pkgname/qt5-//}-everywhere-src
+_pkgname=${pkgname/qt5-/}
 pkgver=5.10.1
 _ver=${pkgver/_p/-}
 _ver=${_ver/_/-}
 _ver=${_ver/beta0/beta}
 _ver=${_ver/rc0/rc}
 _V=${_ver/rc/RC}
-pkgrel=0
+pkgrel=1
 pkgdesc="Qt5 - QtSerialPort module"
 url="http://wiki.qt.io/QtSerialPort"
 arch="all"
 license="LGPL-2.0 with exceptions or GPL-3.0 with exceptions"
 makedepends="qt5-qtbase-dev eudev-dev"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 
 case $pkgver in
 *_beta*|*_rc*) _rel=development_releases;;
 *) _rel=official_releases;;
 esac
-source="http://download.qt.io/official_releases/qt/${pkgver%.*}/$_ver/submodules/$_pkgname-$_ver.tar.xz"
+source="$_pkgname-$pkgver.tar.gz::https://github.com/qt/$_pkgname/archive/v$pkgver.tar.gz"
 
-builddir="$srcdir"/$_pkgname-${_V%-*}
+builddir="$srcdir"/$_pkgname-$pkgver
 
 build() {
 	cd "$builddir"
+	/usr/lib/qt5/bin/syncqt.pl -version $pkgver .
 	qmake-qt5 && make
 }
 
@@ -37,6 +38,10 @@ check() {
 package() {
 	cd "$builddir"
 	make INSTALL_ROOT="$pkgdir" install
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
 }
 
-sha512sums="6c0a47adbc1f518634ca1313f2d22a9e3e7734ddbf8db85ea17c777dee5feae2e9120236479e0c4163702e636d6a2c1dc61462c392fbd79f3332e05d4e0afc1d  qtserialport-everywhere-src-5.10.1.tar.xz"
+sha512sums="b20a186bf2f530388ef862f4d1e7f997f7ad20b4fc76050071ab8f2249a0d8ea04c79e0d22b6e22b217ae3b8077020b84d879eb1bbeb2d5e03686b7500b5b7bf  qtserialport-5.10.1.tar.gz"
