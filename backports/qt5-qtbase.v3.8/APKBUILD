@@ -7,7 +7,7 @@ _ver=${_ver/_/-}
 _ver=${_ver/beta0/beta}
 _ver=${_ver/rc0/rc}
 _V=${_ver/rc/RC}
-pkgrel=0
+pkgrel=1
 pkgdesc="Qt5 - QtBase components"
 url="http://qt-project.org/"
 arch="all"
@@ -74,6 +74,7 @@ prepare() {
 build() {
 	local _arch
 	cd "$builddir"
+	mkdir -p .git # trigger syncqt.pl
 	./configure -confirm-license -opensource \
 		-archdatadir "$_qt5_prefix" \
 		-bindir  "$_qt5_prefix"/bin \
