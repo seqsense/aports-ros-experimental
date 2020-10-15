@@ -1,6 +1,6 @@
 pkgname=ros-melodic-catkin
 _pkgname=catkin
-pkgver=0.7.28
+pkgver=0.7.29
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/catkin"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: catkin, uri: 'https://github.com/ros-gbp/catkin-release.git',
-    version: release/melodic/catkin/0.7.28-1}
+    version: release/melodic/catkin/0.7.29-1}
 "
 
 prepare() {
@@ -138,6 +138,10 @@ package() {
     # Copy license files under the source
     if echo $file | grep -e '^\./\.'; then
       # Omit files under hidden directory
+      continue
+    fi
+    if echo $file | grep -e '^\./build/'; then
+      # Omit files under build directory
       continue
     fi
     echo "Copying license files from source tree: $file"
