@@ -1,6 +1,6 @@
 # Contributor: Stuart Cardall <developer@it-offshore.co.uk>
 # Maintainer: Stuart Cardall <developer@it-offshore.co.uk>
-pkgname=py3-pygraphviz
+pkgname=py-pygraphviz
 pkgver=1.3
 pkgrel=2
 pkgdesc="Python interface to Graphviz"
@@ -9,7 +9,7 @@ url="https://pygraphviz.github.io/"
 arch="all"
 license="BSD-3-Clause"
 depends="python3"
-makedepends="python2-dev python3-dev py-setuptools"
+makedepends="python2-dev python3-dev py-setuptools graphviz-dev"
 checkdepends="py-nose"
 subpackages="$pkgname-doc py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 source="https://github.com/pygraphviz/pygraphviz/archive/pygraphviz-$pkgver.tar.gz"
