@@ -2,14 +2,14 @@
 # Maintainer: Roberto Oliveira <robertoguimaraes8@gmail.com>
 pkgname=py-defusedxml
 _pkgname=defusedxml
-pkgver=0.5.0
-pkgrel=0
+pkgver=0.6.0
+pkgrel=2
 pkgdesc="XML bomb protection for Python stdlib modules"
 url="https://github.com/tiran/defusedxml"
 arch="all"
 license="GPL"
 makedepends="python2-dev python3-dev py-setuptools"
-subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+subpackages="$pkgname-doc py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 source="$pkgname-$pkgver.tar.gz::https://github.com/tiran/$_pkgname/archive/v$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
 
@@ -27,6 +27,9 @@ check() {
 
 package() {
         mkdir -p "$pkgdir"
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 _py2() {
@@ -50,4 +53,4 @@ _py() {
         $python setup.py install --prefix=/usr --root="$subpkgdir"
 }
 
-sha512sums="38685b8de49b61cf0e4b2c69a6d6b48a14beb6f68a0445cd2de557f3530bef2619a2c02b7c290db8a0530b01a74f81b1aac460ebe8cf92df0fb1e825307781d2  py-defusedxml-0.5.0.tar.gz"
+sha512sums="ed3068315f8e974ded37ecf84806172779e1c6a695ac9aaeac7999adafcbb5acf0fa0d04caa07f2b8d3e0871ae5e4d1f12831fb6287e3e91fd50cc17dc361988  py-defusedxml-0.6.0.tar.gz"
