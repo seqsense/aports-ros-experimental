@@ -29,7 +29,7 @@ package() {
 	mkdir -p "$pkgdir"
 
 	# Install license files
-	install -Dm644 "$builddir"/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 _py2() {
