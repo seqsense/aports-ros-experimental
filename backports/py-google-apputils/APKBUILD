@@ -11,6 +11,7 @@ license="Apache-2.0"
 depends="python2 py-dateutil>=1.4 py-gflags>=1.4 py-tz>=2010"
 makedepends="python2-dev py-setuptools"
 source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+subpackages="$pkgname-doc"
 
 builddir="$srcdir"/$_pkgname-$pkgver
 
@@ -28,6 +29,9 @@ package() {
 	# "other", which causes `python setup.py build` failures for packages
 	# using google-apputils.
 	chmod o+r "$pkgdir"/usr/lib/python2.7/site-packages/google_apputils-$pkgver-py2.7.egg-info/*
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 
