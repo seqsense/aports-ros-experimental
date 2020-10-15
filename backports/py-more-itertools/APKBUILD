@@ -29,9 +29,7 @@ package() {
 	mkdir -p "$pkgdir"
 
 	# Install license files
-	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
-	install -m644 "$builddir"/docs/license.rst "$pkgdir"/usr/share/licenses/$pkgname/docs/license.rst
-	install -m644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 _py() {
