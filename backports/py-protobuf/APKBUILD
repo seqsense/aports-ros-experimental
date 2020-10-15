@@ -34,7 +34,7 @@ package() {
 	mkdir -p "$pkgdir"
 
 	# Install license files
-	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+	install -Dm644 "$builddir"/../LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 check() {
