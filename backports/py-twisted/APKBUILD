@@ -1,0 +1,54 @@
+# Maintainer: Natanael Copa <ncopa@alpinelinux.org>
+pkgname=py-twisted
+_pkgname=Twisted
+pkgver=20.3.0
+pkgrel=1
+pkgdesc="Asynchronous networking framework written in Python."
+url="http://twistedmatrix.com/"
+arch="all"
+license="MIT"
+depends="py-crypto py-zope-interface py-constantly py-incremental py-attrs"
+makedepends="python2-dev py-setuptools libtirpc-dev py3-setuptools python3-dev"
+subpackages="$pkgname-doc py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3 $pkgname-doc"
+source="https://twistedmatrix.com/Releases/${_pkgname}/${pkgver%.*}/${_pkgname}-${pkgver}.tar.bz2"
+builddir="$srcdir"/"$_pkgname"-$pkgver
+
+build() {
+	cd "$builddir"
+	CFLAGS="$CFLAGS `pkgconf --cflags libtirpc`" python2 setup.py build
+}
+
+package() {
+	cd "$builddir"
+	_mans="pyhtmlizer.1 trial.1 twistd.1"
+	for _man in $_mans; do
+		install -m644 -D "$builddir"/docs/core/man/$_man \
+			"$pkgdir"/usr/share/man/man1/$_man
+	done
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+_py2() {
+	depends="${depends//py-/py2-}"
+	_py python2
+}
+
+_py3() {
+	depends="${depends//py-/py3-}"
+	_py python3
+}
+
+_py() {
+	local python="$1"
+	local pyver="${1#python}"
+	pkgdesc="$pkgdesc (for $python)"
+	depends="$depends $python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
+
+	cd "$builddir"
+	$python setup.py --quiet install --prefix=/usr --root="$subpkgdir"
+}
+
+sha512sums="1b850e5fc21a3630ead4c2cc3622c16e78bb3be38ab11d021779b7ce3d3c30acc4e19d79c7791a5fce6c5c6e09c2baa349901dffe952de67dd98eec419846365  Twisted-20.3.0.tar.bz2"
