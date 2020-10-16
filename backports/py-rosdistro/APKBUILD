@@ -10,9 +10,10 @@ arch="all"
 license="BSD-3-Clause"
 depends="py-argparse py-yaml"
 makedepends="python2-dev python3-dev py-setuptools"
-subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+subpackages="$pkgname-doc py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz
-  force-to-enable-alpine-platform.patch"
+  force-to-enable-alpine-platform.patch
+  LICENSE.txt"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
@@ -29,6 +30,9 @@ check() {
 
 package() {
 	mkdir -p "$pkgdir"
+
+	# Install license files
+	install -Dm644 $startdir/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
 }
 
 _py2() {
@@ -51,4 +55,5 @@ _py() {
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
 sha512sums="51e203367a68090a7ea28624897847c4796e6c95c771641ef90b24bb13fc6ff47b9d2bd702b450cffc1156a9abe74b5d1dca967727b5e4c426589559b064dfe8  rosdistro-0.8.2.tar.gz
-96068df6afac22f8907aa60740350cd3add61ab6f1f17737b83eacd4b04f3144d6b5dffc3187b63e3ca83ff6cafa0c572c0e711cc99af1aef00b0b5f414b255d  force-to-enable-alpine-platform.patch"
+96068df6afac22f8907aa60740350cd3add61ab6f1f17737b83eacd4b04f3144d6b5dffc3187b63e3ca83ff6cafa0c572c0e711cc99af1aef00b0b5f414b255d  force-to-enable-alpine-platform.patch
+a526a429919c239795465aa876bb1abca7f1393fe53ccbb721c967b350be9ceb5bbe1ebecade390be3557e203c6e8dcf35eb6424b2165e0412c11957f92b49c9  LICENSE.txt"

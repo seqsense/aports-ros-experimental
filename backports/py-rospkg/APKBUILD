@@ -10,8 +10,9 @@ arch="all"
 license="BSD-3-Clause"
 depends="py-catkin-pkg py-yaml py-distro"
 makedepends="python2-dev python3-dev py-setuptools"
-subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
-source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+subpackages="$pkgname-doc py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz
+	LICENSE"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
@@ -28,6 +29,9 @@ check() {
 
 package() {
 	mkdir -p "$pkgdir"
+
+	# Install license files (from https://github.com/ros-infrastructure/rospkg/blob/188f9ef4ff52734e8f056593d3901fc461ad15cc/src/rospkg/manifest.py#L1-L31)
+	install -Dm644 $startdir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 _py2() {
@@ -49,4 +53,5 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
-sha512sums="61ec1a6dfa198e43045a9f62ec66a654f7d8716fc022e5d0bea22f8c7d4b60aa0b10ecb9baecc6f37a9be8384312901a83dad1f65905dad96890ba359a5333ec  rospkg-1.2.6.tar.gz"
+sha512sums="61ec1a6dfa198e43045a9f62ec66a654f7d8716fc022e5d0bea22f8c7d4b60aa0b10ecb9baecc6f37a9be8384312901a83dad1f65905dad96890ba359a5333ec  rospkg-1.2.6.tar.gz
+e976573a6c2550a6ebe4335a4483513d0409f89a89dfe67ff815b5939b95ada900d57673d35f3722bab958c59d3c9e743e0f60eea441ba27f034919732ee47ed  LICENSE"
