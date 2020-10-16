@@ -17,6 +17,7 @@ makedepends="python3-dev py3-dbus-dev py-sip-dev
 	"
 source="https://pypi.python.org/packages/source/P/PyQt5/PyQt5-$pkgver.tar.gz"
 builddir="$srcdir/${_pkgname}_gpl-$pkgver"
+subpackages="$pkgname-doc"
 
 prepare() {
 	default_prepare
@@ -40,6 +41,9 @@ check() {
 
 package() {
 	make -j1 DESTDIR="$pkgdir" INSTALL_ROOT="$pkgdir" install
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 sha512sums="a7378dd53337c58f5ba7e9f7510b57fe4affe578b68975ce1dd7ba5c2a1c77d08d51d11078ce782aab09509df934eb3e4d0588de87391f74ad99f9624644cc4e  PyQt5-5.15.1.tar.gz"
