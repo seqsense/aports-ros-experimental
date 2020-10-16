@@ -10,7 +10,7 @@ arch="noarch"
 license="MIT"
 depends=""
 makedepends="python2-dev python3-dev py-setuptools"
-subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3 $pkgname-doc"
+subpackages="$pkgname-doc py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3 $pkgname-doc"
 _pypiprefix="${_pyname%${_pyname#?}}"
 source="https://files.pythonhosted.org/packages/source/$_pypiprefix/$_pyname/$_pyname-$pkgver.tar.gz"
 builddir="$srcdir"/$_pyname-$pkgver
@@ -28,6 +28,9 @@ check() {
 package() {
 	mkdir -p "$pkgdir"
 	install -Dm 0644 "$srcdir"/$_pyname-$pkgver/docs/index.rst "$pkgdir/usr/share/doc/py-wheel"
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
 }
 
 _py2() {
