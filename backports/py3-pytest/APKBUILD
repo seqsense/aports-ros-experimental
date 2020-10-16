@@ -1,0 +1,40 @@
+# Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
+# Maintainer: Fabian Affolter <fabian@affolter-engineering.ch>
+pkgname=py3-pytest
+pkgver=5.3.2
+pkgrel=1
+pkgdesc="A python test library"
+url="https://docs.pytest.org/en/latest/"
+arch="noarch"
+license="MIT"
+depends="py3-atomicwrites py3-py py3-six py3-attrs py3-more-itertools py3-pluggy py3-wcwidth
+	py3-setuptools py3-packaging"
+source="https://files.pythonhosted.org/packages/source/p/pytest/pytest-$pkgver.tar.gz"
+builddir="$srcdir/pytest-$pkgver"
+subpackages="$pkgname-doc"
+
+replaces="pytest" # Backwards compatibility
+provides="pytest=$pkgver-r$pkgrel" # Backwards compatibility
+
+build() {
+	python3 setup.py build
+}
+
+check() {
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"/usr/bin
+
+	local name; for name in py.test pytest; do
+		ln -s $name-3 "$pkgdir"/usr/bin/$name
+	done
+
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="2ab39973848d2d4693edd1dbd7ab2798b574026c9277bddd4a18e57aec65b3d93de201e87f58eb26030183b5c71818e6e56bcc1cda8c50892546cb1c04d6984a  pytest-5.3.2.tar.gz"
