@@ -2,20 +2,20 @@
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=py3-qt5
 _pkgname=PyQt5
-pkgver=5.13.1
-pkgrel=2
+pkgver=5.15.1
+pkgrel=1
 pkgdesc="A set of Python 3 bindings for the Qt toolkit"
 url="http://riverbankcomputing.co.uk/software/pyqt/intro"
-arch="all"
-license="GPL-2.0-or-later"
+arch="all !armhf" # armhf blocked by qt5-qtdeclarative
+license="GPL-3.0"
 depends="python3 py3-sip-pyqt5"
-makedepends="python3-dev py-dbus-dev py-sip-dev
+makedepends="python3-dev py3-dbus-dev py-sip-dev
 	qt5-qtbase-dev libx11-dev qt5-qtsvg-dev qt5-qtwebsockets-dev
 	py3-opengl qt5-qtconnectivity-dev qt5-qtmultimedia-dev qt5-qttools-dev
 	qt5-qtserialport-dev qt5-qtx11extras-dev qt5-qtdeclarative-dev
 	qt5-qtwebchannel-dev
 	"
-source="https://www.riverbankcomputing.com/static/Downloads/PyQt5/$pkgver/PyQt5_gpl-$pkgver.tar.gz"
+source="https://pypi.python.org/packages/source/P/PyQt5/PyQt5-$pkgver.tar.gz"
 builddir="$srcdir/${_pkgname}_gpl-$pkgver"
 
 prepare() {
@@ -42,4 +42,4 @@ package() {
 	make -j1 DESTDIR="$pkgdir" INSTALL_ROOT="$pkgdir" install
 }
 
-sha512sums="7b7001b16a8c730d7ff2d340fa1dd118868b53519e8f75e8c2ce00b44e3637ac6a31b41a7456fc610df11ff3928b924cb54c0c3712f22ed4df5058fd8bc77281  PyQt5_gpl-5.13.1.tar.gz"
+sha512sums="a7378dd53337c58f5ba7e9f7510b57fe4affe578b68975ce1dd7ba5c2a1c77d08d51d11078ce782aab09509df934eb3e4d0588de87391f74ad99f9624644cc4e  PyQt5-5.15.1.tar.gz"
