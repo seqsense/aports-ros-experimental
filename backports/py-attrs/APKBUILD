@@ -7,8 +7,8 @@ pkgdesc="Python classes without boilerplate"
 url="http://www.attrs.org"
 arch="noarch"
 license="MIT"
-makedepends="python3-dev python2-dev py2-setuptools"
-subpackages="py3-${pkgname/py-/}:_py3 py2-${pkgname/py-/}:_py2"
+makedepends="python3-dev python2-dev py-setuptools"
+subpackages="$pkgname-doc py3-${pkgname/py-/}:_py3 py2-${pkgname/py-/}:_py2"
 source="py-attrs-$pkgver.tar.gz::https://github.com/python-attrs/attrs/archive/$pkgver.tar.gz
 	check.py
 	"
@@ -28,6 +28,9 @@ check() {
 package() {
 	cd "$builddir"
 	mkdir -p "$pkgdir"
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 _py() {

@@ -63,13 +63,15 @@ all:
 	$(MAKE) build-builder
 	$(MAKE) $(REPOSITORY)
 
+UPDATE_TARGETS ?=
+
 .PHONY: update-checksum
 update-checksum:
 	docker run --rm \
 		--network=host \
 		-v $(CURDIR):/src \
 		--entrypoint /update-checksum.sh \
-		$(BUILDER_NAME):$(ROS_DISTRO)
+		$(BUILDER_NAME):$(ROS_DISTRO) $(UPDATE_TARGETS)
 
 .PHONY: test-deps
 test-deps:

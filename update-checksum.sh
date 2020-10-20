@@ -3,10 +3,12 @@
 set -e
 
 echo "Updating checksum..."
-find ${SRCDIR} -name APKBUILD | while read apkbuild; do
+cd /src
+echo $@ | while read apkbuild; do
+  echo $apkbuild
   pkgdir=$(dirname ${apkbuild})
 
   cd ${pkgdir}
   abuild checksum
-  rm -rf ${pkgdir}/src
+  rm -rf src
 done
