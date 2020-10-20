@@ -11,7 +11,7 @@ license="Apache-2.0"
 depends="py-grpcio>=${pkgver} py-protobuf>=3.10.0 py-wheel"
 makedepends="python2-dev python3-dev py-setuptools cython-dev linux-headers"
 install=""
-subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+subpackages="$pkgname-doc py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 source="$pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
 builddir="$srcdir/grpcio-reflection-${pkgver}"
 
@@ -29,6 +29,9 @@ check() {
 
 package() {
 	mkdir -p "$pkgdir"
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 _py2() {
