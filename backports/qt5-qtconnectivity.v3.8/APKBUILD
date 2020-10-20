@@ -1,0 +1,48 @@
+# Contributor: Francesco Colista <fcolista@alpinelinux.org>
+# Maintainer: Francesco Colista <fcolista@alpinelinux.org>
+pkgname=qt5-qtconnectivity
+_pkgname=${pkgname/qt5-/}
+pkgver=5.10.1
+_ver=${pkgver/_/-}
+_ver=${_ver/beta0/beta}
+_ver=${_ver/rc0/rc}
+_V=${_ver/rc/RC}
+pkgrel=1
+pkgdesc="QT5 Connectivity Compontents"
+url="http://qt-project.org/"
+arch="all"
+license="LGPL-2.0 with exceptions or GPL-3.0 with exceptions"
+options="!check" #upstream does not provide check
+makedepends="qt5-qtbase-dev"
+subpackages="$pkgname-dev $pkgname-doc"
+
+case $pkgver in
+*_beta*|*_rc*) _rel=development_releases;;
+*) _rel=official_releases;;
+esac
+source="$_pkgname-$pkgver.tar.gz::https://github.com/qt/$_pkgname/archive/v$pkgver.tar.gz"
+
+builddir="$srcdir"/$_pkgname-$pkgver
+
+prepare() {
+	default_prepare
+	cd "$builddir"
+	mkdir -p build
+	/usr/lib/qt5/bin/syncqt.pl -version $pkgver .
+}
+
+build() {
+	cd "$builddir"/build
+	qmake-qt5 ..
+	make
+}
+
+package() {
+	cd "$builddir"/build
+	make INSTALL_ROOT="$pkgdir" install
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
+}
+sha512sums="99b1104e0f95b55a138817bf97b7ba44eb2681cd09290906fa62ab409d1e7480ade388ab1b19b259d46cd045f4fa2e1c6fc90e763160fc1d5604096b396fa1ad  qtconnectivity-5.10.1.tar.gz"

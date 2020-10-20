@@ -1,0 +1,55 @@
+# Contributor: Carlo Landmeter <clandmeter@gmail.com>
+# Maintainer: Francesco Colista <fcolista@alpinelinux.org>
+pkgname=qt5-qtx11extras
+_pkgname=qtx11extras
+pkgver=5.10.1
+_ver=${pkgver/_p/-}
+_ver=${_ver/_/-}
+_ver=${_ver/beta0/beta}
+_ver=${_ver/rc0/rc}
+_V=${_ver/rc/RC}
+pkgrel=2
+pkgdesc="Provides platform-specific APIs for X11"
+url="http://qt-project.org/"
+arch="all"
+license="GPL-3.0"
+makedepends="qt5-qtbase-dev"
+subpackages="$pkgname-dev $pkgname-doc"
+replaces="qt5-x11extras"
+
+case $pkgver in
+*_beta*|*_rc*) _rel=development_releases;;
+*) _rel=official_releases;;
+esac
+source="$_pkgname-$pkgver.tar.gz::https://github.com/qt/$_pkgname/archive/v$pkgver.tar.gz"
+
+builddir="$srcdir"/$_pkgname-$pkgver
+
+prepare() {
+	default_prepare
+	cd "$builddir"
+	mkdir -p build
+	/usr/lib/qt5/bin/syncqt.pl -version $pkgver .
+}
+
+build() {
+	cd "$builddir"/build
+	qmake-qt5 ..
+	make
+}
+
+check() {
+	cd "$builddir"/build
+	make check
+}
+
+package() {
+	cd "$builddir"/build
+	make INSTALL_ROOT="$pkgdir" install
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
+}
+
+sha512sums="0471dbdc141bde171ae3f701c8d19948846680585cb69311a9751e4199ea9b9d70e560fc17d501e48353dc75858754db30e8b8ce4e3f5336a44c821da9b7e325  qtx11extras-5.10.1.tar.gz"

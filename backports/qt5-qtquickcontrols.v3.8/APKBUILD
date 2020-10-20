@@ -1,0 +1,45 @@
+# Maintainer: Francesco Colista <fcolista@alpinelinux.org>
+pkgname=qt5-qtquickcontrols
+_pkgname=${pkgname/qt5-/}
+pkgver=5.10.1
+_ver=${pkgver/_/-}
+_ver=${_ver/beta0/beta}
+_ver=${_ver/rc0/rc}
+_V=${_ver/rc/RC}
+pkgrel=1
+pkgdesc="Qt5 - module with set of QtQuick controls"
+url="http://qt-project.org/"
+arch="all"
+license="BSD and (LGPL-2.0 with exceptions or GPL-3.0 with exceptions) and GFDL"
+makedepends="qt5-qtbase-dev qt5-qtdeclarative-dev"
+subpackages="$pkgname-doc"
+
+case $pkgver in
+*_beta*|*_rc*) _rel=development_releases;;
+*) _rel=official_releases;;
+esac
+source="$_pkgname-$pkgver.tar.gz::https://github.com/qt/$_pkgname/archive/v$pkgver.tar.gz"
+
+builddir="$srcdir"/$_pkgname-$pkgver
+
+build() {
+	cd "$builddir"
+	/usr/lib/qt5/bin/syncqt.pl -version $pkgver .
+	qmake-qt5 && make
+}
+
+check() {
+	cd "$builddir"
+	make check
+}
+
+package() {
+	cd "$builddir"
+	make install INSTALL_ROOT="$pkgdir"
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
+}
+
+sha512sums="8cbf4909966ae5e7956a2775df3635cb5b73183633708c1d46372101638c8a100e8cd037a3845e7833535f86d3d78e56720f06a794f42c204fc4d48ca2daf92c  qtquickcontrols-5.10.1.tar.gz"

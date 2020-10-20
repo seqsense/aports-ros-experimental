@@ -1,0 +1,45 @@
+# Maintainer: Natanael Copa <ncopa@alpinelinux.org>
+pkgname=qt5-qtimageformats
+_pkgname=${pkgname/qt5-/}
+pkgver=5.10.1
+_ver=${pkgver/_/-}
+_ver=${_ver/beta0/beta}
+_ver=${_ver/rc0/rc}
+_V=${_ver/rc/RC}
+pkgrel=1
+pkgdesc="Qt5 - QtImageFormats component"
+url="http://qt-project.org/"
+arch="all"
+license="LGPL-2.0 with exceptions or GPL-3.0 with exceptions"
+makedepends="qt5-qtbase-dev libmng-dev tiff-dev jasper-dev libwebp-dev"
+subpackages="$pkgname-doc"
+
+case $pkgver in
+*_beta*|*_rc*) _rel=development_releases;;
+*) _rel=official_releases;;
+esac
+source="$_pkgname-$pkgver.tar.gz::https://github.com/qt/$_pkgname/archive/v$pkgver.tar.gz"
+
+builddir="$srcdir"/$_pkgname-$pkgver
+
+build() {
+	cd "$builddir"
+	/usr/lib/qt5/bin/syncqt.pl -version $pkgver .
+	qmake-qt5 && make
+}
+
+check() {
+	cd "$builddir"
+	make check
+}
+
+package() {
+	cd "$builddir"
+	make install INSTALL_ROOT="$pkgdir"
+
+	# Install licenses
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/LICENSE.* "$pkgdir"/usr/share/licenses/$pkgname
+}
+
+sha512sums="7b312bd6ea7e0a19edba486def4e2d527e72e38df63c35efcc943cc6b94a2775671f219967c42b2f7874630201d6a031d1d7afa2e831a24f8811f74318befaaf  qtimageformats-5.10.1.tar.gz"
