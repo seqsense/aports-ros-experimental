@@ -11,7 +11,7 @@ license="BSD"
 depends=""
 makedepends="python2-dev python3-dev py-setuptools"
 checkdepends="py-nose py-mock"
-subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+subpackages="$pkgname-doc py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 source="$pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/p/parameterized/parameterized-$pkgver.tar.gz
   py38-local-var-name.patch
   "
@@ -31,6 +31,9 @@ check() {
 
 package() {
 	mkdir -p "$pkgdir"
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
 }
 
 _py2() {
