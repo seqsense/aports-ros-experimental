@@ -2,7 +2,7 @@
 # Maintainer: Daiki Maekawa <daikimaekawa29@gmail.com>
 pkgname=py-frozendict
 pkgver=1.2
-pkgrel=0
+pkgrel=4
 pkgdesc="immutable dictionary"
 url="https://github.com/slezica/python-frozendict"
 arch="all"
@@ -10,7 +10,7 @@ license="MIT"
 depends=""
 makedepends="python2-dev python3-dev py-setuptools"
 install=""
-subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+subpackages="$pkgname-doc py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 source="https://files.pythonhosted.org/packages/4e/55/a12ded2c426a4d2bee73f88304c9c08ebbdbadb82569ebdd6a0c007cfd08/frozendict-${pkgver}.tar.gz"
 builddir="$srcdir/frozendict-${pkgver}"
 
@@ -28,6 +28,9 @@ check() {
 
 package() {
 	mkdir -p "$pkgdir"
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
 }
 
 _py2() {

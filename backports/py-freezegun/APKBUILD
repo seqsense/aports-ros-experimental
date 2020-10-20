@@ -11,7 +11,7 @@ license="Apache-2.0"
 depends="py-dateutil py-six"
 makedepends="python3 python2 py-setuptools"
 checkdepends="py-mock pytest py-nose"
-subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+subpackages="$pkgname-doc py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 source="https://files.pythonhosted.org/packages/source/${_pyname%${_pyname#?}}/$_pyname/$_pyname-$pkgver.tar.gz"
 builddir="$srcdir/$_pyname-$pkgver"
 
@@ -28,6 +28,9 @@ check() {
 
 package() {
 	mkdir -p "$pkgdir"
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 _py2() {
