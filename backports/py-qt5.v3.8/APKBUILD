@@ -11,8 +11,8 @@ license="GPL-2.0-or-later"
 depends="py-sip"
 makedepends="python2-dev python3-dev py-dbus-dev py-sip-dev
 	qt5-qtbase-dev libx11-dev qt5-qtsvg-dev qt5-qtwebsockets-dev"
-subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
-source="https://sourceforge.net/projects/pyqt/files/$_pkgname/PyQt-$pkgver/${_pkgname}_gpl-$pkgver.zip"
+subpackages="$pkgname-doc py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+source="https://master.dl.sourceforge.net/project/pyqt/PyQt5/PyQt-$pkgver/PyQt5_gpl-$pkgver.tar.gz"
 builddir="${srcdir}/${_pkgname}_gpl-${pkgver}"
 
 prepare() {
@@ -54,6 +54,9 @@ check() {
 
 package() {
 	mkdir -p "$pkgdir"
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 _py2() {
@@ -77,4 +80,4 @@ _py() {
 	make -j1 DESTDIR="${subpkgdir}" INSTALL_ROOT="${subpkgdir}" install
 }
 
-sha512sums="2b112edbedf47511e6c5b98e6fde52d862ac93ce456f0b6310a35b49dceea8cefdf25da6248dcfa6b3e7b09da9a346c1195fe0e34b4bcea796ff66810f10cee0  PyQt5_gpl-5.10.1.zip"
+sha512sums="04cd0292f7a088f9c0d088d7c73ec96cfc40253f771dfdf194eb92be7635e6fcaf04863fa24215e9c34a096658549bb2feeb8d8fdca1e39ed87f0256ef0f790b  PyQt5_gpl-5.10.1.tar.gz"

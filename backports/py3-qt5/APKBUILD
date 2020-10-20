@@ -1,0 +1,44 @@
+# Contributor: Francesco Colista <fcolista@alpinelinux.org>
+# Maintainer: Francesco Colista <fcolista@alpinelinux.org>
+pkgname=py3-qt5
+pkgver=5.13.2
+pkgrel=0
+pkgdesc="A set of Python 3 bindings for the Qt toolkit"
+url="http://riverbankcomputing.co.uk/software/pyqt/intro"
+arch="all"
+license="GPL-2.0-or-later"
+depends="python3 py3-sip-pyqt5"
+makedepends="python3-dev py-dbus-dev py-sip-dev
+	qt5-qtbase-dev libx11-dev qt5-qtsvg-dev qt5-qtwebsockets-dev
+	py3-opengl qt5-qtconnectivity-dev qt5-qtmultimedia-dev qt5-qttools-dev
+	qt5-qtserialport-dev qt5-qtx11extras-dev qt5-qtdeclarative-dev
+	qt5-qtwebchannel-dev
+	"
+source="PyQt5_gpl-$pkgver.tar.gz::https://codeload.github.com/at-wat/pyqt5/legacy.tar.gz/eeb55d78e6a59c1bd9c57acd0fb09db0c4f4b695"
+builddir="$srcdir/at-wat-pyqt5-eeb55d7"
+
+prepare() {
+	default_prepare
+	sed -i '/target_config.dbus_inc_dirs = \[\]/d' configure.py
+}
+
+build() {
+	python3 configure.py \
+		--confirm-license \
+		--qmake /usr/lib/qt5/bin/qmake \
+		--sip /usr/bin/sip \
+		--sipdir /usr/share/sip/PyQt5 \
+		--qsci-api
+	find -name 'Makefile' | xargs sed -i 's|-Wl,-rpath,/usr/lib||g;s|-Wl,-rpath,.* ||g'
+	make
+}
+
+check() {
+	make check
+}
+
+package() {
+	make -j1 DESTDIR="$pkgdir" INSTALL_ROOT="$pkgdir" install
+}
+
+sha512sums="4affcb9cf9a2042278ae48dc5d45b1ab4951dea4ebf934e71e8cffe8e5d62c3becb8030ddf4ce05b4a0d664a05b09c3c0eb3a98457abd55f291723d7149b5249  PyQt5_gpl-5.13.2.tar.gz"
