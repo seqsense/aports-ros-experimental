@@ -12,7 +12,7 @@ _py_depends="py-atomicwrites py-py py-six py-attrs py-more-itertools py-pluggy"
 _py2_depends="${_py_depends//py-/py2-} py2-setuptools py2-funcsigs"
 _py3_depends="${_py_depends//py-/py3-}"
 makedepends="python2-dev py-setuptools python3-dev $_py2_depends $_py3_depends"
-subpackages="py3-$pkgname:_py3 py2-$pkgname:_py2"
+subpackages="$pkgname-doc py3-$pkgname:_py3 py2-$pkgname:_py2"
 source="https://files.pythonhosted.org/packages/source/${pkgname:0:1}/$pkgname/$pkgname-$pkgver.tar.gz"
 builddir="$srcdir/$pkgname-$pkgver"
 
@@ -34,6 +34,9 @@ package() {
 	local name; for name in py.test pytest; do
 		ln -s $name-3 "$pkgdir"/usr/bin/$name
 	done
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 _py2() {
