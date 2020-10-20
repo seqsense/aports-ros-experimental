@@ -2,15 +2,15 @@
 # Maintainer: TBK <alpine@jjtc.eu>
 pkgname=py-more-itertools
 _pkgname=more-itertools
-pkgver=8.0.2
+pkgver=4.1.0
 pkgrel=1
 pkgdesc="More routines for operating on iterables, beyond itertools."
 url="https://pypi.python.org/pypi/more-itertools"
 arch="noarch"
 license="MIT"
-makedepends="py-setuptools"
+makedepends="python2-dev python3-dev py-setuptools"
 subpackages="$pkgname-doc py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
-source="$_pkgname-$pkgver.tar.gz::https://github.com/more-itertools/more-itertools/archive/v$pkgver.tar.gz"
+source="$_pkgname-$pkgver.tar.gz::https://github.com/erikrose/more-itertools/archive/$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
@@ -53,4 +53,4 @@ _py3() {
 	_py python3
 }
 
-sha512sums="e6702e6308c3511e89f99af940cd99cf8c9b6ded75909537a6ad7d90ed420edf45068a617ea42d0a6f8513a55182ef373a246233ee8e4c7ba05a6a2a2739cdf3  more-itertools-8.0.2.tar.gz"
+sha512sums="7992e132bcd72696bc0acb19b94126340988b42a0db1aad9920788d66f79ce20bafc63af3b48db0a7690d5d92dd470a9343bad4f0d4716a2419956dcc3d04505  more-itertools-4.1.0.tar.gz"

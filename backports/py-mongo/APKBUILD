@@ -11,7 +11,7 @@ license="Apache-2.0"
 depends=""
 makedepends="python2-dev python3-dev py-setuptools"
 install=""
-subpackages="py2-$_pkgname:_py2 py3-$_pkgname:_py3"
+subpackages="$pkgname-doc py2-$_pkgname:_py2 py3-$_pkgname:_py3"
 source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
 builddir="$srcdir"/$_pkgname-$pkgver
 
@@ -24,6 +24,9 @@ build() {
 
 package() {
 	mkdir -p "$pkgdir"
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 
