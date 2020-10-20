@@ -10,8 +10,9 @@ arch="all"
 license="BSD-3-Clause"
 depends="py-catkin-pkg>=0.1.28 py-rosdistro>=0.7.3 py-rospkg py-yaml"
 makedepends="python2-dev python3-dev py-setuptools git"
-subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
-source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+subpackages="$pkgname-doc py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz
+	LICENSE.txt"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
@@ -28,6 +29,9 @@ check() {
 
 package() {
 	mkdir -p "$pkgdir"
+
+	# Install license files
+	install -Dm644 $startdir/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
 }
 
 _py2() {
@@ -49,4 +53,5 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
-sha512sums="7b0685e359fb0a46ac52ac4d6eceb046d0592244b36318cb7816ca5a28fc9616fabe48a607a687433e53c6f34ecbbdfdfc443209e6abb1559213642155b66292  rosinstall_generator-0.1.19.tar.gz"
+sha512sums="7b0685e359fb0a46ac52ac4d6eceb046d0592244b36318cb7816ca5a28fc9616fabe48a607a687433e53c6f34ecbbdfdfc443209e6abb1559213642155b66292  rosinstall_generator-0.1.19.tar.gz
+0145a27b16e6e1ad8827d4c827f57b4aae25c64951352c097c6ec5c58863979fa19912dab2dc5e9517bcb87569ebf63f15132c3681ff9311f3a640121897cda8  LICENSE.txt"
