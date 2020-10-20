@@ -3,7 +3,7 @@
 pkgname=py-matplotlib
 _pkgname=matplotlib
 pkgver=2.2.3
-pkgrel=2
+pkgrel=3
 pkgdesc="A Python library for plots"
 url="https://matplotlib.org"
 arch="all"
@@ -28,15 +28,14 @@ build() {
 
 package() {
 	mkdir -p "$pkgdir"
+
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
 	install -m644 LICENSE/* "$pkgdir"/usr/share/licenses/$pkgname/
 }
 
 _py2() {
-	replaces="$pkgname"
 	depends="${depends//py-/py2-} python2-tkinter py2-cairo py2-backports_functools_lru_cache"
 	_py python2
-	# Remove documentation, doc-subpkg will use python3 version
-	rm -rf "$subpkgdir/usr/share"
 }
 
 _py3() {
@@ -44,10 +43,6 @@ _py3() {
 	_py python3
 }
 
-doc() {
-	mkdir -p "${subpkgdir}/usr"
-	mv "${pkgdir}/../py3-$_pkgname/usr/share" "$subpkgdir/usr/"
-}
 
 _py() {
 	local python="$1"
@@ -56,7 +51,6 @@ _py() {
 	cd "$builddir"
 
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
-	install -m755 -d "$subpkgdir"/usr/share/licenses/$pkgname
 }
 
 sha512sums="d118f5d56e2f578031aba22933c0b3a4423a31a04f50f08cc1aa660186546d09692a9cf401bb5f24cb296f94fbfd8707460728d501ac2bd4a624dfa89e92949b  matplotlib-2.2.3.tar.gz"
