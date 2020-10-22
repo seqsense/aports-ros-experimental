@@ -10,7 +10,7 @@ cp $1 ${origfile}
 cwd=$(pwd)
 
 if [ $(echo "${source}" | wc -w) -ne 1 ]; then
-  source=$(echo "${source}" | xargs -n1 echo | head -n1)
+  source=$(echo "${source}" | xargs -n1 echo 2> /dev/null | head -n1)
 fi
 
 url=${source}
@@ -38,15 +38,19 @@ license+=" $(find * -type f -iname "lgpl*")"
 license+=" $(find * -type f -iname "*copying*")"
 license+=" $(find * -type f -iname "*copyright*")"
 license=$(
-  echo ${license} | xargs -n1 echo \
+  echo ${license} | xargs -r -n1 echo \
     | grep -v -e "\.py$" \
     | grep -v -e "\.sh$" \
     | grep -v -e "\.c$" \
     | grep -v -e "\.cpp$" \
     | grep -v -e "\.h$" \
-    | grep -v -e "\.h$" \
-    | sort -d
-)
+    | grep -v -e "\.h$")
+license=$(ls -1 ${license})  # sort by name
+license=$(
+  echo \
+    $(echo ${license} | xargs -r -n1 echo | grep -v "/") \
+    $(echo ${license} | xargs -r -n1 echo | grep "/")
+)  # root directry first
 echo ${license} | xargs -n1 echo "-"
 
 if [ $(echo ${license} | wc -w) -eq 0 ]; then
@@ -69,8 +73,8 @@ else
     | tee -a ${tmpfile}
   for l in ${license}; do
     dir=$(dirname $l)
-    if [ ! -d $(dirname ${tmpdir}/doc/${dir}) ]; then
-      mkdir -p $(dirname ${tmpdir}/doc/${dir})
+    if [ ! -d ${tmpdir}/doc/${dir} ]; then
+      mkdir -p ${tmpdir}/doc/${dir}
       echo "	install -d -m 0755 \"\$pkgdir\"/usr/share/licenses/\$pkgname/${dir}" \
         | tee -a ${tmpfile}
     fi
