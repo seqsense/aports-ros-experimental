@@ -138,6 +138,7 @@ echo
 
 sudo apk update
 
+set +e
 (cd ${basedir} && \
   set -o pipefail && \
   time buildrepo ${repo} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS} 2>&1 | \
@@ -148,7 +149,8 @@ sudo apk update
       -v -e "remote: Compressing objects: " \
       -v -e "Receiving objects: " \
       -v -e "Resolving deltas: ")
-
+exit_code=$?
+set -e
 
 # Generate package index
 
@@ -185,3 +187,5 @@ rm -f ${index}
 apk index -o ${index} \
   $(find $(dirname ${index})/../ -name '*.apk')
 abuild-sign -k /home/builder/.abuild/*.rsa ${index}
+
+exit ${exit_code}
