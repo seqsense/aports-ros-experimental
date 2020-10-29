@@ -1,6 +1,6 @@
 pkgname=ros-melodic-urg-node
 _pkgname=urg_node
-pkgver=0.1.14
+pkgver=0.1.15
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/urg_node"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: urg_node, uri: 'https://github.com/ros-gbp/urg_node-release.git',
-    version: release/melodic/urg_node/0.1.14-1}
+    version: release/melodic/urg_node/0.1.15-1}
 "
 
 prepare() {
