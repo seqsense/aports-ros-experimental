@@ -19,6 +19,7 @@ env:
 
 before_install:
   - pip install --upgrade --user awscli
+  - echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
   - |
     aws s3 cp "${APK_REPO_PRIVATE_KEY_URI}" ${HOME}/key.rsa \
     && export APK_REPO_PRIVATE_KEY=${HOME}/key.rsa || true
