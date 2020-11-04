@@ -1,6 +1,6 @@
 pkgname=ros-kinetic-roslz4
 _pkgname=roslz4
-pkgver=1.12.16
+pkgver=1.12.17
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://wiki.ros.org/$_pkgname"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: roslz4, uri: 'https://github.com/ros-gbp/ros_comm-release.git',
-    version: release/kinetic/roslz4/1.12.16-1}
+    version: release/kinetic/roslz4/1.12.17-1}
 "
 
 prepare() {
