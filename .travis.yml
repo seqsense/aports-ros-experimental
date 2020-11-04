@@ -19,6 +19,7 @@ env:
 
 before_install:
   - pip install --upgrade --user awscli
+  - echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
   - |
     aws s3 cp "${APK_REPO_PRIVATE_KEY_URI}" ${HOME}/key.rsa \
     && export APK_REPO_PRIVATE_KEY=${HOME}/key.rsa || true
@@ -38,12 +39,6 @@ deploy:
       branch: master
   - provider: script
     skip_cleanup: true
-    script: if [ -f "${APK_REPO_PRIVATE_KEY}" ]; then
-        (
-          export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID_MIRROR};
-          export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY_MIRROR};
-          make s3-push-mirror;
-        );
-      fi
+    script: if [ -f "${APK_REPO_PRIVATE_KEY}" ]; then make s3-push-mirror; fi
     on:
       branch: master
