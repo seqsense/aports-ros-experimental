@@ -1,6 +1,6 @@
 pkgname=ros-kinetic-safety-limiter
 _pkgname=safety_limiter
-pkgver=0.10.3
+pkgver=0.10.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://wiki.ros.org/$_pkgname"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: safety_limiter, uri: 'https://github.com/at-wat/neonavigation-release.git',
-    version: release/kinetic/safety_limiter/0.10.3-1}
+    version: release/kinetic/safety_limiter/0.10.4-1}
 "
 
 prepare() {
