@@ -1,7 +1,7 @@
 pkgname=ros-kinetic-neonavigation-common
 _pkgname=neonavigation_common
 pkgver=0.10.3
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://wiki.ros.org/$_pkgname"
 arch="all"
@@ -163,6 +163,7 @@ package() {
     echo "Downloading license file from URLs"
     cat $startdir/LICENSE_URLS | while read url; do
       echo "- $url"
+      mkdir -p "$licensedir"
       wget -O "$licensedir"/$(basename $url) $url
     done
   fi
