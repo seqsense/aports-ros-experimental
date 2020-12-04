@@ -31,7 +31,7 @@ if [ ! -z "${JOBS}" ]; then
   sudo sed -i "s/export JOBS=.*/export JOBS=${JOBS}/" /etc/abuild.conf
 fi
 
-sudo sed -i 's/export MAKEFLAGS=-j$JOBS/export MAKEFLAGS="-j$JOBS -l$JOBS"/' /etc/abuild.conf
+sudo sed -i 's/export MAKEFLAGS=.*/export MAKEFLAGS="-j$JOBS -l$JOBS"/' /etc/abuild.conf
 
 echo "/etc/abuild.conf:"
 grep CFLAGS /etc/abuild.conf
