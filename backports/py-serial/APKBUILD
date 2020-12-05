@@ -24,9 +24,6 @@ build() {
 
 package() {
 	mkdir -p "$pkgdir"
-
-	# Install license files
-	install -Dm644 "$builddir"/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
 }
 
 _py2() {
@@ -55,9 +52,12 @@ doc() {
 	_docs="appendix.rst examples.rst index.rst pyserial.rst \
 		pyserial_api.rst shortintro.rst tools.rst url_handlers.rst"
 	for _doc in $_docs; do
-		mv "$srcdir"/$_pkgname-$pkgver/documentation/$_doc \
+		cp "$srcdir"/$_pkgname-$pkgver/documentation/$_doc \
 			"$subpkgdir"/usr/share/doc/$pkgname/$_doc || return 1
 	done
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
 }
 
 examples() {
