@@ -8,6 +8,7 @@ S3_APK_REPO_MIRROR_URI ?=
 REPOSITORY              = backports ros/$(ROS_DISTRO)
 APK_REPO_PRIVATE_KEY   ?= # path to your private key
 JOBS                   ?= 2
+RESIGN                 ?= false
 
 ifeq ($(shell if [ -f "${APK_REPO_PRIVATE_KEY}" ]; then echo true; fi), true)
 	PRIVATE_KEY_OPT = -v $(APK_REPO_PRIVATE_KEY):/home/builder/.abuild/builder@alpine-ros-experimental.rsa:ro
@@ -32,12 +33,12 @@ $(REPOSITORY):
 		chmod og+rwx packages/v$(ALPINE_VERSION)/$@; \
 	fi
 	docker run --rm \
-		--network=host \
 		-v $(CURDIR):/src \
 		-v $(CURDIR)/packages/v$(ALPINE_VERSION):/home/builder/packages \
 		$(PRIVATE_KEY_OPT) \
 		-e JOBS=${JOBS} \
 		-e PURGE_OBSOLETE=yes \
+		-e RESIGN=true \
 		$(BUILDER_NAME):$(ROS_DISTRO) $@
 
 .PHONY: s3-pull

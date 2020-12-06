@@ -17,9 +17,11 @@ RUN apk add --no-cache \
     lua-aports \
     sudo \
     # Temporary fix missing deps
-    # - python_orocos_kdl lack dep to python-dev
+    # - python_orocos_kdl lack dependency to python-dev
     python2-dev \
     python3-dev \
+    # - some packages including roslint have implicit dependency to bash
+    bash \
   && adduser -G abuild -D builder \
   && echo "builder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
