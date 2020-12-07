@@ -15,6 +15,8 @@ case "${PURGE_OBSOLETE:-no}" in
   "y" | "yes" | "Yes" | "on" | "ON" ) BUILD_REPO_OPTIONS="-p";;
 esac
 
+#BUILD_REPO_OPTIONS="${BUILD_REPO_OPTIONS} -k"
+
 
 # Disable stack protection to improve performance
 
@@ -70,15 +72,19 @@ cp ${REPODIR}/${repo}/noarch/* ${REPODIR}/${repo}/x86_64/ || true
 if [ ! -f ${PACKAGER_PRIVKEY} ]; then
   echo "======== WARN: PACKAGER_PRIVKEY is not present ======="
   abuild-keygen -a -i -n
+  sudo cp ${HOME}/.abuild/*.pub /etc/apk/keys/
+  RESIGN=true
+fi
 
+if ${RESIGN:-false}
+then
   # Re-sign packages if private key is updated
-  index=$(find ${REPODIR} -name APKINDEX.tar.gz || true)
-  if [ -f "${index}" ]; then
+  for index in $(find ${REPODIR} -name APKINDEX.tar.gz || true)
+  do
     rm -f ${index}
-    apk index -o ${index} \
-      $(find $(dirname ${index})/../ -name '*.apk')
+    apk index -o ${index} $(find $(dirname ${index})/../ -name '*.apk')
     abuild-sign -k /home/builder/.abuild/*.rsa ${index}
-  fi
+  done
 fi
 
 
