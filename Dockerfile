@@ -45,6 +45,7 @@ RUN mkdir -p ${APORTSDIR}
 WORKDIR ${APORTSDIR}
 
 COPY update-checksum.sh build-repo.sh /
-COPY ros backports /src
+COPY ros /src/ros
+COPY backports /src/backports
 
 ENTRYPOINT ["/build-repo.sh"]
