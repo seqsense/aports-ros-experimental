@@ -45,5 +45,6 @@ RUN mkdir -p ${APORTSDIR}
 WORKDIR ${APORTSDIR}
 
 COPY update-checksum.sh build-repo.sh /
+COPY ros /src/ros
 
 ENTRYPOINT ["/build-repo.sh"]
