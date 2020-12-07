@@ -196,4 +196,24 @@ apk index -o ${index} \
   $(find $(dirname ${index})/../ -name '*.apk')
 abuild-sign -k /home/builder/.abuild/*.rsa ${index}
 
-exit ${exit_code}
+if [ ${exit_code} -ne 0 ]; then
+  exit ${exit_code}
+fi
+
+
+# Test dependencies
+
+touch /tmp/local_pkgs
+find ${REPODIR}/${repo} -name APKINDEX.tar.gz | while read path; do
+  arch_path=$(dirname ${path})
+  repo_path=$(dirname ${arch_path})
+
+  tmpdir=$(mktemp -d)
+  (cd ${tmpdir} && tar xzfv ${path})
+  cat ${tmpdir}/APKINDEX | sed -n "/^P:/s/^P://p" >> /tmp/local_pkgs
+  rm -rf ${tmpdir}
+done
+
+echo
+echo "Installing all local packages for dependency check"
+sudo apk add --force-overwrite $(cat /tmp/local_pkgs)
