@@ -16,6 +16,7 @@ repos:
         archive_paths: ["archives/v3.7"]
       - remote: "mirror"
         paths: ["v3.7"]
+        archive_paths: ["archives/v3.7"]
   melodic:
     main_ref: "master"
     build_args:
@@ -33,6 +34,7 @@ repos:
         archive_paths: ["archives/v3.8"]
       - remote: "mirror"
         paths: ["v3.8"]
+        archive_paths: ["archives/v3.8"]
   noetic:
     main_ref: "master"
     build_args:
@@ -50,3 +52,4 @@ repos:
         archive_paths: ["archives/v3.11"]
       - remote: "mirror"
         paths: ["v3.11"]
+        archive_paths: ["archives/v3.11"]
