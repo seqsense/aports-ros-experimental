@@ -17,7 +17,6 @@ endif
 .PHONY: build-builder
 build-builder:
 	DOCKER_BUILDKIT=0 docker build \
-		--network=host \
 		--build-arg ALPINE_VERSION=$(ALPINE_VERSION) \
 		--cache-from=$(BUILDER_NAME):$(ROS_DISTRO) \
 		-t $(BUILDER_NAME):$(ROS_DISTRO) .
@@ -69,18 +68,6 @@ UPDATE_TARGETS ?=
 .PHONY: update-checksum
 update-checksum:
 	docker run --rm \
-		--network=host \
 		-v $(CURDIR):/src \
 		--entrypoint /update-checksum.sh \
 		$(BUILDER_NAME):$(ROS_DISTRO) $(UPDATE_TARGETS)
-
-.PHONY: test-deps
-test-deps:
-	DOCKER_BUILDKIT=0 docker build \
-		--build-arg ALPINE_VERSION=$(ALPINE_VERSION) \
-		--build-arg ROS_DISTRO=$(ROS_DISTRO) \
-		-t test-deps:$(ROS_DISTRO) -f test-deps.Dockerfile .
-	docker run --rm \
-		--network=host \
-		-v $(CURDIR)/packages/v$(ALPINE_VERSION):/packages \
-		test-deps:$(ROS_DISTRO)
