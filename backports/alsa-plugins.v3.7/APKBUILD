@@ -22,7 +22,7 @@ makedepends="
 subpackages="
 	$pkgname-doc
 	$pkgname-pulse
-	$pkgname-lavrate
+	$pkgname-lavcrate
 	$pkgname-a52
 	$pkgname-jack
 	"
@@ -55,19 +55,9 @@ check(){
 	make check
 }
 
-doc() {
-	default_doc
-	mkdir -p "$subpkgdir"/usr/share/doc/$pkgname
-	cat > "$subpkgdir"/usr/share/doc/$pkgname/README.alpine <<EOF
-	==> please note that alsa-plugins-lavcrate has been renamed to lavrate.
-	==> So you need to run: apk add alsa-plugins-lavrate
-EOF
-}
-
-lavrate() {
+lavcrate() {
 	pkgdesc="FFmpeg samplerate conversion plugins for alsa"
-	_mv_lib *lavrate*
-	_mv_conf 10-rate-lav.conf
+	_mv_lib *lavcrate*
 }
 
 pulse() {
