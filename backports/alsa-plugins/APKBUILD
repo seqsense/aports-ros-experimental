@@ -24,7 +24,7 @@ subpackages="
 	$pkgname-jack
 	"
 source="
-	ftp://ftp.alsa-project.org/pub/plugins/$pkgname-$pkgver.tar.bz2
+	$pkgname-$pkgver.tar.gz::https://github.com/alsa-project/alsa-plugins/archive/v$pkgver.tar.gz
 	"
 
 prepare() {
@@ -109,4 +109,4 @@ _mv_conf() {
 	done
 }
 
-sha512sums="bb1a4411921ec332f47b43515f6d3b4c03a01568854950b9b5c3f0d8172d9a0c4a5b3652bc64c62eae5ea3aaa5d95fe3d32c0a213fe99adf490a9807bcb58ecd  alsa-plugins-1.1.8.tar.bz2"
+sha512sums="67ad609fae43872c781cf19f928a20e4eaa5fbcc3a1518df177e0243e853c37da12140f17cad4dd598608d30ef737c6779f781a9a6308bea10a856ae59da30d7  alsa-plugins-1.1.8.tar.gz"
