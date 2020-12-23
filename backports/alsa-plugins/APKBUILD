@@ -30,11 +30,13 @@ source="
 builddir="$srcdir/$pkgname-$pkgver"
 
 prepare() {
+  echo "*** preparing"
 	default_prepare
 	update_config_sub
 }
 
 build() {
+  echo "*** building"
 	cd "$builddir"
 	./configure \
 		--build=$CBUILD \
