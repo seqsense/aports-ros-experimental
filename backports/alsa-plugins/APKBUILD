@@ -1,21 +1,44 @@
+# Contributor: Taner Tas <taner76@gmail.com>
 # Maintainer: Taner Tas <taner76@gmail.com>
 pkgname=alsa-plugins
-pkgver=1.1.6
+pkgver=1.1.8
 pkgrel=0
 pkgdesc="Advanced Linux Sound Architecture (ALSA) plugins"
 url="http://www.alsa-project.org"
 arch="all !s390x"
 license="GPL-2.0-or-later LGPL-2.1-or-later"
-makedepends="linux-headers alsa-lib-dev speex-dev ffmpeg-dev libsamplerate-dev pulseaudio-dev jack-dev"
-subpackages="$pkgname-lavcrate $pkgname-pulse $pkgname-a52 $pkgname-jack"
-source="$pkgname-$pkgver.tar.gz::https://github.com/alsa-project/$pkgname/archive/v$pkgver.tar.gz"
+makedepends="
+	alsa-lib-dev
+	ffmpeg-dev
+	jack-dev
+	libsamplerate-dev
+	linux-headers
+	pulseaudio-dev
+	speex-dev
+	"
+subpackages="
+	$pkgname-doc
+	$pkgname-pulse
+	$pkgname-lavrate
+	$pkgname-a52
+	$pkgname-jack
+	"
+source="
+	$pkgname-$pkgver.tar.gz::https://github.com/alsa-project/$pkgname/archive/v$pkgver.tar.gz
+	"
+
+builddir="$srcdir/$pkgname-$pkgver"
 
 prepare() {
+  echo "*** preparing"
 	default_prepare
+  echo "*** update_config_sub"
 	update_config_sub
+  echo "*** prepared"
 }
 
 build() {
+  echo "*** building"
 	cd "$builddir"
 	./configure \
 		--build=$CBUILD \
@@ -32,29 +55,37 @@ check(){
 	make check
 }
 
-lavcrate() {
+doc() {
+	default_doc
+	mkdir -p "$subpkgdir"/usr/share/doc/$pkgname
+	cat > "$subpkgdir"/usr/share/doc/$pkgname/README.alpine <<EOF
+	==> please note that alsa-plugins-lavcrate has been renamed to lavrate.
+	==> So you need to run: apk add alsa-plugins-lavrate
+EOF
+}
+
+lavrate() {
 	pkgdesc="FFmpeg samplerate conversion plugins for alsa"
-	mkdir -p "$subpkgdir"/usr/lib/alsa-lib/
-	mv "$pkgdir"/usr/lib/alsa-lib/*lavcrate* "$subpkgdir"/usr/lib/alsa-lib/
+	_mv_lib *lavrate*
+	_mv_conf 10-rate-lav.conf
 }
 
 pulse() {
 	pkgdesc="Pulseaudio support plugins for alsa-only applications"
-	mkdir -p "$subpkgdir"/usr/lib/alsa-lib/
-	mv "$pkgdir"/usr/lib/alsa-lib/*pulse.so "$subpkgdir"/usr/lib/alsa-lib/
-	mv "$pkgdir"/usr/share "$subpkgdir"/usr/
+	_mv_lib *pulse.so
+	_mv_conf *pulseaudio*
 }
 
 a52() {
 	pkgdesc="Converts S16 linear sound format to A52 compressed format and sends it to an SPDIF output"
-	mkdir -p "$subpkgdir"/usr/lib/alsa-lib/
-	mv "$pkgdir"/usr/lib/alsa-lib/*a52.so "$subpkgdir"/usr/lib/alsa-lib/
+	_mv_lib *a52.so
+	_mv_conf 60-a52-encoder.conf
 }
 
 jack() {
 	pkgdesc="Allows native ALSA applications to work with jackd"
-	mkdir -p "$subpkgdir"/usr/lib/alsa-lib/
-	mv "$pkgdir"/usr/lib/alsa-lib/*jack.so "$subpkgdir"/usr/lib/alsa-lib/
+	_mv_lib *jack.so
+	_mv_conf 50-jack.conf
 }
 
 package() {
@@ -63,4 +94,25 @@ package() {
 	find $pkgdir -name *.la -type f -exec rm -f {} \;
 }
 
-sha512sums="60f2ce8ee21b2205257c017a981e5934c77f92a59f140703f309bbae1611e555e46778fdd5b42e6d91dc8f1ceab81a52eda08dd8ef952279881b4a0422842604  alsa-plugins-1.1.6.tar.gz"
+_mv_lib() {
+	mkdir -p "$subpkgdir"/usr/lib/alsa-lib/
+
+	for i in "$@"; do
+	mv "$pkgdir"/usr/lib/alsa-lib/${i} \
+		"$subpkgdir"/usr/lib/alsa-lib/
+	done
+}
+
+_mv_conf() {
+	mkdir -p "$subpkgdir"/etc/alsa/conf.d/ \
+		"$subpkgdir"/usr/share/alsa/alsa.conf.d
+
+	for i in "$@"; do
+	mv "$pkgdir"/usr/share/alsa/alsa.conf.d/${i} \
+		"$subpkgdir"/usr/share/alsa/alsa.conf.d/
+	mv "$pkgdir"/etc/alsa/conf.d/${i} \
+		"$subpkgdir"/etc/alsa/conf.d/
+	done
+}
+
+sha512sums="67ad609fae43872c781cf19f928a20e4eaa5fbcc3a1518df177e0243e853c37da12140f17cad4dd598608d30ef737c6779f781a9a6308bea10a856ae59da30d7  alsa-plugins-1.1.8.tar.gz"
