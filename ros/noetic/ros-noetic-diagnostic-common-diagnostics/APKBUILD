@@ -1,6 +1,6 @@
 pkgname=ros-noetic-diagnostic-common-diagnostics
 _pkgname=diagnostic_common_diagnostics
-pkgver=1.10.2
+pkgver=1.10.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/diagnostic_common_diagnostics"
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: diagnostic_common_diagnostics
     uri: https://github.com/ros-gbp/diagnostics-release.git
-    version: release/noetic/diagnostic_common_diagnostics/1.10.2-3
+    version: release/noetic/diagnostic_common_diagnostics/1.10.3-1
 "
 
 prepare() {
