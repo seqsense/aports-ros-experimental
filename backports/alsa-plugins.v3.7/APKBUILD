@@ -111,7 +111,7 @@ _mv_conf() {
 	mv "$pkgdir"/usr/share/alsa/alsa.conf.d/${i} \
 		"$subpkgdir"/usr/share/alsa/alsa.conf.d/
 	mv "$pkgdir"/etc/alsa/conf.d/${i} \
-		"$subpkgdir"/etc/alsa/conf.d/
+		"$subpkgdir"/etc/alsa/conf.d/ || true
 	done
 }
 
