@@ -102,7 +102,7 @@ _mv_conf() {
 
 	for i in "$@"; do
 	mv "$pkgdir"/usr/share/alsa/alsa.conf.d/${i} \
-		"$subpkgdir"/usr/share/alsa/alsa.conf.d/
+		"$subpkgdir"/usr/share/alsa/alsa.conf.d/ || true
 	mv "$pkgdir"/etc/alsa/conf.d/${i} \
 		"$subpkgdir"/etc/alsa/conf.d/ || true
 	done
