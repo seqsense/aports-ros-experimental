@@ -32,7 +32,9 @@ builddir="$srcdir/$pkgname-$pkgver"
 prepare() {
   echo "*** preparing"
 	default_prepare
+  echo "*** update_config_sub"
 	update_config_sub
+  echo "*** prepared"
 }
 
 build() {
