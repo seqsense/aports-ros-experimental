@@ -92,6 +92,9 @@ package() {
 	cd "$builddir"
 	make DESTDIR="$pkgdir" install
 	find $pkgdir -name *.la -type f -exec rm -f {} \;
+
+	install -Dm644 COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
+	install -Dm644 COPYING.GPL "$pkgdir"/usr/share/licenses/$pkgname/COPYING.GPL
 }
 
 _mv_lib() {
