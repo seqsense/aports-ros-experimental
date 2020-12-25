@@ -1,6 +1,6 @@
 pkgname=ros-noetic-costmap-cspace
 _pkgname=costmap_cspace
-pkgver=0.10.4
+pkgver=0.10.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/$_pkgname"
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: costmap_cspace
     uri: https://github.com/at-wat/neonavigation-release.git
-    version: release/noetic/costmap_cspace/0.10.4-1
+    version: release/noetic/costmap_cspace/0.10.5-1
 "
 
 prepare() {
