@@ -1,6 +1,6 @@
 pkgname=ros-melodic-neonavigation
 _pkgname=neonavigation
-pkgver=0.10.4
+pkgver=0.10.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/$_pkgname"
@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-melodic-costmap-cspace ros-melodic-joystick-interrupt ros-melodic-map-organizer ros-melodic-neonavigation-common ros-melodic-neonavigation-launch ros-melodic-obj-to-pointcloud ros-melodic-planner-cspace ros-melodic-safety-limiter ros-melodic-track-odometry ros-melodic-trajectory-tracker"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-catkin"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-catkin>=0.7.22"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: neonavigation, uri: 'https://github.com/at-wat/neonavigation-release.git',
-    version: release/melodic/neonavigation/0.10.4-1}
+    version: release/melodic/neonavigation/0.10.5-1}
 "
 
 prepare() {
