@@ -84,7 +84,7 @@ do
 
   # Copy noarch pkgs
 
-  cp ${REPODIR}/${repo}/noarch/* ${REPODIR}/${repo}/x86_64/ || true
+  cp -p ${REPODIR}/${repo}/noarch/* ${REPODIR}/${repo}/x86_64/ || true
 
 
   # Register existing local repositories
