@@ -1,6 +1,6 @@
 pkgname=ros-melodic-nav-msgs
 _pkgname=nav_msgs
-pkgver=1.12.7
+pkgver=1.12.8
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/nav_msgs"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: nav_msgs, uri: 'https://github.com/ros-gbp/common_msgs-release.git',
-    version: release/melodic/nav_msgs/1.12.7-0}
+    version: release/melodic/nav_msgs/1.12.8-1}
 "
 
 prepare() {
