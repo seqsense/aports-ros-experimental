@@ -1,6 +1,6 @@
 pkgname=ros-kinetic-sound-play
 _pkgname=sound_play
-pkgver=0.3.9
+pkgver=0.3.10
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://ros.org/wiki/sound_play"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: sound_play, uri: 'https://github.com/ros-gbp/audio_common-release.git',
-    version: release/kinetic/sound_play/0.3.9-1}
+    version: release/kinetic/sound_play/0.3.10-1}
 "
 
 prepare() {
