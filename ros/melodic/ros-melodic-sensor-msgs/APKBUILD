@@ -1,14 +1,14 @@
 pkgname=ros-melodic-sensor-msgs
 _pkgname=sensor_msgs
-pkgver=1.12.7
+pkgver=1.12.8
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/sensor_msgs"
 arch="all"
 license="BSD"
 
-depends="ros-melodic-geometry-msgs ros-melodic-message-runtime ros-melodic-std-msgs ros-melodic-geometry-msgs ros-melodic-message-runtime ros-melodic-std-msgs"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-catkin ros-melodic-geometry-msgs ros-melodic-message-generation ros-melodic-rosbag ros-melodic-rosunit ros-melodic-std-msgs"
+depends="ros-melodic-geometry-msgs ros-melodic-message-runtime ros-melodic-std-msgs"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath py2-setuptools ros-melodic-catkin ros-melodic-geometry-msgs ros-melodic-message-generation ros-melodic-rosbag ros-melodic-rosunit ros-melodic-std-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: sensor_msgs, uri: 'https://github.com/ros-gbp/common_msgs-release.git',
-    version: release/melodic/sensor_msgs/1.12.7-0}
+    version: release/melodic/sensor_msgs/1.12.8-1}
 "
 
 prepare() {
