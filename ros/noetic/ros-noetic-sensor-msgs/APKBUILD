@@ -1,6 +1,6 @@
 pkgname=ros-noetic-sensor-msgs
 _pkgname=sensor_msgs
-pkgver=1.13.0
+pkgver=1.13.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/sensor_msgs"
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: sensor_msgs
     uri: https://github.com/ros-gbp/common_msgs-release.git
-    version: release/noetic/sensor_msgs/1.13.0-1
+    version: release/noetic/sensor_msgs/1.13.1-1
 "
 
 prepare() {
