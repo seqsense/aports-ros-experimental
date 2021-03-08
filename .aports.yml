@@ -53,3 +53,21 @@ repos:
       - remote: "mirror"
         paths: ["v3.11"]
         archive_paths: ["archives/v3.11"]
+  noetic-alpine3.13:
+    main_ref: "master"
+    build_args:
+      ALPINE_VERSION: "3.13"
+      ROS_DISTRO: "noetic"
+    envs:
+      JOBS: 4
+      PURGE_OBSOLETE: "yes"
+    args: ["backports", "ros/noetic"]
+    repo_path: "/home/builder/packages"
+    sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
+    upload:
+      - remote: "main"
+        paths: ["v3.13"]
+        archive_paths: ["archives/v3.13"]
+      - remote: "mirror"
+        paths: ["v3.13"]
+        archive_paths: ["archives/v3.13"]
