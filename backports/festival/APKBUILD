@@ -14,7 +14,8 @@ source="musl-support.patch
   fix-libdir.patch
   fix-optimization.patch
   fix-memleaks.patch
-  add-nullptr-check.patch"
+  add-nullptr-check.patch
+  fix-const-export.patch"
 options="!check"  # test is not provided
 
 builddir="$srcdir"
@@ -76,4 +77,5 @@ sha512sums="25f85d14918571caf9792170a4745fa432416dc5a0a6ca262006f7dc2d3adc9ee6f6
 742b405fc92157b5534dce396b6fd2fa3cc9a19e067a9a1885a67c2942600ed007abf324fca5e29891c7b1f32e01f16553883a98589597ca47dc41c80598d031  fix-libdir.patch
 6e27aa0b29789917a4f080a10fbf18c2d3c4103b07982a7fabb466581ca0fb8d1bb1772bb348ab85c5225a3f8eced832b4b325823cd701762324470b0a4e44a4  fix-optimization.patch
 142f8ca646c0e7f77586ba8ea62bd36c46791de3dd9be6d6a2f00598e964f14d12c296d470be42d8fe22bcc363dd70d4513f204ecbd237778de6cc8e9ba3aae3  fix-memleaks.patch
-44cb9271180f95fed078950f5bfd1dabb953948a641fbd6ea0c2553a88e880d1ffa30b420912077291cdb4bacf42b1345e4d0f9e6dbda71b9c432485706c09b5  add-nullptr-check.patch"
+44cb9271180f95fed078950f5bfd1dabb953948a641fbd6ea0c2553a88e880d1ffa30b420912077291cdb4bacf42b1345e4d0f9e6dbda71b9c432485706c09b5  add-nullptr-check.patch
+37de80d51ed0039ec0ba3f30a44773cc359d4e89f80b3ca76e8b9cbdad4e9d254acbe81e107eb58214081f11862449b055d3ef07148a99105f29a7b96bfe5db3  fix-const-export.patch"
