@@ -9,7 +9,7 @@ arch="x86_64" # dependency pdal-dev is only provided for x86_64
 license="BSD-3-Clause"
 makedepends="cmake boost-dev zlib-dev tk-dev glew-dev qt5-qtbase-dev
 	qt5-qtx11extras-dev qt5-qttools-dev libpng-dev sqlite-dev doxygen ffmpeg-dev
-	jpeg-dev libxml2-dev openmpi-dev gdal-dev pdal-dev unixodbc-dev
+	jpeg-dev libxml2-dev gdal-dev unixodbc-dev
 	"
 subpackages="$pkgname-doc $pkgname-dev"
 source="
@@ -33,7 +33,7 @@ build() {
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DBUILD_DOCUMENTATION=OFF \
 		-DVTK_USE_FFMPEG_ENCODER=ON \
-		-DModule_vtkIOPDAL=ON \
+		-DModule_vtkIOPDAL=OFF \
 		-DVTK_USE_LARGE_DATA=ON \
 		-DVTK_QT_VERSION="5" \
 		-DVTK_PYTHON_VERSION="3" \
