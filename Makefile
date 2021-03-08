@@ -2,13 +2,18 @@ SHELL                   = /bin/bash
 
 ROS_DISTRO             ?= noetic
 BUILDER_NAME            = seqsense/aports-ros-builder
-ALPINE_VERSION          = $(shell . ./alpine_version_from_ros_distro.sh; alpine_version_from_ros_distro $(ROS_DISTRO))
+ALPINE_VERSION          = 3.11
 S3_APK_REPO_BUCKET_URI ?= s3://localhost
 S3_APK_REPO_MIRROR_URI ?=
 REPOSITORY              = backports ros/$(ROS_DISTRO)
 APK_REPO_PRIVATE_KEY   ?= # path to your private key
 JOBS                   ?= 2
 RESIGN                 ?= false
+
+BUILDER_TAG             = $(ROS_DISTRO)$(shell \
+  if [ $(ROS_DISTRO) = "noetic" ] && [ $(ALPINE_VERSION) != "3.11" ]; then \
+    echo -n "-$(ALPINE_VERSION)"; \
+  fi)
 
 ifeq ($(shell if [ -f "${APK_REPO_PRIVATE_KEY}" ]; then echo true; fi), true)
 	PRIVATE_KEY_OPT = -v $(APK_REPO_PRIVATE_KEY):/home/builder/.abuild/builder@alpine-ros-experimental.rsa:ro
@@ -18,12 +23,12 @@ endif
 build-builder:
 	DOCKER_BUILDKIT=0 docker build \
 		--build-arg ALPINE_VERSION=$(ALPINE_VERSION) \
-		--cache-from=$(BUILDER_NAME):$(ROS_DISTRO) \
-		-t $(BUILDER_NAME):$(ROS_DISTRO) .
+		--cache-from=$(BUILDER_NAME):$(BUILDER_TAG) \
+		-t $(BUILDER_NAME):$(BUILDER_TAG) .
 
 .PHONY: pull-builder
 pull-builder:
-	docker pull $(BUILDER_NAME):$(ROS_DISTRO)
+	docker pull $(BUILDER_NAME):$(BUILDER_TAG)
 
 .PHONY: $(REPOSITORY)
 $(REPOSITORY):
@@ -38,7 +43,7 @@ $(REPOSITORY):
 		-e JOBS=${JOBS} \
 		-e PURGE_OBSOLETE=yes \
 		-e RESIGN=true \
-		$(BUILDER_NAME):$(ROS_DISTRO) $@
+		$(BUILDER_NAME):$(BUILDER_TAG) $@
 
 .PHONY: s3-pull
 s3-pull:
@@ -70,4 +75,4 @@ update-checksum:
 	docker run --rm \
 		-v $(CURDIR):/src \
 		--entrypoint /update-checksum.sh \
-		$(BUILDER_NAME):$(ROS_DISTRO) $(UPDATE_TARGETS)
+		$(BUILDER_NAME):$(BUILDER_TAG) $(UPDATE_TARGETS)
