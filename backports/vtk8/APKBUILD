@@ -7,8 +7,13 @@ pkgdesc="A software system for 3D computer graphics, image processing and visual
 url="https://vtk.org/"
 arch="x86_64" # dependency pdal-dev is only provided for x86_64
 license="BSD-3-Clause"
-makedepends="cmake boost-dev zlib-dev tk-dev glew-dev qt5-qtbase-dev
-	qt5-qtx11extras-dev qt5-qttools-dev libpng-dev sqlite-dev doxygen ffmpeg-dev
+depends_dev="libjpeg-turbo-dev libpng-dev glew-dev gl2ps-dev
+	tiff-dev zlib-dev libxml2-dev expat-dev freetype-dev jsoncpp-dev
+	libx11-dev libxt-dev qt5-qtbase-dev"
+makedepends="cmake mesa-dev libjpeg-turbo-dev libpng-dev glew-dev gl2ps-dev
+	tiff-dev zlib-dev expat-dev freetype-dev jsoncpp-dev
+	libx11-dev libxt-dev qt5-qtbase-dev qt5-qtx11extras-dev qt5-qttools-dev
+	boost-dev tk-dev sqlite-dev doxygen ffmpeg-dev
 	jpeg-dev libxml2-dev gdal-dev unixodbc-dev
 	"
 subpackages="$pkgname-doc $pkgname-dev"
@@ -33,15 +38,30 @@ build() {
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DBUILD_SHARED_LIBS=ON \
 		-DCMAKE_INSTALL_PREFIX=/usr \
+    -DVTK_USE_SYSTEM_EXPAT=ON \
+    -DVTK_USE_SYSTEM_FREETYPE=ON \
+    -DVTK_USE_SYSTEM_JPEG=ON \
+    -DVTK_USE_SYSTEM_GLEW=ON \
+    -DVTK_USE_SYSTEM_GL2PS=ON \
+    -DVTK_USE_SYSTEM_JSONCPP=ON \
+    -DVTK_USE_SYSTEM_LIBXML2=ON \
+    -DVTK_USE_SYSTEM_PNG=ON \
+    -DVTK_USE_SYSTEM_TIFF=ON \
+    -DVTK_USE_SYSTEM_ZLIB=ON \
 		-DBUILD_DOCUMENTATION=OFF \
 		-DVTK_USE_FFMPEG_ENCODER=ON \
+    -DVTK_USE_X=ON \
+    -DModule_vtkGUISupportQt=ON \
+    -DModule_vtkRenderingQt=ON \
+    -DModule_vtkViewsQt=ON \
 		-DModule_vtkIOPDAL=OFF \
 		-DVTK_USE_LARGE_DATA=ON \
 		-DVTK_QT_VERSION="5" \
 		-DVTK_PYTHON_VERSION="3" \
 		-DVTK_CUSTOM_LIBRARY_SUFFIX="" \
 		-DVTK_INSTALL_INCLUDE_DIR=include/vtk \
-		-DCMAKE_BUILD_TYPE=None
+		-DCMAKE_BUILD_TYPE=None \
+    -DBUILD_TESTING=OFF
 	make
 }
 
