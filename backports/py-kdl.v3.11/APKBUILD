@@ -2,8 +2,8 @@
 # Maintainer:
 pkgname=py-kdl
 _pkgname=orocos_kinematics_dynamics
-pkgver=1.3.2_git20210213
-pkgrel=0
+pkgver=1.3.2_git20200313
+pkgrel=1
 pkgdesc="Python binding of Orocos Kinematics and Dynamics library"
 url="https://github.com/orocos/orocos_kinematics_dynamics"
 arch="all"
@@ -13,9 +13,9 @@ makedepends="python2-dev python3-dev cmake py-sip py-sip-dev eigen-dev pkgconfig
 checkdepends="py-psutil"
 subpackages="$pkgname-doc py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 options="!check"  # test code is broken on Python 3.8
-source="$_pkgname-$pkgver.tar.gz::https://github.com/orocos/$_pkgname/tarball/73721147ef7339df11a6a587f15db73410168873"
+source="$_pkgname-$pkgver.tar.gz::https://github.com/orocos/$_pkgname/tarball/5145b19a7ed52cec59af9d6e626cb323f22b1b85"
 
-builddir="$srcdir/orocos-$_pkgname-7372114"
+builddir="$srcdir/orocos-$_pkgname-5145b19"
 
 build() {
   python2 --version && build_py 2
@@ -64,4 +64,4 @@ _py3() {
   make DESTDIR="$subpkgdir" install
 }
 
-sha512sums="93024aea96e96cd59e79c7321dc40c77b678d131fb58a33d82a5bcb670d5194a0602d99d0ea3d7f66b3f75638fa68b0764305d9d49f9a7be49eb12f5c2392460  orocos_kinematics_dynamics-1.3.2_git20210213.tar.gz"
+sha512sums="41388e005439b9b1c217b3a4df971dab2d9f350aba55b8be2acc2acabef652b048fbeaacf1703dd85c74d8c81e0690c279367e98dec83e7df2a73f6bd1048846  orocos_kinematics_dynamics-1.3.2_git20200313.tar.gz"
