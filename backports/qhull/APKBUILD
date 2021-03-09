@@ -1,8 +1,8 @@
 # Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
 # Maintainer:
 pkgname=qhull
-pkgver=7.2.0
-pkgrel=1
+pkgver=7.3.2
+pkgrel=0
 pkgdesc="Convex hull, Delaunay triangulation, Voronoi diagrams, Halfspace intersection"
 url="http://www.qhull.org/"
 arch="all"
@@ -30,4 +30,4 @@ package() {
 
   install -Dm 0644 "$builddir"/COPYING.txt "$pkgdir"/usr/share/licenses/$pkgname/COPYING.txt
 }
-sha512sums="bb47f75dd65b90c0ef9edcbfb127bd26bfbdebc696be14e9f61802c37bf41c29e030c9701e215d724cdfc12638afbe5fd7e2a83f3a8f67fb693a50087401aca6  qhull-7.2.0.tar.gz"
+sha512sums="aea2c70179de10f648aba960129a3b9a3fe309a0eb085bdb86f697e3d4b214570c241e88d4f0b4d2974137759ee7086452d0a3957c4b2a256708402fb3c9eb3d  qhull-7.3.2.tar.gz"
