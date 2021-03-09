@@ -13,11 +13,15 @@ makedepends="python2-dev python3-dev cmake py-sip py-sip-dev eigen-dev pkgconfig
 checkdepends="py-psutil"
 subpackages="$pkgname-doc py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 options="!check"  # test code is broken on Python 3.8
-source="$_pkgname-$pkgver.tar.gz::https://github.com/orocos/$_pkgname/tarball/73721147ef7339df11a6a587f15db73410168873"
+source="$_pkgname-$pkgver.tar.gz::https://github.com/orocos/$_pkgname/tarball/73721147ef7339df11a6a587f15db73410168873
+  pybind11.tar.gz::https://github.com/pybind/pybind11/tarball/8de7772cc72daca8e947b79b83fea46214931604"
 
 builddir="$srcdir/orocos-$_pkgname-7372114"
 
 build() {
+  rm -rf python_orocos_kdl/pybind11
+  mv ../pybind-pybind11-8de7772 python_orocos_kdl/pybind11
+
   python2 --version && build_py 2
   python3 --version && build_py 3
 }
@@ -64,4 +68,5 @@ _py3() {
   make DESTDIR="$subpkgdir" install
 }
 
-sha512sums="93024aea96e96cd59e79c7321dc40c77b678d131fb58a33d82a5bcb670d5194a0602d99d0ea3d7f66b3f75638fa68b0764305d9d49f9a7be49eb12f5c2392460  orocos_kinematics_dynamics-1.3.2_git20210213.tar.gz"
+sha512sums="93024aea96e96cd59e79c7321dc40c77b678d131fb58a33d82a5bcb670d5194a0602d99d0ea3d7f66b3f75638fa68b0764305d9d49f9a7be49eb12f5c2392460  orocos_kinematics_dynamics-1.3.2_git20210213.tar.gz
+95b4eb743c0c77583e8427361a132a14a0a2d58a62e18479cf51c3bcd1e1f6bdc34b3a48399807d3eef148920c7337f2d4ed3beb7bb821dd09bfdfc0c38a27d4  pybind11.tar.gz"
