@@ -115,17 +115,25 @@ do
 
   ls ${APORTSDIR}
   if [ ${ALPINE_VERSION_MAJOR} -eq 3 -a ${ALPINE_VERSION_MINOR} -ge 11 ]; then
-    echo "Removing py2 from v3.11 aports"
-    py_apkbuilds=$(find $(find ${APORTSDIR}/backports/ -type d) -name APKBUILD)
+    echo "Removing py2 from >=v3.11 aports"
+    py_apkbuilds=$(find ${APORTSDIR}/backports/ -name APKBUILD 2> /dev/null || true)
     if [ ! -z "${py_apkbuilds}" ]; then
       echo "${py_apkbuilds}" | xargs -r -n1 echo "-"
-      sed "s/\<python2-dev\>//g" -i ${py_apkbuilds}              # Remove python2-dev dep
-      sed "s/\<py2-\${pkgname#py-}:_py2\>//g" -i ${py_apkbuilds} # Remove py2- subpackage
-      sed "s/\<py2-\$\S*pkgname:_py2\>//g" -i ${py_apkbuilds}    # Remove py2- subpackage
-      sed "s/^\s*python2\s/#\0/g" -i ${py_apkbuilds}             # Remove python2 commands
-      sed "/depends/s/\<py2-\S*\>//g" -i ${py_apkbuilds}         # Remove py2- dependencies
+      sed 's/\<python2-dev\>//g' -i ${py_apkbuilds}             # Remove python2-dev dep
+      sed 's/\<py2-${pkgname#py-}:_py2\>//g' -i ${py_apkbuilds} # Remove py2- subpackage
+      sed 's/\<py2-$\S*pkgname:_py2\>//g' -i ${py_apkbuilds}    # Remove py2- subpackage
+      sed 's/^\s*python2\s/#\0/g' -i ${py_apkbuilds}            # Remove python2 commands
+      sed '/depends/s/\<py2-\S*\>//g' -i ${py_apkbuilds}        # Remove py2- dependencies
     else
       echo "Skipping py2 removal"
+    fi
+  fi
+
+  if [ ${ALPINE_VERSION_MAJOR} -eq 3 -a ${ALPINE_VERSION_MINOR} -gt 11 ]; then
+    echo "Fixing package names on >v3.11 aports"
+    ros_apkbuilds=$(find ${APORTSDIR} -name APKBUILD 2> /dev/null || true)
+    if [ ! -z "${ros_apkbuilds}" ]; then
+      sed 's/\<py3-pycryptodome\>/\0x/g' -i ${ros_apkbuilds} # Use new namespace of pycryptodome
     fi
   fi
 
