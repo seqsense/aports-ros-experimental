@@ -2,20 +2,21 @@
 # Maintainer:
 pkgname=opencv
 pkgver=4.3.0
-pkgrel=2
+pkgrel=1
 pkgdesc="Open Source Computer Vision Library"
 url="https://opencv.org/"
 arch="all"
 options="check"
 license="BSD-3-Clause"
-makedepends="cmake linux-headers python3-dev py3-numpy-dev py3-numpy"
-subpackages="$pkgname-dev $pkgname-doc py3-$pkgname:_py3"
+makedepends="cmake linux-headers python2-dev python3-dev py-numpy-dev py-numpy"
+subpackages="$pkgname-dev $pkgname-doc py2-$pkgname:_py2 py3-$pkgname:_py3"
 source="$pkgname-$pkgver.tar.gz::https://github.com/opencv/$pkgname/archive/$pkgver.tar.gz"
 
 build() {
 	mkdir "$builddir/build"
 	cd "$builddir/build"
 	python_opts=
+	python2 --version && python_opts="$python_opts -DBUILD_opencv_python2=on"
 	python3 --version && python_opts="$python_opts -DBUILD_opencv_python3=on"
 	cmake .. \
 		$python_opts \
@@ -27,6 +28,11 @@ build() {
 		-DCMAKE_C_FLAGS="$CFLAGS"
 	find -name 'Makefile' | xargs sed -i 's|-Wl,-rpath,\S* ||g'
 	make
+}
+
+_py2() {
+	depends="python2 py2-numpy"
+	_py 2
 }
 
 _py3() {
