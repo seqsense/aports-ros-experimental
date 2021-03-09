@@ -1,0 +1,33 @@
+# Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
+# Maintainer:
+pkgname=qhull
+pkgver=7.3.2
+pkgrel=0
+pkgdesc="Convex hull, Delaunay triangulation, Voronoi diagrams, Halfspace intersection"
+url="http://www.qhull.org/"
+arch="all"
+options="!check"  # test is not provided
+license="Qhull"
+makedepends="cmake"
+subpackages="$pkgname-dev $pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/$pkgname/$pkgname/archive/v$pkgver.tar.gz"
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+  cd "$builddir"
+
+  mkdir -p build2 && cd build2
+
+  cmake .. \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release
+  make
+}
+
+package() {
+  cd "$builddir"/build2
+  make DESTDIR="$pkgdir" install
+
+  install -Dm 0644 "$builddir"/COPYING.txt "$pkgdir"/usr/share/licenses/$pkgname/COPYING.txt
+}
+sha512sums="aea2c70179de10f648aba960129a3b9a3fe309a0eb085bdb86f697e3d4b214570c241e88d4f0b4d2974137759ee7086452d0a3957c4b2a256708402fb3c9eb3d  qhull-7.3.2.tar.gz"
