@@ -1,5 +1,5 @@
 diff --git a/python_orocos_kdl/CMakeLists.txt b/python_orocos_kdl/CMakeLists.txt
-index e1ce563..deefa35 100644
+index e1ce563..38eb403 100644
 --- a/python_orocos_kdl/CMakeLists.txt
 +++ b/python_orocos_kdl/CMakeLists.txt
 @@ -38,7 +38,7 @@ endif()
@@ -11,3 +11,10 @@ index e1ce563..deefa35 100644
  pybind11_add_module(${LIBRARY_NAME}
    PyKDL/PyKDL.h
    PyKDL/PyKDL.cpp
+@@ -46,5 +46,5 @@ pybind11_add_module(${LIBRARY_NAME}
+   PyKDL/kinfam.cpp
+   PyKDL/framevel.cpp
+   PyKDL/dynamics.cpp)
+-target_link_libraries(${LIBRARY_NAME} PRIVATE ${orocos_kdl_LIBRARIES})
++target_link_libraries(${LIBRARY_NAME} PRIVATE ${orocos_kdl_LIBRARIES} -lpython3)
+ install(TARGETS ${LIBRARY_NAME} DESTINATION "${PYTHON_SITE_PACKAGES_INSTALL_DIR}")

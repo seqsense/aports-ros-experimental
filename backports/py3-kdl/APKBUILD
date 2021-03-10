@@ -22,6 +22,7 @@ build() {
   cd $builddir/python_orocos_kdl/build
   ROS_PYTHON_VERSION=3 \
   cmake .. \
+    -DPYTHON_EXECUTABLE=$(python3 -c "import sys; print(sys.executable)") \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -30,8 +31,8 @@ build() {
 }
 
 check() {
-  cd $builddir/python_orocos_kdl/build
-  python3 ../tests/PyKDLtest.py
+  cd $builddir/python_orocos_kdl
+  PYTHONPATH=$builddir/python_orocos_kdl/build python3 tests/PyKDLtest.py
 }
 
 package() {
@@ -45,4 +46,4 @@ package() {
 }
 
 sha512sums="93024aea96e96cd59e79c7321dc40c77b678d131fb58a33d82a5bcb670d5194a0602d99d0ea3d7f66b3f75638fa68b0764305d9d49f9a7be49eb12f5c2392460  orocos_kinematics_dynamics-1.3.2_git20210213.tar.gz
-50430e6ff4eb43da9a00e1e01e7aa6925b2980701232198c3070eb6f4f927e67491e5058a256d385e927fab5ecf3ef23b18abff813643c3d4ba23d4066044ca1  use-system-pybind11.patch"
+77afa4b028d0217a3abc37d6734bc431119a0caead855364740a64cfbb177d46548c15a5c736874695703f6a08fd074eeebdfd8f99f6b6a2785d0a6e801d587e  use-system-pybind11.patch"
