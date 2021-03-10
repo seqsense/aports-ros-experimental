@@ -8,19 +8,16 @@ pkgdesc="Python binding of Orocos Kinematics and Dynamics library"
 url="https://github.com/orocos/orocos_kinematics_dynamics"
 arch="all"
 license="LGPL-2"
-depends="python3 orocos-kdl py-sip"
-makedepends="python3-dev cmake py-sip py-sip-dev eigen-dev pkgconfig orocos-kdl-dev>=${pkgver}"
-checkdepends="py-psutil"
+depends="python3 orocos-kdl py3-sip"
+makedepends="python3-dev py3-pybind11-dev cmake py3-sip py3-sip-dev eigen-dev pkgconfig orocos-kdl-dev>=${pkgver}"
+checkdepends="py3-psutil"
 subpackages="$pkgname-doc"
 source="$_pkgname-$pkgver.tar.gz::https://github.com/orocos/$_pkgname/tarball/73721147ef7339df11a6a587f15db73410168873
-  pybind11.tar.gz::https://github.com/pybind/pybind11/tarball/8de7772cc72daca8e947b79b83fea46214931604"
+  use-system-pybind11.patch"
 
 builddir="$srcdir/orocos-$_pkgname-7372114"
 
 build() {
-  rm -rf python_orocos_kdl/pybind11
-  mv ../pybind-pybind11-8de7772 python_orocos_kdl/pybind11
-
   mkdir -p $builddir/python_orocos_kdl/build
   cd $builddir/python_orocos_kdl/build
   ROS_PYTHON_VERSION=3 \
@@ -48,4 +45,4 @@ package() {
 }
 
 sha512sums="93024aea96e96cd59e79c7321dc40c77b678d131fb58a33d82a5bcb670d5194a0602d99d0ea3d7f66b3f75638fa68b0764305d9d49f9a7be49eb12f5c2392460  orocos_kinematics_dynamics-1.3.2_git20210213.tar.gz
-95b4eb743c0c77583e8427361a132a14a0a2d58a62e18479cf51c3bcd1e1f6bdc34b3a48399807d3eef148920c7337f2d4ed3beb7bb821dd09bfdfc0c38a27d4  pybind11.tar.gz"
+50430e6ff4eb43da9a00e1e01e7aa6925b2980701232198c3070eb6f4f927e67491e5058a256d385e927fab5ecf3ef23b18abff813643c3d4ba23d4066044ca1  use-system-pybind11.patch"
