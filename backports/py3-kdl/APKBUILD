@@ -3,7 +3,7 @@
 pkgname=py3-kdl
 _pkgname=orocos_kinematics_dynamics
 pkgver=1.3.2_git20210213
-pkgrel=1
+pkgrel=2
 pkgdesc="Python binding of Orocos Kinematics and Dynamics library"
 url="https://github.com/orocos/orocos_kinematics_dynamics"
 arch="all"
@@ -42,8 +42,13 @@ package() {
   cd $builddir/python_orocos_kdl/build
   make DESTDIR="$pkgdir" install
 
+  pydir=$(ls -1d $pkgdir/usr/lib/python3.* | head -n1)
+  mkdir -p ${pydir}/site-packages
+  mv ${pydir}/dist-packages/* ${pydir}/site-packages/
+  rm -rf ${pydir}/dist-packages
+
 	# Install license files
-	install -Dm644 "$builddir"/orocos_kdl/COPYING "$pkgdir"/usr/share/licenses/$pkgname/py-kdl/COPYING
+	install -Dm644 "$builddir"/orocos_kdl/COPYING "$pkgdir"/usr/share/licenses/$pkgname/py3-kdl/COPYING
 }
 
 sha512sums="93024aea96e96cd59e79c7321dc40c77b678d131fb58a33d82a5bcb670d5194a0602d99d0ea3d7f66b3f75638fa68b0764305d9d49f9a7be49eb12f5c2392460  orocos_kinematics_dynamics-1.3.2_git20210213.tar.gz
