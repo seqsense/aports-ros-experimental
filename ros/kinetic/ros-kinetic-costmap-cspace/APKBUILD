@@ -1,6 +1,6 @@
 pkgname=ros-kinetic-costmap-cspace
 _pkgname=costmap_cspace
-pkgver=0.10.6
+pkgver=0.10.7
 pkgrel=0
 pkgdesc="$_pkgname package for ROS kinetic"
 url="http://wiki.ros.org/$_pkgname"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: costmap_cspace, uri: 'https://github.com/at-wat/neonavigation-release.git',
-    version: release/kinetic/costmap_cspace/0.10.6-1}
+    version: release/kinetic/costmap_cspace/0.10.7-1}
 "
 
 prepare() {
