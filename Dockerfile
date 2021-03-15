@@ -11,8 +11,11 @@ a17OJ4wWWaPvOq8PshcTZ2P3Me8kTCWr/fczjzq+8hB0MNEqfuENoSyZhmCypEuy\n\
 ewIDAQAB\n\
 -----END PUBLIC KEY-----' > /etc/apk/keys/builder@alpine-ros-experimental.rsa.pub
 
+RUN echo '@edge http://nl.alpinelinux.org/alpine/edge/main' >> /etc/apk/repositories
+
 RUN apk add --no-cache \
     alpine-sdk \
+    build-base@edge \
     grep \
     lua-aports \
     sudo \
