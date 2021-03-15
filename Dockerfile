@@ -11,11 +11,13 @@ a17OJ4wWWaPvOq8PshcTZ2P3Me8kTCWr/fczjzq+8hB0MNEqfuENoSyZhmCypEuy\n\
 ewIDAQAB\n\
 -----END PUBLIC KEY-----' > /etc/apk/keys/builder@alpine-ros-experimental.rsa.pub
 
-RUN echo '@edge http://nl.alpinelinux.org/alpine/edge/main' >> /etc/apk/repositories
+RUN if [ "${ALPINE_VERSION}" = "3.13" ]; then \
+    echo '@edge http://nl.alpinelinux.org/alpine/edge/main' >> /etc/apk/repositories; \
+  fi
 
 RUN apk add --no-cache \
     alpine-sdk \
-    build-base@edge \
+    $(if [ "${ALPINE_VERSION}" = "3.13" ]; then echo 'build-base@edge'; fi) \
     grep \
     lua-aports \
     sudo \
