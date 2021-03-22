@@ -1,6 +1,6 @@
 pkgname=ros-melodic-map-organizer
 _pkgname=map_organizer
-pkgver=0.10.8
+pkgver=0.10.10
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/$_pkgname"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: map_organizer, uri: 'https://github.com/at-wat/neonavigation-release.git',
-    version: release/melodic/map_organizer/0.10.8-1}
+    version: release/melodic/map_organizer/0.10.10-1}
 "
 
 prepare() {

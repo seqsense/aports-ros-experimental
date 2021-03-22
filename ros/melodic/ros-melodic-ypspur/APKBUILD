@@ -1,6 +1,6 @@
 pkgname=ros-melodic-ypspur
 _pkgname=ypspur
-pkgver=1.20.1
+pkgver=1.20.2
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/$_pkgname"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: ypspur, uri: 'https://github.com/openspur/yp-spur-release.git',
-    version: release/melodic/ypspur/1.20.1-1}
+    version: release/melodic/ypspur/1.20.2-1}
 "
 
 prepare() {

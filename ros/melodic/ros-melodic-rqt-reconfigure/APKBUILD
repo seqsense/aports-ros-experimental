@@ -1,6 +1,6 @@
 pkgname=ros-melodic-rqt-reconfigure
 _pkgname=rqt_reconfigure
-pkgver=0.5.3
+pkgver=0.5.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/rqt_reconfigure"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rqt_reconfigure, uri: 'https://github.com/ros-gbp/rqt_reconfigure-release.git',
-    version: release/melodic/rqt_reconfigure/0.5.3-1}
+    version: release/melodic/rqt_reconfigure/0.5.4-1}
 "
 
 prepare() {
