@@ -1,14 +1,14 @@
 pkgname=ros-melodic-rqt-moveit
 _pkgname=rqt_moveit
-pkgver=0.5.7
+pkgver=0.5.10
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/rqt_moveit"
 arch="all"
 license="BSD"
 
-depends="ros-melodic-python-qt-binding>=0.2.19 ros-melodic-rosnode ros-melodic-rospy ros-melodic-rostopic ros-melodic-rqt-gui ros-melodic-rqt-gui-py ros-melodic-rqt-py-common ros-melodic-rqt-topic ros-melodic-sensor-msgs ros-melodic-python-qt-binding>=0.2.19 ros-melodic-rosnode ros-melodic-rospy ros-melodic-rostopic ros-melodic-rqt-gui ros-melodic-rqt-gui-py ros-melodic-rqt-py-common ros-melodic-rqt-topic ros-melodic-sensor-msgs"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-catkin"
+depends="ros-melodic-python-qt-binding>=0.2.19 ros-melodic-rosnode ros-melodic-rospy ros-melodic-rostopic ros-melodic-rqt-gui ros-melodic-rqt-gui-py ros-melodic-rqt-py-common ros-melodic-rqt-topic ros-melodic-sensor-msgs"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath py2-setuptools ros-melodic-catkin"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rqt_moveit, uri: 'https://github.com/ros-gbp/rqt_moveit-release.git',
-    version: release/melodic/rqt_moveit/0.5.7-0}
+    version: release/melodic/rqt_moveit/0.5.10-1}
 "
 
 prepare() {
