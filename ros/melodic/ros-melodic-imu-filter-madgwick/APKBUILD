@@ -1,7 +1,7 @@
 pkgname=ros-melodic-imu-filter-madgwick
 _pkgname=imu_filter_madgwick
-pkgver=1.2.2
-pkgrel=1
+pkgver=1.2.3
+pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/imu_filter_madgwick"
 arch="all"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: imu_filter_madgwick, uri: 'https://github.com/uos-gbp/imu_tools-release.git',
-    version: release/melodic/imu_filter_madgwick/1.2.2-1}
+    version: release/melodic/imu_filter_madgwick/1.2.3-1}
 "
 
 prepare() {
