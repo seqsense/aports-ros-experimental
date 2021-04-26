@@ -1,6 +1,6 @@
 pkgname=ros-noetic-rqt-runtime-monitor
 _pkgname=rqt_runtime_monitor
-pkgver=0.5.8
+pkgver=0.5.9
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/rqt_runtime_monitor"
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: rqt_runtime_monitor
     uri: https://github.com/ros-gbp/rqt_runtime_monitor-release.git
-    version: release/noetic/rqt_runtime_monitor/0.5.8-1
+    version: release/noetic/rqt_runtime_monitor/0.5.9-1
 "
 
 prepare() {
