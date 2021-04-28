@@ -15,8 +15,7 @@ builddir="$srcdir/$pkgname-$pkgver"
 build() {
     mkdir build
     cd build
-    cmake -S .. -G "Unix Makefiles" \
-      -DCMAKE_INSTALL_PREFIX=/usr \
+    cmake -S .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr
     cd ..
     cmake --build build
 }
