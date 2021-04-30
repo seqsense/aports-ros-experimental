@@ -1,0 +1,14 @@
+diff --git a/modules/framegrabber/include/ifm3d/fg/byte_buffer.h b/modules/framegrabber/include/ifm3d/fg/byte_buffer.h
+index 7fafb55..e7d4df6 100644
+--- a/modules/framegrabber/include/ifm3d/fg/byte_buffer.h
++++ b/modules/framegrabber/include/ifm3d/fg/byte_buffer.h
+@@ -171,7 +171,8 @@ namespace ifm3d
+       unsigned char bytes[sizeof(T)];
+     } value;
+
+-#if !defined(_WIN32) && __BYTE_ORDER == __BIG_ENDIAN
++#if !defined(_WIN32) && defined(__BYTE_ORDER) \
++      && defined(__BIG_ENDIAN) && __BYTE_ORDER == __BIG_ENDIAN
+     std::reverse_copy(buff, buff + sizeof(T), value.bytes);
+ #else
+     std::copy(buff, buff + sizeof(T), value.bytes);
