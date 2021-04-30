@@ -2,7 +2,7 @@
 pkgname=glog
 pkgver=0.4.0
 pkgrel=0
-pkgdesc="Library and Utilities for working with ifm pmd-based 3D ToF Cameras"
+pkgdesc="C++ implementation of the Google logging module"
 url="https://github.com/google/glog"
 arch="all"
 license="BSD-3-Clause"
