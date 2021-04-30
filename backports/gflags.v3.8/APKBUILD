@@ -1,0 +1,28 @@
+# Contributor: Florent Ferreri <florent@seqsense.com>
+pkgname=gflags
+pkgver=2.2.2
+pkgrel=0
+pkgdesc="The gflags package contains a C++ library that implements commandline flags processing."
+url="https://github.com/gflags/gflags"
+arch="noarch"
+license="BSD-3-Clause"
+options="!check"
+makedepends="cmake"
+subpackages="$pkgname-dev"
+source="$pkgname-$pkgver.tar.gz::https://github.com/gflags/$pkgname/archive/refs/tags/v${pkgver}.tar.gz"
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+    mkdir build
+    cd build
+    cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+    make
+}
+
+package() {
+    cd "$builddir/build"
+    make DESTDIR="$pkgdir" install
+    install -Dm 0644 "$builddir"/COPYING.txt "$pkgdir"/usr/share/licenses/$pkgname/COPYING.txt
+}
+
+sha512sums="98c4703aab24e81fe551f7831ab797fb73d0f7dfc516addb34b9ff6d0914e5fd398207889b1ae555bac039537b1d4677067dae403b64903577078d99c1bdb447  gflags-2.2.2.tar.gz"
