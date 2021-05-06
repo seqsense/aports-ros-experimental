@@ -1,14 +1,44 @@
 diff --git a/modules/framegrabber/include/ifm3d/fg/byte_buffer.h b/modules/framegrabber/include/ifm3d/fg/byte_buffer.h
-index 7fafb55..e7d4df6 100644
+index 7fafb55..122e1be 100644
 --- a/modules/framegrabber/include/ifm3d/fg/byte_buffer.h
 +++ b/modules/framegrabber/include/ifm3d/fg/byte_buffer.h
-@@ -171,7 +171,8 @@ namespace ifm3d
+@@ -8,6 +8,8 @@
+ #ifndef __IFM3D_FG_BYTE_BUFFER_H__
+ #define __IFM3D_FG_BYTE_BUFFER_H__
+
++#include <endian.h>
++
+ #include <algorithm>
+ #include <chrono>
+ #include <cstddef>
+@@ -171,12 +173,27 @@ namespace ifm3d
        unsigned char bytes[sizeof(T)];
      } value;
 
 -#if !defined(_WIN32) && __BYTE_ORDER == __BIG_ENDIAN
-+#if !defined(_WIN32) && defined(__BYTE_ORDER) \
-+      && defined(__BIG_ENDIAN) && __BYTE_ORDER == __BIG_ENDIAN
-     std::reverse_copy(buff, buff + sizeof(T), value.bytes);
- #else
-     std::copy(buff, buff + sizeof(T), value.bytes);
+-    std::reverse_copy(buff, buff + sizeof(T), value.bytes);
+-#else
+-    std::copy(buff, buff + sizeof(T), value.bytes);
++#if !defined(_WIN32)
++#  undef  IS_BIG_ENDIAN
++#  if defined(__BYTE_ORDER) || defined(BYTE_ORDER)
++#    if defined(__BYTE_ORDER)
++#      if __BYTE_ORDER == __BIG_ENDIAN
++#        define IS_BIG_ENDIAN 1
++#      endif
++#    endif
++#    if defined(BYTE_ORDER)
++#      if BYTE_ORDER == BIG_ENDIAN
++#        define IS_BIG_ENDIAN 1
++#      endif
++#    endif
++#  endif
+ #endif
+
++# if defined(IS_BIG_ENDIAN)
++  std::reverse_copy(buff, buff + sizeof(T), value.bytes);
++#else
++  std::copy(buff, buff + sizeof(T), value.bytes);
++#endif
+     return value.v;
+   }
