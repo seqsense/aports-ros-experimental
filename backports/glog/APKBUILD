@@ -1,13 +1,13 @@
 # Contributor: Florent Ferreri <florent@seqsense.com>
 pkgname=glog
 pkgver=0.4.0
-pkgrel=0
+pkgrel=1
 pkgdesc="C++ implementation of the Google logging module"
 url="https://github.com/google/glog"
 arch="all"
 license="BSD-3-Clause"
 options=""
-makedepends="cmake gflags-dev"
+makedepends="cmake"
 subpackages="$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/google/$pkgname/archive/refs/tags/v${pkgver}.tar.gz"
 builddir="$srcdir/$pkgname-$pkgver"
@@ -15,7 +15,7 @@ builddir="$srcdir/$pkgname-$pkgver"
 build() {
     mkdir build
     cd build
-    cmake -S .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=none
+    cmake -S .. -G "Unix Makefiles" -DWITH_GFLAGS=OFF -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=none
     cd ..
     cmake --build build
 }
