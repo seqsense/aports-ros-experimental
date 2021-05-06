@@ -1,6 +1,6 @@
 pkgname=ros-noetic-rqt-shell
 _pkgname=rqt_shell
-pkgver=0.4.10
+pkgver=0.4.11
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/rqt_shell"
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: rqt_shell
     uri: https://github.com/ros-gbp/rqt_shell-release.git
-    version: release/noetic/rqt_shell/0.4.10-1
+    version: release/noetic/rqt_shell/0.4.11-1
 "
 
 prepare() {
