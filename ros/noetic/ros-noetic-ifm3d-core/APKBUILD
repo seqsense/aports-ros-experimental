@@ -7,8 +7,8 @@ url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="ros-noetic-catkin"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath cmake curl-dev glog-dev opencv-dev pcl-dev xmlrpc-c-dev"
+depends=""
+makedepends="py-wstool chrpath cmake curl-dev glog-dev opencv-dev pcl-dev xmlrpc-c-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
