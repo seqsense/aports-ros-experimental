@@ -1,6 +1,6 @@
 SHELL                   = /bin/bash
 
-ROS_DISTRO             ?= melodic
+ROS_DISTRO             ?= noetic
 BUILDER_NAME            = seqsense/aports-ros-builder
 ALPINE_VERSION          = $(shell . ./alpine_version_from_ros_distro.sh; alpine_version_from_ros_distro $(ROS_DISTRO))
 S3_APK_REPO_BUCKET_URI ?= s3://localhost
