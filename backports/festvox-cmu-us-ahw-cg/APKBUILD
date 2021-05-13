@@ -3,10 +3,10 @@
 pkgname=festvox-cmu-us-ahw-cg
 _pkgname=festvox_cmu_us_ahw_cg
 pkgver=2.5.0
-pkgrel=0
+pkgrel=1
 pkgdesc="Festival Speech Synthesis System, voice cmu-us-ahw-cg"
 url="http://www.cstr.ed.ac.uk/projects/festival/"
-arch="all"
+arch="noarch"
 license="custom:festival"
 depends="festlex-cmu festlex-poslex festival"
 source="$_pkgname-$pkgver.tar.gz::http://festvox.org/packed/festival/2.5/voices/$_pkgname.tar.gz"

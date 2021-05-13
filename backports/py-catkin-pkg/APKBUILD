@@ -3,10 +3,10 @@
 pkgname=py-catkin-pkg
 _pkgname=catkin_pkg
 pkgver=0.4.23
-pkgrel=0
+pkgrel=1
 pkgdesc="Library for retrieving information about catkin packages"
 url="https://pypi.python.org/pypi/catkin_pkg/"
-arch="all"
+arch="noarch"
 license="BSD-3-Clause"
 depends="py-argparse py-docutils py-dateutil py-parsing"
 makedepends="python2-dev python3-dev py-setuptools"

@@ -3,10 +3,10 @@
 pkgname=py-rosinstall-generator
 _pkgname=rosinstall_generator
 pkgver=0.1.19
-pkgrel=0
+pkgrel=1
 pkgdesc="A tool for generating rosinstall files"
 url="https://pypi.python.org/pypi/rosinstall_generator/"
-arch="all"
+arch="noarch"
 license="BSD-3-Clause"
 depends="py-catkin-pkg>=0.1.28 py-rosdistro>=0.7.3 py-rospkg py-yaml"
 makedepends="python2-dev python3-dev py-setuptools git"
