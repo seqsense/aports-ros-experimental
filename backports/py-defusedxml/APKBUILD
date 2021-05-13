@@ -3,10 +3,10 @@
 pkgname=py-defusedxml
 _pkgname=defusedxml
 pkgver=0.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc="XML bomb protection for Python stdlib modules"
 url="https://github.com/tiran/defusedxml"
-arch="all"
+arch="noarch"
 license="GPL"
 makedepends="python2-dev python3-dev py-setuptools"
 subpackages="$pkgname-doc py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"

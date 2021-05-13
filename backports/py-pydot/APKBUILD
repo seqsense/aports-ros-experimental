@@ -3,10 +3,10 @@
 pkgname=py-pydot
 _pkgname=pydot
 pkgver=1.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Python interface to Graphviz's Dot"
 url="https://pypi.org/project/pydot/"
-arch="all"
+arch="noarch"
 license="MIT"
 depends="py-chardet py-parsing"
 makedepends="python2-dev python3-dev py-setuptools"

@@ -3,10 +3,10 @@
 pkgname=py-rosinstall
 _pkgname=rosinstall
 pkgver=0.7.8
-pkgrel=1
+pkgrel=2
 pkgdesc="A tool for managing a workspace of multiple heterogenous SCM repositories"
 url="https://pypi.python.org/pypi/rosinstall/"
-arch="all"
+arch="noarch"
 license="BSD-3-Clause"
 depends="py-vcstools>=0.1.3 py-yaml py-rosdistro>=0.3.0 py-catkin-pkg py-wstool>=0.1.12 py-rospkg"
 makedepends="python2-dev python3-dev py-setuptools git"

@@ -3,10 +3,10 @@
 pkgname=festlex-poslex
 _pkgname=festlex_POSLEX
 pkgver=2.5.0
-pkgrel=0
+pkgrel=1
 pkgdesc="Festival Speech Synthesis System, festlex POSLEX"
 url="http://www.cstr.ed.ac.uk/projects/festival/"
-arch="all"
+arch="noarch"
 license="custom:festival"
 depends="festival"
 makedepends=""

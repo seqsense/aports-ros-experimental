@@ -3,10 +3,10 @@
 pkgname=py-autobahn
 _pkgname=autobahn
 pkgver=17.10.1
-pkgrel=0
+pkgrel=1
 pkgdesc="WebSocket client & server library, WAMP real-time framework"
 url="https://crossbar.io/autobahn"
-arch="all"
+arch="noarch"
 license="MIT"
 depends="py-six>=1.10.0 py-txaio>=2.7.0"
 makedepends="python2-dev python3-dev py-setuptools"
