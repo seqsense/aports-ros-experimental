@@ -29,7 +29,7 @@ package() {
 	mkdir -p "$pkgdir"
 
 	cd "$builddir"
-	python3 setup.py install --prefix=/usr --root="$subpkgdir" || return 1
+	python3 setup.py install --prefix=/usr --root="$pkgdir" || return 1
 
 	# Install license files
 	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
