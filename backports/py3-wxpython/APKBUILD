@@ -30,7 +30,7 @@ package() {
 	mkdir -p "$pkgdir"
 
 	cd "$builddir"
-	$python build.py install_py --destdir="$pkgdir"
+	python3 build.py install_py --destdir="$pkgdir"
 	find "$pkgdir" -type f -print | xargs chmod 644
 
 	# Install license files
