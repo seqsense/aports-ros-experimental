@@ -10,7 +10,8 @@ license="Apache-2.0"
 depends=""
 makedepends="apr-dev apr-util-dev autoconf automake libtool gzip zip"
 subpackages="$pkgname-dev $pkgname-doc"
-source="$pkgname-$pkgver.tar.gz::https://github.com/apache/logging-log4cxx/tarball/5f825186936a1876f92b88b371334ff26e997287"
+source="$pkgname-$pkgver.tar.gz::https://github.com/apache/logging-log4cxx/tarball/5f825186936a1876f92b88b371334ff26e997287
+  disable-asyncappendertestcase.patch"
 
 builddir="$srcdir/apache-logging-log4cxx-5f82518"
 
@@ -37,4 +38,5 @@ package() {
 	install -m 0644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/log4cxx
 }
 
-sha512sums="d7b29ff5d955e58408da233bc8bd484c9c80731301ccea313674cbe232d0e8851df83a874fd9d56834612657c74ce8f3c93b24f5bf8a1b8775e9ade3dda3084b  log4cxx-0.10.0_git20180321.tar.gz"
+sha512sums="d7b29ff5d955e58408da233bc8bd484c9c80731301ccea313674cbe232d0e8851df83a874fd9d56834612657c74ce8f3c93b24f5bf8a1b8775e9ade3dda3084b  log4cxx-0.10.0_git20180321.tar.gz
+b9c0f3f367afc642a1574060f24eba3b2a0132d109397cddc368a89e012d7d5339a78182ab3f7d2c67bf250a5d71da82aabf07dc5f651e68d6f0a35312e3451f  disable-asyncappendertestcase.patch"
