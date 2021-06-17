@@ -5,15 +5,16 @@ BUILDER_NAME            = seqsense/aports-ros-builder
 ALPINE_VERSION          = 3.11
 S3_APK_REPO_BUCKET_URI ?= s3://localhost
 S3_APK_REPO_MIRROR_URI ?=
-REPOSITORY              = backports ros/$(ROS_DISTRO)
 APK_REPO_PRIVATE_KEY   ?= # path to your private key
 JOBS                   ?= 2
 RESIGN                 ?= false
 
 BUILDER_TAG             = $(ROS_DISTRO)$(shell \
   if [ $(ROS_DISTRO) = "noetic" ] && [ $(ALPINE_VERSION) != "3.11" ]; then \
-    echo -n "-$(ALPINE_VERSION)"; \
+    echo -n ".v$(ALPINE_VERSION)"; \
   fi)
+
+REPOSITORY              = backports ros/$(BUILDER_TAG)
 
 ifeq ($(shell if [ -f "${APK_REPO_PRIVATE_KEY}" ]; then echo true; fi), true)
 	PRIVATE_KEY_OPT = -v $(APK_REPO_PRIVATE_KEY):/home/builder/.abuild/builder@alpine-ros-experimental.rsa:ro
@@ -32,9 +33,9 @@ pull-builder:
 
 .PHONY: $(REPOSITORY)
 $(REPOSITORY):
-	if [ ! -d packages/v$(ALPINE_VERSION)/$@ ]; then \
-		mkdir -p packages/v$(ALPINE_VERSION)/$@; \
-		chmod og+rwx packages/v$(ALPINE_VERSION)/$@; \
+	if [ ! -d packages/v$(ALPINE_VERSION)/$(basename $(basename $@)) ]; then \
+		mkdir -p packages/v$(ALPINE_VERSION)/$(basename $(basename $@)); \
+		chmod og+rwx packages/v$(ALPINE_VERSION)/$(basename $(basename $@)); \
 	fi
 	docker run --rm \
 		-v $(CURDIR):/src \

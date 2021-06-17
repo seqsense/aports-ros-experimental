@@ -70,6 +70,7 @@ do
     basedir=$(dirname ${repo})
     repo=$(basename ${repo})
   fi
+  repo_out=${repo%.v*}
   echo "APORTSDIR: ${APORTSDIR}"
   echo "REPODIR: ${REPODIR}"
   echo "target repository: ${repo}"
@@ -84,7 +85,7 @@ do
 
   # Copy noarch pkgs
 
-  cp -p ${REPODIR}/${repo}/noarch/* ${REPODIR}/${repo}/x86_64/ || true
+  cp -p ${REPODIR}/${repo_out}/noarch/* ${REPODIR}/${repo_out}/x86_64/ || true
 
 
   # Register existing local repositories
@@ -98,9 +99,9 @@ do
 
   # Build packages
 
-  mkdir -p ${aportsdir_base}
+  mkdir -p ${aportsdir_base}/${basedir}
   mkdir -p ${REPODIR}
-  cp -r ${SRCDIR}/* ${aportsdir_base}
+  cp -r ${SRCDIR}/${basedir}/${repo} ${aportsdir_base}/${basedir}/${repo_out}
 
   sed -e 's/arch="noarch.*"/arch="all"/' -i $(find ${aportsdir_base} -name APKBUILD)
   sed -e 's/:noarch//' -i $(find ${aportsdir_base} -name APKBUILD)
@@ -148,7 +149,8 @@ do
   set +e
   (cd ${basedir} && \
     set -o pipefail && \
-    time buildrepo ${repo} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS} 2>&1 | \
+    echo "buildrepo ${repo_out} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS}"; \
+    time buildrepo ${repo_out} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS} 2>&1 | \
       grep --line-buffered \
         -v -e "remote: Counting objects: " \
         -v -e "remote: Compressing objects: " \
@@ -159,7 +161,7 @@ do
 
   # Generate package index
 
-  index=${REPODIR}/${repo}/x86_64/APKINDEX.tar.gz
+  index=${REPODIR}/${repo_out}/x86_64/APKINDEX.tar.gz
   apk index -o ${index} \
     $(find $(dirname ${index}) -name '*.apk')
 
@@ -169,7 +171,7 @@ do
 
   # Move noarch packages
 
-  rm ${REPODIR}/${repo}/noarch/*.apk || true
+  rm ${REPODIR}/${repo_out}/noarch/*.apk || true
   cat ${tmpdir}/APKINDEX \
     | sed -n '/^P:/{s/^\S:\(.*\)$/\1 ARCH/p; {:l; n; /^A:/{s/^\S://p; d;}; b l;}};' \
     | sed -n '/ARCH$/{N; s/ARCH\n//p;}' \
@@ -178,8 +180,8 @@ do
     arch=$(echo ${apk} | cut -f2 -d" ")
     if [ "${arch}" = "noarch" ]; then
       echo "${pkg} is noarch"
-      mkdir -p ${REPODIR}/${repo}/noarch/
-      mv ${REPODIR}/${repo}/x86_64/${pkg}-* ${REPODIR}/${repo}/noarch/
+      mkdir -p ${REPODIR}/${repo_out}/noarch/
+      mv ${REPODIR}/${repo_out}/x86_64/${pkg}-* ${REPODIR}/${repo_out}/noarch/
     fi
   done
 
@@ -197,21 +199,21 @@ do
     exit ${exit_code}
   fi
 
+
+  # Test dependencies
+
+  touch /tmp/local_pkgs
+  find ${REPODIR}/${repo_out} -name APKINDEX.tar.gz | while read path; do
+    arch_path=$(dirname ${path})
+    repo_path=$(dirname ${arch_path})
+
+    tmpdir=$(mktemp -d)
+    (cd ${tmpdir} && tar xzfv ${path})
+    cat ${tmpdir}/APKINDEX | sed -n "/^P:/s/^P://p" >> /tmp/local_pkgs
+    rm -rf ${tmpdir}
+  done
+
+  echo
+  echo "Installing all local packages for dependency check"
+  sudo apk add --force-overwrite $(cat /tmp/local_pkgs)
 done
-
-# Test dependencies
-
-touch /tmp/local_pkgs
-find ${REPODIR}/${repo} -name APKINDEX.tar.gz | while read path; do
-  arch_path=$(dirname ${path})
-  repo_path=$(dirname ${arch_path})
-
-  tmpdir=$(mktemp -d)
-  (cd ${tmpdir} && tar xzfv ${path})
-  cat ${tmpdir}/APKINDEX | sed -n "/^P:/s/^P://p" >> /tmp/local_pkgs
-  rm -rf ${tmpdir}
-done
-
-echo
-echo "Installing all local packages for dependency check"
-sudo apk add --force-overwrite $(cat /tmp/local_pkgs)
