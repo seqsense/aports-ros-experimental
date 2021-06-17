@@ -1,14 +1,14 @@
 pkgname=ros-noetic-smclib
 _pkgname=smclib
 pkgver=1.8.6
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://smc.sourceforge.net/"
 arch="all"
 license="Mozilla Public License Version 1.1"
 
 depends=""
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath py3-setuptools ros-noetic-catkin"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath py3-setuptools ros-noetic-catkin"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

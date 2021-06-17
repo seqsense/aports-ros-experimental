@@ -1,14 +1,14 @@
 pkgname=ros-noetic-tf2-geometry-msgs
 _pkgname=tf2_geometry_msgs
 pkgver=0.7.5
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/tf2_ros"
 arch="all"
 license="BSD"
 
 depends="orocos-kdl-dev py3-kdl ros-noetic-geometry-msgs ros-noetic-tf2 ros-noetic-tf2-ros orocos-kdl-dev ros-noetic-geometry-msgs ros-noetic-tf2 ros-noetic-tf2-ros"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath orocos-kdl-dev py3-kdl ros-noetic-catkin>=0.5.68 ros-noetic-geometry-msgs ros-noetic-ros-environment ros-noetic-rostest ros-noetic-tf2 ros-noetic-tf2-ros"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath orocos-kdl-dev py3-kdl ros-noetic-catkin>=0.5.68 ros-noetic-geometry-msgs ros-noetic-ros-environment ros-noetic-rostest ros-noetic-tf2 ros-noetic-tf2-ros"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

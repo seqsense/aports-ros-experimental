@@ -1,14 +1,14 @@
 pkgname=ros-noetic-tf2-py
 _pkgname=tf2_py
 pkgver=0.7.5
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/tf2_py"
 arch="all"
 license="BSD"
 
 depends="ros-noetic-rospy ros-noetic-tf2 ros-noetic-rospy ros-noetic-tf2"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-noetic-catkin ros-noetic-rospy ros-noetic-tf2"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath ros-noetic-catkin ros-noetic-rospy ros-noetic-tf2"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

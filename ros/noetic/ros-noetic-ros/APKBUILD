@@ -1,14 +1,14 @@
 pkgname=ros-noetic-ros
 _pkgname=ros
 pkgver=1.15.7
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/ROS"
 arch="all"
 license="BSD"
 
 depends="ros-noetic-catkin ros-noetic-mk ros-noetic-rosbash ros-noetic-rosboost-cfg ros-noetic-rosbuild ros-noetic-rosclean ros-noetic-roscreate ros-noetic-roslang ros-noetic-roslib ros-noetic-rosmake ros-noetic-rosunit ros-noetic-catkin ros-noetic-mk ros-noetic-rosbash ros-noetic-rosboost-cfg ros-noetic-rosbuild ros-noetic-rosclean ros-noetic-roscreate ros-noetic-roslang ros-noetic-roslib ros-noetic-rosmake ros-noetic-rosunit"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-noetic-catkin"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath ros-noetic-catkin"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

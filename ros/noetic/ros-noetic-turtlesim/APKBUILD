@@ -1,14 +1,14 @@
 pkgname=ros-noetic-turtlesim
 _pkgname=turtlesim
 pkgver=0.10.2
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/turtlesim"
 arch="all"
 license="BSD"
 
 depends="boost-dev qt5-qtbase-dev ros-noetic-geometry-msgs ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-roslib ros-noetic-rostime ros-noetic-std-msgs ros-noetic-std-srvs boost-dev qt5-qtbase-dev ros-noetic-geometry-msgs ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-roslib ros-noetic-rostime ros-noetic-std-msgs ros-noetic-std-srvs"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath boost-dev qt5-qtbase-dev ros-noetic-catkin ros-noetic-geometry-msgs ros-noetic-message-generation ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-roslib ros-noetic-rostime ros-noetic-std-msgs ros-noetic-std-srvs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath boost-dev qt5-qtbase-dev ros-noetic-catkin ros-noetic-geometry-msgs ros-noetic-message-generation ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-roslib ros-noetic-rostime ros-noetic-std-msgs ros-noetic-std-srvs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

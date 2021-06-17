@@ -1,14 +1,14 @@
 pkgname=ros-noetic-media-export
 _pkgname=media_export
 pkgver=0.3.0
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/media_export"
 arch="all"
 license="BSD"
 
 depends=""
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-noetic-catkin"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath ros-noetic-catkin"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

@@ -1,14 +1,14 @@
 pkgname=ros-noetic-rqt-robot-plugins
 _pkgname=rqt_robot_plugins
 pkgver=0.5.8
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/rqt_robot_plugins"
 arch="all"
 license="BSD"
 
 depends="ros-noetic-rqt-moveit ros-noetic-rqt-nav-view ros-noetic-rqt-pose-view ros-noetic-rqt-robot-dashboard ros-noetic-rqt-robot-monitor ros-noetic-rqt-robot-steering ros-noetic-rqt-runtime-monitor ros-noetic-rqt-rviz ros-noetic-rqt-tf-tree ros-noetic-rqt-moveit ros-noetic-rqt-nav-view ros-noetic-rqt-pose-view ros-noetic-rqt-robot-dashboard ros-noetic-rqt-robot-monitor ros-noetic-rqt-robot-steering ros-noetic-rqt-runtime-monitor ros-noetic-rqt-rviz ros-noetic-rqt-tf-tree"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-noetic-catkin"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath ros-noetic-catkin"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

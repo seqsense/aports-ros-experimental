@@ -1,14 +1,14 @@
 pkgname=ros-noetic-image-transport
 _pkgname=image_transport
 pkgver=1.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/image_transport"
 arch="all"
 license="BSD"
 
 depends="ros-noetic-message-filters ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib ros-noetic-sensor-msgs ros-noetic-message-filters ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib ros-noetic-sensor-msgs"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-noetic-catkin ros-noetic-message-filters ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib ros-noetic-sensor-msgs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath ros-noetic-catkin ros-noetic-message-filters ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib ros-noetic-sensor-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

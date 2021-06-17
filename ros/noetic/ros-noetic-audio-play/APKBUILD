@@ -1,14 +1,14 @@
 pkgname=ros-noetic-audio-play
 _pkgname=audio_play
 pkgver=0.3.11
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/audio_play"
 arch="all"
 license="BSD"
 
 depends="gst-plugins-base gst-plugins-good gst-plugins-ugly gstreamer ros-noetic-audio-common-msgs ros-noetic-roscpp gst-plugins-base gst-plugins-good gst-plugins-ugly gstreamer ros-noetic-audio-common-msgs ros-noetic-roscpp"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath gst-plugins-base-dev gstreamer-dev ros-noetic-audio-common-msgs ros-noetic-catkin ros-noetic-roscpp"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath gst-plugins-base-dev gstreamer-dev ros-noetic-audio-common-msgs ros-noetic-catkin ros-noetic-roscpp"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

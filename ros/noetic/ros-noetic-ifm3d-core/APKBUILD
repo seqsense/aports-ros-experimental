@@ -1,14 +1,14 @@
 pkgname=ros-noetic-ifm3d-core
 _pkgname=ifm3d_core
 pkgver=0.18.0
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="https://github.com/ifm/ifm3d"
 arch="all"
 license="Apache"
 
 depends="curl-dev glog-dev pcl-dev ros-noetic-cv-bridge xmlrpc-c-dev"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath boost-dev cmake curl-dev glog-dev pcl-dev ros-noetic-cv-bridge xmlrpc-c-dev"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath boost-dev cmake curl-dev glog-dev pcl-dev ros-noetic-cv-bridge xmlrpc-c-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

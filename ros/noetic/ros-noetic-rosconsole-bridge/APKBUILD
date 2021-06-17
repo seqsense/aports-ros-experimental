@@ -1,14 +1,14 @@
 pkgname=ros-noetic-rosconsole-bridge
 _pkgname=rosconsole_bridge
 pkgver=0.5.4
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/rosconsole_bridge"
 arch="all"
 license="BSD"
 
 depends="console_bridge-dev ros-noetic-cpp-common ros-noetic-rosconsole console_bridge-dev ros-noetic-cpp-common ros-noetic-rosconsole"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath console_bridge-dev ros-noetic-catkin ros-noetic-cpp-common ros-noetic-rosconsole>=1.11.5"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath console_bridge-dev ros-noetic-catkin ros-noetic-cpp-common ros-noetic-rosconsole>=1.11.5"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

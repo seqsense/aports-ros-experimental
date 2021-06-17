@@ -1,14 +1,14 @@
 pkgname=ros-noetic-move-slow-and-clear
 _pkgname=move_slow_and_clear
 pkgver=1.17.1
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/move_slow_and_clear"
 arch="all"
 license="BSD"
 
 depends="ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-nav-core ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-nav-core ros-noetic-pluginlib ros-noetic-roscpp"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-noetic-catkin ros-noetic-cmake-modules ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-nav-core ros-noetic-pluginlib ros-noetic-roscpp"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath ros-noetic-catkin ros-noetic-cmake-modules ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-nav-core ros-noetic-pluginlib ros-noetic-roscpp"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

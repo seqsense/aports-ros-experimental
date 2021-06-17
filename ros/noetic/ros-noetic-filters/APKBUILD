@@ -1,14 +1,14 @@
 pkgname=ros-noetic-filters
 _pkgname=filters
 pkgver=1.9.1
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/filters"
 arch="all"
 license="BSD"
 
 depends="boost-dev ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib boost-dev ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath boost-dev ros-noetic-catkin>=0.5.68 ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib ros-noetic-rostest"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath boost-dev ros-noetic-catkin>=0.5.68 ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib ros-noetic-rostest"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

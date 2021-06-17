@@ -1,14 +1,14 @@
 pkgname=ros-noetic-adi-driver
 _pkgname=adi_driver
 pkgver=1.0.3_git20181204001122
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/adi_driver"
 arch="all"
 license="BSD"
 
 depends="ros-noetic-imu-filter-madgwick ros-noetic-roscpp ros-noetic-rqt-plot ros-noetic-rviz ros-noetic-rviz-imu-plugin ros-noetic-sensor-msgs ros-noetic-std-srvs ros-noetic-xacro ros-noetic-imu-filter-madgwick ros-noetic-roscpp ros-noetic-rqt-plot ros-noetic-rviz ros-noetic-rviz-imu-plugin ros-noetic-sensor-msgs ros-noetic-std-srvs ros-noetic-xacro"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-noetic-catkin ros-noetic-roscpp ros-noetic-roslaunch ros-noetic-roslint ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-std-srvs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath ros-noetic-catkin ros-noetic-roscpp ros-noetic-roslaunch ros-noetic-roslint ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-std-srvs"
 
 subpackages="$pkgname-dbg"
 

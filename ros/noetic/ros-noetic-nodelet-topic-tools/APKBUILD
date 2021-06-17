@@ -1,14 +1,14 @@
 pkgname=ros-noetic-nodelet-topic-tools
 _pkgname=nodelet_topic_tools
 pkgver=1.10.1
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/nodelet_topic_tools"
 arch="all"
 license="BSD"
 
 depends="boost-dev ros-noetic-dynamic-reconfigure boost-dev ros-noetic-dynamic-reconfigure ros-noetic-message-filters ros-noetic-nodelet ros-noetic-pluginlib ros-noetic-roscpp"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath boost-dev ros-noetic-catkin ros-noetic-dynamic-reconfigure"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath boost-dev ros-noetic-catkin ros-noetic-dynamic-reconfigure"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

@@ -1,14 +1,14 @@
 pkgname=ros-noetic-tf2-eigen
 _pkgname=tf2_eigen
 pkgver=0.7.5
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
 depends="ros-noetic-geometry-msgs ros-noetic-tf2 eigen-dev ros-noetic-geometry-msgs ros-noetic-tf2"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath eigen-dev ros-noetic-catkin ros-noetic-cmake-modules ros-noetic-geometry-msgs ros-noetic-tf2"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath eigen-dev ros-noetic-catkin ros-noetic-cmake-modules ros-noetic-geometry-msgs ros-noetic-tf2"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

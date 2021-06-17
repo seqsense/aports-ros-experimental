@@ -1,14 +1,14 @@
 pkgname=ros-noetic-rostest
 _pkgname=rostest
 pkgver=1.15.11
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/rostest"
 arch="all"
 license="BSD"
 
 depends="boost-dev ros-noetic-rosgraph ros-noetic-roslaunch ros-noetic-rosmaster ros-noetic-rospy ros-noetic-rosunit boost-dev ros-noetic-rosgraph ros-noetic-roslaunch ros-noetic-rosmaster ros-noetic-rospy ros-noetic-rosunit"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath boost-dev ros-noetic-catkin>=0.7.9 ros-noetic-rosunit"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath boost-dev ros-noetic-catkin>=0.7.9 ros-noetic-rosunit"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

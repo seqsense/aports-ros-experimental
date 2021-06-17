@@ -1,14 +1,14 @@
 pkgname=ros-noetic-perception-pcl
 _pkgname=perception_pcl
 pkgver=1.7.2
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/perception_pcl"
 arch="all"
 license="BSD"
 
 depends="ros-noetic-pcl-conversions ros-noetic-pcl-msgs ros-noetic-pcl-ros"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-noetic-catkin"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath ros-noetic-catkin"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
