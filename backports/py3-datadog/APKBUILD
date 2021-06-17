@@ -11,6 +11,7 @@ license="BSD-3-Clause"
 options="!check" # seems broken or need tox which requires too large size of the dependencies
 depends="py3-decorator>=3.3.2 py3-requests>=2.6.0"
 checkdepends="pytest py3-mock py3-freezegun"
+makedepends="py3-setuptools"
 subpackages="${pkgname}-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/DataDog/$_pkgname/archive/v$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
