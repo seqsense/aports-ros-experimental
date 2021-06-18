@@ -17,7 +17,13 @@ esac
 
 # Disable stack protection to improve performance
 
-CFLAGS="-fno-stack-protector -fomit-frame-pointer -march=x86-64 -mtune=generic -Os"
+CFLAGS="-fomit-frame-pointer -march=x86-64 -mtune=generic -Os"
+case "${STACK_PROTECTOR:-yes}" in
+  "n" | "no" | "No" | "off" | "OFF" )
+    CFLAGS="${CFLAGS} -fno-stack-protector"
+    echo "Stack protector is disabled"
+    ;;
+esac
 sudo sed -i "s/export CFLAGS=\".*\"/export CFLAGS=\"${CFLAGS}\"/" /etc/abuild.conf
 
 echo "/etc/abuild.conf:"

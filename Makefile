@@ -8,6 +8,7 @@ S3_APK_REPO_MIRROR_URI ?=
 APK_REPO_PRIVATE_KEY   ?= # path to your private key
 JOBS                   ?= 2
 RESIGN                 ?= false
+STACK_PROTECTOR        ?= on
 
 BUILDER_TAG             = $(ROS_DISTRO)$(shell \
   if [ $(ROS_DISTRO) = "noetic" ] && [ $(ALPINE_VERSION) != "3.11" ]; then \
@@ -43,6 +44,7 @@ $(REPOSITORY):
 		$(PRIVATE_KEY_OPT) \
 		-e JOBS=${JOBS} \
 		-e PURGE_OBSOLETE=yes \
+		-e STACK_PROTECTOR=$(STACK_PROTECTOR) \
 		-e RESIGN=true \
 		$(BUILDER_NAME):$(BUILDER_TAG) $@
 
