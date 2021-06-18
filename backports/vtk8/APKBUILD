@@ -1,6 +1,6 @@
 # Maintainer: Marian Buschsieweke <marian.buschsieweke@ovgu.de>
 # Contributor: Marian Buschsieweke <marian.buschsieweke@ovgu.de>
-pkgname=vtk
+pkgname=vtk8
 pkgver=8.2.0
 pkgrel=4
 pkgdesc="A software system for 3D computer graphics, image processing and visualization"
