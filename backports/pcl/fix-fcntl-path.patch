@@ -1,0 +1,13 @@
+diff --git a/io/include/pcl/io/low_level_io.h b/io/include/pcl/io/low_level_io.h
+index 39ad6d24..07569522 100644
+--- a/io/include/pcl/io/low_level_io.h
++++ b/io/include/pcl/io/low_level_io.h
+@@ -58,7 +58,7 @@ using ssize_t = SSIZE_T;
+ # include <sys/mman.h>
+ # include <sys/types.h>
+ # include <sys/stat.h>
+-# include <sys/fcntl.h>
++# include <fcntl.h>
+ # include <cerrno>
+ #endif
+ #include <cstddef>
