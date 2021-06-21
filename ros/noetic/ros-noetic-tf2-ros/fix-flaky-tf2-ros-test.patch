@@ -1,5 +1,5 @@
 diff --git a/test/time_reset_test.cpp b/test/time_reset_test.cpp
-index 8142fd9..541fac0 100644
+index 8142fd9..fee9d4d 100644
 --- a/test/time_reset_test.cpp
 +++ b/test/time_reset_test.cpp
 @@ -41,7 +41,7 @@ void spin_for_a_second()
@@ -11,3 +11,15 @@ index 8142fd9..541fac0 100644
      ros::spinOnce();
    }
  }
+@@ -55,7 +55,10 @@ TEST(tf2_ros_transform_listener, time_backwards)
+ 
+   ros::NodeHandle nh = ros::NodeHandle();
+ 
+-  ros::Publisher clock = nh.advertise<rosgraph_msgs::Clock>("/clock", 5);
++  ros::Publisher clock = nh.advertise<rosgraph_msgs::Clock>("/clock", 5, true);
++
++  // make sure clock is subscribed by transform listener
++  spin_for_a_second();
+ 
+   rosgraph_msgs::Clock c;
+   c.clock = ros::Time(100);
