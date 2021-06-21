@@ -8,7 +8,7 @@ arch="all"
 license="Apache 2.0"
 
 depends="ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-roscpp ros-noetic-sensor-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath ros-noetic-catkin ros-noetic-roscpp ros-noetic-roslint ros-noetic-rostest ros-noetic-rosunit ros-noetic-sensor-msgs"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-noetic-catkin ros-noetic-roscpp ros-noetic-roslint ros-noetic-rostest ros-noetic-rosunit ros-noetic-sensor-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

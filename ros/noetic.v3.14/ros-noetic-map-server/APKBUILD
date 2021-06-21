@@ -7,8 +7,8 @@ url="http://wiki.ros.org/map_server"
 arch="all"
 license="BSD"
 
-depends="bullet3-dev ros-noetic-nav-msgs ros-noetic-roscpp ros-noetic-tf2 sdl-dev sdl_image-dev libpng yaml-cpp-dev bullet3-dev ros-noetic-nav-msgs ros-noetic-roscpp ros-noetic-tf2 sdl-dev sdl_image-dev libpng yaml-cpp-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath bullet3-dev ros-noetic-catkin>=0.5.68 ros-noetic-nav-msgs ros-noetic-roscpp ros-noetic-rospy ros-noetic-rostest ros-noetic-rosunit ros-noetic-tf2 sdl-dev sdl_image-dev libpng yaml-cpp-dev"
+depends="bullet3-dev libpng ros-noetic-nav-msgs ros-noetic-roscpp ros-noetic-tf2 sdl-dev sdl_image-dev yaml-cpp-dev bullet3-dev libpng ros-noetic-nav-msgs ros-noetic-roscpp ros-noetic-tf2 sdl-dev sdl_image-dev yaml-cpp-dev"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath bullet3-dev libpng ros-noetic-catkin>=0.5.68 ros-noetic-nav-msgs ros-noetic-roscpp ros-noetic-rospy ros-noetic-rostest ros-noetic-rosunit ros-noetic-tf2 sdl-dev sdl_image-dev yaml-cpp-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

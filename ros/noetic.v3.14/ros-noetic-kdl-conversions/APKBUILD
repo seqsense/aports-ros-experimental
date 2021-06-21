@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="orocos-kdl ros-noetic-geometry-msgs orocos-kdl-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath orocos-kdl-dev ros-noetic-catkin ros-noetic-geometry-msgs"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath orocos-kdl-dev ros-noetic-catkin ros-noetic-geometry-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
