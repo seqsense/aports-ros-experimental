@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="boost-dev ros-noetic-cv-bridge ros-noetic-eigen-conversions ros-noetic-image-geometry ros-noetic-image-transport ros-noetic-nodelet ros-noetic-tf2 ros-noetic-tf2-ros boost-dev ros-noetic-cv-bridge ros-noetic-eigen-conversions ros-noetic-image-geometry ros-noetic-image-transport ros-noetic-nodelet ros-noetic-tf2 ros-noetic-tf2-ros"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath boost-dev ros-noetic-catkin ros-noetic-cmake-modules ros-noetic-cv-bridge ros-noetic-eigen-conversions ros-noetic-image-geometry ros-noetic-image-transport ros-noetic-message-filters ros-noetic-nodelet ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-stereo-msgs ros-noetic-tf2 ros-noetic-tf2-ros"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath boost-dev ros-noetic-catkin ros-noetic-cmake-modules ros-noetic-cv-bridge ros-noetic-eigen-conversions ros-noetic-image-geometry ros-noetic-image-transport ros-noetic-message-filters ros-noetic-nodelet ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-stereo-msgs ros-noetic-tf2 ros-noetic-tf2-ros"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

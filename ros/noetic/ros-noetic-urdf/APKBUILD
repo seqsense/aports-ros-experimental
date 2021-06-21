@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-noetic-pluginlib ros-noetic-rosconsole-bridge ros-noetic-roscpp tinyxml-dev tinyxml2-dev urdfdom-dev tinyxml-dev tinyxml2-dev urdfdom_headers"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules ros-noetic-pluginlib ros-noetic-rosconsole-bridge ros-noetic-roscpp ros-noetic-rostest ros-noetic-urdf-parser-plugin tinyxml-dev tinyxml2-dev urdfdom-dev urdfdom_headers"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules ros-noetic-pluginlib ros-noetic-rosconsole-bridge ros-noetic-roscpp ros-noetic-rostest ros-noetic-urdf-parser-plugin tinyxml-dev tinyxml2-dev urdfdom-dev urdfdom_headers"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="py3-rospkg>=1.0.37 ros-noetic-catkin ros-noetic-ros-environment ros-noetic-rospack ros-noetic-rospack"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath boost-dev py3-setuptools ros-noetic-catkin>=0.6.7 ros-noetic-rosmake ros-noetic-rospack"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath boost-dev py3-setuptools ros-noetic-catkin>=0.6.7 ros-noetic-rosmake ros-noetic-rospack"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

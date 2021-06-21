@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="py3-defusedxml ros-noetic-rosgraph"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath ros-noetic-catkin>=0.5.68"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-noetic-catkin>=0.5.68"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

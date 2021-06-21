@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="boost-dev ros-noetic-camera-calibration-parsers ros-noetic-image-transport ros-noetic-roscpp ros-noetic-roslib ros-noetic-sensor-msgs boost-dev ros-noetic-camera-calibration-parsers ros-noetic-image-transport ros-noetic-roscpp ros-noetic-roslib ros-noetic-sensor-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath boost-dev gtest gtest-dev ros-noetic-camera-calibration-parsers ros-noetic-catkin>=0.5.68 ros-noetic-image-transport ros-noetic-roscpp ros-noetic-roslib ros-noetic-rostest ros-noetic-sensor-msgs"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath boost-dev gtest gtest-dev ros-noetic-camera-calibration-parsers ros-noetic-catkin>=0.5.68 ros-noetic-image-transport ros-noetic-roscpp ros-noetic-roslib ros-noetic-rostest ros-noetic-sensor-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
