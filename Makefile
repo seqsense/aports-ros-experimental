@@ -2,7 +2,7 @@ SHELL                   = /bin/bash
 
 ROS_DISTRO             ?= noetic
 BUILDER_NAME            = seqsense/aports-ros-builder
-ALPINE_VERSION          = 3.11
+ALPINE_VERSION         ?= 3.11
 S3_APK_REPO_BUCKET_URI ?= s3://localhost
 S3_APK_REPO_MIRROR_URI ?=
 APK_REPO_PRIVATE_KEY   ?= # path to your private key
