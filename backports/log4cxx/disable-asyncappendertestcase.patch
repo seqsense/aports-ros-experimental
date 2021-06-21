@@ -1,3 +1,5 @@
+Disable flaky test
+
 diff --git a/src/test/cpp/Makefile.am b/src/test/cpp/Makefile.am
 index 13b82ace..127447fd 100644
 --- a/src/test/cpp/Makefile.am
