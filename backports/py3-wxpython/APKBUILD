@@ -1,0 +1,49 @@
+# Contributor: Atsushi Watanabe<atsushi.w@ieee.org>
+# Maintainer:
+pkgname=py3-wxpython
+_pkgname=wxPython
+pkgver=4.0.7
+pkgrel=0
+pkgdesc="Cross platform GUI toolkit for Python, \"Phoenix\" version"
+url="https://pypi.org/project/wxPython/"
+arch="all"
+license="wxWindows"
+depends="py3-pillow py3-six"
+makedepends="python3-dev py3-setuptools pytest gtk+3.0-dev wxgtk-dev"
+subpackages="$pkgname-doc"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	export CFLAGS="$CFLAGS -D__WXGTK3__"
+	export CXXFLAGS="$CXXFLAGS -D__WXGTK3__"
+	python3 build.py build_py --jobs=4 --nodoc --release --use_syswx --gtk3
+}
+
+check() {
+	cd "$builddir"
+	python3 build.py test
+}
+
+package() {
+	mkdir -p "$pkgdir"
+
+	cd "$builddir"
+	python3 build.py install_py --destdir="$pkgdir"
+	find "$pkgdir" -type f -print | xargs chmod 644
+
+	# Install license files
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m644 "$builddir"/license/preamble.txt "$pkgdir"/usr/share/licenses/$pkgname/preamble.txt
+	install -m644 "$builddir"/license/licence.txt "$pkgdir"/usr/share/licenses/$pkgname/licence.txt
+	install -m644 "$builddir"/license/sip-license.txt "$pkgdir"/usr/share/licenses/$pkgname/sip-license.txt
+	install -m644 "$builddir"/license/gpl.txt "$pkgdir"/usr/share/licenses/$pkgname/gpl.txt
+	install -m644 "$builddir"/license/lgpl.txt "$pkgdir"/usr/share/licenses/$pkgname/lgpl.txt
+
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname/pubsub
+	install -m644 "$builddir"/wx/lib/pubsub/README_WxPython.txt "$pkgdir"/usr/share/licenses/$pkgname/pubsub/README_WxPython.txt
+	install -m644 "$builddir"/wx/lib/pubsub/LICENSE_BSD_Simple.txt "$pkgdir"/usr/share/licenses/$pkgname/pubsub/LICENSE_BSD_Simple.txt
+}
+
+sha512sums="22d74a1285de432dd251ed6343b6138411a70742a7026e1ab002e08b84f111123382625bd64055412687d9ba7b579681d9894a58705455eb6a2b5e3c9d9985c0  wxPython-4.0.7.tar.gz"

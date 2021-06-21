@@ -1,0 +1,37 @@
+# Contributor: Atsushi Watanabe<atsushi.w@ieee.org>
+# Maintainer:
+pkgname=py3-gnupg
+_pkgname=gnupg
+pkgver=2.3.1
+pkgrel=2
+pkgdesc="A Python wrapper for GnuPG"
+url="https://pypi.python.org/pypi/gnupg/"
+arch="noarch"
+license="GPL3.0"
+depends="py3-psutil"
+makedepends="python3-dev py3-setuptools"
+subpackages="$pkgname-doc"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="a640a85a14c93a1ceff7b77fb5a08ba43c30f9f6862413cbedbf9823b47c35a2e96dbc3bd983d2be12382f3146d50cf1db76c5b047e5bb288004d94996c9bf36  gnupg-2.3.1.tar.gz"

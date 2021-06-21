@@ -2,13 +2,20 @@ SHELL                   = /bin/bash
 
 ROS_DISTRO             ?= noetic
 BUILDER_NAME            = seqsense/aports-ros-builder
-ALPINE_VERSION          = $(shell . ./alpine_version_from_ros_distro.sh; alpine_version_from_ros_distro $(ROS_DISTRO))
+ALPINE_VERSION         ?= 3.11
 S3_APK_REPO_BUCKET_URI ?= s3://localhost
 S3_APK_REPO_MIRROR_URI ?=
-REPOSITORY              = backports ros/$(ROS_DISTRO)
 APK_REPO_PRIVATE_KEY   ?= # path to your private key
 JOBS                   ?= 2
 RESIGN                 ?= false
+STACK_PROTECTOR        ?= on
+
+BUILDER_TAG             = $(ROS_DISTRO)$(shell \
+  if [ $(ROS_DISTRO) = "noetic" ] && [ $(ALPINE_VERSION) != "3.11" ]; then \
+    echo -n ".v$(ALPINE_VERSION)"; \
+  fi)
+
+REPOSITORY              = backports ros/$(BUILDER_TAG)
 
 ifeq ($(shell if [ -f "${APK_REPO_PRIVATE_KEY}" ]; then echo true; fi), true)
 	PRIVATE_KEY_OPT = -v $(APK_REPO_PRIVATE_KEY):/home/builder/.abuild/builder@alpine-ros-experimental.rsa:ro
@@ -18,18 +25,18 @@ endif
 build-builder:
 	DOCKER_BUILDKIT=0 docker build \
 		--build-arg ALPINE_VERSION=$(ALPINE_VERSION) \
-		--cache-from=$(BUILDER_NAME):$(ROS_DISTRO) \
-		-t $(BUILDER_NAME):$(ROS_DISTRO) .
+		--cache-from=$(BUILDER_NAME):$(BUILDER_TAG) \
+		-t $(BUILDER_NAME):$(BUILDER_TAG) .
 
 .PHONY: pull-builder
 pull-builder:
-	docker pull $(BUILDER_NAME):$(ROS_DISTRO)
+	docker pull $(BUILDER_NAME):$(BUILDER_TAG)
 
 .PHONY: $(REPOSITORY)
 $(REPOSITORY):
-	if [ ! -d packages/v$(ALPINE_VERSION)/$@ ]; then \
-		mkdir -p packages/v$(ALPINE_VERSION)/$@; \
-		chmod og+rwx packages/v$(ALPINE_VERSION)/$@; \
+	if [ ! -d packages/v$(ALPINE_VERSION)/$(basename $(basename $@)) ]; then \
+		mkdir -p packages/v$(ALPINE_VERSION)/$(basename $(basename $@)); \
+		chmod og+rwx packages/v$(ALPINE_VERSION)/$(basename $(basename $@)); \
 	fi
 	docker run --rm \
 		-v $(CURDIR):/src \
@@ -37,8 +44,9 @@ $(REPOSITORY):
 		$(PRIVATE_KEY_OPT) \
 		-e JOBS=${JOBS} \
 		-e PURGE_OBSOLETE=yes \
+		-e STACK_PROTECTOR=$(STACK_PROTECTOR) \
 		-e RESIGN=true \
-		$(BUILDER_NAME):$(ROS_DISTRO) $@
+		$(BUILDER_NAME):$(BUILDER_TAG) $@
 
 .PHONY: s3-pull
 s3-pull:
@@ -70,4 +78,4 @@ update-checksum:
 	docker run --rm \
 		-v $(CURDIR):/src \
 		--entrypoint /update-checksum.sh \
-		$(BUILDER_NAME):$(ROS_DISTRO) $(UPDATE_TARGETS)
+		$(BUILDER_NAME):$(BUILDER_TAG) $(UPDATE_TARGETS)

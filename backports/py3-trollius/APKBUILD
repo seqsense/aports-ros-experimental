@@ -1,0 +1,38 @@
+# Contributor: Atsushi Watanabe<atsushi.w@ieee.org>
+# Maintainer:
+pkgname=py3-trollius
+_pkgname=trollius
+pkgver=2.2
+_pkgver=2.2.post1
+pkgrel=0
+pkgdesc="Deprecated, unmaintained port of the asyncio module (PEP 3156) on Python 2"
+url="https://pypi.org/project/trollius/"
+arch="all"
+license="Apache-2.0"
+depends="py3-six"
+makedepends="python3-dev py3-setuptools"
+subpackages="$pkgname-doc"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$_pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$_pkgver"
+
+build() {
+	cd "$builddir"
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+	# Install license files
+	install -Dm644 "$builddir"/COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
+}
+
+sha512sums="6c4657abdcbcb5b31dfa740848c32d68dbfe691c1e6b6400bccf18047c0d00be604d6d0536ab99973ed24805a7bd8c17fe04c3d504570351dface3f0162e6d09  trollius-2.2.post1.tar.gz"

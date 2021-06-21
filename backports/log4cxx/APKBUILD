@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=log4cxx
 pkgver=0.10.0_git20180321
-pkgrel=4
+pkgrel=5
 pkgdesc="Logging framework for C++ patterned after Apache log4j"
 url="https://logging.apache.org/log4cxx/latest_stable/index.html"
 arch="all"
@@ -10,7 +10,8 @@ license="Apache-2.0"
 depends=""
 makedepends="apr-dev apr-util-dev autoconf automake libtool gzip zip"
 subpackages="$pkgname-dev $pkgname-doc"
-source="$pkgname-$pkgver.tar.gz::https://github.com/apache/logging-log4cxx/tarball/5f825186936a1876f92b88b371334ff26e997287"
+source="$pkgname-$pkgver.tar.gz::https://github.com/apache/logging-log4cxx/tarball/5f825186936a1876f92b88b371334ff26e997287
+  disable-asyncappendertestcase.patch"
 
 builddir="$srcdir/apache-logging-log4cxx-5f82518"
 
@@ -37,4 +38,5 @@ package() {
 	install -m 0644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/log4cxx
 }
 
-sha512sums="d7b29ff5d955e58408da233bc8bd484c9c80731301ccea313674cbe232d0e8851df83a874fd9d56834612657c74ce8f3c93b24f5bf8a1b8775e9ade3dda3084b  log4cxx-0.10.0_git20180321.tar.gz"
+sha512sums="d7b29ff5d955e58408da233bc8bd484c9c80731301ccea313674cbe232d0e8851df83a874fd9d56834612657c74ce8f3c93b24f5bf8a1b8775e9ade3dda3084b  log4cxx-0.10.0_git20180321.tar.gz
+3d0dae4766b6201c91462d6a11d100f9a43a2b0a8c80cdb6dd50d126bc41e6c325e969a1d727780a2bfb255d4f4069bd54fc57ce12d5dfd77caba06fbd663909  disable-asyncappendertestcase.patch"

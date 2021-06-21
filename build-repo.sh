@@ -17,7 +17,13 @@ esac
 
 # Disable stack protection to improve performance
 
-CFLAGS="-fno-stack-protector -fomit-frame-pointer -march=x86-64 -mtune=generic -Os"
+CFLAGS="-fomit-frame-pointer -march=x86-64 -mtune=generic -Os"
+case "${STACK_PROTECTOR:-yes}" in
+  "n" | "no" | "No" | "off" | "OFF" )
+    CFLAGS="${CFLAGS} -fno-stack-protector"
+    echo "Stack protector is disabled"
+    ;;
+esac
 sudo sed -i "s/export CFLAGS=\".*\"/export CFLAGS=\"${CFLAGS}\"/" /etc/abuild.conf
 
 echo "/etc/abuild.conf:"
@@ -70,6 +76,7 @@ do
     basedir=$(dirname ${repo})
     repo=$(basename ${repo})
   fi
+  repo_out=${repo%.v*}
   echo "APORTSDIR: ${APORTSDIR}"
   echo "REPODIR: ${REPODIR}"
   echo "target repository: ${repo}"
@@ -84,7 +91,7 @@ do
 
   # Copy noarch pkgs
 
-  cp -p ${REPODIR}/${repo}/noarch/* ${REPODIR}/${repo}/x86_64/ || true
+  cp -p ${REPODIR}/${repo_out}/noarch/* ${REPODIR}/${repo_out}/x86_64/ || true
 
 
   # Register existing local repositories
@@ -98,9 +105,9 @@ do
 
   # Build packages
 
-  mkdir -p ${aportsdir_base}
+  mkdir -p ${aportsdir_base}/${basedir}
   mkdir -p ${REPODIR}
-  cp -r ${SRCDIR}/* ${aportsdir_base}
+  cp -r ${SRCDIR}/${basedir}/${repo} ${aportsdir_base}/${basedir}/${repo_out}
 
   sed -e 's/arch="noarch.*"/arch="all"/' -i $(find ${aportsdir_base} -name APKBUILD)
   sed -e 's/:noarch//' -i $(find ${aportsdir_base} -name APKBUILD)
@@ -115,15 +122,15 @@ do
 
   ls ${APORTSDIR}
   if [ ${ALPINE_VERSION_MAJOR} -eq 3 -a ${ALPINE_VERSION_MINOR} -ge 11 ]; then
-    echo "Removing py2 from v3.11 aports"
-    py_apkbuilds=$(find $(find ${APORTSDIR}/backports/ -type d) -name APKBUILD)
+    echo "Removing py2 from >=v3.11 aports"
+    py_apkbuilds=$(find ${APORTSDIR}/backports/ -name APKBUILD 2> /dev/null || true)
     if [ ! -z "${py_apkbuilds}" ]; then
       echo "${py_apkbuilds}" | xargs -r -n1 echo "-"
-      sed "s/\<python2-dev\>//g" -i ${py_apkbuilds}              # Remove python2-dev dep
-      sed "s/\<py2-\${pkgname#py-}:_py2\>//g" -i ${py_apkbuilds} # Remove py2- subpackage
-      sed "s/\<py2-\$\S*pkgname:_py2\>//g" -i ${py_apkbuilds}    # Remove py2- subpackage
-      sed "s/^\s*python2\s/#\0/g" -i ${py_apkbuilds}             # Remove python2 commands
-      sed "/depends/s/\<py2-\S*\>//g" -i ${py_apkbuilds}         # Remove py2- dependencies
+      sed 's/\<python2-dev\>//g' -i ${py_apkbuilds}             # Remove python2-dev dep
+      sed 's/\<py2-${pkgname#py-}:_py2\>//g' -i ${py_apkbuilds} # Remove py2- subpackage
+      sed 's/\<py2-$\S*pkgname:_py2\>//g' -i ${py_apkbuilds}    # Remove py2- subpackage
+      sed 's/^\s*python2\s/#\0/g' -i ${py_apkbuilds}            # Remove python2 commands
+      sed '/depends/s/\<py2-\S*\>//g' -i ${py_apkbuilds}        # Remove py2- dependencies
     else
       echo "Skipping py2 removal"
     fi
@@ -148,10 +155,9 @@ do
   set +e
   (cd ${basedir} && \
     set -o pipefail && \
-    time buildrepo ${repo} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS} 2>&1 | \
+    echo "buildrepo ${repo_out} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS}"; \
+    time buildrepo ${repo_out} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS} 2>&1 | \
       grep --line-buffered \
-        -v -e "([0-9]*/[0-9]*) Purging " \
-        -v -e "([0-9]*/[0-9]*) Installing " \
         -v -e "remote: Counting objects: " \
         -v -e "remote: Compressing objects: " \
         -v -e "Receiving objects: " \
@@ -161,7 +167,7 @@ do
 
   # Generate package index
 
-  index=${REPODIR}/${repo}/x86_64/APKINDEX.tar.gz
+  index=${REPODIR}/${repo_out}/x86_64/APKINDEX.tar.gz
   apk index -o ${index} \
     $(find $(dirname ${index}) -name '*.apk')
 
@@ -171,7 +177,7 @@ do
 
   # Move noarch packages
 
-  rm ${REPODIR}/${repo}/noarch/*.apk || true
+  rm ${REPODIR}/${repo_out}/noarch/*.apk || true
   cat ${tmpdir}/APKINDEX \
     | sed -n '/^P:/{s/^\S:\(.*\)$/\1 ARCH/p; {:l; n; /^A:/{s/^\S://p; d;}; b l;}};' \
     | sed -n '/ARCH$/{N; s/ARCH\n//p;}' \
@@ -180,8 +186,8 @@ do
     arch=$(echo ${apk} | cut -f2 -d" ")
     if [ "${arch}" = "noarch" ]; then
       echo "${pkg} is noarch"
-      mkdir -p ${REPODIR}/${repo}/noarch/
-      mv ${REPODIR}/${repo}/x86_64/${pkg}-* ${REPODIR}/${repo}/noarch/
+      mkdir -p ${REPODIR}/${repo_out}/noarch/
+      mv ${REPODIR}/${repo_out}/x86_64/${pkg}-* ${REPODIR}/${repo_out}/noarch/
     fi
   done
 
@@ -199,21 +205,21 @@ do
     exit ${exit_code}
   fi
 
+
+  # Test dependencies
+
+  touch /tmp/local_pkgs
+  find ${REPODIR}/${repo_out} -name APKINDEX.tar.gz | while read path; do
+    arch_path=$(dirname ${path})
+    repo_path=$(dirname ${arch_path})
+
+    tmpdir=$(mktemp -d)
+    (cd ${tmpdir} && tar xzfv ${path})
+    cat ${tmpdir}/APKINDEX | sed -n "/^P:/s/^P://p" >> /tmp/local_pkgs
+    rm -rf ${tmpdir}
+  done
+
+  echo
+  echo "Installing all local packages for dependency check"
+  sudo apk add --force-overwrite $(cat /tmp/local_pkgs)
 done
-
-# Test dependencies
-
-touch /tmp/local_pkgs
-find ${REPODIR}/${repo} -name APKINDEX.tar.gz | while read path; do
-  arch_path=$(dirname ${path})
-  repo_path=$(dirname ${arch_path})
-
-  tmpdir=$(mktemp -d)
-  (cd ${tmpdir} && tar xzfv ${path})
-  cat ${tmpdir}/APKINDEX | sed -n "/^P:/s/^P://p" >> /tmp/local_pkgs
-  rm -rf ${tmpdir}
-done
-
-echo
-echo "Installing all local packages for dependency check"
-sudo apk add --force-overwrite $(cat /tmp/local_pkgs)

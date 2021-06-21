@@ -1,0 +1,13 @@
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+index 395eb5b..138b9de 100644
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -57,7 +57,7 @@ add_rostest(test_server_goal_handle_destruction.launch)
+ add_rostest(test_cpp_simple_client_cancel_crash.launch)
+ add_rostest(test_imports.launch)
+ add_rostest(test_python_server_components.launch)
+-add_rostest(test_python_server.launch)
++#add_rostest(test_python_server.launch)
+ add_rostest(test_python_server2.launch)
+ add_rostest(test_python_server3.launch)
+ add_rostest(test_python_simple_server.launch)

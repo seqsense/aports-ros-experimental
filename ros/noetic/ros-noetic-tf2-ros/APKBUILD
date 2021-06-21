@@ -1,14 +1,14 @@
 pkgname=ros-noetic-tf2-ros
 _pkgname=tf2_ros
 pkgver=0.7.5
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/tf2_ros"
 arch="all"
 license="BSD"
 
 depends="ros-noetic-actionlib ros-noetic-actionlib-msgs ros-noetic-geometry-msgs ros-noetic-message-filters ros-noetic-roscpp ros-noetic-rosgraph ros-noetic-rospy ros-noetic-std-msgs ros-noetic-tf2 ros-noetic-tf2-msgs ros-noetic-tf2-py ros-noetic-xmlrpcpp ros-noetic-actionlib ros-noetic-actionlib-msgs ros-noetic-geometry-msgs ros-noetic-message-filters ros-noetic-roscpp ros-noetic-rosgraph ros-noetic-rospy ros-noetic-std-msgs ros-noetic-tf2 ros-noetic-tf2-msgs ros-noetic-tf2-py ros-noetic-xmlrpcpp"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-noetic-actionlib ros-noetic-actionlib-msgs ros-noetic-catkin>=0.5.68 ros-noetic-geometry-msgs ros-noetic-message-filters>=1.11.1 ros-noetic-roscpp ros-noetic-rosgraph ros-noetic-rospy ros-noetic-rostest ros-noetic-std-msgs ros-noetic-tf2 ros-noetic-tf2-msgs ros-noetic-tf2-py ros-noetic-xmlrpcpp"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath ros-noetic-actionlib ros-noetic-actionlib-msgs ros-noetic-catkin>=0.5.68 ros-noetic-geometry-msgs ros-noetic-message-filters>=1.11.1 ros-noetic-roscpp ros-noetic-rosgraph ros-noetic-rospy ros-noetic-rostest ros-noetic-std-msgs ros-noetic-tf2 ros-noetic-tf2-msgs ros-noetic-tf2-py ros-noetic-xmlrpcpp"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

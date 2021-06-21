@@ -1,0 +1,56 @@
+# Contributor: Daiki Maekawa <daikimaekawa29@gmail.com>
+# Maintainer: Daiki Maekawa <daikimaekawa29@gmail.com>
+pkgname=py-grpcio-reflection
+_pkgname=${pkgname#py-}
+pkgver=1.26.0
+pkgrel=0
+pkgdesc="Testing utilities for gRPC Python."
+url="https://grpc.io/"
+arch="all"
+license="Apache-2.0"
+depends="py-grpcio>=${pkgver} py-protobuf>=3.10.0 py2-wheel py3-wheel"
+makedepends="python2-dev python3-dev py-setuptools cython-dev linux-headers"
+install=""
+subpackages="$pkgname-doc py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+source="$pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+builddir="$srcdir/grpcio-reflection-${pkgver}"
+
+build() {
+	cd "$builddir"
+	python2 setup.py build
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python2 setup.py test
+	python3 setup.py test
+}
+
+package() {
+	mkdir -p "$pkgdir"
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+_py2() {
+	depends="${depends//py-/py2-}"
+	_py python2
+}
+
+_py3() {
+	depends="${depends//py-/py3-}"
+	_py python3
+}
+
+_py() {
+	local python="$1"
+	pkgdesc="$pkgdesc (for $python)"
+	install_if="$pkgname=$pkgver-$pkgrel $python"
+	
+	cd "$builddir"
+	$python setup.py install --prefix=/usr --root="$subpkgdir" || return 1
+}
+
+sha512sums="fefb4e920dac2cffb4daaa6f823cd238b8f49b9c8e8c1b0d5f2840dd4b71a519064736ec314ec9700434297f1acef18014b5cf53626b7d827ac5fb434fe62d79  py-grpcio-reflection-1.26.0.tar.gz"
