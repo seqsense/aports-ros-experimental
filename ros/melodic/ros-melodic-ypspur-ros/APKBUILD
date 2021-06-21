@@ -1,14 +1,14 @@
 pkgname=ros-melodic-ypspur-ros
 _pkgname=ypspur_ros
-pkgver=0.3.4
+pkgver=0.3.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="ros-melodic-diagnostic-msgs ros-melodic-geometry-msgs ros-melodic-message-runtime ros-melodic-nav-msgs ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-tf ros-melodic-trajectory-msgs ros-melodic-ypspur>=1.20.0 ros-melodic-diagnostic-msgs ros-melodic-geometry-msgs ros-melodic-message-runtime ros-melodic-nav-msgs ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-tf ros-melodic-trajectory-msgs ros-melodic-ypspur>=1.20.0"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-catkin ros-melodic-diagnostic-msgs ros-melodic-geometry-msgs ros-melodic-message-generation ros-melodic-nav-msgs ros-melodic-roscpp ros-melodic-roslint ros-melodic-rostest ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-tf ros-melodic-trajectory-msgs ros-melodic-ypspur>=1.20.0"
+depends="ros-melodic-diagnostic-msgs ros-melodic-geometry-msgs ros-melodic-message-runtime ros-melodic-nav-msgs ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-tf2 ros-melodic-tf2-geometry-msgs ros-melodic-tf2-ros ros-melodic-trajectory-msgs ros-melodic-ypspur>=1.20.0 ros-melodic-diagnostic-msgs ros-melodic-geometry-msgs ros-melodic-message-runtime ros-melodic-nav-msgs ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-tf2 ros-melodic-tf2-geometry-msgs ros-melodic-tf2-ros ros-melodic-trajectory-msgs ros-melodic-ypspur>=1.20.0"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-catkin ros-melodic-diagnostic-msgs ros-melodic-geometry-msgs ros-melodic-message-generation ros-melodic-nav-msgs ros-melodic-roscpp ros-melodic-roslint ros-melodic-rostest ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-tf2 ros-melodic-tf2-geometry-msgs ros-melodic-tf2-ros ros-melodic-trajectory-msgs ros-melodic-ypspur>=1.20.0"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: ypspur_ros, uri: 'https://github.com/openspur/ypspur_ros-release.git',
-    version: release/melodic/ypspur_ros/0.3.4-1}
+    version: release/melodic/ypspur_ros/0.3.5-1}
 "
 
 prepare() {
