@@ -221,5 +221,6 @@ do
 
   echo
   echo "Installing all local packages for dependency check"
-  sudo apk add --force-overwrite $(cat /tmp/local_pkgs)
+  sudo apk add --virtual .install-test --force-overwrite $(cat /tmp/local_pkgs)
+  sudo apk del .install-test
 done
