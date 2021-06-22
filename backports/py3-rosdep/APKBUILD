@@ -3,13 +3,13 @@
 pkgname=py3-rosdep
 _pkgname=rosdep
 pkgver=0.19.0
-pkgrel=1
+pkgrel=2
 pkgdesc="rosdep package manager abstraction tool for ROS"
 url="https://pypi.python.org/pypi/rosdep/"
 arch="noarch"
 license="BSD-3-Clause"
-depends="py3-catkin-pkg>=0.4.0 py3-rospkg>=1.1.10 py3-rosdistro>=0.7.5 py3-yaml>=3.1"
-makedepends="python3-dev py3-setuptools git"
+depends="py3-catkin-pkg>=0.4.0 py3-rospkg>=1.1.10 py3-rosdistro>=0.7.5 py3-yaml>=3.1 py3-setuptools"
+makedepends="python3-dev git"
 subpackages="$pkgname-doc"
 source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz
 	LICENSE"
