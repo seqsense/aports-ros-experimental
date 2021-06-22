@@ -3,7 +3,7 @@
 pkgname=festvox-kallpc16k
 _pkgname=festvox_kallpc16k
 pkgver=2.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Festival Speech Synthesis System, voice kallpc16k"
 url="http://www.cstr.ed.ac.uk/projects/festival/"
 arch="noarch"

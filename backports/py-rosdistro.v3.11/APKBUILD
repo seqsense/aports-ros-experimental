@@ -3,7 +3,7 @@
 pkgname=py-rosdistro
 _pkgname=rosdistro
 pkgver=0.8.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A tool to work with rosdistro files"
 url="https://pypi.python.org/pypi/rosdistro/"
 arch="noarch"
