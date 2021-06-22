@@ -3,7 +3,7 @@
 pkgname=py-catkin-pkg
 _pkgname=catkin_pkg
 pkgver=0.4.23
-pkgrel=1
+pkgrel=2
 pkgdesc="Library for retrieving information about catkin packages"
 url="https://pypi.python.org/pypi/catkin_pkg/"
 arch="noarch"

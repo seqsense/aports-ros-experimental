@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=festival
 pkgver=2.5.0_git20180620
-pkgrel=0
+pkgrel=1
 pkgdesc="Festival Speech Synthesis System"
 url="http://www.cstr.ed.ac.uk/projects/festival/"
 arch="all"

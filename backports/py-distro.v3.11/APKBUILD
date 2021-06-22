@@ -3,7 +3,7 @@
 pkgname=py-distro
 _pkgname=distro
 pkgver=1.4.0
-pkgrel=5
+pkgrel=6
 pkgdesc="Linux OS platform information API"
 url="https://pypi.python.org/pypi/distro/"
 arch="noarch"

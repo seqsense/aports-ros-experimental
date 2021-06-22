@@ -3,7 +3,7 @@
 pkgname=py-gnupg
 _pkgname=gnupg
 pkgver=2.3.1
-pkgrel=2
+pkgrel=3
 pkgdesc="A Python wrapper for GnuPG"
 url="https://pypi.python.org/pypi/gnupg/"
 arch="noarch"

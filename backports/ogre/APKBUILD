@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=ogre
 pkgver=1.9.1
-pkgrel=2
+pkgrel=3
 pkgdesc="OGRE is a scene-oriented, flexible 3D engine written in C++"
 url="https://ogrecave.github.io/ogre/"
 arch="all"

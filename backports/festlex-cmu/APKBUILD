@@ -3,7 +3,7 @@
 pkgname=festlex-cmu
 _pkgname=festlex_CMU
 pkgver=2.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Festival Speech Synthesis System, festlex CMU"
 url="http://www.cstr.ed.ac.uk/projects/festival/"
 arch="noarch"

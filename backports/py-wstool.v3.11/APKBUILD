@@ -3,7 +3,7 @@
 pkgname=py-wstool
 _pkgname=wstool
 pkgver=0.1.17
-pkgrel=3
+pkgrel=4
 pkgdesc="A tool for managing a workspace of multiple heterogenous SCM repositories"
 url="https://pypi.python.org/pypi/wstool/"
 arch="noarch"

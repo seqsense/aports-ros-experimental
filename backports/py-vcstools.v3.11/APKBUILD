@@ -3,7 +3,7 @@
 pkgname=py-vcstools
 _pkgname=vcstools
 pkgver=0.1.42
-pkgrel=1
+pkgrel=2
 pkgdesc="Python library for interacting with various VCS systems"
 url="https://pypi.python.org/pypi/vcstools/"
 arch="noarch"

@@ -3,7 +3,7 @@
 pkgname=py3-grpcio-testing
 _pkgname=${pkgname#py3-}
 pkgver=1.26.0
-pkgrel=0
+pkgrel=1
 pkgdesc="Testing utilities for gRPC Python."
 url="https://grpc.io/"
 arch="all"
