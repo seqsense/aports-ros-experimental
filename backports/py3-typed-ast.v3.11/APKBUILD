@@ -31,5 +31,5 @@ package() {
 	install -mD644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="7ac06e277c883afd1a7161601ffca0114aa63db257695a4bf4c64d819a7192fe52167edb57991aefc7accc6a9902b5faf2ba9e4032c4b9be31f1db7a091607c9 typed_ast-1.4.3.tar.gz"
+sha512sums="7ac06e277c883afd1a7161601ffca0114aa63db257695a4bf4c64d819a7192fe52167edb57991aefc7accc6a9902b5faf2ba9e4032c4b9be31f1db7a091607c9  typed_ast-1.4.3.tar.gz"
 
