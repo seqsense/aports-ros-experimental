@@ -8,7 +8,7 @@ url="https://pypi.org/project/typed-ast://pypi.org/project/typed-ast"
 arch="all"
 license="Apache-2.0"
 makedepends="python3-dev py-setuptools"
-source="typed-ast-$pkgver.tar.gz::https://files.pythonhosted.org/packages/6e/08/c04a49ee26a94c1ec211e7b1e5f2971d692e04818ea67ef70f1e879cf525/typed_ast-$pkgver.tar.gz"
+source="typed_ast-$pkgver.tar.gz::https://files.pythonhosted.org/packages/6e/08/c04a49ee26a94c1ec211e7b1e5f2971d692e04818ea67ef70f1e879cf525/typed_ast-$pkgver.tar.gz"
 builddir="$srcdir/typed-ast-$pkgver"
 
 build() {
