@@ -1,0 +1,36 @@
+# Contributor: Kazuki Takahashi <tkhsh.schoen@gmail.com>
+# Maintainer:
+pkgname=py3-mypy
+pkgver=0.910
+pkgrel=1
+pkgdesc="Optional static typing for Python 3 and 2 (PEP 484)"
+url="http://www.mypy-lang.org"
+arch="all"
+license="MIT"
+makedepends="python3-dev python2-dev py-setuptools"
+subpackages="$pkgname-doc"
+source="mypy-$pkgver.tar.gz::https://files.pythonhosted.org/packages/33/46/b5d01f8844c84772e950bfc6adcaaa94cd22fedeb7c01776fd6effb3c2f6/mypy-$pkgver.tar.gz"
+builddir="$srcdir/mypy-$pkgver"
+
+build() {
+    cd "$builddir"
+	python3 setup.py build
+}
+
+check() {
+    cd "$builddir"
+	python3 setup.py test
+}
+
+package() {
+	mkdir -p "$pkgdir"
+
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir" || return 1
+
+	# Install license files
+	install -mD644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="2f8caa6945db992ae3a20c47904a023a62cc2f98296c136d7d09ac5f0a0d83b833b4c3ef811f1369e647860fb9a194d120225333a62daf055af12f39fb45a552  mypy-0.910.tar.gz"
+
