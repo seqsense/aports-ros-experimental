@@ -28,7 +28,7 @@ package() {
 	python3 setup.py install --prefix=/usr --root="$pkgdir" || return 1
 
 	# Install license files
-	install -mD644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 sha512sums="2f8caa6945db992ae3a20c47904a023a62cc2f98296c136d7d09ac5f0a0d83b833b4c3ef811f1369e647860fb9a194d120225333a62daf055af12f39fb45a552  mypy-0.910.tar.gz"
