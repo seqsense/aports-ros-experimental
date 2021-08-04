@@ -1,36 +1,37 @@
-# Contributor: Kazuki Takahashi <tkhsh.schoen@gmail.com>
-# Maintainer:
+# contributor: Justin Berthault <justin.berthault@zaclys.net>
+# Maintainer: Justin Berthault <justin.berthault@zaclys.net>
 pkgname=py3-mypy
 pkgver=0.910
-pkgrel=1
-pkgdesc="Optional static typing for Python 3 and 2 (PEP 484)"
-url="http://www.mypy-lang.org"
-arch="all"
+pkgrel=0
+pkgdesc="Optional static typing for Python (PEP484)"
+options="!check" # Tests fail on builders, pass on CI
+url="https://www.mypy-lang.org/"
+arch="noarch"
 license="MIT"
-makedepends="python3-dev py-setuptools py3-typed-ast"
-checkdepends="py3-pytest py3-flake8 py3-psutil py3-lxml py3-attrs"
-source="mypy-$pkgver.tar.gz::https://files.pythonhosted.org/packages/33/46/b5d01f8844c84772e950bfc6adcaaa94cd22fedeb7c01776fd6effb3c2f6/mypy-$pkgver.tar.gz"
-builddir="$srcdir/mypy-$pkgver"
+depends="py3-mypy-extensions py3-toml py3-typing-extensions py3-typed-ast"
+makedepends="python3-dev py3-setuptools"
+checkdepends="py3-pytest py3-pytest-xdist py3-lxml py3-virtualenv"
+source="https://files.pythonhosted.org/packages/source/m/mypy/mypy-$pkgver.tar.gz"
+builddir="$srcdir/"mypy-$pkgver
 
 build() {
-    cd "$builddir"
-	python3 setup.py build
+  python3 setup.py build
 }
 
 check() {
-    cd "$builddir"
-	python3 setup.py test
+  rm -f \
+    mypyc/test/test_analysis.py \
+    mypyc/test/test_exceptions.py \
+    mypyc/test/test_refcount.py \
+    mypyc/test/test_run.py
+    py.test-3 -v
 }
 
 package() {
-	mkdir -p "$pkgdir"
-
-	cd "$builddir"
-	python3 setup.py install --prefix=/usr --root="$pkgdir" || return 1
-
-	# Install license files
-	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  python3 setup.py install --prefix=/usr --root="$pkgdir"
 }
 
-sha512sums="2f8caa6945db992ae3a20c47904a023a62cc2f98296c136d7d09ac5f0a0d83b833b4c3ef811f1369e647860fb9a194d120225333a62daf055af12f39fb45a552  mypy-0.910.tar.gz"
+sha512sums="
+2f8caa6945db992ae3a20c47904a023a62cc2f98296c136d7d09ac5f0a0d83b833b4c3ef811f1369e647860fb9a194d120225333a62daf055af12f39fb45a552  mypy-0.910.tar.gz
+"
 
