@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: rviz
     uri: https://github.com/ros-gbp/rviz-release.git
-    version: release/noetic/rviz/1.14.8-2
+    version: release/noetic/rviz/1.14.8-1
 "
 
 prepare() {
