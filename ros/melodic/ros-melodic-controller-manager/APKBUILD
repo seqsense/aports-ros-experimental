@@ -1,14 +1,14 @@
-pkgname=ros-melodic-urdfdom-py
-_pkgname=urdfdom_py
-pkgver=0.4.6
-pkgrel=0
+pkgname=ros-melodic-controller-manager
+_pkgname=controller_manager
+pkgver=0.18.4
+pkgrel=1
 pkgdesc="$_pkgname package for ROS melodic"
-url="http://wiki.ros.org/urdfdom_py"
+url="https://github.com/ros-controls/ros_control/wiki"
 arch="all"
 license="BSD"
 
-depends="py2-yaml ros-melodic-rospy"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath py2-mock py2-setuptools ros-melodic-catkin"
+depends="ros-melodic-roscpp ros-melodic-rosparam ros-melodic-rospy ros-melodic-std-msgs ros-melodic-controller-interface ros-melodic-controller-manager-msgs ros-melodic-hardware-interface ros-melodic-pluginlib ros-melodic-roscpp"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-catkin ros-melodic-controller-interface ros-melodic-controller-manager-msgs ros-melodic-hardware-interface ros-melodic-pluginlib ros-melodic-roscpp ros-melodic-rostest"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -25,8 +25,8 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
 fi
 
 export ROS_PYTHON_VERSION=2
-rosinstall="- git: {local-name: urdfdom_py, uri: 'https://github.com/ros-gbp/urdfdom_py-release.git',
-    version: release/melodic/urdfdom_py/0.4.6-1}
+rosinstall="- git: {local-name: controller_manager, uri: 'https://github.com/ros-gbp/ros_control-release.git',
+    version: release/melodic/controller_manager/0.18.4-1}
 "
 
 prepare() {

@@ -1,0 +1,23 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d7709ca..2985494 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -58,12 +58,12 @@ if(CATKIN_ENABLE_TESTING)
+   add_dependencies(${PROJECT_NAME}_hwi_switch_test ${catkin_EXPORTED_TARGETS})
+   target_link_libraries(${PROJECT_NAME}_hwi_switch_test ${PROJECT_NAME} ${catkin_LIBRARIES})
+ 
+-  add_rostest_gmock(${PROJECT_NAME}_hwi_update_test
+-    test/hwi_update_test.test
+-    test/hwi_update_test.cpp
+-  )
+-  add_dependencies(${PROJECT_NAME}_hwi_update_test ${catkin_EXPORTED_TARGETS})
+-  target_link_libraries(${PROJECT_NAME}_hwi_update_test ${PROJECT_NAME} ${catkin_LIBRARIES})
++#  add_rostest_gmock(${PROJECT_NAME}_hwi_update_test
++#    test/hwi_update_test.test
++#    test/hwi_update_test.cpp
++#  )
++#  add_dependencies(${PROJECT_NAME}_hwi_update_test ${catkin_EXPORTED_TARGETS})
++#  target_link_libraries(${PROJECT_NAME}_hwi_update_test ${PROJECT_NAME} ${catkin_LIBRARIES})
+ endif()
+ 
+ 

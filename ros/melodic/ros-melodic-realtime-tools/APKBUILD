@@ -1,14 +1,14 @@
-pkgname=ros-melodic-urdfdom-py
-_pkgname=urdfdom_py
-pkgver=0.4.6
-pkgrel=0
+pkgname=ros-melodic-realtime-tools
+_pkgname=realtime_tools
+pkgver=1.15.1
+pkgrel=5
 pkgdesc="$_pkgname package for ROS melodic"
-url="http://wiki.ros.org/urdfdom_py"
+url="http://ros.org/wiki/realtime_tools"
 arch="all"
 license="BSD"
 
-depends="py2-yaml ros-melodic-rospy"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath py2-mock py2-setuptools ros-melodic-catkin"
+depends="gmock-dev ros-melodic-roscpp ros-melodic-actionlib ros-melodic-roscpp"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-actionlib ros-melodic-catkin ros-melodic-roscpp ros-melodic-rostest ros-melodic-rosunit"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -25,8 +25,8 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
 fi
 
 export ROS_PYTHON_VERSION=2
-rosinstall="- git: {local-name: urdfdom_py, uri: 'https://github.com/ros-gbp/urdfdom_py-release.git',
-    version: release/melodic/urdfdom_py/0.4.6-1}
+rosinstall="- git: {local-name: realtime_tools, uri: 'https://github.com/ros-gbp/realtime_tools-release.git',
+    version: release/melodic/realtime_tools/1.15.1-1}
 "
 
 prepare() {
