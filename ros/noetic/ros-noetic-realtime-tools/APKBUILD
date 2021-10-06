@@ -1,14 +1,14 @@
-pkgname=ros-noetic-xacro
-_pkgname=xacro
-pkgver=1.14.10
-pkgrel=0
+pkgname=ros-noetic-realtime-tools
+_pkgname=realtime_tools
+pkgver=1.16.1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
-url="http://ros.org/wiki/xacro"
+url="http://ros.org/wiki/realtime_tools"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-roslaunch ros-noetic-roslaunch"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath ros-noetic-catkin>=0.5.68 ros-noetic-roslint ros-noetic-rostest"
+depends="ros-noetic-roscpp ros-noetic-actionlib ros-noetic-roscpp"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath ros-noetic-actionlib ros-noetic-catkin ros-noetic-roscpp ros-noetic-rostest ros-noetic-rosunit"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -26,9 +26,9 @@ fi
 
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
-    local-name: xacro
-    uri: https://github.com/ros-gbp/xacro-release.git
-    version: release/noetic/xacro/1.14.10-1
+    local-name: realtime_tools
+    uri: https://github.com/ros-gbp/realtime_tools-release.git
+    version: release/noetic/realtime_tools/1.16.1-1
 "
 
 prepare() {
