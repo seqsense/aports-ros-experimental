@@ -1,7 +1,7 @@
 pkgname=ros-noetic-controller-manager
 _pkgname=controller_manager
 pkgver=0.19.5
-pkgrel=0
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="https://github.com/ros-controls/ros_control/wiki"
 arch="all"
