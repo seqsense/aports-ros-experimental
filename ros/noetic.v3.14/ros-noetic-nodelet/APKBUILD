@@ -1,7 +1,7 @@
 pkgname=ros-noetic-nodelet
 _pkgname=nodelet
-pkgver=1.10.1
-pkgrel=1
+pkgver=1.10.2
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/nodelet"
 arch="all"
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: nodelet
     uri: https://github.com/ros-gbp/nodelet_core-release.git
-    version: release/noetic/nodelet/1.10.1-1
+    version: release/noetic/nodelet/1.10.2-1
 "
 
 prepare() {
