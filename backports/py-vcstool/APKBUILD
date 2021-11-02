@@ -1,0 +1,56 @@
+# Contributor: Florent Ferreri <florent@seqsense.com>
+# Maintainer:
+pkgname=py-vcstool
+_pkgname=vcstool
+pkgver=0.3.0
+pkgrel=1
+pkgdesc="Vcstool is a command line tool designed to make working with multiple repositories easier"
+url="https://pypi.org/project/vcstool/"
+arch="noarch"
+license="Apache-2.0"
+depends="py-yaml"
+makedepends="python2-dev python3-dev py-setuptools git"
+subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
+source="$pkgname-$pkgver.tar.gz::https://github.com/dirk-thomas/$_pkgname/archive/$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	python2 setup.py build
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python2 setup.py check
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+
+	# Install license files
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+_py2() {
+	depends="${depends//py-/py2-}"
+	_py python2
+}
+
+_py3() {
+	depends="${depends//py-/py3-}"
+	_py python3
+}
+
+_py() {
+	local python="$1"
+	pkgdesc="$pkgdesc (for $python)"
+	depends="$depends $python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
+
+	cd "$builddir"
+	$python setup.py install --prefix=/usr --root="$subpkgdir"
+}
+sha512sums="f50ec4c23fce65f71ec0070b709840150f6a90b0620dd937c234c408951b4eb6ad9d53d841d3862ce7ece54c15458fd9db434341fd4a1eabb40a7084fb71b101  py-vcstool-0.3.0.tar.gz"
