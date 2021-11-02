@@ -1,7 +1,7 @@
 pkgname=ros-melodic-base-local-planner
 _pkgname=base_local_planner
 pkgver=1.16.7
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/base_local_planner"
 arch="all"

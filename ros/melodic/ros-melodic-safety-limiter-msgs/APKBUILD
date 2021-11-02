@@ -1,7 +1,7 @@
 pkgname=ros-melodic-safety-limiter-msgs
 _pkgname=safety_limiter_msgs
 pkgver=0.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/$_pkgname"
 arch="all"

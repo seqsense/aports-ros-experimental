@@ -1,7 +1,7 @@
 pkgname=ros-melodic-controller-interface
 _pkgname=controller_interface
 pkgver=0.18.4
-pkgrel=7
+pkgrel=8
 pkgdesc="$_pkgname package for ROS melodic"
 url="https://github.com/ros-controls/ros_control/wiki"
 arch="all"

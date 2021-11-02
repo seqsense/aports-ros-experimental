@@ -1,7 +1,7 @@
 pkgname=ros-melodic-dynamic-reconfigure
 _pkgname=dynamic_reconfigure
 pkgver=1.6.3
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/dynamic_reconfigure"
 arch="all"

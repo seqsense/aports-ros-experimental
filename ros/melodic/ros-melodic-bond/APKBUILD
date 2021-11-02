@@ -1,7 +1,7 @@
 pkgname=ros-melodic-bond
 _pkgname=bond
 pkgver=1.8.5
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://www.ros.org/wiki/bond"
 arch="all"

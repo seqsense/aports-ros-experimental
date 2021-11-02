@@ -1,7 +1,7 @@
 pkgname=ros-melodic-control-msgs
 _pkgname=control_msgs
 pkgver=1.5.1
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/control_msgs"
 arch="all"

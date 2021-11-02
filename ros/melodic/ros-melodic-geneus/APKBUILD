@@ -1,7 +1,7 @@
 pkgname=ros-melodic-geneus
 _pkgname=geneus
 pkgver=2.2.6
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/$_pkgname"
 arch="all"

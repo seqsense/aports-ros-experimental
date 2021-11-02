@@ -1,7 +1,7 @@
 pkgname=ros-melodic-ros-control
 _pkgname=ros_control
 pkgver=0.18.4
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/ros_control"
 arch="all"

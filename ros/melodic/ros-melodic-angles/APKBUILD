@@ -1,7 +1,7 @@
 pkgname=ros-melodic-angles
 _pkgname=angles
 pkgver=1.9.12
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/angles"
 arch="all"

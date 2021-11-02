@@ -1,7 +1,7 @@
 pkgname=ros-melodic-actionlib-msgs
 _pkgname=actionlib_msgs
 pkgver=1.12.8
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/actionlib_msgs"
 arch="all"

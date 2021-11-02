@@ -1,7 +1,7 @@
 pkgname=ros-melodic-nav-msgs
 _pkgname=nav_msgs
 pkgver=1.12.8
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/nav_msgs"
 arch="all"

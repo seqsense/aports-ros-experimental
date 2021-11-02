@@ -1,7 +1,7 @@
 pkgname=ros-melodic-rqt-tf-tree
 _pkgname=rqt_tf_tree
 pkgver=0.6.0
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/rqt_tf_tree"
 arch="all"

@@ -1,7 +1,7 @@
 pkgname=ros-melodic-trajectory-tracker-rviz-plugins
 _pkgname=trajectory_tracker_rviz_plugins
 pkgver=0.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/$_pkgname"
 arch="all"

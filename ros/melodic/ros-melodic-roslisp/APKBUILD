@@ -1,7 +1,7 @@
 pkgname=ros-melodic-roslisp
 _pkgname=roslisp
 pkgver=1.9.24
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/roslisp"
 arch="all"

@@ -1,7 +1,7 @@
 pkgname=ros-melodic-rqt-nav-view
 _pkgname=rqt_nav_view
 pkgver=0.5.7
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/rqt_nav_view"
 arch="all"
