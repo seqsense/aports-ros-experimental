@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="boost-dev ros-noetic-bondcpp ros-noetic-message-runtime ros-noetic-pluginlib>=1.10.0 ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rospy ros-noetic-std-msgs util-linux-dev boost-dev ros-noetic-bondcpp ros-noetic-pluginlib>=1.10.0 ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-std-msgs util-linux-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath boost-dev ros-noetic-bondcpp ros-noetic-catkin ros-noetic-cmake-modules>=0.3.2 ros-noetic-message-generation ros-noetic-pluginlib>=1.10.0 ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-std-msgs util-linux-dev"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath boost-dev ros-noetic-bondcpp ros-noetic-catkin ros-noetic-cmake-modules>=0.3.2 ros-noetic-message-generation ros-noetic-pluginlib>=1.10.0 ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-std-msgs util-linux-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -39,7 +39,7 @@ prepare() {
   rm -rf src || true
   mkdir -p src
   echo "$rosinstall" > pkg.rosinstall
-  wstool init --shallow src pkg.rosinstall
+  vcs import --shallow < pkg.rosinstall
   find $startdir -maxdepth 1 -name "*.patch" | while read patchfile; do
     echo "Applying $patchfile"
     (cd src/* && patch -p1 -i $patchfile)

@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="eigen-dev orocos-kdl ros-noetic-geometry-msgs ros-noetic-std-msgs orocos-kdl-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath eigen-dev orocos-kdl-dev ros-noetic-catkin ros-noetic-geometry-msgs ros-noetic-std-msgs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath eigen-dev orocos-kdl-dev ros-noetic-catkin ros-noetic-geometry-msgs ros-noetic-std-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -39,7 +39,7 @@ prepare() {
   rm -rf src || true
   mkdir -p src
   echo "$rosinstall" > pkg.rosinstall
-  wstool init --shallow src pkg.rosinstall
+  vcs import --shallow < pkg.rosinstall
   find $startdir -maxdepth 1 -name "*.patch" | while read patchfile; do
     echo "Applying $patchfile"
     (cd src/* && patch -p1 -i $patchfile)
