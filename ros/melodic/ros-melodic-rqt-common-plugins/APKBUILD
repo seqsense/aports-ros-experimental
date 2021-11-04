@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-melodic-rqt-action ros-melodic-rqt-bag ros-melodic-rqt-bag-plugins ros-melodic-rqt-console ros-melodic-rqt-dep ros-melodic-rqt-graph ros-melodic-rqt-image-view ros-melodic-rqt-launch ros-melodic-rqt-logger-level ros-melodic-rqt-msg ros-melodic-rqt-plot ros-melodic-rqt-publisher ros-melodic-rqt-py-common ros-melodic-rqt-py-console ros-melodic-rqt-reconfigure ros-melodic-rqt-service-caller ros-melodic-rqt-shell ros-melodic-rqt-srv ros-melodic-rqt-top ros-melodic-rqt-topic ros-melodic-rqt-web ros-melodic-rqt-action ros-melodic-rqt-bag ros-melodic-rqt-bag-plugins ros-melodic-rqt-console ros-melodic-rqt-dep ros-melodic-rqt-graph ros-melodic-rqt-image-view ros-melodic-rqt-launch ros-melodic-rqt-logger-level ros-melodic-rqt-msg ros-melodic-rqt-plot ros-melodic-rqt-publisher ros-melodic-rqt-py-common ros-melodic-rqt-py-console ros-melodic-rqt-reconfigure ros-melodic-rqt-service-caller ros-melodic-rqt-shell ros-melodic-rqt-srv ros-melodic-rqt-top ros-melodic-rqt-topic ros-melodic-rqt-web"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-catkin"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-vcstool chrpath ros-melodic-catkin"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -37,7 +37,7 @@ prepare() {
   rm -rf src || true
   mkdir -p src
   echo "$rosinstall" > pkg.rosinstall
-  wstool init --shallow src pkg.rosinstall
+  vcs import --shallow < pkg.rosinstall
   find $startdir -maxdepth 1 -name "*.patch" | while read patchfile; do
     echo "Applying $patchfile"
     (cd src/* && patch -p1 -i $patchfile)

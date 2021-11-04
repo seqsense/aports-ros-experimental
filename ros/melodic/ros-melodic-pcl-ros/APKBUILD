@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="eigen-dev pcl-dev ros-melodic-dynamic-reconfigure ros-melodic-geometry-msgs ros-melodic-message-filters ros-melodic-nodelet ros-melodic-nodelet-topic-tools ros-melodic-pcl-conversions ros-melodic-pcl-msgs ros-melodic-pluginlib ros-melodic-rosbag ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-tf ros-melodic-tf2 ros-melodic-tf2-eigen ros-melodic-tf2-ros eigen-dev pcl-dev ros-melodic-dynamic-reconfigure ros-melodic-geometry-msgs ros-melodic-message-filters ros-melodic-nodelet ros-melodic-nodelet-topic-tools ros-melodic-pcl-conversions ros-melodic-pcl-msgs ros-melodic-pluginlib ros-melodic-rosbag ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-tf ros-melodic-tf2 ros-melodic-tf2-eigen ros-melodic-tf2-ros"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath eigen-dev pcl-dev ros-melodic-catkin ros-melodic-cmake-modules ros-melodic-dynamic-reconfigure ros-melodic-geometry-msgs ros-melodic-message-filters ros-melodic-nodelet ros-melodic-nodelet-topic-tools ros-melodic-pcl-conversions ros-melodic-pcl-msgs ros-melodic-pluginlib ros-melodic-rosbag ros-melodic-rosconsole ros-melodic-roscpp ros-melodic-roslib ros-melodic-rostest ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-tf ros-melodic-tf2 ros-melodic-tf2-eigen ros-melodic-tf2-ros"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-vcstool chrpath eigen-dev pcl-dev ros-melodic-catkin ros-melodic-cmake-modules ros-melodic-dynamic-reconfigure ros-melodic-geometry-msgs ros-melodic-message-filters ros-melodic-nodelet ros-melodic-nodelet-topic-tools ros-melodic-pcl-conversions ros-melodic-pcl-msgs ros-melodic-pluginlib ros-melodic-rosbag ros-melodic-rosconsole ros-melodic-roscpp ros-melodic-roslib ros-melodic-rostest ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-tf ros-melodic-tf2 ros-melodic-tf2-eigen ros-melodic-tf2-ros"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -37,7 +37,7 @@ prepare() {
   rm -rf src || true
   mkdir -p src
   echo "$rosinstall" > pkg.rosinstall
-  wstool init --shallow src pkg.rosinstall
+  vcs import --shallow < pkg.rosinstall
   find $startdir -maxdepth 1 -name "*.patch" | while read patchfile; do
     echo "Applying $patchfile"
     (cd src/* && patch -p1 -i $patchfile)
