@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-noetic-actionlib ros-noetic-actionlib-msgs ros-noetic-geometry-msgs ros-noetic-message-filters ros-noetic-roscpp ros-noetic-rosgraph ros-noetic-rospy ros-noetic-std-msgs ros-noetic-tf2 ros-noetic-tf2-msgs ros-noetic-tf2-py ros-noetic-xmlrpcpp ros-noetic-actionlib ros-noetic-actionlib-msgs ros-noetic-geometry-msgs ros-noetic-message-filters ros-noetic-roscpp ros-noetic-rosgraph ros-noetic-rospy ros-noetic-std-msgs ros-noetic-tf2 ros-noetic-tf2-msgs ros-noetic-tf2-py ros-noetic-xmlrpcpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath ros-noetic-actionlib ros-noetic-actionlib-msgs ros-noetic-catkin>=0.5.68 ros-noetic-geometry-msgs ros-noetic-message-filters>=1.11.1 ros-noetic-roscpp ros-noetic-rosgraph ros-noetic-rospy ros-noetic-rostest ros-noetic-std-msgs ros-noetic-tf2 ros-noetic-tf2-msgs ros-noetic-tf2-py ros-noetic-xmlrpcpp"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-actionlib ros-noetic-actionlib-msgs ros-noetic-catkin>=0.5.68 ros-noetic-geometry-msgs ros-noetic-message-filters>=1.11.1 ros-noetic-roscpp ros-noetic-rosgraph ros-noetic-rospy ros-noetic-rostest ros-noetic-std-msgs ros-noetic-tf2 ros-noetic-tf2-msgs ros-noetic-tf2-py ros-noetic-xmlrpcpp"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -39,7 +39,7 @@ prepare() {
   rm -rf src || true
   mkdir -p src
   echo "$rosinstall" > pkg.rosinstall
-  wstool init --shallow src pkg.rosinstall
+  vcs import --shallow < pkg.rosinstall
   find $startdir -maxdepth 1 -name "*.patch" | while read patchfile; do
     echo "Applying $patchfile"
     (cd src/* && patch -p1 -i $patchfile)

@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="boost-dev ros-noetic-cpp-common>=0.3.17 ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp-serialization ros-noetic-roscpp-traits>=0.3.17 ros-noetic-rosgraph-msgs>=1.10.3 ros-noetic-rostime>=0.6.4 ros-noetic-std-msgs ros-noetic-xmlrpcpp boost-dev ros-noetic-cpp-common>=0.3.17 ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp-serialization ros-noetic-roscpp-traits>=0.3.17 ros-noetic-rosgraph-msgs>=1.10.3 ros-noetic-rostime>=0.6.4 ros-noetic-std-msgs ros-noetic-xmlrpcpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath boost-dev pkgconf ros-noetic-catkin>=0.5.78 ros-noetic-cpp-common>=0.3.17 ros-noetic-message-generation ros-noetic-rosconsole ros-noetic-roscpp-serialization ros-noetic-roscpp-traits>=0.3.17 ros-noetic-rosgraph-msgs>=1.10.3 ros-noetic-roslang ros-noetic-rostime>=0.6.4 ros-noetic-std-msgs ros-noetic-xmlrpcpp"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath boost-dev pkgconf ros-noetic-catkin>=0.5.78 ros-noetic-cpp-common>=0.3.17 ros-noetic-message-generation ros-noetic-rosconsole ros-noetic-roscpp-serialization ros-noetic-roscpp-traits>=0.3.17 ros-noetic-rosgraph-msgs>=1.10.3 ros-noetic-roslang ros-noetic-rostime>=0.6.4 ros-noetic-std-msgs ros-noetic-xmlrpcpp"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -39,7 +39,7 @@ prepare() {
   rm -rf src || true
   mkdir -p src
   echo "$rosinstall" > pkg.rosinstall
-  wstool init --shallow src pkg.rosinstall
+  vcs import --shallow < pkg.rosinstall
   find $startdir -maxdepth 1 -name "*.patch" | while read patchfile; do
     echo "Applying $patchfile"
     (cd src/* && patch -p1 -i $patchfile)
