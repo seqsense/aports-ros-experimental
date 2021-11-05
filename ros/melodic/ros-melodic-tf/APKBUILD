@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="graphviz ros-melodic-geometry-msgs ros-melodic-message-filters>=1.11.1 ros-melodic-message-runtime ros-melodic-rosconsole ros-melodic-roscpp ros-melodic-roswtf ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-tf2-ros>=0.5.16 graphviz ros-melodic-geometry-msgs ros-melodic-message-filters>=1.11.1 ros-melodic-message-runtime ros-melodic-rosconsole ros-melodic-roscpp ros-melodic-roswtf ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-tf2-ros>=0.5.16"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-angles ros-melodic-catkin>=0.6.4 ros-melodic-geometry-msgs ros-melodic-message-filters ros-melodic-message-generation ros-melodic-rosconsole ros-melodic-roscpp ros-melodic-rostest ros-melodic-rostime ros-melodic-rosunit ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-tf2-ros>=0.5.16"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-vcstool chrpath ros-melodic-angles ros-melodic-catkin>=0.6.4 ros-melodic-geometry-msgs ros-melodic-message-filters ros-melodic-message-generation ros-melodic-rosconsole ros-melodic-roscpp ros-melodic-rostest ros-melodic-rostime ros-melodic-rosunit ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-tf2-ros>=0.5.16"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -36,7 +36,7 @@ prepare() {
   rm -rf src || true
   mkdir -p src
   echo "$rosinstall" > pkg.rosinstall
-  wstool init --shallow src pkg.rosinstall
+  vcs import --shallow --input pkg.rosinstall src
   find $startdir -maxdepth 1 -name "*.patch" | while read patchfile; do
     echo "Applying $patchfile"
     (cd src/* && patch -p1 -i $patchfile)
