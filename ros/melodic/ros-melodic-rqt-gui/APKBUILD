@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="py2-rospkg ros-melodic-python-qt-binding ros-melodic-qt-gui>=0.3.0 ros-melodic-rospy"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-catkin ros-melodic-qt-gui>=0.3.0"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-vcstool chrpath ros-melodic-catkin ros-melodic-qt-gui>=0.3.0"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -36,7 +36,7 @@ prepare() {
   rm -rf src || true
   mkdir -p src
   echo "$rosinstall" > pkg.rosinstall
-  wstool init --shallow src pkg.rosinstall
+  vcs import --shallow --input pkg.rosinstall src
   find $startdir -maxdepth 1 -name "*.patch" | while read patchfile; do
     echo "Applying $patchfile"
     (cd src/* && patch -p1 -i $patchfile)

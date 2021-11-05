@@ -8,7 +8,7 @@ arch="all"
 license="Apache 2"
 
 depends="ros-melodic-cv-bridge ros-melodic-ifm3d-core ros-melodic-image-transport ros-melodic-message-generation ros-melodic-nodelet ros-melodic-pcl-ros ros-melodic-roscpp ros-melodic-rospy ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-tf ros-melodic-cv-bridge ros-melodic-ifm3d-core ros-melodic-image-transport ros-melodic-message-generation ros-melodic-nodelet ros-melodic-pcl-ros ros-melodic-roscpp ros-melodic-rospy ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-tf"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-wstool chrpath ros-melodic-catkin ros-melodic-cv-bridge ros-melodic-ifm3d-core ros-melodic-image-transport ros-melodic-message-generation ros-melodic-nodelet ros-melodic-pcl-ros ros-melodic-roscpp ros-melodic-rospy ros-melodic-rostest ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-tf"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-vcstool chrpath ros-melodic-catkin ros-melodic-cv-bridge ros-melodic-ifm3d-core ros-melodic-image-transport ros-melodic-message-generation ros-melodic-nodelet ros-melodic-pcl-ros ros-melodic-roscpp ros-melodic-rospy ros-melodic-rostest ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-tf"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -36,7 +36,7 @@ prepare() {
   rm -rf src || true
   mkdir -p src
   echo "$rosinstall" > pkg.rosinstall
-  wstool init --shallow src pkg.rosinstall
+  vcs import --shallow --input pkg.rosinstall src
   find $startdir -maxdepth 1 -name "*.patch" | while read patchfile; do
     echo "Applying $patchfile"
     (cd src/* && patch -p1 -i $patchfile)
