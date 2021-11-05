@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-noetic-actionlib ros-noetic-costmap-cspace ros-noetic-costmap-cspace-msgs ros-noetic-diagnostic-updater ros-noetic-geometry-msgs ros-noetic-move-base-msgs ros-noetic-nav-msgs ros-noetic-neonavigation-common ros-noetic-planner-cspace-msgs>=0.7.0 ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-srvs ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-trajectory-msgs ros-noetic-trajectory-tracker-msgs ros-noetic-actionlib ros-noetic-costmap-cspace ros-noetic-costmap-cspace-msgs ros-noetic-diagnostic-updater ros-noetic-geometry-msgs ros-noetic-move-base-msgs ros-noetic-nav-msgs ros-noetic-neonavigation-common ros-noetic-planner-cspace-msgs>=0.7.0 ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-srvs ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-trajectory-msgs ros-noetic-trajectory-tracker-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath ros-noetic-actionlib ros-noetic-catkin ros-noetic-costmap-cspace ros-noetic-costmap-cspace-msgs ros-noetic-diagnostic-updater ros-noetic-geometry-msgs ros-noetic-map-server ros-noetic-move-base-msgs ros-noetic-nav-msgs ros-noetic-neonavigation-common ros-noetic-planner-cspace-msgs>=0.7.0 ros-noetic-roscpp ros-noetic-roslint ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-std-srvs ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-trajectory-msgs ros-noetic-trajectory-tracker ros-noetic-trajectory-tracker-msgs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-actionlib ros-noetic-catkin ros-noetic-costmap-cspace ros-noetic-costmap-cspace-msgs ros-noetic-diagnostic-updater ros-noetic-geometry-msgs ros-noetic-map-server ros-noetic-move-base-msgs ros-noetic-nav-msgs ros-noetic-neonavigation-common ros-noetic-planner-cspace-msgs>=0.7.0 ros-noetic-roscpp ros-noetic-roslint ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-std-srvs ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-trajectory-msgs ros-noetic-trajectory-tracker ros-noetic-trajectory-tracker-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -39,7 +39,7 @@ prepare() {
   rm -rf src || true
   mkdir -p src
   echo "$rosinstall" > pkg.rosinstall
-  wstool init --shallow src pkg.rosinstall
+  vcs import --shallow < pkg.rosinstall
   find $startdir -maxdepth 1 -name "*.patch" | while read patchfile; do
     echo "Applying $patchfile"
     (cd src/* && patch -p1 -i $patchfile)
