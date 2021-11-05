@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-noetic-catkin ros-noetic-class-loader ros-noetic-cmake-modules ros-noetic-common-msgs ros-noetic-gencpp ros-noetic-geneus ros-noetic-genlisp ros-noetic-genmsg ros-noetic-gennodejs ros-noetic-genpy ros-noetic-message-generation ros-noetic-message-runtime ros-noetic-pluginlib ros-noetic-ros ros-noetic-ros-comm ros-noetic-rosbag-migration-rule ros-noetic-rosconsole ros-noetic-rosconsole-bridge ros-noetic-roscpp-core ros-noetic-rosgraph-msgs ros-noetic-roslisp ros-noetic-rospack ros-noetic-std-msgs ros-noetic-std-srvs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-wstool chrpath ros-noetic-catkin"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -39,7 +39,7 @@ prepare() {
   rm -rf src || true
   mkdir -p src
   echo "$rosinstall" > pkg.rosinstall
-  wstool init --shallow src pkg.rosinstall
+  vcs import --shallow < pkg.rosinstall
   find $startdir -maxdepth 1 -name "*.patch" | while read patchfile; do
     echo "Applying $patchfile"
     (cd src/* && patch -p1 -i $patchfile)
