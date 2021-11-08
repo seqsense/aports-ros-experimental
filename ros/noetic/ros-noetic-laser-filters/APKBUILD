@@ -1,14 +1,14 @@
 pkgname=ros-noetic-laser-filters
 _pkgname=laser_filters
-pkgver=1.8.11
-pkgrel=2
+pkgver=1.9.0
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/laser_filters"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-angles ros-noetic-dynamic-reconfigure ros-noetic-filters ros-noetic-laser-geometry ros-noetic-message-filters ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-angles ros-noetic-dynamic-reconfigure ros-noetic-filters ros-noetic-laser-geometry ros-noetic-message-filters ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-angles ros-noetic-catkin ros-noetic-dynamic-reconfigure ros-noetic-filters ros-noetic-laser-geometry ros-noetic-message-filters ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-tf"
+depends="ros-noetic-angles ros-noetic-dynamic-reconfigure ros-noetic-filters ros-noetic-laser-geometry ros-noetic-message-filters ros-noetic-nodelet ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-angles ros-noetic-dynamic-reconfigure ros-noetic-filters ros-noetic-laser-geometry ros-noetic-message-filters ros-noetic-nodelet ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-angles ros-noetic-catkin ros-noetic-dynamic-reconfigure ros-noetic-filters ros-noetic-laser-geometry ros-noetic-message-filters ros-noetic-nodelet ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-tf"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: laser_filters
     uri: https://github.com/ros-gbp/laser_filters-release.git
-    version: release/noetic/laser_filters/1.8.11-1
+    version: release/noetic/laser_filters/1.9.0-1
 "
 
 prepare() {
