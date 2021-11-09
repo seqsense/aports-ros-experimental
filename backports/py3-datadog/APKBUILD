@@ -2,15 +2,15 @@
 # Maintainer:
 pkgname="py3-datadog"
 _pkgname="datadogpy"
-pkgver="0.35.0"
+pkgver="0.42.0"
 pkgrel=0
 pkgdesc="The Datadog Python library"
 url="https://github.com/DataDog/datadogpy"
 arch="noarch"
 license="BSD-3-Clause"
 options="!check" # seems broken or need tox which requires too large size of the dependencies
-depends="py3-decorator>=3.3.2 py3-requests>=2.6.0"
-checkdepends="pytest py3-mock py3-freezegun"
+depends="py3-requests>=2.6.0"
+checkdepends="pytest py3-mock py3-freezegun py3-psutil"
 makedepends="py3-setuptools"
 subpackages="${pkgname}-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/DataDog/$_pkgname/archive/v$pkgver.tar.gz"
