@@ -1,26 +1,13 @@
-diff --git a/test/test/trajectory_tracker_rostest.test b/test/test/trajectory_tracker_rostest.test
-index a258c22..a7e4acd 100644
---- a/test/test/trajectory_tracker_rostest.test
-+++ b/test/test/trajectory_tracker_rostest.test
-@@ -9,7 +9,7 @@
-   <param name="neonavigation_compatible" value="1" />
-   <param name="use_sim_time" value="true" /><!-- clock is provided by the test node -->
+diff --git a/test/src/test_trajectory_tracker.cpp b/test/src/test_trajectory_tracker.cpp
+index 07067e8..040e3b1 100644
+--- a/test/src/test_trajectory_tracker.cpp
++++ b/test/src/test_trajectory_tracker.cpp
+@@ -200,7 +200,7 @@ TEST_F(TrajectoryTrackerTest, StraightVelocityChange)
+   const ros::Time start = ros::Time::now();
+   while (ros::ok())
+   {
+-    ASSERT_LT(ros::Time::now(), start + ros::Duration(10.0));
++    ASSERT_LT(ros::Time::now(), start + ros::Duration(15.0));
  
--  <test test-name="test_trajectory_tracker" pkg="trajectory_tracker" type="test_trajectory_tracker" time-limit="120.0">
-+  <test test-name="test_trajectory_tracker" pkg="trajectory_tracker" type="test_trajectory_tracker" time-limit="240.0">
-     <param name="odom_delay" value="$(arg odom_delay)" />
-     <param name="error_lin" value="0.025" unless="$(arg use_odom)" />
-     <param name="error_ang" value="0.02" unless="$(arg use_odom)" />
-diff --git a/test/test/trajectory_tracker_with_odom_rostest.test b/test/test/trajectory_tracker_with_odom_rostest.test
-index 31e5c53..9fdbe55 100644
---- a/test/test/trajectory_tracker_with_odom_rostest.test
-+++ b/test/test/trajectory_tracker_with_odom_rostest.test
-@@ -5,7 +5,7 @@
-   <param name="neonavigation_compatible" value="1" />
-   <param name="use_sim_time" value="false" />
- 
--  <test test-name="test_trajectory_tracker_with_odom" pkg="trajectory_tracker" type="test_trajectory_tracker_with_odom" time-limit="120.0" />
-+  <test test-name="test_trajectory_tracker_with_odom" pkg="trajectory_tracker" type="test_trajectory_tracker_with_odom" time-limit="240.0" />
- 
-   <node pkg="trajectory_tracker" type="trajectory_tracker" name="trajectory_tracker" output="screen">
-     <param name="max_vel" value="1.0" />
+     publishTransform();
+     rate.sleep();
