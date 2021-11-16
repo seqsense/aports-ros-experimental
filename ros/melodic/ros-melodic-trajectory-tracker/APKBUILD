@@ -50,7 +50,7 @@ build() {
   cd "$builddir"
   source /usr/ros/melodic/setup.sh
   catkin_make_isolated \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo 2>&1 | tee $buildlog
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo --catkin-make-args --debug 2>&1 | tee $buildlog
 }
 
 check() {
@@ -65,7 +65,7 @@ check() {
   source devel_isolated/setup.sh
   catkin_make_isolated \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    --catkin-make-args run_tests 2>&1 | tee $checklog
+    --catkin-make-args run_tests --debug 2>&1 | tee $checklog
   catkin_test_results 2>&1 | tee $checklog
 }
 
