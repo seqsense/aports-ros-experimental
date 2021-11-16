@@ -91,7 +91,7 @@ do
 
   # Copy noarch pkgs
 
-  cp -p ${REPODIR}/${repo_out}/noarch/* ${REPODIR}/${repo_out}/x86_64/ || true
+  sudo cp -p ${REPODIR}/${repo_out}/noarch/* ${REPODIR}/${repo_out}/x86_64/ || true
 
 
   # Register existing local repositories
