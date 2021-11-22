@@ -13,6 +13,7 @@ ewIDAQAB\n\
 
 RUN apk add --no-cache \
     alpine-sdk \
+    git \
     grep \
     lua-aports \
     sudo \
@@ -24,6 +25,10 @@ RUN apk add --no-cache \
     bash \
   && adduser -G abuild -D builder \
   && echo "builder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+RUN for p in statusAheadBehind statusHints statusUoption detachedHead; do \
+    git config --global advice.${p} false; \
+  done
 
 RUN mkdir -p /var/cache/apk \
   && ln -s /var/cache/apk /etc/apk/cache
