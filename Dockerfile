@@ -26,10 +26,6 @@ RUN apk add --no-cache \
   && adduser -G abuild -D builder \
   && echo "builder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-RUN for p in statusAheadBehind statusHints statusUoption detachedHead; do \
-    git config --global advice.${p} false; \
-  done
-
 RUN mkdir -p /var/cache/apk \
   && ln -s /var/cache/apk /etc/apk/cache
 
@@ -39,6 +35,11 @@ RUN mkdir -p /root/.ros \
   && chmod a+rwx /root/.ros
 
 USER builder
+
+RUN git config --global init.defaultBranch unused \
+  && for p in statusAheadBehind statusHints statusUoption detachedHead; do \
+      git config --global advice.${p} false; \
+    done
 
 ENV HOME="/home/builder"
 ENV APORTSDIR="${HOME}/aports" \
