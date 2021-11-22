@@ -1,14 +1,14 @@
 pkgname=ros-noetic-image-view
 _pkgname=image_view
-pkgver=1.15.3
-pkgrel=1
+pkgver=1.16.0
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/image_view"
 arch="all"
 license="BSD"
 
-depends="gtk+3.0-dev ros-noetic-camera-calibration-parsers ros-noetic-cv-bridge>=1.11.13 ros-noetic-dynamic-reconfigure ros-noetic-image-transport ros-noetic-message-filters ros-noetic-nodelet ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-std-srvs gtk+3.0-dev ros-noetic-camera-calibration-parsers ros-noetic-cv-bridge>=1.11.13 ros-noetic-dynamic-reconfigure ros-noetic-image-transport ros-noetic-message-filters ros-noetic-nodelet ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-std-srvs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath gtk+3.0-dev ros-noetic-camera-calibration-parsers ros-noetic-catkin ros-noetic-cv-bridge>=1.11.13 ros-noetic-dynamic-reconfigure ros-noetic-image-transport ros-noetic-message-filters ros-noetic-message-generation ros-noetic-nodelet ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-std-srvs ros-noetic-stereo-msgs"
+depends="ros-noetic-camera-calibration-parsers ros-noetic-cv-bridge>=1.11.13 ros-noetic-dynamic-reconfigure ros-noetic-image-transport ros-noetic-message-filters ros-noetic-nodelet ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-std-srvs ros-noetic-camera-calibration-parsers ros-noetic-cv-bridge>=1.11.13 ros-noetic-dynamic-reconfigure ros-noetic-image-transport ros-noetic-message-filters ros-noetic-nodelet ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-std-srvs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-camera-calibration-parsers ros-noetic-catkin ros-noetic-cv-bridge>=1.11.13 ros-noetic-dynamic-reconfigure ros-noetic-image-transport ros-noetic-message-filters ros-noetic-message-generation ros-noetic-nodelet ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-std-srvs ros-noetic-stereo-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: image_view
     uri: https://github.com/ros-gbp/image_pipeline-release.git
-    version: release/noetic/image_view/1.15.3-1
+    version: release/noetic/image_view/1.16.0-1
 "
 
 prepare() {
