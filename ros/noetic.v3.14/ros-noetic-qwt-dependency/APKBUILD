@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: qwt_dependency
     uri: https://github.com/ros-gbp/qwt_dependency-release.git
-    version: release/noetic/qwt_dependency/1.1.1-1
+    version: release/noetic/qwt_dependency/1.1.1-2
 "
 
 prepare() {
