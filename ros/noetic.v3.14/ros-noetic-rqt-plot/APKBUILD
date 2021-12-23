@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: rqt_plot
     uri: https://github.com/ros-gbp/rqt_plot-release.git
-    version: release/noetic/rqt_plot/0.4.13-1
+    version: release/noetic/rqt_plot/0.4.13-2
 "
 
 prepare() {
