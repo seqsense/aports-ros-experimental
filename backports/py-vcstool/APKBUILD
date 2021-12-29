@@ -3,7 +3,7 @@
 pkgname=py-vcstool
 _pkgname=vcstool
 pkgver=0.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Vcstool is a command line tool designed to make working with multiple repositories easier"
 url="https://pypi.org/project/vcstool/"
 arch="noarch"
