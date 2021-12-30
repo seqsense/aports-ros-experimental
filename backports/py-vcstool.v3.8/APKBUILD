@@ -53,4 +53,4 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
-sha512sums="be4817ff466687e57b04254cee5b5cf9b6759b2d1e01e5f756e7d2f1294ca485a172aaab98ba09fc33a3bf0fb86e8798d95f097a15d5491ef544fb2a8825e691  vcstool-0.2.15.tar.gz"
+sha512sums="be4817ff466687e57b04254cee5b5cf9b6759b2d1e01e5f756e7d2f1294ca485a172aaab98ba09fc33a3bf0fb86e8798d95f097a15d5491ef544fb2a8825e691  py-vcstool-0.2.15.tar.gz"
