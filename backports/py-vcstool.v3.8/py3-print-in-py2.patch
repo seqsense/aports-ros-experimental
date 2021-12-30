@@ -1,0 +1,45 @@
+diff --git a/vcstool/commands/export.py b/vcstool/commands/export.py
+index 6140c20..e8cccae 100644
+--- a/vcstool/commands/export.py
++++ b/vcstool/commands/export.py
+@@ -1,3 +1,4 @@
++from __future__ import print_function
+ import argparse
+ import os
+ import sys
+diff --git a/vcstool/commands/help.py b/vcstool/commands/help.py
+index ec7b469..1983db2 100644
+--- a/vcstool/commands/help.py
++++ b/vcstool/commands/help.py
+@@ -1,3 +1,4 @@
++from __future__ import print_function
+ import argparse
+ import sys
+ 
+diff --git a/vcstool/commands/import_.py b/vcstool/commands/import_.py
+index 55b3e18..e3e9f8e 100644
+--- a/vcstool/commands/import_.py
++++ b/vcstool/commands/import_.py
+@@ -1,3 +1,4 @@
++from __future__ import print_function
+ import argparse
+ import os
+ from shutil import which
+diff --git a/vcstool/commands/validate.py b/vcstool/commands/validate.py
+index d62f113..4e04a2e 100644
+--- a/vcstool/commands/validate.py
++++ b/vcstool/commands/validate.py
+@@ -1,3 +1,4 @@
++from __future__ import print_function
+ import argparse
+ import sys
+ 
+diff --git a/vcstool/executor.py b/vcstool/executor.py
+index e0de921..eabc6c2 100644
+--- a/vcstool/executor.py
++++ b/vcstool/executor.py
+@@ -1,3 +1,4 @@
++from __future__ import print_function
+ import logging
+ import os
+ from queue import Empty, Queue
