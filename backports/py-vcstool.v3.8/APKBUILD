@@ -3,7 +3,7 @@
 pkgname=py-vcstool
 _pkgname=vcstool
 pkgver=0.2.15
-pkgrel=4
+pkgrel=5
 pkgdesc="Vcstool is a command line tool designed to make working with multiple repositories easier"
 url="https://pypi.org/project/vcstool/"
 arch="noarch"
@@ -53,4 +53,4 @@ _py() {
 	cd "$builddir"
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
-sha512sums="f50ec4c23fce65f71ec0070b709840150f6a90b0620dd937c234c408951b4eb6ad9d53d841d3862ce7ece54c15458fd9db434341fd4a1eabb40a7084fb71b101  py-vcstool-0.3.0.tar.gz"
+sha512sums="be4817ff466687e57b04254cee5b5cf9b6759b2d1e01e5f756e7d2f1294ca485a172aaab98ba09fc33a3bf0fb86e8798d95f097a15d5491ef544fb2a8825e691  vcstool-0.2.15.tar.gz"
