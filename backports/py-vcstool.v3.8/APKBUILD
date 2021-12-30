@@ -3,7 +3,7 @@
 pkgname=py-vcstool
 _pkgname=vcstool
 pkgver=0.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Vcstool is a command line tool designed to make working with multiple repositories easier"
 url="https://pypi.org/project/vcstool/"
 arch="noarch"
@@ -12,6 +12,7 @@ depends="py-yaml"
 makedepends="python2-dev python3-dev py-setuptools git"
 subpackages="py2-${pkgname#py-}:_py2 py3-${pkgname#py-}:_py3"
 source="$pkgname-$pkgver.tar.gz::https://github.com/dirk-thomas/$_pkgname/archive/$pkgver.tar.gz
+	py2-imports.patch
 	py3-print-in-py2.patch
 	"
 builddir="$srcdir/$_pkgname-$pkgver"
@@ -56,4 +57,5 @@ _py() {
 	$python setup.py install --prefix=/usr --root="$subpkgdir"
 }
 sha512sums="f50ec4c23fce65f71ec0070b709840150f6a90b0620dd937c234c408951b4eb6ad9d53d841d3862ce7ece54c15458fd9db434341fd4a1eabb40a7084fb71b101  py-vcstool-0.3.0.tar.gz
+dc1650186e830b30a1e604d601350dc0b76a31cedc495bade15a7e9d34e8debb074e10aba05365ceb59f2d689e6dde02fed3d15278a59e48fc4e767b79d89a11  py2-imports.patch
 4f9b2ad80d45d291818a7681b530f1afc0c4530485a024accafb0b3f79e1cd8d9ec05969893a424aff8bf685f6553e3da3cb997f06936e414fe918665fc96fc9  py3-print-in-py2.patch"
