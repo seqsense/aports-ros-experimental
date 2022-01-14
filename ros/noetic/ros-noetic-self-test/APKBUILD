@@ -1,7 +1,7 @@
 pkgname=ros-noetic-self-test
 _pkgname=self_test
-pkgver=1.10.4
-pkgrel=1
+pkgver=1.11.0
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/self_test"
 arch="all"
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: self_test
     uri: https://github.com/ros-gbp/diagnostics-release.git
-    version: release/noetic/self_test/1.10.4-1
+    version: release/noetic/self_test/1.11.0-1
 "
 
 prepare() {
