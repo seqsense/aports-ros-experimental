@@ -1,7 +1,8 @@
 ARG ALPINE_VERSION=3.11
 FROM alpine:${ALPINE_VERSION}
 
-RUN echo $'-----BEGIN PUBLIC KEY-----\n\
+RUN sed -i 's|https://\(dl-cdn.alpinelinux.org/\)|http://\1|' /etc/apk/repositories \
+  && echo $'-----BEGIN PUBLIC KEY-----\n\
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnSO+a+rIaTorOowj3c8e\n\
 5St89puiGJ54QmOW9faDsTcIWhycl4bM5lftp8IdcpKadcnaihwLtMLeaHNJvMIP\n\
 XrgEEoaPzEuvLf6kF4IN8HJoFGDhmuW4lTuJNfsOIDWtLBH0EN+3lPuCPmNkULeo\n\
