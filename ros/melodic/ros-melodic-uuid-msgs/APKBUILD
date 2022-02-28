@@ -1,14 +1,14 @@
-pkgname=ros-melodic-dynamic-reconfigure
-_pkgname=dynamic_reconfigure
-pkgver=1.6.4
+pkgname=ros-melodic-uuid-msgs
+_pkgname=uuid_msgs
+pkgver=1.0.6
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
-url="http://ros.org/wiki/dynamic_reconfigure"
+url="http://ros.org/wiki/uuid_msgs"
 arch="all"
 license="BSD"
 
-depends="boost-dev ros-melodic-message-runtime ros-melodic-roscpp ros-melodic-roslib ros-melodic-rospy ros-melodic-rosservice ros-melodic-std-msgs boost-dev ros-melodic-roscpp ros-melodic-std-msgs"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-vcstool chrpath boost-dev ros-melodic-catkin>=0.5.87 ros-melodic-cpp-common ros-melodic-message-generation ros-melodic-roscpp ros-melodic-roscpp-serialization ros-melodic-rostest ros-melodic-std-msgs"
+depends="ros-melodic-message-runtime ros-melodic-std-msgs ros-melodic-message-runtime ros-melodic-std-msgs"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-vcstool chrpath ros-melodic-catkin ros-melodic-message-generation ros-melodic-std-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -25,8 +25,8 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
 fi
 
 export ROS_PYTHON_VERSION=2
-rosinstall="- git: {local-name: dynamic_reconfigure, uri: 'https://github.com/ros-gbp/dynamic_reconfigure-release.git',
-    version: release/melodic/dynamic_reconfigure/1.6.4-1}
+rosinstall="- git: {local-name: uuid_msgs, uri: 'https://github.com/ros-geographic-info/unique_identifier-release.git',
+    version: release/melodic/uuid_msgs/1.0.6-0}
 "
 
 prepare() {
