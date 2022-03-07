@@ -1,14 +1,14 @@
-pkgname=ros-noetic-urg-node
-_pkgname=urg_node
-pkgver=0.1.17
+pkgname=ros-noetic-geographic-msgs
+_pkgname=geographic_msgs
+pkgver=0.5.6
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
-url="http://ros.org/wiki/urg_node"
+url="http://wiki.ros.org/geographic_msgs"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-laser-proc ros-noetic-message-generation ros-noetic-message-runtime ros-noetic-nodelet ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-tf ros-noetic-urg-c ros-noetic-xacro ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-laser-proc ros-noetic-message-generation ros-noetic-nodelet ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-tf ros-noetic-urg-c"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-laser-proc ros-noetic-message-generation ros-noetic-nodelet ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslaunch ros-noetic-roslint ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-tf ros-noetic-urg-c"
+depends="ros-noetic-geometry-msgs ros-noetic-message-runtime ros-noetic-std-msgs ros-noetic-uuid-msgs ros-noetic-geometry-msgs ros-noetic-message-runtime ros-noetic-std-msgs ros-noetic-uuid-msgs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-geometry-msgs ros-noetic-message-generation ros-noetic-std-msgs ros-noetic-uuid-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -26,9 +26,9 @@ fi
 
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
-    local-name: urg_node
-    uri: https://github.com/ros-gbp/urg_node-release.git
-    version: release/noetic/urg_node/0.1.17-1
+    local-name: geographic_msgs
+    uri: https://github.com/ros-geographic-info/geographic_info-release.git
+    version: release/noetic/geographic_msgs/0.5.6-1
 "
 
 prepare() {
