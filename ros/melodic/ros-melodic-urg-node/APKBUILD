@@ -1,13 +1,13 @@
 pkgname=ros-melodic-urg-node
 _pkgname=urg_node
-pkgver=0.1.16
+pkgver=0.1.17
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/urg_node"
 arch="all"
 license="BSD"
 
-depends="ros-melodic-diagnostic-updater ros-melodic-dynamic-reconfigure ros-melodic-laser-proc ros-melodic-message-generation ros-melodic-message-runtime ros-melodic-nodelet ros-melodic-rosconsole ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-std-srvs ros-melodic-tf ros-melodic-urg-c ros-melodic-diagnostic-updater ros-melodic-dynamic-reconfigure ros-melodic-laser-proc ros-melodic-message-generation ros-melodic-nodelet ros-melodic-rosconsole ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-std-srvs ros-melodic-tf ros-melodic-urg-c"
+depends="ros-melodic-diagnostic-updater ros-melodic-dynamic-reconfigure ros-melodic-laser-proc ros-melodic-message-generation ros-melodic-message-runtime ros-melodic-nodelet ros-melodic-rosconsole ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-std-srvs ros-melodic-tf ros-melodic-urg-c ros-melodic-xacro ros-melodic-diagnostic-updater ros-melodic-dynamic-reconfigure ros-melodic-laser-proc ros-melodic-message-generation ros-melodic-nodelet ros-melodic-rosconsole ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-std-srvs ros-melodic-tf ros-melodic-urg-c"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-vcstool chrpath ros-melodic-catkin ros-melodic-diagnostic-updater ros-melodic-dynamic-reconfigure ros-melodic-laser-proc ros-melodic-message-generation ros-melodic-nodelet ros-melodic-rosconsole ros-melodic-roscpp ros-melodic-roslaunch ros-melodic-roslint ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-std-srvs ros-melodic-tf ros-melodic-urg-c"
 
 subpackages="$pkgname-dbg $pkgname-doc"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: urg_node, uri: 'https://github.com/ros-gbp/urg_node-release.git',
-    version: release/melodic/urg_node/0.1.16-1}
+    version: release/melodic/urg_node/0.1.17-1}
 "
 
 prepare() {
