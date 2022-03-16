@@ -16,7 +16,7 @@ index 8724a8c..eccf410 100644
 +                             &descriptionCallback);
 +  Client<TestConfig> client3("/ref_server", &configurationCallback,
 +                             &descriptionCallback);
-+  ros::Duration(0.2).sleep();
++  ros::Duration(0.5).sleep();
 +  EXPECT_TRUE(client3.setConfiguration(TestConfig::__getDefault__()));
    ros::Duration(0.2).sleep();
    EXPECT_EQ(0, CONFIG.int_);
