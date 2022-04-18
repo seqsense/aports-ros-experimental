@@ -1,6 +1,6 @@
 pkgname=ros-melodic-kdl-parser
 _pkgname=kdl_parser
-pkgver=1.13.1
+pkgver=1.13.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/kdl_parser"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: kdl_parser, uri: 'https://github.com/ros-gbp/kdl_parser-release.git',
-    version: release/melodic/kdl_parser/1.13.1-0}
+    version: release/melodic/kdl_parser/1.13.3-1}
 "
 
 prepare() {
