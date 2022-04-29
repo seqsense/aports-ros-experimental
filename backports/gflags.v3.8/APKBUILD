@@ -1,7 +1,7 @@
 # Contributor: Florent Ferreri <florent@seqsense.com>
 pkgname=gflags
 pkgver=2.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc="The gflags package contains a C++ library that implements commandline flags processing."
 url="https://github.com/gflags/gflags"
 arch="all"
