@@ -6,7 +6,6 @@ pkgdesc="The gflags package contains a C++ library that implements commandline f
 url="https://github.com/gflags/gflags"
 arch="all"
 license="BSD-3-Clause"
-options="!check" # Tests #17 and #18 (helpon=gflags) fail when running make test
 makedepends="cmake"
 subpackages="$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/gflags/$pkgname/archive/refs/tags/v${pkgver}.tar.gz"
@@ -22,6 +21,11 @@ build() {
       -DCMAKE_BUILD_TYPE=none \
       -DREGISTER_INSTALL_PREFIX=OFF
     make
+}
+
+check() {
+  cd "$builddir"/build
+  make test
 }
 
 package() {
