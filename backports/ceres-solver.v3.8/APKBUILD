@@ -1,8 +1,8 @@
 # Contributor: Florent Ferreri <florent@seqsense.com>
 # Maintainer:
 pkgname=ceres-solver
-pkgver=2.1.0
-pkgrel=1
+pkgver=2.0.0
+pkgrel=0
 pkgdesc="A fast non-linear least squares minimizer"
 url="http://ceres-solver.org/"
 arch="all"
@@ -21,6 +21,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_EXAMPLES=OFF \
     -DBUILD_SHARED_LIBS=ON \
+    -DLIB_SUFFIX= \
     -DCMAKE_BUILD_TYPE=None
   make
 }
@@ -37,4 +38,4 @@ package() {
   install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="b482988d837187e348250122b1acacbb4fd6354709efa6335c0322a68234a38292c072499a886b69a30614f85c818d3d2e9eeb3d3d0ca17d8f013a38d9151207  ceres-solver-2.1.0.tar.gz"
+sha512sums="6379666ef57af4ea85026644fa21365ce18fbaa12d50bd452bcdae0743a7b013effdd42c961e90c31815991bf315bd6904553dcc1a382ff5ed8c7abe9edf9a6c  ceres-solver-2.0.0.tar.gz"
