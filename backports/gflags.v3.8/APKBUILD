@@ -1,7 +1,7 @@
 # Contributor: Florent Ferreri <florent@seqsense.com>
 pkgname=gflags
 pkgver=2.2.2
-pkgrel=0
+pkgrel=1
 pkgdesc="The gflags package contains a C++ library that implements commandline flags processing."
 url="https://github.com/gflags/gflags"
 arch="all"
@@ -13,9 +13,14 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/gflags/$pkgname/archive/refs
 builddir="$srcdir/$pkgname-$pkgver"
 
 build() {
-    mkdir build
-    cd build
-    cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=none ..
+    mkdir build && cd build
+    cmake .. \
+      -DBUILD_STATIC_LIBS=ON \
+      -DBUILD_SHARED_LIBS=ON \
+      -DBUILD_TESTING=ON \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_BUILD_TYPE=none \
+      -DREGISTER_INSTALL_PREFIX=OFF
     make
 }
 
