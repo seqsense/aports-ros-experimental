@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=ceres-solver
 pkgver=2.0.0
-pkgrel=0
+pkgrel=1
 pkgdesc="A fast non-linear least squares minimizer"
 url="http://ceres-solver.org/"
 arch="all"
