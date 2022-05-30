@@ -1,6 +1,6 @@
 pkgname=ros-melodic-dynamic-reconfigure
 _pkgname=dynamic_reconfigure
-pkgver=1.6.4
+pkgver=1.6.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/dynamic_reconfigure"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: dynamic_reconfigure, uri: 'https://github.com/ros-gbp/dynamic_reconfigure-release.git',
-    version: release/melodic/dynamic_reconfigure/1.6.4-1}
+    version: release/melodic/dynamic_reconfigure/1.6.5-1}
 "
 
 prepare() {
