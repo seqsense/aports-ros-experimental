@@ -1,6 +1,6 @@
 pkgname=ros-noetic-octomap
 _pkgname=octomap
-pkgver=1.9.7
+pkgver=1.9.8
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://octomap.github.io"
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: octomap
     uri: https://github.com/ros-gbp/octomap-release.git
-    version: release/noetic/octomap/1.9.7-1
+    version: release/noetic/octomap/1.9.8-1
 "
 
 prepare() {
