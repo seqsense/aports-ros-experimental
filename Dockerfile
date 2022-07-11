@@ -14,6 +14,7 @@ ewIDAQAB\n\
 
 RUN apk add --no-cache \
     alpine-sdk \
+    ccache \
     git \
     grep \
     lua-aports \
@@ -50,6 +51,11 @@ ENV APORTSDIR="${HOME}/aports" \
 
 RUN mkdir -p ${APORTSDIR}
 WORKDIR ${APORTSDIR}
+
+ENV CC=/usr/lib/ccache/bin/gcc \
+  CXX=/usr/lib/ccache/bin/g++ \
+  CCACHE_DIR=/ccache
+VOLUME /ccache
 
 COPY update-checksum.sh build-repo.sh /
 COPY ros ${SRCDIR}/ros

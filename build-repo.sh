@@ -7,6 +7,8 @@ ALPINE_VERSION=${ALPINE_VERSION:-$(cat /etc/alpine-release | cut -d. -f1-2)}
 aportsdir_base=${APORTSDIR}
 repodir_base=${REPODIR}
 
+sudo chown builder ${CCACHE_DIR}
+
 BUILD_REPO_OPTIONS=
 case "${PURGE_OBSOLETE:-no}" in
   "y" | "yes" | "Yes" | "on" | "ON" ) BUILD_REPO_OPTIONS="-p";;
