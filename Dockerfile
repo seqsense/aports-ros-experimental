@@ -32,7 +32,8 @@ VOLUME /cache
 
 ENV CC=/usr/lib/ccache/bin/gcc \
   CXX=/usr/lib/ccache/bin/g++ \
-  CCACHE_DIR=/cache/ccache
+  CCACHE_DIR=/cache/ccache \
+  CCACHE_DEPEND=true
 
 RUN ln -s /cache/apk /etc/apk/cache
 
