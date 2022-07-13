@@ -1,6 +1,6 @@
 pkgname=ros-melodic-rosbridge-library
 _pkgname=rosbridge_library
-pkgver=0.11.13
+pkgver=0.11.14
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/rosbridge_library"
@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="py-imaging py2-future py2-pymongo ros-melodic-geometry-msgs ros-melodic-message-runtime ros-melodic-roscpp ros-melodic-rosgraph ros-melodic-rospy ros-melodic-rosservice ros-melodic-rostopic ros-melodic-std-msgs"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-vcstool chrpath py-imaging py2-future py2-pymongo ros-melodic-actionlib-msgs ros-melodic-catkin ros-melodic-diagnostic-msgs ros-melodic-geometry-msgs ros-melodic-message-generation ros-melodic-nav-msgs ros-melodic-rospy-tutorials ros-melodic-rostest ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-std-srvs ros-melodic-stereo-msgs ros-melodic-tf2-msgs ros-melodic-trajectory-msgs ros-melodic-visualization-msgs"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-vcstool chrpath py-imaging py2-future py2-pymongo py2-setuptools ros-melodic-actionlib-msgs ros-melodic-catkin ros-melodic-diagnostic-msgs ros-melodic-geometry-msgs ros-melodic-message-generation ros-melodic-nav-msgs ros-melodic-rospy-tutorials ros-melodic-rostest ros-melodic-rosunit ros-melodic-sensor-msgs ros-melodic-std-msgs ros-melodic-std-srvs ros-melodic-stereo-msgs ros-melodic-tf2-msgs ros-melodic-trajectory-msgs ros-melodic-visualization-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rosbridge_library, uri: 'https://github.com/RobotWebTools-release/rosbridge_suite-release.git',
-    version: release/melodic/rosbridge_library/0.11.13-1}
+    version: release/melodic/rosbridge_library/0.11.14-1}
 "
 
 prepare() {

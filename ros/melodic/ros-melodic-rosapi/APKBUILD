@@ -1,6 +1,6 @@
 pkgname=ros-melodic-rosapi
 _pkgname=rosapi
-pkgver=0.11.13
+pkgver=0.11.14
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/rosapi"
@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-melodic-message-runtime ros-melodic-rosbridge-library ros-melodic-rosgraph ros-melodic-rosnode ros-melodic-rospy"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-vcstool chrpath ros-melodic-catkin ros-melodic-message-generation"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-vcstool chrpath py2-setuptools ros-melodic-catkin ros-melodic-message-generation"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: rosapi, uri: 'https://github.com/RobotWebTools-release/rosbridge_suite-release.git',
-    version: release/melodic/rosapi/0.11.13-1}
+    version: release/melodic/rosapi/0.11.14-1}
 "
 
 prepare() {
