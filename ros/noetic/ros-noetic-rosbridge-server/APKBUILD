@@ -1,14 +1,14 @@
 pkgname=ros-noetic-rosbridge-server
 _pkgname=rosbridge_server
-pkgver=0.11.13
-pkgrel=1
+pkgver=0.11.14
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/rosbridge_server"
 arch="all"
 license="BSD"
 
 depends="py3-autobahn py3-openssl py3-pynacl py3-service_identity py3-tornado py3-twisted py3-zope-interface ros-noetic-rosapi ros-noetic-rosauth ros-noetic-rosbridge-library ros-noetic-rosbridge-msgs ros-noetic-rospy"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-rostest"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath py3-setuptools ros-noetic-catkin ros-noetic-rostest"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: rosbridge_server
     uri: https://github.com/RobotWebTools-release/rosbridge_suite-release.git
-    version: release/noetic/rosbridge_server/0.11.13-1
+    version: release/noetic/rosbridge_server/0.11.14-1
 "
 
 prepare() {

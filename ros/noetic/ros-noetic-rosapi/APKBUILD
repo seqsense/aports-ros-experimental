@@ -1,14 +1,14 @@
 pkgname=ros-noetic-rosapi
 _pkgname=rosapi
-pkgver=0.11.13
-pkgrel=1
+pkgver=0.11.14
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/rosapi"
 arch="all"
 license="BSD"
 
 depends="ros-noetic-message-runtime ros-noetic-rosbridge-library ros-noetic-rosgraph ros-noetic-rosnode ros-noetic-rospy"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-message-generation"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath py3-setuptools ros-noetic-catkin ros-noetic-message-generation"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: rosapi
     uri: https://github.com/RobotWebTools-release/rosbridge_suite-release.git
-    version: release/noetic/rosapi/0.11.13-1
+    version: release/noetic/rosapi/0.11.14-1
 "
 
 prepare() {
