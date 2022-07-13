@@ -1,6 +1,6 @@
 pkgname=ros-melodic-neonavigation-launch
 _pkgname=neonavigation_launch
-pkgver=0.11.4
+pkgver=0.11.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/$_pkgname"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: neonavigation_launch, uri: 'https://github.com/at-wat/neonavigation-release.git',
-    version: release/melodic/neonavigation_launch/0.11.4-1}
+    version: release/melodic/neonavigation_launch/0.11.5-1}
 "
 
 prepare() {
