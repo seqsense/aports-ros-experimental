@@ -2,6 +2,8 @@
 
 set -e
 
+mkdir -p /cache/apk /cache/ccache
+
 ALPINE_VERSION=${ALPINE_VERSION:-$(cat /etc/alpine-release | cut -d. -f1-2)}
 
 aportsdir_base=${APORTSDIR}

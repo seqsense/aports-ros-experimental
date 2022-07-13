@@ -14,6 +14,7 @@ ewIDAQAB\n\
 
 RUN apk add --no-cache \
     alpine-sdk \
+    ccache \
     git \
     grep \
     lua-aports \
@@ -27,8 +28,14 @@ RUN apk add --no-cache \
   && adduser -G abuild -D builder \
   && echo "builder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-RUN mkdir -p /var/cache/apk \
-  && ln -s /var/cache/apk /etc/apk/cache
+VOLUME /cache
+
+ENV CC=/usr/lib/ccache/bin/gcc \
+  CXX=/usr/lib/ccache/bin/g++ \
+  CCACHE_DIR=/cache/ccache \
+  CCACHE_DEPEND=true
+
+RUN ln -s /cache/apk /etc/apk/cache
 
 # Workaround for rospack on fakeroot
 RUN mkdir -p /root/.ros \
