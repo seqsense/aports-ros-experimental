@@ -1,13 +1,13 @@
 pkgname=ros-noetic-smach-viewer
 _pkgname=smach_viewer
-pkgver=4.0.0
+pkgver=4.0.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/smach_viewer"
 arch="all"
 license="BSD"
 
-depends="graphviz gtk+3.0-dev py3-gobject3 py3-wxpython ros-noetic-smach-msgs ros-noetic-smach-ros graphviz gtk+3.0-dev py3-gobject3 py3-wxpython ros-noetic-smach-msgs ros-noetic-smach-ros"
+depends="graphviz gtk+3.0-dev py3-sip py3-sip-dev py3-gobject3 py3-qt5 py3-rospkg py3-sip py3-wxpython py3-xdot ros-noetic-cv-bridge ros-noetic-smach-msgs ros-noetic-smach-ros"
 makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-rostest"
 
 subpackages="$pkgname-dbg $pkgname-doc"
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: smach_viewer
     uri: https://github.com/jbohren/executive_smach_visualization-release.git
-    version: release/noetic/smach_viewer/4.0.0-1
+    version: release/noetic/smach_viewer/4.0.1-1
 "
 
 prepare() {
