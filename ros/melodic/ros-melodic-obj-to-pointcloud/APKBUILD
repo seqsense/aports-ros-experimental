@@ -1,6 +1,6 @@
 pkgname=ros-melodic-obj-to-pointcloud
 _pkgname=obj_to_pointcloud
-pkgver=0.11.6
+pkgver=0.11.7
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/$_pkgname"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: obj_to_pointcloud, uri: 'https://github.com/at-wat/neonavigation-release.git',
-    version: release/melodic/obj_to_pointcloud/0.11.6-1}
+    version: release/melodic/obj_to_pointcloud/0.11.7-1}
 "
 
 prepare() {
