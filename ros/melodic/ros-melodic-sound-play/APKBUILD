@@ -1,13 +1,13 @@
 pkgname=ros-melodic-sound-play
 _pkgname=sound_play
-pkgver=0.3.13
+pkgver=0.3.14
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/sound_play"
 arch="all"
 license="BSD"
 
-depends="festival festvox-kallpc16k gst-plugins-base gst-plugins-good gst-plugins-ugly gstreamer py2-gobject3 ros-melodic-actionlib-msgs ros-melodic-audio-common-msgs ros-melodic-diagnostic-msgs ros-melodic-message-runtime ros-melodic-roscpp ros-melodic-roslib ros-melodic-rospy"
+depends="festival festvox-kallpc16k flite gst-plugins-base gst-plugins-good gst-plugins-ugly gstreamer py2-gobject3 ros-melodic-actionlib-msgs ros-melodic-audio-common-msgs ros-melodic-diagnostic-msgs ros-melodic-message-runtime ros-melodic-resource-retriever ros-melodic-roscpp ros-melodic-roslib ros-melodic-rospy"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-vcstool chrpath py2-setuptools ros-melodic-actionlib ros-melodic-actionlib-msgs ros-melodic-audio-common-msgs ros-melodic-catkin ros-melodic-diagnostic-msgs ros-melodic-message-generation ros-melodic-roscpp ros-melodic-roslib"
 
 subpackages="$pkgname-dbg $pkgname-doc"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: sound_play, uri: 'https://github.com/ros-gbp/audio_common-release.git',
-    version: release/melodic/sound_play/0.3.13-1}
+    version: release/melodic/sound_play/0.3.14-1}
 "
 
 prepare() {
