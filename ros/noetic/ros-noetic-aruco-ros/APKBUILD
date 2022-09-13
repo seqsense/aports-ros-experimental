@@ -1,14 +1,14 @@
-pkgname=ros-noetic-cv-bridge
-_pkgname=cv_bridge
-pkgver=1.16.1
+pkgname=ros-noetic-aruco-ros
+_pkgname=aruco_ros
+pkgver=3.0.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
-url="http://www.ros.org/wiki/cv_bridge"
+url="http://www.uco.es/investiga/grupos/ava/node/26"
 arch="all"
 license="BSD"
 
-depends="boost-dev opencv-dev py3-opencv python3-dev ros-noetic-rosconsole opencv-dev ros-noetic-sensor-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath boost-dev opencv-dev py3-numpy py3-numpy-dev py3-opencv python3-dev ros-noetic-catkin ros-noetic-rosconsole ros-noetic-rostest ros-noetic-sensor-msgs"
+depends="ros-noetic-aruco ros-noetic-aruco-msgs ros-noetic-cv-bridge ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-image-transport ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-visualization-msgs ros-noetic-aruco ros-noetic-aruco-msgs ros-noetic-cv-bridge ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-image-transport ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-visualization-msgs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-aruco ros-noetic-aruco-msgs ros-noetic-catkin ros-noetic-cv-bridge ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-image-transport ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-visualization-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -26,9 +26,9 @@ fi
 
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
-    local-name: cv_bridge
-    uri: https://github.com/ros-gbp/vision_opencv-release.git
-    version: release/noetic/cv_bridge/1.16.1-1
+    local-name: aruco_ros
+    uri: https://github.com/pal-gbp/aruco_ros-release.git
+    version: release/noetic/aruco_ros/3.0.1-3
 "
 
 prepare() {
