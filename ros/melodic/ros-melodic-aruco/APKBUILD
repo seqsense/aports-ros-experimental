@@ -1,14 +1,14 @@
-pkgname=ros-melodic-audio-common-msgs
-_pkgname=audio_common_msgs
-pkgver=0.3.15
+pkgname=ros-melodic-aruco
+_pkgname=aruco
+pkgver=2.1.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
-url="http://ros.org/wiki/audio_common_msgs"
+url="http://www.uco.es/investiga/grupos/ava/node/26"
 arch="all"
 license="BSD"
 
-depends="ros-melodic-message-runtime ros-melodic-message-runtime"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-vcstool chrpath ros-melodic-catkin ros-melodic-message-generation"
+depends="eigen-dev ros-melodic-cv-bridge eigen-dev ros-melodic-cv-bridge"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-vcstool chrpath eigen-dev ros-melodic-catkin ros-melodic-cv-bridge"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -25,8 +25,8 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
 fi
 
 export ROS_PYTHON_VERSION=2
-rosinstall="- git: {local-name: audio_common_msgs, uri: 'https://github.com/ros-gbp/audio_common-release.git',
-    version: release/melodic/audio_common_msgs/0.3.15-1}
+rosinstall="- git: {local-name: aruco, uri: 'https://github.com/pal-gbp/aruco_ros-release.git',
+    version: release/melodic/aruco/2.1.1-1}
 "
 
 prepare() {
