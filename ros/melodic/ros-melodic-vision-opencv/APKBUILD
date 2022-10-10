@@ -1,6 +1,6 @@
 pkgname=ros-melodic-vision-opencv
 _pkgname=vision_opencv
-pkgver=1.13.0
+pkgver=1.13.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://www.ros.org/wiki/vision_opencv"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: vision_opencv, uri: 'https://github.com/ros-gbp/vision_opencv-release.git',
-    version: release/melodic/vision_opencv/1.13.0-0}
+    version: release/melodic/vision_opencv/1.13.1-1}
 "
 
 prepare() {
