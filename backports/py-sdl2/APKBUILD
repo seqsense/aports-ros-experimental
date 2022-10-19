@@ -2,12 +2,11 @@
 # Maintainer:
 pkgname=py-sdl2
 pkgver=0.9.14
-pkgrel=2
+pkgrel=3
 pkgdesc="Python ctypes wrapper around SDL2"
 url="https://github.com/py-sdl/py-sdl2"
 arch="noarch"
 license="CC0 Public Domain Dedication"
-depends="py-pysdl2-dll"
 makedepends="python2-dev python3-dev py-setuptools"
 options="!check" #no testsuite
 subpackages="$pkgname-doc py2-$pkgname:_py2 py3-$pkgname:_py3"
@@ -41,12 +40,10 @@ _py() {
 }
 
 _py2() {
-  depends="${depends//py-/py2-}"
   _py python2
 }
 
 _py3() {
-  depends="${depends//py-/py3-}"
   _py python3
 }
 
