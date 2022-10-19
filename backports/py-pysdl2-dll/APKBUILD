@@ -1,15 +1,16 @@
 # Contributor: Florent Ferreri <florent@seqsense.com>
 # Maintainer:
-pkgname=py-sdl2-dll
+pkgname=py-pysdl2-dll
 _pkgname=pysdl2-dll
 pkgver=2.24.1
 pkgrel=0
 pkgdesc="A package that bundles the SDL2 libraries for PySDL2 so they don't have to be installed manually"
 url="https://github.com/a-hurst/pysdl2-dll"
-arch="noarch"
+arch="all"
 license="MPL-2.0"
+depends="sdl2-dev"
 makedepends="python2-dev python3-dev py-setuptools"
-options="!check" # importlib_metadata used by pytest no available on Python 3.6
+options="!check" #test skipped because of 'No binaries for this platform'
 subpackages="$pkgname-doc py2-$_pkgname:_py2 py3-$_pkgname:_py3"
 source="$_pkgname-$pkgver.tar.gz::https://github.com/a-hurst/$_pkgname/archive/v$pkgver.tar.gz"
 builddir="$srcdir"/$_pkgname-$pkgver
@@ -37,10 +38,12 @@ _py() {
 }
 
 _py2() {
+  depends="${depends//py-/py2-}"
   _py python2
 }
 
 _py3() {
+  depends="${depends//py-/py3-}"
   _py python3
 }
 
