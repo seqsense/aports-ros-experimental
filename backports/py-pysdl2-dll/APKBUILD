@@ -3,12 +3,12 @@
 pkgname=py-pysdl2-dll
 _pkgname=pysdl2-dll
 pkgver=2.24.1
-pkgrel=0
+pkgrel=1
 pkgdesc="A package that bundles the SDL2 libraries for PySDL2 so they don't have to be installed manually"
 url="https://github.com/a-hurst/pysdl2-dll"
 arch="all"
 license="MPL-2.0"
-depends="sdl2-dev"
+depends="sdl2"
 makedepends="python2-dev python3-dev py-setuptools"
 options="!check" #test skipped because of 'No binaries for this platform'
 subpackages="$pkgname-doc py2-$_pkgname:_py2 py3-$_pkgname:_py3"
