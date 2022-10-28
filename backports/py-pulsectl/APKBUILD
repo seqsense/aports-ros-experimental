@@ -3,7 +3,7 @@
 pkgname=py-pulsectl
 _pkgname=pulsectl
 pkgver=22.3.2
-pkgrel=0
+pkgrel=1
 pkgdesc="Python high-level interface and ctypes-based bindings for PulseAudio (libpulse)"
 url="https://github.com/mk-fg/python-pulse-control"
 arch="noarch"
