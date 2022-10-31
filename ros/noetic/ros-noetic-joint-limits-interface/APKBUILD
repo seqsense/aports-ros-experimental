@@ -1,6 +1,6 @@
 pkgname=ros-noetic-joint-limits-interface
 _pkgname=joint_limits_interface
-pkgver=0.19.5
+pkgver=0.19.6
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="https://github.com/ros-controls/ros_control/wiki"
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: joint_limits_interface
     uri: https://github.com/ros-gbp/ros_control-release.git
-    version: release/noetic/joint_limits_interface/0.19.5-1
+    version: release/noetic/joint_limits_interface/0.19.6-1
 "
 
 prepare() {
