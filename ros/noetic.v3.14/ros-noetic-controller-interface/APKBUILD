@@ -1,7 +1,7 @@
 pkgname=ros-noetic-controller-interface
 _pkgname=controller_interface
-pkgver=0.19.5
-pkgrel=2
+pkgver=0.19.6
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="https://github.com/ros-controls/ros_control/wiki"
 arch="all"
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: controller_interface
     uri: https://github.com/ros-gbp/ros_control-release.git
-    version: release/noetic/controller_interface/0.19.5-1
+    version: release/noetic/controller_interface/0.19.6-1
 "
 
 prepare() {
