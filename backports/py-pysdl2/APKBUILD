@@ -3,7 +3,7 @@
 pkgname=py-pysdl2
 _pkgname=py-sdl2
 pkgver=0.9.14
-pkgrel=5
+pkgrel=6
 pkgdesc="Python ctypes wrapper around SDL2"
 url="https://github.com/py-sdl/py-sdl2"
 arch="noarch"
@@ -11,7 +11,7 @@ license="CC0 Public Domain Dedication"
 depends="sdl2 py-pysdl2-dll"
 makedepends="python2-dev python3-dev py-setuptools"
 options="!check" #no testsuite
-subpackages="$pkgname-doc py2-pysdl2:_py2 py3-pysdl2:_py3"
+subpackages="$pkgname-doc py2-${_pkgname//-/}:_py2 py3-${_pkgname//-/}:_py3"
 source="$_pkgname-$pkgver.tar.gz::https://github.com/py-sdl/$_pkgname/archive/$pkgver.tar.gz"
 builddir="$srcdir"/$_pkgname-$pkgver
 
