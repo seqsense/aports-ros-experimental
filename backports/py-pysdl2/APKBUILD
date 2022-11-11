@@ -3,7 +3,7 @@
 pkgname=py-pysdl2
 _pkgname=py-sdl2
 pkgver=0.9.14
-pkgrel=3
+pkgrel=4
 pkgdesc="Python ctypes wrapper around SDL2"
 url="https://github.com/py-sdl/py-sdl2"
 arch="noarch"
