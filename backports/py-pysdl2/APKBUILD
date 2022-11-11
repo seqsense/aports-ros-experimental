@@ -3,7 +3,7 @@
 pkgname=py-pysdl2
 _pkgname=pysdl2
 pkgver=0.9.14
-pkgrel=8
+pkgrel=9
 pkgdesc="Python ctypes wrapper around SDL2"
 url="https://github.com/py-sdl/py-sdl2"
 arch="noarch"
@@ -47,7 +47,7 @@ _py2() {
 }
 
 _py3() {
-  depends="${depends//py-/py2-}"
+  depends="${depends//py-/py3-}"
   _py python3
 }
 
