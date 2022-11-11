@@ -3,7 +3,7 @@
 pkgname=py-pysdl2
 _pkgname=pysdl2
 pkgver=0.9.14
-pkgrel=7
+pkgrel=8
 pkgdesc="Python ctypes wrapper around SDL2"
 url="https://github.com/py-sdl/py-sdl2"
 arch="noarch"
@@ -13,7 +13,7 @@ makedepends="python2-dev python3-dev py-setuptools"
 options="!check" #no testsuite
 subpackages="$pkgname-doc py2-$_pkgname:_py2 py3-$_pkgname:_py3"
 source="$_pkgname-$pkgver.tar.gz::https://github.com/py-sdl/py-sdl2/archive/$pkgver.tar.gz"
-builddir="$srcdir"/$_pkgname-$pkgver
+builddir="$srcdir"/py-sdl2-$pkgver
 
 build() {
   cd "$builddir"
