@@ -1,9 +1,9 @@
 # Contributor: Florent Ferreri <florent@seqsense.com>
 # Maintainer:
 pkgname=py-pysdl2
-_pkgname=py-sdl2
+_pkgname=pysdl2
 pkgver=0.9.14
-pkgrel=6
+pkgrel=7
 pkgdesc="Python ctypes wrapper around SDL2"
 url="https://github.com/py-sdl/py-sdl2"
 arch="noarch"
@@ -11,8 +11,8 @@ license="CC0 Public Domain Dedication"
 depends="sdl2 py-pysdl2-dll"
 makedepends="python2-dev python3-dev py-setuptools"
 options="!check" #no testsuite
-subpackages="$pkgname-doc py2-${_pkgname//-/}:_py2 py3-${_pkgname//-/}:_py3"
-source="$_pkgname-$pkgver.tar.gz::https://github.com/py-sdl/$_pkgname/archive/$pkgver.tar.gz"
+subpackages="$pkgname-doc py2-$_pkgname:_py2 py3-$_pkgname:_py3"
+source="$_pkgname-$pkgver.tar.gz::https://github.com/py-sdl/py-sdl2/archive/$pkgver.tar.gz"
 builddir="$srcdir"/$_pkgname-$pkgver
 
 build() {
@@ -52,4 +52,4 @@ _py3() {
 }
 
 
-sha512sums="409b0cb8c600f2c9269d05a99fdf5473fca2f3dfabf94f7585ba0c9a00dd02beeb47d50dc48333fd916ab1f149f2eecc483ef75ad3e3e9903a291868d37c30c7  py-sdl2-0.9.14.tar.gz"
+sha512sums="409b0cb8c600f2c9269d05a99fdf5473fca2f3dfabf94f7585ba0c9a00dd02beeb47d50dc48333fd916ab1f149f2eecc483ef75ad3e3e9903a291868d37c30c7  pysdl2-0.9.14.tar.gz"
