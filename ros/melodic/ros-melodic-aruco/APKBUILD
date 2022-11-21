@@ -1,11 +1,11 @@
 pkgname=ros-melodic-aruco
 _pkgname=aruco
-pkgver=2.1.1
+pkgver=2.2.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://www.uco.es/investiga/grupos/ava/node/26"
 arch="all"
-license="BSD"
+license="MIT"
 
 depends="eigen-dev ros-melodic-cv-bridge eigen-dev ros-melodic-cv-bridge"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-vcstool chrpath eigen-dev ros-melodic-catkin ros-melodic-cv-bridge"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: aruco, uri: 'https://github.com/pal-gbp/aruco_ros-release.git',
-    version: release/melodic/aruco/2.1.1-1}
+    version: release/melodic/aruco/2.2.1-1}
 "
 
 prepare() {
