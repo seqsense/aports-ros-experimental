@@ -1,11 +1,11 @@
 pkgname=ros-melodic-aruco-ros
 _pkgname=aruco_ros
-pkgver=2.1.1
+pkgver=2.2.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://www.uco.es/investiga/grupos/ava/node/26"
 arch="all"
-license="BSD"
+license="MIT"
 
 depends="ros-melodic-aruco ros-melodic-aruco-msgs ros-melodic-cv-bridge ros-melodic-dynamic-reconfigure ros-melodic-geometry-msgs ros-melodic-image-transport ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-tf ros-melodic-visualization-msgs ros-melodic-aruco ros-melodic-aruco-msgs ros-melodic-cv-bridge ros-melodic-dynamic-reconfigure ros-melodic-geometry-msgs ros-melodic-image-transport ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-tf ros-melodic-visualization-msgs"
 makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-vcstool chrpath ros-melodic-aruco ros-melodic-aruco-msgs ros-melodic-catkin ros-melodic-cv-bridge ros-melodic-dynamic-reconfigure ros-melodic-geometry-msgs ros-melodic-image-transport ros-melodic-roscpp ros-melodic-sensor-msgs ros-melodic-tf ros-melodic-visualization-msgs"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: aruco_ros, uri: 'https://github.com/pal-gbp/aruco_ros-release.git',
-    version: release/melodic/aruco_ros/2.1.1-1}
+    version: release/melodic/aruco_ros/2.2.1-1}
 "
 
 prepare() {
