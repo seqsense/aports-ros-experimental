@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: rosbridge_suite
     uri: https://github.com/RobotWebTools-release/rosbridge_suite-release.git
-    version: release/noetic/rosbridge_suite/0.11.16-1
+    version: release/noetic/rosbridge_suite/0.11.16-2
 "
 
 prepare() {
