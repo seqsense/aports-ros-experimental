@@ -1,0 +1,44 @@
+# Contributor: Florent Ferreri <florent@seqsense.com>
+# Maintainer:
+pkgname=croncpp
+pkgver=0.0.0_git20220503
+_ver=5c28f410db1af9507ef8469c9796a7070e5e8e2e
+pkgrel=1
+pkgdesc="A C++11/14/17 header-only cross-platform library for handling CRON expressions"
+url="https://github.com/mariusbancila/croncpp"
+arch="all"
+license="MIT"
+depends=""
+makedepends="cmake cppcheck"
+subpackages="$pkgname-dev $pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/mariusbancila/croncpp/archive/$_ver.tar.gz"
+
+builddir="$srcdir/$pkgname-$_ver"
+
+build() {
+  cd "$builddir"
+  mkdir -p build && cd build
+  cmake \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCRONCPP_BUILD_TESTS=ON \
+    -DCRONCPP_ENABLE_PROFILING=ON \
+    -Wdev \
+    ..
+  make
+}
+
+check() {
+  cd "$builddir"/build
+  ctest -V -j 2 -C Release
+  cppcheck --quiet --error-exitcode=1 --force .
+}
+
+package() {
+  cd "$builddir"/build
+  make DESTDIR="$pkgdir" install
+
+  install -Dm 0644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="da310d4093e3d2e84036952cea219c8a7307d4ac06162c9a3ef1b3395efc1ffdd240a49e3065377aeb94c34781f87bc21ac8c11fb3b7842ce8b661f5940bbf99  croncpp-0.0.0_git20220503.tar.gz"
