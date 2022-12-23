@@ -2,7 +2,11 @@
 
 set -e
 
-mkdir -p /cache/apk /cache/ccache
+ls -la /cache
+sudo chmod o+w /cache
+mkdir -p \
+  /cache/apk \
+  /cache/ccache
 
 ALPINE_VERSION=${ALPINE_VERSION:-$(cat /etc/alpine-release | cut -d. -f1-2)}
 
@@ -51,9 +55,13 @@ echo
 if [ ! -f ${PACKAGER_PRIVKEY} ]; then
   echo "======== WARN: PACKAGER_PRIVKEY is not present ======="
   abuild-keygen -a -i -n
-  sudo cp ${HOME}/.abuild/*.pub /etc/apk/keys/
   RESIGN=true
+else
+  echo "Using ${PACKAGER_PRIVKEY}"
+  openssl rsa -in ${PACKAGER_PRIVKEY} -pubout | sudo tee ${PACKAGER_PRIVKEY}.pub
 fi
+
+sudo cp ${HOME}/.abuild/*.pub /etc/apk/keys/
 
 if ${RESIGN:-false}
 then
