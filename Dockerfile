@@ -1,5 +1,6 @@
-ARG ALPINE_VERSION=3.11
+ARG ALPINE_VERSION
 FROM alpine:${ALPINE_VERSION}
+ARG ALPINE_VERSION
 
 RUN sed -i 's|https://\(dl-cdn.alpinelinux.org/\)|http://\1|' /etc/apk/repositories \
   && echo $'-----BEGIN PUBLIC KEY-----\n\
@@ -21,7 +22,7 @@ RUN apk add --no-cache \
     sudo \
     # Temporary fix missing deps
     # - python_orocos_kdl lack dependency to python-dev
-    python2-dev \
+    $([ "$(echo -e "3.16\n${ALPINE_VERSION}" | sort -V | head -n1)" != "3.16" ] && echo python2-dev) \
     python3-dev \
     # - some packages including roslint have implicit dependency to bash
     bash \
