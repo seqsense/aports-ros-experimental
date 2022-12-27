@@ -187,6 +187,7 @@ do
 
   # Move noarch packages
 
+  mkdir -p ${REPODIR}/${repo_out}/noarch/
   rm ${REPODIR}/${repo_out}/noarch/*.apk || true
   cat ${tmpdir}/APKINDEX \
     | sed -n '/^P:/{s/^\S:\(.*\)$/\1 ARCH/p; {:l; n; /^A:/{s/^\S://p; d;}; b l;}};' \
@@ -196,7 +197,6 @@ do
     arch=$(echo ${apk} | cut -f2 -d" ")
     if [ "${arch}" = "noarch" ]; then
       echo "${pkg} is noarch"
-      mkdir -p ${REPODIR}/${repo_out}/noarch/
       mv ${REPODIR}/${repo_out}/x86_64/${pkg}-* ${REPODIR}/${repo_out}/noarch/
     fi
   done
@@ -215,6 +215,11 @@ do
     exit ${exit_code}
   fi
 
+  # Register new local repository
+
+  if ! grep -F "${REPODIR}/${repo_out}" /etc/apk/repositories; then
+    echo "${REPODIR}/${repo_out}" | sudo tee -a /etc/apk/repositories
+  fi
 
   # Test dependencies
 
