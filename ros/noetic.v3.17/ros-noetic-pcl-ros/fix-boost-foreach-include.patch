@@ -1,0 +1,12 @@
+diff --git a/include/pcl_ros/point_cloud.h b/include/pcl_ros/point_cloud.h
+index 1e03827..9044d77 100644
+--- a/include/pcl_ros/point_cloud.h
++++ b/include/pcl_ros/point_cloud.h
+@@ -8,6 +8,7 @@
+ #include <pcl/conversions.h>
+ #include <pcl_conversions/pcl_conversions.h>
+ #include <sensor_msgs/PointCloud2.h>
++#include <boost/foreach.hpp>
+ #include <boost/mpl/size.hpp>
+ #include <boost/ref.hpp>
+ #include <boost/thread/mutex.hpp>
