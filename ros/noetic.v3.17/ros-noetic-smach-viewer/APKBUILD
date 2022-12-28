@@ -7,7 +7,7 @@ url="http://ros.org/wiki/smach_viewer"
 arch="all"
 license="BSD"
 
-depends="graphviz gtk+3.0-dev py3-sip py3-sip-dev py3-gobject3 py3-qt5 py3-rospkg py3-sip py3-wxpython py3-xdot ros-noetic-cv-bridge ros-noetic-smach-msgs ros-noetic-smach-ros"
+depends="graphviz gtk+3.0-dev py3-gobject3 py3-qt5 py3-rospkg py3-sip4 py3-sip4-dev py3-wxpython py3-xdot ros-noetic-cv-bridge ros-noetic-smach-msgs ros-noetic-smach-ros"
 makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-rostest"
 
 subpackages="$pkgname-dbg $pkgname-doc"
