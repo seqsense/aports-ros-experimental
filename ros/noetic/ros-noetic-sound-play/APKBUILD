@@ -1,6 +1,6 @@
 pkgname=ros-noetic-sound-play
 _pkgname=sound_play
-pkgver=0.3.15
+pkgver=0.3.16
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/sound_play"
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: sound_play
     uri: https://github.com/ros-gbp/audio_common-release.git
-    version: release/noetic/sound_play/0.3.15-1
+    version: release/noetic/sound_play/0.3.16-1
 "
 
 prepare() {
