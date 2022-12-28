@@ -24,6 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
+export ROS_PACKAGE_PATH="$builddir/src/$_pkgname"
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: diagnostic_msgs
@@ -54,10 +55,10 @@ build() {
   find src -type f | while read file; do
     h=$(head -n1 "$file")
     rewrite_shebang=false
-    if echo $h | grep -q -s "^#\!\s*/usr/bin/env\s*python$"; then
+    if echo $h | grep -q -s "^#!\s*/usr/bin/env\s*python$"; then
       rewrite_shebang=true
     fi
-    if echo $h | grep -q -s "^#\!\s*/usr/bin/python$"; then
+    if echo $h | grep -q -s "^#!\s*/usr/bin/python$"; then
       rewrite_shebang=true
     fi
     if [ $rewrite_shebang == "true" ]; then
@@ -78,6 +79,11 @@ check() {
   set -o pipefail
   echo "checking" >> $statuslog
   cd "$builddir"
+
+  logdir="$builddir/log"
+  mkdir -p "$logdir"
+  export ROS_LOG_DIR="$logdir"
+
   source /usr/ros/noetic/setup.sh
   source devel_isolated/setup.sh
   catkin_make_isolated \
