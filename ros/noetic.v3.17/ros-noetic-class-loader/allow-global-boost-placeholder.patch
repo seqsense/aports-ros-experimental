@@ -1,0 +1,13 @@
+diff --git a/include/class_loader/class_loader.hpp b/include/class_loader/class_loader.hpp
+index b751f02..f5f395b 100644
+--- a/include/class_loader/class_loader.hpp
++++ b/include/class_loader/class_loader.hpp
+@@ -32,6 +32,8 @@
+ #ifndef CLASS_LOADER__CLASS_LOADER_HPP_
+ #define CLASS_LOADER__CLASS_LOADER_HPP_
+ 
++#define BOOST_BIND_GLOBAL_PLACEHOLDERS
++
+ #include <boost/bind.hpp>
+ #include <boost/shared_ptr.hpp>
+ #include <boost/thread/recursive_mutex.hpp>
