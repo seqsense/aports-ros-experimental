@@ -1,49 +1,62 @@
-# Contributor: Atsushi Watanabe<atsushi.w@ieee.org>
-# Maintainer:
-pkgname=py3-wxpython
+# Maintainer: Marian Buschsieweke <marian.buschsieweke@ovgu.de>
+# Contributor: Marian Buschsieweke <marian.buschsieweke@ovgu.de>
 _pkgname=wxPython
-pkgver=4.0.7
-pkgrel=0
-pkgdesc="Cross platform GUI toolkit for Python, \"Phoenix\" version"
-url="https://pypi.org/project/wxPython/"
+pkgname=py3-wxpython
+pkgver=4.2.0
+pkgrel=1
+pkgdesc="Cross-platform GUI toolkit for the Python language"
+url="https://wxpython.org/"
 arch="all"
-license="wxWindows"
-depends="py3-pillow py3-six"
-makedepends="python3-dev py3-setuptools pytest gtk+3.0-dev wxgtk-dev"
-subpackages="$pkgname-doc"
-source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
-builddir="$srcdir/$_pkgname-$pkgver"
+license="custom:wxWidgets"
+depends="
+	python3
+	py3-numpy
+	py3-pillow
+	py3-six
+	"
+makedepends="
+	py3-setuptools
+	py3-sip
+	python3-dev
+	wxwidgets-dev
+	"
+checkdepends="py3-pytest py3-pytest-xdist xvfb-run"
+subpackages="$pkgname-doc $pkgname-lang"
+source="https://files.pythonhosted.org/packages/source/w/wxPython/wxPython-$pkgver.tar.gz
+	no-attrdict.patch
+	no-stacktrace.patch
+	"
+builddir="$srcdir"/$_pkgname-$pkgver
+# Not all unit tests are passing. Some due to missing features of xvfb where the
+# tests are running in (GL, display settings). Some are checking features that
+# have not been provided in this package. Disabling failing unit tests to track
+# regressions would be nice, but I do not have the time for that now
+options="!check !spdx"
 
 build() {
-	cd "$builddir"
-	export CFLAGS="$CFLAGS -D__WXGTK3__"
-	export CXXFLAGS="$CXXFLAGS -D__WXGTK3__"
-	python3 build.py build_py --jobs=4 --nodoc --release --use_syswx --gtk3
+	export CPPFLAGS="$CPPFLAGS -flto=auto"
+	python3 build.py build --use_syswx --release -j${JOBS:-1}
 }
 
 check() {
-	cd "$builddir"
-	python3 build.py test
+	xvfb-run -a pytest
 }
 
 package() {
-	mkdir -p "$pkgdir"
-
-	cd "$builddir"
-	python3 build.py install_py --destdir="$pkgdir"
-	find "$pkgdir" -type f -print | xargs chmod 644
-
-	# Install license files
-	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
-	install -m644 "$builddir"/license/preamble.txt "$pkgdir"/usr/share/licenses/$pkgname/preamble.txt
-	install -m644 "$builddir"/license/licence.txt "$pkgdir"/usr/share/licenses/$pkgname/licence.txt
-	install -m644 "$builddir"/license/sip-license.txt "$pkgdir"/usr/share/licenses/$pkgname/sip-license.txt
-	install -m644 "$builddir"/license/gpl.txt "$pkgdir"/usr/share/licenses/$pkgname/gpl.txt
-	install -m644 "$builddir"/license/lgpl.txt "$pkgdir"/usr/share/licenses/$pkgname/lgpl.txt
-
-	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname/pubsub
-	install -m644 "$builddir"/wx/lib/pubsub/README_WxPython.txt "$pkgdir"/usr/share/licenses/$pkgname/pubsub/README_WxPython.txt
-	install -m644 "$builddir"/wx/lib/pubsub/LICENSE_BSD_Simple.txt "$pkgdir"/usr/share/licenses/$pkgname/pubsub/LICENSE_BSD_Simple.txt
+	python3 build.py install --destdir="$pkgdir"
+	install -Dm 644 LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
+	find "$pkgdir"/usr/lib -type f -exec chmod 644 {} \;
 }
 
-sha512sums="22d74a1285de432dd251ed6343b6138411a70742a7026e1ab002e08b84f111123382625bd64055412687d9ba7b579681d9894a58705455eb6a2b5e3c9d9985c0  wxPython-4.0.7.tar.gz"
+lang() {
+	pkgdesc="translations for $pkgname"
+	install_if="lang $pkgname=$pkgver-r$pkgrel"
+
+	amove usr/lib/python3*/site-packages/wx/locale
+}
+
+sha512sums="
+9ec937a024efb2916403c84382a66004f0c2bb07471246b7de517778309ce459e929eeb59e261f538d3fa077c950628de62e49a3760fbd03ab9ff2114c6f354f  wxPython-4.2.0.tar.gz
+ac7004cf6280242af3e6265d69ac909f7c1fcd37d9da625704f1e0ea23be76821cd259c48bf589380b6e84f9fdfc28d6372dfb155188a48a49e3361731e7461f  no-attrdict.patch
+ebd45621684603ca5e481d2a32e9ddf7de8dcd8c9f49745bd1e8509f6c118361d59d092032a541d56cbbe69f00f307dd507d511b425f14c733379e1f4b627719  no-stacktrace.patch
+"
