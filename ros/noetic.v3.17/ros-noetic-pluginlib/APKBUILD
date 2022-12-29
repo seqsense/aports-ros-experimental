@@ -1,7 +1,7 @@
 pkgname=ros-noetic-pluginlib
 _pkgname=pluginlib
 pkgver=1.13.0
-pkgrel=2
+pkgrel=5
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/pluginlib"
 arch="all"

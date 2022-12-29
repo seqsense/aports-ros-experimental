@@ -1,8 +1,47 @@
 diff --git a/include/pluginlib/class_loader_imp.hpp b/include/pluginlib/class_loader_imp.hpp
-index d45b591..3b0e030 100644
+index d45b591..ad01572 100644
 --- a/include/pluginlib/class_loader_imp.hpp
 +++ b/include/pluginlib/class_loader_imp.hpp
-@@ -422,11 +422,11 @@ std::string ClassLoader<T>::getClassLibraryPath(const std::string & lookup_name)
+@@ -99,8 +99,9 @@ template<class T>
+ ClassLoader<T>::~ClassLoader()
+ /***************************************************************************/
+ {
++  const char * base_class_name_c = getBaseClassType().c_str();
+   ROS_DEBUG_NAMED("pluginlib.ClassLoader", "Destroying ClassLoader, base = %s, address = %p",
+-    getBaseClassType().c_str(), this);
++    base_class_name_c, this);
+ }
+ 
+ 
+@@ -201,8 +202,9 @@ template<class T>
+ T * ClassLoader<T>::createUnmanagedInstance(const std::string & lookup_name)
+ /***************************************************************************/
+ {
++  const char * lookup_name_c = lookup_name.c_str();
+   ROS_DEBUG_NAMED("pluginlib.ClassLoader", "Attempting to create UNMANAGED instance for class %s.",
+-    lookup_name.c_str());
++    lookup_name_c);
+ 
+   if (!isClassLoaded(lookup_name)) {
+     loadLibraryForClass(lookup_name);
+@@ -214,14 +216,14 @@ T * ClassLoader<T>::createUnmanagedInstance(const std::string & lookup_name)
+       "Attempting to create instance through low level multi-library class loader.");
+     std::string class_type = getClassType(lookup_name);
+     ROS_DEBUG_NAMED("pluginlib.ClassLoader", "%s maps to real class type %s",
+-      lookup_name.c_str(), class_type.c_str());
++      lookup_name_c, class_type.c_str());
+     instance = lowlevel_class_loader_.createUnmanagedInstance<T>(class_type);
+     ROS_DEBUG_NAMED("pluginlib.ClassLoader", "Instance of type %s created.", class_type.c_str());
+   } catch (const class_loader::CreateClassException & ex) {
+     ROS_DEBUG_NAMED("pluginlib.ClassLoader",
+       "Exception raised by low-level multi-library class loader when attempting "
+       "to create UNMANAGED instance of class %s.",
+-      lookup_name.c_str());
++      lookup_name_c);
+     throw pluginlib::CreateClassException(ex.what());
+   }
+   return instance;
+@@ -422,11 +424,11 @@ std::string ClassLoader<T>::getClassLibraryPath(const std::string & lookup_name)
      return "";
    }
    ClassMapIterator it = classes_available_.find(lookup_name);
@@ -16,3 +55,20 @@ index d45b591..3b0e030 100644
      getAllLibraryPathsToTry(library_name, it->second.package_);
  
    ROS_DEBUG_NAMED("pluginlib.ClassLoader",
+@@ -691,14 +693,14 @@ void ClassLoader<T>::processSingleXMLPluginFile(
+         "Attribute 'path' in 'library' tag is missing in %s.", xml_file.c_str());
+       continue;
+     }
+-    std::string library_path(path);
++    const std::string library_path(path);
+     if (0 == library_path.size()) {
+       ROS_ERROR_NAMED("pluginlib.ClassLoader",
+         "Attribute 'path' in 'library' tag is missing in %s.", xml_file.c_str());
+       continue;
+     }
+ 
+-    std::string package_name = getPackageFromPluginXMLFilePath(xml_file);
++    const std::string package_name = getPackageFromPluginXMLFilePath(xml_file);
+     if ("" == package_name) {
+       ROS_ERROR_NAMED("pluginlib.ClassLoader",
+         "Could not find package manifest (neither package.xml or deprecated "
