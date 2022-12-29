@@ -2,7 +2,7 @@
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=py3-qt5
 pkgver=5.15.7
-pkgrel=1
+pkgrel=2
 pkgdesc="A set of Python 3 bindings for the Qt toolkit"
 url="https://www.riverbankcomputing.com/software/pyqt/"
 arch="all"
@@ -29,7 +29,8 @@ makedepends="
 	qt5-qtwebsockets-dev
 	qt5-qtx11extras-dev
 	"
-source="https://pypi.python.org/packages/source/P/PyQt5/PyQt5-$pkgver.tar.gz"
+source="https://pypi.python.org/packages/source/P/PyQt5/PyQt5-$pkgver.tar.gz
+	fix-sip-syntax-error.patch"
 builddir="$srcdir/PyQt5-$pkgver"
 
 prepare() {
@@ -57,4 +58,5 @@ package() {
 
 sha512sums="
 815065f88454f767525fdd2caf97b0192eaf6095133c9c708ee4efa3d222742720a169856be65c84400a6e8d42d69ae65697d7f9dd17b9b4a347d75db93c5129  PyQt5-5.15.7.tar.gz
+0dafc47aae60b743aff9e7870215586c183605b53eae146915b605e5ac839b7abc924677b447241bfd6cc3e1708d27e4abdc0f288ec8982950cc2d305b851dd6  fix-sip-syntax-error.patch
 "
