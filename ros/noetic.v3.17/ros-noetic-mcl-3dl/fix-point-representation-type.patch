@@ -1,0 +1,79 @@
+diff --git a/include/mcl_3dl/chunked_kdtree.h b/include/mcl_3dl/chunked_kdtree.h
+index 5238724..e9d6c56 100644
+--- a/include/mcl_3dl/chunked_kdtree.h
++++ b/include/mcl_3dl/chunked_kdtree.h
+@@ -109,7 +109,7 @@ public:
+     }
+   }
+   void setPointRepresentation(
+-      boost::shared_ptr<pcl::PointRepresentation<POINT_TYPE>> point_rep)
++      const typename pcl::PointRepresentation<POINT_TYPE>::ConstPtr point_rep)
+   {
+     point_rep_ = point_rep;
+     for (auto& chunk : chunks_)
+@@ -204,7 +204,9 @@ public:
+     for (auto& cloud : clouds)
+     {
+       if (point_rep_)
++      {
+         chunks_[cloud.first].kdtree_->setPointRepresentation(point_rep_);
++      }
+       if (set_epsilon_)
+         chunks_[cloud.first].kdtree_->setEpsilon(epsilon_);
+       auto cloud_ptr = cloud.second.makeShared();
+@@ -283,7 +285,7 @@ protected:
+   bool set_epsilon_;
+   bool keep_clouds_;
+   float epsilon_;
+-  boost::shared_ptr<pcl::PointRepresentation<POINT_TYPE>> point_rep_;
++  typename pcl::PointRepresentation<POINT_TYPE>::ConstPtr point_rep_;
+ 
+   using ChunkMap = std::unordered_map<ChunkId, Chunk, ChunkId>;
+   using ChunkCloud = std::unordered_map<ChunkId, typename pcl::PointCloud<POINT_TYPE>, ChunkId>;
+diff --git a/src/mcl_3dl.cpp b/src/mcl_3dl.cpp
+index 71219e6..b9f4bb1 100644
+--- a/src/mcl_3dl.cpp
++++ b/src/mcl_3dl.cpp
+@@ -111,6 +111,7 @@ protected:
+   class MyPointRepresentation : public pcl::PointRepresentation<PointType>
+   {
+     using pcl::PointRepresentation<PointType>::nr_dimensions_;
++    using pcl::PointRepresentation<PointType>::alpha_;
+ 
+   public:
+     MyPointRepresentation()
+@@ -118,6 +119,12 @@ protected:
+       nr_dimensions_ = 3;
+     }
+ 
++    MyPointRepresentation(const float *alpha)
++    {
++      nr_dimensions_ = 3;
++      std::copy_n(alpha, 3, alpha_.begin());
++    }
++
+     virtual void copyToFloatArray(const PointType& p, float* out) const
+     {
+       out[0] = p.x;
+@@ -1057,9 +1064,7 @@ protected:
+ 
+     pcl::KdTreeFLANN<PointType>::Ptr kdtree(new pcl::KdTreeFLANN<PointType>);
+     kdtree->setPointRepresentation(
+-        boost::dynamic_pointer_cast<
+-            pcl::PointRepresentation<PointType>,
+-            MyPointRepresentation>(boost::make_shared<MyPointRepresentation>(point_rep_)));
++        pcl::KdTree<mcl_3dl::PointXYZIL>::PointRepresentation::ConstPtr(&point_rep_));
+     kdtree->setInputCloud(points);
+ 
+     auto pc_filter = [this, kdtree](const PointType& p)
+@@ -1351,9 +1356,7 @@ public:
+     kdtree_.reset(new ChunkedKdtree<PointType>(params_.map_chunk_, max_search_radius));
+     kdtree_->setEpsilon(params_.map_grid_min_ / 16);
+     kdtree_->setPointRepresentation(
+-        boost::dynamic_pointer_cast<
+-            pcl::PointRepresentation<PointType>,
+-            MyPointRepresentation>(boost::make_shared<MyPointRepresentation>(point_rep_)));
++        pcl::PointRepresentation<PointType>::PointRepresentation::ConstPtr(&point_rep_));
+ 
+     map_update_timer_ = nh_.createTimer(
+         *params_.map_update_interval_,
