@@ -1,0 +1,18 @@
+diff --git a/include/pluginlib/class_loader_imp.hpp b/include/pluginlib/class_loader_imp.hpp
+index d45b591..3b0e030 100644
+--- a/include/pluginlib/class_loader_imp.hpp
++++ b/include/pluginlib/class_loader_imp.hpp
+@@ -422,11 +422,11 @@ std::string ClassLoader<T>::getClassLibraryPath(const std::string & lookup_name)
+     return "";
+   }
+   ClassMapIterator it = classes_available_.find(lookup_name);
+-  std::string library_name = it->second.library_name_;
++  const std::string library_name = it->second.library_name_;
+   ROS_DEBUG_NAMED("pluginlib.ClassLoader", "Class %s maps to library %s in classes_available_.",
+     lookup_name.c_str(), library_name.c_str());
+ 
+-  std::vector<std::string> paths_to_try =
++  const std::vector<std::string> paths_to_try =
+     getAllLibraryPathsToTry(library_name, it->second.package_);
+ 
+   ROS_DEBUG_NAMED("pluginlib.ClassLoader",
