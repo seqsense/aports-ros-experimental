@@ -31,31 +31,10 @@ index 5238724..e9d6c56 100644
    using ChunkMap = std::unordered_map<ChunkId, Chunk, ChunkId>;
    using ChunkCloud = std::unordered_map<ChunkId, typename pcl::PointCloud<POINT_TYPE>, ChunkId>;
 diff --git a/src/mcl_3dl.cpp b/src/mcl_3dl.cpp
-index 71219e6..b9f4bb1 100644
+index 71219e6..14adb6b 100644
 --- a/src/mcl_3dl.cpp
 +++ b/src/mcl_3dl.cpp
-@@ -111,6 +111,7 @@ protected:
-   class MyPointRepresentation : public pcl::PointRepresentation<PointType>
-   {
-     using pcl::PointRepresentation<PointType>::nr_dimensions_;
-+    using pcl::PointRepresentation<PointType>::alpha_;
- 
-   public:
-     MyPointRepresentation()
-@@ -118,6 +119,12 @@ protected:
-       nr_dimensions_ = 3;
-     }
- 
-+    MyPointRepresentation(const float *alpha)
-+    {
-+      nr_dimensions_ = 3;
-+      std::copy_n(alpha, 3, alpha_.begin());
-+    }
-+
-     virtual void copyToFloatArray(const PointType& p, float* out) const
-     {
-       out[0] = p.x;
-@@ -1057,9 +1064,7 @@ protected:
+@@ -1057,9 +1057,7 @@ protected:
  
      pcl::KdTreeFLANN<PointType>::Ptr kdtree(new pcl::KdTreeFLANN<PointType>);
      kdtree->setPointRepresentation(
@@ -66,7 +45,7 @@ index 71219e6..b9f4bb1 100644
      kdtree->setInputCloud(points);
  
      auto pc_filter = [this, kdtree](const PointType& p)
-@@ -1351,9 +1356,7 @@ public:
+@@ -1351,9 +1349,7 @@ public:
      kdtree_.reset(new ChunkedKdtree<PointType>(params_.map_chunk_, max_search_radius));
      kdtree_->setEpsilon(params_.map_grid_min_ / 16);
      kdtree_->setPointRepresentation(
