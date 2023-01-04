@@ -24,6 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
+export ROS_PACKAGE_PATH="$builddir/src/$_pkgname"
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: gennodejs, uri: 'https://github.com/RethinkRobotics-release/gennodejs-release.git',
     version: release/melodic/gennodejs/2.0.1-0}
@@ -61,6 +62,13 @@ check() {
   set -o pipefail
   echo "checking" >> $statuslog
   cd "$builddir"
+
+  if [ -z "$ROS_LOG_DIR" ]; then
+    logdir="$builddir/log"
+    mkdir -p "$logdir"
+    export ROS_LOG_DIR="$logdir"
+  fi
+
   source /usr/ros/melodic/setup.sh
   source devel_isolated/setup.sh
   catkin_make_isolated \
