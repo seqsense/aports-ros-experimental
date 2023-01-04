@@ -24,6 +24,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
+export ROS_PACKAGE_PATH="$builddir/src/$_pkgname"
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: ifm3d_core, uri: 'https://github.com/ifm/ifm3d-release.git', version: release/melodic/ifm3d_core/0.18.0-1}
 "
