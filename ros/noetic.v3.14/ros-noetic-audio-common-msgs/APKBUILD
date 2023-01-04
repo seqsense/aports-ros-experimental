@@ -1,14 +1,14 @@
 pkgname=ros-noetic-audio-common-msgs
 _pkgname=audio_common_msgs
-pkgver=0.3.15
+pkgver=0.3.16
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/audio_common_msgs"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-message-runtime ros-noetic-message-runtime"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-message-generation"
+depends="ros-noetic-message-runtime ros-noetic-std-msgs ros-noetic-message-runtime ros-noetic-std-msgs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-message-generation ros-noetic-std-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -28,7 +28,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: audio_common_msgs
     uri: https://github.com/ros-gbp/audio_common-release.git
-    version: release/noetic/audio_common_msgs/0.3.15-1
+    version: release/noetic/audio_common_msgs/0.3.16-1
 "
 
 prepare() {
