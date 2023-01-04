@@ -1,8 +1,8 @@
 diff --git a/include/ros/publisher.h b/include/ros/publisher.h
-index c5d1b71bf..ca84e7cc5 100644
+index c5d1b71bf..e67a1ec84 100644
 --- a/include/ros/publisher.h
 +++ b/include/ros/publisher.h
-@@ -80,10 +80,10 @@ namespace ros
+@@ -80,10 +80,9 @@ namespace ros
          if (impl_->md5sum_ == "*" ||
              std::string(mt::md5sum<M>(*message)) == "*" ||
              impl_->md5sum_ == mt::md5sum<M>(*message)) {
@@ -10,14 +10,13 @@ index c5d1b71bf..ca84e7cc5 100644
 -                    "publisher with type [%s/%s]",
 -                    mt::datatype<M>(*message), mt::md5sum<M>(*message),
 -                    impl_->datatype_.c_str(), impl_->md5sum_.c_str());
-+          // ROS_DEBUG_ONCE("Trying to publish message of type [%s/%s] on a "
-+          //           "publisher with type [%s/%s]",
-+          //           mt::datatype<M>(*message), mt::md5sum<M>(*message),
-+          //           impl_->datatype_.c_str(), impl_->md5sum_.c_str());
++          ROS_DEBUG_STREAM_ONCE("Trying to publish message of type ["
++                    << mt::datatype<M>(*message) << "/" << mt::md5sum<M>(*message) << "] on a "
++                    << "publisher with type [" << impl_->datatype_ << "/" << impl_->md5sum_ << "]");
          }
  
        SerializedMessage m;
-@@ -116,10 +116,10 @@ namespace ros
+@@ -116,10 +115,9 @@ namespace ros
          if (impl_->md5sum_ == "*" ||
              std::string(mt::md5sum<M>(message)) == "*" ||
              impl_->md5sum_ == mt::md5sum<M>(message)) {
@@ -25,15 +24,14 @@ index c5d1b71bf..ca84e7cc5 100644
 -                    "publisher with type [%s/%s]",
 -                    mt::datatype<M>(message), mt::md5sum<M>(message),
 -                    impl_->datatype_.c_str(), impl_->md5sum_.c_str());
-+          // ROS_DEBUG_ONCE("Trying to publish message of type [%s/%s] on a "
-+          //           "publisher with type [%s/%s]",
-+          //           mt::datatype<M>(message), mt::md5sum<M>(message),
-+          //           impl_->datatype_.c_str(), impl_->md5sum_.c_str());
++          ROS_DEBUG_STREAM_ONCE("Trying to publish message of type ["
++                    << mt::datatype<M>(message) << "/" << mt::md5sum<M>(message) << "] on a "
++                    << "publisher with type [" << impl_->datatype_ << "/" << impl_->md5sum_ << "]");
          }
  
        SerializedMessage m;
 diff --git a/include/ros/subscription_callback_helper.h b/include/ros/subscription_callback_helper.h
-index fca3b5f44..7941ca29c 100644
+index fca3b5f44..b5e5a6eda 100644
 --- a/include/ros/subscription_callback_helper.h
 +++ b/include/ros/subscription_callback_helper.h
 @@ -123,7 +123,7 @@ public:
@@ -41,7 +39,7 @@ index fca3b5f44..7941ca29c 100644
      if (!msg)
      {
 -      ROS_DEBUG("Allocation failed for message of type [%s]", getTypeInfo().name());
-+      // ROS_DEBUG("Allocation failed for message of type [%s]", getTypeInfo().name());
++      ROS_DEBUG_STREAM("Allocation failed for message of type [" << getTypeInfo().name() << "]");
        return VoidConstPtr();
      }
  
