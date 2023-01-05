@@ -1,0 +1,33 @@
+pkgname=py3-colcon-installed-package-information
+_pkgname=colcon-installed-package-information
+pkgver=0.1.0
+pkgrel=0
+pkgdesc="Extensions for colcon to inspect packages which have already been installed"
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="python3 py3-colcon-core"
+makedepends="py3-setuptools"
+checkdepends="py3-pip py3-pytest py3-flake8"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        python3 setup.py build
+}
+
+check() {
+        pip3 install -U pip setuptools
+        pip3 install -e .[test]
+        python3 -m pytest
+}
+
+package() {
+        python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="5c65442747c8dcdee9ce25e95eb1258a2fd82e23b00bb7575639f4dbc2a7593757c79653ebc9a5e8ea3799349d363995b4a98918aeda285559ed8c695e12b840  colcon-installed-package-information-0.1.0.tar.gz"

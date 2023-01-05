@@ -1,0 +1,33 @@
+pkgname=py3-colcon-devtools
+_pkgname=colcon-devtools
+pkgver=0.2.3
+pkgrel=0
+pkgdesc="Extension for colcon to provide information about all extension points and extensions"
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="python3 py3-colcon-core"
+makedepends="py3-setuptools"
+checkdepends="py3-pip py3-pytest py3-flake8"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        python3 setup.py build
+}
+
+check() {
+        pip3 install -U pip setuptools
+        pip3 install -e .[test]
+        python3 -m pytest
+}
+
+package() {
+        python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="66edd287f300f54837b28837c9edd35de61d3f091501188daac53d0583bedc3a6468c45a72fd4497166650767304c2c5fa43e6e855fb333a60c128fc449abd51  colcon-devtools-0.2.3.tar.gz"
