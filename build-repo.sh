@@ -2,7 +2,11 @@
 
 set -e
 
-mkdir -p /cache/apk /cache/ccache
+ls -la /cache
+sudo chmod o+w /cache
+mkdir -p \
+  /cache/apk \
+  /cache/ccache
 
 ALPINE_VERSION=${ALPINE_VERSION:-$(cat /etc/alpine-release | cut -d. -f1-2)}
 
@@ -51,9 +55,13 @@ echo
 if [ ! -f ${PACKAGER_PRIVKEY} ]; then
   echo "======== WARN: PACKAGER_PRIVKEY is not present ======="
   abuild-keygen -a -i -n
-  sudo cp ${HOME}/.abuild/*.pub /etc/apk/keys/
   RESIGN=true
+else
+  echo "Using ${PACKAGER_PRIVKEY}"
+  openssl rsa -in ${PACKAGER_PRIVKEY} -pubout | sudo tee ${PACKAGER_PRIVKEY}.pub
 fi
+
+sudo cp ${HOME}/.abuild/*.pub /etc/apk/keys/
 
 if ${RESIGN:-false}
 then
@@ -179,6 +187,7 @@ do
 
   # Move noarch packages
 
+  mkdir -p ${REPODIR}/${repo_out}/noarch/
   rm ${REPODIR}/${repo_out}/noarch/*.apk || true
   cat ${tmpdir}/APKINDEX \
     | sed -n '/^P:/{s/^\S:\(.*\)$/\1 ARCH/p; {:l; n; /^A:/{s/^\S://p; d;}; b l;}};' \
@@ -188,7 +197,6 @@ do
     arch=$(echo ${apk} | cut -f2 -d" ")
     if [ "${arch}" = "noarch" ]; then
       echo "${pkg} is noarch"
-      mkdir -p ${REPODIR}/${repo_out}/noarch/
       mv ${REPODIR}/${repo_out}/x86_64/${pkg}-* ${REPODIR}/${repo_out}/noarch/
     fi
   done
@@ -207,6 +215,11 @@ do
     exit ${exit_code}
   fi
 
+  # Register new local repository
+
+  if ! grep -F "${REPODIR}/${repo_out}" /etc/apk/repositories; then
+    echo "${REPODIR}/${repo_out}" | sudo tee -a /etc/apk/repositories
+  fi
 
   # Test dependencies
 

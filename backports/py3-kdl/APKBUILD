@@ -2,8 +2,8 @@
 # Maintainer:
 pkgname=py3-kdl
 _pkgname=orocos_kinematics_dynamics
-pkgver=1.3.2_git20210213
-pkgrel=2
+pkgver=1.5.1
+pkgrel=0
 pkgdesc="Python binding of Orocos Kinematics and Dynamics library"
 url="https://github.com/orocos/orocos_kinematics_dynamics"
 arch="all"
@@ -13,10 +13,10 @@ makedepends="python3-dev py3-pybind11-dev cmake eigen-dev pkgconfig orocos-kdl-d
 checkdepends="py3-psutil"
 subpackages="$pkgname-doc"
 options="!check"  # test fails due to floating point calculation error
-source="$_pkgname-$pkgver.tar.gz::https://github.com/orocos/$_pkgname/tarball/73721147ef7339df11a6a587f15db73410168873
+source="$_pkgname-$pkgver.tar.gz::https://github.com/orocos/$_pkgname/archive/refs/tags/v$pkgver.tar.gz
   use-system-pybind11.patch"
 
-builddir="$srcdir/orocos-$_pkgname-7372114"
+builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
   mkdir -p $builddir/python_orocos_kdl/build
@@ -51,5 +51,5 @@ package() {
 	install -Dm644 "$builddir"/orocos_kdl/COPYING "$pkgdir"/usr/share/licenses/$pkgname/py3-kdl/COPYING
 }
 
-sha512sums="93024aea96e96cd59e79c7321dc40c77b678d131fb58a33d82a5bcb670d5194a0602d99d0ea3d7f66b3f75638fa68b0764305d9d49f9a7be49eb12f5c2392460  orocos_kinematics_dynamics-1.3.2_git20210213.tar.gz
-77afa4b028d0217a3abc37d6734bc431119a0caead855364740a64cfbb177d46548c15a5c736874695703f6a08fd074eeebdfd8f99f6b6a2785d0a6e801d587e  use-system-pybind11.patch"
+sha512sums="9774b76b755ea81168390643813789783f60d0b1cdb46cd250e3e0d27f75a6cf2fd3bfd2081c04e30a14ff4fc70d0080c9b43b82ee181c2dda82f23f052b338d  orocos_kinematics_dynamics-1.5.1.tar.gz
+dae7a9b67f914072b6fd90c312745859adf9d2ad8dcee7d3f4a1fe9078bfee3ede05c8dfcfeeefb2b80b623f2459b3230b7b5a0307c2d40d1b528b03b413e983  use-system-pybind11.patch"

@@ -1,7 +1,7 @@
 # Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
 # Maintainer:
 pkgname=console_bridge
-pkgver=0.5.1
+pkgver=1.0.2
 pkgrel=0
 pkgdesc="Package for logging that seamlessly pipes into rosconsole/rosout for ROS-dependent packages"
 url="https://github.com/ros/console_bridge/"
@@ -31,6 +31,7 @@ build() {
 
 check() {
   cd "$builddir"/build
+  export AMENT_CPPCHECK_ALLOW_SLOW_VERSIONS=1
   make test ARGS="-VV"
 }
 
@@ -41,6 +42,6 @@ package() {
   cd "$builddir"
   install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
-sha512sums="d64b1b88d2464fe334b99cad1d7146f39e3d51ec7a7c6291804feae53a54858d321ae27a251bcb0b6984d2dabe9445b005d4d2f31c43001339a8e6c50a25494f  console_bridge-0.5.1.tar.gz
+sha512sums="ed427da8e59f9629f8d70e0a14415f88177c06fbaf7334bee56135dde91d19a1b54f5c9c668e0fd68314ab8dfd61446a174b9f528304decc5d4626a7c98882cb  console_bridge-1.0.2.tar.gz
 d06771cc5adcd5230d24e9e25751b3ee716024855b0d1c02d30e4792a82e2544cf48161527af27a033a003b85aaf52776ce16f56ef74006cc704fc987a220055  cmake_config_install_dir.patch
 a0991ef978fca6b2933987e69b43383a5ae3fcf4bbc5c1b34711a62b1e83fe61c93a1a4ef8c59898cadefeda218dbdcf29368369d06d6bc4d0fa08c7293866ce  disable-broken-lint.patch"

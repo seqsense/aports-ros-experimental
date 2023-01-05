@@ -1,0 +1,55 @@
+# Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
+# Maintainer:
+pkgname=py3-kdl
+_pkgname=orocos_kinematics_dynamics
+pkgver=1.3.2_git20210213
+pkgrel=2
+pkgdesc="Python binding of Orocos Kinematics and Dynamics library"
+url="https://github.com/orocos/orocos_kinematics_dynamics"
+arch="all"
+license="LGPL-2"
+depends="python3 orocos-kdl"
+makedepends="python3-dev py3-pybind11-dev cmake eigen-dev pkgconfig orocos-kdl-dev>=${pkgver}"
+checkdepends="py3-psutil"
+subpackages="$pkgname-doc"
+options="!check"  # test fails due to floating point calculation error
+source="$_pkgname-$pkgver.tar.gz::https://github.com/orocos/$_pkgname/tarball/73721147ef7339df11a6a587f15db73410168873
+  use-system-pybind11.patch"
+
+builddir="$srcdir/orocos-$_pkgname-7372114"
+
+build() {
+  mkdir -p $builddir/python_orocos_kdl/build
+  cd $builddir/python_orocos_kdl/build
+  ROS_PYTHON_VERSION=3 \
+  cmake .. \
+    -DPYTHON_EXECUTABLE=$(python3 -c "import sys; print(sys.executable)") \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_SHARED_LIBS=ON
+  make
+}
+
+check() {
+  cd $builddir/python_orocos_kdl
+  PYTHONPATH=$builddir/python_orocos_kdl/build python3 tests/PyKDLtest.py
+}
+
+package() {
+  mkdir -p "$pkgdir"
+
+  cd $builddir/python_orocos_kdl/build
+  make DESTDIR="$pkgdir" install
+
+  pydir=$(ls -1d $pkgdir/usr/lib/python3.* | head -n1)
+  mkdir -p ${pydir}/site-packages
+  mv ${pydir}/dist-packages/* ${pydir}/site-packages/
+  rm -rf ${pydir}/dist-packages
+
+	# Install license files
+	install -Dm644 "$builddir"/orocos_kdl/COPYING "$pkgdir"/usr/share/licenses/$pkgname/py3-kdl/COPYING
+}
+
+sha512sums="93024aea96e96cd59e79c7321dc40c77b678d131fb58a33d82a5bcb670d5194a0602d99d0ea3d7f66b3f75638fa68b0764305d9d49f9a7be49eb12f5c2392460  orocos_kinematics_dynamics-1.3.2_git20210213.tar.gz
+77afa4b028d0217a3abc37d6734bc431119a0caead855364740a64cfbb177d46548c15a5c736874695703f6a08fd074eeebdfd8f99f6b6a2785d0a6e801d587e  use-system-pybind11.patch"

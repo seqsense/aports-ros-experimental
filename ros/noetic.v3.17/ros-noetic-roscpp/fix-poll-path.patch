@@ -1,0 +1,12 @@
+diff --git a/include/ros/io.h b/include/ros/io.h
+index 19db3d790..f2558e837 100644
+--- a/include/ros/io.h
++++ b/include/ros/io.h
+@@ -53,7 +53,6 @@
+ 	#include <process.h> // for _getpid
+ #else
+ 	#include <poll.h> // should get cmake to explicitly check for poll.h?
+-	#include <sys/poll.h>
+ 	#include <arpa/inet.h>
+ 	#include <netdb.h>
+     #include <unistd.h>

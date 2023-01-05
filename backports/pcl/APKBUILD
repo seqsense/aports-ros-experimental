@@ -1,19 +1,18 @@
 # Contributor: Bradley J Chambers <brad.chambers@gmail.com>
 # Maintainer: Bradley J Chambers <brad.chambers@gmail.com>
 pkgname=pcl
-pkgver=1.10.1
-pkgrel=2
+pkgver=1.13.0
+pkgrel=1
 pkgdesc="Point Cloud Library (PCL)"
 url="https://github.com/PointCloudLibrary/pcl"
 arch="all !x86 !s390x" # tests fails on x86 and s390x
 license="BSD-3-Clause"
-depends_dev="eigen-dev boost-dev flann-dev qhull-dev<8.0.0 vtk8-dev"
-makedepends="cmake eigen-dev boost-dev flann-dev qhull-dev<8.0.0 vtk8-dev"
+depends_dev="eigen-dev boost-dev flann-dev qhull-dev qhull-static vtk-dev"
+makedepends="cmake eigen-dev boost-dev flann-dev qhull-dev qhull-static vtk-dev"
 subpackages="$pkgname-dev $pkgname-doc"
 _gtestver=1.8.0
 source="$pkgname-$pkgver.tar.gz::https://github.com/PointCloudLibrary/$pkgname/archive/$pkgname-$pkgver.tar.gz
-  release-$_gtestver.tar.gz::https://github.com/google/googletest/archive/release-$_gtestver.tar.gz
-  fix-fcntl-path.patch"
+  release-$_gtestver.tar.gz::https://github.com/google/googletest/archive/release-$_gtestver.tar.gz"
 builddir="$srcdir/$pkgname-$pkgname-$pkgver"
 
 build() {
@@ -77,6 +76,5 @@ check() {
   make tests
 }
 
-sha512sums="abb0acef3c6f49da02684200531cef8080baa67d9b94c30edc0d5244294a531e41c14b46b378bd927829de0e3921fec04fd389afe9db45cdd78a262c095a6a9f  pcl-1.10.1.tar.gz
-1dbece324473e53a83a60601b02c92c089f5d314761351974e097b2cf4d24af4296f9eb8653b6b03b1e363d9c5f793897acae1f0c7ac40149216035c4d395d9d  release-1.8.0.tar.gz
-83a5a5adc066a15c5db0fa0bf45cc57d606603cce3e5f27dcf5899cd12282ec2e9f5322f807734f1e998c1e2f4b28e40dc60dd65a6bee0ed341874ebdf2f1223  fix-fcntl-path.patch"
+sha512sums="0dd0f1799d1df84662b59158c06beb452b6d1679a01322abc065e2e1c8edf82359e8bc8f28a16ec305d76bdc9fc3a4e3950593b8b85aa9d4bb5e2a087e0fc8a6  pcl-1.13.0.tar.gz
+1dbece324473e53a83a60601b02c92c089f5d314761351974e097b2cf4d24af4296f9eb8653b6b03b1e363d9c5f793897acae1f0c7ac40149216035c4d395d9d  release-1.8.0.tar.gz"

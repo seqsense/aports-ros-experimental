@@ -1,0 +1,36 @@
+# Contributor: Florent Ferreri <florent@seqsense.com>
+# Maintainer:
+pkgname=py3-vcstool
+_pkgname=vcstool
+pkgver=0.3.0
+pkgrel=3
+pkgdesc="Vcstool is a command line tool designed to make working with multiple repositories easier"
+url="https://pypi.org/project/vcstool/"
+arch="noarch"
+license="Apache-2.0"
+depends="py3-yaml"
+makedepends="python3-dev py3-setuptools git"
+subpackages="$pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/dirk-thomas/$_pkgname/archive/$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python3 setup.py check
+}
+
+package() {
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+	# Install license files
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="f50ec4c23fce65f71ec0070b709840150f6a90b0620dd937c234c408951b4eb6ad9d53d841d3862ce7ece54c15458fd9db434341fd4a1eabb40a7084fb71b101  py3-vcstool-0.3.0.tar.gz"
