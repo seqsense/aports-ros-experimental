@@ -87,7 +87,6 @@ package() {
   cd "$builddir"
   export DESTDIR="$pkgdir"
 
-
   cd src/$_pkgname/build
   make install
 

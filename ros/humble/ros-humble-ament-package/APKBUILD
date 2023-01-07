@@ -79,7 +79,6 @@ package() {
   mkdir -p "$pkgdir"
   cd "$builddir"
 
-
   cd src/$_pkgname
   python setup.py install \
     --root="$pkgdir" \

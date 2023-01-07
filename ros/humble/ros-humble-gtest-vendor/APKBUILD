@@ -87,7 +87,6 @@ package() {
   cd "$builddir"
   export DESTDIR="$pkgdir"
 
-
   source /usr/ros/humble/setup.sh
   cd src/$_pkgname/build
   make install
