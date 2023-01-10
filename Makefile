@@ -13,6 +13,8 @@ STACK_PROTECTOR        ?= on
 BUILDER_TAG             = $(ROS_DISTRO)$(shell \
   if [ $(ROS_DISTRO) = "noetic" ] && [ $(ALPINE_VERSION) != "3.11" ]; then \
     echo -n ".v$(ALPINE_VERSION)"; \
+	elif [ $(ROS_DISTRO) = "humble" ]; then \
+		echo -n ".v$(ALPINE_VERSION)"; \
   fi)
 
 REPOSITORY              = backports ros/$(BUILDER_TAG)
