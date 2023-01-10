@@ -54,7 +54,7 @@ build() {
   echo "building" > $statuslog
   cd "$builddir"
   cd src/$_pkgname
-  python setup.py build
+  python setup.py build 2>&1 | tee $buildlog
 }
 
 check() {
@@ -66,7 +66,7 @@ check() {
   echo "checking" >> $statuslog
   cd "$builddir"
   cd src/$_pkgname
-  python -m pytest
+  python -m pytest 2>&1 | tee $buildlog
 }
 
 dbg() {
@@ -82,7 +82,7 @@ package() {
   cd src/$_pkgname
   python setup.py install \
     --root="$pkgdir" \
-    --prefix=/usr/ros/humble
+    --prefix=/usr/ros/humble 2>&1 | tee $buildlog
 
   # Tweak invalid RPATH
   find $pkgdir -name "*.so" | while read so; do
