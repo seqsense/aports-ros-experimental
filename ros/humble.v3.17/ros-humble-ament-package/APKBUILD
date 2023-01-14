@@ -8,7 +8,7 @@ arch="all"
 license="Apache License 2.0"
 
 depends="py3-importlib-metadata py3-importlib-resources py3-setuptools"
-makedepends="chrpath py3-rosdep py3-rosinstall py3-rosinstall-generator py3-setuptools py3-vcstool py3-flake8 py3-importlib-metadata py3-importlib-resources py3-pytest py3-setuptools"
+makedepends="chrpath py3-pytest py3-rosdep py3-rosinstall py3-rosinstall-generator py3-setuptools py3-vcstool py3-flake8 py3-importlib-metadata py3-importlib-resources py3-pytest py3-setuptools"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -53,8 +53,11 @@ build() {
   set -o pipefail
   echo "building" > $statuslog
   cd "$builddir"
+  # Directory to place intermediate files
+  mkdir -p "$builddir"/tmp
   cd src/$_pkgname
-  python setup.py build 2>&1 | tee $buildlog
+  python setup.py egg_info --egg-base="$builddir"/tmp 2>&1 | tee $buildlog
+  python setup.py build --build-base="$builddir"/tmp/build 2>&1 | tee $buildlog
 }
 
 check() {
@@ -65,8 +68,19 @@ check() {
   set -o pipefail
   echo "checking" >> $statuslog
   cd "$builddir"
+  export PYTHONPATH="$builddir"/tmp:${PYTHONPATH}
   cd src/$_pkgname
-  python -m pytest 2>&1 | tee $buildlog
+  TEST_TARGET=$(ls -d */ | grep -m1 "\(test\|tests\)") || true
+  if [ -z "$TEST_TARGET" ]; then
+    echo "No \"test\" or \"tests\" directory. Check skipped" | tee $checklog
+    return 0
+  fi
+  USE_PYTEST=$(grep pytest setup.py)
+  if [ -n "$USE_PYTEST"]; then
+    python -m pytest 2>&1 | tee $checklog
+  else
+    python setup.py test 2>&1 | tee $checklog
+  fi
 }
 
 dbg() {
@@ -80,9 +94,12 @@ package() {
   cd "$builddir"
 
   cd src/$_pkgname
-  python setup.py install \
+  python setup.py \
+    build \
+    --build-base="$builddir"/tmp/build \
+    install \
     --root="$pkgdir" \
-    --prefix=/usr/ros/humble 2>&1 | tee $buildlog
+    --prefix=/usr/ros/humble
 
   # Tweak invalid RPATH
   find $pkgdir -name "*.so" | while read so; do
