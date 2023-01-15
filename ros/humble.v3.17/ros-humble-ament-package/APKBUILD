@@ -76,7 +76,7 @@ check() {
     return 0
   fi
   USE_PYTEST=$(grep pytest setup.py)
-  if [ -n "$USE_PYTEST"]; then
+  if [ -n "$USE_PYTEST" ]; then
     python -m pytest 2>&1 | tee $checklog
   else
     python setup.py test 2>&1 | tee $checklog
