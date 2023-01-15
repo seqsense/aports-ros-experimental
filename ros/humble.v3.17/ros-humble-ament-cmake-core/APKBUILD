@@ -53,9 +53,9 @@ build() {
   set -o pipefail
   echo "building" > $statuslog
   cd "$builddir"
-  mkdir src/$_pkgname/build
-  cd src/$_pkgname/build
-  cmake .. \
+  mkdir build
+  cd build
+  cmake ../src/$_pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr/ros/humble \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_LIBDIR=lib 2>&1 | tee $buildlog
@@ -70,7 +70,7 @@ check() {
   set -o pipefail
   echo "checking" >> $statuslog
   cd "$builddir"
-  cd src/$_pkgname/build
+  cd build
   if [ $(make -q test > /dev/null 2> /dev/null; echo $?) -eq 1 ]; then
     make test 2>&1 | tee $checklog
   fi
@@ -87,7 +87,7 @@ package() {
   cd "$builddir"
   export DESTDIR="$pkgdir"
 
-  cd src/$_pkgname/build
+  cd build
   make install
 
   # Tweak invalid RPATH
