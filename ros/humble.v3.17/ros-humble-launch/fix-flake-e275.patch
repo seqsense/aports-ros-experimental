@@ -1,0 +1,55 @@
+diff --git a/launch/frontend/parse_substitution.py b/launch/frontend/parse_substitution.py
+index e294e4e..f1ebcfc 100644
+--- a/launch/frontend/parse_substitution.py
++++ b/launch/frontend/parse_substitution.py
+@@ -39,7 +39,7 @@ class ExtractSubstitution(Transformer):
+     """Extract a substitution."""
+ 
+     def part(self, content):
+-        assert(len(content) == 1)
++        assert (len(content) == 1)
+         content = content[0]
+         if isinstance(content, Token):
+             assert content.type.endswith('_RSTRING')
+diff --git a/test/launch/actions/test_push_and_pop_environment.py b/test/launch/actions/test_push_and_pop_environment.py
+index 8a61fd5..81fec25 100644
+--- a/test/launch/actions/test_push_and_pop_environment.py
++++ b/test/launch/actions/test_push_and_pop_environment.py
+@@ -32,7 +32,7 @@ def test_push_and_pop_environment_constructors():
+ @sandbox_environment_variables
+ def test_push_and_pop_environment_execute():
+     """Test the execute() of the PopEnvironment and PushEnvironment classes."""
+-    assert(type(os.environ) == os._Environ)
++    assert (type(os.environ) == os._Environ)
+ 
+     context = LaunchContext()
+ 
+@@ -88,4 +88,4 @@ def test_push_and_pop_environment_execute():
+     assert context.environment['foo'] == 'FOO'
+ 
+     # Pushing and popping the environment should not change the type of os.environ
+-    assert(type(os.environ) == os._Environ)
++    assert (type(os.environ) == os._Environ)
+diff --git a/test/launch/frontend/test_parser.py b/test/launch/frontend/test_parser.py
+index 358b2df..cd91913 100644
+--- a/test/launch/frontend/test_parser.py
++++ b/test/launch/frontend/test_parser.py
+@@ -48,8 +48,8 @@ def test_invalid_launch_extension():
+         }
+         with warnings.catch_warnings(record=True) as caught_warnings:
+             Parser.load_launch_extensions()
+-            assert(caught_warnings)
+-            assert('Failed to load the launch' in str(caught_warnings[0]))
++            assert (caught_warnings)
++            assert ('Failed to load the launch' in str(caught_warnings[0]))
+ 
+ 
+ def test_invalid_parser_implementations():
+@@ -61,5 +61,5 @@ def test_invalid_parser_implementations():
+ 
+         with warnings.catch_warnings(record=True) as caught_warnings:
+             Parser.load_parser_implementations()
+-            assert(caught_warnings)
+-            assert('Failed to load the parser' in str(caught_warnings[0]))
++            assert (caught_warnings)
++            assert ('Failed to load the parser' in str(caught_warnings[0]))
