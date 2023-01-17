@@ -1,0 +1,1075 @@
+diff --git a/include/rcutils/allocator.h b/include/rcutils/allocator.h
+index b6c76ba..90ece71 100644
+--- a/include/rcutils/allocator.h
++++ b/include/rcutils/allocator.h
+@@ -120,16 +120,16 @@ rcutils_allocator_is_valid(const rcutils_allocator_t * allocator);
+
+ /// Check the given allocator and run fail_statement if it is not valid.
+ #define RCUTILS_CHECK_ALLOCATOR(allocator, fail_statement) \
+-  if (!rcutils_allocator_is_valid(allocator)) { \
+-    fail_statement; \
+-  }
++        if (!rcutils_allocator_is_valid(allocator)) { \
++          fail_statement; \
++        }
+
+ /// Check the given allocator, and set the message in msg and run fail_statement if it is not valid.
+ #define RCUTILS_CHECK_ALLOCATOR_WITH_MSG(allocator, msg, fail_statement) \
+-  if (!rcutils_allocator_is_valid(allocator)) { \
+-    RCUTILS_SET_ERROR_MSG(msg); \
+-    fail_statement; \
+-  }
++        if (!rcutils_allocator_is_valid(allocator)) { \
++          RCUTILS_SET_ERROR_MSG(msg); \
++          fail_statement; \
++        }
+
+ /// Emulate the behavior of [reallocf](https://linux.die.net/man/3/reallocf).
+ /**
+diff --git a/include/rcutils/error_handling.h b/include/rcutils/error_handling.h
+index 23e84fa..1e398a6 100644
+--- a/include/rcutils/error_handling.h
++++ b/include/rcutils/error_handling.h
+@@ -47,11 +47,11 @@ extern "C"
+  * non-null terminated.
+  */
+ #define RCUTILS_SAFE_FWRITE_TO_STDERR(msg) \
+-  do {fwrite(msg, sizeof(char), strnlen_s(msg, 4096), stderr);} while (0)
++        do {fwrite(msg, sizeof(char), strnlen_s(msg, 4096), stderr);} while (0)
+ #else
+ /// Write the given msg out to stderr.
+ #define RCUTILS_SAFE_FWRITE_TO_STDERR(msg) \
+-  do {fwrite(msg, sizeof(char), strlen(msg), stderr);} while (0)
++        do {fwrite(msg, sizeof(char), strlen(msg), stderr);} while (0)
+ #endif
+
+ /// Set the error message to stderr using a format string and format arguments.
+@@ -64,15 +64,16 @@ extern "C"
+  * \param[in] ... Arguments for the format string.
+  */
+ #define RCUTILS_SAFE_FWRITE_TO_STDERR_WITH_FORMAT_STRING(format_string, ...) \
+-  do { \
+-    char output_msg[RCUTILS_ERROR_MESSAGE_MAX_LENGTH]; \
+-    int ret = rcutils_snprintf(output_msg, sizeof(output_msg), format_string, __VA_ARGS__); \
+-    if (ret < 0) { \
+-      RCUTILS_SAFE_FWRITE_TO_STDERR("Failed to call snprintf for error message formatting\n"); \
+-    } else { \
+-      RCUTILS_SAFE_FWRITE_TO_STDERR(output_msg); \
+-    } \
+-  } while (0)
++        do { \
++          char output_msg[RCUTILS_ERROR_MESSAGE_MAX_LENGTH]; \
++          int ret = rcutils_snprintf(output_msg, sizeof(output_msg), format_string, __VA_ARGS__); \
++          if (ret < 0) { \
++            RCUTILS_SAFE_FWRITE_TO_STDERR( \
++              "Failed to call snprintf for error message formatting\n"); \
++          } else { \
++            RCUTILS_SAFE_FWRITE_TO_STDERR(output_msg); \
++          } \
++        } while (0)
+
+ /// The maximum length a formatted number is allowed to have.
+ #define RCUTILS_ERROR_STATE_LINE_NUMBER_STR_MAX_LENGTH 20  // "18446744073709551615"
+@@ -95,11 +96,11 @@ extern "C"
+  * With RCUTILS_ERROR_STATE_MESSAGE_MAX_LENGTH = 768, RCUTILS_ERROR_STATE_FILE_MAX_LENGTH == 229
+  */
+ #define RCUTILS_ERROR_STATE_FILE_MAX_LENGTH ( \
+-    RCUTILS_ERROR_MESSAGE_MAX_LENGTH - \
+-    RCUTILS_ERROR_STATE_MESSAGE_MAX_LENGTH - \
+-    RCUTILS_ERROR_STATE_LINE_NUMBER_STR_MAX_LENGTH - \
+-    RCUTILS_ERROR_FORMATTING_CHARACTERS - \
+-    1)
++          RCUTILS_ERROR_MESSAGE_MAX_LENGTH - \
++          RCUTILS_ERROR_STATE_MESSAGE_MAX_LENGTH - \
++          RCUTILS_ERROR_STATE_LINE_NUMBER_STR_MAX_LENGTH - \
++          RCUTILS_ERROR_FORMATTING_CHARACTERS - \
++          1)
+
+ /// Struct wrapping a fixed-size c string used for returning the formatted error string.
+ typedef struct rcutils_error_string_s
+@@ -202,9 +203,9 @@ rcutils_set_error_state(const char * error_string, const char * file, size_t lin
+  * \param[in] error_return_type The type to return if the argument is `NULL`.
+  */
+ #define RCUTILS_CHECK_ARGUMENT_FOR_NULL(argument, error_return_type) \
+-  RCUTILS_CHECK_FOR_NULL_WITH_MSG( \
+-    argument, #argument " argument is null", \
+-    return error_return_type)
++        RCUTILS_CHECK_FOR_NULL_WITH_MSG( \
++          argument, #argument " argument is null", \
++          return error_return_type)
+
+ /// Check a value for null, with an error message and error statement.
+ /**
+@@ -216,12 +217,12 @@ rcutils_set_error_state(const char * error_string, const char * file, size_t lin
+  * \param[in] error_statement The statement to evaluate if `value` is `NULL`.
+  */
+ #define RCUTILS_CHECK_FOR_NULL_WITH_MSG(value, msg, error_statement) \
+-  do { \
+-    if (NULL == value) { \
+-      RCUTILS_SET_ERROR_MSG(msg); \
+-      error_statement; \
+-    } \
+-  } while (0)
++        do { \
++          if (NULL == value) { \
++            RCUTILS_SET_ERROR_MSG(msg); \
++            error_statement; \
++          } \
++        } while (0)
+
+ /// Set the error message, as well as append the current file and line number.
+ /**
+@@ -234,7 +235,7 @@ rcutils_set_error_state(const char * error_string, const char * file, size_t lin
+  * \param[in] msg The error message to be set.
+  */
+ #define RCUTILS_SET_ERROR_MSG(msg) \
+-  do {rcutils_set_error_state(msg, __FILE__, __LINE__);} while (0)
++        do {rcutils_set_error_state(msg, __FILE__, __LINE__);} while (0)
+
+ /// Set the error message using a format string and format arguments.
+ /**
+@@ -246,15 +247,16 @@ rcutils_set_error_state(const char * error_string, const char * file, size_t lin
+  * \param[in] ... Arguments for the format string.
+  */
+ #define RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(format_string, ...) \
+-  do { \
+-    char output_msg[RCUTILS_ERROR_MESSAGE_MAX_LENGTH]; \
+-    int ret = rcutils_snprintf(output_msg, sizeof(output_msg), format_string, __VA_ARGS__); \
+-    if (ret < 0) { \
+-      RCUTILS_SAFE_FWRITE_TO_STDERR("Failed to call snprintf for error message formatting\n"); \
+-    } else { \
+-      RCUTILS_SET_ERROR_MSG(output_msg); \
+-    } \
+-  } while (0)
++        do { \
++          char output_msg[RCUTILS_ERROR_MESSAGE_MAX_LENGTH]; \
++          int ret = rcutils_snprintf(output_msg, sizeof(output_msg), format_string, __VA_ARGS__); \
++          if (ret < 0) { \
++            RCUTILS_SAFE_FWRITE_TO_STDERR( \
++              "Failed to call snprintf for error message formatting\n"); \
++          } else { \
++            RCUTILS_SET_ERROR_MSG(output_msg); \
++          } \
++        } while (0)
+
+ /// Indicate that the function intends to set an error message and return an error value.
+ /**
+@@ -268,7 +270,7 @@ rcutils_set_error_state(const char * error_string, const char * file, size_t lin
+  * \param error_return_value the value returned as a result of a given error.
+  */
+ #define RCUTILS_CAN_SET_MSG_AND_RETURN_WITH_ERROR_OF(error_return_value) \
+-  RCUTILS_CAN_FAIL_WITH( \
++        RCUTILS_CAN_FAIL_WITH( \
+   { \
+     RCUTILS_SET_ERROR_MSG("Injecting " RCUTILS_STRINGIFY(error_return_value)); \
+     return error_return_value; \
+diff --git a/include/rcutils/format_string.h b/include/rcutils/format_string.h
+index 37e5262..e78083e 100644
+--- a/include/rcutils/format_string.h
++++ b/include/rcutils/format_string.h
+@@ -33,7 +33,7 @@ extern "C"
+  * For longer format strings, see rcutils_format_string_limit().
+  */
+ #define rcutils_format_string(allocator, format_string, ...) \
+-  rcutils_format_string_limit(allocator, 2048, format_string, __VA_ARGS__)
++        rcutils_format_string_limit(allocator, 2048, format_string, __VA_ARGS__)
+
+ /// Return a newly allocated string, created with a format string up to a limit.
+ /**
+diff --git a/include/rcutils/logging.h b/include/rcutils/logging.h
+index 851b907..bc5c25d 100644
+--- a/include/rcutils/logging.h
++++ b/include/rcutils/logging.h
+@@ -522,18 +522,18 @@ void rcutils_logging_console_output_handler(
+  * All logging macros ensure that this has been called once.
+  */
+ #define RCUTILS_LOGGING_AUTOINIT \
+-  do { \
+-    if (RCUTILS_UNLIKELY(!g_rcutils_logging_initialized)) { \
+-      if (rcutils_logging_initialize() != RCUTILS_RET_OK) { \
+-        RCUTILS_SAFE_FWRITE_TO_STDERR( \
+-          "[rcutils|" __FILE__ ":" RCUTILS_STRINGIFY(__LINE__) \
+-          "] error initializing logging: "); \
+-        RCUTILS_SAFE_FWRITE_TO_STDERR(rcutils_get_error_string().str); \
+-        RCUTILS_SAFE_FWRITE_TO_STDERR("\n"); \
+-        rcutils_reset_error(); \
+-      } \
+-    } \
+-  } while (0)
++        do { \
++          if (RCUTILS_UNLIKELY(!g_rcutils_logging_initialized)) { \
++            if (rcutils_logging_initialize() != RCUTILS_RET_OK) { \
++              RCUTILS_SAFE_FWRITE_TO_STDERR( \
++                "[rcutils|" __FILE__ ":" RCUTILS_STRINGIFY(__LINE__) \
++                "] error initializing logging: "); \
++              RCUTILS_SAFE_FWRITE_TO_STDERR(rcutils_get_error_string().str); \
++              RCUTILS_SAFE_FWRITE_TO_STDERR("\n"); \
++              rcutils_reset_error(); \
++            } \
++          } \
++        } while (0)
+
+ #ifdef __cplusplus
+ }
+diff --git a/include/rcutils/macros.h b/include/rcutils/macros.h
+index f54fb0d..683f5c3 100644
+--- a/include/rcutils/macros.h
++++ b/include/rcutils/macros.h
+@@ -100,7 +100,7 @@ extern "C"
+  * \param[in] first_to_check_index index of the first "optional argument"
+  */
+ #define RCUTILS_ATTRIBUTE_PRINTF_FORMAT(format_string_index, first_to_check_index) \
+-  __attribute__ ((format(printf, format_string_index, first_to_check_index)))
++        __attribute__ ((format(printf, format_string_index, first_to_check_index)))
+ #endif  // !defined _WIN32 || defined __CYGWIN__
+
+ /// Macro to declare deprecation in the platform appropriate manner.
+@@ -187,7 +187,7 @@ extern "C"
+  * a rcutils_ret_t type. It could also be NULL, -1, a string error message, etc
+  */
+ # define RCUTILS_CAN_RETURN_WITH_ERROR_OF(error_return_value) \
+-  RCUTILS_FAULT_INJECTION_MAYBE_RETURN_ERROR(error_return_value);
++        RCUTILS_FAULT_INJECTION_MAYBE_RETURN_ERROR(error_return_value);
+
+ /**
+  * \def RCUTILS_CAN_FAIL_WITH
+@@ -204,7 +204,7 @@ extern "C"
+  * \param failure_code Code that is representative of the failure case in this function.
+  */
+ # define RCUTILS_CAN_FAIL_WITH(failure_code) \
+-  RCUTILS_FAULT_INJECTION_MAYBE_FAIL(failure_code);
++        RCUTILS_FAULT_INJECTION_MAYBE_FAIL(failure_code);
+
+ #else
+ # define RCUTILS_CAN_RETURN_WITH_ERROR_OF(error_return_value)
+diff --git a/include/rcutils/stdatomic_helper.h b/include/rcutils/stdatomic_helper.h
+index 2c39e71..c3ee755 100644
+--- a/include/rcutils/stdatomic_helper.h
++++ b/include/rcutils/stdatomic_helper.h
+@@ -58,7 +58,7 @@
+ #define rcutils_atomic_load(object, out) (out) = atomic_load(object)
+
+ #define rcutils_atomic_compare_exchange_strong(object, out, expected, desired) \
+-  (out) = atomic_compare_exchange_strong(object, expected, desired)
++        (out) = atomic_compare_exchange_strong(object, expected, desired)
+
+ #define rcutils_atomic_exchange(object, out, desired) (out) = atomic_exchange(object, desired)
+
+@@ -73,10 +73,10 @@
+ #define rcutils_atomic_load(object, out) rcutils_win32_atomic_load(object, out)
+
+ #define rcutils_atomic_compare_exchange_strong(object, out, expected, desired) \
+-  rcutils_win32_atomic_compare_exchange_strong(object, out, expected, desired)
++        rcutils_win32_atomic_compare_exchange_strong(object, out, expected, desired)
+
+ #define rcutils_atomic_exchange(object, out, desired) \
+-  rcutils_win32_atomic_exchange(object, out, desired)
++        rcutils_win32_atomic_exchange(object, out, desired)
+
+ #define rcutils_atomic_store(object, desired) rcutils_win32_atomic_store(object, desired)
+
+diff --git a/include/rcutils/stdatomic_helper/win32/stdatomic.h b/include/rcutils/stdatomic_helper/win32/stdatomic.h
+index 7000fb2..3945203 100644
+--- a/include/rcutils/stdatomic_helper/win32/stdatomic.h
++++ b/include/rcutils/stdatomic_helper/win32/stdatomic.h
+@@ -92,7 +92,7 @@
+
+ #define ATOMIC_VAR_INIT(value) {.__val = (value)}
+ #define atomic_init(obj, value) do { \
+-    (obj)->__val = (value); \
++          (obj)->__val = (value); \
+ } while (0)
+
+ /*
+@@ -417,11 +417,11 @@ typedef _Atomic (uintmax_t) atomic_uintmax_t;
+ // *INDENT-ON*
+
+ #define rcutils_win32_atomic_store(object, desired) \
+-  do { \
+-    MemoryBarrier(); \
+-    (object)->__val = (desired); \
+-    MemoryBarrier(); \
+-  } while (0)
++        do { \
++          MemoryBarrier(); \
++          (object)->__val = (desired); \
++          MemoryBarrier(); \
++        } while (0)
+
+ /*
+  * 7.17.8 Atomic flag type and operations. (disabled for now)
+diff --git a/include/rcutils/testing/fault_injection.h b/include/rcutils/testing/fault_injection.h
+index d397fd7..fab4a2c 100644
+--- a/include/rcutils/testing/fault_injection.h
++++ b/include/rcutils/testing/fault_injection.h
+@@ -100,11 +100,12 @@ _rcutils_fault_injection_maybe_fail(void);
+  * \param return_value_on_error the value to return in the case of fault injected failure.
+  */
+ #define RCUTILS_FAULT_INJECTION_MAYBE_RETURN_ERROR(return_value_on_error) \
+-  if (RCUTILS_FAULT_INJECTION_FAIL_NOW == _rcutils_fault_injection_maybe_fail()) { \
+-    printf( \
+-      "%s:%d Injecting fault and returning " #return_value_on_error "\n", __FILE__, __LINE__); \
+-    return return_value_on_error; \
+-  }
++        if (RCUTILS_FAULT_INJECTION_FAIL_NOW == _rcutils_fault_injection_maybe_fail()) { \
++          printf( \
++            "%s:%d Injecting fault and returning " #return_value_on_error "\n", \
++            __FILE__, __LINE__); \
++          return return_value_on_error; \
++        }
+
+ /**
+  * \def RCUTILS_FAULT_INJECTION_MAYBE_FAIL
+@@ -124,11 +125,11 @@ _rcutils_fault_injection_maybe_fail(void);
+  * \param failure_code the code to execute in the case of fault injected failure.
+  */
+ #define RCUTILS_FAULT_INJECTION_MAYBE_FAIL(failure_code) \
+-  if (RCUTILS_FAULT_INJECTION_FAIL_NOW == _rcutils_fault_injection_maybe_fail()) { \
+-    printf( \
+-      "%s:%d Injecting fault and executing " #failure_code "\n", __FILE__, __LINE__); \
+-    failure_code; \
+-  }
++        if (RCUTILS_FAULT_INJECTION_FAIL_NOW == _rcutils_fault_injection_maybe_fail()) { \
++          printf( \
++            "%s:%d Injecting fault and executing " #failure_code "\n", __FILE__, __LINE__); \
++          failure_code; \
++        }
+
+ /**
+  * \def RCUTILS_FAULT_INJECTION_TEST
+@@ -158,14 +159,14 @@ _rcutils_fault_injection_maybe_fail(void);
+  * program crashes, memory errors, or unnecessary memory leaks.
+  */
+ #define RCUTILS_FAULT_INJECTION_TEST(code) \
+-  do { \
+-    int fault_injection_count = 0; \
+-    do { \
+-      rcutils_fault_injection_set_count(fault_injection_count++); \
+-      code; \
+-    } while (!rcutils_fault_injection_is_test_complete()); \
+-    rcutils_fault_injection_set_count(RCUTILS_FAULT_INJECTION_NEVER_FAIL); \
+-  } while (0)
++        do { \
++          int fault_injection_count = 0; \
++          do { \
++            rcutils_fault_injection_set_count(fault_injection_count++); \
++            code; \
++          } while (!rcutils_fault_injection_is_test_complete()); \
++          rcutils_fault_injection_set_count(RCUTILS_FAULT_INJECTION_NEVER_FAIL); \
++        } while (0)
+
+ /**
+  * \def RCUTILS_NO_FAULT_INJECTION
+@@ -192,12 +193,12 @@ _rcutils_fault_injection_maybe_fail(void);
+  * it will not fail due to fault injection.
+  */
+ #define RCUTILS_NO_FAULT_INJECTION(code) \
+-  do { \
+-    int64_t no_fault_injection_count = rcutils_fault_injection_get_count(); \
+-    rcutils_fault_injection_set_count(RCUTILS_FAULT_INJECTION_NEVER_FAIL); \
+-    code; \
+-    rcutils_fault_injection_set_count(no_fault_injection_count); \
+-  } while (0)
++        do { \
++          int64_t no_fault_injection_count = rcutils_fault_injection_get_count(); \
++          rcutils_fault_injection_set_count(RCUTILS_FAULT_INJECTION_NEVER_FAIL); \
++          code; \
++          rcutils_fault_injection_set_count(no_fault_injection_count); \
++        } while (0)
+
+ #ifdef __cplusplus
+ }
+diff --git a/include/rcutils/types/array_list.h b/include/rcutils/types/array_list.h
+index ffde41a..0a41f71 100644
+--- a/include/rcutils/types/array_list.h
++++ b/include/rcutils/types/array_list.h
+@@ -45,11 +45,11 @@ typedef struct RCUTILS_PUBLIC_TYPE rcutils_array_list_s
+  * \return RCUTILS_RET_NOT_INITIALIZED if array_list is not initialized
+  */
+ #define ARRAY_LIST_VALIDATE_ARRAY_LIST(array_list) \
+-  RCUTILS_CHECK_ARGUMENT_FOR_NULL(array_list, RCUTILS_RET_INVALID_ARGUMENT); \
+-  if (NULL == array_list->impl) { \
+-    RCUTILS_SET_ERROR_MSG("array_list is not initialized"); \
+-    return RCUTILS_RET_NOT_INITIALIZED; \
+-  }
++        RCUTILS_CHECK_ARGUMENT_FOR_NULL(array_list, RCUTILS_RET_INVALID_ARGUMENT); \
++        if (NULL == array_list->impl) { \
++          RCUTILS_SET_ERROR_MSG("array_list is not initialized"); \
++          return RCUTILS_RET_NOT_INITIALIZED; \
++        }
+
+ /// Return an empty array_list struct.
+ /**
+diff --git a/include/rcutils/types/hash_map.h b/include/rcutils/types/hash_map.h
+index 2c22e0b..890294c 100644
+--- a/include/rcutils/types/hash_map.h
++++ b/include/rcutils/types/hash_map.h
+@@ -67,11 +67,11 @@ typedef int (* rcutils_hash_map_key_cmp_t)(
+  * \return #RCUTILS_RET_NOT_INITIALIZED if map is not initialized.
+  */
+ #define HASH_MAP_VALIDATE_HASH_MAP(map) \
+-  RCUTILS_CHECK_ARGUMENT_FOR_NULL(map, RCUTILS_RET_INVALID_ARGUMENT); \
+-  if (NULL == map->impl) { \
+-    RCUTILS_SET_ERROR_MSG("map is not initialized"); \
+-    return RCUTILS_RET_NOT_INITIALIZED; \
+-  }
++        RCUTILS_CHECK_ARGUMENT_FOR_NULL(map, RCUTILS_RET_INVALID_ARGUMENT); \
++        if (NULL == map->impl) { \
++          RCUTILS_SET_ERROR_MSG("map is not initialized"); \
++          return RCUTILS_RET_NOT_INITIALIZED; \
++        }
+
+ /// A hashing function for a null terminated c string.
+ /**
+diff --git a/resource/logging_macros.h.em b/resource/logging_macros.h.em
+index 7d72263..d7b4462 100644
+--- a/resource/logging_macros.h.em
++++ b/resource/logging_macros.h.em
+@@ -64,15 +64,15 @@ extern "C"
+  * \param[in] ... The format string, followed by the variable arguments for the format string
+  */
+ #define RCUTILS_LOG_COND_NAMED(severity, condition_before, condition_after, name, ...) \
+-  do { \
+-    RCUTILS_LOGGING_AUTOINIT; \
+-    static rcutils_log_location_t __rcutils_logging_location = {__func__, __FILE__, __LINE__}; \
+-    if (rcutils_logging_logger_is_enabled_for(name, severity)) { \
+-      condition_before \
+-      rcutils_log(&__rcutils_logging_location, severity, name, __VA_ARGS__); \
+-      condition_after \
+-    } \
+-  } while (0)
++        do { \
++          RCUTILS_LOGGING_AUTOINIT; \
++          static rcutils_log_location_t __rcutils_logging_location = {__func__, __FILE__, __LINE__}; \
++          if (rcutils_logging_logger_is_enabled_for(name, severity)) { \
++            condition_before \
++            rcutils_log(&__rcutils_logging_location, severity, name, __VA_ARGS__); \
++            condition_after \
++          } \
++        } while (0)
+
+ ///@@{
+ /**
+@@ -92,16 +92,16 @@ extern "C"
+  * A macro initializing and checking the `once` condition.
+  */
+ #define RCUTILS_LOG_CONDITION_ONCE_BEFORE \
+-  { \
+-    static int __rcutils_logging_once = 0; \
+-    if (RCUTILS_UNLIKELY(0 == __rcutils_logging_once)) { \
+-      __rcutils_logging_once = 1;
++        { \
++          static int __rcutils_logging_once = 0; \
++          if (RCUTILS_UNLIKELY(0 == __rcutils_logging_once)) { \
++            __rcutils_logging_once = 1;
+ /**
+  * \def RCUTILS_LOG_CONDITION_ONCE_AFTER
+  * A macro finalizing the `once` condition.
+  */
+ #define RCUTILS_LOG_CONDITION_ONCE_AFTER } \
+-}
++        }
+ ///@@}
+
+ /** @@name Macros for the `expression` condition which ignores the log calls
+@@ -113,7 +113,7 @@ extern "C"
+  * A macro checking the `expression` condition.
+  */
+ #define RCUTILS_LOG_CONDITION_EXPRESSION_BEFORE(expression) \
+-  if (expression) {
++        if (expression) {
+ /**
+  * \def RCUTILS_LOG_CONDITION_EXPRESSION_AFTER
+  * A macro finalizing the `expression` condition.
+@@ -135,7 +135,7 @@ typedef bool (* RclLogFilter)();
+  * A macro checking the `function` condition.
+  */
+ #define RCUTILS_LOG_CONDITION_FUNCTION_BEFORE(function) \
+-  if ((*function)()) {
++        if ((*function)()) {
+ /**
+  * \def RCUTILS_LOG_CONDITION_FUNCTION_AFTER
+  * A macro finalizing the `function` condition.
+@@ -152,17 +152,17 @@ typedef bool (* RclLogFilter)();
+  * A macro initializing and checking the `skipfirst` condition.
+  */
+ #define RCUTILS_LOG_CONDITION_SKIPFIRST_BEFORE \
+-  { \
+-    static bool __rcutils_logging_first = true; \
+-    if (RCUTILS_UNLIKELY(true == __rcutils_logging_first)) { \
+-      __rcutils_logging_first = false; \
+-    } else {
++        { \
++          static bool __rcutils_logging_first = true; \
++          if (RCUTILS_UNLIKELY(true == __rcutils_logging_first)) { \
++            __rcutils_logging_first = false; \
++          } else {
+ /**
+  * \def RCUTILS_LOG_CONDITION_SKIPFIRST_AFTER
+  * A macro finalizing the `skipfirst` condition.
+  */
+ #define RCUTILS_LOG_CONDITION_SKIPFIRST_AFTER } \
+-}
++        }
+ ///@@}
+
+ /** @@name Macros for the `throttle` condition which ignores log calls if the
+@@ -174,28 +174,28 @@ typedef bool (* RclLogFilter)();
+  * A macro initializing and checking the `throttle` condition.
+  */
+ #define RCUTILS_LOG_CONDITION_THROTTLE_BEFORE(get_time_point_value, duration) { \
+-    static rcutils_duration_value_t __rcutils_logging_duration = RCUTILS_MS_TO_NS((rcutils_duration_value_t)duration); \
+-    static rcutils_time_point_value_t __rcutils_logging_last_logged = 0; \
+-    rcutils_time_point_value_t __rcutils_logging_now = 0; \
+-    bool __rcutils_logging_condition = true; \
+-    if (get_time_point_value(&__rcutils_logging_now) != RCUTILS_RET_OK) { \
+-      rcutils_log( \
+-        &__rcutils_logging_location, RCUTILS_LOG_SEVERITY_ERROR, "", \
+-        "%s() at %s:%d getting current steady time failed\n", \
+-        __func__, __FILE__, __LINE__); \
+-    } else { \
+-      __rcutils_logging_condition = __rcutils_logging_now >= __rcutils_logging_last_logged + __rcutils_logging_duration; \
+-    } \
++          static rcutils_duration_value_t __rcutils_logging_duration = RCUTILS_MS_TO_NS((rcutils_duration_value_t)duration); \
++          static rcutils_time_point_value_t __rcutils_logging_last_logged = 0; \
++          rcutils_time_point_value_t __rcutils_logging_now = 0; \
++          bool __rcutils_logging_condition = true; \
++          if (get_time_point_value(&__rcutils_logging_now) != RCUTILS_RET_OK) { \
++            rcutils_log( \
++              &__rcutils_logging_location, RCUTILS_LOG_SEVERITY_ERROR, "", \
++              "%s() at %s:%d getting current steady time failed\n", \
++              __func__, __FILE__, __LINE__); \
++          } else { \
++            __rcutils_logging_condition = __rcutils_logging_now >= __rcutils_logging_last_logged + __rcutils_logging_duration; \
++          } \
+  \
+-    if (RCUTILS_LIKELY(__rcutils_logging_condition)) { \
+-      __rcutils_logging_last_logged = __rcutils_logging_now;
++          if (RCUTILS_LIKELY(__rcutils_logging_condition)) { \
++            __rcutils_logging_last_logged = __rcutils_logging_now;
+
+ /**
+  * \def RCUTILS_LOG_CONDITION_THROTTLE_AFTER
+  * A macro finalizing the `throttle` condition.
+  */
+ #define RCUTILS_LOG_CONDITION_THROTTLE_AFTER } \
+-}
++        }
+ ///@@}
+
+ @{
+diff --git a/src/array_list.c b/src/array_list.c
+index 22dc818..c2812b9 100644
+--- a/src/array_list.c
++++ b/src/array_list.c
+@@ -27,10 +27,10 @@ extern "C"
+ #include "rcutils/visibility_control.h"
+
+ #define ARRAY_LIST_VALIDATE_INDEX_IN_BOUNDS(array_list, index) \
+-  if (array_list->impl->size <= index) { \
+-    RCUTILS_SET_ERROR_MSG("index is out of bounds of the list"); \
+-    return RCUTILS_RET_INVALID_ARGUMENT; \
+-  }
++        if (array_list->impl->size <= index) { \
++          RCUTILS_SET_ERROR_MSG("index is out of bounds of the list"); \
++          return RCUTILS_RET_INVALID_ARGUMENT; \
++        }
+
+ typedef struct rcutils_array_list_impl_s
+ {
+diff --git a/src/logging.c b/src/logging.c
+index 2dc0237..2f3da7b 100644
+--- a/src/logging.c
++++ b/src/logging.c
+@@ -518,24 +518,24 @@ bool rcutils_logging_logger_is_enabled_for(const char * name, int severity)
+   return severity >= logger_level;
+ }
+ #define SAFE_FWRITE_TO_STDERR_AND(action) \
+-  RCUTILS_SAFE_FWRITE_TO_STDERR(rcutils_get_error_string().str); \
+-  rcutils_reset_error(); \
+-  RCUTILS_SAFE_FWRITE_TO_STDERR("\n"); \
+-  action;
++        RCUTILS_SAFE_FWRITE_TO_STDERR(rcutils_get_error_string().str); \
++        rcutils_reset_error(); \
++        RCUTILS_SAFE_FWRITE_TO_STDERR("\n"); \
++        action;
+
+ #define OK_OR_RETURN_NULL(op) \
+-  if (op != RCUTILS_RET_OK) { \
+-    SAFE_FWRITE_TO_STDERR_AND(return NULL); \
+-  }
++        if (op != RCUTILS_RET_OK) { \
++          SAFE_FWRITE_TO_STDERR_AND(return NULL); \
++        }
+
+ #define OK_OR_RETURN_EARLY(op) \
+-  if (op != RCUTILS_RET_OK) { \
+-    return op; \
+-  }
++        if (op != RCUTILS_RET_OK) { \
++          return op; \
++        }
+
+ #define APPEND_AND_RETURN_LOG_OUTPUT(s) \
+-  OK_OR_RETURN_NULL(rcutils_char_array_strcat(logging_output, s)); \
+-  return logging_output->buffer;
++        OK_OR_RETURN_NULL(rcutils_char_array_strcat(logging_output, s)); \
++        return logging_output->buffer;
+
+
+ void rcutils_log(
+@@ -795,106 +795,106 @@ rcutils_ret_t rcutils_logging_format_message(
+ #endif
+
+ #define IS_OUTPUT_COLORIZED(is_colorized) \
+-  { \
+-    if (g_colorized_output == RCUTILS_COLORIZED_OUTPUT_FORCE_ENABLE) { \
+-      is_colorized = true; \
+-    } else if (g_colorized_output == RCUTILS_COLORIZED_OUTPUT_FORCE_DISABLE) { \
+-      is_colorized = false; \
+-    } else { \
+-      is_colorized = IS_STREAM_A_TTY(g_output_stream); \
+-    } \
+-  }
++        { \
++          if (g_colorized_output == RCUTILS_COLORIZED_OUTPUT_FORCE_ENABLE) { \
++            is_colorized = true; \
++          } else if (g_colorized_output == RCUTILS_COLORIZED_OUTPUT_FORCE_DISABLE) { \
++            is_colorized = false; \
++          } else { \
++            is_colorized = IS_STREAM_A_TTY(g_output_stream); \
++          } \
++        }
+ #define SET_COLOR_WITH_SEVERITY(status, severity, color) \
+-  { \
+-    switch (severity) { \
+-      case RCUTILS_LOG_SEVERITY_DEBUG: \
+-        color = COLOR_GREEN; \
+-        break; \
+-      case RCUTILS_LOG_SEVERITY_INFO: \
+-        color = COLOR_NORMAL; \
+-        break; \
+-      case RCUTILS_LOG_SEVERITY_WARN: \
+-        color = COLOR_YELLOW; \
+-        break; \
+-      case RCUTILS_LOG_SEVERITY_ERROR: \
+-      case RCUTILS_LOG_SEVERITY_FATAL: \
+-        color = COLOR_RED; \
+-        break; \
+-      default: \
+-        RCUTILS_SAFE_FWRITE_TO_STDERR_WITH_FORMAT_STRING( \
+-          "unknown severity level: %d\n", severity); \
+-        status = RCUTILS_RET_INVALID_ARGUMENT; \
+-    } \
+-  }
++        { \
++          switch (severity) { \
++            case RCUTILS_LOG_SEVERITY_DEBUG: \
++              color = COLOR_GREEN; \
++              break; \
++            case RCUTILS_LOG_SEVERITY_INFO: \
++              color = COLOR_NORMAL; \
++              break; \
++            case RCUTILS_LOG_SEVERITY_WARN: \
++              color = COLOR_YELLOW; \
++              break; \
++            case RCUTILS_LOG_SEVERITY_ERROR: \
++            case RCUTILS_LOG_SEVERITY_FATAL: \
++              color = COLOR_RED; \
++              break; \
++            default: \
++              RCUTILS_SAFE_FWRITE_TO_STDERR_WITH_FORMAT_STRING( \
++                "unknown severity level: %d\n", severity); \
++              status = RCUTILS_RET_INVALID_ARGUMENT; \
++          } \
++        }
+ #ifdef _WIN32
+ # define SET_OUTPUT_COLOR_WITH_COLOR(status, color, handle) \
+-  { \
+-    if (RCUTILS_RET_OK == status) { \
+-      if (!SetConsoleTextAttribute(handle, color)) { \
+-        DWORD error = GetLastError(); \
+-        RCUTILS_SAFE_FWRITE_TO_STDERR_WITH_FORMAT_STRING( \
+-          "SetConsoleTextAttribute failed with error code %lu.\n", error); \
+-        status = RCUTILS_RET_ERROR; \
+-      } \
+-    } \
+-  }
++        { \
++          if (RCUTILS_RET_OK == status) { \
++            if (!SetConsoleTextAttribute(handle, color)) { \
++              DWORD error = GetLastError(); \
++              RCUTILS_SAFE_FWRITE_TO_STDERR_WITH_FORMAT_STRING( \
++                "SetConsoleTextAttribute failed with error code %lu.\n", error); \
++              status = RCUTILS_RET_ERROR; \
++            } \
++          } \
++        }
+ # define GET_HANDLE_FROM_STREAM(status, handle) \
+-  { \
+-    if (RCUTILS_RET_OK == status) { \
+-      if (g_output_stream == stdout) { \
+-        handle = GetStdHandle(STD_OUTPUT_HANDLE); \
+-      } else { \
+-        handle = GetStdHandle(STD_ERROR_HANDLE); \
+-      } \
+-      if (INVALID_HANDLE_VALUE == handle) { \
+-        DWORD error = GetLastError(); \
+-        RCUTILS_SAFE_FWRITE_TO_STDERR_WITH_FORMAT_STRING( \
+-          "GetStdHandle failed with error code %lu.\n", error); \
+-        status = RCUTILS_RET_ERROR; \
+-      } \
+-    } \
+-  }
++        { \
++          if (RCUTILS_RET_OK == status) { \
++            if (g_output_stream == stdout) { \
++              handle = GetStdHandle(STD_OUTPUT_HANDLE); \
++            } else { \
++              handle = GetStdHandle(STD_ERROR_HANDLE); \
++            } \
++            if (INVALID_HANDLE_VALUE == handle) { \
++              DWORD error = GetLastError(); \
++              RCUTILS_SAFE_FWRITE_TO_STDERR_WITH_FORMAT_STRING( \
++                "GetStdHandle failed with error code %lu.\n", error); \
++              status = RCUTILS_RET_ERROR; \
++            } \
++          } \
++        }
+ # define SET_OUTPUT_COLOR_WITH_SEVERITY(status, severity, output_array) \
+-  { \
+-    WORD color = COLOR_NORMAL; \
+-    HANDLE handle = INVALID_HANDLE_VALUE; \
+-    SET_COLOR_WITH_SEVERITY(status, severity, color) \
+-    GET_HANDLE_FROM_STREAM(status, handle) \
+-    SET_OUTPUT_COLOR_WITH_COLOR(status, color, handle) \
+-  }
++        { \
++          WORD color = COLOR_NORMAL; \
++          HANDLE handle = INVALID_HANDLE_VALUE; \
++          SET_COLOR_WITH_SEVERITY(status, severity, color) \
++          GET_HANDLE_FROM_STREAM(status, handle) \
++          SET_OUTPUT_COLOR_WITH_COLOR(status, color, handle) \
++        }
+ # define SET_STANDARD_COLOR_IN_STREAM(is_colorized, status) \
+-  { \
+-    if (is_colorized) { \
+-      HANDLE handle = INVALID_HANDLE_VALUE; \
+-      GET_HANDLE_FROM_STREAM(status, handle) \
+-      SET_OUTPUT_COLOR_WITH_COLOR(status, COLOR_NORMAL, handle) \
+-    } \
+-  }
++        { \
++          if (is_colorized) { \
++            HANDLE handle = INVALID_HANDLE_VALUE; \
++            GET_HANDLE_FROM_STREAM(status, handle) \
++            SET_OUTPUT_COLOR_WITH_COLOR(status, COLOR_NORMAL, handle) \
++          } \
++        }
+ # define SET_STANDARD_COLOR_IN_BUFFER(is_colorized, status, output_array)
+ #else
+ # define SET_OUTPUT_COLOR_WITH_COLOR(status, color, output_array) \
+-  { \
+-    if (RCUTILS_RET_OK == status) { \
+-      status = rcutils_char_array_strncat(&output_array, color, strlen(color)); \
+-      if (RCUTILS_RET_OK != status) { \
+-        RCUTILS_SAFE_FWRITE_TO_STDERR_WITH_FORMAT_STRING( \
+-          "Error: rcutils_char_array_strncat failed with: %d\n", \
+-          status); \
+-      } \
+-    } \
+-  }
++        { \
++          if (RCUTILS_RET_OK == status) { \
++            status = rcutils_char_array_strncat(&output_array, color, strlen(color)); \
++            if (RCUTILS_RET_OK != status) { \
++              RCUTILS_SAFE_FWRITE_TO_STDERR_WITH_FORMAT_STRING( \
++                "Error: rcutils_char_array_strncat failed with: %d\n", \
++                status); \
++            } \
++          } \
++        }
+ # define SET_OUTPUT_COLOR_WITH_SEVERITY(status, severity, output_array) \
+-  { \
+-    const char * color = NULL; \
+-    SET_COLOR_WITH_SEVERITY(status, severity, color) \
+-    SET_OUTPUT_COLOR_WITH_COLOR(status, color, output_array) \
+-  }
++        { \
++          const char * color = NULL; \
++          SET_COLOR_WITH_SEVERITY(status, severity, color) \
++          SET_OUTPUT_COLOR_WITH_COLOR(status, color, output_array) \
++        }
+ # define SET_STANDARD_COLOR_IN_BUFFER(is_colorized, status, output_array) \
+-  { \
+-    if (is_colorized) { \
+-      SET_OUTPUT_COLOR_WITH_COLOR(status, COLOR_NORMAL, output_array) \
+-    } \
+-  }
++        { \
++          if (is_colorized) { \
++            SET_OUTPUT_COLOR_WITH_COLOR(status, COLOR_NORMAL, output_array) \
++          } \
++        }
+ # define SET_STANDARD_COLOR_IN_STREAM(is_colorized, status)
+ #endif
+
+diff --git a/test/benchmark/benchmark_logging.cpp b/test/benchmark/benchmark_logging.cpp
+index c4c2941..8bb3e67 100644
+--- a/test/benchmark/benchmark_logging.cpp
++++ b/test/benchmark/benchmark_logging.cpp
+@@ -55,16 +55,16 @@ static void benchmark_logging(benchmark::State & state)
+       const rcutils_log_location_t * location,
+       int level, const char * name, rcutils_time_point_value_t timestamp,
+       const char * format, va_list * args) -> void
+-      {
+-        g_log_calls += 1;
+-        g_last_log_event.location = location;
+-        g_last_log_event.level = level;
+-        g_last_log_event.name = name ? name : "";
+-        g_last_log_event.timestamp = timestamp;
+-        char buffer[1024];
+-        vsnprintf(buffer, sizeof(buffer), format, *args);
+-        g_last_log_event.message = buffer;
+-      };
++    {
++      g_log_calls += 1;
++      g_last_log_event.location = location;
++      g_last_log_event.level = level;
++      g_last_log_event.name = name ? name : "";
++      g_last_log_event.timestamp = timestamp;
++      char buffer[1024];
++      vsnprintf(buffer, sizeof(buffer), format, *args);
++      g_last_log_event.message = buffer;
++    };
+
+     rcutils_logging_output_handler_t original_function = rcutils_logging_get_output_handler();
+     rcutils_logging_set_output_handler(rcutils_logging_console_output_handler);
+diff --git a/test/mocking_utils/patch.hpp b/test/mocking_utils/patch.hpp
+index 37442d0..a86448c 100644
+--- a/test/mocking_utils/patch.hpp
++++ b/test/mocking_utils/patch.hpp
+@@ -201,7 +201,7 @@ template<size_t ID, typename ReturnT, typename ... ArgTs>
+ class Patch<ID, ReturnT(ArgTs...)>
+ {
+ public:
+-  using mock_type = typename PatchTraits<ID, ReturnT(ArgTs...)>::mock_type;
++  using mock_type = typename PatchTraits<ID, ReturnT (ArgTs...)>::mock_type;
+
+   /// Construct a patch.
+   /**
+@@ -302,38 +302,38 @@ auto make_patch(const std::string & target, std::function<SignatureT> proxy)
+  * do not define basic comparison operators, as required by Mimick.
+ */
+ #define MOCKING_UTILS_BOOL_OPERATOR_RETURNS_FALSE(type_, op) \
+-  template<typename T> \
+-  typename std::enable_if<std::is_same<T, type_>::value, bool>::type \
+-  operator op(const T &, const T &) { \
+-    return false; \
+-  }
++        template<typename T> \
++        typename std::enable_if<std::is_same<T, type_>::value, bool>::type \
++        operator op(const T &, const T &) { \
++          return false; \
++        }
+
+ /// Get the exact \ref mocking_utils::Patch type for a given `id` and `function`.
+ /**
+  * Useful to avoid ignored attribute warnings when using the \b decltype operator.
+  */
+ #define MOCKING_UTILS_PATCH_TYPE(id, function) \
+-  decltype(mocking_utils::make_patch<id, decltype(function)>("", nullptr))
++        decltype(mocking_utils::make_patch<id, decltype(function)>("", nullptr))
+
+ /// A transparent forwarding proxy to a given `function`.
+ /**
+  * Useful to ensure a call to `function` goes through its trampoline.
+  */
+ #define MOCKING_UTILS_PATCH_PROXY(function) \
+-  [] (auto && ... args)->decltype(auto) { \
+-    return function(std::forward<decltype(args)>(args)...); \
+-  }
++        [] (auto && ... args)->decltype(auto) { \
++          return function(std::forward<decltype(args)>(args)...); \
++        }
+
+ /// Compute a Mimick symbol target string based on which `function` is to be patched
+ /// in which `scope`.
+ #define MOCKING_UTILS_PATCH_TARGET(scope, function) \
+-  (std::string(RCUTILS_STRINGIFY(function)) + "@" + (scope))
++        (std::string(RCUTILS_STRINGIFY(function)) + "@" + (scope))
+
+ /// Patch a `function` with a used-provided `replacement` in a given `scope`.
+ #define patch(scope, function, replacement) \
+-  make_patch<__COUNTER__, decltype(function)>( \
+-    MOCKING_UTILS_PATCH_TARGET(scope, function), MOCKING_UTILS_PATCH_PROXY(function) \
+-  ).then_call(replacement)
++        make_patch<__COUNTER__, decltype(function)>( \
++          MOCKING_UTILS_PATCH_TARGET(scope, function), MOCKING_UTILS_PATCH_PROXY(function) \
++        ).then_call(replacement)
+
+ }  // namespace mocking_utils
+
+diff --git a/test/test_allocator.cpp b/test/test_allocator.cpp
+index d4769d7..0740db6 100644
+--- a/test/test_allocator.cpp
++++ b/test/test_allocator.cpp
+@@ -35,7 +35,7 @@ using osrf_testing_tools_cpp::memory_tools::on_unexpected_free;
+ using osrf_testing_tools_cpp::memory_tools::on_unexpected_malloc;
+ using osrf_testing_tools_cpp::memory_tools::on_unexpected_realloc;
+
+-class CLASSNAME (TestAllocatorFixture, RMW_IMPLEMENTATION) : public ::testing::Test
++class CLASSNAME(TestAllocatorFixture, RMW_IMPLEMENTATION) : public ::testing::Test
+ {
+ public:
+   CLASSNAME(TestAllocatorFixture, RMW_IMPLEMENTATION)() {}
+diff --git a/test/test_atomics.c b/test/test_atomics.c
+index 805d38e..56f11af 100644
+--- a/test/test_atomics.c
++++ b/test/test_atomics.c
+@@ -18,28 +18,28 @@
+ // Cannot use gtest or C++ because stdatomic_helper.h forces a compiler error if C++ is used
+
+ #define TEST_ATOMIC_TYPE(BASE_TYPE, ATOMIC_TYPE) \
+-  do { \
+-    ATOMIC_TYPE uut; \
+-    atomic_init(&uut, (BASE_TYPE)0); \
+-    BASE_TYPE loaded_value; \
+-    rcutils_atomic_load(&uut, loaded_value); \
+-    if ((BASE_TYPE)0 != loaded_value) { \
+-      fprintf(stderr, "load test failed " #ATOMIC_TYPE " base " #BASE_TYPE "\n"); \
+-      return 1; \
+-    } \
+-    BASE_TYPE exchanged_value; \
+-    rcutils_atomic_store(&uut, (BASE_TYPE)28); \
+-    rcutils_atomic_exchange(&uut, exchanged_value, (BASE_TYPE)42); \
+-    rcutils_atomic_load(&uut, loaded_value); \
+-    if ((BASE_TYPE)28 != exchanged_value) { \
+-      fprintf(stderr, "exchange test failed " #ATOMIC_TYPE " base " #BASE_TYPE "\n"); \
+-      return 1; \
+-    } \
+-    if ((BASE_TYPE)42 != loaded_value) { \
+-      fprintf(stderr, "exchange test failed " #ATOMIC_TYPE " base " #BASE_TYPE "\n"); \
+-      return 1; \
+-    } \
+-  } while (0)
++        do { \
++          ATOMIC_TYPE uut; \
++          atomic_init(&uut, (BASE_TYPE)0); \
++          BASE_TYPE loaded_value; \
++          rcutils_atomic_load(&uut, loaded_value); \
++          if ((BASE_TYPE)0 != loaded_value) { \
++            fprintf(stderr, "load test failed " #ATOMIC_TYPE " base " #BASE_TYPE "\n"); \
++            return 1; \
++          } \
++          BASE_TYPE exchanged_value; \
++          rcutils_atomic_store(&uut, (BASE_TYPE)28); \
++          rcutils_atomic_exchange(&uut, exchanged_value, (BASE_TYPE)42); \
++          rcutils_atomic_load(&uut, loaded_value); \
++          if ((BASE_TYPE)28 != exchanged_value) { \
++            fprintf(stderr, "exchange test failed " #ATOMIC_TYPE " base " #BASE_TYPE "\n"); \
++            return 1; \
++          } \
++          if ((BASE_TYPE)42 != loaded_value) { \
++            fprintf(stderr, "exchange test failed " #ATOMIC_TYPE " base " #BASE_TYPE "\n"); \
++            return 1; \
++          } \
++        } while (0)
+
+ int
+ main()
+diff --git a/test/test_find.cpp b/test/test_find.cpp
+index aa6726c..27ce77a 100644
+--- a/test/test_find.cpp
++++ b/test/test_find.cpp
+@@ -22,12 +22,12 @@
+
+ #if ENABLE_LOGGING
+ #define LOG(expected, actual) do { \
+-    printf("Expected: %zu Actual: %zu\n", expected, actual); \
++          printf("Expected: %zu Actual: %zu\n", expected, actual); \
+ } while (0)
+ #else
+ #define LOG(X, arg) do { \
+-    (void)(X); \
+-    (void)(arg); \
++          (void)(X); \
++          (void)(arg); \
+ } while (0)
+ #endif
+
+diff --git a/test/test_logging.cpp b/test/test_logging.cpp
+index 3e5fc14..050fe49 100644
+--- a/test/test_logging.cpp
++++ b/test/test_logging.cpp
+@@ -81,16 +81,16 @@ TEST(CLASSNAME(TestLogging, RMW_IMPLEMENTATION), test_logging) {
+     const rcutils_log_location_t * location,
+     int level, const char * name, rcutils_time_point_value_t timestamp,
+     const char * format, va_list * args) -> void
+-    {
+-      g_log_calls += 1;
+-      g_last_log_event.location = location;
+-      g_last_log_event.level = level;
+-      g_last_log_event.name = name ? name : "";
+-      g_last_log_event.timestamp = timestamp;
+-      char buffer[1024];
+-      vsnprintf(buffer, sizeof(buffer), format, *args);
+-      g_last_log_event.message = buffer;
+-    };
++  {
++    g_log_calls += 1;
++    g_last_log_event.location = location;
++    g_last_log_event.level = level;
++    g_last_log_event.name = name ? name : "";
++    g_last_log_event.timestamp = timestamp;
++    char buffer[1024];
++    vsnprintf(buffer, sizeof(buffer), format, *args);
++    g_last_log_event.message = buffer;
++  };
+
+   rcutils_logging_output_handler_t original_function = rcutils_logging_get_output_handler();
+   rcutils_logging_set_output_handler(rcutils_logging_console_output_handler);
+diff --git a/test/test_logging_macros.cpp b/test/test_logging_macros.cpp
+index b193ed5..bcb543d 100644
+--- a/test/test_logging_macros.cpp
++++ b/test/test_logging_macros.cpp
+@@ -53,16 +53,16 @@ public:
+       const rcutils_log_location_t * location,
+       int level, const char * name, rcutils_time_point_value_t timestamp,
+       const char * format, va_list * args) -> void
+-      {
+-        g_log_calls += 1;
+-        g_last_log_event.location = location;
+-        g_last_log_event.level = level;
+-        g_last_log_event.name = name ? name : "";
+-        g_last_log_event.timestamp = timestamp;
+-        char buffer[1024];
+-        vsnprintf(buffer, sizeof(buffer), format, *args);
+-        g_last_log_event.message = buffer;
+-      };
++    {
++      g_log_calls += 1;
++      g_last_log_event.location = location;
++      g_last_log_event.level = level;
++      g_last_log_event.name = name ? name : "";
++      g_last_log_event.timestamp = timestamp;
++      char buffer[1024];
++      vsnprintf(buffer, sizeof(buffer), format, *args);
++      g_last_log_event.message = buffer;
++    };
+     rcutils_logging_set_output_handler(rcutils_logging_console_output_handler);
+   }
+
+diff --git a/test/test_split.cpp b/test/test_split.cpp
+index 8a5724a..5bf4896 100644
+--- a/test/test_split.cpp
++++ b/test/test_split.cpp
+@@ -24,7 +24,7 @@
+
+ #if ENABLE_LOGGING
+ #define LOG(expected, actual) { \
+-    printf("Expected: %s Actual: %s\n", expected, actual);}
++          printf("Expected: %s Actual: %s\n", expected, actual);}
+ #else
+ #define LOG(X, arg) {}
+ #endif

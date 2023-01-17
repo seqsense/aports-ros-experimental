@@ -1,0 +1,43 @@
+diff --git a/test/mocking_utils/filesystem.hpp b/test/mocking_utils/filesystem.hpp
+index 62fe193..641f7ae 100644
+--- a/test/mocking_utils/filesystem.hpp
++++ b/test/mocking_utils/filesystem.hpp
+@@ -68,7 +68,7 @@ constexpr auto USER_WRITABLE = _S_IWRITE;
+ // Deal with binary API quirks in 64 bit MacOS.
+ #if defined(__MACH__) && defined(_DARWIN_FEATURE_64_BIT_INODE)
+ #define MOCKING_UTILS_FILESYSTEM_PATCH_TARGET(scope, function) \
+-  (std::string(RCUTILS_STRINGIFY(function) "$INODE64") + "@" + (scope))
++        (std::string(RCUTILS_STRINGIFY(function) "$INODE64") + "@" + (scope))
+ #else
+ #define MOCKING_UTILS_FILESYSTEM_PATCH_TARGET MOCKING_UTILS_PATCH_TARGET
+ #endif
+@@ -92,7 +92,8 @@ public:
+   : opendir_mock_(
+       MOCKING_UTILS_FILESYSTEM_PATCH_TARGET(scope, opendir),
+       MOCKING_UTILS_PATCH_PROXY(opendir)),
+-#if defined(_GNU_SOURCE) && defined(_GLIBC_LESS_2_33_)
++#if defined(_GNU_SOURCE) && defined(_GLIBC_LESS_2_33_) && !(defined(__linux__) && \
++    !defined(__GLIBC__))
+ // Deal with binary API less than 2.33 quirks in GNU Linux.
+     __xstat_mock_(
+       MOCKING_UTILS_FILESYSTEM_PATCH_TARGET(scope, __xstat),
+@@ -144,7 +145,8 @@ private:
+   }
+   MOCKING_UTILS_PATCH_TYPE(ID, opendir) opendir_mock_;
+
+-#if defined(_GNU_SOURCE) && defined(_GLIBC_LESS_2_33_)
++#if defined(_GNU_SOURCE) && defined(_GLIBC_LESS_2_33_) && !(defined(__linux__) && \
++  !defined(__GLIBC__))
+   int do___xstat(int, const char * path, struct stat * info)
+   {
+ #else
+@@ -159,7 +161,8 @@ private:
+     return 0;
+   }
+
+-#if defined(_GNU_SOURCE) && defined(_GLIBC_LESS_2_33_)
++#if defined(_GNU_SOURCE) && defined(_GLIBC_LESS_2_33_) && !(defined(__linux__) && \
++  !defined(__GLIBC__))
+   MOCKING_UTILS_PATCH_TYPE(ID, __xstat) __xstat_mock_;
+ #else
+   MOCKING_UTILS_PATCH_TYPE(ID, stat) stat_mock_;
