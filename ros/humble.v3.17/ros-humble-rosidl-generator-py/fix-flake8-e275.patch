@@ -1,0 +1,13 @@
+diff --git a/test/test_interfaces.py b/test/test_interfaces.py
+index d20dded..4954b14 100644
+--- a/test/test_interfaces.py
++++ b/test/test_interfaces.py
+@@ -262,7 +262,7 @@ def test_arrays_of_bounded_strings():
+ def test_constructor():
+     msg = Strings(string_value='foo')
+ 
+-    assert'foo' == msg.string_value
++    assert 'foo' == msg.string_value
+ 
+     with pytest.raises(AssertionError):
+         Strings(unknown_field='test')
