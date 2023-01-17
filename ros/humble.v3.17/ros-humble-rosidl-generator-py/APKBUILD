@@ -7,7 +7,7 @@ url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="py3-numpy ros-humble-ament-cmake ros-humble-ament-index-python ros-humble-python-cmake-module ros-humble-rmw ros-humble-ros-workspace ros-humble-rosidl-cli ros-humble-rosidl-cmake ros-humble-rosidl-generator-c ros-humble-rosidl-parser ros-humble-rosidl-runtime-c ros-humble-rosidl-typesupport-c ros-humble-rosidl-typesupport-interface ros-humble-rpyutils"
+depends="py3-numpy py3-numpy-dev ros-humble-ament-cmake ros-humble-ament-index-python ros-humble-python-cmake-module ros-humble-rmw ros-humble-ros-workspace ros-humble-rosidl-cli ros-humble-rosidl-cmake ros-humble-rosidl-generator-c ros-humble-rosidl-parser ros-humble-rosidl-runtime-c ros-humble-rosidl-typesupport-c ros-humble-rosidl-typesupport-interface ros-humble-rpyutils"
 makedepends="chrpath py3-numpy py3-numpy-dev py3-pytest py3-rosdep py3-rosinstall py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-pytest ros-humble-ament-index-python ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-python-cmake-module ros-humble-rmw ros-humble-rosidl-cmake ros-humble-rosidl-generator-c ros-humble-rosidl-generator-cpp ros-humble-rosidl-parser ros-humble-rosidl-runtime-c ros-humble-rosidl-typesupport-c ros-humble-rosidl-typesupport-fastrtps-c ros-humble-rosidl-typesupport-introspection-c ros-humble-rpyutils ros-humble-test-interface-files"
 
 subpackages="$pkgname-dbg $pkgname-doc"
