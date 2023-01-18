@@ -1,3 +1,5 @@
+# Contributor: Kazuki Takahashi <ktakahashi@seqsense.com>
+# Maintainer:
 pkgname=py3-importlib-resources
 _pkgname=importlib_resources
 pkgver=5.10.1
