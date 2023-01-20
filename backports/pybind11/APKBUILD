@@ -1,0 +1,42 @@
+# Contributor: Kazuki Takahashi <ktakahashi@seqsense.com>
+# Maintainer:
+pkgname=pybind11
+pkgver=2.10.0
+pkgrel=0
+pkgdesc="Seamless operability between C++11 and Python"
+url="https://pybind11.readthedocs.io/"
+arch="all"
+license="MPL-2.0"
+depends=""
+makedepends="boost-dev cmake python3-dev"
+checkdepends="py3-numpy py3-pytest"
+install=""
+subpackages="$pkgname-dev $pkgname-doc"
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/pybind/pybind11/archive/refs/tags/v${pkgver}.tar.gz"
+builddir="$srcdir/${pkgname}-${pkgver}"
+
+build() {
+        export CXXFLAGS="$CXXFLAGS -U_FORTIFY_SOURCE"
+
+        cd "$builddir"
+        cmake -B build \
+                -DCMAKE_BUILD_TYPE=Release \
+                -DCMAKE_INSTALL_PREFIX=/usr
+        cmake --build build
+}
+
+check() {
+        cd "$builddir"/build
+        make check
+}
+
+package() {
+        cd "$builddir"/build
+        make install DESTDIR=$pkgdir
+
+	install -Dm 0644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="
+93112ce530a0652b2b4458a137b4a35f2fd8607f82ad96698ef422128d0b53e16e1d06c239ee4643b821acafae09c74eb0f72bc4ee5584aa9fcdaff4d79980d9  pybind11-2.10.0.tar.gz
+"
