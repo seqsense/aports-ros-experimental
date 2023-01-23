@@ -7,7 +7,7 @@ url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="py3-numpy ros-humble-ros-workspace ros-humble-sensor-msgs"
+depends="py3-numpy py3-numpy-dev ros-humble-ros-workspace ros-humble-sensor-msgs"
 makedepends="chrpath py3-pytest py3-rosdep py3-rosinstall py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-copyright ros-humble-ament-flake8 ros-humble-ament-pep257"
 
 subpackages="$pkgname-dbg $pkgname-doc"
@@ -249,4 +249,3 @@ doc() {
 
   default_doc
 }
-

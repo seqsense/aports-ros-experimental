@@ -24,7 +24,6 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-export ROS_PACKAGE_PATH="$builddir/src/$_pkgname"
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: rmw_fastrtps_shared_cpp
@@ -240,4 +239,3 @@ doc() {
 
   default_doc
 }
-

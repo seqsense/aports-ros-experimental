@@ -1,14 +1,14 @@
 pkgname=ros-humble-fastrtps
 _pkgname=fastrtps
-pkgver=2.6.3
+pkgver=2.6.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://www.eprosima.com/"
 arch="all"
 license="Apache 2.0"
 
-depends="openssl-dev python3 ros-humble-fastcdr ros-humble-foonathan-memory-vendor ros-humble-ros-workspace tinyxml2-dev"
-makedepends="asio-dev chrpath cmake openssl-dev py3-rosdep py3-rosinstall py3-rosinstall-generator py3-setuptools py3-vcstool python3 ros-humble-fastcdr ros-humble-foonathan-memory-vendor tinyxml2-dev"
+depends="openssl-dev python3-dev ros-humble-fastcdr ros-humble-foonathan-memory-vendor ros-humble-ros-workspace tinyxml2-dev"
+makedepends="asio-dev chrpath cmake openssl-dev py3-rosdep py3-rosinstall py3-rosinstall-generator py3-setuptools py3-vcstool python3-dev ros-humble-fastcdr ros-humble-foonathan-memory-vendor tinyxml2-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: fastrtps
     uri: https://github.com/ros2-gbp/fastrtps-release.git
-    version: release/humble/fastrtps/2.6.3-1
+    version: release/humble/fastrtps/2.6.4-1
 "
 
 prepare() {
@@ -232,4 +232,3 @@ doc() {
 
   default_doc
 }
-

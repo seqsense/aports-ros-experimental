@@ -24,7 +24,6 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-export ROS_PACKAGE_PATH="$builddir/src/$_pkgname"
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: ament_cmake
@@ -59,6 +58,9 @@ build() {
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_LIBDIR=lib 2>&1 | tee $buildlog
   make 2>&1 | tee -a $buildlog
+  # Need to install before test
+  mkdir -p "$pkgdir"
+  make install DESTDIR="$pkgdir"
 }
 
 check() {
@@ -70,6 +72,9 @@ check() {
   echo "checking" >> $statuslog
   cd "$builddir"
   source /usr/ros/humble/setup.sh
+  export PYTHONPATH="$pkgdir"/usr/ros/humble/lib/python$(python3 -V | sed -e "s/\(Python\s\)\(\d\.\d*\)\(\..*\)/\2/")/site-packages:${PYTHONPATH}
+  export AMENT_PREFIX_PATH="$pkgdir"/usr/ros/humble:${AMENT_PREFIX_PATH}
+  export PATH="$pkgdir"/usr/ros/humble/bin:${PATH}
   cd build
   if [ $(make -q test > /dev/null 2> /dev/null; echo $?) -eq 1 ]; then
     make test 2>&1 | tee $checklog
@@ -234,4 +239,3 @@ doc() {
 
   default_doc
 }
-

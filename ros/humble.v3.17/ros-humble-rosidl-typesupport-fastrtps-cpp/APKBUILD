@@ -7,7 +7,7 @@ url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="python3 ros-humble-ament-cmake-ros ros-humble-ament-index-python ros-humble-fastcdr ros-humble-fastrtps-cmake-module ros-humble-rmw ros-humble-ros-workspace ros-humble-rosidl-cli ros-humble-rosidl-cmake ros-humble-rosidl-generator-cpp ros-humble-rosidl-runtime-c ros-humble-rosidl-runtime-cpp ros-humble-rosidl-typesupport-interface"
+depends="python3-dev ros-humble-ament-cmake-ros ros-humble-ament-index-python ros-humble-fastcdr ros-humble-fastrtps-cmake-module ros-humble-rmw ros-humble-ros-workspace ros-humble-rosidl-cli ros-humble-rosidl-cmake ros-humble-rosidl-generator-cpp ros-humble-rosidl-runtime-c ros-humble-rosidl-runtime-cpp ros-humble-rosidl-typesupport-interface"
 makedepends="chrpath py3-rosdep py3-rosinstall py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-gtest ros-humble-ament-cmake-pytest ros-humble-ament-cmake-python ros-humble-ament-index-python ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-fastcdr ros-humble-fastrtps-cmake-module ros-humble-osrf-testing-tools-cpp ros-humble-performance-test-fixture ros-humble-rmw ros-humble-rosidl-cli ros-humble-rosidl-cmake ros-humble-rosidl-runtime-c"
 
 subpackages="$pkgname-dbg $pkgname-doc"
@@ -24,7 +24,6 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-export ROS_PACKAGE_PATH="$builddir/src/$_pkgname"
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: rosidl_typesupport_fastrtps_cpp
@@ -240,4 +239,3 @@ doc() {
 
   default_doc
 }
-

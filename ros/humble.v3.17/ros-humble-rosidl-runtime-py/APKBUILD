@@ -7,7 +7,7 @@ url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="py3-numpy py3-yaml ros-humble-ros-workspace ros-humble-rosidl-parser"
+depends="py3-numpy py3-numpy-dev py3-yaml ros-humble-ros-workspace ros-humble-rosidl-parser"
 makedepends="chrpath py3-pytest py3-rosdep py3-rosinstall py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-copyright ros-humble-ament-flake8 ros-humble-ament-pep257 ros-humble-ament-xmllint ros-humble-std-msgs ros-humble-std-srvs ros-humble-test-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
@@ -249,4 +249,3 @@ doc() {
 
   default_doc
 }
-

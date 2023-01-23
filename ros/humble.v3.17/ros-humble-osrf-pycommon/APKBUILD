@@ -8,7 +8,7 @@ arch="all"
 license="Apache License 2.0"
 
 depends="py3-importlib-metadata ros-humble-ros-workspace"
-makedepends="chrpath py3-flake8 py3-pytest py3-rosdep py3-rosinstall py3-rosinstall-generator py3-setuptools py3-vcstool"
+makedepends="chrpath py3-pytest py3-rosdep py3-rosinstall py3-rosinstall-generator py3-setuptools py3-vcstool"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -24,7 +24,6 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
-export ROS_PACKAGE_PATH="$builddir/src/$_pkgname"
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: osrf_pycommon
@@ -56,7 +55,14 @@ build() {
   mkdir -p "$builddir"/tmp
   cd src/$_pkgname
   python setup.py egg_info --egg-base="$builddir"/tmp 2>&1 | tee $buildlog
-  python setup.py build --build-base="$builddir"/tmp/build 2>&1 | tee $buildlog
+  # Need to install before test
+  mkdir -p "$pkgdir"
+  python setup.py \
+    build \
+    --build-base="$builddir"/tmp/build \
+    install \
+    --root="$pkgdir" \
+    --prefix=/usr/ros/humble 2>&1 | tee $buildlog
 }
 
 check() {
@@ -68,7 +74,9 @@ check() {
   echo "checking" >> $statuslog
   cd "$builddir"
   source /usr/ros/humble/setup.sh
-  export PYTHONPATH="$builddir"/tmp:${PYTHONPATH}
+  export PYTHONPATH="$pkgdir"/usr/ros/humble/lib/python$(python3 -V | sed -e "s/\(Python\s\)\(\d\.\d*\)\(\..*\)/\2/")/site-packages:${PYTHONPATH}
+  export AMENT_PREFIX_PATH="$pkgdir"/usr/ros/humble:${AMENT_PREFIX_PATH}
+  export PATH="$pkgdir"/usr/ros/humble/bin:${PATH}
   cd src/$_pkgname
   TEST_TARGET=$(ls -d */ | grep -m1 "\(test\|tests\)") || true
   if [ -z "$TEST_TARGET" ]; then
@@ -241,4 +249,3 @@ doc() {
 
   default_doc
 }
-
