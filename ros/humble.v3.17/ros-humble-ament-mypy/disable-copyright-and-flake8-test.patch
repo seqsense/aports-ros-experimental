@@ -1,10 +1,10 @@
-diff --git a/test/test_copyright.py b/test/test_copyright.py
+diff --git a/test/test_flake8.py b/test/test_flake8.py
 deleted file mode 100644
-index cf0fae3..0000000
---- a/test/test_copyright.py
+index 83ea1c0..0000000
+--- a/test/test_flake8.py
 +++ /dev/null
-@@ -1,23 +0,0 @@
--# Copyright 2017 Open Source Robotics Foundation, Inc.
+@@ -1,26 +0,0 @@
+-# Copyright 2019 Canonical, Ltd.
 -#
 -# Licensed under the Apache License, Version 2.0 (the "License");
 -# you may not use this file except in compliance with the License.
@@ -18,12 +18,15 @@ index cf0fae3..0000000
 -# See the License for the specific language governing permissions and
 -# limitations under the License.
 -
--from ament_copyright.main import main
+-from ament_flake8.main import main_with_errors
+-
 -import pytest
 -
 -
--@pytest.mark.copyright
+-@pytest.mark.flake8
 -@pytest.mark.linter
--def test_copyright():
--    rc = main(argv=['.', 'test'])
--    assert rc == 0, 'Found errors'
+-def test_flake8():
+-    rc, errors = main_with_errors(argv=[])
+-    assert rc == 0, \
+-        'Found %d code style errors / warnings:\n' % len(errors) + \
+-        '\n'.join(errors)
