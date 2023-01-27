@@ -32,3 +32,29 @@ index 62fe193..641f7ae 100644
    MOCKING_UTILS_PATCH_TYPE(ID, __xstat) __xstat_mock_;
  #else
    MOCKING_UTILS_PATCH_TYPE(ID, stat) stat_mock_;
+
+--- a/test/test_strerror.cpp
++++ b/test/test_strerror.cpp
+@@ -36,6 +36,8 @@ TEST(test_strerror, get_error) {
+   ASSERT_STREQ(error_string, "No error");
+ #elif __APPLE__
+   ASSERT_STREQ(error_string, "Undefined error: 0");
++#elif defined(__linux__) && !defined(__GLIBC__)
++  ASSERT_STREQ(error_string, "No error information");
+ #else
+   ASSERT_STREQ(error_string, "Success");
+ #endif
+
+--- a/src/strerror.c
++++ b/src/strerror.c
+@@ -27,7 +27,8 @@ rcutils_strerror(char * buffer, size_t buffer_length)
+ {
+ #if defined(_WIN32)
+   strerror_s(buffer, buffer_length, errno);
+-#elif defined(_GNU_SOURCE) && (!defined(ANDROID) || __ANDROID_API__ >= 23) && !defined(__QNXNTO__)
++#elif defined(_GNU_SOURCE) && (!defined(ANDROID) || __ANDROID_API__ >= 23) && \
++  !defined(__QNXNTO__) && (defined(__linux__) && defined(__GLIBC__))
+   /* GNU-specific */
+   char * msg = strerror_r(errno, buffer, buffer_length);
+   if (msg != buffer) {
+
