@@ -2,15 +2,6 @@ diff --git a/test/mocking_utils/filesystem.hpp b/test/mocking_utils/filesystem.h
 index 62fe193..641f7ae 100644
 --- a/test/mocking_utils/filesystem.hpp
 +++ b/test/mocking_utils/filesystem.hpp
-@@ -68,7 +68,7 @@ constexpr auto USER_WRITABLE = _S_IWRITE;
- // Deal with binary API quirks in 64 bit MacOS.
- #if defined(__MACH__) && defined(_DARWIN_FEATURE_64_BIT_INODE)
- #define MOCKING_UTILS_FILESYSTEM_PATCH_TARGET(scope, function) \
--  (std::string(RCUTILS_STRINGIFY(function) "$INODE64") + "@" + (scope))
-+        (std::string(RCUTILS_STRINGIFY(function) "$INODE64") + "@" + (scope))
- #else
- #define MOCKING_UTILS_FILESYSTEM_PATCH_TARGET MOCKING_UTILS_PATCH_TARGET
- #endif
 @@ -92,7 +92,8 @@ public:
    : opendir_mock_(
        MOCKING_UTILS_FILESYSTEM_PATCH_TARGET(scope, opendir),
