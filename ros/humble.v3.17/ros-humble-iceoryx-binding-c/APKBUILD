@@ -1,14 +1,14 @@
-pkgname=ros-humble-rmw-implementation
-_pkgname=rmw_implementation
-pkgver=2.8.2
+pkgname=ros-humble-iceoryx-binding-c
+_pkgname=iceoryx_binding_c
+pkgver=2.0.2
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
-url="https://index.ros.org/p/$_pkgname"
+url="https://iceoryx.io"
 arch="all"
-license="Apache License 2.0"
+license="Apache 2.0"
 
-depends="ros-humble-ament-index-cpp ros-humble-rcpputils ros-humble-rcutils ros-humble-rmw-cyclonedds-cpp ros-humble-rmw-fastrtps-cpp ros-humble-rmw-implementation-cmake ros-humble-ros-workspace"
-makedepends="chrpath py3-rosdep py3-rosinstall py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-gtest ros-humble-ament-index-cpp ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-performance-test-fixture ros-humble-rcpputils ros-humble-rcutils ros-humble-rmw ros-humble-rmw-cyclonedds-cpp ros-humble-rmw-fastrtps-cpp ros-humble-rmw-fastrtps-dynamic-cpp ros-humble-rmw-implementation-cmake"
+depends="ros-humble-ros-workspace"
+makedepends="chrpath cmake py3-rosdep py3-rosinstall py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-iceoryx-hoofs ros-humble-iceoryx-posh"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -24,11 +24,12 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
   statuslog="/dev/null"
 fi
 
+export ROS_PACKAGE_PATH="$builddir/src/$_pkgname"
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
-    local-name: rmw_implementation
-    uri: https://github.com/ros2-gbp/rmw_implementation-release.git
-    version: release/humble/rmw_implementation/2.8.2-1
+    local-name: iceoryx_binding_c
+    uri: https://github.com/ros2-gbp/iceoryx-release.git
+    version: release/humble/iceoryx_binding_c/2.0.2-3
 "
 
 prepare() {
@@ -50,7 +51,6 @@ build() {
   set -o pipefail
   echo "building" > $statuslog
   cd "$builddir"
-  source /usr/ros/humble/setup.sh
   mkdir build
   cd build
   cmake ../src/$_pkgname \
@@ -58,9 +58,6 @@ build() {
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_LIBDIR=lib 2>&1 | tee $buildlog
   make 2>&1 | tee -a $buildlog
-  # Need to install before test
-  mkdir -p "$pkgdir"
-  make install DESTDIR="$pkgdir"
 }
 
 check() {
@@ -71,10 +68,6 @@ check() {
   set -o pipefail
   echo "checking" >> $statuslog
   cd "$builddir"
-  source /usr/ros/humble/setup.sh
-  export PYTHONPATH="$pkgdir"/usr/ros/humble/lib/python$(python3 -V | sed -e "s/\(Python\s\)\(\d\.\d*\)\(\..*\)/\2/")/site-packages:${PYTHONPATH}
-  export AMENT_PREFIX_PATH="$pkgdir"/usr/ros/humble:${AMENT_PREFIX_PATH}
-  export PATH="$pkgdir"/usr/ros/humble/bin:${PATH}
   cd build
   if [ $(make -q test > /dev/null 2> /dev/null; echo $?) -eq 1 ]; then
     make test 2>&1 | tee $checklog
@@ -239,3 +232,4 @@ doc() {
 
   default_doc
 }
+

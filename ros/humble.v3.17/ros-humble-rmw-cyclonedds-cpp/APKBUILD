@@ -1,14 +1,14 @@
-pkgname=ros-humble-rmw-implementation
-_pkgname=rmw_implementation
-pkgver=2.8.2
+pkgname=ros-humble-rmw-cyclonedds-cpp
+_pkgname=rmw_cyclonedds_cpp
+pkgver=1.3.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="ros-humble-ament-index-cpp ros-humble-rcpputils ros-humble-rcutils ros-humble-rmw-cyclonedds-cpp ros-humble-rmw-fastrtps-cpp ros-humble-rmw-implementation-cmake ros-humble-ros-workspace"
-makedepends="chrpath py3-rosdep py3-rosinstall py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-gtest ros-humble-ament-index-cpp ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-performance-test-fixture ros-humble-rcpputils ros-humble-rcutils ros-humble-rmw ros-humble-rmw-cyclonedds-cpp ros-humble-rmw-fastrtps-cpp ros-humble-rmw-fastrtps-dynamic-cpp ros-humble-rmw-implementation-cmake"
+depends="ros-humble-cyclonedds ros-humble-iceoryx-binding-c ros-humble-rcpputils ros-humble-rcutils ros-humble-rmw ros-humble-rmw-dds-common ros-humble-ros-workspace ros-humble-rosidl-runtime-c ros-humble-rosidl-typesupport-introspection-c ros-humble-rosidl-typesupport-introspection-cpp ros-humble-tracetools"
+makedepends="chrpath py3-rosdep py3-rosinstall py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake-ros ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-cyclonedds ros-humble-iceoryx-binding-c ros-humble-rcpputils ros-humble-rcutils ros-humble-rmw ros-humble-rmw-dds-common ros-humble-rosidl-runtime-c ros-humble-rosidl-typesupport-introspection-c ros-humble-rosidl-typesupport-introspection-cpp ros-humble-tracetools"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -26,9 +26,9 @@ fi
 
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
-    local-name: rmw_implementation
-    uri: https://github.com/ros2-gbp/rmw_implementation-release.git
-    version: release/humble/rmw_implementation/2.8.2-1
+    local-name: rmw_cyclonedds_cpp
+    uri: https://github.com/ros2-gbp/rmw_cyclonedds-release.git
+    version: release/humble/rmw_cyclonedds_cpp/1.3.4-1
 "
 
 prepare() {
@@ -239,3 +239,4 @@ doc() {
 
   default_doc
 }
+
