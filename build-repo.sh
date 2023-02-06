@@ -161,7 +161,7 @@ do
 
   sudo apk update
 
-  if find ${SRCDIR}/${basedir}/${repo} -name APKBUILD; then
+  if [ $(find ${SRCDIR}/${basedir}/${repo} -name APKBUILD | wc -l) -gt 0 ]; then
     set +e
     (
       set -o pipefail
