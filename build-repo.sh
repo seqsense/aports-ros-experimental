@@ -93,11 +93,6 @@ do
   echo "base directory: ${basedir}"
   echo
 
-  if [ ! -d ${SRCDIR}/${basedir}/${repo} ]; then
-    echo "${repo} is not present. Skipping."
-    exit 0
-  fi
-
 
   # Copy noarch pkgs
 
@@ -116,8 +111,13 @@ do
   # Build packages
 
   mkdir -p ${aportsdir_base}/${basedir}
-  mkdir -p ${REPODIR}
-  cp -r ${SRCDIR}/${basedir}/${repo} ${aportsdir_base}/${basedir}/${repo_out}
+  mkdir -p ${REPODIR}/${repo_out}/x86_64
+
+  if [ -d ${SRCDIR}/${basedir}/${repo} ]; then
+    cp -r ${SRCDIR}/${basedir}/${repo} ${aportsdir_base}/${basedir}/${repo_out}
+  else
+    mkdir -p ${aportsdir_base}/${basedir}/${repo_out}
+  fi
 
   sed -e 's/arch="noarch.*"/arch="all"/' -i $(find ${aportsdir_base} -name APKBUILD)
   sed -e 's/:noarch//' -i $(find ${aportsdir_base} -name APKBUILD)
@@ -146,7 +146,6 @@ do
     fi
   fi
 
-
   echo
   echo "Checking version constraint setting"
   find ${aportsdir_base} -name ENABLE_ON | while read path; do
@@ -162,18 +161,23 @@ do
 
   sudo apk update
 
-  set +e
-  (cd ${basedir} && \
-    set -o pipefail && \
-    echo "buildrepo ${repo_out} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS}"; \
-    time buildrepo ${repo_out} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS} 2>&1 | \
-      grep --line-buffered \
-        -v -e "remote: Counting objects: " \
-        -v -e "remote: Compressing objects: " \
-        -v -e "Receiving objects: " \
-        -v -e "Resolving deltas: ")
-  exit_code=$?
-  set -e
+  if find ${SRCDIR}/${basedir}/${repo} -name APKBUILD; then
+    set +e
+    (
+      set -o pipefail
+      cd ${basedir}
+      echo "buildrepo ${repo_out} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS}"
+      time buildrepo ${repo_out} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS} 2>&1 \
+        | grep --line-buffered \
+          -v -e "remote: Counting objects: " \
+          -v -e "remote: Compressing objects: " \
+          -v -e "Receiving objects: " \
+          -v -e "Resolving deltas: "
+    )
+    exit_code=$?
+    set -e
+  fi
+
 
   # Generate package index
 
@@ -215,11 +219,13 @@ do
     exit ${exit_code}
   fi
 
+
   # Register new local repository
 
   if ! grep -F "${REPODIR}/${repo_out}" /etc/apk/repositories; then
     echo "${REPODIR}/${repo_out}" | sudo tee -a /etc/apk/repositories
   fi
+
 
   # Test dependencies
 
