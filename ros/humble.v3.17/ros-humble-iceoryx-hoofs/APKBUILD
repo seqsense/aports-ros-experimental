@@ -7,8 +7,8 @@ url="https://iceoryx.io"
 arch="all"
 license="Apache 2.0"
 
-depends="acl acl-dev acl-static libacl libatomic linux-headers ros-humble-ros-workspace"
-makedepends="acl acl-dev acl-static chrpath cmake libacl libatomic py3-rosdep py3-rosinstall py3-rosinstall-generator py3-setuptools py3-vcstool"
+depends="acl acl-dev acl-static libacl libatomic ros-humble-ros-workspace acl acl-dev acl-static libacl libatomic"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath acl acl-dev acl-static cmake libacl libatomic"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -26,6 +26,7 @@ fi
 
 export ROS_PACKAGE_PATH="$builddir/src/$_pkgname"
 export ROS_PYTHON_VERSION=3
+export PYTHON_VERSION=$(python3 -c 'import sys; print("%i.%i" % (sys.version_info.major, sys.version_info.minor))')
 rosinstall="- git:
     local-name: iceoryx_hoofs
     uri: https://github.com/ros2-gbp/iceoryx-release.git
@@ -232,3 +233,8 @@ doc() {
 
   default_doc
 }
+
+if [ -f ./apkbuild_hook.sh ]; then
+  . ./apkbuild_hook.sh
+  apkbuild_hook
+fi

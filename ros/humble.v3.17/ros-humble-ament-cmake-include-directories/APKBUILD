@@ -7,8 +7,8 @@ url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="ros-humble-ament-cmake-core ros-humble-ros-workspace"
-makedepends="chrpath py3-rosdep py3-rosinstall py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake-core"
+depends="ros-humble-ros-workspace ros-humble-ament-cmake-core"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake-core"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -25,6 +25,7 @@ if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
 fi
 
 export ROS_PYTHON_VERSION=3
+export PYTHON_VERSION=$(python3 -c 'import sys; print("%i.%i" % (sys.version_info.major, sys.version_info.minor))')
 rosinstall="- git:
     local-name: ament_cmake_include_directories
     uri: https://github.com/ros2-gbp/ament_cmake-release.git
@@ -58,9 +59,6 @@ build() {
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_LIBDIR=lib 2>&1 | tee $buildlog
   make 2>&1 | tee -a $buildlog
-  # Need to install before test
-  mkdir -p "$pkgdir"
-  make install DESTDIR="$pkgdir"
 }
 
 check() {
@@ -72,10 +70,12 @@ check() {
   echo "checking" >> $statuslog
   cd "$builddir"
   source /usr/ros/humble/setup.sh
-  export PYTHONPATH="$pkgdir"/usr/ros/humble/lib/python$(python3 -V | sed -e "s/\(Python\s\)\(\d\.\d*\)\(\..*\)/\2/")/site-packages:${PYTHONPATH}
-  export AMENT_PREFIX_PATH="$pkgdir"/usr/ros/humble:${AMENT_PREFIX_PATH}
-  export PATH="$pkgdir"/usr/ros/humble/bin:${PATH}
+  export PYTHONPATH="$builddir"/tmp/pkg/usr/ros/humble/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH}
+  export AMENT_PREFIX_PATH="$builddir"/tmp/pkg/usr/ros/humble:${AMENT_PREFIX_PATH}
+  export PATH="$builddir"/tmp/pkg/usr/ros/humble/bin:${PATH}
+  mkdir -p "$builddir"/tmp/pkg
   cd build
+  make install DESTDIR="$builddir"/tmp/pkg
   if [ $(make -q test > /dev/null 2> /dev/null; echo $?) -eq 1 ]; then
     make test 2>&1 | tee $checklog
   fi
@@ -239,3 +239,8 @@ doc() {
 
   default_doc
 }
+
+if [ -f ./apkbuild_hook.sh ]; then
+  . ./apkbuild_hook.sh
+  apkbuild_hook
+fi

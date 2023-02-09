@@ -7,8 +7,8 @@ url="https://www.eprosima.com/"
 arch="all"
 license="Apache 2.0"
 
-depends="openssl-dev python3-dev ros-humble-fastcdr ros-humble-foonathan-memory-vendor ros-humble-ros-workspace tinyxml2-dev"
-makedepends="asio-dev chrpath cmake openssl-dev py3-rosdep py3-rosinstall py3-rosinstall-generator py3-setuptools py3-vcstool python3-dev ros-humble-fastcdr ros-humble-foonathan-memory-vendor tinyxml2-dev"
+depends="openssl-dev python3-dev ros-humble-fastcdr ros-humble-foonathan-memory-vendor ros-humble-ros-workspace tinyxml2-dev openssl-dev python3-dev ros-humble-fastcdr ros-humble-foonathan-memory-vendor tinyxml2-dev"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath asio-dev cmake openssl-dev python3-dev ros-humble-fastcdr ros-humble-foonathan-memory-vendor tinyxml2-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -26,6 +26,7 @@ fi
 
 export ROS_PACKAGE_PATH="$builddir/src/$_pkgname"
 export ROS_PYTHON_VERSION=3
+export PYTHON_VERSION=$(python3 -c 'import sys; print("%i.%i" % (sys.version_info.major, sys.version_info.minor))')
 rosinstall="- git:
     local-name: fastrtps
     uri: https://github.com/ros2-gbp/fastrtps-release.git
@@ -232,3 +233,8 @@ doc() {
 
   default_doc
 }
+
+if [ -f ./apkbuild_hook.sh ]; then
+  . ./apkbuild_hook.sh
+  apkbuild_hook
+fi

@@ -7,8 +7,8 @@ url="https://projects.eclipse.org/projects/iot.cyclonedds"
 arch="all"
 license="Eclipse Public License 2.0"
 
-depends="openssl ros-humble-iceoryx-binding-c ros-humble-iceoryx-hoofs ros-humble-iceoryx-posh ros-humble-ros-workspace"
-makedepends="chrpath cmake cunit-dev openssl-dev py3-rosdep py3-rosinstall py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-iceoryx-binding-c ros-humble-iceoryx-hoofs ros-humble-iceoryx-posh"
+depends="openssl ros-humble-iceoryx-binding-c ros-humble-iceoryx-hoofs ros-humble-iceoryx-posh ros-humble-ros-workspace ros-humble-iceoryx-binding-c ros-humble-iceoryx-hoofs ros-humble-iceoryx-posh"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath cmake cunit-dev openssl-dev ros-humble-iceoryx-binding-c ros-humble-iceoryx-hoofs ros-humble-iceoryx-posh"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -26,6 +26,7 @@ fi
 
 export ROS_PACKAGE_PATH="$builddir/src/$_pkgname"
 export ROS_PYTHON_VERSION=3
+export PYTHON_VERSION=$(python3 -c 'import sys; print("%i.%i" % (sys.version_info.major, sys.version_info.minor))')
 rosinstall="- git:
     local-name: cyclonedds
     uri: https://github.com/ros2-gbp/cyclonedds-release.git
@@ -232,3 +233,8 @@ doc() {
 
   default_doc
 }
+
+if [ -f ./apkbuild_hook.sh ]; then
+  . ./apkbuild_hook.sh
+  apkbuild_hook
+fi
