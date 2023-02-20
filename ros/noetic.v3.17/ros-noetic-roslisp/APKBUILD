@@ -1,6 +1,6 @@
 pkgname=ros-noetic-roslisp
 _pkgname=roslisp
-pkgver=1.9.24
+pkgver=1.9.25
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/roslisp"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: roslisp
     uri: https://github.com/ros-gbp/roslisp-release.git
-    version: release/noetic/roslisp/1.9.24-1
+    version: release/noetic/roslisp/1.9.25-1
 "
 
 prepare() {
