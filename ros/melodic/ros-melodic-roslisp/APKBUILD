@@ -1,6 +1,6 @@
 pkgname=ros-melodic-roslisp
 _pkgname=roslisp
-pkgver=1.9.24
+pkgver=1.9.25
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://ros.org/wiki/roslisp"
@@ -27,7 +27,7 @@ fi
 export ROS_PACKAGE_PATH="$builddir/src/$_pkgname"
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: roslisp, uri: 'https://github.com/ros-gbp/roslisp-release.git',
-    version: release/melodic/roslisp/1.9.24-1}
+    version: release/melodic/roslisp/1.9.25-1}
 "
 
 prepare() {
