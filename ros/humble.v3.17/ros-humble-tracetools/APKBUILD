@@ -26,6 +26,10 @@ fi
 
 export ROS_PYTHON_VERSION=3
 export PYTHON_VERSION=$(python3 -c 'import sys; print("%i.%i" % (sys.version_info.major, sys.version_info.minor))')
+if [ ! -f /usr/ros/humble/setup.sh ]; then
+  export PYTHONPATH=/usr/ros/humble/lib/python${PYTHON_VERSION}/site-packages:$PYTHONPATH
+  export AMENT_PREFIX_PATH=/usr/ros/humble
+fi
 rosinstall="- git:
     local-name: tracetools
     uri: https://github.com/ros2-gbp/ros2_tracing-release.git
@@ -51,7 +55,9 @@ build() {
   set -o pipefail
   echo "building" > $statuslog
   cd "$builddir"
-  source /usr/ros/humble/setup.sh
+  if [ -f /usr/ros/humble/setup.sh ]; then
+    source /usr/ros/humble/setup.sh
+  fi
   mkdir build
   cd build
   cmake ../src/$_pkgname \
@@ -69,7 +75,9 @@ check() {
   set -o pipefail
   echo "checking" >> $statuslog
   cd "$builddir"
-  source /usr/ros/humble/setup.sh
+  if [ -f /usr/ros/humble/setup.sh ]; then
+    source /usr/ros/humble/setup.sh
+  fi
   export PYTHONPATH="$builddir"/tmp/pkg/usr/ros/humble/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH}
   export AMENT_PREFIX_PATH="$builddir"/tmp/pkg/usr/ros/humble:${AMENT_PREFIX_PATH}
   export PATH="$builddir"/tmp/pkg/usr/ros/humble/bin:${PATH}
@@ -92,7 +100,9 @@ package() {
   cd "$builddir"
   export DESTDIR="$pkgdir"
 
-  source /usr/ros/humble/setup.sh
+  if [ -f /usr/ros/humble/setup.sh ]; then
+    source /usr/ros/humble/setup.sh
+  fi
   cd build
   make install
 

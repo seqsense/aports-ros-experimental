@@ -26,8 +26,10 @@ fi
 
 export ROS_PYTHON_VERSION=3
 export PYTHON_VERSION=$(python3 -c 'import sys; print("%i.%i" % (sys.version_info.major, sys.version_info.minor))')
-export PYTHONPATH=/usr/ros/humble/lib/python${PYTHON_VERSION}/site-packages:$PYTHONPATH
-export AMENT_PREFIX_PATH=/usr/ros/humble
+if [ ! -f /usr/ros/humble/setup.sh ]; then
+  export PYTHONPATH=/usr/ros/humble/lib/python${PYTHON_VERSION}/site-packages:$PYTHONPATH
+  export AMENT_PREFIX_PATH=/usr/ros/humble
+fi
 rosinstall="- git:
     local-name: ament_package
     uri: https://github.com/ros2-gbp/ament_package-release.git
@@ -53,6 +55,9 @@ build() {
   set -o pipefail
   echo "building" > $statuslog
   cd "$builddir"
+  if [ -f /usr/ros/humble/setup.sh ]; then
+    source /usr/ros/humble/setup.sh
+  fi
   # Directory to place intermediate files
   mkdir -p "$builddir"/tmp
   cd src/$_pkgname
@@ -70,6 +75,9 @@ check() {
   set -o pipefail
   echo "checking" >> $statuslog
   cd "$builddir"
+  if [ -f /usr/ros/humble/setup.sh ]; then
+    source /usr/ros/humble/setup.sh
+  fi
   export PYTHONPATH="$builddir"/tmp/pkg/usr/ros/humble/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH}
   export AMENT_PREFIX_PATH="$builddir"/tmp/pkg/usr/ros/humble:${AMENT_PREFIX_PATH}
   export PATH="$builddir"/tmp/pkg/usr/ros/humble/bin:${PATH}
@@ -104,6 +112,9 @@ package() {
   mkdir -p "$pkgdir"
   cd "$builddir"
 
+  if [ -f /usr/ros/humble/setup.sh ]; then
+    source /usr/ros/humble/setup.sh
+  fi
   cd src/$_pkgname
   python setup.py \
     build \
