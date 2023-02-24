@@ -81,6 +81,7 @@ check() {
   export PYTHONPATH="$builddir"/tmp/pkg/usr/ros/humble/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH}
   export AMENT_PREFIX_PATH="$builddir"/tmp/pkg/usr/ros/humble:${AMENT_PREFIX_PATH}
   export PATH="$builddir"/tmp/pkg/usr/ros/humble/bin:${PATH}
+  export LD_LIBRARY_PATH="$builddir"/tmp/pkg/usr/ros/humble/lib:${LD_LIBRARY_PATH}
   mkdir -p "$builddir"/tmp/pkg
   cd src/$_pkgname
   python setup.py \
