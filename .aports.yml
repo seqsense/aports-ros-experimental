@@ -1,44 +1,4 @@
 repos:
-  melodic:
-    main_ref: "master"
-    build_args:
-      ALPINE_VERSION: "3.8"
-      ROS_DISTRO: "melodic"
-    envs:
-      JOBS: 4
-      PURGE_OBSOLETE: "yes"
-      STACK_PROTECTOR: "off"
-    args: ["backports", "ros/melodic"]
-    repo_path: "/home/builder/packages"
-    cache_path: "/cache"
-    sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
-    upload:
-      - remote: "main"
-        paths: ["v3.8"]
-        archive_paths: ["archives/v3.8"]
-      - remote: "mirror"
-        paths: ["v3.8"]
-        archive_paths: ["archives/v3.8"]
-  noetic:
-    main_ref: "master"
-    build_args:
-      ALPINE_VERSION: "3.11"
-      ROS_DISTRO: "noetic"
-    envs:
-      JOBS: 4
-      PURGE_OBSOLETE: "yes"
-      STACK_PROTECTOR: "off"
-    args: ["backports", "ros/noetic"]
-    repo_path: "/home/builder/packages"
-    cache_path: "/cache"
-    sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
-    upload:
-      - remote: "main"
-        paths: ["v3.11"]
-        archive_paths: ["archives/v3.11"]
-      - remote: "mirror"
-        paths: ["v3.11"]
-        archive_paths: ["archives/v3.11"]
   noetic-alpine3.14:
     main_ref: "master"
     build_args:
