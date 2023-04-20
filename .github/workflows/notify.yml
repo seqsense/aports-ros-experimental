@@ -24,6 +24,6 @@ jobs:
           gh-pr-comment \
             -pr ${{ steps.pr_number.outputs.number }} \
             ':x: Build failed (status: ${{ github.event.check_suite.conclusion }})' \
-            "@seqsense/alpine-ros-maintainers check ${urls}"
+            "@seqsense/alpine_ros_maintainers check ${urls}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
