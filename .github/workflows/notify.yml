@@ -12,7 +12,7 @@ jobs:
         uses: at-wat/setup-gh-pr-comment@v0
       - name: Get PR number
         id: pr_number
-        uses: at-wat/get-pr-number-action@support-check-suite-event-released
+        uses: kamatama41/get-pr-number-action@v0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Notify failure
