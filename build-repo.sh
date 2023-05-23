@@ -187,15 +187,16 @@ echo
 sudo apk update
 
 set +e
-(cd ${basedir} && \
-  set -o pipefail && \
-  echo "buildrepo ${repo_out} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS}"; \
-  time buildrepo ${repo_out} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS} 2>&1 | \
-    grep --line-buffered \
-      -v -e "remote: Counting objects: " \
-      -v -e "remote: Compressing objects: " \
-      -v -e "Receiving objects: " \
-      -v -e "Resolving deltas: ")
+(
+  set -o pipefail
+  echo "buildrepo ${repo_out} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS}"
+  time buildrepo ${repo_out} -d ${REPODIR} -a ${APORTSDIR} ${BUILD_REPO_OPTIONS} 2>&1 \
+    | grep --line-buffered \
+        -v -e "remote: Counting objects: " \
+        -v -e "remote: Compressing objects: " \
+        -v -e "Receiving objects: " \
+        -v -e "Resolving deltas: "
+)
 exit_code=$?
 set -e
 
