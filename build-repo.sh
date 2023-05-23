@@ -15,7 +15,11 @@ repodir_base=${REPODIR}
 
 echo
 echo "REPODIR: ${REPODIR}"
+ls -lv ${REPODIR}
+echo
 echo "APORTSDIR: ${APORTSDIR}"
+ls -lv ${APORTSDIR}
+echo
 echo
 
 repo=$1
