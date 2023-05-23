@@ -103,13 +103,15 @@ then
 fi
 
 
-# Register existing local repositories
+# Register local repositories
 
-find ${DEPSDIR} -name APKINDEX.tar.gz | while read path; do
+echo "Local repositories:"
+for path in $(find ${DEPSDIR} -name APKINDEX.tar.gz || true); do
   arch_path=$(dirname ${path})
   repo_path=$(dirname ${arch_path})
   echo "${repo_path}" | sudo tee -a /etc/apk/repositories
 done
+echo
 
 
 basedir=.
