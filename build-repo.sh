@@ -10,9 +10,6 @@ mkdir -p \
 
 ALPINE_VERSION=${ALPINE_VERSION:-$(cat /etc/alpine-release | cut -d. -f1-2)}
 
-aportsdir_base=${APORTSDIR}
-repodir_base=${REPODIR}
-
 echo
 echo "REPODIR: ${REPODIR}"
 ls -lv ${REPODIR}
@@ -20,11 +17,8 @@ echo
 echo "APORTSDIR: ${APORTSDIR}"
 ls -lv ${APORTSDIR}
 echo
-echo "REPODIR.ro"
-ls -lv ${REPODIR}.ro || true
-echo
 
-repo=$1
+repo_full=$1
 
 BUILD_REPO_OPTIONS=
 case "${PURGE_OBSOLETE:-no}" in
@@ -100,8 +94,8 @@ then
     apk index -o ${index} $(find $(dirname ${index})/../ -name '*.apk')
     abuild-sign -k /home/builder/.abuild/*.rsa ${index}
   done
+  echo
 fi
-
 
 # Register local repositories
 
@@ -113,23 +107,18 @@ for path in $(find ${DEPSDIR} -name APKINDEX.tar.gz || true); do
 done
 echo
 
-
-basedir=.
-if [ ${repo} != $(basename ${repo}) ]; then
-  APORTSDIR=${APORTSDIR}/$(dirname ${repo})
-  REPODIR=${REPODIR}/$(dirname ${repo})
-  basedir=$(dirname ${repo})
+repo=${repo_full}
+if [ ${repo_full} != $(basename ${repo_full}) ]; then
   repo=$(basename ${repo})
 fi
 repo_out=${repo%.v*}
 echo "APORTSDIR: ${APORTSDIR}"
 echo "REPODIR: ${REPODIR}"
 echo "target repository: ${repo}"
-echo "base directory: ${basedir}"
 echo
 
-if [ ! -d ${SRCDIR}/${basedir}/${repo} ]; then
-  echo "${repo} is not present. Skipping."
+if [ ! -d ${SRCDIR}/${repo_full} ]; then
+  echo "${repo_full} is not present. Skipping."
   exit 0
 fi
 
@@ -141,7 +130,7 @@ sudo cp -p ${REPODIR}/${repo_out}/noarch/* ${REPODIR}/${repo_out}/x86_64/ 2>/dev
 
 # Register existing local repositories
 
-find ${repodir_base} -name APKINDEX.tar.gz | while read path; do
+find ${REPODIR} -name APKINDEX.tar.gz | while read path; do
   arch_path=$(dirname ${path})
   repo_path=$(dirname ${arch_path})
   echo "${repo_path}" | sudo tee -a /etc/apk/repositories
@@ -150,12 +139,11 @@ done
 
 # Build packages
 
-mkdir -p ${aportsdir_base}/${basedir}
-mkdir -p ${REPODIR}
-cp -r ${SRCDIR}/${basedir}/${repo} ${aportsdir_base}/${basedir}/${repo_out}
+mkdir -p ${APORTSDIR}
+cp -r ${SRCDIR}/${repo_full} ${APORTSDIR}/${repo_out}
 
-sed -e 's/arch="noarch.*"/arch="all"/' -i $(find ${aportsdir_base} -name APKBUILD)
-sed -e 's/:noarch//' -i $(find ${aportsdir_base} -name APKBUILD)
+sed -e 's/arch="noarch.*"/arch="all"/' -i $(find ${APORTSDIR} -name APKBUILD)
+sed -e 's/:noarch//' -i $(find ${APORTSDIR} -name APKBUILD)
 
 
 # Remove python2 builds on new environments
@@ -184,7 +172,7 @@ fi
 
 echo
 echo "Checking version constraint setting"
-find ${aportsdir_base} -name ENABLE_ON | while read path; do
+find ${APORTSDIR} -name ENABLE_ON | while read path; do
   echo -n "$(basename $(dirname $path))"
   if grep -q -s "v${ALPINE_VERSION}" "${path}"; then
     echo ": enabled"
