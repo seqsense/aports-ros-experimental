@@ -21,7 +21,7 @@ repos:
   noetic-alpine3.14:
     main_ref: "master"
     deps:
-      backports-alpine3.14: /home/builder/packages.ro/backports
+      backports-alpine3.14: /home/builder/deps/backports
     build_args:
       ALPINE_VERSION: "3.14"
       ROS_DISTRO: "noetic"
@@ -62,7 +62,7 @@ repos:
   noetic-alpine3.17:
     main_ref: "master"
     deps:
-      backports-alpine3.17: /home/builder/packages.ro/backports
+      backports-alpine3.17: /home/builder/deps/backports
     build_args:
       ALPINE_VERSION: "3.17"
       ROS_DISTRO: "noetic"

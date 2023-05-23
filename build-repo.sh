@@ -65,10 +65,13 @@ echo
 
 # Copy depending repository
 
-repos="$(cd ${REPODIR}.ro 2>/dev/null && ls -1 || true)"
+DEPSDIR=${HOME}/deps.rw
+
+mkdir -p ${DEPSDIR}
+repos="$(cd ${HOME}/deps 2>/dev/null && ls -1 || true)"
 for r in ${repos}; do
-  sudo cp -r ${REPODIR}.ro/${r} ${REPODIR}/${r}
-  sudo chmod -R a+w ${REPODIR}/${r}
+  sudo cp -r ${HOME}/deps/${r} ${DEPSDIR}/${r}
+  sudo chmod -R a+w ${DEPSDIR}/${r}
 done
 
 
@@ -88,8 +91,10 @@ sudo cp ${HOME}/.abuild/*.pub /etc/apk/keys/
 if ${RESIGN:-false}
 then
   # Re-sign packages if private key is updated
-  for index in $(find ${REPODIR} -name APKINDEX.tar.gz || true)
-  do
+  for index in $(
+    find ${REPODIR} -name APKINDEX.tar.gz || true
+    find ${DEPSDIR} -name APKINDEX.tar.gz || true
+  ); do
     echo "Resigning ${index}"
     rm -f ${index}
     apk index -o ${index} $(find $(dirname ${index})/../ -name '*.apk')
@@ -100,7 +105,7 @@ fi
 
 # Register existing local repositories
 
-find ${repodir_base} -name APKINDEX.tar.gz | while read path; do
+find ${DEPSDIR} -name APKINDEX.tar.gz | while read path; do
   arch_path=$(dirname ${path})
   repo_path=$(dirname ${arch_path})
   echo "${repo_path}" | sudo tee -a /etc/apk/repositories
