@@ -10,14 +10,6 @@ mkdir -p \
 
 ALPINE_VERSION=${ALPINE_VERSION:-$(cat /etc/alpine-release | cut -d. -f1-2)}
 
-echo
-echo "REPODIR: ${REPODIR}"
-ls -lv ${REPODIR}
-echo
-echo "APORTSDIR: ${APORTSDIR}"
-ls -lv ${APORTSDIR}
-echo
-
 repo_full=$1
 
 BUILD_REPO_OPTIONS=
