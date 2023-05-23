@@ -8,7 +8,7 @@ repos:
       PURGE_OBSOLETE: "yes"
       STACK_PROTECTOR: "on"
     args: ["backports"]
-    repo_path: "/home/builder/packages"
+    repo_path: "/home/builder/packages/backports"
     cache_path: "/cache"
     sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
     upload:
@@ -30,7 +30,7 @@ repos:
       PURGE_OBSOLETE: "yes"
       STACK_PROTECTOR: "on"
     args: ["ros/noetic.v3.14"]
-    repo_path: "/home/builder/packages"
+    repo_path: "/home/builder/packages/ros/noetic"
     cache_path: "/cache"
     sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
     upload:
