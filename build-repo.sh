@@ -20,8 +20,8 @@ echo
 echo "APORTSDIR: ${APORTSDIR}"
 ls -lv ${APORTSDIR}
 echo
-echo "APORTSDIR.ro"
-ls -lv ${APORTSDIR}.ro || true
+echo "REPODIR.ro"
+ls -lv ${REPODIR}.ro || true
 echo
 
 repo=$1
