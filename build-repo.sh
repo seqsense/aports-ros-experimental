@@ -17,8 +17,6 @@ case "${PURGE_OBSOLETE:-no}" in
   "y" | "yes" | "Yes" | "on" | "ON" ) BUILD_REPO_OPTIONS="-p";;
 esac
 
-#BUILD_REPO_OPTIONS="${BUILD_REPO_OPTIONS} -k"
-
 
 # Disable stack protection to improve performance
 
