@@ -19,7 +19,7 @@ esac
 
 
 if [ -n "${ADDITIONAL_APK_REPO:-}" ]; then
-  echo "${ADDITIONAL_APK_REPO}" >> /etc/apk/repositories
+  echo "${ADDITIONAL_APK_REPO}" | sudo tee -a /etc/apk/repositories
 fi
 
 
