@@ -1,4 +1,25 @@
 repos:
+  melodic-3.8:
+    main_ref: "master"
+    build_args:
+      ALPINE_VERSION: "3.8"
+      ROS_DISTRO: "melodic"
+    envs:
+      JOBS: 4
+      PURGE_OBSOLETE: "yes"
+      STACK_PROTECTOR: "off"
+      ADDITIONAL_APK_REPO: "http://alpine-ros.seqsense.org/v3.8/backports"
+    args: ["ros/melodic"]
+    repo_path: "/home/builder/packages/melodic"
+    cache_path: "/cache"
+    sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
+    upload:
+      - remote: "main"
+        paths: ["v3.8/ros/melodic"]
+        archive_paths: ["archives/v3.8/ros/melodic"]
+      - remote: "mirror"
+        paths: ["v3.8/ros/melodic"]
+        archive_paths: ["archives/v3.8/ros/melodic"]
   backports-3.14:
     main_ref: "master"
     build_args:
