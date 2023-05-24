@@ -2,7 +2,7 @@ SHELL                   = /bin/bash
 
 ROS_DISTRO             ?= noetic
 BUILDER_NAME            = seqsense/aports-ros-builder
-ALPINE_VERSION         ?= 3.11
+ALPINE_VERSION         ?= 3.17
 S3_APK_REPO_BUCKET_URI ?= s3://localhost
 S3_APK_REPO_MIRROR_URI ?=
 APK_REPO_PRIVATE_KEY   ?= # path to your private key
@@ -10,12 +10,7 @@ JOBS                   ?= 2
 RESIGN                 ?= false
 STACK_PROTECTOR        ?= on
 
-BUILDER_TAG             = $(ROS_DISTRO)$(shell \
-  if [ $(ROS_DISTRO) = "noetic" ] && [ $(ALPINE_VERSION) != "3.11" ]; then \
-    echo -n ".v$(ALPINE_VERSION)"; \
-	elif [ $(ROS_DISTRO) = "humble" ]; then \
-		echo -n ".v$(ALPINE_VERSION)"; \
-  fi)
+BUILDER_TAG             = $(ROS_DISTRO).v$(ALPINE_VERSION)
 
 REPOSITORY              = backports ros/$(BUILDER_TAG)
 
