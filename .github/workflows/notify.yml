@@ -1,0 +1,29 @@
+name: notify
+on:
+  check_suite:
+    types: [completed]
+
+jobs:
+  notify-master:
+    runs-on: ubuntu-latest
+    if: github.event.check_suite.conclusion != 'success' && github.event.check_suite.head_branch == 'master'
+    steps:
+      - name: Install gh-pr-comment
+        uses: at-wat/setup-gh-pr-comment@v0
+      - name: Get PR number
+        id: pr_number
+        uses: kamatama41/get-pr-number-action@v0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Notify failure
+        run: |
+          urls="$(
+            gh api ${{ github.event.check_suite.check_runs_url }} \
+              | jq -r '.check_runs[] | select(.conclusion != "success") | .html_url'
+          )"
+          gh-pr-comment \
+            -pr ${{ steps.pr_number.outputs.number }} \
+            ':x: Build failed (status: ${{ github.event.check_suite.conclusion }})' \
+            "@seqsense/alpine_ros_maintainers check ${urls}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
