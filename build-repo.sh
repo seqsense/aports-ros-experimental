@@ -18,6 +18,11 @@ case "${PURGE_OBSOLETE:-no}" in
 esac
 
 
+if [ -n "${ADDITIONAL_APK_REPO:-}" ]; then
+  echo "${ADDITIONAL_APK_REPO}" >> /etc/apk/repositories
+fi
+
+
 # Disable stack protection to improve performance
 
 CFLAGS="-fomit-frame-pointer -march=x86-64 -mtune=generic -Os"
