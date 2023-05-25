@@ -1,7 +1,7 @@
 pkgname=ros-humble-ros2topic
 _pkgname=ros2topic
 pkgver=0.18.6
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
