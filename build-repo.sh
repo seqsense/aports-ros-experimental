@@ -239,6 +239,8 @@ fi
 
 # Test dependencies
 
+echo "${REPODIR}/${repo_out}" | sudo tee -a /etc/apk/repositories
+
 touch /tmp/local_pkgs
 find ${REPODIR}/${repo_out} -name APKINDEX.tar.gz | while read path; do
   arch_path=$(dirname ${path})
