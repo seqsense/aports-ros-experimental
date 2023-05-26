@@ -123,15 +123,6 @@ fi
 sudo cp -p ${REPODIR}/${repo_out}/noarch/* ${REPODIR}/${repo_out}/x86_64/ 2>/dev/null || true
 
 
-# Register existing local repositories
-
-find ${REPODIR} -name APKINDEX.tar.gz | while read path; do
-  arch_path=$(dirname ${path})
-  repo_path=$(dirname ${arch_path})
-  echo "${repo_path}" | sudo tee -a /etc/apk/repositories
-done
-
-
 # Build packages
 
 mkdir -p ${APORTSDIR}
@@ -238,6 +229,8 @@ fi
 
 
 # Test dependencies
+
+echo "${REPODIR}/${repo_out}" | sudo tee -a /etc/apk/repositories
 
 touch /tmp/local_pkgs
 find ${REPODIR}/${repo_out} -name APKINDEX.tar.gz | while read path; do
