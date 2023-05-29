@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index e83e1ab..936b1f8 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -37,6 +37,7 @@ if(BUILD_TESTING)
+   find_package(ament_cmake_cppcheck REQUIRED)
+   list(APPEND AMENT_LINT_AUTO_EXCLUDE
+     ament_cmake_cppcheck
++    ament_cmake_copyright
+   )
+   ament_lint_auto_find_test_dependencies()
+   ament_cppcheck(LANGUAGE c++)
