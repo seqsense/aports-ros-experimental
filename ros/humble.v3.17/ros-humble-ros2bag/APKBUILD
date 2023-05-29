@@ -1,14 +1,14 @@
 pkgname=ros-humble-ros2bag
 _pkgname=ros2bag
-pkgver=0.15.4
+pkgver=0.15.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="ros-humble-ros-workspace ros-humble-ros2cli ros-humble-rosbag2-py ros-humble-rosbag2-transport ros-humble-ros2cli ros-humble-rosbag2-py ros-humble-rosbag2-transport"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath py3-pytest py3-pytest ros-humble-ament-copyright ros-humble-ament-flake8 ros-humble-ament-pep257 ros-humble-launch-testing ros-humble-launch-testing-ros ros-humble-ros2cli ros-humble-rosbag2-py ros-humble-rosbag2-transport"
+depends="ros-humble-ament-index-python ros-humble-rclpy ros-humble-ros-workspace ros-humble-ros2cli ros-humble-rosbag2-py"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath py3-pytest py3-pytest ros-humble-ament-copyright ros-humble-ament-flake8 ros-humble-ament-pep257 ros-humble-launch-testing ros-humble-launch-testing-ros"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: ros2bag
     uri: https://github.com/ros2-gbp/rosbag2-release.git
-    version: release/humble/ros2bag/0.15.4-2
+    version: release/humble/ros2bag/0.15.5-1
 "
 
 prepare() {
