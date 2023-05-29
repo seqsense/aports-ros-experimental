@@ -1,14 +1,14 @@
-pkgname=ros-humble-ros2topic
-_pkgname=ros2topic
-pkgver=0.18.6
-pkgrel=1
+pkgname=ros-humble-robot-state-publisher
+_pkgname=robot_state_publisher
+pkgver=3.0.2
+pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
-license="Apache License 2.0"
+license="BSD"
 
-depends="py3-numpy py3-numpy-dev py3-yaml ros-humble-rclpy ros-humble-ros-workspace ros-humble-ros2cli ros-humble-rosidl-runtime-py ros-humble-ros2cli"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath py3-pytest py3-pytest py3-pytest-timeout ros-humble-ament-copyright ros-humble-ament-flake8 ros-humble-ament-pep257 ros-humble-ament-xmllint ros-humble-geometry-msgs ros-humble-launch ros-humble-launch-ros ros-humble-launch-testing ros-humble-launch-testing-ros ros-humble-ros2cli ros-humble-rosgraph-msgs ros-humble-std-msgs ros-humble-test-msgs"
+depends="ros-humble-builtin-interfaces ros-humble-geometry-msgs ros-humble-kdl-parser ros-humble-orocos-kdl-vendor ros-humble-rcl-interfaces ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-ros-workspace ros-humble-sensor-msgs ros-humble-std-msgs ros-humble-tf2-ros ros-humble-urdf ros-humble-builtin-interfaces ros-humble-geometry-msgs ros-humble-kdl-parser ros-humble-orocos-kdl-vendor ros-humble-rcl-interfaces ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-sensor-msgs ros-humble-std-msgs ros-humble-tf2-ros ros-humble-urdf"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake ros-humble-ament-cmake-gtest ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-builtin-interfaces ros-humble-geometry-msgs ros-humble-kdl-parser ros-humble-launch-ros ros-humble-launch-testing-ament-cmake ros-humble-orocos-kdl-vendor ros-humble-rcl-interfaces ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-sensor-msgs ros-humble-std-msgs ros-humble-tf2-ros ros-humble-urdf"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -31,9 +31,9 @@ if [ ! -f /usr/ros/humble/setup.sh ]; then
   export AMENT_PREFIX_PATH=/usr/ros/humble
 fi
 rosinstall="- git:
-    local-name: ros2topic
-    uri: https://github.com/ros2-gbp/ros2cli-release.git
-    version: release/humble/ros2topic/0.18.6-1
+    local-name: robot_state_publisher
+    uri: https://github.com/ros2-gbp/robot_state_publisher-release.git
+    version: release/humble/robot_state_publisher/3.0.2-2
 "
 
 prepare() {
@@ -58,13 +58,13 @@ build() {
   if [ -f /usr/ros/humble/setup.sh ]; then
     source /usr/ros/humble/setup.sh
   fi
-  # Directory to place intermediate files
-  mkdir -p "$builddir"/tmp
-  cd src/$_pkgname
-  python setup.py egg_info --egg-base="$builddir"/tmp 2>&1 | tee $buildlog
-  python setup.py \
-    build \
-    --build-base="$builddir"/tmp/build
+  mkdir build
+  cd build
+  cmake ../src/$_pkgname \
+    -DCMAKE_INSTALL_PREFIX=/usr/ros/humble \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_INSTALL_LIBDIR=lib 2>&1 | tee $buildlog
+  make 2>&1 | tee -a $buildlog
 }
 
 check() {
@@ -83,23 +83,10 @@ check() {
   export PATH="$builddir"/tmp/pkg/usr/ros/humble/bin:${PATH}
   export LD_LIBRARY_PATH="$builddir"/tmp/pkg/usr/ros/humble/lib:${LD_LIBRARY_PATH}
   mkdir -p "$builddir"/tmp/pkg
-  cd src/$_pkgname
-  python setup.py \
-    build \
-    --build-base="$builddir"/tmp/build \
-    install \
-    --root="$builddir"/tmp/pkg \
-    --prefix=/usr/ros/humble 2>&1 | tee $buildlog
-  TEST_TARGET=$(ls -d */ | grep -m1 "\(test\|tests\)") || true
-  if [ -z "$TEST_TARGET" ]; then
-    echo "No \"test\" or \"tests\" directory. Check skipped" | tee $checklog
-    return 0
-  fi
-  USE_PYTEST=$(grep '\<pytest\>' setup.py) || true
-  if [ -n "$USE_PYTEST" ]; then
-    python -m pytest 2>&1 | tee $checklog
-  else
-    python setup.py test 2>&1 | tee $checklog
+  cd build
+  make install DESTDIR="$builddir"/tmp/pkg
+  if [ $(make -q test > /dev/null 2> /dev/null; echo $?) -eq 1 ]; then
+    make test 2>&1 | tee $checklog
   fi
 }
 
@@ -112,17 +99,13 @@ package() {
   echo "packaging" >> $statuslog
   mkdir -p "$pkgdir"
   cd "$builddir"
+  export DESTDIR="$pkgdir"
 
   if [ -f /usr/ros/humble/setup.sh ]; then
     source /usr/ros/humble/setup.sh
   fi
-  cd src/$_pkgname
-  python setup.py \
-    build \
-    --build-base="$builddir"/tmp/build \
-    install \
-    --root="$pkgdir" \
-    --prefix=/usr/ros/humble
+  cd build
+  make install
 
   # Tweak invalid RPATH
   find $pkgdir -name "*.so" | while read so; do
@@ -177,6 +160,10 @@ package() {
     # Copy license files under the source
     if echo $file | grep -e '^\./\.'; then
       # Omit files under hidden directory
+      continue
+    fi
+    if echo $file | grep -e '^\./build/'; then
+      # Omit files under build directory
       continue
     fi
     echo "Copying license files from source tree: $file"

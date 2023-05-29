@@ -1,14 +1,14 @@
-pkgname=ros-humble-ros2topic
-_pkgname=ros2topic
-pkgver=0.18.6
-pkgrel=1
+pkgname=ros-humble-tf2-ros-py
+_pkgname=tf2_ros_py
+pkgver=0.25.2
+pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
-url="https://index.ros.org/p/$_pkgname"
+url="http://www.ros.org/wiki/tf2_ros"
 arch="all"
-license="Apache License 2.0"
+license="BSD"
 
-depends="py3-numpy py3-numpy-dev py3-yaml ros-humble-rclpy ros-humble-ros-workspace ros-humble-ros2cli ros-humble-rosidl-runtime-py ros-humble-ros2cli"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath py3-pytest py3-pytest py3-pytest-timeout ros-humble-ament-copyright ros-humble-ament-flake8 ros-humble-ament-pep257 ros-humble-ament-xmllint ros-humble-geometry-msgs ros-humble-launch ros-humble-launch-ros ros-humble-launch-testing ros-humble-launch-testing-ros ros-humble-ros2cli ros-humble-rosgraph-msgs ros-humble-std-msgs ros-humble-test-msgs"
+depends="ros-humble-geometry-msgs ros-humble-rclpy ros-humble-ros-workspace ros-humble-sensor-msgs ros-humble-std-msgs ros-humble-tf2-msgs ros-humble-tf2-py"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath py3-pytest py3-pytest ros-humble-sensor-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -31,9 +31,9 @@ if [ ! -f /usr/ros/humble/setup.sh ]; then
   export AMENT_PREFIX_PATH=/usr/ros/humble
 fi
 rosinstall="- git:
-    local-name: ros2topic
-    uri: https://github.com/ros2-gbp/ros2cli-release.git
-    version: release/humble/ros2topic/0.18.6-1
+    local-name: tf2_ros_py
+    uri: https://github.com/ros2-gbp/geometry2-release.git
+    version: release/humble/tf2_ros_py/0.25.2-1
 "
 
 prepare() {
