@@ -1,0 +1,235 @@
+diff --git a/include/filters/filter_chain.hpp b/include/filters/filter_chain.hpp
+index 5780499..3331daa 100644
+--- a/include/filters/filter_chain.hpp
++++ b/include/filters/filter_chain.hpp
+@@ -43,6 +43,11 @@
+ 
+ #include "filters/filter_base.hpp"
+ 
++namespace
++{
++#define NOINLINE __attribute__ ((noinline))
++}
++
+ namespace filters
+ {
+ 
+@@ -59,7 +64,7 @@ struct FoundFilter
+ /**
+  * \brief Read params and figure out what filters to load
+  */
+-inline bool
++bool NOINLINE
+ load_chain_config(
+   const std::string & param_prefix,
+   const rclcpp::node_interfaces::NodeLoggingInterface::SharedPtr & node_logger,
+@@ -105,23 +110,20 @@ load_chain_config(
+       // Reached end of chain
+       break;
+     } else if (got_name != got_type) {
+-      RCLCPP_FATAL(
+-        node_logger->get_logger(),
+-        "%s and %s are required", name_desc.name.c_str(), type_desc.name.c_str());
++      RCLCPP_FATAL_STREAM(
++        node_logger->get_logger(), name_desc.name << " and " << type_desc.name << "are required");
+       return false;
+     }
+ 
+     // Make sure 'name' and 'type' are strings
+     if (rclcpp::PARAMETER_STRING != param_name.get_type()) {
+-      RCLCPP_FATAL(
+-        node_logger->get_logger(),
+-        "%s must be a string", name_desc.name.c_str());
++      RCLCPP_FATAL_STREAM(
++        node_logger->get_logger(), name_desc.name << " must be a string");
+       return false;
+     }
+     if (rclcpp::PARAMETER_STRING != param_type.get_type()) {
+-      RCLCPP_FATAL(
+-        node_logger->get_logger(),
+-        "%s must be a string", type_desc.name.c_str());
++      RCLCPP_FATAL_STREAM(
++        node_logger->get_logger(), type_desc.name << " must be a string");
+       return false;
+     }
+ 
+@@ -132,18 +134,18 @@ load_chain_config(
+     // Make sure 'name' is unique
+     for (const auto & filter : found_filters) {
+       if (found_filter.name == filter.name) {
+-        RCLCPP_FATAL(
++        RCLCPP_FATAL_STREAM(
+           node_logger->get_logger(),
+-          "A filter with the name %s already exists", filter.name.c_str());
++          "A filter with the name " << filter.name << " already exists");
+         return false;
+       }
+     }
+ 
+     // Make sure 'type' is formated as 'package_name/filtername'
+     if (1 != std::count(found_filter.type.cbegin(), found_filter.type.cend(), '/')) {
+-      RCLCPP_FATAL(
++      RCLCPP_FATAL_STREAM(
+         node_logger->get_logger(),
+-        "%s must be of form <package_name>/<filter_name>", found_filter.type.c_str());
++        found_filter.type << " must be of form <package_name>/<filter_name>");
+       return false;
+     }
+ 
+@@ -178,13 +180,13 @@ public:
+   /**
+    * \brief Create the filter chain object
+    */
+-  explicit FilterChain(std::string data_type)
++  explicit NOINLINE FilterChain(std::string data_type)
+   : loader_("filters", "filters::FilterBase<" + data_type + ">"),
+     configured_(false)
+   {
+   }
+ 
+-  ~FilterChain()
++  NOINLINE ~FilterChain()
+   {
+     clear();
+   }
+@@ -192,7 +194,7 @@ public:
+   /**
+    * \brief process data through each of the filters added sequentially
+    */
+-  bool update(const T & data_in, T & data_out)
++  bool NOINLINE update(const T & data_in, T & data_out)
+   {
+     bool result;
+     size_t list_size = reference_pointers_.size();
+@@ -227,7 +229,7 @@ public:
+   /**
+    * \brief Clear all filters from this chain
+    */
+-  bool clear()
++  bool NOINLINE clear()
+   {
+     configured_ = false;
+     reference_pointers_.clear();
+@@ -240,13 +242,14 @@ public:
+    * \param node_logger node logging interface to use
+    * \param node_params node parameter interface to use
+    */
+-  bool configure(
++  bool NOINLINE configure(
+     const std::string & param_prefix,
+     const rclcpp::node_interfaces::NodeLoggingInterface::SharedPtr & node_logger,
+     const rclcpp::node_interfaces::NodeParametersInterface::SharedPtr & node_params)
+   {
+     if (configured_) {
+-      RCLCPP_ERROR(logging_interface_->get_logger(), "Filter chain is already configured");
++      RCLCPP_ERROR_STREAM(
++        logging_interface_->get_logger(), "Filter chain is already configured");
+       return false;
+     }
+     logging_interface_ = node_logger;
+@@ -267,14 +270,14 @@ public:
+       try {
+         loaded_filter = loader_.createUniqueInstance(filter.type);
+       } catch (const pluginlib::LibraryLoadException & e) {
+-        RCLCPP_FATAL(
++        RCLCPP_FATAL_STREAM(
+           logging_interface_->get_logger(),
+-          "Could not load library for %s: %s", filter.type.c_str(), e.what());
++          "Could not load library for " << filter.type << ": " << e.what());
+         return false;
+       } catch (const pluginlib::CreateClassException & e) {
+-        RCLCPP_FATAL(
++        RCLCPP_FATAL_STREAM(
+           logging_interface_->get_logger(),
+-          "Could not construct class %s: %s", filter.type.c_str(), e.what());
++          "Could not construct class " << filter.type << ": " << e.what());
+         return false;
+       }
+ 
+@@ -282,9 +285,9 @@ public:
+       if (!loaded_filter || !loaded_filter->configure(
+           filter.param_prefix, filter.name, logging_interface_, params_interface_))
+       {
+-        RCLCPP_FATAL(
++        RCLCPP_FATAL_STREAM(
+           logging_interface_->get_logger(),
+-          "Could not configure %s of type %s", filter.name.c_str(), filter.type.c_str());
++          "Could not configure " << filter.name << " of type " << filter.type);
+         return false;
+       }
+       loaded_filters.emplace_back(std::move(loaded_filter));
+@@ -322,7 +325,7 @@ public:
+   /**
+    * \brief Create the filter chain object
+    */
+-  explicit MultiChannelFilterChain(std::string data_type)
++  explicit NOINLINE MultiChannelFilterChain(std::string data_type)
+   : loader_("filters", "filters::MultiChannelFilterBase<" + data_type + ">"),
+     configured_(false)
+   {
+@@ -331,7 +334,7 @@ public:
+   /**
+    * \brief process data through each of the filters added sequentially
+    */
+-  bool update(const std::vector<T> & data_in, std::vector<T> & data_out)
++  bool NOINLINE update(const std::vector<T> & data_in, std::vector<T> & data_out)
+   {
+     bool result;
+     size_t list_size = reference_pointers_.size();
+@@ -373,7 +376,7 @@ public:
+   /**
+    * \brief Clear all filters from this chain
+    */
+-  bool clear()
++  bool NOINLINE clear()
+   {
+     configured_ = false;
+     reference_pointers_.clear();
+@@ -388,14 +391,14 @@ public:
+    * This will call configure on all filters which have been added
+    * as well as allocate the buffers
+    */
+-  bool configure(
++  bool NOINLINE configure(
+     size_t number_of_channels,
+     const std::string & param_prefix,
+     const rclcpp::node_interfaces::NodeLoggingInterface::SharedPtr & node_logger,
+     const rclcpp::node_interfaces::NodeParametersInterface::SharedPtr & node_params)
+   {
+     if (configured_) {
+-      RCLCPP_ERROR(logging_interface_->get_logger(), "Filter chain is already configured");
++      RCLCPP_ERROR_STREAM(logging_interface_->get_logger(), "Filter chain is already configured");
+       return false;
+     }
+     logging_interface_ = node_logger;
+@@ -416,14 +419,14 @@ public:
+       try {
+         loaded_filter = loader_.createUniqueInstance(filter.type);
+       } catch (const pluginlib::LibraryLoadException & e) {
+-        RCLCPP_FATAL(
++        RCLCPP_FATAL_STREAM(
+           logging_interface_->get_logger(),
+-          "Could not load library for %s: %s", filter.type.c_str(), e.what());
++          "Could not load library for " << filter.type << ": " << e.what());
+         return false;
+       } catch (const pluginlib::CreateClassException & e) {
+-        RCLCPP_FATAL(
++        RCLCPP_FATAL_STREAM(
+           logging_interface_->get_logger(),
+-          "Could not construct class %s: %s", filter.type.c_str(), e.what());
++          "Could not construct class " << filter.type << ": " << e.what());
+         return false;
+       }
+ 
+@@ -432,9 +435,9 @@ public:
+           number_of_channels, filter.param_prefix, filter.name,
+           logging_interface_, params_interface_))
+       {
+-        RCLCPP_FATAL(
++        RCLCPP_FATAL_STREAM(
+           logging_interface_->get_logger(),
+-          "Could not configure %s of type %s", filter.name.c_str(), filter.type.c_str());
++          "Could not configure " << filter.name << " of type " << filter.type);
+         return false;
+       }
+       loaded_filters.emplace_back(std::move(loaded_filter));
