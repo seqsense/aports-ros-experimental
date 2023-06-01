@@ -1,7 +1,7 @@
 pkgname=ros-noetic-roscpp
 _pkgname=roscpp
-pkgver=1.15.15
-pkgrel=2
+pkgver=1.16.0
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/roscpp"
 arch="all"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: roscpp
     uri: https://github.com/ros-gbp/ros_comm-release.git
-    version: release/noetic/roscpp/1.15.15-1
+    version: release/noetic/roscpp/1.16.0-1
 "
 
 prepare() {
@@ -259,3 +259,8 @@ doc() {
 
   default_doc
 }
+
+if [ -f ./apkbuild_hook.sh ]; then
+  . ./apkbuild_hook.sh
+  apkbuild_hook
+fi

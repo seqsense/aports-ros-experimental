@@ -1,6 +1,6 @@
 pkgname=ros-melodic-rviz
 _pkgname=rviz
-pkgver=1.13.29
+pkgver=1.13.30
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/rviz"
@@ -26,7 +26,7 @@ fi
 
 export ROS_PACKAGE_PATH="$builddir/src/$_pkgname"
 export ROS_PYTHON_VERSION=2
-rosinstall="- git: {local-name: rviz, uri: 'https://github.com/ros-gbp/rviz-release.git', version: release/melodic/rviz/1.13.29-1}
+rosinstall="- git: {local-name: rviz, uri: 'https://github.com/ros-gbp/rviz-release.git', version: release/melodic/rviz/1.13.30-1}
 "
 
 prepare() {
@@ -241,3 +241,8 @@ doc() {
 
   default_doc
 }
+
+if [ -f ./apkbuild_hook.sh ]; then
+  . ./apkbuild_hook.sh
+  apkbuild_hook
+fi

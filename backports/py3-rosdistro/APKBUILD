@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=py3-rosdistro
 _pkgname=rosdistro
-pkgver=0.8.2
+pkgver=0.9.0
 pkgrel=2
 pkgdesc="A tool to work with rosdistro files"
 url="https://pypi.python.org/pypi/rosdistro/"
@@ -36,6 +36,6 @@ package() {
 	install -Dm644 $startdir/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
 }
 
-sha512sums="51e203367a68090a7ea28624897847c4796e6c95c771641ef90b24bb13fc6ff47b9d2bd702b450cffc1156a9abe74b5d1dca967727b5e4c426589559b064dfe8  rosdistro-0.8.2.tar.gz
-957fb867499e499d80a719f3c60d55ed75bff8dae44b891bbb7d73e53bc8864a27c370ea0a173ffa56f183bc965f3baeae9c99f4d60e81e2cf7036925de92406  force-to-enable-alpine-platform.patch
+sha512sums="190e19e373feba5dc79efacc847a209e527703dde8462aa19a16c207044af5b9685b0dbb77ea1d2e08a88f5eeffd75164f376714a7067c288bfb550c7322de8d  rosdistro-0.9.0.tar.gz
+15437cb8b4189301c93e9238b5e6ad72f8581186523c12b3545e53c052fe22bb8173da75d4d7946f1f2f1772ef412852046ac94446437ab72d1475db750b0655  force-to-enable-alpine-platform.patch
 a526a429919c239795465aa876bb1abca7f1393fe53ccbb721c967b350be9ceb5bbe1ebecade390be3557e203c6e8dcf35eb6424b2165e0412c11957f92b49c9  LICENSE.txt"

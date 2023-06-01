@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 6aa4095..002838d 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -50,6 +50,9 @@ ament_export_dependencies(rcutils)
+ if(BUILD_TESTING)
+   find_package(ament_cmake_gtest REQUIRED)
+   find_package(ament_lint_auto REQUIRED)
++  list(APPEND AMENT_LINT_AUTO_EXCLUDE
++    ament_cmake_uncrustify
++  )
+ 
+   if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+     add_compile_options(-Wthread-safety -Werror)

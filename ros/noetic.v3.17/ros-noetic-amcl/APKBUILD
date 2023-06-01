@@ -1,6 +1,6 @@
 pkgname=ros-noetic-amcl
 _pkgname=amcl
-pkgver=1.17.2
+pkgver=1.17.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/amcl"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: amcl
     uri: https://github.com/ros-gbp/navigation-release.git
-    version: release/noetic/amcl/1.17.2-1
+    version: release/noetic/amcl/1.17.3-1
 "
 
 prepare() {
@@ -259,3 +259,8 @@ doc() {
 
   default_doc
 }
+
+if [ -f ./apkbuild_hook.sh ]; then
+  . ./apkbuild_hook.sh
+  apkbuild_hook
+fi

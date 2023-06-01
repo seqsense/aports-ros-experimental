@@ -1,6 +1,6 @@
 pkgname=ros-noetic-topic-tools
 _pkgname=topic_tools
-pkgver=1.15.15
+pkgver=1.16.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/topic_tools"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: topic_tools
     uri: https://github.com/ros-gbp/ros_comm-release.git
-    version: release/noetic/topic_tools/1.15.15-1
+    version: release/noetic/topic_tools/1.16.0-1
 "
 
 prepare() {
@@ -259,3 +259,8 @@ doc() {
 
   default_doc
 }
+
+if [ -f ./apkbuild_hook.sh ]; then
+  . ./apkbuild_hook.sh
+  apkbuild_hook
+fi

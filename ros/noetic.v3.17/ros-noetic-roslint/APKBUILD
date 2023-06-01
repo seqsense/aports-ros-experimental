@@ -1,7 +1,7 @@
 pkgname=ros-noetic-roslint
 _pkgname=roslint
 pkgver=0.12.0
-pkgrel=0
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/roslint"
 arch="all"
@@ -259,3 +259,8 @@ doc() {
 
   default_doc
 }
+
+if [ -f ./apkbuild_hook.sh ]; then
+  . ./apkbuild_hook.sh
+  apkbuild_hook
+fi

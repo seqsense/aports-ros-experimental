@@ -1,5 +1,5 @@
 repos:
-  melodic:
+  melodic-3.8:
     main_ref: "master"
     build_args:
       ALPINE_VERSION: "3.8"
@@ -8,39 +8,41 @@ repos:
       JOBS: 4
       PURGE_OBSOLETE: "yes"
       STACK_PROTECTOR: "off"
-    args: ["backports", "ros/melodic"]
-    repo_path: "/home/builder/packages"
+      ADDITIONAL_APK_REPO: "http://alpine-ros.seqsense.org/v3.8/backports"
+    args: ["ros/melodic"]
+    repo_path: "/home/builder/packages/melodic"
     cache_path: "/cache"
     sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
     upload:
       - remote: "main"
-        paths: ["v3.8"]
-        archive_paths: ["archives/v3.8"]
+        paths: ["v3.8/ros/melodic"]
+        archive_paths: ["archives/v3.8/ros/melodic"]
       - remote: "mirror"
-        paths: ["v3.8"]
-        archive_paths: ["archives/v3.8"]
-  noetic:
+        paths: ["v3.8/ros/melodic"]
+        archive_paths: ["archives/v3.8/ros/melodic"]
+  backports-3.14:
     main_ref: "master"
     build_args:
-      ALPINE_VERSION: "3.11"
-      ROS_DISTRO: "noetic"
+      ALPINE_VERSION: "3.14"
     envs:
       JOBS: 4
       PURGE_OBSOLETE: "yes"
-      STACK_PROTECTOR: "off"
-    args: ["backports", "ros/noetic"]
-    repo_path: "/home/builder/packages"
+      STACK_PROTECTOR: "on"
+    args: ["backports"]
+    repo_path: "/home/builder/packages/backports"
     cache_path: "/cache"
     sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
     upload:
       - remote: "main"
-        paths: ["v3.11"]
-        archive_paths: ["archives/v3.11"]
+        paths: ["v3.14/backports"]
+        archive_paths: ["archives/v3.14/backports"]
       - remote: "mirror"
-        paths: ["v3.11"]
-        archive_paths: ["archives/v3.11"]
-  noetic-alpine3.14:
+        paths: ["v3.14/backports"]
+        archive_paths: ["archives/v3.14/backports"]
+  noetic-3.14:
     main_ref: "master"
+    deps:
+      backports-3.14: /home/builder/deps/backports
     build_args:
       ALPINE_VERSION: "3.14"
       ROS_DISTRO: "noetic"
@@ -48,19 +50,40 @@ repos:
       JOBS: 4
       PURGE_OBSOLETE: "yes"
       STACK_PROTECTOR: "on"
-    args: ["backports", "ros/noetic.v3.14"]
-    repo_path: "/home/builder/packages"
+    args: ["ros/noetic.v3.14"]
+    repo_path: "/home/builder/packages/noetic"
     cache_path: "/cache"
     sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
     upload:
       - remote: "main"
-        paths: ["v3.14"]
-        archive_paths: ["archives/v3.14"]
+        paths: ["v3.14/ros/noetic"]
+        archive_paths: ["archives/v3.14/ros/noetic"]
       - remote: "mirror"
-        paths: ["v3.14"]
-        archive_paths: ["archives/v3.14"]
-  noetic-alpine3.17:
+        paths: ["v3.14/ros/noetic"]
+        archive_paths: ["archives/v3.14/ros/noetic"]
+  backports-3.17:
     main_ref: "master"
+    build_args:
+      ALPINE_VERSION: "3.17"
+    envs:
+      JOBS: 4
+      PURGE_OBSOLETE: "yes"
+      STACK_PROTECTOR: "on"
+    args: ["backports"]
+    repo_path: "/home/builder/packages/backports"
+    cache_path: "/cache"
+    sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
+    upload:
+      - remote: "main"
+        paths: ["v3.17/backports"]
+        archive_paths: ["archives/v3.17/backports"]
+      - remote: "mirror"
+        paths: ["v3.17/backports"]
+        archive_paths: ["archives/v3.17/backports"]
+  noetic-3.17:
+    main_ref: "master"
+    deps:
+      backports-3.17: /home/builder/deps/backports
     build_args:
       ALPINE_VERSION: "3.17"
       ROS_DISTRO: "noetic"
@@ -68,14 +91,36 @@ repos:
       JOBS: 4
       PURGE_OBSOLETE: "yes"
       STACK_PROTECTOR: "on"
-    args: ["backports", "ros/noetic.v3.17"]
-    repo_path: "/home/builder/packages"
+    args: ["ros/noetic.v3.17"]
+    repo_path: "/home/builder/packages/noetic"
     cache_path: "/cache"
     sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
     upload:
       - remote: "main"
-        paths: ["v3.17"]
-        archive_paths: ["archives/v3.17"]
+        paths: ["v3.17/ros/noetic"]
+        archive_paths: ["archives/v3.17/ros/noetic"]
       - remote: "mirror"
-        paths: ["v3.17"]
-        archive_paths: ["archives/v3.17"]
+        paths: ["v3.17/ros/noetic"]
+        archive_paths: ["archives/v3.17/ros/noetic"]
+  humble-3.17:
+    main_ref: "master"
+    deps:
+      backports-3.17: /home/builder/deps/backports
+    build_args:
+      ALPINE_VERSION: "3.17"
+      ROS_DISTRO: "humble"
+    envs:
+      JOBS: 4
+      PURGE_OBSOLETE: "yes"
+      STACK_PROTECTOR: "on"
+    args: ["ros/humble.v3.17"]
+    repo_path: "/home/builder/packages/humble"
+    cache_path: "/cache"
+    sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
+    upload:
+      - remote: "main"
+        paths: ["v3.17/ros/humble"]
+        archive_paths: ["archives/v3.17/ros/humble"]
+      - remote: "mirror"
+        paths: ["v3.17/ros/humble"]
+        archive_paths: ["archives/v3.17/ros/humble"]

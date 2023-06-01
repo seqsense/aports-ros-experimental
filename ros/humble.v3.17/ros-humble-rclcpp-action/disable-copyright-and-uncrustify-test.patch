@@ -1,0 +1,15 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 353e1792..2c252cea 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -78,6 +78,10 @@ ament_export_dependencies(rosidl_runtime_c)
+ if(BUILD_TESTING)
+   find_package(ament_cmake_gtest REQUIRED)
+   find_package(ament_lint_auto REQUIRED)
++  list(APPEND AMENT_LINT_AUTO_EXCLUDE
++    ament_cmake_copyright
++    ament_cmake_uncrustify
++  )
+   # Give cppcheck hints about macro definitions coming from outside this package
+   set(ament_cmake_cppcheck_ADDITIONAL_INCLUDE_DIRS ${rclcpp_INCLUDE_DIRS})
+   ament_lint_auto_find_test_dependencies()
