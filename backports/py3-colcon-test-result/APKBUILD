@@ -1,0 +1,35 @@
+pkgname=py3-colcon-test-result
+_pkgname=colcon-test-result
+pkgver=0.3.8
+pkgrel=0
+pkgdesc="Extension for colcon to provide information about the test results."
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="python3 py3-colcon-core"
+makedepends="py3-setuptools"
+checkdepends="py3-pip py3-pytest py3-pytest-runner"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz
+        workaround-setup-cfg.patch"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        python3 setup.py build
+}
+
+check() {
+        pip3 install -U pip setuptools
+        pip3 install -e .[test]
+        python3 setup.py pytest
+}
+
+package() {
+        python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="9f30b8b361d557b76a45f4bc06acb95230e5419f045d579996a5253d155cf1d94f0947e83aec78e5ce88b7612ef0bb47406649f7ba3b6aa10e06ef365eeae5b8  colcon-test-result-0.3.8.tar.gz
+2bf0fe05da4663334495fa79356301e56d3425417c2f0d89211d4bca542c46cf20285a9af16e3f589fcb61c541527fea5f3708c4a2d25d5826f5399fbd215829  workaround-setup-cfg.patch"

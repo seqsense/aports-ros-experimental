@@ -1,0 +1,35 @@
+pkgname=py3-colcon-library-path
+_pkgname=colcon-library-path
+pkgver=0.2.1
+pkgrel=0
+pkgdesc="Extension for colcon adding an environment variable to find libraries."
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="python3 py3-colcon-core"
+makedepends="py3-setuptools"
+checkdepends="py3-pip py3-pytest py3-pytest-runner"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz
+        workaround-setup-cfg.patch"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        python3 setup.py build
+}
+
+check() {
+        pip3 install -U pip setuptools
+        pip3 install -e .[test]
+        python3 setup.py pytest
+}
+
+package() {
+        python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="83c5ef3a90ff4635229b7b8056b08d0aad2f164db627adb1f61596563c0d34e285aea73f35e7313e44db2e5a5c2794781ce73bd728a4338aa501660a3462f0f0  colcon-library-path-0.2.1.tar.gz
+0fae764d4a5153d2482a270e123922da67771e5c27d752cd7a5459fe246f90c83cfee75c44a1860287864dce84f1de2879d789ab88c545f06040bee582fca876  workaround-setup-cfg.patch"

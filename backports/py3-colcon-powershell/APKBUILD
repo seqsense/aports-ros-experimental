@@ -1,0 +1,33 @@
+pkgname=py3-colcon-powershell
+_pkgname=colcon-powershell
+pkgver=0.3.7
+pkgrel=0
+pkgdesc="Extension for colcon to provide PowerShell scripts."
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="python3 py3-colcon-core"
+makedepends="py3-setuptools"
+checkdepends="py3-pip py3-pytest py3-flake8"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        python3 setup.py build
+}
+
+check() {
+        pip3 install -U pip setuptools
+        pip3 install -e .[test]
+        python3 -m pytest
+}
+
+package() {
+        python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="d272e26f949292e91c95358843b60b4bc6785acb14c83ac2fab28694004cef71ddb075c7fb041314e557cd783a8e28b5fe3928d34bac62c49d2a70db771a1ae8  colcon-powershell-0.3.7.tar.gz"

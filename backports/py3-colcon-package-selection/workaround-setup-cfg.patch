@@ -1,0 +1,20 @@
+diff --git a/setup.cfg b/setup.cfg
+index 1f308c0..a40f2f6 100644
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -39,6 +39,7 @@ tests_require =
+   flake8-import-order
+   flake8-quotes
+   pep8-naming
++  pydocstyle<6.0.0
+   pylint
+   pytest
+   pytest-cov
+@@ -48,6 +49,7 @@ zip_safe = true
+ [tool:pytest]
+ filterwarnings =
+     error
++    ignore:lib2to3 package is deprecated::scspell
+ junit_suite_name = colcon-package-selection
+ 
+ [options.entry_points]

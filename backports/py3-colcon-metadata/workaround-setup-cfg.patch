@@ -1,0 +1,29 @@
+diff --git a/setup.cfg b/setup.cfg
+index 4ebd091..b1562be 100644
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -31,7 +31,7 @@ install_requires =
+ packages = find:
+ tests_require =
+   flake8>=3.6.0
+-  flake8-blind-except
++  flake8-blind-except<0.2.0
+   flake8-builtins
+   flake8-class-newline
+   flake8-comprehensions
+@@ -40,6 +40,7 @@ tests_require =
+   flake8-import-order
+   flake8-quotes
+   pep8-naming
++  pydocstyle<6.0.0
+   pylint
+   pytest
+   pytest-cov
+@@ -49,6 +50,7 @@ zip_safe = true
+ [tool:pytest]
+ filterwarnings =
+     error
++    ignore:lib2to3 package is deprecated::scspell
+ junit_suite_name = colcon-metadata
+ 
+ [options.entry_points]

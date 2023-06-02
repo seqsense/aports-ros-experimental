@@ -1,0 +1,35 @@
+pkgname=py3-colcon-package-selection
+_pkgname=colcon-package-selection
+pkgver=0.2.10
+pkgrel=0
+pkgdesc="Extension for colcon to select the packages to process."
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="python3 py3-colcon-core"
+makedepends="py3-setuptools"
+checkdepends="py3-pip py3-pytest py3-pytest-runner"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz
+        workaround-setup-cfg.patch"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        python3 setup.py build
+}
+
+check() {
+        pip3 install -U pip setuptools
+        pip3 install -e .[test]
+        python3 setup.py pytest
+}
+
+package() {
+        python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="054d55066da17d74e29bb5114ef2d0d13b38ade8f658a518033b7a2084e69c2dfb21829fde61c73ca8af4018af46cb23b2f5bd3f5f59fd67e61d4bb39ac03792  colcon-package-selection-0.2.10.tar.gz
+8273fe59a4f8cb86b73984d12669ebc6c2647840013cf4573f887232acc07007d1a2b41213108039aea20ff73245aaa2c255f6c879580e84ac2e869345687871  workaround-setup-cfg.patch"

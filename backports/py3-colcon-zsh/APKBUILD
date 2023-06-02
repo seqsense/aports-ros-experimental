@@ -1,0 +1,35 @@
+pkgname=py3-colcon-zsh
+_pkgname=colcon-zsh
+pkgver=0.4.0
+pkgrel=0
+pkgdesc="Extension for colcon to provide Z shell scripts."
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="python3 py3-colcon-core"
+makedepends="py3-setuptools"
+checkdepends="py3-pip py3-pytest py3-pytest-runner"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz
+        workaround-setup-cfg.patch"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        python3 setup.py build
+}
+
+check() {
+        pip3 install -U pip setuptools
+        pip3 install -e .[test]
+        python3 setup.py pytest
+}
+
+package() {
+        python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="4fa101b3ac0ebea75b29ca15a98ba7889a610331ce5edf0441762030f8fb58b84bb33399c18a4796db457f3e90a2b0cb4d1157f502a7f3e64b1de15b819f087a  colcon-zsh-0.4.0.tar.gz
+27c75f3d509e5c32fc6e681b013a0a6a6e1e077e6cf88b4cc2eb3c2104312abc8a2ed6bf4f9709340df81b483b7d8ef83d19856acc1e76b8b8c8257f0192a7e4  workaround-setup-cfg.patch"
