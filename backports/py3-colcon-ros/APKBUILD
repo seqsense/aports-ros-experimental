@@ -1,0 +1,33 @@
+pkgname=py3-colcon-ros
+_pkgname=colcon-ros
+pkgver=0.3.23
+pkgrel=0
+pkgdesc="Extension for colcon to support ROS packages."
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="python3 py3-catkin-pkg py3-colcon-cmake py3-colcon-core py3-colcon-pkg-config py3-colcon-python-setup-py py3-colcon-recursive-crawl"
+makedepends="py3-setuptools"
+checkdepends="py3-pip py3-pytest py3-flake8"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        python3 setup.py build
+}
+
+check() {
+        pip3 install -U pip setuptools
+        pip3 install -e .[test]
+        python3 -m pytest
+}
+
+package() {
+        python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="d298dd66383b1e428fef8cbc2a6d64fc1b14da65aed92b63697a520ab44f87061476ef264dcf2ebec724d256bf374761f484f655d97d296955043ec542e18ed3  colcon-ros-0.3.23.tar.gz"

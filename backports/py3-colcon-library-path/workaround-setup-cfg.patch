@@ -1,0 +1,9 @@
+diff --git a/setup.cfg b/setup.cfg
+index 17c65d1..85604ab 100644
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -56,3 +56,4 @@ colcon_core.environment =
+ 
+ [flake8]
+ import-order-style = google
++ignore=E741,W504

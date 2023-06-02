@@ -1,0 +1,35 @@
+pkgname=py3-colcon-cd
+_pkgname=colcon-cd
+pkgver=0.1.1
+pkgrel=0
+pkgdesc="A shell function for colcon to change the current working directory."
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="python3 py3-colcon-core"
+makedepends="py3-setuptools"
+checkdepends="py3-pip py3-pytest py3-pytest-runner"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz
+        workaround-setup-cfg.patch"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        python3 setup.py build
+}
+
+check() {
+        pip3 install -U pip setuptools
+        pip3 install -e .[test]
+        python3 setup.py pytest
+}
+
+package() {
+        python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="7ca343734b5d287a506f5ac78d1c28098ab473f351623114cc3587bbfff18e670aadc46e85db8bd40f31184a4c06062a9f1b4a77200169511e1b7c2b426edc5b  colcon-cd-0.1.1.tar.gz
+df9d38f203b84944bc138c8985ccc4f266927b2b9edf76b3299733de975dd4c9d66f2df96b06c252c7f28126eb9f53de18b644c7b1ba91fd7bc66d43d7dfa904  workaround-setup-cfg.patch"

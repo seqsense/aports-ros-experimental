@@ -1,0 +1,17 @@
+diff --git a/setup.cfg b/setup.cfg
+index 4f714cc..b373390 100644
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -48,6 +48,7 @@ zip_safe = true
+ [tool:pytest]
+ filterwarnings =
+     error
++    ignore:lib2to3 package is deprecated::scspell
+ junit_suite_name = colcon-output
+ 
+ [options.entry_points]
+@@ -61,3 +62,4 @@ colcon_core.event_handler =
+ 
+ [flake8]
+ import-order-style = google
++ignore=E741,W504

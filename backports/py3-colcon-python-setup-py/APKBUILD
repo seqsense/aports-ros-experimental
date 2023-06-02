@@ -1,0 +1,33 @@
+pkgname=py3-colcon-python-setup-py
+_pkgname=colcon-python-setup-py
+pkgver=0.2.8
+pkgrel=0
+pkgdesc="Extension for colcon to support Python packages with the metadata in the setup.py file."
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="python3 py3-colcon-core py3-setuptools"
+makedepends="py3-setuptools"
+checkdepends="py3-pip py3-pytest py3-flake8"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        python3 setup.py build
+}
+
+check() {
+        pip3 install -U pip setuptools
+        pip3 install -e .[test]
+        python3 -m pytest
+}
+
+package() {
+        python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="83b4bb90186c6647f56cb9111bb1bf52534a346a6a0b881f446ad5417d0deeaafc55b153bb9d2df1593371c8557d39d26971b48776260a9c8d8f57adc582dca5  colcon-python-setup-py-0.2.8.tar.gz"

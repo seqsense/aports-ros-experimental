@@ -1,0 +1,35 @@
+pkgname=py3-colcon-recursive-crawl
+_pkgname=colcon-recursive-crawl
+pkgver=0.2.1
+pkgrel=0
+pkgdesc="Extension for colcon to recursively crawl for packages."
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="python3 py3-colcon-core"
+makedepends="py3-setuptools"
+checkdepends="py3-pip py3-pytest py3-pytest-runner"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz
+        workaround-setup-cfg.patch"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        python3 setup.py build
+}
+
+check() {
+        pip3 install -U pip setuptools
+        pip3 install -e .[test]
+        python3 setup.py pytest
+}
+
+package() {
+        python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="92f694c3e4edfb041918fe20ee51bc7c0466c1a78224eb55a2d7d755a98fd09f031beefcb6c712c1c2a2eae58a62d64c419e78c8a94fe54a3694ac8640407e73  colcon-recursive-crawl-0.2.1.tar.gz
+0e1a95c5fc3906ad0e213843d3fc5696ddef5a5fec751f7f397079a95d0bddaf55847fe21d0db722b61f0cb97e3a8795a5e33a94e92f5359f5234bf2ec17c7f8  workaround-setup-cfg.patch"
