@@ -1,14 +1,14 @@
-pkgname=ros-melodic-smach-ros
-_pkgname=smach_ros
-pkgver=2.0.3
+pkgname=ros-melodic-costmap-cspace-rviz-plugins
+_pkgname=costmap_cspace_rviz_plugins
+pkgver=0.11.7
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="ros-melodic-actionlib ros-melodic-actionlib-msgs ros-melodic-rospy ros-melodic-rostopic ros-melodic-smach ros-melodic-smach-msgs ros-melodic-std-msgs ros-melodic-std-srvs"
-makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-vcstool chrpath ros-melodic-catkin ros-melodic-rostest"
+depends="qt5-qtbase-dev ros-melodic-costmap-cspace-msgs ros-melodic-roscpp ros-melodic-rviz qt5-qtbase-dev ros-melodic-costmap-cspace-msgs ros-melodic-roscpp ros-melodic-rviz"
+makedepends="py-setuptools py-rosdep py-rosinstall py-rosinstall-generator py-vcstool chrpath qt5-qtbase-dev ros-melodic-catkin ros-melodic-costmap-cspace-msgs ros-melodic-roscpp ros-melodic-roslint ros-melodic-rviz"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -26,8 +26,8 @@ fi
 
 export ROS_PACKAGE_PATH="$builddir/src/$_pkgname"
 export ROS_PYTHON_VERSION=2
-rosinstall="- git: {local-name: smach_ros, uri: 'https://github.com/ros-gbp/executive_smach-release.git',
-    version: release/melodic/smach_ros/2.0.3-1}
+rosinstall="- git: {local-name: costmap_cspace_rviz_plugins, uri: 'https://github.com/at-wat/neonavigation_rviz_plugins-release.git',
+    version: release/melodic/costmap_cspace_rviz_plugins/0.11.7-1}
 "
 
 prepare() {
