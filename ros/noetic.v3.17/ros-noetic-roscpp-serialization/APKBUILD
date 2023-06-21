@@ -1,6 +1,6 @@
 pkgname=ros-noetic-roscpp-serialization
 _pkgname=roscpp_serialization
-pkgver=0.7.2
+pkgver=0.7.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/roscpp_serialization"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: roscpp_serialization
     uri: https://github.com/ros-gbp/roscpp_core-release.git
-    version: release/noetic/roscpp_serialization/0.7.2-1
+    version: release/noetic/roscpp_serialization/0.7.3-1
 "
 
 prepare() {

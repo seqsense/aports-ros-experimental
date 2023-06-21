@@ -1,5 +1,5 @@
-pkgname=ros-noetic-trajectory-tracker-rviz-plugins
-_pkgname=trajectory_tracker_rviz_plugins
+pkgname=ros-noetic-costmap-cspace-rviz-plugins
+_pkgname=costmap_cspace_rviz_plugins
 pkgver=0.11.7
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
@@ -7,8 +7,8 @@ url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="qt5-qtbase-dev ros-noetic-pluginlib ros-noetic-rviz ros-noetic-trajectory-tracker-msgs ros-noetic-pluginlib ros-noetic-rviz ros-noetic-trajectory-tracker-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath qt5-qtbase-dev ros-noetic-catkin ros-noetic-pluginlib ros-noetic-rviz ros-noetic-trajectory-tracker-msgs"
+depends="qt5-qtbase-dev ros-noetic-costmap-cspace-msgs ros-noetic-roscpp ros-noetic-rviz qt5-qtbase-dev ros-noetic-costmap-cspace-msgs ros-noetic-roscpp ros-noetic-rviz"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath qt5-qtbase-dev ros-noetic-catkin ros-noetic-costmap-cspace-msgs ros-noetic-roscpp ros-noetic-roslint ros-noetic-rviz"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -27,9 +27,9 @@ fi
 export ROS_PACKAGE_PATH="$builddir/src/$_pkgname"
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
-    local-name: trajectory_tracker_rviz_plugins
+    local-name: costmap_cspace_rviz_plugins
     uri: https://github.com/at-wat/neonavigation_rviz_plugins-release.git
-    version: release/noetic/trajectory_tracker_rviz_plugins/0.11.7-1
+    version: release/noetic/costmap_cspace_rviz_plugins/0.11.7-1
 "
 
 prepare() {
