@@ -1,7 +1,7 @@
 pkgname=ros-noetic-cpp-common
 _pkgname=cpp_common
-pkgver=0.7.2
-pkgrel=2
+pkgver=0.7.3
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/cpp_common"
 arch="all"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: cpp_common
     uri: https://github.com/ros-gbp/roscpp_core-release.git
-    version: release/noetic/cpp_common/0.7.2-1
+    version: release/noetic/cpp_common/0.7.3-1
 "
 
 prepare() {

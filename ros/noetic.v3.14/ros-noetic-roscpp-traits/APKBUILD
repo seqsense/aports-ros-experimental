@@ -1,7 +1,7 @@
 pkgname=ros-noetic-roscpp-traits
 _pkgname=roscpp_traits
-pkgver=0.7.2
-pkgrel=1
+pkgver=0.7.3
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/roscpp_traits"
 arch="all"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: roscpp_traits
     uri: https://github.com/ros-gbp/roscpp_core-release.git
-    version: release/noetic/roscpp_traits/0.7.2-1
+    version: release/noetic/roscpp_traits/0.7.3-1
 "
 
 prepare() {
