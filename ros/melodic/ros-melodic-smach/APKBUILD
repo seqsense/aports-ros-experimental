@@ -1,6 +1,6 @@
 pkgname=ros-melodic-smach
 _pkgname=smach
-pkgver=2.0.1
+pkgver=2.0.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS melodic"
 url="http://wiki.ros.org/$_pkgname"
@@ -27,7 +27,7 @@ fi
 export ROS_PACKAGE_PATH="$builddir/src/$_pkgname"
 export ROS_PYTHON_VERSION=2
 rosinstall="- git: {local-name: smach, uri: 'https://github.com/ros-gbp/executive_smach-release.git',
-    version: release/melodic/smach/2.0.1-0}
+    version: release/melodic/smach/2.0.3-1}
 "
 
 prepare() {
