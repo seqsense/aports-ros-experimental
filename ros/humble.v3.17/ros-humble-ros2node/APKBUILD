@@ -1,6 +1,6 @@
 pkgname=ros-humble-ros2node
 _pkgname=ros2node
-pkgver=0.18.6
+pkgver=0.18.7
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: ros2node
     uri: https://github.com/ros2-gbp/ros2cli-release.git
-    version: release/humble/ros2node/0.18.6-1
+    version: release/humble/ros2node/0.18.7-1
 "
 
 prepare() {
