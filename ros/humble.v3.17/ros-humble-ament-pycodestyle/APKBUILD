@@ -1,6 +1,6 @@
 pkgname=ros-humble-ament-pycodestyle
 _pkgname=ament_pycodestyle
-pkgver=0.12.6
+pkgver=0.12.8
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: ament_pycodestyle
     uri: https://github.com/ros2-gbp/ament_lint-release.git
-    version: release/humble/ament_pycodestyle/0.12.6-1
+    version: release/humble/ament_pycodestyle/0.12.8-1
 "
 
 prepare() {
