@@ -1,14 +1,14 @@
-pkgname=ros-noetic-tf2-py
-_pkgname=tf2_py
-pkgver=0.7.7
+pkgname=ros-noetic-rosbag-snapshot
+_pkgname=rosbag_snapshot
+pkgver=1.0.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
-url="http://ros.org/wiki/tf2_py"
+url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-rospy ros-noetic-tf2 ros-noetic-rospy ros-noetic-tf2"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-rospy ros-noetic-tf2"
+depends="ros-noetic-rosbag ros-noetic-rosbag-snapshot-msgs ros-noetic-roscpp ros-noetic-rosgraph-msgs ros-noetic-std-srvs ros-noetic-topic-tools ros-noetic-rosbag ros-noetic-rosbag-snapshot-msgs ros-noetic-roscpp ros-noetic-rosgraph-msgs ros-noetic-std-srvs ros-noetic-topic-tools"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-rosbag ros-noetic-rosbag-snapshot-msgs ros-noetic-roscpp ros-noetic-rosgraph-msgs ros-noetic-roslint ros-noetic-rospy ros-noetic-rostest ros-noetic-rostopic ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-topic-tools"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -27,9 +27,9 @@ fi
 export ROS_PACKAGE_PATH="$builddir/src/$_pkgname"
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
-    local-name: tf2_py
-    uri: https://github.com/ros-gbp/geometry2-release.git
-    version: release/noetic/tf2_py/0.7.7-1
+    local-name: rosbag_snapshot
+    uri: https://github.com/ros-gbp/rosbag_snapshot-release.git
+    version: release/noetic/rosbag_snapshot/1.0.5-1
 "
 
 prepare() {
