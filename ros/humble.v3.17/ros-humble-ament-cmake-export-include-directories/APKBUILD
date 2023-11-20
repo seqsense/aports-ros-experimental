@@ -1,6 +1,6 @@
 pkgname=ros-humble-ament-cmake-export-include-directories
 _pkgname=ament_cmake_export_include_directories
-pkgver=1.3.5
+pkgver=1.3.6
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: ament_cmake_export_include_directories
     uri: https://github.com/ros2-gbp/ament_cmake-release.git
-    version: release/humble/ament_cmake_export_include_directories/1.3.5-1
+    version: release/humble/ament_cmake_export_include_directories/1.3.6-1
 "
 
 prepare() {
