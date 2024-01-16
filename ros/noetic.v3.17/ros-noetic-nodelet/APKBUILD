@@ -1,13 +1,13 @@
 pkgname=ros-noetic-nodelet
 _pkgname=nodelet
-pkgver=1.10.2
+pkgver=1.11.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/nodelet"
 arch="all"
 license="BSD"
 
-depends="boost-dev ros-noetic-bondcpp ros-noetic-message-runtime ros-noetic-pluginlib>=1.10.0 ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rospy ros-noetic-std-msgs util-linux-dev boost-dev ros-noetic-bondcpp ros-noetic-pluginlib>=1.10.0 ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-std-msgs util-linux-dev"
+depends="boost-thread ros-noetic-bondcpp ros-noetic-message-runtime ros-noetic-pluginlib>=1.10.0 ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rospy ros-noetic-std-msgs util-linux-dev ros-noetic-bondcpp ros-noetic-pluginlib>=1.10.0 ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-std-msgs util-linux-dev"
 makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath boost-dev ros-noetic-bondcpp ros-noetic-catkin ros-noetic-cmake-modules>=0.3.2 ros-noetic-message-generation ros-noetic-pluginlib>=1.10.0 ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-std-msgs util-linux-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: nodelet
     uri: https://github.com/ros-gbp/nodelet_core-release.git
-    version: release/noetic/nodelet/1.10.2-1
+    version: release/noetic/nodelet/1.11.0-2
 "
 
 prepare() {
