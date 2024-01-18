@@ -1,0 +1,39 @@
+# Contributor: Florent Ferreri <florent@seqsense.com>
+# Maintainer:
+pkgname=behaviortree-cpp
+pkgver=4.5.0
+pkgrel=0
+pkgdesc="The C++ library to build Behavior Trees. Batteries included."
+url="https://github.com/BehaviorTree/BehaviorTree.CPP"
+arch="all"
+license="MIT"
+depends="sqlite zeromq"
+makedepends="cmake gtest-dev sqlite-dev zeromq-dev"
+subpackages="$pkgname-dev $pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/BehaviorTree/BehaviorTree.CPP/archive/$pkgver.tar.gz"
+
+builddir="$srcdir/BehaviorTree.CPP-$pkgver"
+
+build() {
+  cd "$builddir"
+  mkdir -p build && cd build
+  cmake \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    ..
+  cmake --build . --parallel
+}
+
+check() {
+  cd "$builddir"/build
+  ./tests/behaviortree_cpp_test
+}
+
+package() {
+  cd "$builddir"/build
+  make DESTDIR="$pkgdir" install
+
+  install -Dm 0644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="1ced5e897989864fd593940dc5d0b2a735a8abcdfa152060b4b551bb8d08ffbee1cd457728c455f24f9db7cb34667d7e2d34f5b5e76d2986867a2e42470e978a  behaviortree-cpp-4.5.0.tar.gz"
