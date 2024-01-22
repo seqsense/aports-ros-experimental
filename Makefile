@@ -38,6 +38,7 @@ $(REPOSITORY):
 	docker run --rm \
 		-v $(CURDIR):/src \
 		-v $(CURDIR)/packages/v$(ALPINE_VERSION):/home/builder/packages \
+		$$(if [ '$@' != 'backports' ]; then echo "-v $(CURDIR)/packages/v$(ALPINE_VERSION)/backports:/home/builder/deps.rw/backports"; fi) \
 		$(PRIVATE_KEY_OPT) \
 		-e JOBS=${JOBS} \
 		-e PURGE_OBSOLETE=yes \
