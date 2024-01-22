@@ -177,11 +177,11 @@ index a41790b..87047fd 100644
 -            resource_name.c_str(),
 -            package_prefix_pair.first.c_str()
 -          );
-+          // RCUTILS_LOG_WARN_NAMED("pluginlib.ClassLoader",
-+          //   "unexpectedly not able to find ament resource '%s' for package '%s'",
-+          //   resource_name.c_str(),
-+          //   package_prefix_pair.first.c_str()
-+          // );
++          RCUTILS_LOG_WARN_NAMED("pluginlib.ClassLoader",
++            ("unexpectedly not able to find ament resource '"
++             + resource_name + "' for package '"
++             + package_prefix_pair.first + "'").c_str()
++          );
            continue;
          }
        }
@@ -201,9 +201,9 @@ index a41790b..87047fd 100644
 -      RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
 -        "Skipped loading plugin with error: %s.",
 -        e.what());
-+      // RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
-+      //   "Skipped loading plugin with error: %s.",
-+      //   e.what());
++      RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
++        (std::string("Skipped loading plugin with error: ") + e.what() + ".").c_str()
++      );
      }
    }
  
@@ -219,9 +219,9 @@ index a41790b..87047fd 100644
 -    RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
 -      "Could not find a root element for package manifest at %s.",
 -      package_xml_path.c_str());
-+    // RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
-+    //   "Could not find a root element for package manifest at %s.",
-+    //   package_xml_path.c_str());
++    RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
++      ("Could not find a root element for package manifest at " + package_xml_path + ".").c_str()
++    );
      return "";
    }
  
@@ -233,10 +233,10 @@ index a41790b..87047fd 100644
 -      "package.xml at %s does not have a <name> tag! Cannot determine package "
 -      "which exports plugin.",
 -      package_xml_path.c_str());
-+    // RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
-+    //   "package.xml at %s does not have a <name> tag! Cannot determine package "
-+    //   "which exports plugin.",
-+    //   package_xml_path.c_str());
++    RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
++      ("package.xml at " + package_xml_path + " does not have a <name> tag! Cannot determine package "
++      "which exports plugin.").c_str()
++    );
      return "";
    }
  
@@ -246,10 +246,10 @@ index a41790b..87047fd 100644
 -      "package.xml at %s has an invalid <name> tag! Cannot determine package "
 -      "which exports plugin.",
 -      package_xml_path.c_str());
-+    // RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
-+    //   "package.xml at %s has an invalid <name> tag! Cannot determine package "
-+    //   "which exports plugin.",
-+    //   package_xml_path.c_str());
++    RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
++      ("package.xml at " + package_xml_path + " has an invalid <name> tag! Cannot determine package "
++      "which exports plugin.").c_str()
++    );
      return "";
    }
  
@@ -261,10 +261,10 @@ index a41790b..87047fd 100644
 -      "given plugin name '%s' should be '%s' for better portability",
 -      library_name.c_str(),
 -      library_name_alternative.c_str());
-+    // RCUTILS_LOG_WARN_NAMED("pluginlib.ClassLoader",
-+    //   "given plugin name '%s' should be '%s' for better portability",
-+    //   library_name.c_str(),
-+    //   library_name_alternative.c_str());
++    RCUTILS_LOG_WARN_NAMED("pluginlib.ClassLoader",
++      ("given plugin name '" + library_name + "' should be '"
++       + library_name_alternative + "' for better portability").c_str()
++    );
    } else {
      library_name_alternative = lib_prefix + library_name;
    }
@@ -342,16 +342,16 @@ index a41790b..87047fd 100644
      if (NULL == path) {
 -      RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
 -        "Attribute 'path' in 'library' tag is missing in %s.", xml_file.c_str());
-+      // RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
-+      //   "Attribute 'path' in 'library' tag is missing in %s.", xml_file.c_str());
++      RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
++        ("Attribute 'path' in 'library' tag is missing in ", xml_file + ".").c_str());
        continue;
      }
      std::string library_path(path);
      if (0 == library_path.size()) {
 -      RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
 -        "Failed to find Path Attirbute in library element in %s", xml_file.c_str());
-+      // RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
-+      //   "Failed to find Path Attirbute in library element in %s", xml_file.c_str());
++      RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
++        ("Failed to find Path Attirbute in library element in " + xml_file + ".").c_str());
        continue;
      }
  
@@ -362,11 +362,11 @@ index a41790b..87047fd 100644
 -        "manifest.xml) at same directory level as the plugin XML file %s. "
 -        "Plugins will likely not be exported properly.\n)",
 -        xml_file.c_str());
-+      // RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
-+      //   "Could not find package manifest (neither package.xml or deprecated "
-+      //   "manifest.xml) at same directory level as the plugin XML file %s. "
-+      //   "Plugins will likely not be exported properly.\n)",
-+      //   xml_file.c_str());
++      RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
++        ("Could not find package manifest (neither package.xml or deprecated "
++        "manifest.xml) at same directory level as the plugin XML file " + xml_file + ". "
++        "Plugins will likely not be exported properly.\n)").c_str()
++      );
      }
  
      tinyxml2::XMLElement * class_element = library->FirstChildElement("class");
