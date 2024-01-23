@@ -343,7 +343,7 @@ index a41790b..87047fd 100644
 -      RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
 -        "Attribute 'path' in 'library' tag is missing in %s.", xml_file.c_str());
 +      RCUTILS_LOG_ERROR_NAMED("pluginlib.ClassLoader",
-+        ("Attribute 'path' in 'library' tag is missing in ", xml_file + ".").c_str());
++        ("Attribute 'path' in 'library' tag is missing in " + xml_file + ".").c_str());
        continue;
      }
      std::string library_path(path);
