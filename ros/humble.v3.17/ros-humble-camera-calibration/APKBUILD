@@ -1,14 +1,14 @@
-pkgname=ros-humble-pluginlib
-_pkgname=pluginlib
-pkgver=5.1.0
-pkgrel=4
+pkgname=ros-humble-camera-calibration
+_pkgname=camera_calibration
+pkgver=3.0.0
+pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
-url="http://www.ros.org/wiki/pluginlib"
+url="https://index.ros.org/p/camera_calibration/github-ros-perception-image_pipeline/"
 arch="all"
 license="BSD"
 
-depends="ros-humble-ament-index-cpp ros-humble-class-loader ros-humble-rcpputils ros-humble-rcutils ros-humble-ros-workspace ros-humble-tinyxml2-vendor ros-humble-ament-index-cpp ros-humble-class-loader ros-humble-rcpputils ros-humble-rcutils ros-humble-tinyxml2-vendor"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake ros-humble-ament-cmake-gtest ros-humble-ament-index-cpp ros-humble-class-loader ros-humble-rcpputils ros-humble-rcutils ros-humble-tinyxml2-vendor"
+depends="ros-humble-cv-bridge ros-humble-image-geometry ros-humble-message-filters ros-humble-rclpy ros-humble-ros-workspace ros-humble-sensor-msgs ros-humble-std-srvs ros-humble-cv-bridge ros-humble-image-geometry ros-humble-message-filters ros-humble-rclpy ros-humble-sensor-msgs ros-humble-std-srvs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath py3-pytest py3-pytest py3-requests ros-humble-ament-copyright ros-humble-ament-flake8 ros-humble-ament-pep257 ros-humble-cv-bridge ros-humble-image-geometry ros-humble-message-filters ros-humble-rclpy ros-humble-sensor-msgs ros-humble-std-srvs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -31,9 +31,9 @@ if [ ! -f /usr/ros/humble/setup.sh ]; then
   export AMENT_PREFIX_PATH=/usr/ros/humble
 fi
 rosinstall="- git:
-    local-name: pluginlib
-    uri: https://github.com/ros2-gbp/pluginlib-release.git
-    version: release/humble/pluginlib/5.1.0-3
+    local-name: camera_calibration
+    uri: https://github.com/ros2-gbp/image_pipeline-release.git
+    version: release/humble/camera_calibration/3.0.0-1
 "
 
 prepare() {
@@ -58,13 +58,13 @@ build() {
   if [ -f /usr/ros/humble/setup.sh ]; then
     source /usr/ros/humble/setup.sh
   fi
-  mkdir build
-  cd build
-  cmake ../src/$_pkgname \
-    -DCMAKE_INSTALL_PREFIX=/usr/ros/humble \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DCMAKE_INSTALL_LIBDIR=lib 2>&1 | tee $buildlog
-  make 2>&1 | tee -a $buildlog
+  # Directory to place intermediate files
+  mkdir -p "$builddir"/tmp
+  cd src/$_pkgname
+  python setup.py egg_info --egg-base="$builddir"/tmp 2>&1 | tee $buildlog
+  python setup.py \
+    build \
+    --build-base="$builddir"/tmp/build
 }
 
 check() {
@@ -83,10 +83,23 @@ check() {
   export PATH="$builddir"/tmp/pkg/usr/ros/humble/bin:${PATH}
   export LD_LIBRARY_PATH="$builddir"/tmp/pkg/usr/ros/humble/lib:${LD_LIBRARY_PATH}
   mkdir -p "$builddir"/tmp/pkg
-  cd build
-  make install DESTDIR="$builddir"/tmp/pkg
-  if [ $(make -q test > /dev/null 2> /dev/null; echo $?) -eq 1 ]; then
-    make test 2>&1 | tee $checklog
+  cd src/$_pkgname
+  python setup.py \
+    build \
+    --build-base="$builddir"/tmp/build \
+    install \
+    --root="$builddir"/tmp/pkg \
+    --prefix=/usr/ros/humble 2>&1 | tee $buildlog
+  TEST_TARGET=$(ls -d */ | grep -m1 "\(test\|tests\)") || true
+  if [ -z "$TEST_TARGET" ]; then
+    echo "No \"test\" or \"tests\" directory. Check skipped" | tee $checklog
+    return 0
+  fi
+  USE_PYTEST=$(grep '\<pytest\>' setup.py) || true
+  if [ -n "$USE_PYTEST" ]; then
+    python -m pytest 2>&1 | tee $checklog
+  else
+    python setup.py test 2>&1 | tee $checklog
   fi
 }
 
@@ -99,13 +112,17 @@ package() {
   echo "packaging" >> $statuslog
   mkdir -p "$pkgdir"
   cd "$builddir"
-  export DESTDIR="$pkgdir"
 
   if [ -f /usr/ros/humble/setup.sh ]; then
     source /usr/ros/humble/setup.sh
   fi
-  cd build
-  make install
+  cd src/$_pkgname
+  python setup.py \
+    build \
+    --build-base="$builddir"/tmp/build \
+    install \
+    --root="$pkgdir" \
+    --prefix=/usr/ros/humble
 
   # Tweak invalid RPATH
   find $pkgdir -name "*.so" | while read so; do
@@ -160,10 +177,6 @@ package() {
     # Copy license files under the source
     if echo $file | grep -e '^\./\.'; then
       # Omit files under hidden directory
-      continue
-    fi
-    if echo $file | grep -e '^\./build/'; then
-      # Omit files under build directory
       continue
     fi
     echo "Copying license files from source tree: $file"

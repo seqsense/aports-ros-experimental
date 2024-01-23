@@ -1,14 +1,14 @@
-pkgname=ros-humble-pluginlib
-_pkgname=pluginlib
-pkgver=5.1.0
-pkgrel=4
+pkgname=ros-humble-filters
+_pkgname=filters
+pkgver=2.1.0
+pkgrel=5
 pkgdesc="$_pkgname package for ROS humble"
-url="http://www.ros.org/wiki/pluginlib"
+url="https://wiki.ros.org/filters"
 arch="all"
 license="BSD"
 
-depends="ros-humble-ament-index-cpp ros-humble-class-loader ros-humble-rcpputils ros-humble-rcutils ros-humble-ros-workspace ros-humble-tinyxml2-vendor ros-humble-ament-index-cpp ros-humble-class-loader ros-humble-rcpputils ros-humble-rcutils ros-humble-tinyxml2-vendor"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake ros-humble-ament-cmake-gtest ros-humble-ament-index-cpp ros-humble-class-loader ros-humble-rcpputils ros-humble-rcutils ros-humble-tinyxml2-vendor"
+depends="boost-dev ros-humble-pluginlib ros-humble-rclcpp ros-humble-ros-workspace boost-dev ros-humble-pluginlib ros-humble-rclcpp"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath boost-dev ros-humble-ament-cmake ros-humble-ament-cmake-cppcheck ros-humble-ament-cmake-cpplint ros-humble-ament-cmake-gtest ros-humble-ament-cmake-uncrustify ros-humble-ament-cmake-xmllint ros-humble-pluginlib ros-humble-rclcpp"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -31,9 +31,9 @@ if [ ! -f /usr/ros/humble/setup.sh ]; then
   export AMENT_PREFIX_PATH=/usr/ros/humble
 fi
 rosinstall="- git:
-    local-name: pluginlib
-    uri: https://github.com/ros2-gbp/pluginlib-release.git
-    version: release/humble/pluginlib/5.1.0-3
+    local-name: filters
+    uri: https://github.com/ros2-gbp/filters-release.git
+    version: release/humble/filters/2.1.0-3
 "
 
 prepare() {

@@ -1,14 +1,14 @@
-pkgname=ros-humble-pluginlib
-_pkgname=pluginlib
-pkgver=5.1.0
-pkgrel=4
+pkgname=ros-humble-image-pipeline
+_pkgname=image_pipeline
+pkgver=3.0.0
+pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
-url="http://www.ros.org/wiki/pluginlib"
+url="https://index.ros.org/p/image_pipeline/github-ros-perception-image_pipeline/"
 arch="all"
 license="BSD"
 
-depends="ros-humble-ament-index-cpp ros-humble-class-loader ros-humble-rcpputils ros-humble-rcutils ros-humble-ros-workspace ros-humble-tinyxml2-vendor ros-humble-ament-index-cpp ros-humble-class-loader ros-humble-rcpputils ros-humble-rcutils ros-humble-tinyxml2-vendor"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake ros-humble-ament-cmake-gtest ros-humble-ament-index-cpp ros-humble-class-loader ros-humble-rcpputils ros-humble-rcutils ros-humble-tinyxml2-vendor"
+depends="ros-humble-camera-calibration ros-humble-depth-image-proc ros-humble-image-proc ros-humble-image-publisher ros-humble-image-rotate ros-humble-image-view ros-humble-ros-workspace ros-humble-stereo-image-proc"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake ros-humble-ament-cmake-lint-cmake ros-humble-ament-cmake-xmllint ros-humble-ament-lint-auto"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -31,9 +31,9 @@ if [ ! -f /usr/ros/humble/setup.sh ]; then
   export AMENT_PREFIX_PATH=/usr/ros/humble
 fi
 rosinstall="- git:
-    local-name: pluginlib
-    uri: https://github.com/ros2-gbp/pluginlib-release.git
-    version: release/humble/pluginlib/5.1.0-3
+    local-name: image_pipeline
+    uri: https://github.com/ros2-gbp/image_pipeline-release.git
+    version: release/humble/image_pipeline/3.0.0-1
 "
 
 prepare() {

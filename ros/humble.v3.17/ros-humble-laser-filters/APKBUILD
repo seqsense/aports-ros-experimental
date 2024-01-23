@@ -1,14 +1,14 @@
-pkgname=ros-humble-pluginlib
-_pkgname=pluginlib
-pkgver=5.1.0
-pkgrel=4
+pkgname=ros-humble-laser-filters
+_pkgname=laser_filters
+pkgver=2.0.6
+pkgrel=3
 pkgdesc="$_pkgname package for ROS humble"
-url="http://www.ros.org/wiki/pluginlib"
+url="http://ros.org/wiki/laser_filters"
 arch="all"
 license="BSD"
 
-depends="ros-humble-ament-index-cpp ros-humble-class-loader ros-humble-rcpputils ros-humble-rcutils ros-humble-ros-workspace ros-humble-tinyxml2-vendor ros-humble-ament-index-cpp ros-humble-class-loader ros-humble-rcpputils ros-humble-rcutils ros-humble-tinyxml2-vendor"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake ros-humble-ament-cmake-gtest ros-humble-ament-index-cpp ros-humble-class-loader ros-humble-rcpputils ros-humble-rcutils ros-humble-tinyxml2-vendor"
+depends="ros-humble-angles ros-humble-filters ros-humble-laser-geometry ros-humble-message-filters ros-humble-pluginlib ros-humble-rclcpp ros-humble-rclcpp-lifecycle ros-humble-ros-workspace ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-ros ros-humble-angles ros-humble-filters ros-humble-laser-geometry ros-humble-message-filters ros-humble-pluginlib ros-humble-rclcpp ros-humble-rclcpp-lifecycle ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-ros"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake-auto ros-humble-ament-cmake-gtest ros-humble-angles ros-humble-filters ros-humble-laser-geometry ros-humble-message-filters ros-humble-pluginlib ros-humble-rclcpp ros-humble-rclcpp-lifecycle ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-ros"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -31,9 +31,9 @@ if [ ! -f /usr/ros/humble/setup.sh ]; then
   export AMENT_PREFIX_PATH=/usr/ros/humble
 fi
 rosinstall="- git:
-    local-name: pluginlib
-    uri: https://github.com/ros2-gbp/pluginlib-release.git
-    version: release/humble/pluginlib/5.1.0-3
+    local-name: laser_filters
+    uri: https://github.com/ros2-gbp/laser_filters-release.git
+    version: release/humble/laser_filters/2.0.6-2
 "
 
 prepare() {
