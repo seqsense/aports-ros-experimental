@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=ignition-math6
 pkgver=6.15.0
-pkgrel=0
+pkgrel=1
 pkgdesc="General purpose math library for robot applications."
 url="https://github.com/gazebosim/gz-math"
 arch="all"
