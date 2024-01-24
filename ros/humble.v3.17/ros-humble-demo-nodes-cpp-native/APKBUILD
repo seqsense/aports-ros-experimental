@@ -1,14 +1,14 @@
-pkgname=ros-humble-tf2-sensor-msgs
-_pkgname=tf2_sensor_msgs
-pkgver=0.25.5
+pkgname=ros-humble-demo-nodes-cpp-native
+_pkgname=demo_nodes_cpp_native
+pkgver=0.20.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
-url="http://www.ros.org/wiki/tf2_ros"
+url="https://index.ros.org/p/$_pkgname"
 arch="all"
-license="BSD"
+license="Apache License 2.0"
 
-depends="ros-humble-ros-workspace ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-ros ros-humble-tf2-ros-py eigen-dev ros-humble-eigen3-cmake-module ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-ros"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath eigen-dev ros-humble-ament-cmake-auto ros-humble-ament-cmake-gtest ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-eigen3-cmake-module ros-humble-rclcpp ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-ros"
+depends="ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-rmw-fastrtps-cpp ros-humble-ros-workspace ros-humble-std-msgs ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-rmw-fastrtps-cpp ros-humble-std-msgs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake ros-humble-ament-cmake-pytest ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-launch ros-humble-launch-testing ros-humble-launch-testing-ament-cmake ros-humble-launch-testing-ros ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-rmw-fastrtps-cpp ros-humble-std-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -31,9 +31,9 @@ if [ ! -f /usr/ros/humble/setup.sh ]; then
   export AMENT_PREFIX_PATH=/usr/ros/humble
 fi
 rosinstall="- git:
-    local-name: tf2_sensor_msgs
-    uri: https://github.com/ros2-gbp/geometry2-release.git
-    version: release/humble/tf2_sensor_msgs/0.25.5-1
+    local-name: demo_nodes_cpp_native
+    uri: https://github.com/ros2-gbp/demos-release.git
+    version: release/humble/demo_nodes_cpp_native/0.20.3-1
 "
 
 prepare() {
