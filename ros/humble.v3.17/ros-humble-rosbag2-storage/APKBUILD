@@ -1,7 +1,7 @@
 pkgname=ros-humble-rosbag2-storage
 _pkgname=rosbag2_storage
-pkgver=0.15.5
-pkgrel=1
+pkgver=0.15.8
+pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: rosbag2_storage
     uri: https://github.com/ros2-gbp/rosbag2-release.git
-    version: release/humble/rosbag2_storage/0.15.5-1
+    version: release/humble/rosbag2_storage/0.15.8-1
 "
 
 prepare() {
