@@ -1,14 +1,14 @@
 pkgname=ros-humble-ament-cmake-auto
 _pkgname=ament_cmake_auto
-pkgver=1.3.6
+pkgver=1.3.7
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="ros-humble-ros-workspace ros-humble-ament-cmake ros-humble-ament-cmake-gtest"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake ros-humble-ament-cmake-gtest"
+depends="ros-humble-ros-workspace ros-humble-ament-cmake ros-humble-ament-cmake-gmock ros-humble-ament-cmake-gtest"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake ros-humble-ament-cmake-gmock ros-humble-ament-cmake-gtest"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: ament_cmake_auto
     uri: https://github.com/ros2-gbp/ament_cmake-release.git
-    version: release/humble/ament_cmake_auto/1.3.6-1
+    version: release/humble/ament_cmake_auto/1.3.7-1
 "
 
 prepare() {
