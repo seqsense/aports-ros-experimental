@@ -1,14 +1,14 @@
 pkgname=ros-humble-rviz-common
 _pkgname=rviz_common
-pkgver=11.2.9
+pkgver=11.2.10
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://github.com/ros2/rviz/blob/ros2/README.md"
 arch="all"
 license="BSD"
 
-depends="qt5-qtbase-dev qt5-qtsvg ros-humble-geometry-msgs ros-humble-message-filters ros-humble-pluginlib ros-humble-rclcpp ros-humble-resource-retriever ros-humble-ros-workspace ros-humble-rviz-ogre-vendor ros-humble-rviz-rendering ros-humble-sensor-msgs ros-humble-std-msgs ros-humble-tf2 ros-humble-tf2-geometry-msgs ros-humble-tf2-ros ros-humble-tinyxml2-vendor ros-humble-urdf ros-humble-yaml-cpp-vendor qt5-qtbase-dev ros-humble-geometry-msgs ros-humble-message-filters ros-humble-pluginlib ros-humble-rclcpp ros-humble-resource-retriever ros-humble-rviz-ogre-vendor ros-humble-rviz-rendering ros-humble-sensor-msgs ros-humble-std-msgs ros-humble-tf2 ros-humble-tf2-geometry-msgs ros-humble-tf2-ros ros-humble-tinyxml2-vendor ros-humble-urdf ros-humble-yaml-cpp-vendor"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath qt5-qtbase-dev qt5-qtsvg-dev ros-humble-ament-cmake ros-humble-ament-cmake-cppcheck ros-humble-ament-cmake-cpplint ros-humble-ament-cmake-gmock ros-humble-ament-cmake-gtest ros-humble-ament-cmake-lint-cmake ros-humble-ament-cmake-uncrustify ros-humble-ament-cmake-xmllint ros-humble-ament-lint-auto ros-humble-geometry-msgs ros-humble-message-filters ros-humble-pluginlib ros-humble-rclcpp ros-humble-resource-retriever ros-humble-rviz-ogre-vendor ros-humble-rviz-rendering ros-humble-sensor-msgs ros-humble-std-msgs ros-humble-tf2 ros-humble-tf2-geometry-msgs ros-humble-tf2-ros ros-humble-tinyxml2-vendor ros-humble-urdf ros-humble-yaml-cpp-vendor"
+depends="qt5-qtbase-dev qt5-qtsvg ros-humble-geometry-msgs ros-humble-message-filters ros-humble-pluginlib ros-humble-rclcpp ros-humble-rcpputils ros-humble-resource-retriever ros-humble-ros-workspace ros-humble-rviz-ogre-vendor ros-humble-rviz-rendering ros-humble-sensor-msgs ros-humble-std-msgs ros-humble-tf2 ros-humble-tf2-geometry-msgs ros-humble-tf2-ros ros-humble-tinyxml2-vendor ros-humble-urdf ros-humble-yaml-cpp-vendor qt5-qtbase-dev ros-humble-geometry-msgs ros-humble-message-filters ros-humble-pluginlib ros-humble-rclcpp ros-humble-rcpputils ros-humble-resource-retriever ros-humble-rviz-ogre-vendor ros-humble-rviz-rendering ros-humble-sensor-msgs ros-humble-std-msgs ros-humble-tf2 ros-humble-tf2-geometry-msgs ros-humble-tf2-ros ros-humble-tinyxml2-vendor ros-humble-urdf ros-humble-yaml-cpp-vendor"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath qt5-qtbase-dev qt5-qtsvg-dev ros-humble-ament-cmake ros-humble-ament-cmake-cppcheck ros-humble-ament-cmake-cpplint ros-humble-ament-cmake-gmock ros-humble-ament-cmake-gtest ros-humble-ament-cmake-lint-cmake ros-humble-ament-cmake-uncrustify ros-humble-ament-cmake-xmllint ros-humble-ament-lint-auto ros-humble-geometry-msgs ros-humble-message-filters ros-humble-pluginlib ros-humble-rclcpp ros-humble-rcpputils ros-humble-resource-retriever ros-humble-rviz-ogre-vendor ros-humble-rviz-rendering ros-humble-sensor-msgs ros-humble-std-msgs ros-humble-tf2 ros-humble-tf2-geometry-msgs ros-humble-tf2-ros ros-humble-tinyxml2-vendor ros-humble-urdf ros-humble-yaml-cpp-vendor"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: rviz_common
     uri: https://github.com/ros2-gbp/rviz-release.git
-    version: release/humble/rviz_common/11.2.9-1
+    version: release/humble/rviz_common/11.2.10-1
 "
 
 prepare() {
