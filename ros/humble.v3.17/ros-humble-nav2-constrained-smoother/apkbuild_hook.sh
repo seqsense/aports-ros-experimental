@@ -1,4 +1,4 @@
 apkbuild_hook() {
-  makedepends="${makedepends} blas-dev glog-dev lapack-dev libtbb-dev metis metis-dev suitesparse-dev xtl"
-  depends="${depends} blas-dev glog-dev lapack-dev libtbb-dev metis suitesparse-dev xtl"
+  makedepends="${makedepends} glog-dev metis metis-dev suitesparse-dev "
+  depends="${depends} glog-dev metis suitesparse-dev"
 }
