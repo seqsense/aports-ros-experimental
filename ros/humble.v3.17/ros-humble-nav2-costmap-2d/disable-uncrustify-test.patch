@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index f039cf5d..d5eb648e 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -174,6 +174,9 @@ install(DIRECTORY include/
+ 
+ if(BUILD_TESTING)
+   find_package(ament_lint_auto REQUIRED)
++  list(APPEND AMENT_LINT_AUTO_EXCLUDE
++    ament_cmake_uncrustify
++  )
+   # the following line skips the linter which checks for copyrights
+   set(ament_cmake_copyright_FOUND TRUE)
+   set(ament_cmake_cpplint_FOUND TRUE)
