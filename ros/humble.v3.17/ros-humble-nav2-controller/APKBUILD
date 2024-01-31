@@ -1,6 +1,6 @@
 pkgname=ros-humble-nav2-controller
 _pkgname=nav2_controller
-pkgver=1.1.12
+pkgver=1.1.13
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: nav2_controller
     uri: https://github.com/SteveMacenski/navigation2-release.git
-    version: release/humble/nav2_controller/1.1.12-1
+    version: release/humble/nav2_controller/1.1.13-1
 "
 
 prepare() {

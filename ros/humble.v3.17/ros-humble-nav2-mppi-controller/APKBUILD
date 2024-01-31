@@ -1,7 +1,7 @@
 pkgname=ros-humble-nav2-mppi-controller
 _pkgname=nav2_mppi_controller
-pkgver=1.1.12
-pkgrel=1
+pkgver=1.1.13
+pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: nav2_mppi_controller
     uri: https://github.com/SteveMacenski/navigation2-release.git
-    version: release/humble/nav2_mppi_controller/1.1.12-1
+    version: release/humble/nav2_mppi_controller/1.1.13-1
 "
 
 prepare() {
