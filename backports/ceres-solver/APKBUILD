@@ -2,13 +2,14 @@
 # Maintainer:
 pkgname=ceres-solver
 pkgver=2.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast non-linear least squares minimizer"
 url="http://ceres-solver.org/"
 arch="all"
 license="BSD-3-Clause"
 options=""
 makedepends="build-base cmake eigen-dev gflags-dev glog-dev suitesparse-dev"
+depends_dev="glog-dev metis metis-dev suitesparse-dev"
 subpackages="$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/ceres-solver/$pkgname/archive/refs/tags/$pkgver.tar.gz"
 
