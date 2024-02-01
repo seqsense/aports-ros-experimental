@@ -1,14 +1,14 @@
 pkgname=ros-humble-nav2-constrained-smoother
 _pkgname=nav2_constrained_smoother
-pkgver=1.1.12
-pkgrel=2
+pkgver=1.1.13
+pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache-2.0"
 
-depends="ceres-solver-dev ros-humble-angles ros-humble-nav2-common ros-humble-nav2-core ros-humble-nav2-costmap-2d ros-humble-nav2-msgs ros-humble-nav2-util ros-humble-pluginlib ros-humble-rclcpp ros-humble-ros-workspace ceres-solver-dev ros-humble-angles ros-humble-nav2-common ros-humble-nav2-core ros-humble-nav2-costmap-2d ros-humble-nav2-msgs ros-humble-nav2-util ros-humble-pluginlib ros-humble-rclcpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ceres-solver-dev ros-humble-ament-cmake ros-humble-ament-cmake-gtest ros-humble-ament-cmake-pytest ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-angles ros-humble-nav2-common ros-humble-nav2-core ros-humble-nav2-costmap-2d ros-humble-nav2-msgs ros-humble-nav2-util ros-humble-pluginlib ros-humble-rclcpp"
+depends="ceres-solver ceres-solver-dev ros-humble-angles ros-humble-nav2-common ros-humble-nav2-core ros-humble-nav2-costmap-2d ros-humble-nav2-msgs ros-humble-nav2-util ros-humble-pluginlib ros-humble-rclcpp ros-humble-ros-workspace ceres-solver ceres-solver-dev ros-humble-angles ros-humble-nav2-common ros-humble-nav2-core ros-humble-nav2-costmap-2d ros-humble-nav2-msgs ros-humble-nav2-util ros-humble-pluginlib ros-humble-rclcpp"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ceres-solver ceres-solver-dev ros-humble-ament-cmake ros-humble-ament-cmake-gtest ros-humble-ament-cmake-pytest ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-angles ros-humble-nav2-common ros-humble-nav2-core ros-humble-nav2-costmap-2d ros-humble-nav2-msgs ros-humble-nav2-util ros-humble-pluginlib ros-humble-rclcpp"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: nav2_constrained_smoother
     uri: https://github.com/SteveMacenski/navigation2-release.git
-    version: release/humble/nav2_constrained_smoother/1.1.12-1
+    version: release/humble/nav2_constrained_smoother/1.1.13-1
 "
 
 prepare() {
