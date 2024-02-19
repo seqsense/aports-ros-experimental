@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: pcl_conversions
     uri: https://github.com/ros2-gbp/perception_pcl-release.git
-    version: release/humble/pcl_conversions/2.4.0-4
+    version: release/humble/pcl_conversions/2.4.0-6
 "
 
 prepare() {
