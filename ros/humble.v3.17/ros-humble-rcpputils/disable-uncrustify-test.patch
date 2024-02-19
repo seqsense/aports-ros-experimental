@@ -1,14 +1,23 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 6aa4095..002838d 100644
+index 2ea6469..ae113f1 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -50,6 +50,9 @@ ament_export_dependencies(rcutils)
- if(BUILD_TESTING)
-   find_package(ament_cmake_gtest REQUIRED)
-   find_package(ament_lint_auto REQUIRED)
-+  list(APPEND AMENT_LINT_AUTO_EXCLUDE
-+    ament_cmake_uncrustify
-+  )
+@@ -57,7 +57,6 @@ if(BUILD_TESTING)
+   find_package(ament_cmake_flake8 REQUIRED)
+   find_package(ament_cmake_lint_cmake REQUIRED)
+   find_package(ament_cmake_pep257 REQUIRED)
+-  find_package(ament_cmake_uncrustify REQUIRED)
+   find_package(ament_cmake_xmllint REQUIRED)
+ 
+   set(
+@@ -74,10 +73,6 @@ if(BUILD_TESTING)
+   ament_flake8()
+   ament_lint_cmake()
+   ament_pep257(EXCLUDE ${_linter_excludes})
+-  ament_uncrustify(
+-    EXCLUDE ${_linter_excludes}
+-    LANGUAGE c++
+-  )
+   ament_xmllint()
  
    if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-     add_compile_options(-Wthread-safety -Werror)
