@@ -1,9 +1,9 @@
 pkgname=ros-humble-teleop-twist-keyboard
 _pkgname=teleop_twist_keyboard
-pkgver=2.3.2
+pkgver=2.4.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
-url="http://wiki.ros.org/teleop_twist_keyboard"
+url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="BSD License 2.0"
 
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: teleop_twist_keyboard
     uri: https://github.com/ros2-gbp/teleop_twist_keyboard-release.git
-    version: release/humble/teleop_twist_keyboard/2.3.2-4
+    version: release/humble/teleop_twist_keyboard/2.4.0-1
 "
 
 prepare() {
