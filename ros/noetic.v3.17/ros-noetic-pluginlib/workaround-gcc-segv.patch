@@ -1,7 +1,7 @@
-diff --git a/pluginlib/include/pluginlib/class_loader_imp.hpp b/pluginlib/include/pluginlib/class_loader_imp.hpp
+diff --git a/include/pluginlib/class_loader_imp.hpp b/include/pluginlib/class_loader_imp.hpp
 index 8951b9f..db8a23e 100644
---- a/pluginlib/include/pluginlib/class_loader_imp.hpp
-+++ b/pluginlib/include/pluginlib/class_loader_imp.hpp
+--- a/include/pluginlib/class_loader_imp.hpp
++++ b/include/pluginlib/class_loader_imp.hpp
 @@ -63,10 +63,15 @@ const std::string os_pathsep(";");  // NOLINT
  const std::string os_pathsep(":");  // NOLINT
  #endif
