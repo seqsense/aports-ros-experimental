@@ -1,6 +1,6 @@
 pkgname=ros-humble-rqt-bag
 _pkgname=rqt_bag
-pkgver=1.1.4
+pkgver=1.1.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="http://wiki.ros.org/rqt_bag"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: rqt_bag
     uri: https://github.com/ros2-gbp/rqt_bag-release.git
-    version: release/humble/rqt_bag/1.1.4-1
+    version: release/humble/rqt_bag/1.1.5-1
 "
 
 prepare() {

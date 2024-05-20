@@ -1,6 +1,6 @@
 pkgname=ros-humble-rmw
 _pkgname=rmw
-pkgver=6.1.1
+pkgver=6.1.2
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: rmw
     uri: https://github.com/ros2-gbp/rmw-release.git
-    version: release/humble/rmw/6.1.1-1
+    version: release/humble/rmw/6.1.2-1
 "
 
 prepare() {
