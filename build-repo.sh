@@ -79,8 +79,11 @@ then
   ); do
     echo "Resigning ${index}"
     rm -f ${index}
+    echo "--- index ---"
     apk index -o ${index} $(find $(dirname ${index})/../ -name '*.apk')
+    echo "--- sign ---"
     abuild-sign -k /home/builder/.abuild/*.rsa ${index}
+    echo "--- signed ---"
   done
   echo
 fi
