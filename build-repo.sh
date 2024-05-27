@@ -156,20 +156,6 @@ if [ ${ALPINE_VERSION_MAJOR} -eq 3 -a ${ALPINE_VERSION_MINOR} -ge 11 ]; then
 fi
 
 
-echo
-echo "Checking version constraint setting"
-find ${APORTSDIR} -name ENABLE_ON | while read path; do
-  echo -n "$(basename $(dirname $path))"
-  if grep -q -s "v${ALPINE_VERSION}" "${path}"; then
-    echo ": enabled"
-  else
-    echo ": disabled"
-    rm -rf $(dirname ${path})
-  fi
-done
-echo
-
-
 sudo apk update
 
 set +e
