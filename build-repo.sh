@@ -70,6 +70,7 @@ fi
 
 sudo cp ${HOME}/.abuild/*.pub /etc/apk/keys/
 
+echo "RESIGN: ${RESIGN:-}"
 if ${RESIGN:-false}
 then
   # Re-sign packages if private key is updated
