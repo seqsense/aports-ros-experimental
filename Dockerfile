@@ -60,5 +60,6 @@ RUN mkdir -p ${APORTSDIR}
 WORKDIR ${APORTSDIR}
 
 COPY update-checksum.sh build-repo.sh /
+COPY v${ALPINE_VERSION} ${SRCDIR}/
 
 ENTRYPOINT ["/build-repo.sh"]
