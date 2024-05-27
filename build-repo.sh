@@ -45,10 +45,18 @@ echo 'export MAKEFLAGS="-j$JOBS -l$JOBS"' | sudo tee -a /etc/abuild.conf
 echo
 
 
-# Generate temporary private key if not present
+# Setup signing keys
 
 echo "Using ${PACKAGER_PRIVKEY}"
 openssl rsa -in ${PACKAGER_PRIVKEY} -pubout | sudo tee ${PACKAGER_PRIVKEY}.pub
+if [ -n "${APORTS_CI_PR:-}" ]; then
+  for index in $(find ${REPODIR} -name APKINDEX.tar.gz || true); do
+    echo "Resigning ${index}"
+    rm -f ${index}
+    apk index --allow-untrusted -o ${index} $(find $(dirname ${index})/../ -name '*.apk')
+    abuild-sign -k ${PACKAGER_PRIVKEY} ${index}
+  done
+fi
 sudo cp ${HOME}/.abuild/*.pub /etc/apk/keys/
 
 
