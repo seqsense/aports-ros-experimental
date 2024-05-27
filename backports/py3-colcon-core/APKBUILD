@@ -15,20 +15,26 @@ source="$_pkgname-$pkgver.tar.gz::https://github.com/colcon/colcon-core/archive/
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
+        echo "--- Build ---"
         python3 setup.py build
+        echo "--- /Build ---"
 }
 
 check() {
+        echo "--- Check ---"
         python3 -m venv $builddir
         python3 -m pip install --user -e .[test]
         python3 -m pytest
+        echo "--- /Check ---"
 }
 
 package() {
+        echo "--- Package ---"
         python3 setup.py install --prefix=/usr --root="$pkgdir"
 
         # Install license files
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+        echo "--- /Package ---"
 }
 
 sha512sums="00dd469fa49b23df298c9dda7cc02e6c80df715f27dc230cfabd433e9cf46750a1bc3227b328ef636a62db55d72777920cb8b54e57fbab0f08c912c07b36ed25  colcon-core-0.11.0.tar.gz
