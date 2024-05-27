@@ -45,54 +45,17 @@ echo 'export MAKEFLAGS="-j$JOBS -l$JOBS"' | sudo tee -a /etc/abuild.conf
 echo
 
 
-# Copy depending repository
-
-DEPSDIR=${HOME}/deps.rw
-
-mkdir -p ${DEPSDIR}
-repos="$(cd ${HOME}/deps 2>/dev/null && ls -1 || true)"
-for r in ${repos}; do
-  sudo cp -r ${HOME}/deps/${r} ${DEPSDIR}/${r}
-  sudo chmod -R a+w ${DEPSDIR}/${r}
-done
-
-
 # Generate temporary private key if not present
 
-if [ ! -f ${PACKAGER_PRIVKEY} ]; then
-  echo "======== WARN: PACKAGER_PRIVKEY is not present ======="
-  abuild-keygen -a -i -n
-  RESIGN=true
-else
-  echo "Using ${PACKAGER_PRIVKEY}"
-  openssl rsa -in ${PACKAGER_PRIVKEY} -pubout | sudo tee ${PACKAGER_PRIVKEY}.pub
-fi
-
+echo "Using ${PACKAGER_PRIVKEY}"
+openssl rsa -in ${PACKAGER_PRIVKEY} -pubout | sudo tee ${PACKAGER_PRIVKEY}.pub
 sudo cp ${HOME}/.abuild/*.pub /etc/apk/keys/
 
-echo "RESIGN: ${RESIGN:-}"
-if ${RESIGN:-false}
-then
-  # Re-sign packages if private key is updated
-  for index in $(
-    find ${REPODIR} -name APKINDEX.tar.gz || true
-    find ${DEPSDIR} -name APKINDEX.tar.gz || true
-  ); do
-    echo "Resigning ${index}"
-    rm -f ${index}
-    echo "--- index ---"
-    apk index -o ${index} $(find $(dirname ${index})/../ -name '*.apk')
-    echo "--- sign ---"
-    abuild-sign -k /home/builder/.abuild/*.rsa ${index}
-    echo "--- signed ---"
-  done
-  echo
-fi
 
 # Register local repositories
 
 echo "Local repositories:"
-for path in $(find ${DEPSDIR} -name APKINDEX.tar.gz || true); do
+for path in $(find ${HOME}/deps -name APKINDEX.tar.gz || true); do
   arch_path=$(dirname ${path})
   repo_path=$(dirname ${arch_path})
   echo "${repo_path}" | sudo tee -a /etc/apk/repositories

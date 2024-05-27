@@ -11,6 +11,7 @@ repos:
     repo_path: "/home/builder/packages/backports"
     cache_path: "/cache"
     sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
+    use_pr_sign_key: true
     upload:
       - remote: "main"
         paths: ["v3.20/backports"]
@@ -30,6 +31,7 @@ repos:
     repo_path: "/home/builder/packages/backports"
     cache_path: "/cache"
     sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
+    use_pr_sign_key: true
     upload:
       - remote: "main"
         paths: ["v3.17/backports"]
@@ -52,6 +54,7 @@ repos:
     repo_path: "/home/builder/packages/noetic"
     cache_path: "/cache"
     sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
+    use_pr_sign_key: true
     upload:
       - remote: "main"
         paths: ["v3.17/ros/noetic"]
@@ -74,6 +77,7 @@ repos:
     repo_path: "/home/builder/packages/humble"
     cache_path: "/cache"
     sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
+    use_pr_sign_key: true
     upload:
       - remote: "main"
         paths: ["v3.17/ros/humble"]
