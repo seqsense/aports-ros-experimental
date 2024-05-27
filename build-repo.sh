@@ -109,9 +109,10 @@ fi
 repo_out=${repo}
 echo "APORTSDIR: ${APORTSDIR}"
 echo "REPODIR: ${REPODIR}"
-echo "target repository: ${repo}"
+echo "target repository: ${repo} ${repo_full}"
 echo
 
+ls -l ${SRCDIR}
 if [ ! -d ${SRCDIR}/${repo_full} ]; then
   echo "${repo_full} is not present. Skipping."
   exit 0

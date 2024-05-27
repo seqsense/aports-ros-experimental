@@ -60,6 +60,5 @@ RUN mkdir -p ${APORTSDIR}
 WORKDIR ${APORTSDIR}
 
 COPY update-checksum.sh build-repo.sh /
-COPY aports ${SRCDIR}
 
 ENTRYPOINT ["/build-repo.sh"]
