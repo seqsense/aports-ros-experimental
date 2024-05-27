@@ -1,4 +1,23 @@
 repos:
+  backports-3.20:
+    main_ref: "master"
+    build_args:
+      ALPINE_VERSION: "3.20"
+    envs:
+      JOBS: 4
+      PURGE_OBSOLETE: "yes"
+      STACK_PROTECTOR: "on"
+    args: ["backports"]
+    repo_path: "/home/builder/packages/backports"
+    cache_path: "/cache"
+    sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
+    upload:
+      - remote: "main"
+        paths: ["v3.20/backports"]
+        archive_paths: ["archives/v3.20/backports"]
+      - remote: "mirror"
+        paths: ["v3.20/backports"]
+        archive_paths: ["archives/v3.20/backports"]
   backports-3.17:
     main_ref: "master"
     build_args:
