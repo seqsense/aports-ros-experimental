@@ -12,7 +12,7 @@ STACK_PROTECTOR        ?= on
 
 BUILDER_TAG             = $(ROS_DISTRO).v$(ALPINE_VERSION)
 
-REPOSITORY              = backports ros/$(BUILDER_TAG)
+REPOSITORY              = v$(ALPINE_VERSION)/backports v$(ALPINE_VERSION)/ros/$(ROS_DISTRO)
 
 ifeq ($(shell if [ -f "${APK_REPO_PRIVATE_KEY}" ]; then echo true; fi), true)
 	PRIVATE_KEY_OPT = -v $(APK_REPO_PRIVATE_KEY):/home/builder/.abuild/builder@alpine-ros-experimental.rsa:ro
@@ -25,10 +25,6 @@ build-builder:
 		--cache-from=$(BUILDER_NAME):$(BUILDER_TAG) \
 		-t $(BUILDER_NAME):$(BUILDER_TAG) .
 
-.PHONY: pull-builder
-pull-builder:
-	docker pull $(BUILDER_NAME):$(BUILDER_TAG)
-
 .PHONY: $(REPOSITORY)
 $(REPOSITORY):
 	if [ ! -d packages/v$(ALPINE_VERSION)/$(basename $(basename $@)) ]; then \
@@ -38,7 +34,7 @@ $(REPOSITORY):
 	docker run --rm \
 		-v $(CURDIR):/src \
 		-v $(CURDIR)/packages/v$(ALPINE_VERSION):/home/builder/packages \
-		$$(if [ '$@' != 'backports' ]; then echo "-v $(CURDIR)/packages/v$(ALPINE_VERSION)/backports:/home/builder/deps.rw/backports"; fi) \
+		$$(if [ '$(notdir $@)' != 'backports' ]; then echo "-v $(CURDIR)/packages/v$(ALPINE_VERSION)/backports:/home/builder/deps.rw/backports"; fi) \
 		$(PRIVATE_KEY_OPT) \
 		-e JOBS=${JOBS} \
 		-e PURGE_OBSOLETE=yes \

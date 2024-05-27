@@ -7,7 +7,7 @@ repos:
       JOBS: 4
       PURGE_OBSOLETE: "yes"
       STACK_PROTECTOR: "on"
-    args: ["backports"]
+    args: ["v3.17/backports"]
     repo_path: "/home/builder/packages/backports"
     cache_path: "/cache"
     sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
@@ -29,7 +29,7 @@ repos:
       JOBS: 4
       PURGE_OBSOLETE: "yes"
       STACK_PROTECTOR: "on"
-    args: ["ros/noetic.v3.17"]
+    args: ["v3.17/ros/noetic"]
     repo_path: "/home/builder/packages/noetic"
     cache_path: "/cache"
     sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
@@ -51,7 +51,7 @@ repos:
       JOBS: 4
       PURGE_OBSOLETE: "yes"
       STACK_PROTECTOR: "on"
-    args: ["ros/humble.v3.17"]
+    args: ["v3.17/ros/humble"]
     repo_path: "/home/builder/packages/humble"
     cache_path: "/cache"
     sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"

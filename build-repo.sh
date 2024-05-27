@@ -106,7 +106,7 @@ repo=${repo_full}
 if [ ${repo_full} != $(basename ${repo_full}) ]; then
   repo=$(basename ${repo})
 fi
-repo_out=${repo%.v*}
+repo_out=${repo}
 echo "APORTSDIR: ${APORTSDIR}"
 echo "REPODIR: ${REPODIR}"
 echo "target repository: ${repo}"
