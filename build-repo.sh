@@ -49,6 +49,7 @@ echo
 
 echo "Using ${PACKAGER_PRIVKEY}"
 openssl rsa -in ${PACKAGER_PRIVKEY} -pubout | sudo tee ${PACKAGER_PRIVKEY}.pub
+sudo cp ${HOME}/.abuild/*.pub /etc/apk/keys/
 if [ -n "${APORTS_CI_PR:-}" ]; then
   for index in $(find ${REPODIR} -name APKINDEX.tar.gz || true); do
     echo "Resigning ${index}"
@@ -57,7 +58,6 @@ if [ -n "${APORTS_CI_PR:-}" ]; then
     abuild-sign -k ${PACKAGER_PRIVKEY} ${index}
   done
 fi
-sudo cp ${HOME}/.abuild/*.pub /etc/apk/keys/
 
 
 # Register local repositories
