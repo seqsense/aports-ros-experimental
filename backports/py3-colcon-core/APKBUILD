@@ -8,7 +8,7 @@ arch="noarch"
 license="Apache-2.0"
 depends="python3 py3-coloredlogs py3-distlib py3-empy py3-pytest py3-pytest-cov py3-pytest-repeat py3-pytest-rerunfailures py3-setuptools"
 makedepends="py3-setuptools"
-checkdepends="py3-pip py3-pytest py3-flake8"
+checkdepends="py3-pip py3-pytest py3-flake8 py3-pylint py3-pytest-cov"
 subpackages="$pkgname-doc"
 source="$_pkgname-$pkgver.tar.gz::https://github.com/colcon/colcon-core/archive/refs/tags/$pkgver.tar.gz
         test-dependencies.patch"
@@ -19,8 +19,8 @@ build() {
 }
 
 check() {
-        python3 -m pip install -U pip setuptools
-        python3 -m pip install -e .[test]
+        python3 -m venv $builddir
+        python3 -m pip install --user -e .[test]
         python3 -m pytest
 }
 
