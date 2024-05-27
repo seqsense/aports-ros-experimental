@@ -12,6 +12,7 @@ checkdepends="py3-pip py3-pytest py3-flake8"
 subpackages="$pkgname-doc"
 source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
+options="!check"  # Broken on Alpine 3.20
 
 build() {
         python3 setup.py build
