@@ -78,7 +78,7 @@ then
   ); do
     echo "Resigning ${index}"
     rm -f ${index}
-    apk index -o ${index} $(find $(dirname ${index})/../ -name '*.apk')
+    apk index --allow-untrusted -o ${index} $(find $(dirname ${index})/../ -name '*.apk')
     abuild-sign -k /home/builder/.abuild/*.rsa ${index}
   done
   echo
