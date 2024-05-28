@@ -1,0 +1,52 @@
+diff --git a/speech_tools/base_class/rateconv.cc b/speech_tools/base_class/rateconv.cc
+index f27fb44..10ef465 100644
+--- a/speech_tools/base_class/rateconv.cc
++++ b/speech_tools/base_class/rateconv.cc
+@@ -431,7 +431,7 @@ static int outmax;
+ 
+ static int ioerr(void)
+ {
+-    delete g_coep;
++    delete[] g_coep;
+     return -1;
+ }
+ 
+@@ -585,7 +585,7 @@ int rateconv(short *in,int isize, short **out, int *osize,
+ 	    return ioerr();
+     } while (outsize == OUTBUFFSIZE); 
+ 
+-    delete g_coep;
++    delete[] g_coep;
+ 
+     *osize = outpos;
+ 
+diff --git a/speech_tools/base_class/string/EST_String.cc b/speech_tools/base_class/string/EST_String.cc
+index 5ef130a..b7dc8e3 100644
+--- a/speech_tools/base_class/string/EST_String.cc
++++ b/speech_tools/base_class/string/EST_String.cc
+@@ -329,7 +329,8 @@ int EST_String::gsub_internal (const char *os, int olength, const char *s, int l
+ 	  p += length;
+ 	  at=end;
+ 	}
+-      memcpy(p, from+at, size-at);
++      if (p != from+at)
++	memcpy(p, from+at, size-at);
+ 
+       p += size-at;
+       *p = '\0';
+diff --git a/speech_tools/speech_class/EST_WaveFile.cc b/speech_tools/speech_class/EST_WaveFile.cc
+index ba8a362..7f07a31 100644
+--- a/speech_tools/speech_class/EST_WaveFile.cc
++++ b/speech_tools/speech_class/EST_WaveFile.cc
+@@ -85,7 +85,10 @@ EST_read_status load_using(standard_load_fn_fp fn,
+ 
+   if (status == read_ok)
+     {
+-      wv.values().set_memory(data, 0, nsamp, nchan, TRUE);
++      short *data2 = new short[nsamp*nchan];
++      memcpy(data2, data, nsamp*nchan*sizeof(short));
++      wfree(data);
++      wv.values().set_memory(data2, 0, nsamp, nchan, TRUE);
+       wv.set_sample_rate(srate);
+     }
+ 

@@ -1,0 +1,35 @@
+# Contributor: Seiga Kiribayashi <skiribayashi@seqsense.com>
+# Maintainer:
+pkgname="py3-datadog"
+_pkgname="datadogpy"
+pkgver="0.42.0"
+pkgrel=0
+pkgdesc="The Datadog Python library"
+url="https://github.com/DataDog/datadogpy"
+arch="noarch"
+license="BSD-3-Clause"
+options="!check" # seems broken or need tox which requires too large size of the dependencies
+depends="py3-requests>=2.6.0"
+checkdepends="pytest py3-mock py3-freezegun py3-psutil"
+makedepends="py3-setuptools"
+subpackages="${pkgname}-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/DataDog/$_pkgname/archive/v$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+	python3 setup.py build
+}
+
+check() {
+	python3 -m pytest -v tests/unit
+}
+
+package() {
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+	install -D -m 644 LICENSE \
+		"$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="4eee789f6582cdee2e39491a141e8716d20bbee68475ad38a8b311481929b4c0996b53ea19636e0988bb554b1a4451ac95eefa4ee3e005726e7da111cb9d4960  py3-datadog-0.42.0.tar.gz"
