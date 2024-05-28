@@ -66,10 +66,11 @@ all:
 	$(MAKE) $(REPOSITORY)
 
 UPDATE_TARGETS ?=
+export UPDATE_TARGETS
 
 .PHONY: update-checksum
 update-checksum:
 	docker run --rm \
 		-v $(CURDIR):/src \
 		--entrypoint /update-checksum.sh \
-		$(BUILDER_NAME):$(BUILDER_TAG) $(UPDATE_TARGETS)
+		$(BUILDER_NAME):$(BUILDER_TAG) $${UPDATE_TARGETS}
