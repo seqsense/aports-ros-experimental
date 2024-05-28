@@ -8,26 +8,26 @@ pkgdesc="A powerful and robust templating system for Python"
 url="https://pypi.python.org/pypi/EmPy/"
 arch="noarch"
 license="LGPL"
-makedepends="python3-dev py3-setuptools"
+makedepends="python3-dev py3-gpep517 py3-setuptools py3-wheel"
 subpackages="$pkgname-doc"
 source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
-	cd "$builddir"
-	python3 setup.py build
+	gpep517 build-wheel \
+		--wheel-dir .dist \
+		--output-fd 3 3>&1 >&2
 }
 
 check() {
-	cd "$builddir"
-	python3 setup.py check
+	python3 -m venv --clear --without-pip --system-site-packages .testenv
+	.testenv/bin/python3 -m installer .dist/*.whl
+	.testenv/bin/python3 -m pytest
 }
 
 package() {
-	mkdir -p "$pkgdir"
-
-	cd "$builddir"
-	python3 setup.py install --prefix=/usr --root="$pkgdir"
+	python3 -m installer -d "$pkgdir" \
+		.dist/*.whl
 
 	# Install license files
 	install -Dm644 "$builddir"/COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
