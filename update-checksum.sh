@@ -1,14 +1,18 @@
 #!/bin/sh
 
-set -e
+set -ex
 
 echo "Updating checksum..."
-cd /src
-echo $@ | while read apkbuild; do
-  echo $apkbuild
+for apkbuild in $@; do
+  echo "target: $apkbuild"
+  cd /src
   pkgdir=$(dirname ${apkbuild})
+  ls -la ${pkgdir}
 
-  cd ${pkgdir}
-  abuild checksum
-  rm -rf src
+  (
+    cd ${pkgdir}
+    abuild checksum
+    rm -vrf src
+    echo
+  )
 done
