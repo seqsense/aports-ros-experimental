@@ -1,40 +1,34 @@
-# Contributor: Atsushi Watanabe<atsushi.w@ieee.org>
-# Maintainer:
+# Contributor: Russ Webber <russ@rw.id.au>
+# Maintainer: Russ Webber <russ@rw.id.au>
 pkgname=py3-empy
 _pkgname=empy
 pkgver=3.3.4
-pkgrel=0
-pkgdesc="A powerful and robust templating system for Python"
-url="https://pypi.python.org/pypi/EmPy/"
+pkgrel=6
+pkgdesc="A powerful and robust templating system for Python."
+url="http://www.alcyone.com/software/empy/"
 arch="noarch"
-license="LGPL"
-makedepends="python3-dev py3-gpep517 py3-setuptools py3-wheel"
-checkdepends="py3-pytest"
-subpackages="$pkgname-doc"
-source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+license="LGPL-2.1-or-later"
+depends="python3"
+makedepends="py3-setuptools"
+subpackages="$pkgname-pyc"
+source="http://www.alcyone.com/software/empy/empy-$pkgver.tar.gz
+	10-fix-test-case.patch
+	20-fix-setuppy.patch
+	"
 builddir="$srcdir/$_pkgname-$pkgver"
-options="!check"  # test is not provided
 
 build() {
-	gpep517 build-wheel \
-		--wheel-dir .dist \
-		--output-fd 3 3>&1 >&2
+	python3 setup.py build
 }
 
 check() {
-	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	.testenv/bin/python3 -m installer .dist/*.whl
-	.testenv/bin/python3 -m pytest
+	sh test.sh python3
 }
 
 package() {
-	python3 -m installer -d "$pkgdir" \
-		.dist/*.whl
-
-	# Install license files
-	install -Dm644 "$builddir"/COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
+	python3 setup.py install --skip-build --root="$pkgdir"
 }
 
-sha512sums="
-f92c26b7346e208ac89a235edf681a25b81a0c7ca48b63bb5e47a30473a90c6b21dfcd97f5985fb3ff952276a576b6b7855dbb1186ad406eb5dd587ecce68e75  empy-3.3.4.tar.gz
-"
+sha512sums="5de8de26484468d180a2575bfc8302cb3d32004ed4d70768310b7564a9ed1bb880b8c1d862f419588b2b5baa8c3da8bc707eac41f3921e6136cc5bc3f47f1a3d  empy-3.3.4.tar.gz
+f48040e697de119dcb811a85aed485446464c68b89552b5499e3df7b865b30fe6b33123d9918340e3fa8adcb722694e232ba5d62be6201f896018c65d50cfabe  10-fix-test-case.patch
+e30eae88792dd6e32406b0f1719319b186966d82c846685fc6cdd2fa7f54b31c1aa30e212c9793a7f6b21960c635c1ff673fd2b6734eec500712ec58f667b05a  20-fix-setuppy.patch"
