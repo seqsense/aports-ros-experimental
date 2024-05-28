@@ -36,4 +36,6 @@ package() {
 	install -Dm 0644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="871a32e9ca5314caa5f25b4135b430e7be829f7afd12ba98ea4524ee758c7ca7ebf64a9e567c6dbc285c497320cd0fe1e69f8d891343b869344726b32dbdc3ee  ignition-cmake2-2.17.1.tar.gz"
+sha512sums="
+2745afb72b6a410df4b4a256eafecc7e0b5ca6e6b1a334d6778859cd75462f4a03bd783cec66e5d8dc1428b4fce6ffb5f39a67744a92b424c058686d2ab889ec  ignition-cmake2-2.17.2.tar.gz
+"

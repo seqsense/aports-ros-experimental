@@ -36,4 +36,6 @@ package() {
 	install -Dm 0644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="529e1e4edcf977691ae5397ac725393a15b375f26cb62c5a1453940c042b26f4dc38f434e04b3505140da116beb06a7fae9b0b0755c55482c97563a6a166b344  ignition-math6-6.15.0.tar.gz"
+sha512sums="
+569fb37be4b42f170189de680beb71c6274e2a48d02f77d6a9d675ca9901be32df7af6b86f69916ff96b4f7065f8f1d4a9fb3ef81c2b7f5fc3f325e17279edba  ignition-math6-6.15.1.tar.gz
+"
