@@ -2,8 +2,8 @@
 # Maintainer:
 pkgname=py3-rosinstall-generator
 _pkgname=rosinstall_generator
-pkgver=0.1.19
-pkgrel=1
+pkgver=0.1.23
+pkgrel=0
 pkgdesc="A tool for generating rosinstall files"
 url="https://pypi.python.org/pypi/rosinstall_generator/"
 arch="noarch"
@@ -35,5 +35,7 @@ package() {
 	install -Dm644 $startdir/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
 }
 
-sha512sums="7b0685e359fb0a46ac52ac4d6eceb046d0592244b36318cb7816ca5a28fc9616fabe48a607a687433e53c6f34ecbbdfdfc443209e6abb1559213642155b66292  rosinstall_generator-0.1.19.tar.gz
-0145a27b16e6e1ad8827d4c827f57b4aae25c64951352c097c6ec5c58863979fa19912dab2dc5e9517bcb87569ebf63f15132c3681ff9311f3a640121897cda8  LICENSE.txt"
+sha512sums="
+09fff9f49dbbcd14acfa22b049c10e4dc293d59b2b08bc885a6ac997da4d85cf74962762dafc80c1ca8445d6375a6a08784784e669eec4d61caf3ca9736da3e2  rosinstall_generator-0.1.23.tar.gz
+0145a27b16e6e1ad8827d4c827f57b4aae25c64951352c097c6ec5c58863979fa19912dab2dc5e9517bcb87569ebf63f15132c3681ff9311f3a640121897cda8  LICENSE.txt
+"

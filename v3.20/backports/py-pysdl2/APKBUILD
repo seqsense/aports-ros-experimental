@@ -2,8 +2,8 @@
 # Maintainer:
 pkgname=py-pysdl2
 _pkgname=pysdl2
-pkgver=0.9.14
-pkgrel=9
+pkgver=0.9.16
+pkgrel=0
 pkgdesc="Python ctypes wrapper around SDL2"
 url="https://github.com/py-sdl/py-sdl2"
 arch="noarch"
@@ -52,4 +52,6 @@ _py3() {
 }
 
 
-sha512sums="409b0cb8c600f2c9269d05a99fdf5473fca2f3dfabf94f7585ba0c9a00dd02beeb47d50dc48333fd916ab1f149f2eecc483ef75ad3e3e9903a291868d37c30c7  pysdl2-0.9.14.tar.gz"
+sha512sums="
+89e0f2cfe5afcd7d29ac73f92dc6e8fc80543db8006dd6d00e239096d8fe58c1f4409408e6c3ad420cbdae72f90839862330b7862e6f6f6ea57649e4d93821ef  pysdl2-0.9.16.tar.gz
+"

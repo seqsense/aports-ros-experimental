@@ -2,8 +2,8 @@
 # Maintainer:
 pkgname=py3-catkin-pkg
 _pkgname=catkin_pkg
-pkgver=0.4.23
-pkgrel=2
+pkgver=1.0.0
+pkgrel=0
 pkgdesc="Library for retrieving information about catkin packages"
 url="https://pypi.python.org/pypi/catkin_pkg/"
 arch="noarch"
@@ -35,5 +35,7 @@ package() {
 	install -Dm644 "$startdir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="6f0bec590ad85a74781a445bf5d5923acb8f45fd446decfa69eec5d6136dd90c3e95f1fef89bb6e1ed5613e04ced132d7bc3d48e072cd83ca07ec745ec9ed369  catkin_pkg-0.4.23.tar.gz
-0f08e51d22524882cb68829364ccbd4632633107b23096f4bc6c7fd31b8c9f9f1ae64d2bb3fa02f84f52c38c08eb35a58d10b28001c7d26b4c39e7250b9b6913  LICENSE"
+sha512sums="
+24ba9fda0aec88a3cde87646a145c5e3573d98b33d57889e27084e0cc2ce2740767068122c3b184ebabdf99c20031a6d08dc0134aaa9162b06d8c0aa9fd5c28d  catkin_pkg-1.0.0.tar.gz
+0f08e51d22524882cb68829364ccbd4632633107b23096f4bc6c7fd31b8c9f9f1ae64d2bb3fa02f84f52c38c08eb35a58d10b28001c7d26b4c39e7250b9b6913  LICENSE
+"

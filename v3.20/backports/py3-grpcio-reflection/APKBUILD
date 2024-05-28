@@ -2,8 +2,8 @@
 # Maintainer: Daiki Maekawa <daikimaekawa29@gmail.com>
 pkgname=py3-grpcio-reflection
 _pkgname=${pkgname#py3-}
-pkgver=1.26.0
-pkgrel=3
+pkgver=1.62.1
+pkgrel=0
 pkgdesc="Testing utilities for gRPC Python."
 url="https://grpc.io/"
 arch="all"
@@ -35,4 +35,6 @@ package() {
 	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="fefb4e920dac2cffb4daaa6f823cd238b8f49b9c8e8c1b0d5f2840dd4b71a519064736ec314ec9700434297f1acef18014b5cf53626b7d827ac5fb434fe62d79  py-grpcio-reflection-1.26.0.tar.gz"
+sha512sums="
+4a9575edb367cea7e199ec223da4779ea211db37b88943d9de1a7df95b519c670f66e81785d8304440937cc2cd97f2b742eeb1100d2aa05169d802803df811ac  py-grpcio-reflection-1.62.1.tar.gz
+"

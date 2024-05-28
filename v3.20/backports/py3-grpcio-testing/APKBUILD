@@ -2,8 +2,8 @@
 # Maintainer: Daiki Maekawa <daikimaekawa29@gmail.com>
 pkgname=py3-grpcio-testing
 _pkgname=${pkgname#py3-}
-pkgver=1.26.0
-pkgrel=2
+pkgver=1.62.1
+pkgrel=0
 pkgdesc="Testing utilities for gRPC Python."
 url="https://grpc.io/"
 arch="all"
@@ -35,4 +35,6 @@ package() {
 	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="7fae8c2e5dce79562005ae0c5e779e8ff157e245d849b573376aa36cc98fc6efa126f2aeed9431d2c41535ffbbac017ce69d83b5fffaf7f75b5493e778e8caf9  py-grpcio-testing-1.26.0.tar.gz"
+sha512sums="
+bcf624fa2744e6164691af7bf2dec3b46687349a348729ef5c25b57fd71c31ee8b75aa79403f2e24892bcd4c5fc7c557053a87fe8aa0452794c996f8b347649e  py-grpcio-testing-1.62.1.tar.gz
+"

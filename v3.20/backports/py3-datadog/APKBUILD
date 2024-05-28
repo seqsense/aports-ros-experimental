@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname="py3-datadog"
 _pkgname="datadogpy"
-pkgver="0.42.0"
+pkgver="0.49.1"
 pkgrel=0
 pkgdesc="The Datadog Python library"
 url="https://github.com/DataDog/datadogpy"
@@ -32,4 +32,6 @@ package() {
 		"$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="4eee789f6582cdee2e39491a141e8716d20bbee68475ad38a8b311481929b4c0996b53ea19636e0988bb554b1a4451ac95eefa4ee3e005726e7da111cb9d4960  py3-datadog-0.42.0.tar.gz"
+sha512sums="
+a4db27e0e2d99eb45f6e6b01f4a1b84cf367381d89a5f71c74b18a71317ac53ffb679bd1e62ae48537bd3e3bf97d25acd339f5ceb301441207de3c2ed4969f59  py3-datadog-0.49.1.tar.gz
+"

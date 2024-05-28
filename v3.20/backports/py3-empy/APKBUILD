@@ -2,8 +2,8 @@
 # Maintainer:
 pkgname=py3-empy
 _pkgname=empy
-pkgver=3.3.2
-pkgrel=2
+pkgver=3.3.4
+pkgrel=0
 pkgdesc="A powerful and robust templating system for Python"
 url="https://pypi.python.org/pypi/EmPy/"
 arch="noarch"
@@ -33,4 +33,6 @@ package() {
 	install -Dm644 "$builddir"/COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
 }
 
-sha512sums="d9098823bbb26e4447aae9042e389e000f893615117512f9b786eedbc6875dee6b7f6be50021f68a4bd6e200b364852206b36bff5c48ae1754c8f0d49682d5f2  empy-3.3.2.tar.gz"
+sha512sums="
+f92c26b7346e208ac89a235edf681a25b81a0c7ca48b63bb5e47a30473a90c6b21dfcd97f5985fb3ff952276a576b6b7855dbb1186ad406eb5dd587ecce68e75  empy-3.3.4.tar.gz
+"

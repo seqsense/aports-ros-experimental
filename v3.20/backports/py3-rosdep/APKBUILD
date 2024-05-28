@@ -2,8 +2,8 @@
 # Maintainer:
 pkgname=py3-rosdep
 _pkgname=rosdep
-pkgver=0.19.0
-pkgrel=2
+pkgver=0.24.0
+pkgrel=0
 pkgdesc="rosdep package manager abstraction tool for ROS"
 url="https://pypi.python.org/pypi/rosdep/"
 arch="noarch"
@@ -35,5 +35,7 @@ package() {
 	install -Dm644 $startdir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="259605d07636d72514e7e69096815e8796feee2064900dbecc6705c48babcf73aa97daec3b464df03f4bf2a83657d658830b945ca976666f68f867f0e9a33475  rosdep-0.19.0.tar.gz
-cc1a94988027bf41c993b3e243d9568c1e8eea664bbe6bb5fb157d368541d51f131d4df0573a3b6df62e3a730d20fc279107fd700083b34e90cfef335f7d1e33  LICENSE"
+sha512sums="
+301ddc350bdf5cc984d9333c502bc7276ebdc6272b4162346f8db8b3d8e80bba7f0d0bc91f219c9e83e14d3acbe64d6d0590a4ab0e106a5b0124a1308e767148  rosdep-0.24.0.tar.gz
+cc1a94988027bf41c993b3e243d9568c1e8eea664bbe6bb5fb157d368541d51f131d4df0573a3b6df62e3a730d20fc279107fd700083b34e90cfef335f7d1e33  LICENSE
+"

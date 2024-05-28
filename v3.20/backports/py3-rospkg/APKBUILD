@@ -2,8 +2,8 @@
 # Maintainer:
 pkgname=py3-rospkg
 _pkgname=rospkg
-pkgver=1.2.6
-pkgrel=1
+pkgver=1.5.1
+pkgrel=0
 pkgdesc="Standalone Python library for the ROS package system"
 url="https://pypi.python.org/pypi/rospkg/"
 arch="noarch"
@@ -35,5 +35,7 @@ package() {
 	install -Dm644 $startdir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="61ec1a6dfa198e43045a9f62ec66a654f7d8716fc022e5d0bea22f8c7d4b60aa0b10ecb9baecc6f37a9be8384312901a83dad1f65905dad96890ba359a5333ec  rospkg-1.2.6.tar.gz
-e976573a6c2550a6ebe4335a4483513d0409f89a89dfe67ff815b5939b95ada900d57673d35f3722bab958c59d3c9e743e0f60eea441ba27f034919732ee47ed  LICENSE"
+sha512sums="
+c94ddb329d1bf77b6206960e10a418cd0738581a1fdb4f880cc43f826973b78127799e4ae9c18f96cbd1de2da6187fbde1b1011570c31b327d5633c864a79896  rospkg-1.5.1.tar.gz
+e976573a6c2550a6ebe4335a4483513d0409f89a89dfe67ff815b5939b95ada900d57673d35f3722bab958c59d3c9e743e0f60eea441ba27f034919732ee47ed  LICENSE
+"
