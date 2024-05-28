@@ -106,10 +106,10 @@ repo=${repo_full}
 if [ ${repo_full} != $(basename ${repo_full}) ]; then
   repo=$(basename ${repo})
 fi
-repo_out=${repo%.v*}
+repo_out=${repo}
 echo "APORTSDIR: ${APORTSDIR}"
 echo "REPODIR: ${REPODIR}"
-echo "target repository: ${repo}"
+echo "target repository: ${repo} ${repo_full}"
 echo
 
 if [ ! -d ${SRCDIR}/${repo_full} ]; then
@@ -154,20 +154,6 @@ if [ ${ALPINE_VERSION_MAJOR} -eq 3 -a ${ALPINE_VERSION_MINOR} -ge 11 ]; then
     echo "Skipping py2 removal"
   fi
 fi
-
-
-echo
-echo "Checking version constraint setting"
-find ${APORTSDIR} -name ENABLE_ON | while read path; do
-  echo -n "$(basename $(dirname $path))"
-  if grep -q -s "v${ALPINE_VERSION}" "${path}"; then
-    echo ": enabled"
-  else
-    echo ": disabled"
-    rm -rf $(dirname ${path})
-  fi
-done
-echo
 
 
 sudo apk update
