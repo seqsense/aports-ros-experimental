@@ -28,10 +28,10 @@ build() {
 }
 
 check() {
-  cd "$builddir"
-  cppcheck --quiet --error-exitcode=1 --force .
   cd "$builddir"/build
   ctest -V -j 2 -C Release
+  cd "$builddir"
+  cppcheck --quiet --error-exitcode=1 --force --suppress=*:build/* .
 }
 
 package() {
