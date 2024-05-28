@@ -197,7 +197,7 @@ rm -rf ${tmpdir}
 # Re-sign
 
 rm -f ${index}
-apk index -o ${index} \
+apk index --allow-untrusted -o ${index} \
   $(find $(dirname ${index})/../ -name '*.apk')
 abuild-sign -k /home/builder/.abuild/*.rsa ${index}
 
