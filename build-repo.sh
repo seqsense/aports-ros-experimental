@@ -168,7 +168,7 @@ set -e
 # Generate package index
 
 index=${REPODIR}/${repo_out}/x86_64/APKINDEX.tar.gz
-apk index -o ${index} \
+apk index --allow-untrusted -o ${index} \
   $(find $(dirname ${index}) -name '*.apk')
 
 tmpdir=$(mktemp -d)
