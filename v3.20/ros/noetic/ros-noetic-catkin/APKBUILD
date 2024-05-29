@@ -51,6 +51,13 @@ build() {
   set -o pipefail
   echo "building" > $statuslog
   cd "$builddir"
+  mkdir build
+  cd build
+  cmake ../src/$_pkgname \
+    -DCMAKE_INSTALL_PREFIX=/usr/ros/noetic \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_INSTALL_LIBDIR=lib 2>&1 | tee $buildlog
+  make 2>&1 | tee -a $buildlog
 }
 
 check() {
@@ -61,6 +68,10 @@ check() {
   set -o pipefail
   echo "checking" >> $statuslog
   cd "$builddir"
+  cd build
+  if [ $(make -q test > /dev/null 2> /dev/null; echo $?) -eq 1 ]; then
+    make test 2>&1 | tee $checklog
+  fi
 }
 
 dbg() {
@@ -74,6 +85,8 @@ package() {
   cd "$builddir"
   export DESTDIR="$pkgdir"
 
+  cd build
+  make install
 
   # Tweak invalid RPATH
   find $pkgdir -name "*.so" | while read so; do
@@ -128,6 +141,10 @@ package() {
     # Copy license files under the source
     if echo $file | grep -e '^\./\.'; then
       # Omit files under hidden directory
+      continue
+    fi
+    if echo $file | grep -e '^\./build/'; then
+      # Omit files under build directory
       continue
     fi
     echo "Copying license files from source tree: $file"
