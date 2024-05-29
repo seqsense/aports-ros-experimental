@@ -1,0 +1,2613 @@
+diff --git a/test/unit/test_core.py b/test/unit/test_core.py
+index a0b33eeb4..8b176f14f 100644
+--- a/test/unit/test_core.py
++++ b/test/unit/test_core.py
+@@ -50,25 +50,25 @@ def printlog_cb_exception(msg):
+ class TestCore(unittest.TestCase):
+     def test_xml_escape(self):
+         from roslaunch.core import _xml_escape
+-        self.assertEquals('', _xml_escape(''))
+-        self.assertEquals(' ', _xml_escape(' '))        
+-        self.assertEquals('&quot;', _xml_escape('"'))
+-        self.assertEquals('&quot;hello world&quot;', _xml_escape('"hello world"'))
+-        self.assertEquals('&gt;', _xml_escape('>'))
+-        self.assertEquals('&lt;', _xml_escape('<'))
+-        self.assertEquals('&amp;', _xml_escape('&'))
+-        self.assertEquals('&amp;amp;', _xml_escape('&amp;'))        
+-        self.assertEquals('&amp;&quot;&gt;&lt;&quot;', _xml_escape('&"><"'))
++        self.assertEqual('', _xml_escape(''))
++        self.assertEqual(' ', _xml_escape(' '))        
++        self.assertEqual('&quot;', _xml_escape('"'))
++        self.assertEqual('&quot;hello world&quot;', _xml_escape('"hello world"'))
++        self.assertEqual('&gt;', _xml_escape('>'))
++        self.assertEqual('&lt;', _xml_escape('<'))
++        self.assertEqual('&amp;', _xml_escape('&'))
++        self.assertEqual('&amp;amp;', _xml_escape('&amp;'))        
++        self.assertEqual('&amp;&quot;&gt;&lt;&quot;', _xml_escape('&"><"'))
+         
+         
+     def test_child_mode(self):
+         from roslaunch.core import is_child_mode, set_child_mode
+         set_child_mode(False)
+-        self.failIf(is_child_mode())
++        self.assertFalse(is_child_mode())
+         set_child_mode(True)
+-        self.assert_(is_child_mode())        
++        self.assertTrue(is_child_mode())        
+         set_child_mode(False)
+-        self.failIf(is_child_mode())
++        self.assertFalse(is_child_mode())
+ 
+     def test_printlog(self):
+         from roslaunch.core import add_printlog_handler, add_printerrlog_handler, printlog, printlog_bold, printerrlog
+@@ -81,11 +81,11 @@ class TestCore(unittest.TestCase):
+         global _lastmsg
+         _lastmsg = None
+         printlog('foo')
+-        self.assertEquals('foo', _lastmsg)
++        self.assertEqual('foo', _lastmsg)
+         printlog_bold('bar')
+-        self.assertEquals('bar', _lastmsg)        
++        self.assertEqual('bar', _lastmsg)        
+         printerrlog('baz')
+-        self.assertEquals('baz', _lastmsg)        
++        self.assertEqual('baz', _lastmsg)        
+         
+     def test_setup_env(self):
+         from roslaunch.core import setup_env, Node, Machine
+@@ -94,25 +94,25 @@ class TestCore(unittest.TestCase):
+         n = Node('nodepkg','nodetype')
+         m = Machine('name1', '1.2.3.4')
+         d = setup_env(n, m, master_uri)
+-        self.assertEquals(d['ROS_MASTER_URI'], master_uri)
++        self.assertEqual(d['ROS_MASTER_URI'], master_uri)
+ 
+         m = Machine('name1', '1.2.3.4')
+         d = setup_env(n, m, master_uri)
+         val = os.environ['ROS_ROOT']
+-        self.assertEquals(d['ROS_ROOT'], val)
++        self.assertEqual(d['ROS_ROOT'], val)
+ 
+         # test ROS_NAMESPACE
+         # test stripping
+         n = Node('nodepkg','nodetype', namespace="/ns2/")
+         d = setup_env(n, m, master_uri)
+-        self.assertEquals(d['ROS_NAMESPACE'], "/ns2")
++        self.assertEqual(d['ROS_NAMESPACE'], "/ns2")
+ 
+         # test node.env_args
+         n = Node('nodepkg','nodetype', env_args=[('NENV1', 'val1'), ('NENV2', 'val2'), ('ROS_ROOT', '/new/root')])        
+         d = setup_env(n, m, master_uri)
+-        self.assertEquals(d['ROS_ROOT'], "/new/root")
+-        self.assertEquals(d['NENV1'], "val1")
+-        self.assertEquals(d['NENV2'], "val2")
++        self.assertEqual(d['ROS_ROOT'], "/new/root")
++        self.assertEqual(d['NENV1'], "val1")
++        self.assertEqual(d['NENV2'], "val2")
+ 
+         
+     def test_local_machine(self):
+@@ -121,15 +121,15 @@ class TestCore(unittest.TestCase):
+ 
+             from roslaunch.core import local_machine
+             lm = local_machine()
+-            self.failIf(lm is None)
++            self.assertFalse(lm is None)
+             #singleton
+-            self.assert_(lm == local_machine())
++            self.assertTrue(lm == local_machine())
+ 
+-            self.assertEquals(lm.name, '')
+-            self.assertEquals(lm.assignable, True)
+-            self.assertEquals(lm.env_loader, None)        
+-            self.assertEquals(lm.user, None)
+-            self.assertEquals(lm.password, None)
++            self.assertEqual(lm.name, '')
++            self.assertEqual(lm.assignable, True)
++            self.assertEqual(lm.env_loader, None)        
++            self.assertEqual(lm.user, None)
++            self.assertEqual(lm.password, None)
+         finally:
+             os.environ = env_copy
+ 
+@@ -140,25 +140,25 @@ class TestCore(unittest.TestCase):
+         try:
+             os.environ['ROS_MASTER_URI'] = 'http://foo:789'
+             m = Master()
+-            self.assertEquals(m.type, Master.ROSMASTER)
+-            self.assertEquals(m.uri, 'http://foo:789')
+-            self.assertEquals(m, m)
+-            self.assertEquals(m, Master())
++            self.assertEqual(m.type, Master.ROSMASTER)
++            self.assertEqual(m.uri, 'http://foo:789')
++            self.assertEqual(m, m)
++            self.assertEqual(m, Master())
+             
+             m = Master(Master.ROSMASTER, 'http://foo:1234')
+-            self.assertEquals(m.type, Master.ROSMASTER)
+-            self.assertEquals(m.uri, 'http://foo:1234')
+-            self.assertEquals(m, m)
+-            self.assertEquals(m, Master(Master.ROSMASTER, 'http://foo:1234'))
++            self.assertEqual(m.type, Master.ROSMASTER)
++            self.assertEqual(m.uri, 'http://foo:1234')
++            self.assertEqual(m, m)
++            self.assertEqual(m, Master(Master.ROSMASTER, 'http://foo:1234'))
+ 
+             try:
+                 from xmlrpc.client import ServerProxy
+             except ImportError:
+                 from xmlrpclib import ServerProxy
+-            self.assert_(isinstance(m.get(), ServerProxy))
++            self.assertTrue(isinstance(m.get(), ServerProxy))
+             m.uri = 'http://foo:567'
+-            self.assertEquals(567, m.get_port())
+-            self.failIf(m.is_running())
++            self.assertEqual(567, m.get_port())
++            self.assertFalse(m.is_running())
+ 
+         finally:
+             if old_env is None:
+@@ -170,32 +170,32 @@ class TestCore(unittest.TestCase):
+         from roslaunch.core import Executable, PHASE_SETUP, PHASE_RUN, PHASE_TEARDOWN
+ 
+         e = Executable('ls', ['-alF'])
+-        self.assertEquals('ls', e.command)
+-        self.assertEquals(['-alF'], e.args)
+-        self.assertEquals(PHASE_RUN, e.phase)
+-        self.assertEquals('ls -alF', str(e))
+-        self.assertEquals('ls -alF', repr(e))        
++        self.assertEqual('ls', e.command)
++        self.assertEqual(['-alF'], e.args)
++        self.assertEqual(PHASE_RUN, e.phase)
++        self.assertEqual('ls -alF', str(e))
++        self.assertEqual('ls -alF', repr(e))        
+ 
+         e = Executable('ls', ['-alF', 'b*'], PHASE_TEARDOWN)
+-        self.assertEquals('ls', e.command)
+-        self.assertEquals(['-alF', 'b*'], e.args)
+-        self.assertEquals(PHASE_TEARDOWN, e.phase)
+-        self.assertEquals('ls -alF b*', str(e))
+-        self.assertEquals('ls -alF b*', repr(e))        
++        self.assertEqual('ls', e.command)
++        self.assertEqual(['-alF', 'b*'], e.args)
++        self.assertEqual(PHASE_TEARDOWN, e.phase)
++        self.assertEqual('ls -alF b*', str(e))
++        self.assertEqual('ls -alF b*', repr(e))        
+ 
+     def test_RosbinExecutable(self):
+         from roslaunch.core import RosbinExecutable, PHASE_SETUP, PHASE_RUN, PHASE_TEARDOWN
+ 
+         e = RosbinExecutable('ls', ['-alF'])
+-        self.assertEquals('ls', e.command)
+-        self.assertEquals(['-alF'], e.args)
+-        self.assertEquals(PHASE_RUN, e.phase)
+-        self.assertEquals('ros/bin/ls -alF', str(e))
+-        self.assertEquals('ros/bin/ls -alF', repr(e))        
++        self.assertEqual('ls', e.command)
++        self.assertEqual(['-alF'], e.args)
++        self.assertEqual(PHASE_RUN, e.phase)
++        self.assertEqual('ros/bin/ls -alF', str(e))
++        self.assertEqual('ros/bin/ls -alF', repr(e))        
+ 
+         e = RosbinExecutable('ls', ['-alF', 'b*'], PHASE_TEARDOWN)
+-        self.assertEquals('ls', e.command)
+-        self.assertEquals(['-alF', 'b*'], e.args)
+-        self.assertEquals(PHASE_TEARDOWN, e.phase)
+-        self.assertEquals('ros/bin/ls -alF b*', str(e))
+-        self.assertEquals('ros/bin/ls -alF b*', repr(e))        
++        self.assertEqual('ls', e.command)
++        self.assertEqual(['-alF', 'b*'], e.args)
++        self.assertEqual(PHASE_TEARDOWN, e.phase)
++        self.assertEqual('ros/bin/ls -alF b*', str(e))
++        self.assertEqual('ros/bin/ls -alF b*', repr(e))        
+diff --git a/test/unit/test_nodeprocess.py b/test/unit/test_nodeprocess.py
+index 945759e91..d20f2674b 100644
+--- a/test/unit/test_nodeprocess.py
++++ b/test/unit/test_nodeprocess.py
+@@ -68,22 +68,22 @@ class TestNodeprocess(unittest.TestCase):
+ 
+         # test valid params
+         p = create_master_process(run_id, type, ros_root, port)
+-        self.assert_(isinstance(p, LocalProcess))
+-        self.assertEquals(p.args[0], 'rosmaster')
++        self.assertTrue(isinstance(p, LocalProcess))
++        self.assertEqual(p.args[0], 'rosmaster')
+         idx = p.args.index('-p')
+-        self.failIf(idx < 1)
+-        self.assertEquals(p.args[idx+1], str(port))
+-        self.assert_('--core' in p.args)
++        self.assertFalse(idx < 1)
++        self.assertEqual(p.args[idx+1], str(port))
++        self.assertTrue('--core' in p.args)
+ 
+-        self.assertEquals(p.package, 'rosmaster')
++        self.assertEqual(p.package, 'rosmaster')
+         p = create_master_process(run_id, type, ros_root, port)
+         
+-        self.assertEquals(create_master_process(run_id, type, ros_root, port, sigint_timeout=3).sigint_timeout, 3)
+-        self.assertEquals(create_master_process(run_id, type, ros_root, port, sigint_timeout=1).sigint_timeout, 1)
++        self.assertEqual(create_master_process(run_id, type, ros_root, port, sigint_timeout=3).sigint_timeout, 3)
++        self.assertEqual(create_master_process(run_id, type, ros_root, port, sigint_timeout=1).sigint_timeout, 1)
+         self.assertRaises(RLException, create_master_process, run_id, type, ros_root, port, sigint_timeout=0)
+ 
+-        self.assertEquals(create_master_process(run_id, type, ros_root, port, sigterm_timeout=3).sigterm_timeout, 3)
+-        self.assertEquals(create_master_process(run_id, type, ros_root, port, sigterm_timeout=1).sigterm_timeout, 1)
++        self.assertEqual(create_master_process(run_id, type, ros_root, port, sigterm_timeout=3).sigterm_timeout, 3)
++        self.assertEqual(create_master_process(run_id, type, ros_root, port, sigterm_timeout=1).sigterm_timeout, 1)
+         self.assertRaises(RLException, create_master_process, run_id, type, ros_root, port, sigterm_timeout=0)
+         
+         # TODO: have to think more as to the correct environment for the master process
+@@ -134,52 +134,52 @@ class TestNodeprocess(unittest.TestCase):
+         # basic integration test
+         n.machine = m
+         p = create_node_process(run_id, n, master_uri)
+-        self.assert_(isinstance(p, LocalProcess))
++        self.assertTrue(isinstance(p, LocalProcess))
+ 
+         # repeat some setup_local_process_env tests
+         d = p.env
+-        self.assertEquals(d['ROS_MASTER_URI'], master_uri)
+-        self.assertEquals(d['ROS_ROOT'], ros_root)
+-        self.assertEquals(d['PYTHONPATH'], os.environ['PYTHONPATH'])
++        self.assertEqual(d['ROS_MASTER_URI'], master_uri)
++        self.assertEqual(d['ROS_ROOT'], ros_root)
++        self.assertEqual(d['PYTHONPATH'], os.environ['PYTHONPATH'])
+         if rpp:
+-            self.assertEquals(d['ROS_PACKAGE_PATH'], rpp)
++            self.assertEqual(d['ROS_PACKAGE_PATH'], rpp)
+         for k in ['ROS_IP', 'ROS_NAMESPACE']:
+             if k in d:
+                 self.fail('%s should not be set: %s'%(k,d[k]))
+ 
+         # test package and name
+-        self.assertEquals(p.package, 'roslaunch')
++        self.assertEqual(p.package, 'roslaunch')
+         # - no 'correct' full answer here 
+-        self.assert_(p.name.startswith('talker'), p.name)
++        self.assertTrue(p.name.startswith('talker'), p.name)
+ 
+         # test log_output
+         n.output = 'log'
+-        self.assert_(create_node_process(run_id, n, master_uri).log_output)
++        self.assertTrue(create_node_process(run_id, n, master_uri).log_output)
+         n.output = 'screen'
+-        self.failIf(create_node_process(run_id, n, master_uri).log_output)
++        self.assertFalse(create_node_process(run_id, n, master_uri).log_output)
+ 
+         # test respawn
+         n.respawn = True
+-        self.assert_(create_node_process(run_id, n, master_uri).respawn)
++        self.assertTrue(create_node_process(run_id, n, master_uri).respawn)
+         n.respawn = False
+-        self.failIf(create_node_process(run_id, n, master_uri).respawn)        
++        self.assertFalse(create_node_process(run_id, n, master_uri).respawn)        
+ 
+         # test cwd
+         n.cwd = None
+-        self.assertEquals(create_node_process(run_id, n, master_uri).cwd, None)
++        self.assertEqual(create_node_process(run_id, n, master_uri).cwd, None)
+         n.cwd = 'ros-root'
+-        self.assertEquals(create_node_process(run_id, n, master_uri).cwd, 'ros-root')
++        self.assertEqual(create_node_process(run_id, n, master_uri).cwd, 'ros-root')
+         n.cwd = 'node'                
+-        self.assertEquals(create_node_process(run_id, n, master_uri).cwd, 'node')
++        self.assertEqual(create_node_process(run_id, n, master_uri).cwd, 'node')
+ 
+         # sigint timeout
+-        self.assertEquals(create_node_process(run_id, n, master_uri).sigint_timeout, 15)
+-        self.assertEquals(create_node_process(run_id, n, master_uri, sigint_timeout=1).sigint_timeout, 1)
++        self.assertEqual(create_node_process(run_id, n, master_uri).sigint_timeout, 15)
++        self.assertEqual(create_node_process(run_id, n, master_uri, sigint_timeout=1).sigint_timeout, 1)
+         self.assertRaises(RLException, create_node_process, run_id, n, master_uri, sigint_timeout=0)
+ 
+         # sigterm timeout
+-        self.assertEquals(create_node_process(run_id, n, master_uri).sigterm_timeout, 2)
+-        self.assertEquals(create_node_process(run_id, n, master_uri, sigterm_timeout=1).sigterm_timeout, 1)
++        self.assertEqual(create_node_process(run_id, n, master_uri).sigterm_timeout, 2)
++        self.assertEqual(create_node_process(run_id, n, master_uri, sigterm_timeout=1).sigterm_timeout, 1)
+         self.assertRaises(RLException, create_node_process, run_id, n, master_uri, sigterm_timeout=0)
+ 
+         # test args
+@@ -190,36 +190,36 @@ class TestNodeprocess(unittest.TestCase):
+         # - the first arg should be the path to the node executable
+         rospack = rospkg.RosPack()
+         cmd = roslib.packages.find_node('roslaunch', 'talker.py', rospack)[0]
+-        self.assertEquals(p.args[0], cmd)
++        self.assertEqual(p.args[0], cmd)
+ 
+         # - test basic args
+         n.args = "arg1 arg2 arg3"
+         p = create_node_process(run_id, n, master_uri)
+-        self.assertEquals(p.args[0], cmd)
++        self.assertEqual(p.args[0], cmd)
+         for a in "arg1 arg2 arg3".split():
+-            self.assert_(a in p.args)
++            self.assertTrue(a in p.args)
+             
+         # - test remap args
+         n.remap_args = [('KEY1', 'VAL1'), ('KEY2', 'VAL2')]
+         p = create_node_process(run_id, n, master_uri)
+-        self.assert_('KEY1:=VAL1' in p.args)        
+-        self.assert_('KEY2:=VAL2' in p.args)
++        self.assertTrue('KEY1:=VAL1' in p.args)        
++        self.assertTrue('KEY2:=VAL2' in p.args)
+         
+         # - test __name
+         n = Node('roslaunch','talker.py')
+         n.name = 'fooname'
+         n.machine = m
+-        self.assert_('__name:=fooname' in create_node_process(run_id, n, master_uri).args)
++        self.assertTrue('__name:=fooname' in create_node_process(run_id, n, master_uri).args)
+         
+         # - test substitution args
+         os.environ['SUB_TEST'] = 'subtest'
+         os.environ['SUB_TEST2'] = 'subtest2'
+         n.args = 'foo $(env SUB_TEST) $(env SUB_TEST2)'
+         p = create_node_process(run_id, n, master_uri)        
+-        self.failIf('SUB_TEST' in p.args)
+-        self.assert_('foo' in p.args)
+-        self.assert_('subtest' in p.args)
+-        self.assert_('subtest2' in p.args)
++        self.assertFalse('SUB_TEST' in p.args)
++        self.assertTrue('foo' in p.args)
++        self.assertTrue('subtest' in p.args)
++        self.assertTrue('subtest2' in p.args)
+ 
+     def test_local_process_stop_timeouts(self):
+         from roslaunch.core import Node, Machine
+@@ -256,7 +256,7 @@ class TestNodeprocess(unittest.TestCase):
+             pass
+ 
+         p = create_node_process(run_id, n, master_uri, sigint_timeout=sigint_timeout, sigterm_timeout=sigterm_timeout)
+-        self.assert_(isinstance(p, LocalProcess))
++        self.assertTrue(isinstance(p, LocalProcess))
+ 
+         p.start()
+         time.sleep(3)  # give it time to start
+@@ -304,17 +304,17 @@ class TestNodeprocess(unittest.TestCase):
+             '__name:=bar',
+             'topic:=topic2']
+ 
+-        self.assertEquals([], _cleanup_remappings([], '__log:='))
+-        self.assertEquals(clean_args, _cleanup_remappings(args, '__log:='))
+-        self.assertEquals(clean_args, _cleanup_remappings(clean_args, '__log:='))
+-        self.assertEquals(args, _cleanup_remappings(args, '_foo'))
++        self.assertEqual([], _cleanup_remappings([], '__log:='))
++        self.assertEqual(clean_args, _cleanup_remappings(args, '__log:='))
++        self.assertEqual(clean_args, _cleanup_remappings(clean_args, '__log:='))
++        self.assertEqual(args, _cleanup_remappings(args, '_foo'))
+         
+     def test__next_counter(self):
+         from roslaunch.nodeprocess import _next_counter
+         x = _next_counter()
+         y = _next_counter()
+-        self.assert_(x +1 == y)
+-        self.assert_(x > 0)
++        self.assertTrue(x +1 == y)
++        self.assertTrue(x > 0)
+ 
+     def test_create_master_process2(self):
+         # accidentally wrote two versions of this, need to merge
+@@ -330,31 +330,31 @@ class TestNodeprocess(unittest.TestCase):
+             create_master_process('runid-unittest', Master.ROSMASTER, rospkg.get_ros_root(), 0)
+             failed = True
+         except RLException: pass
+-        self.failIf(failed, "invalid port should have triggered error")
++        self.assertFalse(failed, "invalid port should have triggered error")
+ 
+         # test success with ROSMASTER
+         m1 = create_master_process('runid-unittest', Master.ROSMASTER, ros_root, 1234)
+-        self.assertEquals('runid-unittest', m1.run_id)
+-        self.failIf(m1.started)
+-        self.failIf(m1.stopped)
+-        self.assertEquals(None, m1.cwd)
+-        self.assertEquals('master', m1.name)
++        self.assertEqual('runid-unittest', m1.run_id)
++        self.assertFalse(m1.started)
++        self.assertFalse(m1.stopped)
++        self.assertEqual(None, m1.cwd)
++        self.assertEqual('master', m1.name)
+         master_p = 'rosmaster'
+-        self.assert_(master_p in m1.args)
++        self.assertTrue(master_p in m1.args)
+         # - it should have the default environment
+-        self.assertEquals(os.environ, m1.env)
++        self.assertEqual(os.environ, m1.env)
+         #  - check args
+-        self.assert_('--core' in m1.args)
++        self.assertTrue('--core' in m1.args)
+         # - make sure port arguent is correct
+         idx = m1.args.index('-p')
+-        self.assertEquals('1234', m1.args[idx+1])
++        self.assertEqual('1234', m1.args[idx+1])
+ 
+         # test port argument
+         m2 = create_master_process('runid-unittest', Master.ROSMASTER, ros_root, 1234)
+-        self.assertEquals('runid-unittest', m2.run_id)
++        self.assertEqual('runid-unittest', m2.run_id)
+ 
+         # test ros_root argument 
+         m3 = create_master_process('runid-unittest', Master.ROSMASTER, ros_root, 1234)
+-        self.assertEquals('runid-unittest', m3.run_id)
++        self.assertEqual('runid-unittest', m3.run_id)
+         master_p = 'rosmaster'
+-        self.assert_(master_p in m3.args)
++        self.assertTrue(master_p in m3.args)
+diff --git a/test/unit/test_roslaunch_child.py b/test/unit/test_roslaunch_child.py
+index 6cff387df..5b6c234aa 100644
+--- a/test/unit/test_roslaunch_child.py
++++ b/test/unit/test_roslaunch_child.py
+@@ -131,12 +131,12 @@ class TestRoslaunchChild(unittest.TestCase):
+         name = 'child-%s'%time.time()
+         server_uri = 'http://unroutable:1234'
+         c = ROSLaunchChild(self.run_id, name, server_uri)
+-        self.assertEquals(self.run_id, c.run_id)
+-        self.assertEquals(name, c.name)
+-        self.assertEquals(server_uri, c.server_uri)
++        self.assertEqual(self.run_id, c.run_id)
++        self.assertEqual(name, c.name)
++        self.assertEqual(server_uri, c.server_uri)
+         # - this check tests our assumption about c's process monitor field
+-        self.assertEquals(None, c.pm)
+-        self.assertEquals(None, c.child_server)        
++        self.assertEqual(None, c.pm)
++        self.assertEqual(None, c.child_server)        
+ 
+         # should be a noop
+         c.shutdown()
+@@ -146,7 +146,7 @@ class TestRoslaunchChild(unittest.TestCase):
+         
+         # - test _start_pm and shutdown logic
+         c._start_pm()
+-        self.assert_(c.pm is not None)
++        self.assertTrue(c.pm is not None)
+         c.shutdown()
+ 
+         # create a new child to test run() with a fake process
+@@ -158,7 +158,7 @@ class TestRoslaunchChild(unittest.TestCase):
+         server.add_child(name, ChildProcessMock('foo'))
+         try:
+             server.start()
+-            self.assert_(server.uri, "server URI did not initialize")
++            self.assertTrue(server.uri, "server URI did not initialize")
+             
+             c = ROSLaunchChild(self.run_id, name, server.uri)
+             c.pm = self.pmon
+diff --git a/test/unit/test_roslaunch_dump_params.py b/test/unit/test_roslaunch_dump_params.py
+index 2e5d90c08..c33ae804a 100644
+--- a/test/unit/test_roslaunch_dump_params.py
++++ b/test/unit/test_roslaunch_dump_params.py
+@@ -51,13 +51,13 @@ class TestDumpParams(unittest.TestCase):
+         # Smoke test for testing parameters
+         p = Popen([cmd, '--dump-params', 'roslaunch', 'noop.launch'], stdout = PIPE)
+         o, e = p.communicate()
+-        self.assert_(p.returncode == 0, "Return code nonzero for param dump! Code: %d" % (p.returncode))
++        self.assertTrue(p.returncode == 0, "Return code nonzero for param dump! Code: %d" % (p.returncode))
+ 
+-        self.assertEquals({'/noop': 'noop'}, yaml.safe_load(o))
++        self.assertEqual({'/noop': 'noop'}, yaml.safe_load(o))
+ 
+         p = Popen([cmd, '--dump-params', 'roslaunch', 'test-dump-rosparam.launch'], stdout = PIPE)
+         o, e = p.communicate()
+-        self.assert_(p.returncode == 0, "Return code nonzero for param dump! Code: %d" % (p.returncode))
++        self.assertTrue(p.returncode == 0, "Return code nonzero for param dump! Code: %d" % (p.returncode))
+ 
+         val = {
+             '/string1': 'bar',
+@@ -102,7 +102,7 @@ class TestDumpParams(unittest.TestCase):
+                     self.fail("key [%s] not in output: %s"%(k, output_val))
+                 elif v != output_val[k]:
+                     self.fail("key [%s] value [%s] does not match output: %s"%(k, v, output_val[k])) 
+-        self.assertEquals(val, output_val)
++        self.assertEqual(val, output_val)
+         for k in ('/node_rosparam/tilde2', '/node_rosparam2/tilde2', '/node_rosparam2/local_param'):
+             if k in output_val:
+                 self.fail("key [%s] should not be in output: %s"%(k, output_val))
+diff --git a/test/unit/test_roslaunch_launch.py b/test/unit/test_roslaunch_launch.py
+index aa339af64..b64592077 100644
+--- a/test/unit/test_roslaunch_launch.py
++++ b/test/unit/test_roslaunch_launch.py
+@@ -53,25 +53,25 @@ class TestRoslaunchLaunch(unittest.TestCase):
+         os.environ['ROS_MASTER_URI'] = 'http://localhost:11311'
+         m = Master(uri='http://localhost:11311')
+         validate_master_launch(m, True)
+-        self.assertEquals(None, self.printerrlog_msg)
++        self.assertEqual(None, self.printerrlog_msg)
+         validate_master_launch(m, False)
+-        self.assertEquals(None, self.printerrlog_msg)
++        self.assertEqual(None, self.printerrlog_msg)
+         
+         # roscore with mismatched port in environment
+         os.environ['ROS_MASTER_URI'] = 'http://localhost:11312'
+         validate_master_launch(m, True)
+-        self.assert_('port' in self.printerrlog_msg)
++        self.assertTrue('port' in self.printerrlog_msg)
+         self.printerrlog_msg = None
+ 
+         # roscore with mismatched hostname in environment
+         os.environ['ROS_MASTER_URI'] = 'http://fake:11311'
+         validate_master_launch(m, True)
+-        self.assert_('host' in self.printerrlog_msg)
++        self.assertTrue('host' in self.printerrlog_msg)
+         self.printerrlog_msg = None
+ 
+         # roslaunch with remote master that cannot be contacted
+         os.environ['ROS_MASTER_URI'] = 'http://fake:11311'
+-        self.assertEquals(None, self.printerrlog_msg)
++        self.assertEqual(None, self.printerrlog_msg)
+ 
+         # environment doesn't matter for remaining tests
+         os.environ['ROS_MASTER_URI'] = 'http://localhost:11311'
+@@ -81,13 +81,13 @@ class TestRoslaunchLaunch(unittest.TestCase):
+         # generally could only happen if the user has a bad local host
+         # config.
+         validate_master_launch(m, True)
+-        self.assert_("WARNING" in self.printerrlog_msg)
++        self.assertTrue("WARNING" in self.printerrlog_msg)
+         self.printerrlog_msg = None
+ 
+         # roscore with host that is not ours
+         m = Master(uri="http://willowgarage.com:11311")
+         validate_master_launch(m, True)
+-        self.assert_("WARNING" in self.printerrlog_msg)
++        self.assertTrue("WARNING" in self.printerrlog_msg)
+         self.printerrlog_msg = None
+         
+         # roslaunch with remote master that is out of contact, fail
+@@ -99,28 +99,28 @@ class TestRoslaunchLaunch(unittest.TestCase):
+         
+     def test__unify_clear_params(self):
+         from roslaunch.launch import _unify_clear_params
+-        self.assertEquals([], _unify_clear_params([]))
++        self.assertEqual([], _unify_clear_params([]))
+         for t in [['/foo'], ['/foo/'], ['/foo/', '/foo'],
+                   ['/foo/', '/foo/'], ['/foo/', '/foo/bar', '/foo/'],
+                   ['/foo/', '/foo/bar', '/foo/bar/baz']]:
+-            self.assertEquals(['/foo/'], _unify_clear_params(t))
++            self.assertEqual(['/foo/'], _unify_clear_params(t))
+         for t in [['/'], ['/', '/foo/'], ['/foo/', '/', '/baz', '/car/dog']]:
+-            self.assertEquals(['/'], _unify_clear_params(t))
++            self.assertEqual(['/'], _unify_clear_params(t))
+             
+-        self.assertEquals(['/foo/', '/bar/', '/baz/'], _unify_clear_params(['/foo', '/bar', '/baz']))
+-        self.assertEquals(['/foo/', '/bar/', '/baz/'], _unify_clear_params(['/foo', '/bar', '/baz', '/bar/delta', '/baz/foo']))
+-        self.assertEquals(['/foo/bar/'], _unify_clear_params(['/foo/bar', '/foo/bar/baz']))
++        self.assertEqual(['/foo/', '/bar/', '/baz/'], _unify_clear_params(['/foo', '/bar', '/baz']))
++        self.assertEqual(['/foo/', '/bar/', '/baz/'], _unify_clear_params(['/foo', '/bar', '/baz', '/bar/delta', '/baz/foo']))
++        self.assertEqual(['/foo/bar/'], _unify_clear_params(['/foo/bar', '/foo/bar/baz']))
+         
+         
+     def test__hostname_to_rosname(self):
+         from roslaunch.launch import _hostname_to_rosname
+-        self.assertEquals("host_ann", _hostname_to_rosname('ann'))
+-        self.assertEquals("host_ann", _hostname_to_rosname('ANN'))
+-        self.assertEquals("host_", _hostname_to_rosname(''))
+-        self.assertEquals("host_1", _hostname_to_rosname('1'))
+-        self.assertEquals("host__", _hostname_to_rosname('_'))
+-        self.assertEquals("host__", _hostname_to_rosname('-'))
+-        self.assertEquals("host_foo_laptop", _hostname_to_rosname('foo-laptop'))
++        self.assertEqual("host_ann", _hostname_to_rosname('ann'))
++        self.assertEqual("host_ann", _hostname_to_rosname('ANN'))
++        self.assertEqual("host_", _hostname_to_rosname(''))
++        self.assertEqual("host_1", _hostname_to_rosname('1'))
++        self.assertEqual("host__", _hostname_to_rosname('_'))
++        self.assertEqual("host__", _hostname_to_rosname('-'))
++        self.assertEqual("host_foo_laptop", _hostname_to_rosname('foo-laptop'))
+ 
+     def test_roslaunchListeners(self):
+         import roslaunch.launch
+@@ -142,28 +142,28 @@ class TestRoslaunchLaunch(unittest.TestCase):
+         # test with 1 listener
+         listeners.add_process_listener(l1)
+         listeners.process_died('p1', 1)
+-        self.assertEquals(l1.process_name, 'p1')
+-        self.assertEquals(l1.exit_code, 1)
++        self.assertEqual(l1.process_name, 'p1')
++        self.assertEqual(l1.exit_code, 1)
+ 
+         # test with 2 listeners        
+         listeners.add_process_listener(l2)
+         listeners.process_died('p2', 2)
+         for l in [l1, l2]:
+-            self.assertEquals(l.process_name, 'p2')
+-            self.assertEquals(l.exit_code, 2)
++            self.assertEqual(l.process_name, 'p2')
++            self.assertEqual(l.exit_code, 2)
+ 
+         listeners.add_process_listener(lbad)
+         # make sure that this catches errors
+         listeners.process_died('p3', 3)
+         for l in [l1, l2]:
+-            self.assertEquals(l.process_name, 'p3')
+-            self.assertEquals(l.exit_code, 3)
++            self.assertEqual(l.process_name, 'p3')
++            self.assertEqual(l.exit_code, 3)
+         # also add a third listener to make sure that listeners continues after lbad throws
+         listeners.add_process_listener(l3)
+         listeners.process_died('p4', 4)
+         for l in [l1, l2, l3]:
+-            self.assertEquals(l.process_name, 'p4')
+-            self.assertEquals(l.exit_code, 4)            
++            self.assertEqual(l.process_name, 'p4')
++            self.assertEqual(l.exit_code, 4)            
+ 
+ # this is just to get coverage, it's an empty class
+ def test_ROSRemoteRunnerIF():
+diff --git a/test/unit/test_roslaunch_list_files.py b/test/unit/test_roslaunch_list_files.py
+index 400083fdb..d94111627 100644
+--- a/test/unit/test_roslaunch_list_files.py
++++ b/test/unit/test_roslaunch_list_files.py
+@@ -54,23 +54,23 @@ class TestListFiles(unittest.TestCase):
+         # check error behavior
+         p = Popen([cmd, '--files'], stdout = PIPE)
+         p.communicate()
+-        self.assert_(p.returncode != 0, "Should have failed w/o file argument. Code: %d" % (p.returncode))
++        self.assertTrue(p.returncode != 0, "Should have failed w/o file argument. Code: %d" % (p.returncode))
+ 
+         d = get_test_path()
+         
+         p = Popen([cmd, '--files', 'roslaunch', 'test-valid.xml'], stdout = PIPE)
+         o = p.communicate()[0]
+         o = o.decode()
+-        self.assert_(p.returncode == 0, "Return code nonzero for list files! Code: %d" % (p.returncode))
+-        self.assertEquals(os.path.realpath(os.path.join(d, 'test-valid.xml')), os.path.realpath(o.strip()))
++        self.assertTrue(p.returncode == 0, "Return code nonzero for list files! Code: %d" % (p.returncode))
++        self.assertEqual(os.path.realpath(os.path.join(d, 'test-valid.xml')), os.path.realpath(o.strip()))
+ 
+         print("check 1", o)
+         
+         p = Popen([cmd, '--files', 'roslaunch', 'test-env.xml'], stdout = PIPE)
+         o = p.communicate()[0]
+         o = o.decode()
+-        self.assert_(p.returncode == 0, "Return code nonzero for list files! Code: %d" % (p.returncode))
+-        self.assertEquals(set([os.path.realpath(os.path.join(d, 'test-env.xml')), os.path.realpath(os.path.join(d, 'test-env-include.xml'))]),
++        self.assertTrue(p.returncode == 0, "Return code nonzero for list files! Code: %d" % (p.returncode))
++        self.assertEqual(set([os.path.realpath(os.path.join(d, 'test-env.xml')), os.path.realpath(os.path.join(d, 'test-env-include.xml'))]),
+                           set([os.path.realpath(x.strip()) for x in o.split() if x.strip()]))
+ 
+         print("check 2", o)
+diff --git a/test/unit/test_roslaunch_parent.py b/test/unit/test_roslaunch_parent.py
+index 567663fec..6c493849d 100644
+--- a/test/unit/test_roslaunch_parent.py
++++ b/test/unit/test_roslaunch_parent.py
+@@ -140,37 +140,37 @@ class TestRoslaunchParent(unittest.TestCase):
+         server_uri = 'http://localhost:12345'
+         
+         p = ROSLaunchParent(run_id, [], is_core = True, port=None, local_only=False)
+-        self.assertEquals(run_id, p.run_id)
+-        self.assertEquals(True, p.is_core)
+-        self.assertEquals(False, p.local_only)
++        self.assertEqual(run_id, p.run_id)
++        self.assertEqual(True, p.is_core)
++        self.assertEqual(False, p.local_only)
+ 
+         rl_dir = rospkg.RosPack().get_path('roslaunch')
+         rl_file = os.path.join(rl_dir, 'resources', 'example.launch')
+-        self.assert_(os.path.isfile(rl_file))
++        self.assertTrue(os.path.isfile(rl_file))
+         
+         # validate load_config logic
+         p = ROSLaunchParent(run_id, [rl_file], is_core = False, port=None, local_only=True)
+-        self.assertEquals(run_id, p.run_id)
+-        self.assertEquals(False, p.is_core)
+-        self.assertEquals(True, p.local_only)
++        self.assertEqual(run_id, p.run_id)
++        self.assertEqual(False, p.is_core)
++        self.assertEqual(True, p.local_only)
+ 
+-        self.assert_(p.config is None)
++        self.assertTrue(p.config is None)
+         p._load_config()
+-        self.assert_(p.config is not None)
+-        self.assert_(p.config.nodes)
++        self.assertTrue(p.config is not None)
++        self.assertTrue(p.config.nodes)
+ 
+         # try again with port override
+         p = ROSLaunchParent(run_id, [rl_file], is_core = False, port=11312, local_only=True)
+-        self.assertEquals(11312, p.port)
+-        self.assert_(p.config is None)
++        self.assertEqual(11312, p.port)
++        self.assertTrue(p.config is None)
+         p._load_config()
+         # - make sure port got passed into master
+         _, port = rosgraph.network.parse_http_host_and_port(p.config.master.uri)
+-        self.assertEquals(11312, port)
++        self.assertEqual(11312, port)
+ 
+         # try again with bad file
+         p = ROSLaunchParent(run_id, ['non-existent-fake.launch'])
+-        self.assert_(p.config is None)
++        self.assertTrue(p.config is None)
+         try:
+             p._load_config()
+             self.fail("load config should have failed due to bad rl file")
+@@ -179,9 +179,9 @@ class TestRoslaunchParent(unittest.TestCase):
+         # try again with bad xml
+         rl_dir = rospkg.RosPack().get_path('roslaunch')
+         rl_file = os.path.join(rl_dir, 'test', 'xml', 'test-params-invalid-1.xml')
+-        self.assert_(os.path.isfile(rl_file))
++        self.assertTrue(os.path.isfile(rl_file))
+         p = ROSLaunchParent(run_id, [rl_file])
+-        self.assert_(p.config is None)
++        self.assertTrue(p.config is None)
+         try:
+             p._load_config()
+             self.fail("load config should have failed due to bad rl file")
+@@ -219,7 +219,7 @@ class TestRoslaunchParent(unittest.TestCase):
+         p.server = ROSLaunchParentNode(p.config, pmon)
+         p._init_runner()
+         # roslaunch runner should be initialized
+-        self.assert_(p.runner is not None)
++        self.assertTrue(p.runner is not None)
+ 
+         # test _init_remote
+         p.local_only = True
+@@ -230,11 +230,11 @@ class TestRoslaunchParent(unittest.TestCase):
+             return True
+         p.config.has_remote_nodes = ftrue
+         p._init_remote()
+-        self.assert_(p.remote_runner is not None)
++        self.assertTrue(p.remote_runner is not None)
+ 
+-        self.failIf(pmon.is_shutdown)
++        self.assertFalse(pmon.is_shutdown)
+         p.shutdown()
+-        self.assert_(pmon.is_shutdown)        
++        self.assertTrue(pmon.is_shutdown)        
+ 
+ 
+ ## Test sigint_timeout and sigterm_timeout
+diff --git a/test/unit/test_roslaunch_pmon.py b/test/unit/test_roslaunch_pmon.py
+index 7fea43bd9..e730c181f 100644
+--- a/test/unit/test_roslaunch_pmon.py
++++ b/test/unit/test_roslaunch_pmon.py
+@@ -165,43 +165,43 @@ class TestRoslaunchPmon(unittest.TestCase):
+ 
+     ## test all apis of Process instance. part coverage/sanity test
+     def _test_Process(self, p, package, name, args, env, respawn, respawn_delay):
+-        self.assertEquals(package, p.package)
+-        self.assertEquals(name, p.name)
+-        self.assertEquals(args, p.args)        
+-        self.assertEquals(env, p.env)  
+-        self.assertEquals(respawn, p.respawn)
+-        self.assertEquals(respawn_delay, p.respawn_delay)
+-        self.assertEquals(0, p.spawn_count)        
+-        self.assertEquals(None, p.exit_code)
+-        self.assert_(p.get_exit_description())
+-        self.failIf(p.is_alive())
++        self.assertEqual(package, p.package)
++        self.assertEqual(name, p.name)
++        self.assertEqual(args, p.args)        
++        self.assertEqual(env, p.env)  
++        self.assertEqual(respawn, p.respawn)
++        self.assertEqual(respawn_delay, p.respawn_delay)
++        self.assertEqual(0, p.spawn_count)        
++        self.assertEqual(None, p.exit_code)
++        self.assertTrue(p.get_exit_description())
++        self.assertFalse(p.is_alive())
+ 
+         info = p.get_info()
+-        self.assertEquals(package, info['package'])
+-        self.assertEquals(name, info['name'])
+-        self.assertEquals(args, info['args'])        
+-        self.assertEquals(env, info['env'])  
+-        self.assertEquals(respawn, info['respawn'])
+-        self.assertEquals(respawn_delay, info['respawn_delay'])
+-        self.assertEquals(0, info['spawn_count'])        
+-        self.failIf('exit_code' in info)
++        self.assertEqual(package, info['package'])
++        self.assertEqual(name, info['name'])
++        self.assertEqual(args, info['args'])        
++        self.assertEqual(env, info['env'])  
++        self.assertEqual(respawn, info['respawn'])
++        self.assertEqual(respawn_delay, info['respawn_delay'])
++        self.assertEqual(0, info['spawn_count'])        
++        self.assertFalse('exit_code' in info)
+ 
+         p.start()
+-        self.assertEquals(1, p.spawn_count)
+-        self.assertEquals(1, p.get_info()['spawn_count']) 
++        self.assertEqual(1, p.spawn_count)
++        self.assertEqual(1, p.get_info()['spawn_count']) 
+         p.start()        
+-        self.assertEquals(2, p.spawn_count)
+-        self.assertEquals(2, p.get_info()['spawn_count'])
++        self.assertEqual(2, p.spawn_count)
++        self.assertEqual(2, p.get_info()['spawn_count'])
+ 
+         # noop
+         p.stop()
+ 
+         p.exit_code = 0
+-        self.assertEquals(0, p.get_info()['exit_code'])
+-        self.assert_('cleanly' in p.get_exit_description())
++        self.assertEqual(0, p.get_info()['exit_code'])
++        self.assertTrue('cleanly' in p.get_exit_description())
+         p.exit_code = 1
+-        self.assertEquals(1, p.get_info()['exit_code'])                        
+-        self.assert_('[exit code 1]' in p.get_exit_description())
++        self.assertEqual(1, p.get_info()['exit_code'])                        
++        self.assertTrue('[exit code 1]' in p.get_exit_description())
+ 
+     ## tests to make sure that our Process base class has 100% coverage
+     def test_Process(self):
+@@ -227,25 +227,25 @@ class TestRoslaunchPmon(unittest.TestCase):
+         from roslaunch.pmon import DeadProcess
+         p0.exit_code = -1
+         dp = DeadProcess(p0)
+-        self.assertEquals(package, dp.package)
+-        self.assertEquals(name, dp.name)
+-        self.assertEquals(args, dp.args)        
+-        self.assertEquals(env, dp.env)  
+-        self.assertEquals(respawn, dp.respawn)
+-        self.assertEquals(respawn_delay, dp.respawn_delay)
+-        self.assertEquals(0, dp.spawn_count)        
+-        self.assertEquals(-1, dp.exit_code)
+-        self.failIf(dp.is_alive())
++        self.assertEqual(package, dp.package)
++        self.assertEqual(name, dp.name)
++        self.assertEqual(args, dp.args)        
++        self.assertEqual(env, dp.env)  
++        self.assertEqual(respawn, dp.respawn)
++        self.assertEqual(respawn_delay, dp.respawn_delay)
++        self.assertEqual(0, dp.spawn_count)        
++        self.assertEqual(-1, dp.exit_code)
++        self.assertFalse(dp.is_alive())
+ 
+         info = dp.get_info()
+         info0 = p0.get_info()
+-        self.assertEquals(info0['package'], info['package'])
+-        self.assertEquals(info0['name'], info['name'])
+-        self.assertEquals(info0['args'], info['args'])        
+-        self.assertEquals(info0['env'], info['env'])  
+-        self.assertEquals(info0['respawn'], info['respawn'])
+-        self.assertEquals(info0['respawn_delay'], info['respawn_delay'])
+-        self.assertEquals(0, info['spawn_count'])        
++        self.assertEqual(info0['package'], info['package'])
++        self.assertEqual(info0['name'], info['name'])
++        self.assertEqual(info0['args'], info['args'])        
++        self.assertEqual(info0['env'], info['env'])  
++        self.assertEqual(info0['respawn'], info['respawn'])
++        self.assertEqual(info0['respawn_delay'], info['respawn_delay'])
++        self.assertEqual(0, info['spawn_count'])        
+ 
+         try:
+             dp.start()
+@@ -256,15 +256,15 @@ class TestRoslaunchPmon(unittest.TestCase):
+         p0.package = 'dead package'
+         p0.name = 'dead name'        
+         p0.spawn_count = 1
+-        self.assertEquals(package, dp.package)
+-        self.assertEquals(name, dp.name)
+-        self.assertEquals(0, dp.spawn_count)                
+-        self.assertEquals(package, dp.get_info()['package']) 
+-        self.assertEquals(name, dp.get_info()['name']) 
+-        self.assertEquals(0, dp.get_info()['spawn_count']) 
++        self.assertEqual(package, dp.package)
++        self.assertEqual(name, dp.name)
++        self.assertEqual(0, dp.spawn_count)                
++        self.assertEqual(package, dp.get_info()['package']) 
++        self.assertEqual(name, dp.get_info()['name']) 
++        self.assertEqual(0, dp.get_info()['spawn_count']) 
+         p0.start()        
+-        self.assertEquals(0, dp.spawn_count)
+-        self.assertEquals(0, dp.get_info()['spawn_count'])
++        self.assertEqual(0, dp.spawn_count)
++        self.assertEqual(0, dp.get_info()['spawn_count'])
+ 
+         # noop
+         p0.stop()
+@@ -292,30 +292,30 @@ class TestRoslaunchPmon(unittest.TestCase):
+         def failer():
+             raise Exception("oops")
+         # noop
+-        self.failIf(roslaunch.pmon.shutdown_process_monitor(None))
++        self.assertFalse(roslaunch.pmon.shutdown_process_monitor(None))
+ 
+         # test with fake pmon so we can get branch-complete
+         pmon = ProcessMonitorMock()
+         # - by setting alive to true, shutdown fails, though it can't really do anything about it
+         pmon.alive = True
+-        self.failIf(roslaunch.pmon.shutdown_process_monitor(pmon))
++        self.assertFalse(roslaunch.pmon.shutdown_process_monitor(pmon))
+         
+         # make sure that exceptions get trapped        
+         pmon.shutdown = failer
+         # should cause an exception during execution, but should get caught 
+-        self.failIf(roslaunch.pmon.shutdown_process_monitor(pmon))
++        self.assertFalse(roslaunch.pmon.shutdown_process_monitor(pmon))
+         
+         # Test with a real process monitor
+         pmon = roslaunch.pmon.start_process_monitor()
+-        self.assert_(pmon.is_alive())
+-        self.assert_(roslaunch.pmon.shutdown_process_monitor(pmon))
+-        self.failIf(pmon.is_alive())
++        self.assertTrue(pmon.is_alive())
++        self.assertTrue(roslaunch.pmon.shutdown_process_monitor(pmon))
++        self.assertFalse(pmon.is_alive())
+ 
+         # fiddle around with some state that would shouldn't be
+         roslaunch.pmon._shutting_down = True
+         pmon = roslaunch.pmon.start_process_monitor()
+         if pmon != None:
+-            self.failIf(roslaunch.pmon.shutdown_process_monitor(pmon))
++            self.assertFalse(roslaunch.pmon.shutdown_process_monitor(pmon))
+             self.fail("start_process_monitor should fail if during shutdown sequence")
+             
+     def test_pmon_shutdown(self):
+@@ -326,13 +326,13 @@ class TestRoslaunchPmon(unittest.TestCase):
+         # pmon_shutdown
+         pmon1 = roslaunch.pmon.start_process_monitor()
+         pmon2 = roslaunch.pmon.start_process_monitor()
+-        self.assert_(pmon1.is_alive())
+-        self.assert_(pmon2.is_alive())
++        self.assertTrue(pmon1.is_alive())
++        self.assertTrue(pmon2.is_alive())
+ 
+         roslaunch.pmon.pmon_shutdown()
+         
+-        self.failIf(pmon1.is_alive())
+-        self.failIf(pmon2.is_alive())
++        self.assertFalse(pmon1.is_alive())
++        self.assertFalse(pmon2.is_alive())
+         
+     def test_add_process_listener(self):
+         # coverage test, not a functionality test as that would be much more difficult to simulate
+@@ -345,38 +345,38 @@ class TestRoslaunchPmon(unittest.TestCase):
+         pmon = self.pmon
+ 
+         # should return False
+-        self.failIf(pmon.kill_process('foo'))
++        self.assertFalse(pmon.kill_process('foo'))
+         
+         p1 = ProcessMock('foo', 'name1', [], {})
+         p2 = ProcessMock('bar', 'name2', [], {})
+         pmon.register(p1)
+         pmon.register(p2)        
+-        self.failIf(p1.stopped)
+-        self.failIf(p2.stopped)
+-        self.assert_(p1.name in pmon.get_active_names())
+-        self.assert_(p2.name in pmon.get_active_names())
++        self.assertFalse(p1.stopped)
++        self.assertFalse(p2.stopped)
++        self.assertTrue(p1.name in pmon.get_active_names())
++        self.assertTrue(p2.name in pmon.get_active_names())
+ 
+         # should fail as pmon API is string-based
+         try:
+-            self.assert_(pmon.kill_process(p1))
++            self.assertTrue(pmon.kill_process(p1))
+             self.fail("kill_process should have thrown RLException")
+         except RLException: pass
+         
+-        self.assert_(pmon.kill_process(p1.name))
+-        self.assert_(p1.stopped)
++        self.assertTrue(pmon.kill_process(p1.name))
++        self.assertTrue(p1.stopped)
+         
+         # - pmon should not have removed yet as the pmon thread cannot catch the death
+-        self.assert_(pmon.has_process(p1.name))
+-        self.assert_(p1.name in pmon.get_active_names())
++        self.assertTrue(pmon.has_process(p1.name))
++        self.assertTrue(p1.name in pmon.get_active_names())
+         
+-        self.failIf(p2.stopped)        
+-        self.assert_(p2.name in pmon.get_active_names())       
++        self.assertFalse(p2.stopped)        
++        self.assertTrue(p2.name in pmon.get_active_names())       
+         pmon.kill_process(p2.name)
+-        self.assert_(p2.stopped)
++        self.assertTrue(p2.stopped)
+         
+         # - pmon should not have removed yet as the pmon thread cannot catch the death
+-        self.assert_(pmon.has_process(p2.name))
+-        self.assert_(p2.name in pmon.get_active_names())
++        self.assertTrue(pmon.has_process(p2.name))
++        self.assertTrue(p2.name in pmon.get_active_names())
+ 
+         p3 = ProcessMock('bar', 'name3', [], {})
+         def bad(x):
+@@ -396,7 +396,7 @@ class TestRoslaunchPmon(unittest.TestCase):
+         # to run through the ProcessMonitor run loop and it should
+         # exit.  But first, important that we check that pmon has no
+         # other extra state in it
+-        self.assertEquals(3, len(pmon.get_active_names()))
++        self.assertEqual(3, len(pmon.get_active_names()))
+ 
+         # put pmon into exitable state
+         pmon.registrations_complete()
+@@ -409,16 +409,16 @@ class TestRoslaunchPmon(unittest.TestCase):
+         
+         pmon.run()
+         
+-        self.failIf(marker.marked, "pmon had to be externally killed")
++        self.assertFalse(marker.marked, "pmon had to be externally killed")
+ 
+         
+-        self.assert_(pmon.done)
+-        self.failIf(pmon.has_process(p1.name))
+-        self.failIf(pmon.has_process(p2.name))
++        self.assertTrue(pmon.done)
++        self.assertFalse(pmon.has_process(p1.name))
++        self.assertFalse(pmon.has_process(p2.name))
+         alive, dead = pmon.get_process_names_with_spawn_count()
+-        self.failIf(alive)
+-        self.assert_((p1.name, p1.spawn_count) in dead)
+-        self.assert_((p2.name, p2.spawn_count) in dead)
++        self.assertFalse(alive)
++        self.assertTrue((p1.name, p1.spawn_count) in dead)
++        self.assertTrue((p2.name, p2.spawn_count) in dead)
+ 
+ 
+     def test_run(self):
+@@ -453,9 +453,9 @@ class TestRoslaunchPmon(unittest.TestCase):
+ 
+         # test assumptions about pmon's internal data structures
+         # before we begin test
+-        self.assert_(p1 in pmon.procs)
+-        self.assert_(pmon._registrations_complete)
+-        self.failIf(pmon.is_shutdown)
++        self.assertTrue(p1 in pmon.procs)
++        self.assertTrue(pmon._registrations_complete)
++        self.assertFalse(pmon.is_shutdown)
+         
+         # and run it -- but setup a safety timer to kill it if it doesn't exit
+         marker = Marker()
+@@ -465,17 +465,17 @@ class TestRoslaunchPmon(unittest.TestCase):
+         
+         pmon.run()
+         
+-        self.failIf(marker.marked, "pmon had to be externally killed")        
++        self.assertFalse(marker.marked, "pmon had to be externally killed")        
+ 
+-        self.failIf(p3.spawn_count < 2, "process did not respawn")
++        self.assertFalse(p3.spawn_count < 2, "process did not respawn")
+ 
+-        self.failIf(p4.respawn_interval < p4.respawn_delay,
++        self.assertFalse(p4.respawn_interval < p4.respawn_delay,
+                 "Respawn delay not respected: %s %s" % (p4.respawn_interval,
+                                                         p4.respawn_delay))
+ 
+         # retest assumptions
+-        self.failIf(pmon.procs)
+-        self.assert_(pmon.is_shutdown)        
++        self.assertFalse(pmon.procs)
++        self.assertTrue(pmon.is_shutdown)        
+ 
+         pmon.is_shutdown = False
+                 
+@@ -484,23 +484,23 @@ class TestRoslaunchPmon(unittest.TestCase):
+         p2 = ProcessMock('bar', 'name2', [], {})
+ 
+         pmon = self.pmon
+-        self.assertEquals([[], []], pmon.get_process_names_with_spawn_count())
++        self.assertEqual([[], []], pmon.get_process_names_with_spawn_count())
+         pmon.register(p1)
+-        self.assertEquals([[('name1', 0),], []], pmon.get_process_names_with_spawn_count())        
++        self.assertEqual([[('name1', 0),], []], pmon.get_process_names_with_spawn_count())        
+         pmon.register(p2)
+         alive, dead = pmon.get_process_names_with_spawn_count()
+-        self.assertEquals([], dead)
+-        self.assert_(('name1', 0) in alive)
+-        self.assert_(('name2', 0) in alive)        
++        self.assertEqual([], dead)
++        self.assertTrue(('name1', 0) in alive)
++        self.assertTrue(('name2', 0) in alive)        
+         
+         import random
+         p1.spawn_count = random.randint(1, 10000)
+         p2.spawn_count = random.randint(1, 10000)
+         
+         alive, dead = pmon.get_process_names_with_spawn_count()
+-        self.assertEquals([], dead)
+-        self.assert_((p1.name, p1.spawn_count) in alive)
+-        self.assert_((p2.name, p2.spawn_count) in alive)
++        self.assertEqual([], dead)
++        self.assertTrue((p1.name, p1.spawn_count) in alive)
++        self.assertTrue((p2.name, p2.spawn_count) in alive)
+ 
+         #TODO figure out how to test dead_list
+ 
+@@ -517,39 +517,39 @@ class TestRoslaunchPmon(unittest.TestCase):
+         corep2 = Process('core', 'core2', [], {})        
+ 
+         pmon.register(p1)
+-        self.assert_(pmon.has_process('name1'))
+-        self.assertEquals(p1, pmon.get_process('name1'))
+-        self.failIf(pmon.has_process('name2'))
+-        self.assertEquals(['name1'], pmon.get_active_names())
++        self.assertTrue(pmon.has_process('name1'))
++        self.assertEqual(p1, pmon.get_process('name1'))
++        self.assertFalse(pmon.has_process('name2'))
++        self.assertEqual(['name1'], pmon.get_active_names())
+         try:
+             pmon.register(Process('foo', p1.name, [], {}))
+             self.fail("should not allow duplicate process name")
+         except RLException: pass
+         
+         pmon.register(p2)
+-        self.assert_(pmon.has_process('name2'))
+-        self.assertEquals(p2, pmon.get_process('name2'))
+-        self.assertEquals(set(['name1', 'name2']), set(pmon.get_active_names()))
++        self.assertTrue(pmon.has_process('name2'))
++        self.assertEqual(p2, pmon.get_process('name2'))
++        self.assertEqual(set(['name1', 'name2']), set(pmon.get_active_names()))
+         
+         pmon.register_core_proc(corep1)
+-        self.assert_(pmon.has_process('core1'))
+-        self.assertEquals(corep1, pmon.get_process('core1'))
+-        self.assertEquals(set(['name1', 'name2', 'core1']), set(pmon.get_active_names()))        
++        self.assertTrue(pmon.has_process('core1'))
++        self.assertEqual(corep1, pmon.get_process('core1'))
++        self.assertEqual(set(['name1', 'name2', 'core1']), set(pmon.get_active_names()))        
+ 
+         pmon.register_core_proc(corep2)
+-        self.assert_(pmon.has_process('core2'))
+-        self.assertEquals(corep2, pmon.get_process('core2'))
+-        self.assertEquals(set(['name1', 'name2', 'core1', 'core2']), set(pmon.get_active_names()))                
++        self.assertTrue(pmon.has_process('core2'))
++        self.assertEqual(corep2, pmon.get_process('core2'))
++        self.assertEqual(set(['name1', 'name2', 'core1', 'core2']), set(pmon.get_active_names()))                
+ 
+ 
+         pmon.unregister(p2)
+-        self.failIf(pmon.has_process('name2'))                
++        self.assertFalse(pmon.has_process('name2'))                
+         pmon.unregister(p1)
+-        self.failIf(pmon.has_process('name1'))        
++        self.assertFalse(pmon.has_process('name1'))        
+         pmon.unregister(corep1)
+-        self.failIf(pmon.has_process('core1'))                
++        self.assertFalse(pmon.has_process('core1'))                
+         pmon.unregister(corep2)
+-        self.failIf(pmon.has_process('core2'))
++        self.assertFalse(pmon.has_process('core2'))
+ 
+         pmon.shutdown()
+         try:
+diff --git a/test/unit/test_roslaunch_remote.py b/test/unit/test_roslaunch_remote.py
+index 3fbed6abd..be50df32b 100644
+--- a/test/unit/test_roslaunch_remote.py
++++ b/test/unit/test_roslaunch_remote.py
+@@ -44,57 +44,57 @@ class TestRoslaunchRemote(unittest.TestCase):
+         # these are fairly brittle tests, but need to make sure there aren't regressions here
+         Node = roslaunch.core.Node
+         n = Node('pkg1', 'type1')
+-        self.assertEquals('<node pkg="pkg1" type="type1" ns="/" args="" respawn="False" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
++        self.assertEqual('<node pkg="pkg1" type="type1" ns="/" args="" respawn="False" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
+         n = Node('pkg2', 'type2', namespace="/ns2/")
+-        self.assertEquals('<node pkg="pkg2" type="type2" ns="/ns2/" args="" respawn="False" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
++        self.assertEqual('<node pkg="pkg2" type="type2" ns="/ns2/" args="" respawn="False" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
+         # machine_name should be a noop for remote xml
+         n = Node('pkg3', 'type3', namespace="/ns3/", machine_name="machine3")
+-        self.assertEquals('<node pkg="pkg3" type="type3" ns="/ns3/" args="" respawn="False" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
++        self.assertEqual('<node pkg="pkg3" type="type3" ns="/ns3/" args="" respawn="False" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
+ 
+         # test args
+         n = Node('pkg4', 'type4', args="arg4a arg4b")
+-        self.assertEquals('<node pkg="pkg4" type="type4" ns="/" args="arg4a arg4b" respawn="False" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
++        self.assertEqual('<node pkg="pkg4" type="type4" ns="/" args="arg4a arg4b" respawn="False" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
+         # test respawn
+         n = Node('pkg5', 'type5', respawn=True)
+-        self.assertEquals('<node pkg="pkg5" type="type5" ns="/" args="" respawn="True" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
++        self.assertEqual('<node pkg="pkg5" type="type5" ns="/" args="" respawn="True" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
+         n = Node('pkg5', 'type5', respawn=True, respawn_delay=1.0)
+-        self.assertEquals('<node pkg="pkg5" type="type5" ns="/" args="" respawn="True" respawn_delay="1.0" required="False">\n</node>', n.to_remote_xml())
++        self.assertEqual('<node pkg="pkg5" type="type5" ns="/" args="" respawn="True" respawn_delay="1.0" required="False">\n</node>', n.to_remote_xml())
+         n = Node('pkg6', 'type6', respawn=False)
+-        self.assertEquals('<node pkg="pkg6" type="type6" ns="/" args="" respawn="False" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
++        self.assertEqual('<node pkg="pkg6" type="type6" ns="/" args="" respawn="False" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
+         # test remap_args
+         n = Node('pkg6', 'type6', remap_args=[('from6a', 'to6a'), ('from6b', 'to6b')])
+-        self.assertEquals("""<node pkg="pkg6" type="type6" ns="/" args="" respawn="False" respawn_delay="0.0" required="False">
++        self.assertEqual("""<node pkg="pkg6" type="type6" ns="/" args="" respawn="False" respawn_delay="0.0" required="False">
+   <remap from="from6a" to="to6a" />
+   <remap from="from6b" to="to6b" />
+ </node>""", n.to_remote_xml())
+         # test env args
+         n = Node('pkg7', 'type7', env_args=[('key7a', 'val7a'), ('key7b', 'val7b')])
+-        self.assertEquals("""<node pkg="pkg7" type="type7" ns="/" args="" respawn="False" respawn_delay="0.0" required="False">
++        self.assertEqual("""<node pkg="pkg7" type="type7" ns="/" args="" respawn="False" respawn_delay="0.0" required="False">
+   <env name="key7a" value="val7a" />
+   <env name="key7b" value="val7b" />
+ </node>""", n.to_remote_xml())
+         # test cwd        
+         n = Node('pkg8', 'type8', cwd='ROS_HOME')
+-        self.assertEquals('<node pkg="pkg8" type="type8" ns="/" args="" cwd="ROS_HOME" respawn="False" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
++        self.assertEqual('<node pkg="pkg8" type="type8" ns="/" args="" cwd="ROS_HOME" respawn="False" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
+         n = Node('pkg9', 'type9', cwd='node')
+-        self.assertEquals('<node pkg="pkg9" type="type9" ns="/" args="" cwd="node" respawn="False" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
++        self.assertEqual('<node pkg="pkg9" type="type9" ns="/" args="" cwd="node" respawn="False" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
+         # test output
+         n = Node('pkg10', 'type10', output='screen')
+-        self.assertEquals('<node pkg="pkg10" type="type10" ns="/" args="" output="screen" respawn="False" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
++        self.assertEqual('<node pkg="pkg10" type="type10" ns="/" args="" output="screen" respawn="False" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
+         n = Node('pkg11', 'type11', output='log')
+-        self.assertEquals('<node pkg="pkg11" type="type11" ns="/" args="" output="log" respawn="False" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
++        self.assertEqual('<node pkg="pkg11" type="type11" ns="/" args="" output="log" respawn="False" respawn_delay="0.0" required="False">\n</node>', n.to_remote_xml())
+ 
+         # test launch-prefix
+         n = Node('pkg12', 'type12', launch_prefix='xterm -e')
+-        self.assertEquals('<node pkg="pkg12" type="type12" ns="/" args="" respawn="False" respawn_delay="0.0" launch-prefix="xterm -e" required="False">\n</node>', n.to_remote_xml())
++        self.assertEqual('<node pkg="pkg12" type="type12" ns="/" args="" respawn="False" respawn_delay="0.0" launch-prefix="xterm -e" required="False">\n</node>', n.to_remote_xml())
+ 
+         # test required
+         n = Node('pkg13', 'type13', required=True)
+-        self.assertEquals('<node pkg="pkg13" type="type13" ns="/" args="" respawn="False" respawn_delay="0.0" required="True">\n</node>', n.to_remote_xml())
++        self.assertEqual('<node pkg="pkg13" type="type13" ns="/" args="" respawn="False" respawn_delay="0.0" required="True">\n</node>', n.to_remote_xml())
+         
+         #test everything
+         n = Node('pkg20', 'type20', namespace="/ns20/", machine_name="foo", remap_args=[('from20a', 'to20a'), ('from20b', 'to20b')], env_args=[('key20a', 'val20a'), ('key20b', 'val20b')], output="screen", cwd="ROS_HOME", respawn=True, args="arg20a arg20b", launch_prefix="nice", required=False)
+-        self.assertEquals("""<node pkg="pkg20" type="type20" ns="/ns20/" args="arg20a arg20b" output="screen" cwd="ROS_HOME" respawn="True" respawn_delay="0.0" launch-prefix="nice" required="False">
++        self.assertEqual("""<node pkg="pkg20" type="type20" ns="/ns20/" args="arg20a arg20b" output="screen" cwd="ROS_HOME" respawn="True" respawn_delay="0.0" launch-prefix="nice" required="False">
+   <remap from="from20a" to="to20a" />
+   <remap from="from20b" to="to20b" />
+   <env name="key20a" value="val20a" />
+@@ -107,37 +107,37 @@ class TestRoslaunchRemote(unittest.TestCase):
+         # these are fairly brittle tests, but need to make sure there aren't regressions here
+         Test = roslaunch.core.Test
+         n = Test('test1', 'pkg1', 'type1')
+-        self.assertEquals('<test pkg="pkg1" type="type1" ns="/" args="" output="log" required="False" test-name="test1">\n</test>', n.to_remote_xml())
++        self.assertEqual('<test pkg="pkg1" type="type1" ns="/" args="" output="log" required="False" test-name="test1">\n</test>', n.to_remote_xml())
+         n = Test('test2', 'pkg2', 'type2', namespace="/ns2/")
+-        self.assertEquals('<test pkg="pkg2" type="type2" ns="/ns2/" args="" output="log" required="False" test-name="test2">\n</test>', n.to_remote_xml())
++        self.assertEqual('<test pkg="pkg2" type="type2" ns="/ns2/" args="" output="log" required="False" test-name="test2">\n</test>', n.to_remote_xml())
+         # machine_name should be a noop for remote xml
+         n = Test('test3', 'pkg3', 'type3', namespace="/ns3/", machine_name="machine3")
+-        self.assertEquals('<test pkg="pkg3" type="type3" ns="/ns3/" args="" output="log" required="False" test-name="test3">\n</test>', n.to_remote_xml())
++        self.assertEqual('<test pkg="pkg3" type="type3" ns="/ns3/" args="" output="log" required="False" test-name="test3">\n</test>', n.to_remote_xml())
+ 
+         # test args
+         n = Test('test4', 'pkg4', 'type4', args="arg4a arg4b")
+-        self.assertEquals('<test pkg="pkg4" type="type4" ns="/" args="arg4a arg4b" output="log" required="False" test-name="test4">\n</test>', n.to_remote_xml())
++        self.assertEqual('<test pkg="pkg4" type="type4" ns="/" args="arg4a arg4b" output="log" required="False" test-name="test4">\n</test>', n.to_remote_xml())
+         # test remap_args
+         n = Test('test6', 'pkg6', 'type6', remap_args=[('from6a', 'to6a'), ('from6b', 'to6b')])
+-        self.assertEquals("""<test pkg="pkg6" type="type6" ns="/" args="" output="log" required="False" test-name="test6">
++        self.assertEqual("""<test pkg="pkg6" type="type6" ns="/" args="" output="log" required="False" test-name="test6">
+   <remap from="from6a" to="to6a" />
+   <remap from="from6b" to="to6b" />
+ </test>""", n.to_remote_xml())
+         # test env args
+         n = Test('test7', 'pkg7', 'type7', env_args=[('key7a', 'val7a'), ('key7b', 'val7b')])
+-        self.assertEquals("""<test pkg="pkg7" type="type7" ns="/" args="" output="log" required="False" test-name="test7">
++        self.assertEqual("""<test pkg="pkg7" type="type7" ns="/" args="" output="log" required="False" test-name="test7">
+   <env name="key7a" value="val7a" />
+   <env name="key7b" value="val7b" />
+ </test>""", n.to_remote_xml())
+         # test cwd        
+         n = Test('test8', 'pkg8', 'type8', cwd='ROS_HOME')
+-        self.assertEquals('<test pkg="pkg8" type="type8" ns="/" args="" output="log" cwd="ROS_HOME" required="False" test-name="test8">\n</test>', n.to_remote_xml())
++        self.assertEqual('<test pkg="pkg8" type="type8" ns="/" args="" output="log" cwd="ROS_HOME" required="False" test-name="test8">\n</test>', n.to_remote_xml())
+         n = Test('test9', 'pkg9', 'type9', cwd='node')
+-        self.assertEquals('<test pkg="pkg9" type="type9" ns="/" args="" output="log" cwd="node" required="False" test-name="test9">\n</test>', n.to_remote_xml())
++        self.assertEqual('<test pkg="pkg9" type="type9" ns="/" args="" output="log" cwd="node" required="False" test-name="test9">\n</test>', n.to_remote_xml())
+ 
+         #test everything
+         n = Test('test20', 'pkg20', 'type20', namespace="/ns20/", machine_name="foo", remap_args=[('from20a', 'to20a'), ('from20b', 'to20b')], env_args=[('key20a', 'val20a'), ('key20b', 'val20b')], cwd="ROS_HOME", args="arg20a arg20b")
+-        self.assertEquals("""<test pkg="pkg20" type="type20" ns="/ns20/" args="arg20a arg20b" output="log" cwd="ROS_HOME" required="False" test-name="test20">
++        self.assertEqual("""<test pkg="pkg20" type="type20" ns="/ns20/" args="arg20a arg20b" output="log" cwd="ROS_HOME" required="False" test-name="test20">
+   <remap from="from20a" to="to20a" />
+   <remap from="from20b" to="to20b" />
+   <env name="key20a" value="val20a" />
+diff --git a/test/unit/test_roslaunch_rlutil.py b/test/unit/test_roslaunch_rlutil.py
+index c75d0d731..3306723dc 100644
+--- a/test/unit/test_roslaunch_rlutil.py
++++ b/test/unit/test_roslaunch_rlutil.py
+@@ -75,9 +75,9 @@ class TestRoslaunchRlutil(unittest.TestCase):
+             for v1, v2 in zip(result, resolve_launch_arguments(test)):
+                 # workaround for nfs 
+                 if os.path.exists(v1):
+-                    self.assert_(os.path.samefile(v1, v2))
++                    self.assertTrue(os.path.samefile(v1, v2))
+                 else:
+-                    self.assertEquals(v1, v2)
++                    self.assertEqual(v1, v2)
+         for test in bad:
+             try:
+                 resolve_launch_arguments(test)
+diff --git a/test/unit/test_roslaunch_server.py b/test/unit/test_roslaunch_server.py
+index a90801fed..5f09fdc96 100644
+--- a/test/unit/test_roslaunch_server.py
++++ b/test/unit/test_roslaunch_server.py
+@@ -149,19 +149,19 @@ class TestRoslaunchServer(unittest.TestCase):
+         args = [time.time(), time.time()]
+         env = { 'key-%s'%time.time() : str(time.time()) }
+         cp = ChildROSLaunchProcess(name, args, env)
+-        self.assertEquals(name, cp.name)
+-        self.assertEquals(args, cp.args)
+-        self.assertEquals(env, cp.env)
+-        self.assertEquals(None, cp.uri)
++        self.assertEqual(name, cp.name)
++        self.assertEqual(args, cp.args)
++        self.assertEqual(env, cp.env)
++        self.assertEqual(None, cp.uri)
+ 
+         uri = 'http://foo:1234'
+         cp.set_uri(uri)
+-        self.assertEquals(uri, cp.uri)
++        self.assertEqual(uri, cp.uri)
+ 
+     def _succeed(self, retval):
+         code, msg, val = retval
+-        self.assertEquals(1, code)
+-        self.assert_(type(msg) == str)
++        self.assertEqual(1, code)
++        self.assertTrue(type(msg) == str)
+         return val
+ 
+     def test_ROSLaunchBaseHandler(self):
+@@ -180,49 +180,49 @@ class TestRoslaunchServer(unittest.TestCase):
+     def _test_ROSLaunchBaseHandler(self, h):
+         pmon = self.pmon
+         # - test get pid
+-        self.assertEquals(os.getpid(), self._succeed(h.get_pid()))
++        self.assertEqual(os.getpid(), self._succeed(h.get_pid()))
+ 
+         # - test list processes
+         process_list = self._succeed(h.list_processes())
+-        self.assertEquals([[], []], process_list)
++        self.assertEqual([[], []], process_list)
+ 
+         p = ProcessMock('pack', 'name', [], {})
+         p.spawn_count = 1
+         pmon.register(p)
+         
+         process_list = self._succeed(h.list_processes())
+-        self.assertEquals([('name', 1),], process_list[0])
+-        self.assertEquals([], process_list[1])
++        self.assertEqual([('name', 1),], process_list[0])
++        self.assertEqual([], process_list[1])
+ 
+         p.spawn_count = 2      
+         process_list = self._succeed(h.list_processes())
+-        self.assertEquals([('name', 2),], process_list[0])
+-        self.assertEquals([], process_list[1])
++        self.assertEqual([('name', 2),], process_list[0])
++        self.assertEqual([], process_list[1])
+         # - cleanup our work
+         pmon.unregister(p)
+ 
+         # - test process_info
+         code, msg, val = h.process_info('fubar')
+-        self.assertEquals(-1, code)
+-        self.assert_(type(msg) == str)
+-        self.assertEquals({}, val)
++        self.assertEqual(-1, code)
++        self.assertTrue(type(msg) == str)
++        self.assertEqual({}, val)
+         
+         pmon.register(p)
+-        self.assertEquals(p.get_info(), self._succeed(h.process_info(p.name)))
++        self.assertEqual(p.get_info(), self._succeed(h.process_info(p.name)))
+         pmon.unregister(p)
+ 
+         # - test get_node_names
+         #   - reach into instance to get branch-complete
+         h.pm = None
+         code, msg, val = h.get_node_names()
+-        self.assertEquals(0, code)
+-        self.assert_(type(msg) == str)
+-        self.assertEquals([], val)
++        self.assertEqual(0, code)
++        self.assertTrue(type(msg) == str)
++        self.assertEqual([], val)
+         h.pm = pmon
+         
+-        self.assertEquals(pmon.get_active_names(), self._succeed(h.get_node_names()))
++        self.assertEqual(pmon.get_active_names(), self._succeed(h.get_node_names()))
+         pmon.register(p)
+-        self.assertEquals(pmon.get_active_names(), self._succeed(h.get_node_names()))        
++        self.assertEqual(pmon.get_active_names(), self._succeed(h.get_node_names()))        
+         pmon.unregister(p)
+ 
+     def test_ROSLaunchParentHandler(self):
+@@ -237,8 +237,8 @@ class TestRoslaunchServer(unittest.TestCase):
+         child_processes = {}
+         listeners = []
+         h = ROSLaunchParentHandler(pmon, child_processes, listeners)
+-        self.assertEquals(child_processes, h.child_processes)
+-        self.assertEquals(listeners, h.listeners)
++        self.assertEqual(child_processes, h.child_processes)
++        self.assertEqual(listeners, h.listeners)
+         self._test_ROSLaunchBaseHandler(h)
+ 
+         from rosgraph_msgs.msg import Log
+@@ -263,19 +263,19 @@ class TestRoslaunchServer(unittest.TestCase):
+         # test register
+         
+         # - verify clean slate with list_children
+-        self.assertEquals([], self._succeed(h.list_children()))
++        self.assertEqual([], self._succeed(h.list_children()))
+ 
+         # - first register with unknown
+         code, msg, val = h.register('client-unknown', 'http://unroutable:1234')
+-        self.assertEquals(-1, code)
+-        self.assertEquals([], self._succeed(h.list_children()))
++        self.assertEqual(-1, code)
++        self.assertEqual([], self._succeed(h.list_children()))
+         
+         # - now register with known
+         uri = 'http://unroutable:1324'
+         child_processes['client-1'] = ChildROSLaunchProcess('foo', [], {})
+         val = self._succeed(h.register('client-1', uri))
+-        self.assert_(type(val) == int)
+-        self.assertEquals([uri], self._succeed(h.list_children()))        
++        self.assertTrue(type(val) == int)
++        self.assertEqual([uri], self._succeed(h.list_children()))        
+         
+     def test_ROSLaunchChildHandler(self):
+         from roslaunch.server import ROSLaunchChildHandler
+@@ -301,9 +301,9 @@ class TestRoslaunchServer(unittest.TestCase):
+         except: pass
+ 
+         h = ROSLaunchChildHandler(run_id, name, server_uri, pmon)
+-        self.assertEquals(run_id, h.run_id)
+-        self.assertEquals(name, h.name)        
+-        self.assertEquals(server_uri, h.server_uri)
++        self.assertEqual(run_id, h.run_id)
++        self.assertEqual(name, h.name)        
++        self.assertEqual(server_uri, h.server_uri)
+         self._test_ROSLaunchBaseHandler(h)
+ 
+         # test _log()
+@@ -313,11 +313,11 @@ class TestRoslaunchServer(unittest.TestCase):
+         # test shutdown()
+         # should uninitialize pm
+         h.shutdown()
+-        self.assert_(pmon.is_shutdown)
++        self.assertTrue(pmon.is_shutdown)
+         # - this check is mostly to make sure that the launch() call below will exit
+-        self.assert_(h.pm is None)
++        self.assertTrue(h.pm is None)
+         code, msg, val = h.launch('<launch></launch>')
+-        self.assertEquals(0, code)
++        self.assertEqual(0, code)
+         
+         # TODO: actual launch. more difficult as we need a core
+ 
+@@ -334,8 +334,8 @@ class TestRoslaunchServer(unittest.TestCase):
+         # - should run normally
+         f.process_died("foo", -1)
+         
+-        self.assertEquals(l.process_name, 'foo')
+-        self.assertEquals(l.exit_code, -1)
++        self.assertEqual(l.process_name, 'foo')
++        self.assertEqual(l.exit_code, -1)
+ 
+     def test_ROSLaunchNode(self):
+         #exercise the basic ROSLaunchNode API
+@@ -347,19 +347,19 @@ class TestRoslaunchServer(unittest.TestCase):
+ 
+         # - start the node
+         node.start()
+-        self.assert_(node.uri)
++        self.assertTrue(node.uri)
+ 
+         # - call the ping API that we added
+         s = ServerProxy(node.uri)
+         test_val = 'test-%s'%time.time()
+         s.ping(test_val)
+-        self.assertEquals(handler.pinged, test_val)
++        self.assertEqual(handler.pinged, test_val)
+ 
+         # - call the pid API
+         code, msg, pid = s.get_pid()
+-        self.assertEquals(1, code)
+-        self.assert_(type(msg) == str)
+-        self.assertEquals(os.getpid(), pid)
++        self.assertEqual(1, code)
++        self.assertTrue(type(msg) == str)
++        self.assertEqual(os.getpid(), pid)
+         
+         # - shut it down
+         node.shutdown('test done')
+@@ -376,18 +376,18 @@ class TestRoslaunchServer(unittest.TestCase):
+         except: pass
+         pmon = self.pmon
+         n = ROSLaunchParentNode(rosconfig, pmon)
+-        self.assertEquals(rosconfig, n.rosconfig)
+-        self.assertEquals([], n.listeners)
+-        self.assertEquals({}, n.child_processes)
+-        self.assertEquals(n.handler.listeners, n.listeners)
+-        self.assertEquals(n.handler.child_processes, n.child_processes)
++        self.assertEqual(rosconfig, n.rosconfig)
++        self.assertEqual([], n.listeners)
++        self.assertEqual({}, n.child_processes)
++        self.assertEqual(n.handler.listeners, n.listeners)
++        self.assertEqual(n.handler.child_processes, n.child_processes)
+ 
+         # test add listener
+-        self.assertEquals(n.handler.listeners, n.listeners)
++        self.assertEqual(n.handler.listeners, n.listeners)
+         l = ProcessListener() 
+         n.add_process_listener(l)
+-        self.assertEquals([l], n.listeners)
+-        self.assertEquals(n.handler.listeners, n.listeners)
++        self.assertEqual([l], n.listeners)
++        self.assertEqual(n.handler.listeners, n.listeners)
+ 
+         # now, lets make some xmlrpc calls against it
+         import roslaunch.config
+@@ -406,18 +406,18 @@ class TestRoslaunchServer(unittest.TestCase):
+         
+         try:
+             server.start()
+-            self.assert_(server.uri, "server URI did not initialize")
++            self.assertTrue(server.uri, "server URI did not initialize")
+             s = ServerProxy(server.uri)
+             child_uri = 'http://fake-unroutable:1324'
+             # - list children should be empty
+             val = self._succeed(s.list_children())
+-            self.assertEquals([], val)
++            self.assertEqual([], val)
+             # - register
+             val = self._succeed(s.register(child_name, child_uri))
+-            self.assertEquals(1, val)
++            self.assertEqual(1, val)
+             # - list children
+             val = self._succeed(s.list_children())
+-            self.assertEquals([child_uri], val)
++            self.assertEqual([child_uri], val)
+         finally:
+             server.shutdown('test done')
+         
+@@ -444,9 +444,9 @@ class TestRoslaunchServer(unittest.TestCase):
+         except: pass
+ 
+         n = ROSLaunchChildNode(run_id, name, server_uri, pmon)
+-        self.assertEquals(run_id, n.run_id)
+-        self.assertEquals(name, n.name)        
+-        self.assertEquals(server_uri, n.server_uri)
++        self.assertEqual(run_id, n.run_id)
++        self.assertEqual(name, n.name)        
++        self.assertEqual(server_uri, n.server_uri)
+ 
+         # tests for actual registration with server
+         import roslaunch.config
+@@ -457,7 +457,7 @@ class TestRoslaunchServer(unittest.TestCase):
+         
+         try:
+             server.start()
+-            self.assert_(server.uri, "server URI did not initialize")
++            self.assertTrue(server.uri, "server URI did not initialize")
+             s = ServerProxy(server.uri)
+ 
+             print("SERVER STARTED")
+@@ -466,15 +466,15 @@ class TestRoslaunchServer(unittest.TestCase):
+             n = ROSLaunchChildNode(run_id, name, server.uri, pmon)            
+             n.start()
+             print("CHILD STARTED")            
+-            self.assert_(n.uri, "child URI did not initialize")            
++            self.assertTrue(n.uri, "child URI did not initialize")            
+ 
+             # verify registration
+             print("VERIFYING REGISTRATION")                        
+-            self.assertEquals(child_proc.uri, n.uri)
++            self.assertEqual(child_proc.uri, n.uri)
+             child_uri = 'http://fake-unroutable:1324'
+             # - list children
+             val = self._succeed(s.list_children())
+-            self.assertEquals([n.uri], val)
++            self.assertEqual([n.uri], val)
+         finally:
+             print("SHUTTING DOWN")                                    
+             n.shutdown('test done')
+diff --git a/test/unit/test_xmlloader.py b/test/unit/test_xmlloader.py
+index 64c093436..4429563cb 100644
+--- a/test/unit/test_xmlloader.py
++++ b/test/unit/test_xmlloader.py
+@@ -96,26 +96,26 @@ class TestXmlLoader(unittest.TestCase):
+     def _load(self, test_file):
+         loader = roslaunch.xmlloader.XmlLoader()
+         mock = RosLaunchMock()
+-        self.assert_(os.path.exists(test_file), "cannot locate test file %s"%test_file)
++        self.assertTrue(os.path.exists(test_file), "cannot locate test file %s"%test_file)
+         loader.load(test_file, mock)
+         return mock
+         
+     def _load_valid_nodes(self, tests):
+         mock = self._load(os.path.join(self.xml_dir, 'test-node-valid.xml'))
+         nodes = [n for n in mock.nodes if n.type in tests]
+-        self.assertEquals(len(tests), len(nodes))
++        self.assertEqual(len(tests), len(nodes))
+         return nodes
+ 
+     def _load_valid_rostests(self, tests):
+         mock = self._load(os.path.join(self.xml_dir, 'test-test-valid.xml'))
+         nodes = [n for n in mock.tests if n.type in tests]
+-        self.assertEquals(len(tests), len(nodes))
++        self.assertEqual(len(tests), len(nodes))
+         return nodes
+     
+     def _load_valid_machines(self, tests):
+         mock = self._load(os.path.join(self.xml_dir, 'test-machine-valid.xml'))
+         machines = [m for m in mock.machines if m.name in tests]
+-        self.assertEquals(len(tests), len(machines))
++        self.assertEqual(len(tests), len(machines))
+         return machines
+ 
+     def test_load_string(self):
+@@ -129,7 +129,7 @@ class TestXmlLoader(unittest.TestCase):
+             loader.load_string('<foo />', mock)
+             self.fail("no root lauch element passed")
+         except Exception as e:
+-            self.assertEquals(str(e), "Invalid roslaunch XML syntax: no root <launch> tag")
++            self.assertEqual(str(e), "Invalid roslaunch XML syntax: no root <launch> tag")
+         
+         f = open(os.path.join(self.xml_dir, 'test-node-valid.xml'), 'r')
+         try:
+@@ -138,8 +138,8 @@ class TestXmlLoader(unittest.TestCase):
+             f.close()
+         loader.load_string(s, mock)
+         # sanity check
+-        self.assert_(mock.nodes)
+-        self.assert_([n for n in mock.nodes if n.type == 'test_base'])
++        self.assertTrue(mock.nodes)
++        self.assertTrue([n for n in mock.nodes if n.type == 'test_base'])
+ 
+         # check exception case
+         f = open(os.path.join(self.xml_dir, 'invalid-xml.xml'), 'r')
+@@ -164,8 +164,8 @@ class TestXmlLoader(unittest.TestCase):
+         mock = RosLaunchMock()
+ 
+         loader.load(os.path.join(self.xml_dir, 'test-node-valid.xml'), mock)
+-        self.assert_(mock.nodes)
+-        self.assert_([n for n in mock.nodes if n.type == 'test_base'])
++        self.assertTrue(mock.nodes)
++        self.assertTrue([n for n in mock.nodes if n.type == 'test_base'])
+ 
+         # check exception case
+         try:
+@@ -180,7 +180,7 @@ class TestXmlLoader(unittest.TestCase):
+         for filename in tests:
+             filename = os.path.join(self.xml_dir, filename)
+             try:
+-                self.assert_(os.path.exists(filename))
++                self.assertTrue(os.path.exists(filename))
+                 loader.load(filename, RosLaunchMock())
+                 self.fail("xmlloader did not throw an xmlparseexception for [%s]"%filename)
+             except roslaunch.xmlloader.XmlParseException:
+@@ -195,16 +195,16 @@ class TestXmlLoader(unittest.TestCase):
+         for p in mock.params:
+             param_d[p.key] = p.value
+ 
+-        self.assertEquals('pass', param_d['/override'])
+-        self.assertEquals('bar2', param_d['/somestring1'])
+-        self.assertEquals('10', param_d['/somestring2'])
+-        self.assertEquals(1, param_d['/someinteger1'])
+-        self.assertEquals(2, param_d['/someinteger2'])
+-        self.assertAlmostEquals(3.14159, param_d['/somefloat1'], 2)
+-        self.assertAlmostEquals(5.0, param_d['/somefloat2'], 1)
+-        self.assertEquals("a child namespace parameter 1", param_d['/wg/wgchildparam'], p.value)
+-        self.assertEquals("a child namespace parameter 2", param_d['/wg2/wg2childparam1'], p.value)
+-        self.assertEquals("a child namespace parameter 3", param_d['/wg2/wg2childparam2'], p.value)
++        self.assertEqual('pass', param_d['/override'])
++        self.assertEqual('bar2', param_d['/somestring1'])
++        self.assertEqual('10', param_d['/somestring2'])
++        self.assertEqual(1, param_d['/someinteger1'])
++        self.assertEqual(2, param_d['/someinteger2'])
++        self.assertAlmostEqual(3.14159, param_d['/somefloat1'], 2)
++        self.assertAlmostEqual(5.0, param_d['/somefloat2'], 1)
++        self.assertEqual("a child namespace parameter 1", param_d['/wg/wgchildparam'], p.value)
++        self.assertEqual("a child namespace parameter 2", param_d['/wg2/wg2childparam1'], p.value)
++        self.assertEqual("a child namespace parameter 3", param_d['/wg2/wg2childparam2'], p.value)
+ 
+         try:
+             from xmlrpc.client import Binary
+@@ -216,13 +216,13 @@ class TestXmlLoader(unittest.TestCase):
+         finally:
+             f.close()
+         p = [p for p in mock.params if p.key == '/configfile'][0]
+-        self.assertEquals(contents, p.value, 1)
++        self.assertEqual(contents, p.value, 1)
+         p = [p for p in mock.params if p.key == '/binaryfile'][0]
+-        self.assertEquals(Binary(contents.encode()), p.value, 1)
++        self.assertEqual(Binary(contents.encode()), p.value, 1)
+ 
+         if os.name != 'nt':  # skip testcase for `cat` command in Windows
+             p = [p for p in mock.params if p.key == '/commandoutput'][0]
+-            self.assertEquals(contents, p.value, 1)
++            self.assertEqual(contents, p.value, 1)
+         
+         
+     def test_rosparam_valid(self):
+@@ -230,49 +230,49 @@ class TestXmlLoader(unittest.TestCase):
+ 
+         for prefix in ['', '/rosparam', '/node_rosparam']:
+             p = [p for p in mock.params if p.key == prefix+'/string1'][0]
+-            self.assertEquals('bar', p.value)
++            self.assertEqual('bar', p.value)
+             p = [p for p in mock.params if p.key == prefix+'/robots/childparam'][0]
+-            self.assertEquals('a child namespace parameter', p.value)
++            self.assertEqual('a child namespace parameter', p.value)
+ 
+         p = [p for p in mock.params if p.key == '/node_rosparam/string1'][0]
+-        self.assertEquals('bar', p.value)
++        self.assertEqual('bar', p.value)
+         p = [p for p in mock.params if p.key == '/node_rosparam/robots/childparam'][0]
+-        self.assertEquals('a child namespace parameter', p.value)
++        self.assertEqual('a child namespace parameter', p.value)
+ 
+         # test substitution in yaml files
+         p = [p for p in mock.params if p.key == '/rosparam_subst/string1'][0]
+         self.assertTrue('$(anon foo)' not in p.value)
+         
+         exes = [e for e in mock.executables if e.command == 'rosparam']
+-        self.assertEquals(len(exes), 2, "expected 2 rosparam exes, got %s"%len(exes))
++        self.assertEqual(len(exes), 2, "expected 2 rosparam exes, got %s"%len(exes))
+         from roslaunch.core import PHASE_SETUP
+         for e in exes:
+-            self.assertEquals(PHASE_SETUP, e.phase)
++            self.assertEqual(PHASE_SETUP, e.phase)
+             args = e.args
+-            self.assertEquals(3, len(args), "expected 3 args, got %s"%str(args))
++            self.assertEqual(3, len(args), "expected 3 args, got %s"%str(args))
+             rp_cmd, rp_file, rp_ctx = args
+-            self.failIf('$(find' in rp_file, "file attribute was not evaluated")
+-            self.assertEquals('dump', rp_cmd)
++            self.assertFalse('$(find' in rp_file, "file attribute was not evaluated")
++            self.assertEqual('dump', rp_cmd)
+                 
+             # verify that the context is passed in correctly
+             if rp_file.endswith('dump.yaml'):
+-                self.assertEquals('/', rp_ctx)
++                self.assertEqual('/', rp_ctx)
+             elif rp_file.endswith('dump2.yaml'):
+-                self.assertEquals('/rosparam/', rp_ctx)
++                self.assertEqual('/rosparam/', rp_ctx)
+ 
+         # test inline yaml examples
+         p = [p for p in mock.params if p.key == '/inline_str'][0]
+-        self.assertEquals('value1', p.value)
++        self.assertEqual('value1', p.value)
+         p = [p for p in mock.params if p.key == '/inline_list'][0]
+-        self.assertEquals([1, 2, 3, 4], p.value)
++        self.assertEqual([1, 2, 3, 4], p.value)
+         p = [p for p in mock.params if p.key == '/inline_dict/key1'][0]
+-        self.assertEquals('value1', p.value)
++        self.assertEqual('value1', p.value)
+         p = [p for p in mock.params if p.key == '/inline_dict/key2'][0]
+-        self.assertEquals('value2', p.value)
++        self.assertEqual('value2', p.value)
+         p = [p for p in mock.params if p.key == '/inline_dict2/key3'][0]
+-        self.assertEquals('value3', p.value)
++        self.assertEqual('value3', p.value)
+         p = [p for p in mock.params if p.key == '/inline_dict2/key4'][0]
+-        self.assertEquals('value4', p.value)
++        self.assertEqual('value4', p.value)
+ 
+         # test substitution in inline yaml
+         p = [p for p in mock.params if p.key == '/inline_subst'][0]
+@@ -280,52 +280,52 @@ class TestXmlLoader(unittest.TestCase):
+ 
+         # verify that later tags override 
+         # - key2 is overridden
+-        self.assertEquals(1, len([p for p in mock.params if p.key == '/override/key1']))
++        self.assertEqual(1, len([p for p in mock.params if p.key == '/override/key1']))
+         p = [p for p in mock.params if p.key == '/override/key1'][0]
+-        self.assertEquals('override1', p.value)
++        self.assertEqual('override1', p.value)
+         # - key2 is not overridden
+         p = [p for p in mock.params if p.key == '/override/key2'][0]
+-        self.assertEquals('value2', p.value)
++        self.assertEqual('value2', p.value)
+ 
+         # verify that 'param' attribute is not required
+         p = [p for p in mock.params if p.key == '/noparam1'][0]
+-        self.assertEquals('value1', p.value)
++        self.assertEqual('value1', p.value)
+         p = [p for p in mock.params if p.key == '/noparam2'][0]
+-        self.assertEquals('value2', p.value)
++        self.assertEqual('value2', p.value)
+ 
+         # #3580: test degree/rad conversions
+         import math
+         p = [p for p in mock.params if p.key == '/inline_degrees0'][0]
+-        self.assertAlmostEquals(0, p.value)
++        self.assertAlmostEqual(0, p.value)
+         p = [p for p in mock.params if p.key == '/inline_degrees180'][0]
+-        self.assertAlmostEquals(p.value, math.pi)
++        self.assertAlmostEqual(p.value, math.pi)
+         p = [p for p in mock.params if p.key == '/inline_degrees360'][0]
+-        self.assertAlmostEquals(p.value, 2 * math.pi)
++        self.assertAlmostEqual(p.value, 2 * math.pi)
+ 
+         p = [p for p in mock.params if p.key == '/dict_degrees/deg0'][0]
+-        self.assertAlmostEquals(0, p.value)
++        self.assertAlmostEqual(0, p.value)
+         p = [p for p in mock.params if p.key == '/dict_degrees/deg180'][0]
+-        self.assertAlmostEquals(p.value, math.pi)
++        self.assertAlmostEqual(p.value, math.pi)
+         p = [p for p in mock.params if p.key == '/dict_degrees/deg360'][0]
+-        self.assertAlmostEquals(p.value, 2 * math.pi)
++        self.assertAlmostEqual(p.value, 2 * math.pi)
+ 
+         p = [p for p in mock.params if p.key == '/inline_rad0'][0]
+-        self.assertAlmostEquals(0, p.value)
++        self.assertAlmostEqual(0, p.value)
+         p = [p for p in mock.params if p.key == '/inline_radpi'][0]
+-        self.assertAlmostEquals(p.value, math.pi)
++        self.assertAlmostEqual(p.value, math.pi)
+         p = [p for p in mock.params if p.key == '/inline_rad2pi'][0]
+-        self.assertAlmostEquals(p.value, 2 * math.pi)
++        self.assertAlmostEqual(p.value, 2 * math.pi)
+ 
+         p = [p for p in mock.params if p.key == '/dict_rad/rad0'][0]
+-        self.assertAlmostEquals(0, p.value)
++        self.assertAlmostEqual(0, p.value)
+         p = [p for p in mock.params if p.key == '/dict_rad/radpi'][0]
+-        self.assertAlmostEquals(p.value, math.pi)
++        self.assertAlmostEqual(p.value, math.pi)
+         p = [p for p in mock.params if p.key == '/dict_rad/rad2pi'][0]
+-        self.assertAlmostEquals(p.value, 2 * math.pi)
++        self.assertAlmostEqual(p.value, 2 * math.pi)
+                     
+         # rosparam file also contains empty params
+         mock = self._load(os.path.join(self.xml_dir, 'test-rosparam-empty.xml'))
+-        self.assertEquals([], mock.params)
++        self.assertEqual([], mock.params)
+ 
+     def test_rosparam_invalid(self):
+         tests = ['test-rosparam-invalid-%s.xml'%i for i in range(1, 6)]
+@@ -333,7 +333,7 @@ class TestXmlLoader(unittest.TestCase):
+         for filename in tests:
+             filename = os.path.join(self.xml_dir, filename)
+             try:
+-                self.assert_(os.path.exists(filename))
++                self.assertTrue(os.path.exists(filename))
+                 loader.load(filename, RosLaunchMock())
+                 self.fail("xmlloader did not throw an xmlloadexception for [%s]"%filename)
+             except roslaunch.loader.LoadException:
+@@ -351,7 +351,7 @@ class TestXmlLoader(unittest.TestCase):
+         for filename in tests:
+             filename = os.path.join(self.xml_dir, filename)
+             try:
+-                self.assert_(os.path.exists(filename))
++                self.assertTrue(os.path.exists(filename))
+                 loader.load(filename, RosLaunchMock())
+                 self.fail("xmlloader did not throw an xmlparseexception for [%s]"%filename)
+             except roslaunch.xmlloader.XmlParseException:
+@@ -370,59 +370,59 @@ class TestXmlLoader(unittest.TestCase):
+                  
+             mock = self._load(os.path.join(self.xml_dir, f))
+             nodes = [n for n in mock.nodes if n.type == test]
+-            self.assertEquals(1, len(nodes))
++            self.assertEqual(1, len(nodes))
+             n = nodes[0]
+                           
+             exes = [e for e in mock.executables if e.command == 'rosparam']
+ 
+             if n.type == "test_node_rosparam_load":
+-                self.assertEquals(0, len(exes))
++                self.assertEqual(0, len(exes))
+                 p = [p for p in mock.params if p.key == '/rosparam_load/string1'][0]
+-                self.assertEquals('bar', p.value)
++                self.assertEqual('bar', p.value)
+                 p = [p for p in mock.params if p.key == '/rosparam_load/robots/childparam'][0]
+-                self.assertEquals('a child namespace parameter', p.value)
++                self.assertEqual('a child namespace parameter', p.value)
+             elif n.type == "test_node_rosparam_delete":
+-                self.assertEquals(1, len(exes))
+-                self.assert_(len(exes[0].args) == 2, "invalid arg: %s"%(str(exes[0].args)))
++                self.assertEqual(1, len(exes))
++                self.assertTrue(len(exes[0].args) == 2, "invalid arg: %s"%(str(exes[0].args)))
+                 rp_cmd, rp_param = exes[0].args   
+-                self.assertEquals("delete", rp_cmd)
+-                self.assertEquals("/ns1/rosparam_delete/ns2/param", rp_param)
++                self.assertEqual("delete", rp_cmd)
++                self.assertEqual("/ns1/rosparam_delete/ns2/param", rp_param)
+             elif n.type == "test_node_rosparam_dump":
+-                self.assertEquals(1, len(exes))
++                self.assertEqual(1, len(exes))
+                 rp_cmd, rp_file, rp_ctx = exes[0].args                
+-                self.assertEquals("dump", rp_cmd)
+-                self.assertEquals("dump.yaml", rp_file)
+-                self.assertEquals('/rosparam_dump/', rp_ctx)
++                self.assertEqual("dump", rp_cmd)
++                self.assertEqual("dump.yaml", rp_file)
++                self.assertEqual('/rosparam_dump/', rp_ctx)
+             elif n.type == "test_node_rosparam_load_ns":
+-                self.assertEquals(0, len(exes))
++                self.assertEqual(0, len(exes))
+                 p = [p for p in mock.params if p.key == '/load_ns/subns/string1'][0]
+-                self.assertEquals('bar', p.value)
++                self.assertEqual('bar', p.value)
+                 p = [p for p in mock.params if p.key == '/load_ns/subns/robots/childparam'][0]
+-                self.assertEquals('a child namespace parameter', p.value)
++                self.assertEqual('a child namespace parameter', p.value)
+             elif n.type == "test_node_rosparam_load_param":
+-                self.assertEquals(0, len(exes))
++                self.assertEqual(0, len(exes))
+                 p = [p for p in mock.params if p.key == '/load_param/param/string1'][0]
+-                self.assertEquals('bar', p.value)
++                self.assertEqual('bar', p.value)
+                 p = [p for p in mock.params if p.key == '/load_param/param/robots/childparam'][0]
+-                self.assertEquals('a child namespace parameter', p.value)
++                self.assertEqual('a child namespace parameter', p.value)
+             elif n.type == "test_node_rosparam_multi":
+-                self.assertEquals(1, len(exes))
++                self.assertEqual(1, len(exes))
+                 e = exes[0]
+                 rp_cmd, rp_file, rp_ctx = e.args
+-                self.assertEquals("dump", rp_cmd)
+-                self.assertEquals("mdump.yaml", rp_file)
+-                self.assertEquals('/rosparam_multi/', rp_ctx)
++                self.assertEqual("dump", rp_cmd)
++                self.assertEqual("mdump.yaml", rp_file)
++                self.assertEqual('/rosparam_multi/', rp_ctx)
+ 
+                 # test two other rosparam tags
+                 p = [p for p in mock.params if p.key == '/rosparam_multi/string1'][0]
+-                self.assertEquals('bar', p.value)
++                self.assertEqual('bar', p.value)
+                 p = [p for p in mock.params if p.key == '/rosparam_multi/robots/childparam'][0]
+-                self.assertEquals('a child namespace parameter', p.value)
++                self.assertEqual('a child namespace parameter', p.value)
+ 
+                 p = [p for p in mock.params if p.key == '/rosparam_multi/msubns/string1'][0]
+-                self.assertEquals('bar', p.value)
++                self.assertEqual('bar', p.value)
+                 p = [p for p in mock.params if p.key == '/rosparam_multi/msubns/robots/childparam'][0]
+-                self.assertEquals('a child namespace parameter', p.value)
++                self.assertEqual('a child namespace parameter', p.value)
+                 
+     ## test that ~params in groups get applied to later members of group
+     def test_local_param_group(self):
+@@ -434,7 +434,7 @@ class TestXmlLoader(unittest.TestCase):
+             u'/node1/param1',
+             ]
+         p_names = [p.key for p in mock.params]
+-        self.assertEquals(set([]), set(correct) ^ set(p_names), "%s does not match %s"%(p_names, correct))
++        self.assertEqual(set([]), set(correct) ^ set(p_names), "%s does not match %s"%(p_names, correct))
+ 
+     def test_node_param(self):
+         mock = self._load(os.path.join(self.xml_dir, 'test-node-valid.xml'))
+@@ -443,8 +443,8 @@ class TestXmlLoader(unittest.TestCase):
+                  ('/test_private_param3/foo3', 'bar3'), ]
+         for k, v in tests:
+             p = [p for p in mock.params if p.key == k]
+-            self.assertEquals(1, len(p), "%s not present in parameters: %s"%(k, mock.params))
+-            self.assertEquals(v, p[0].value)
++            self.assertEqual(1, len(p), "%s not present in parameters: %s"%(k, mock.params))
++            self.assertEqual(v, p[0].value)
+         node_types = [n.type for n in mock.nodes]
+         
+     def test_roslaunch_files(self):
+@@ -453,48 +453,48 @@ class TestXmlLoader(unittest.TestCase):
+         mock = self._load(f)
+         mock_files = [os.path.realpath(x) for x in mock.roslaunch_files]
+         actual_files = [os.path.realpath(x) for x in [f, f2]]
+-        self.assertEquals(len(set(actual_files)), len(set(mock_files)))
++        self.assertEqual(len(set(actual_files)), len(set(mock_files)))
+ 
+     def test_launch_prefix(self):
+         nodes = self._load_valid_nodes(['test_launch_prefix'])
+-        self.assertEquals(1, len(nodes))
+-        self.assertEquals('xterm -e gdb --args', nodes[0].launch_prefix)
++        self.assertEqual(1, len(nodes))
++        self.assertEqual('xterm -e gdb --args', nodes[0].launch_prefix)
+         nodes = self._load_valid_nodes(['test_base'])
+-        self.assertEquals(1, len(nodes))
+-        self.assertEquals(None, nodes[0].launch_prefix)
++        self.assertEqual(1, len(nodes))
++        self.assertEqual(None, nodes[0].launch_prefix)
+ 
+     def test_respawn(self):
+         tests = ["test_respawn_true", "test_respawn_TRUE",
+                  "test_respawn_false", "test_respawn_FALSE",
+                  "test_respawn_none",]
+         respawn_nodes = self._load_valid_nodes(tests)
+-        self.assertEquals(len(tests), len(respawn_nodes))
++        self.assertEqual(len(tests), len(respawn_nodes))
+         for n in respawn_nodes:
+             if n.type in ['test_respawn_true', 'test_respawn_TRUE']:
+-                self.assertEquals(True, n.respawn, "respawn for [%s] should be True"%n.type)
++                self.assertEqual(True, n.respawn, "respawn for [%s] should be True"%n.type)
+             else:
+-                self.assertEquals(False, n.respawn, "respawn for [%s] should be False"%n.type)
++                self.assertEqual(False, n.respawn, "respawn for [%s] should be False"%n.type)
+ 
+     def test_env_and_include(self):
+         mock = self._load(os.path.join(self.xml_dir, 'test-env.xml'))
+         expected = ['test_none', 'test_one', 'test_one_two', 'test_one_two_priv', 'test_one_two_include',]
+-        self.assertEquals(set(expected), set([n.type for n in mock.nodes]))
++        self.assertEqual(set(expected), set([n.type for n in mock.nodes]))
+         for n in mock.nodes:
+             if n.type == 'test_none':
+-                self.assertEquals([], n.env_args)
++                self.assertEqual([], n.env_args)
+             elif n.type == 'test_one':
+-                self.assertEquals([("ONE", "one")], n.env_args)
++                self.assertEqual([("ONE", "one")], n.env_args)
+             elif n.type == 'test_one_two':
+-                self.assert_(("ONE", "one") in n.env_args)
+-                self.assert_(("TWO", "two") in n.env_args)
++                self.assertTrue(("ONE", "one") in n.env_args)
++                self.assertTrue(("TWO", "two") in n.env_args)
+             elif n.type == 'test_one_two_priv':
+-                self.assert_(("ONE", "one") in n.env_args)
+-                self.assert_(("TWO", "two") in n.env_args)
+-                self.assert_(("PRIVATE_TWO", "private_two") in n.env_args)
++                self.assertTrue(("ONE", "one") in n.env_args)
++                self.assertTrue(("TWO", "two") in n.env_args)
++                self.assertTrue(("PRIVATE_TWO", "private_two") in n.env_args)
+             elif n.type == 'test_one_two_include':
+-                self.assert_(("ONE", "one") in n.env_args)
+-                self.assert_(("TWO", "two") in n.env_args)
+-                self.assert_(("INCLUDE", "include") in n.env_args)
++                self.assertTrue(("ONE", "one") in n.env_args)
++                self.assertTrue(("TWO", "two") in n.env_args)
++                self.assertTrue(("INCLUDE", "include") in n.env_args)
+                 
+     def test_clear_params(self):
+         true_tests = ["/test_clear_params1/","/test_clear_params2/",
+@@ -503,9 +503,9 @@ class TestXmlLoader(unittest.TestCase):
+                       "/include_test/",
+                       ]
+         mock = self._load(os.path.join(self.xml_dir, 'test-clear-params.xml'))
+-        self.assertEquals(len(true_tests), len(mock.clear_params), "clear params did not match expected true: %s"%(str(mock.clear_params)))
++        self.assertEqual(len(true_tests), len(mock.clear_params), "clear params did not match expected true: %s"%(str(mock.clear_params)))
+         for t in true_tests:
+-            self.assert_(t in mock.clear_params, "%s was not marked for clear: %s"%(t, mock.clear_params))
++            self.assertTrue(t in mock.clear_params, "%s was not marked for clear: %s"%(t, mock.clear_params))
+                 
+     def test_clear_params_invalid(self):
+         tests = ['test-clear-params-invalid-1.xml', 'test-clear-params-invalid-2.xml',
+@@ -514,7 +514,7 @@ class TestXmlLoader(unittest.TestCase):
+         for filename in tests:
+             filename = os.path.join(self.xml_dir, filename)
+             try:
+-                self.assert_(os.path.exists(filename))
++                self.assertTrue(os.path.exists(filename))
+                 loader.load(filename, RosLaunchMock())
+                 self.fail("xmlloader did not throw an xmlparseexception for [%s]"%filename)
+             except roslaunch.xmlloader.XmlParseException:
+@@ -522,22 +522,22 @@ class TestXmlLoader(unittest.TestCase):
+ 
+     def _subtest_node_base(self, nodes):
+         node = nodes[0]
+-        self.assertEquals("package", node.package)
+-        self.assertEquals("test_base", node.type)        
++        self.assertEqual("package", node.package)
++        self.assertEqual("test_base", node.type)        
+ 
+     def test_node_base(self):
+         self._subtest_node_base(self._load_valid_nodes(['test_base']))
+         tests = self._load_valid_rostests(['test_base'])
+         self._subtest_node_base(tests)
+-        self.assertEquals('test1', tests[0].test_name)
+-        self.assertEquals(roslaunch.core.TEST_TIME_LIMIT_DEFAULT, tests[0].time_limit)
++        self.assertEqual('test1', tests[0].test_name)
++        self.assertEqual(roslaunch.core.TEST_TIME_LIMIT_DEFAULT, tests[0].time_limit)
+         
+     def _subtest_node_args(self, nodes):
+         for n in nodes:
+             if n.type == 'test_args':
+-                self.assertEquals("args test", n.args)
++                self.assertEqual("args test", n.args)
+             elif n.type == 'test_args_empty':
+-                self.assertEquals("", n.args)                
++                self.assertEqual("", n.args)                
+ 
+     def test_node_args(self):
+         self._subtest_node_args(self._load_valid_nodes(['test_args', 'test_args_empty']))
+@@ -545,39 +545,39 @@ class TestXmlLoader(unittest.TestCase):
+         self._subtest_node_args(tests)
+         for n in tests:
+             if n.type == 'test_args':
+-                self.assertEquals("test2", n.test_name)
++                self.assertEqual("test2", n.test_name)
+             elif n.type == 'test_args_empty':
+-                self.assertEquals("test3", n.test_name)                
++                self.assertEqual("test3", n.test_name)                
+         
+     def test_rostest_time_limit(self):
+         tests = self._load_valid_rostests(['test_time_limit_int_1', 'test_time_limit_float_10_1'])
+         for n in tests:
+             if n.type == 'test_time_limit_int_1':
+-                self.assertAlmostEquals(1.0, n.time_limit, 3)
++                self.assertAlmostEqual(1.0, n.time_limit, 3)
+             elif n.type == 'test_time_limit_float_10_1':
+-                self.assertAlmostEquals(10.1, n.time_limit, 3)
++                self.assertAlmostEqual(10.1, n.time_limit, 3)
+ 
+     def test_rostest_retry(self):
+         n = self._load_valid_rostests(['test_retry'])[0]
+-        self.assertEquals(2, n.retry)
++        self.assertEqual(2, n.retry)
+                 
+     def test_node_cwd(self):
+         nodes = self._load_valid_nodes(['test_base', 'test_cwd_2', 'test_cwd_3', 'test_cwd_4'])
+         for n in nodes:
+             if n.type == 'test_base':
+-                self.assertEquals(None, n.cwd)
++                self.assertEqual(None, n.cwd)
+             elif n.type == 'test_cwd_2':
+-                self.assertEquals("node", n.cwd)  
++                self.assertEqual("node", n.cwd)  
+             elif n.type in ['test_cwd_3', 'test_cwd_4']:
+-                self.assertEquals("ROS_HOME", n.cwd)  
++                self.assertEqual("ROS_HOME", n.cwd)  
+ 
+     def test_node_output(self):
+         nodes = self._load_valid_nodes(['test_output_log', 'test_output_screen'])
+         for n in nodes:
+             if n.type == 'test_output_log':
+-                self.assertEquals("log", n.output)
++                self.assertEqual("log", n.output)
+             elif n.type == 'test_output_screen':
+-                self.assertEquals("screen", n.output) 
++                self.assertEqual("screen", n.output) 
+ 
+     def test_node_required(self):
+         nodes = self._load_valid_nodes(['test_base',
+@@ -588,24 +588,24 @@ class TestXmlLoader(unittest.TestCase):
+                                         ])
+         for n in nodes:
+             if n.type.startswith('test_required_true'):
+-                self.assertEquals(True, n.required)
++                self.assertEqual(True, n.required)
+             else:
+-                self.assertEquals(False, n.required) 
++                self.assertEqual(False, n.required) 
+ 
+     def test_node_machine(self):
+         nodes = self._load_valid_nodes(['test_machine'])
+         node = nodes[0]
+-        self.assertEquals("machine_test", node.machine_name)
++        self.assertEqual("machine_test", node.machine_name)
+ 
+     def test_node_ns(self):
+         nodes = self._load_valid_nodes(['test_ns1', 'test_ns2','test_ns3'])
+         for n in nodes:
+             if n.type == 'test_ns1':
+-                self.assertEquals("/ns_test1/", n.namespace)
++                self.assertEqual("/ns_test1/", n.namespace)
+             elif n.type == 'test_ns2':
+-                self.assertEquals("/ns_test2/child2/", n.namespace) 
++                self.assertEqual("/ns_test2/child2/", n.namespace) 
+             elif n.type == 'test_ns3':
+-                self.assertEquals("/ns_test3/child3/", n.namespace) 
++                self.assertEqual("/ns_test3/child3/", n.namespace) 
+ 
+     def test_machines(self):
+         tests = ['test-machine-invalid.xml', \
+@@ -619,7 +619,7 @@ class TestXmlLoader(unittest.TestCase):
+         for filename in tests:
+             filename = os.path.join(self.xml_dir, filename)
+             try:
+-                self.assert_(os.path.exists(filename))
++                self.assertTrue(os.path.exists(filename))
+                 loader.load(filename, RosLaunchMock())
+                 self.fail("xmlloader did not throw an xmlparseexception for [%s]"%filename)
+             except roslaunch.xmlloader.XmlParseException:
+@@ -628,13 +628,13 @@ class TestXmlLoader(unittest.TestCase):
+         machines = self._load_valid_machines(['machine1', 'machine6', 'machine7', 'machine8', 'machine9'])
+         for m in machines:
+             if m.name == 'machine1':
+-                self.assertEquals(m.address, 'address1')
++                self.assertEqual(m.address, 'address1')
+             elif m.name == 'machine7':
+-                self.assertEquals(m.timeout, 10.0)
++                self.assertEqual(m.timeout, 10.0)
+             elif m.name == 'machine8':
+-                self.assertEquals(m.timeout, 1.)
++                self.assertEqual(m.timeout, 1.)
+             elif m.name == 'machine9':
+-                self.assertEquals(m.env_loader, '/opt/ros/fuerte/env.sh')
++                self.assertEqual(m.env_loader, '/opt/ros/fuerte/env.sh')
+ 
+                 
+     def test_node_subst(self):
+@@ -666,15 +666,15 @@ class TestXmlLoader(unittest.TestCase):
+         # load the last required env var
+         os.environ['RESPAWN'] = respawn
+         mock = self._load(test_file)
+-        self.assertEquals(1, len(mock.nodes), "should only be one test node")
++        self.assertEqual(1, len(mock.nodes), "should only be one test node")
+         n = mock.nodes[0]
+-        self.assertEquals(n.package, 'package-%s'%r)
+-        self.assertEquals(n.type, 'type-%s'%r)
+-        self.assertEquals(n.output, output)
++        self.assertEqual(n.package, 'package-%s'%r)
++        self.assertEqual(n.type, 'type-%s'%r)
++        self.assertEqual(n.output, output)
+         if respawn == 'true':
+-            self.assert_(n.respawn)
++            self.assertTrue(n.respawn)
+         else:
+-            self.failIf(n.respawn)            
++            self.assertFalse(n.respawn)            
+ 
+     def test_machine_subst(self):
+         test_file = os.path.join(self.xml_dir, 'test-machine-substitution.xml')
+@@ -697,20 +697,20 @@ class TestXmlLoader(unittest.TestCase):
+         os.environ['ADDRESS'] = "address-foo"
+         # load the last required env var
+         mock = self._load(test_file)
+-        self.assertEquals(1, len(mock.machines), "should only be one test machine")
++        self.assertEqual(1, len(mock.machines), "should only be one test machine")
+         m = mock.machines[0]
+-        self.assertEquals(m.name, 'name-foo')
+-        self.assertEquals(m.address, 'address-foo')
++        self.assertEqual(m.name, 'name-foo')
++        self.assertEqual(m.address, 'address-foo')
+ 
+     def test_env(self):
+         nodes = self._load_valid_nodes(['test_env', 'test_env_empty'])
+         for n in nodes:
+             if n.type == 'test_env':
+-                self.assert_(("env1", "env1 value1") in n.env_args)
+-                self.assert_(("env2", "env2 value2") in n.env_args)
+-                self.assertEquals(2, len(n.env_args))
++                self.assertTrue(("env1", "env1 value1") in n.env_args)
++                self.assertTrue(("env2", "env2 value2") in n.env_args)
++                self.assertEqual(2, len(n.env_args))
+             elif n.type == 'test_env_empty':
+-                self.assert_(("env1", "") in n.env_args)
++                self.assertTrue(("env1", "") in n.env_args)
+ 
+     def test_remap(self):
+         loader = roslaunch.xmlloader.XmlLoader()
+@@ -720,35 +720,35 @@ class TestXmlLoader(unittest.TestCase):
+         nodes = [n for n in mock.nodes if n.type in names]
+         for n in nodes:
+             if n.type == 'node1':
+-                self.assertEquals([['foo', 'bar']], n.remap_args)
++                self.assertEqual([['foo', 'bar']], n.remap_args)
+             elif n.type == 'node2':
+-                self.assertEquals([['foo', 'baz']], n.remap_args)
++                self.assertEqual([['foo', 'baz']], n.remap_args)
+             elif n.type == 'node3':
+-                self.assertEquals([['foo', 'bar']], n.remap_args)
++                self.assertEqual([['foo', 'bar']], n.remap_args)
+             elif n.type == 'node4':
+-                self.assertEquals([['foo', 'far']], n.remap_args)
++                self.assertEqual([['foo', 'far']], n.remap_args)
+             elif n.type == 'node5':
+-                self.assertEquals([['foo', 'fad'], ['a', 'b'], ['c', 'd']], n.remap_args)
++                self.assertEqual([['foo', 'fad'], ['a', 'b'], ['c', 'd']], n.remap_args)
+             elif n.type == 'node6':
+-                self.assertEquals([['foo', 'far'], ['old1', 'new1'], ['old2', 'new2'], ['old3', 'new3']], n.remap_args)
++                self.assertEqual([['foo', 'far'], ['old1', 'new1'], ['old2', 'new2'], ['old3', 'new3']], n.remap_args)
+                  
+     def test_substitution(self):
+         mock = self._load(os.path.join(self.xml_dir, 'test-substitution.xml'))
+         # for now this is mostly a trip wire test due to #1776 
+         for p in mock.params:
+-            self.assert_('$' not in p.key)
+-            self.assert_('$' not in p.value)            
++            self.assertTrue('$' not in p.key)
++            self.assertTrue('$' not in p.value)            
+         for n in mock.nodes:
+-            self.assert_('$' not in n.package)
+-            self.assert_('$' not in n.type)
++            self.assertTrue('$' not in n.package)
++            self.assertTrue('$' not in n.type)
+             for e in n.env_args:
+-                self.assert_('$' not in e[0])
+-                self.assert_('$' not in e[1])
++                self.assertTrue('$' not in e[0])
++                self.assertTrue('$' not in e[1])
+             for r in n.remap_args:
+-                self.assert_('$' not in r[0])
+-                self.assert_('$' not in r[1])
++                self.assertTrue('$' not in r[0])
++                self.assertTrue('$' not in r[1])
+             for a in n.args:
+-                self.assert_('$' not in a)                        
++                self.assertTrue('$' not in a)                        
+     
+     def test_node_invalid(self):
+         tests = ['test-node-invalid-type.xml','test-node-invalid-type-2.xml',
+@@ -781,7 +781,7 @@ class TestXmlLoader(unittest.TestCase):
+         for filename in tests:
+             filename = os.path.join(self.xml_dir, filename)
+             try:
+-                self.assert_(os.path.exists(filename))
++                self.assertTrue(os.path.exists(filename))
+                 loader.load(filename, RosLaunchMock())
+                 self.fail("xmlloader did not throw an xmlparseexception for [%s]"%filename)
+             except roslaunch.xmlloader.XmlParseException:
+@@ -799,7 +799,7 @@ class TestXmlLoader(unittest.TestCase):
+         for filename in tests:
+             filename = os.path.join(self.xml_dir, filename)
+             try:
+-                self.assert_(os.path.exists(filename))
++                self.assertTrue(os.path.exists(filename))
+                 loader.load(filename, RosLaunchMock())
+                 self.fail("xmlloader did not throw an xmlparseexception for [%s]"%filename)
+             except roslaunch.xmlloader.XmlParseException:
+@@ -817,19 +817,19 @@ class TestXmlLoader(unittest.TestCase):
+ 
+         keys = ['group_if', 'group_unless', 'param_if', 'param_unless']
+         for k in keys:
+-            self.assert_('/'+k+'_pass' in param_d, param_d)
+-            self.failIf('/'+k+'_fail' in param_d, k)
++            self.assertTrue('/'+k+'_pass' in param_d, param_d)
++            self.assertFalse('/'+k+'_fail' in param_d, k)
+             # Also check the result of Python-parsed expressions
+-            self.assert_('/py_'+k+'_pass' in param_d, param_d)
+-            self.failIf('/py_'+k+'_fail' in param_d, k)
++            self.assertTrue('/py_'+k+'_pass' in param_d, param_d)
++            self.assertFalse('/py_'+k+'_fail' in param_d, k)
+ 
+         n = mock.nodes[0]
+         for k in ['if', 'unless']:
+-            self.assert_(['from_%s_pass'%k, 'to_%s_pass'%k] in n.remap_args)
+-            self.failIf(['from_%s_fail'%k, 'to_%s_fail'%k] in n.remap_args)            
++            self.assertTrue(['from_%s_pass'%k, 'to_%s_pass'%k] in n.remap_args)
++            self.assertFalse(['from_%s_fail'%k, 'to_%s_fail'%k] in n.remap_args)            
+             # Also check the result of Python-parsed expressions
+-            self.assert_(['py_from_%s_pass'%k, 'py_to_%s_pass'%k] in n.remap_args)
+-            self.failIf(['py_from_%s_fail'%k, 'py_to_%s_fail'%k] in n.remap_args)
++            self.assertTrue(['py_from_%s_pass'%k, 'py_to_%s_pass'%k] in n.remap_args)
++            self.assertFalse(['py_from_%s_fail'%k, 'py_to_%s_fail'%k] in n.remap_args)
+         
+     def test_if_unless_invalid(self):
+         mock = RosLaunchMock()
+@@ -840,8 +840,8 @@ class TestXmlLoader(unittest.TestCase):
+             loader.load(filename, mock, argv=[])
+             self.fail("should have raised with invalid if and unless spec")
+         except roslaunch.xmlloader.XmlParseException as e:
+-            self.assert_('unless' in str(e))
+-            self.assert_('if' in str(e))
++            self.assertTrue('unless' in str(e))
++            self.assertTrue('if' in str(e))
+ 
+     def test_arg_invalid(self):
+         mock = RosLaunchMock()
+@@ -852,7 +852,7 @@ class TestXmlLoader(unittest.TestCase):
+             loader.load(filename, mock, argv=[])
+             self.fail("should have raised with missing arg")
+         except roslaunch.xmlloader.XmlParseException as e:
+-            self.assert_('required' in str(e))
++            self.assertTrue('required' in str(e))
+ 
+         # test with invalid $(arg unknown)
+         filename = os.path.join(self.xml_dir, 'test-arg-invalid-sub.xml')
+@@ -860,7 +860,7 @@ class TestXmlLoader(unittest.TestCase):
+             loader.load(filename, mock, argv=[])
+             self.fail("should have raised with unknown arg")
+         except roslaunch.xmlloader.XmlParseException as e:
+-            self.assert_('missing' in str(e))
++            self.assertTrue('missing' in str(e))
+ 
+         # test with invalid $(arg unknown)
+         filename = os.path.join(self.xml_dir, 'test-arg-invalid-redecl.xml')
+@@ -868,7 +868,7 @@ class TestXmlLoader(unittest.TestCase):
+             loader.load(filename, mock, argv=[])
+             self.fail("should have raised with multiple decl")
+         except roslaunch.xmlloader.XmlParseException as e:
+-            self.assert_('grounded' in str(e))
++            self.assertTrue('grounded' in str(e))
+             
+                     
+     def test_arg(self):
+@@ -882,40 +882,40 @@ class TestXmlLoader(unittest.TestCase):
+         for p in mock.params:
+             param_d[p.key] = p.value
+ 
+-        self.assertEquals(param_d['/p1_test'], 'test_arg')
+-        self.assertEquals(param_d['/p2_test'], 'not_set')
+-        self.assertEquals(param_d['/p3_test'], 'set')
+-        self.assertEquals(param_d['/succeed'], 'yes')                
+-        self.assertEquals(param_d['/py_succeed'], 'yes')
+-        self.assertEquals(param_d['/if_test'], 'not_ran')                
+-        self.assertEquals(param_d['/py_if_test'], 'not_ran')
+-        self.assertEquals(param_d['/if_param'], False)   
+-        self.assertEquals(param_d['/py_if_param'], False)
+-        self.assertEquals(param_d['/int_param'], 1234)   
+-        self.assertAlmostEquals(param_d['/float_param'], 3.)   
+-        self.failIf('/fail' in param_d)
+-        self.failIf('/py_fail' in param_d)
++        self.assertEqual(param_d['/p1_test'], 'test_arg')
++        self.assertEqual(param_d['/p2_test'], 'not_set')
++        self.assertEqual(param_d['/p3_test'], 'set')
++        self.assertEqual(param_d['/succeed'], 'yes')                
++        self.assertEqual(param_d['/py_succeed'], 'yes')
++        self.assertEqual(param_d['/if_test'], 'not_ran')                
++        self.assertEqual(param_d['/py_if_test'], 'not_ran')
++        self.assertEqual(param_d['/if_param'], False)   
++        self.assertEqual(param_d['/py_if_param'], False)
++        self.assertEqual(param_d['/int_param'], 1234)   
++        self.assertAlmostEqual(param_d['/float_param'], 3.)   
++        self.assertFalse('/fail' in param_d)
++        self.assertFalse('/py_fail' in param_d)
+ 
+         # context tests
+         #  - args are scoped to their context, and thus can be rebound in a sibling context
+-        self.assertEquals(param_d['/context1'], 'group1')
+-        self.assertEquals(param_d['/context2'], 'group2')        
++        self.assertEqual(param_d['/context1'], 'group1')
++        self.assertEqual(param_d['/context2'], 'group2')        
+         
+         # include tests
+-        self.assertEquals(param_d['/include_test/p1_test'], 'required1')
+-        self.assertEquals(param_d['/include_test/p2_test'], 'not_set')
+-        self.assertEquals(param_d['/include_test/p3_test'], 'set')
+-        self.assertEquals(param_d['/include_test/p4_test'], 'initial')
++        self.assertEqual(param_d['/include_test/p1_test'], 'required1')
++        self.assertEqual(param_d['/include_test/p2_test'], 'not_set')
++        self.assertEqual(param_d['/include_test/p3_test'], 'set')
++        self.assertEqual(param_d['/include_test/p4_test'], 'initial')
+         
+-        self.assertEquals(param_d['/include2/include_test/p1_test'], 'required2')
+-        self.assertEquals(param_d['/include2/include_test/p2_test'], 'optional2')
+-        self.assertEquals(param_d['/include2/include_test/p3_test'], 'set')
+-        self.assertEquals(param_d['/include2/include_test/p4_test'], 'new2')
++        self.assertEqual(param_d['/include2/include_test/p1_test'], 'required2')
++        self.assertEqual(param_d['/include2/include_test/p2_test'], 'optional2')
++        self.assertEqual(param_d['/include2/include_test/p3_test'], 'set')
++        self.assertEqual(param_d['/include2/include_test/p4_test'], 'new2')
+             
+-        self.assert_('/include3/include_test/p1_test' not in param_d)
+-        self.assert_('/include3/include_test/p2_test' not in param_d)
+-        self.assert_('/include3/include_test/p3_test' not in param_d)
+-        self.assert_('/include3/include_test/p4_test' not in param_d)
++        self.assertTrue('/include3/include_test/p1_test' not in param_d)
++        self.assertTrue('/include3/include_test/p2_test' not in param_d)
++        self.assertTrue('/include3/include_test/p3_test' not in param_d)
++        self.assertTrue('/include3/include_test/p4_test' not in param_d)
+ 
+         # test again with optional value set
+         mock = RosLaunchMock()
+@@ -925,35 +925,35 @@ class TestXmlLoader(unittest.TestCase):
+         for p in mock.params:
+             param_d[p.key] = p.value
+             
+-        self.assertEquals(param_d['/p1_test'], 'test_arg')
+-        self.assertEquals(param_d['/p2_test'], 'test_arg2')
+-        self.assertEquals(param_d['/p3_test'], 'set')
+-        self.assertEquals(param_d['/context1'], 'group1')
+-        self.assertEquals(param_d['/context2'], 'group2')                
+-        self.assertEquals(param_d['/succeed'], 'yes')                
+-        self.assertEquals(param_d['/py_succeed'], 'yes')
+-        self.assertEquals(param_d['/if_test'], 'ran')   
+-        self.assertEquals(param_d['/py_if_test'], 'ran')
+-        self.assertEquals(param_d['/if_param'], True)   
+-        self.assertEquals(param_d['/py_if_param'], True)
+-        self.failIf('/fail' in param_d)
+-        self.failIf('/py_fail' in param_d)
++        self.assertEqual(param_d['/p1_test'], 'test_arg')
++        self.assertEqual(param_d['/p2_test'], 'test_arg2')
++        self.assertEqual(param_d['/p3_test'], 'set')
++        self.assertEqual(param_d['/context1'], 'group1')
++        self.assertEqual(param_d['/context2'], 'group2')                
++        self.assertEqual(param_d['/succeed'], 'yes')                
++        self.assertEqual(param_d['/py_succeed'], 'yes')
++        self.assertEqual(param_d['/if_test'], 'ran')   
++        self.assertEqual(param_d['/py_if_test'], 'ran')
++        self.assertEqual(param_d['/if_param'], True)   
++        self.assertEqual(param_d['/py_if_param'], True)
++        self.assertFalse('/fail' in param_d)
++        self.assertFalse('/py_fail' in param_d)
+ 
+         # include tests
+-        self.assertEquals(param_d['/include_test/p1_test'], 'required1')
+-        self.assertEquals(param_d['/include_test/p2_test'], 'not_set')
+-        self.assertEquals(param_d['/include_test/p3_test'], 'set')
+-        self.assertEquals(param_d['/include_test/p4_test'], 'initial')
++        self.assertEqual(param_d['/include_test/p1_test'], 'required1')
++        self.assertEqual(param_d['/include_test/p2_test'], 'not_set')
++        self.assertEqual(param_d['/include_test/p3_test'], 'set')
++        self.assertEqual(param_d['/include_test/p4_test'], 'initial')
+         
+-        self.assertEquals(param_d['/include2/include_test/p1_test'], 'required2')
+-        self.assertEquals(param_d['/include2/include_test/p2_test'], 'optional2')
+-        self.assertEquals(param_d['/include2/include_test/p3_test'], 'set')
+-        self.assertEquals(param_d['/include2/include_test/p4_test'], 'new2')
++        self.assertEqual(param_d['/include2/include_test/p1_test'], 'required2')
++        self.assertEqual(param_d['/include2/include_test/p2_test'], 'optional2')
++        self.assertEqual(param_d['/include2/include_test/p3_test'], 'set')
++        self.assertEqual(param_d['/include2/include_test/p4_test'], 'new2')
+         
+-        self.assertEquals(param_d['/include3/include_test/p1_test'], 'required3')
+-        self.assertEquals(param_d['/include3/include_test/p2_test'], 'optional3')
+-        self.assertEquals(param_d['/include3/include_test/p3_test'], 'set')
+-        self.assertEquals(param_d['/include3/include_test/p4_test'], 'new3')
++        self.assertEqual(param_d['/include3/include_test/p1_test'], 'required3')
++        self.assertEqual(param_d['/include3/include_test/p2_test'], 'optional3')
++        self.assertEqual(param_d['/include3/include_test/p3_test'], 'set')
++        self.assertEqual(param_d['/include3/include_test/p4_test'], 'new3')
+         
+     # Test the new attribute <include pass_all_args={"true"|"false"}>
+     def test_arg_all(self):
+@@ -969,32 +969,32 @@ class TestXmlLoader(unittest.TestCase):
+             param_d[p.key] = p.value
+ 
+         # Sanity check: Parent namespace
+-        self.assertEquals(param_d['/p1_test'], 'test_arg')
+-        self.assertEquals(param_d['/p2_test'], 'not_set')
+-        self.assertEquals(param_d['/p3_test'], 'parent')
++        self.assertEqual(param_d['/p1_test'], 'test_arg')
++        self.assertEqual(param_d['/p2_test'], 'not_set')
++        self.assertEqual(param_d['/p3_test'], 'parent')
+ 
+         # Test case 1: include without pass_all_args
+-        self.assertEquals(param_d['/notall/include_test/p1_test'], 'test_arg')
+-        self.assertEquals(param_d['/notall/include_test/p2_test'], 'not_set')
+-        self.assertEquals(param_d['/notall/include_test/p3_test'], 'set')
++        self.assertEqual(param_d['/notall/include_test/p1_test'], 'test_arg')
++        self.assertEqual(param_d['/notall/include_test/p2_test'], 'not_set')
++        self.assertEqual(param_d['/notall/include_test/p3_test'], 'set')
+ 
+         # Test case 2: include without pass_all_args attribute, and pass optional arg
+         # internally
+-        self.assertEquals(param_d['/notall_optional/include_test/p1_test'], 'test_arg')
+-        self.assertEquals(param_d['/notall_optional/include_test/p2_test'], 'not_set')
+-        self.assertEquals(param_d['/notall_optional/include_test/p3_test'], 'set')
++        self.assertEqual(param_d['/notall_optional/include_test/p1_test'], 'test_arg')
++        self.assertEqual(param_d['/notall_optional/include_test/p2_test'], 'not_set')
++        self.assertEqual(param_d['/notall_optional/include_test/p3_test'], 'set')
+ 
+         # Test case 3: include with pass_all_args attribute, instead of passing individual
+         # args
+-        self.assertEquals(param_d['/all/include_test/p1_test'], 'test_arg')
+-        self.assertEquals(param_d['/all/include_test/p2_test'], 'not_set')
+-        self.assertEquals(param_d['/all/include_test/p3_test'], 'set')
++        self.assertEqual(param_d['/all/include_test/p1_test'], 'test_arg')
++        self.assertEqual(param_d['/all/include_test/p2_test'], 'not_set')
++        self.assertEqual(param_d['/all/include_test/p3_test'], 'set')
+ 
+         # Test case 4: include with pass_all_args attribute, and override one
+         # arg inside the include tag
+-        self.assertEquals(param_d['/all_override/include_test/p1_test'], 'override')
+-        self.assertEquals(param_d['/all_override/include_test/p2_test'], 'not_set')
+-        self.assertEquals(param_d['/all_override/include_test/p3_test'], 'set')
++        self.assertEqual(param_d['/all_override/include_test/p1_test'], 'override')
++        self.assertEqual(param_d['/all_override/include_test/p2_test'], 'not_set')
++        self.assertEqual(param_d['/all_override/include_test/p3_test'], 'set')
+ 
+         # Test suite B: load with an optional arg set externally
+         mock = RosLaunchMock()
+@@ -1005,32 +1005,32 @@ class TestXmlLoader(unittest.TestCase):
+             param_d[p.key] = p.value
+ 
+         # Sanity check: Parent namespace
+-        self.assertEquals(param_d['/p1_test'], 'test_arg')
+-        self.assertEquals(param_d['/p2_test'], 'test_arg2')
+-        self.assertEquals(param_d['/p3_test'], 'parent')
++        self.assertEqual(param_d['/p1_test'], 'test_arg')
++        self.assertEqual(param_d['/p2_test'], 'test_arg2')
++        self.assertEqual(param_d['/p3_test'], 'parent')
+ 
+         # Test case 1: include without pass_all_args attribute
+-        self.assertEquals(param_d['/notall/include_test/p1_test'], 'test_arg')
+-        self.assertEquals(param_d['/notall/include_test/p2_test'], 'not_set')
+-        self.assertEquals(param_d['/notall/include_test/p3_test'], 'set')
++        self.assertEqual(param_d['/notall/include_test/p1_test'], 'test_arg')
++        self.assertEqual(param_d['/notall/include_test/p2_test'], 'not_set')
++        self.assertEqual(param_d['/notall/include_test/p3_test'], 'set')
+ 
+         # Test case 2: include without pass_all_args attribute, and pass optional arg
+         # internally
+-        self.assertEquals(param_d['/notall_optional/include_test/p1_test'], 'test_arg')
+-        self.assertEquals(param_d['/notall_optional/include_test/p2_test'], 'test_arg2')
+-        self.assertEquals(param_d['/notall_optional/include_test/p3_test'], 'set')
++        self.assertEqual(param_d['/notall_optional/include_test/p1_test'], 'test_arg')
++        self.assertEqual(param_d['/notall_optional/include_test/p2_test'], 'test_arg2')
++        self.assertEqual(param_d['/notall_optional/include_test/p3_test'], 'set')
+ 
+         # Test case 3: include with pass_all_args attribute, instead of passing individual
+         # args
+-        self.assertEquals(param_d['/all/include_test/p1_test'], 'test_arg')
+-        self.assertEquals(param_d['/all/include_test/p2_test'], 'test_arg2')
+-        self.assertEquals(param_d['/all/include_test/p3_test'], 'set')
++        self.assertEqual(param_d['/all/include_test/p1_test'], 'test_arg')
++        self.assertEqual(param_d['/all/include_test/p2_test'], 'test_arg2')
++        self.assertEqual(param_d['/all/include_test/p3_test'], 'set')
+ 
+         # Test case 4: include with pass_all_args attribute, and override one
+         # arg inside the include tag
+-        self.assertEquals(param_d['/all_override/include_test/p1_test'], 'override')
+-        self.assertEquals(param_d['/all_override/include_test/p2_test'], 'test_arg2')
+-        self.assertEquals(param_d['/all_override/include_test/p3_test'], 'set')
++        self.assertEqual(param_d['/all_override/include_test/p1_test'], 'override')
++        self.assertEqual(param_d['/all_override/include_test/p2_test'], 'test_arg2')
++        self.assertEqual(param_d['/all_override/include_test/p3_test'], 'set')
+ 
+     def test_arg_all_includes(self):
+         loader = roslaunch.xmlloader.XmlLoader()
