@@ -1,0 +1,48 @@
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Contributor: Carlo Landmeter <clandmeter@gmail.com>
+# Maintainer:
+pkgname=clisp
+pkgver=2.49_git20181112
+pkgrel=1
+pkgdesc="ANSI Common Lisp interpreter, compiler and debugger"
+url="http://clisp.cons.org/"
+arch="x86_64"
+license="GPL"
+depends=""
+depends_dev="libsigsegv-dev ffcall ncurses-dev"
+makedepends="$depends_dev"
+subpackages="$pkgname-dev $pkgname-doc"
+source_commit_hash="df3b9f6fdcff22832898e89a989eb499c0f842ed"
+source="https://gitlab.com/gnu-clisp/clisp/-/archive/${source_commit_hash}/clisp-${source_commit_hash}.tar.bz2"
+
+builddir="$srcdir"/$pkgname-${source_commit_hash}
+
+build() {
+	cd "$builddir"
+	mkdir build
+	cd build
+	ulimit -s 131072
+
+	../configure \
+		--prefix=/usr \
+		--with-ffcall \
+		--with-dynamic-ffi \
+		--without-dynamic-modules \
+		--mandir=/usr/share/man \
+		--infodir=/usr/share/info
+	make -j1
+}
+
+package() {
+	cd "$builddir"
+	cd build
+	ulimit -s 131072
+
+	make -j1 DESTDIR="$pkgdir" install
+
+  cd "$builddir"
+  install -Dm644 COPYRIGHT "$pkgdir"/usr/share/licenses/$pkgname/COPYRIGHT
+  install -Dm644 GNU-GPL "$pkgdir"/usr/share/licenses/$pkgname/GNU-GPL
+}
+
+sha512sums="33ffb625d34127ed0b82199af4c38cb6bfad710c9863d154b77def96d31bba68dcd4a9fd17318dbe0daeb9d5aadc2573c65239c1090a3d1ad8bc51f5c3a9f14b  clisp-df3b9f6fdcff22832898e89a989eb499c0f842ed.tar.bz2"

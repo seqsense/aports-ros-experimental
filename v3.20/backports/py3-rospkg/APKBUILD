@@ -1,0 +1,41 @@
+# Contributor: Atsushi Watanabe<atsushi.w@ieee.org>
+# Maintainer:
+pkgname=py3-rospkg
+_pkgname=rospkg
+pkgver=1.5.1
+pkgrel=0
+pkgdesc="Standalone Python library for the ROS package system"
+url="https://pypi.python.org/pypi/rospkg/"
+arch="noarch"
+license="BSD-3-Clause"
+depends="py3-catkin-pkg py3-yaml py3-distro"
+makedepends="python3-dev py3-setuptools"
+subpackages="$pkgname-doc"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz
+	LICENSE"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+	# Install license files (from https://github.com/ros-infrastructure/rospkg/blob/188f9ef4ff52734e8f056593d3901fc461ad15cc/src/rospkg/manifest.py#L1-L31)
+	install -Dm644 $startdir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="
+c94ddb329d1bf77b6206960e10a418cd0738581a1fdb4f880cc43f826973b78127799e4ae9c18f96cbd1de2da6187fbde1b1011570c31b327d5633c864a79896  rospkg-1.5.1.tar.gz
+e976573a6c2550a6ebe4335a4483513d0409f89a89dfe67ff815b5939b95ada900d57673d35f3722bab958c59d3c9e743e0f60eea441ba27f034919732ee47ed  LICENSE
+"

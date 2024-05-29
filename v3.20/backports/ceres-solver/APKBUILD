@@ -1,0 +1,41 @@
+# Contributor: Florent Ferreri <florent@seqsense.com>
+# Maintainer:
+pkgname=ceres-solver
+pkgver=2.2.0
+pkgrel=2
+pkgdesc="A fast non-linear least squares minimizer"
+url="http://ceres-solver.org/"
+arch="all"
+license="BSD-3-Clause"
+options=""
+makedepends="build-base cmake eigen-dev gflags-dev glog-dev suitesparse-dev"
+depends_dev="glog-dev metis metis-dev suitesparse-dev"
+subpackages="$pkgname-dev $pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/ceres-solver/$pkgname/archive/refs/tags/$pkgver.tar.gz"
+
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+  mkdir build && cd build
+  Eigen3_DIR=/usr/share/cmake/Modules \
+  cmake .. \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_EXAMPLES=OFF \
+    -DBUILD_SHARED_LIBS=ON \
+    -DCMAKE_BUILD_TYPE=None
+  make
+}
+
+check() {
+  cd "$builddir"/build
+  make test
+}
+
+package() {
+  cd "$builddir"/build
+  make DESTDIR="$pkgdir" install
+
+  install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="d4cefe5851e25bd3c7b76352092d8d549eb371af2e35a325736554c54fe58a3523658697c3e2d65af660fe6895ae3d96fe31bd1875870474fc4b6fed3bbdfae9  ceres-solver-2.2.0.tar.gz"

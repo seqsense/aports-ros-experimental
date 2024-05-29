@@ -1,0 +1,52 @@
+# Contributor: Florent Ferreri <florent@seqsense.com>
+# Maintainer:
+pkgname=py-pysdl2-dll
+_pkgname=pysdl2-dll
+pkgver=2.30.2
+pkgrel=0
+pkgdesc="A package that bundles the SDL2 libraries for PySDL2 so they don't have to be installed manually"
+url="https://github.com/a-hurst/pysdl2-dll"
+arch="all"
+license="MPL-2.0"
+depends="sdl2"
+makedepends="python2-dev python3-dev py-setuptools"
+options="!check" #test skipped because of 'No binaries for this platform'
+subpackages="$pkgname-doc py2-$_pkgname:_py2 py3-$_pkgname:_py3"
+source="$_pkgname-$pkgver.tar.gz::https://github.com/a-hurst/$_pkgname/archive/v$pkgver.tar.gz"
+builddir="$srcdir"/$_pkgname-$pkgver
+
+build() {
+  cd "$builddir"
+  python2 setup.py build
+  python3 setup.py build
+}
+
+package() {
+  mkdir -p "$pkgdir"
+  install -D -m 644 LICENSE \
+    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+_py() {
+  cd "$builddir"
+  local python="$1"
+  pkgdesc="$pkgdesc (for $python)"
+  depends="$depends $python"
+  install_if="$pkgname=$pkgver-r$pkgrel $python"
+
+  $python setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+_py2() {
+  depends="${depends//py-/py2-}"
+  _py python2
+}
+
+_py3() {
+  depends="${depends//py-/py3-}"
+  _py python3
+}
+
+sha512sums="
+50ecf01e2c3031d7d8d79ec5fea5b67425cb02d24f1e66f62d01853fa1b2a72f41addd8f11b8e4656b5d449c6e646de1835e64d615d24271301f83656cfb0c9f  pysdl2-dll-2.30.2.tar.gz
+"
