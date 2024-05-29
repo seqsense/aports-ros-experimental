@@ -12,7 +12,7 @@ index e890229..28acbb5 100644
              new_inst = m.__class__()
              if loaded is not None:
 diff --git a/test/test_genpy_rostime.py b/test/test_genpy_rostime.py
-index 27462e1..b49a90e 100644
+index 27462e1..2924de2 100644
 --- a/test/test_genpy_rostime.py
 +++ b/test/test_genpy_rostime.py
 @@ -45,133 +45,133 @@ class RostimeTest(unittest.TestCase):
@@ -23,11 +23,7 @@ index 27462e1..b49a90e 100644
 -        self.assert_(str(v))
 -        self.assertEquals(0, v.secs)
 -        self.assertEquals(0, v.nsecs)
-+        self.assertTrue(repr(v))
-+        self.assertTrue(str(v))
-+        self.assertEqual(0, v.secs)
-+        self.assertEqual(0, v.nsecs)
-         self.failIf(v) # test __zero__
+-        self.failIf(v) # test __zero__
 -        self.assert_(v.is_zero())
 -        self.assertEquals('0', str(v))
 -        self.assertEquals(0, v.to_nsec())
@@ -44,6 +40,11 @@ index 27462e1..b49a90e 100644
 -        self.assert_(v <= TVal())
 -        self.assert_(v < TVal(0,1))
 -        self.assert_(TVal(0,1) > v)
++        self.assertTrue(repr(v))
++        self.assertTrue(str(v))
++        self.assertEqual(0, v.secs)
++        self.assertEqual(0, v.nsecs)
++        self.assertFalse(v) # test __zero__
 +        self.assertTrue(v.is_zero())
 +        self.assertEqual('0', str(v))
 +        self.assertEqual(0, v.to_nsec())
@@ -92,10 +93,7 @@ index 27462e1..b49a90e 100644
 -        self.assertEquals(1, v.secs)
 -        self.assertEquals(0, v.nsecs)
 -        self.assert_(v) # test __zero__
-+        self.assertEqual(1, v.secs)
-+        self.assertEqual(0, v.nsecs)
-+        self.assertTrue(v) # test __zero__
-         self.failIf(v.is_zero())
+-        self.failIf(v.is_zero())
 -        self.assertEquals('1000000000', str(v))
 -        self.assertEquals(1000000000, v.to_nsec())
 -        self.assertEquals(v, v)
@@ -103,6 +101,10 @@ index 27462e1..b49a90e 100644
 -        self.assertEquals(v, TVal(1, 0))
 -        self.assertEquals(v, TVal(0,1000000000))
 -        self.assertEquals(v.__hash__(), TVal(0,1000000000).__hash__())
++        self.assertEqual(1, v.secs)
++        self.assertEqual(0, v.nsecs)
++        self.assertTrue(v) # test __zero__
++        self.assertFalse(v.is_zero())
 +        self.assertEqual('1000000000', str(v))
 +        self.assertEqual(1000000000, v.to_nsec())
 +        self.assertEqual(v, v)
@@ -119,11 +121,7 @@ index 27462e1..b49a90e 100644
 -        self.assertEquals(NotImplemented, v.__ge__(Foo()))
 -        self.assertEquals(NotImplemented, v.__le__(Foo()))
 -        self.assertEquals(NotImplemented, v.__lt__(Foo()))
-+        self.assertEqual(NotImplemented, v.__gt__(Foo()))
-+        self.assertEqual(NotImplemented, v.__ge__(Foo()))
-+        self.assertEqual(NotImplemented, v.__le__(Foo()))
-+        self.assertEqual(NotImplemented, v.__lt__(Foo()))
-         self.failIf(v.__eq__(Foo()))
+-        self.failIf(v.__eq__(Foo()))
 -        self.assert_(v.__ne__(Foo()))
 -        self.assert_(v >= TVal())
 -        self.assert_(v <= TVal(1))
@@ -133,6 +131,11 @@ index 27462e1..b49a90e 100644
 -        self.assert_(v < TVal(1,1))
 -        self.assert_(TVal(1,1) > v)
 -        self.assert_(TVal(2) > v)
++        self.assertEqual(NotImplemented, v.__gt__(Foo()))
++        self.assertEqual(NotImplemented, v.__ge__(Foo()))
++        self.assertEqual(NotImplemented, v.__le__(Foo()))
++        self.assertEqual(NotImplemented, v.__lt__(Foo()))
++        self.assertFalse(v.__eq__(Foo()))
 +        self.assertTrue(v.__ne__(Foo()))
 +        self.assertTrue(v >= TVal())
 +        self.assertTrue(v <= TVal(1))
@@ -147,14 +150,15 @@ index 27462e1..b49a90e 100644
 -        self.assertEquals(0, v.secs)
 -        self.assertEquals(1, v.nsecs)
 -        self.assert_(v) # test __zero__
-+        self.assertEqual(0, v.secs)
-+        self.assertEqual(1, v.nsecs)
-+        self.assertTrue(v) # test __zero__
-         self.failIf(v.is_zero())
+-        self.failIf(v.is_zero())
 -        self.assertEquals('1', str(v))
 -        self.assertEquals(1, v.to_nsec())
 -        self.assertEquals(v, v)
 -        self.assertEquals(v, TVal(0,1))
++        self.assertEqual(0, v.secs)
++        self.assertEqual(1, v.nsecs)
++        self.assertTrue(v) # test __zero__
++        self.assertFalse(v.is_zero())
 +        self.assertEqual('1', str(v))
 +        self.assertEqual(1, v.to_nsec())
 +        self.assertEqual(v, v)
@@ -242,7 +246,35 @@ index 27462e1..b49a90e 100644
          self.assertNotEquals(TVal(1).__hash__(), TVal(2).__hash__())
          self.assertNotEquals(TVal(1,1).__hash__(), TVal(1,2).__hash__())
          self.assertNotEquals(TVal(1,1).__hash__(), TVal(2,1).__hash__())
-@@ -211,14 +211,14 @@ class RostimeTest(unittest.TestCase):
+@@ -186,12 +186,12 @@ class RostimeTest(unittest.TestCase):
+           v = Duration.from_sec(0.1) > Time.from_sec(0.5)
+           failed = True
+         except: pass
+-        self.failIf(failed, "should have failed to compare")
++        self.assertFalse(failed, "should have failed to compare")
+         try:
+           v = Time.from_sec(0.4) > Duration.from_sec(0.1)
+           failed = True
+         except: pass
+-        self.failIf(failed, "should have failed to compare")
++        self.assertFalse(failed, "should have failed to compare")
+ 
+         # TODO: sub
+ 
+@@ -200,25 +200,25 @@ class RostimeTest(unittest.TestCase):
+             Time(-1)
+             failed = True
+         except: pass
+-        self.failIf(failed, "negative time not allowed")
++        self.assertFalse(failed, "negative time not allowed")
+         try:
+             Time(1, -1000000001)
+             failed = True
+         except: pass
+-        self.failIf(failed, "negative time not allowed")
++        self.assertFalse(failed, "negative time not allowed")
+ 
+         # test Time.now() is within 10 seconds of actual time (really generous)
          import time
          t = time.time()
          v = Time.from_sec(t)
@@ -263,7 +295,12 @@ index 27462e1..b49a90e 100644
  
          # test addition
          # - time + time fails
-@@ -230,33 +230,33 @@ class RostimeTest(unittest.TestCase):
+@@ -226,80 +226,80 @@ class RostimeTest(unittest.TestCase):
+             v = Time(1,0) + Time(1, 0)
+             failed = True
+         except: pass
+-        self.failIf(failed, "Time + Time must fail")
++        self.assertFalse(failed, "Time + Time must fail")
  
          # - time + duration
          v = Time(1,0) + Duration(1, 0)
@@ -309,7 +346,18 @@ index 27462e1..b49a90e 100644
  
          # test subtraction
          try:
-@@ -273,33 +273,33 @@ class RostimeTest(unittest.TestCase):
+             v = Time(1,0) - 1
+             failed = True
+         except: pass
+-        self.failIf(failed, "Time - non Duration must fail")
++        self.assertFalse(failed, "Time - non Duration must fail")
+         class Foob(object): pass
+         try:
+             v = Time(1,0) - Foob()
+             failed = True
+         except: pass
+-        self.failIf(failed, "Time - non TVal must fail")
++        self.assertFalse(failed, "Time - non TVal must fail")
  
          # - Time - Duration
          v = Time(1,0) - Duration(1, 0)
@@ -356,7 +404,7 @@ index 27462e1..b49a90e 100644
  
          try:
              Time(0.5, 0.5)
-@@ -313,25 +313,25 @@ class RostimeTest(unittest.TestCase):
+@@ -313,90 +313,90 @@ class RostimeTest(unittest.TestCase):
  
          # test from_sec
          v = Duration(1000)
@@ -393,8 +441,10 @@ index 27462e1..b49a90e 100644
          failed = False
          try:
              v = Duration(1,0) + 1
-@@ -340,23 +340,23 @@ class RostimeTest(unittest.TestCase):
-         self.failIf(failed, "Duration + int must fail")
+             failed = True
+         except: pass
+-        self.failIf(failed, "Duration + int must fail")
++        self.assertFalse(failed, "Duration + int must fail")
  
          v = Duration(1,0) + Duration(1, 0)
 -        self.assertEquals(2, v.secs)
@@ -429,8 +479,17 @@ index 27462e1..b49a90e 100644
  
          # test subtraction
          try:
-@@ -371,32 +371,32 @@ class RostimeTest(unittest.TestCase):
-         self.failIf(failed, "Duration - Time must fail")
+             v = Duration(1,0) - 1
+             failed = True
+         except: pass
+-        self.failIf(failed, "Duration - non duration must fail")
++        self.assertFalse(failed, "Duration - non duration must fail")
+         try:
+             v = Duration(1, 0) - Time(1,0)
+             failed = True
+         except: pass
+-        self.failIf(failed, "Duration - Time must fail")
++        self.assertFalse(failed, "Duration - Time must fail")
  
          v = Duration(1,0) - Duration(1, 0)
 -        self.assertEquals(Duration(), v)
