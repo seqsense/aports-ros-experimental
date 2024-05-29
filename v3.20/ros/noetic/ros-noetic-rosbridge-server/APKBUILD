@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="py3-autobahn py3-openssl py3-pynacl py3-service_identity py3-tornado py3-twisted py3-zope-interface ros-noetic-rosapi ros-noetic-rosauth ros-noetic-rosbridge-library ros-noetic-rosbridge-msgs ros-noetic-rospy"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath py3-setuptools ros-noetic-catkin ros-noetic-rostest"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-setuptools ros-noetic-catkin ros-noetic-rostest"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

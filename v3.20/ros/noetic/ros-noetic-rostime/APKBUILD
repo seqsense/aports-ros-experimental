@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="boost-dev ros-noetic-cpp-common boost-dev ros-noetic-cpp-common"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath boost-dev ros-noetic-catkin>=0.5.68 ros-noetic-cpp-common"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev ros-noetic-catkin>=0.5.68 ros-noetic-cpp-common"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="urdfdom_headers urdfdom_headers"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin urdfdom_headers"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin urdfdom_headers"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

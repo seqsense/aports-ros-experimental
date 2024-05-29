@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-noetic-nodelet ros-noetic-qt-gui-cpp>=0.3.0 ros-noetic-qt-gui>=0.3.0 ros-noetic-roscpp ros-noetic-nodelet ros-noetic-qt-gui-cpp>=0.3.0 ros-noetic-qt-gui>=0.3.0 ros-noetic-roscpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath qt5-qtbase-dev ros-noetic-catkin ros-noetic-nodelet ros-noetic-qt-gui-cpp>=0.3.0 ros-noetic-qt-gui>=0.3.0 ros-noetic-roscpp"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath qt5-qtbase-dev ros-noetic-catkin ros-noetic-nodelet ros-noetic-qt-gui-cpp>=0.3.0 ros-noetic-qt-gui>=0.3.0 ros-noetic-roscpp"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

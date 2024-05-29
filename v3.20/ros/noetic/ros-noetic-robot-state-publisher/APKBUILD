@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="orocos-kdl ros-noetic-kdl-parser ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rostime ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2-kdl ros-noetic-tf2-ros orocos-kdl-dev ros-noetic-kdl-parser ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rostime ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2-kdl ros-noetic-tf2-ros"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath eigen-dev orocos-kdl-dev ros-noetic-catkin ros-noetic-kdl-parser ros-noetic-rosbag ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rostest ros-noetic-rostime ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2-kdl ros-noetic-tf2-ros urdfdom_headers"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev orocos-kdl-dev ros-noetic-catkin ros-noetic-kdl-parser ros-noetic-rosbag ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rostest ros-noetic-rostime ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2-kdl ros-noetic-tf2-ros urdfdom_headers"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

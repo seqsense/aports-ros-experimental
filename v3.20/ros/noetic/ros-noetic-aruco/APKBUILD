@@ -8,7 +8,7 @@ arch="all"
 license="MIT"
 
 depends="eigen-dev ros-noetic-cv-bridge eigen-dev ros-noetic-cv-bridge"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath eigen-dev ros-noetic-catkin ros-noetic-cv-bridge"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev ros-noetic-catkin ros-noetic-cv-bridge"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

@@ -8,7 +8,7 @@ arch="all"
 license="Apache"
 
 depends="curl-dev glog-dev pcl-dev ros-noetic-cv-bridge xmlrpc-c-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath boost-dev cmake curl-dev glog-dev pcl-dev ros-noetic-cv-bridge xmlrpc-c-dev"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev cmake curl-dev glog-dev pcl-dev ros-noetic-cv-bridge xmlrpc-c-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

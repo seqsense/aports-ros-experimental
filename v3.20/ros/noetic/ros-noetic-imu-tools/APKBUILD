@@ -8,7 +8,7 @@ arch="all"
 license="BSD, GPL"
 
 depends="ros-noetic-imu-complementary-filter ros-noetic-imu-filter-madgwick ros-noetic-rviz-imu-plugin ros-noetic-imu-complementary-filter ros-noetic-imu-filter-madgwick ros-noetic-rviz-imu-plugin"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="festival festvox-kallpc16k flite gst-plugins-base gst-plugins-good gst-plugins-ugly gstreamer py3-gobject3 ros-noetic-actionlib-msgs ros-noetic-audio-common-msgs ros-noetic-diagnostic-msgs ros-noetic-message-runtime ros-noetic-resource-retriever ros-noetic-roscpp ros-noetic-roslib ros-noetic-rospy"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath py3-setuptools ros-noetic-actionlib ros-noetic-actionlib-msgs ros-noetic-audio-common-msgs ros-noetic-catkin ros-noetic-diagnostic-msgs ros-noetic-message-generation ros-noetic-roscpp ros-noetic-roslib"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-setuptools ros-noetic-actionlib ros-noetic-actionlib-msgs ros-noetic-audio-common-msgs ros-noetic-catkin ros-noetic-diagnostic-msgs ros-noetic-message-generation ros-noetic-roscpp ros-noetic-roslib"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
