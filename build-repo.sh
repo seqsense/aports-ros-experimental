@@ -34,6 +34,10 @@ case "${STACK_PROTECTOR:-yes}" in
 esac
 echo "export CFLAGS=\"${CFLAGS}\"" | sudo tee -a /etc/abuild.conf
 
+if [ "${ALPINE_VERSION}" != "3.17" ]; then
+  echo "export CXXFLAGS=\"-std=c++14\"" | sudo tee -a /etc/abuild.conf
+fi
+
 
 # Overwrite make setting if provided
 
