@@ -12,10 +12,10 @@ index e890229..28acbb5 100644
              new_inst = m.__class__()
              if loaded is not None:
 diff --git a/test/test_genpy_rostime.py b/test/test_genpy_rostime.py
-index 27462e1..2924de2 100644
+index 27462e1..5ab7e7c 100644
 --- a/test/test_genpy_rostime.py
 +++ b/test/test_genpy_rostime.py
-@@ -45,133 +45,133 @@ class RostimeTest(unittest.TestCase):
+@@ -45,136 +45,136 @@ class RostimeTest(unittest.TestCase):
          # test constructor
          # - test zero
          v = TVal()
@@ -101,6 +101,9 @@ index 27462e1..2924de2 100644
 -        self.assertEquals(v, TVal(1, 0))
 -        self.assertEquals(v, TVal(0,1000000000))
 -        self.assertEquals(v.__hash__(), TVal(0,1000000000).__hash__())
+-        self.assertNotEquals(v, TVal(0, 0))
+-        self.assertNotEquals(v.__hash__(), TVal(0, 0).__hash__())
+-        self.assertEquals(NotImplemented, v.__ge__(0))
 +        self.assertEqual(1, v.secs)
 +        self.assertEqual(0, v.nsecs)
 +        self.assertTrue(v) # test __zero__
@@ -112,9 +115,8 @@ index 27462e1..2924de2 100644
 +        self.assertEqual(v, TVal(1, 0))
 +        self.assertEqual(v, TVal(0,1000000000))
 +        self.assertEqual(v.__hash__(), TVal(0,1000000000).__hash__())
-         self.assertNotEquals(v, TVal(0, 0))
-         self.assertNotEquals(v.__hash__(), TVal(0, 0).__hash__())
--        self.assertEquals(NotImplemented, v.__ge__(0))
++        self.assertNotEqual(v, TVal(0, 0))
++        self.assertNotEqual(v.__hash__(), TVal(0, 0).__hash__())
 +        self.assertEqual(NotImplemented, v.__ge__(0))
          class Foo(object): pass
 -        self.assertEquals(NotImplemented, v.__gt__(Foo()))
@@ -155,15 +157,7 @@ index 27462e1..2924de2 100644
 -        self.assertEquals(1, v.to_nsec())
 -        self.assertEquals(v, v)
 -        self.assertEquals(v, TVal(0,1))
-+        self.assertEqual(0, v.secs)
-+        self.assertEqual(1, v.nsecs)
-+        self.assertTrue(v) # test __zero__
-+        self.assertFalse(v.is_zero())
-+        self.assertEqual('1', str(v))
-+        self.assertEqual(1, v.to_nsec())
-+        self.assertEqual(v, v)
-+        self.assertEqual(v, TVal(0,1))
-         self.assertNotEquals(v, TVal(0, 0))
+-        self.assertNotEquals(v, TVal(0, 0))
 -        self.assert_(v >= TVal())
 -        self.assert_(v <= TVal(1))
 -        self.assert_(v <= TVal(0,1))
@@ -172,6 +166,15 @@ index 27462e1..2924de2 100644
 -        self.assert_(v < TVal(1))
 -        self.assert_(TVal(1) > v)
 -        self.assert_(TVal(0,2) > v)
++        self.assertEqual(0, v.secs)
++        self.assertEqual(1, v.nsecs)
++        self.assertTrue(v) # test __zero__
++        self.assertFalse(v.is_zero())
++        self.assertEqual('1', str(v))
++        self.assertEqual(1, v.to_nsec())
++        self.assertEqual(v, v)
++        self.assertEqual(v, TVal(0,1))
++        self.assertNotEqual(v, TVal(0, 0))
 +        self.assertTrue(v >= TVal())
 +        self.assertTrue(v <= TVal(1))
 +        self.assertTrue(v <= TVal(0,1))
@@ -241,11 +244,17 @@ index 27462e1..2924de2 100644
          # test some more hashes
 -        self.assertEquals(TVal(1).__hash__(), TVal(1).__hash__())
 -        self.assertEquals(TVal(1,1).__hash__(), TVal(1,1).__hash__())
+-        self.assertNotEquals(TVal(1).__hash__(), TVal(2).__hash__())
+-        self.assertNotEquals(TVal(1,1).__hash__(), TVal(1,2).__hash__())
+-        self.assertNotEquals(TVal(1,1).__hash__(), TVal(2,1).__hash__())
 +        self.assertEqual(TVal(1).__hash__(), TVal(1).__hash__())
 +        self.assertEqual(TVal(1,1).__hash__(), TVal(1,1).__hash__())
-         self.assertNotEquals(TVal(1).__hash__(), TVal(2).__hash__())
-         self.assertNotEquals(TVal(1,1).__hash__(), TVal(1,2).__hash__())
-         self.assertNotEquals(TVal(1,1).__hash__(), TVal(2,1).__hash__())
++        self.assertNotEqual(TVal(1).__hash__(), TVal(2).__hash__())
++        self.assertNotEqual(TVal(1,1).__hash__(), TVal(1,2).__hash__())
++        self.assertNotEqual(TVal(1,1).__hash__(), TVal(2,1).__hash__())
+ 
+     def test_Time(self):
+         from genpy.rostime import Time, Duration
 @@ -186,12 +186,12 @@ class RostimeTest(unittest.TestCase):
            v = Duration.from_sec(0.1) > Time.from_sec(0.5)
            failed = True
