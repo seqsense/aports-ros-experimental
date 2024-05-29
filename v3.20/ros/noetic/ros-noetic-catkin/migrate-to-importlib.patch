@@ -1,0 +1,197 @@
+diff --git a/test/unit_tests/imp.py b/test/unit_tests/imp.py
+new file mode 100644
+index 0000000..98bd9d4
+--- /dev/null
++++ b/test/unit_tests/imp.py
+@@ -0,0 +1,13 @@
++# -*- coding: utf-8 -*-
++import sys
++import importlib.machinery
++import importlib.util
++
++def load_source(name, pathname, file=None):
++    loader = importlib.machinery.SourceFileLoader(name, pathname)
++    # spec = importlib.util.spec_from_file_location(name, pathname, loader=loader)
++    spec = importlib.util.spec_from_loader(name, loader)
++    module = importlib.util.module_from_spec(spec)
++    loader.exec_module(module)
++    sys.modules[name] = module
++    return module
+diff --git a/test/unit_tests/test_catkin_find.py b/test/unit_tests/test_catkin_find.py
+index 071b177..dacf806 100644
+--- a/test/unit_tests/test_catkin_find.py
++++ b/test/unit_tests/test_catkin_find.py
+@@ -1,10 +1,11 @@
+-import imp
+ import os
+ import unittest
+ 
+-imp.load_source('catkin_find',
+-                os.path.join(os.path.dirname(__file__),
+-                             '..', '..', 'bin', 'catkin_find'))
++from .imp import load_source
++
++load_source('catkin_find',
++            os.path.join(os.path.dirname(__file__),
++                         '..', '..', 'bin', 'catkin_find'))
+ 
+ from catkin_find import parse_args  # noqa: E402
+ 
+diff --git a/test/unit_tests/test_catkin_make_isolated.py b/test/unit_tests/test_catkin_make_isolated.py
+index acba487..d3a2bc3 100644
+--- a/test/unit_tests/test_catkin_make_isolated.py
++++ b/test/unit_tests/test_catkin_make_isolated.py
+@@ -1,6 +1,5 @@
+ from __future__ import print_function
+ 
+-import imp
+ import os
+ import shutil
+ import subprocess
+@@ -8,6 +7,8 @@ import sys
+ import tempfile
+ import unittest
+ 
++from .imp import load_source
++
+ try:
+     from catkin.builder import extract_cmake_and_make_arguments
+ except ImportError as e:
+@@ -15,9 +16,9 @@ except ImportError as e:
+         'Please adjust your pythonpath before running this test: %s' % str(e)
+     )
+ 
+-imp.load_source('catkin_make_isolated',
+-                os.path.join(os.path.dirname(__file__),
+-                             '..', '..', 'bin', 'catkin_make_isolated'))
++load_source('catkin_make_isolated',
++            os.path.join(os.path.dirname(__file__),
++                         '..', '..', 'bin', 'catkin_make_isolated'))
+ 
+ from catkin_make_isolated import handle_cmake_args  # noqa: E402
+ from catkin_make_isolated import main  # noqa: E402
+diff --git a/test/unit_tests/test_download_md5.py b/test/unit_tests/test_download_md5.py
+index 5747c7f..abf5814 100644
+--- a/test/unit_tests/test_download_md5.py
++++ b/test/unit_tests/test_download_md5.py
+@@ -1,10 +1,11 @@
+-import imp
+ import os
+ import shutil
+ import tempfile
+ import unittest
+ 
+-imp.load_source('download_checkmd5',
++from .imp import load_source
++
++load_source('download_checkmd5',
+                 os.path.join(os.path.dirname(__file__),
+                              '..', '..', 'cmake', 'test', 'download_checkmd5.py'))
+ 
+diff --git a/test/unit_tests/test_interrogate_setup.py b/test/unit_tests/test_interrogate_setup.py
+index a075dde..5887e67 100644
+--- a/test/unit_tests/test_interrogate_setup.py
++++ b/test/unit_tests/test_interrogate_setup.py
+@@ -1,12 +1,13 @@
+-import imp
+ import os
+ import shutil
+ import tempfile
+ import unittest
+ 
+-imp.load_source('interrogate_setup_dot_py',
+-                os.path.join(os.path.dirname(__file__),
+-                             '..', '..', 'cmake', 'interrogate_setup_dot_py.py'))
++from .imp import load_source
++
++load_source('interrogate_setup_dot_py',
++            os.path.join(os.path.dirname(__file__),
++                         '..', '..', 'cmake', 'interrogate_setup_dot_py.py'))
+ 
+ from interrogate_setup_dot_py import _create_mock_setup_function  # noqa: E402
+ from interrogate_setup_dot_py import _get_locations  # noqa: E402
+diff --git a/test/unit_tests/test_order_paths.py b/test/unit_tests/test_order_paths.py
+index ce09e99..98430ad 100644
+--- a/test/unit_tests/test_order_paths.py
++++ b/test/unit_tests/test_order_paths.py
+@@ -1,10 +1,11 @@
+-import imp
+ import os
+ import unittest
+ 
+-imp.load_source('order_paths',
+-                os.path.join(os.path.dirname(__file__),
+-                             '..', '..', 'cmake', 'order_paths.py'))
++from .imp import load_source
++
++load_source('order_paths',
++            os.path.join(os.path.dirname(__file__),
++                         '..', '..', 'cmake', 'order_paths.py'))
+ 
+ from order_paths import order_paths  # noqa: E402
+ 
+diff --git a/test/unit_tests/test_parse_package_xml.py b/test/unit_tests/test_parse_package_xml.py
+index b65885f..9a12706 100644
+--- a/test/unit_tests/test_parse_package_xml.py
++++ b/test/unit_tests/test_parse_package_xml.py
+@@ -1,14 +1,14 @@
+-import imp
+ import os
+ import shutil
+ import tempfile
+ import unittest
+ 
++from .imp import load_source
+ from mock import Mock
+ 
+-imp.load_source('parse_package_xml',
+-                os.path.join(os.path.dirname(__file__),
+-                             '..', '..', 'cmake', 'parse_package_xml.py'))
++load_source('parse_package_xml',
++            os.path.join(os.path.dirname(__file__),
++                         '..', '..', 'cmake', 'parse_package_xml.py'))
+ 
+ from parse_package_xml import _get_output  # noqa: E402
+ from parse_package_xml import main  # noqa: E402
+diff --git a/test/unit_tests/test_run_tests.py b/test/unit_tests/test_run_tests.py
+index d254d5a..f230e9b 100644
+--- a/test/unit_tests/test_run_tests.py
++++ b/test/unit_tests/test_run_tests.py
+@@ -1,12 +1,13 @@
+-import imp
+ import os
+ import shutil
+ import tempfile
+ import unittest
+ 
+-imp.load_source('run_tests',
+-                os.path.join(os.path.dirname(__file__),
+-                             '..', '..', 'cmake', 'test', 'run_tests.py'))
++from .imp import load_source
++
++load_source('run_tests',
++            os.path.join(os.path.dirname(__file__),
++                         '..', '..', 'cmake', 'test', 'run_tests.py'))
+ 
+ from run_tests import main  # noqa: E402
+ 
+diff --git a/test/unit_tests/test_setup_util.py b/test/unit_tests/test_setup_util.py
+index afadaca..1146b8d 100644
+--- a/test/unit_tests/test_setup_util.py
++++ b/test/unit_tests/test_setup_util.py
+@@ -17,10 +17,12 @@ data = configure_file(os.path.join(os.path.dirname(__file__), '..', '..', 'cmake
+                       })
+ with tempfile.NamedTemporaryFile('w+') as setup_util_file:
+     setup_util_file.write(data)
+-    setup_util_file.seek(0)
++    setup_util_file.flush()
+ 
+-    import imp
+-    imp.load_source('setup_util', setup_util_file.name, setup_util_file.file)
++    from .imp import load_source
++    print(setup_util_file.name)
++
++    load_source('setup_util', setup_util_file.name)
+ 
+ from setup_util import CATKIN_MARKER_FILE  # noqa: E402
+ from setup_util import _get_workspaces  # noqa: E402
