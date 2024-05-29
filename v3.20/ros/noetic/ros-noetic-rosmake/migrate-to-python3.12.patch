@@ -1,7 +1,7 @@
-diff --git a/tools/rosmake/test/test_parallel_build.py b/tools/rosmake/test/test_parallel_build.py
+diff --git a/test/test_parallel_build.py b/test/test_parallel_build.py
 index 76938094..1ff8bac2 100644
---- a/tools/rosmake/test/test_parallel_build.py
-+++ b/tools/rosmake/test/test_parallel_build.py
+--- a/test/test_parallel_build.py
++++ b/test/test_parallel_build.py
 @@ -46,18 +46,18 @@ class TestDependencyTracker(unittest.TestCase):
          self.dt.load_fake_deps(self.deps, self.deps1)
  
