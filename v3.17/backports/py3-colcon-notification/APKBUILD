@@ -1,7 +1,7 @@
 pkgname=py3-colcon-notification
 _pkgname=colcon-notification
 pkgver=0.3.0
-pkgrel=0
+pkgrel=1
 pkgdesc="Extension for colcon to provide status notifications."
 url="http://colcon.readthedocs.io"
 arch="noarch"
@@ -32,7 +32,7 @@ check() {
 
 package() {
         . .venv/bin/activate
-        python3 -m pip install dist/colcon_notification-"$pkgver"-py3-none-any.whl --prefix=/usr --root="$pkgdir"
+        python3 -m pip install dist/colcon_notification-"$pkgver"-py3-none-any.whl --prefix=/usr --root="$pkgdir" --no-deps
         deactivate
 
         # Install license files
