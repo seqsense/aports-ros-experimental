@@ -1,0 +1,44 @@
+pkgname=py3-colcon-output
+_pkgname=colcon-output
+pkgver=0.2.13
+pkgrel=1
+pkgdesc="Extension for colcon to customize the output in various ways."
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="python3 py3-colcon-core"
+makedepends="py3-setuptools"
+checkdepends="py3-pip py3-pytest py3-pytest-runner"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz
+        ignore-pkg-resources-error.patch"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        mkdir .venv
+        python3 -m venv .venv
+        . .venv/bin/activate
+        python3 -m pip install -U build
+        python3 -m build
+        deactivate
+}
+
+check() {
+        . .venv/bin/activate
+        python3 -m pip install -U pip setuptools
+        python3 -m pip install -e .[test]
+        python3 -m pytest
+        deactivate
+}
+
+package() {
+        . .venv/bin/activate
+        python3 -m pip install dist/colcon_output-"$pkgver"-py3-none-any.whl --prefix=/usr --root="$pkgdir" --no-deps
+        deactivate
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="f6d99b6024f14eb72b7b1b8a4d615ff43100269b6057438de49d3d50ddd4130f4bf9c8705412e600e90995698af71cee52f778719fbbfea2753209edaa530b04  colcon-output-0.2.13.tar.gz
+b08981f8fc89cf24aad0676d8698c1e7d6abcc89c699fef523575ef69f76897e58e05d25636e0867479f97cdb58d05a9e47d4e1c313f2c8b535379e8b34a4d2b  ignore-pkg-resources-error.patch"

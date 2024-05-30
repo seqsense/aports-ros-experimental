@@ -1,0 +1,42 @@
+pkgname=py3-colcon-bash
+_pkgname=colcon-bash
+pkgver=0.5.0
+pkgrel=1
+pkgdesc="Extension for colcon to provide Bash scripts."
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="python3 py3-colcon-core"
+makedepends="py3-setuptools"
+checkdepends="py3-pip py3-pytest py3-pytest-runner"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        mkdir .venv
+        python3 -m venv .venv
+        . .venv/bin/activate
+        python3 -m pip install -U build
+        python3 -m build
+        deactivate
+}
+
+check() {
+        . .venv/bin/activate
+        python3 -m pip install -U pip setuptools
+        python3 -m pip install -e .[test]
+        python3 -m pytest
+        deactivate
+}
+
+package() {
+        . .venv/bin/activate
+        python3 -m pip install dist/colcon_bash-"$pkgver"-py3-none-any.whl --prefix=/usr --root="$pkgdir" --no-deps
+        deactivate
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="7a3e507b2352d945a0d8470af26ee6a33d279cda9780725882287342d250a9a8c3c733a19d3cabcbaf645ff3d02666a109a391d1f116aa4430442c270b3c2bd6  colcon-bash-0.5.0.tar.gz"

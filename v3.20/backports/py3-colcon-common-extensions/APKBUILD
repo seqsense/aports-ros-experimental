@@ -1,0 +1,56 @@
+pkgname=py3-colcon-common-extensions
+_pkgname=colcon-common-extensions
+pkgver=0.3.0
+pkgrel=2
+pkgdesc="A meta package aggregating colcon-core as well as a set of common extensions."
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache License 2.0"
+depends="
+        python3
+        py3-colcon-argcomplete
+        py3-colcon-bash
+        py3-colcon-cd
+        py3-colcon-cmake
+        py3-colcon-core
+        py3-colcon-defaults
+        py3-colcon-devtools
+        py3-colcon-library-path
+        py3-colcon-metadata
+        py3-colcon-notification
+        py3-colcon-output
+        py3-colcon-package-information
+        py3-colcon-package-selection
+        py3-colcon-parallel-executor
+        py3-colcon-powershell
+        py3-colcon-python-setup-py
+        py3-colcon-recursive-crawl
+        py3-colcon-ros
+        py3-colcon-test-result
+        py3-colcon-zsh
+        py3-colcon-override-check
+        "
+makedepends="py3-setuptools"
+install=""
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        mkdir .venv
+        python3 -m venv .venv
+        . .venv/bin/activate
+        python3 -m pip install -U build
+        python3 -m build
+        deactivate
+}
+
+package() {
+        . .venv/bin/activate
+        python3 -m pip install dist/colcon_common_extensions-"$pkgver"-py3-none-any.whl --prefix=/usr --root="$pkgdir" --no-deps
+        deactivate
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+sha512sums="1f78a79f5ccf28ad5e0a2a43485383b1ad347fda5a9d593c6b21bab17173cab7bdb7b6ca68a65107354856deabb9f397ea000b83506c084003b92c78fb5e3a1b  colcon-common-extensions-0.3.0.tar.gz"

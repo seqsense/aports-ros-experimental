@@ -1,0 +1,42 @@
+pkgname=py3-colcon-cmake
+_pkgname=colcon-cmake
+pkgver=0.2.28
+pkgrel=1
+pkgdesc="Extension for colcon to support CMake packages."
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="cmake python3 py3-colcon-core py3-colcon-library-path py3-colcon-test-result"
+makedepends="py3-setuptools"
+checkdepends="py3-pip py3-pytest py3-flake8"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        mkdir .venv
+        python3 -m venv .venv
+        . .venv/bin/activate
+        python3 -m pip install -U build
+        python3 -m build
+        deactivate
+}
+
+check() {
+        . .venv/bin/activate
+        python3 -m pip install -U pip setuptools
+        python3 -m pip install -e .[test]
+        python3 -m pytest
+        deactivate
+}
+
+package() {
+        . .venv/bin/activate
+        python3 -m pip install dist/colcon_cmake-"$pkgver"-py3-none-any.whl --prefix=/usr --root="$pkgdir" --no-deps
+        deactivate
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="f62e6b60363ec68170226454eb61f40dc523729542da3609e8b8a73c88deb7403fd747fb1d7986449a6ffbd981823d6e9f4d999279f98796a3df7df28a6d3df6  colcon-cmake-0.2.28.tar.gz"

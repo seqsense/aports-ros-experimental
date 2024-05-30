@@ -1,0 +1,44 @@
+pkgname=py3-colcon-argcomplete
+_pkgname=colcon-argcomplete
+pkgver=0.3.3
+pkgrel=2
+pkgdesc="Completion for colcon command lines using argcomplete."
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="python3 py3-colcon-core py3-argcomplete"
+makedepends="py3-setuptools"
+checkdepends="py3-pip py3-pytest py3-pytest-runner"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz
+        workaround-setup-cfg.patch"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        mkdir .venv
+        python3 -m venv .venv
+        . .venv/bin/activate
+        python3 -m pip install -U build
+        python3 -m build
+        deactivate
+}
+
+check() {
+        . .venv/bin/activate
+        python3 -m pip install -U pip setuptools
+        python3 -m pip install -e .[test]
+        python3 -m pytest
+        deactivate
+}
+
+package() {
+        . .venv/bin/activate
+        python3 -m pip install dist/colcon_argcomplete-"$pkgver"-py3-none-any.whl --prefix=/usr --root="$pkgdir" --no-deps
+        deactivate
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="837d58bd5728c43d51914073bca22a8b2e4320727deef8603d5632c41b4fd35118e670109e5327be73e1005447b961388f66bf11c0d7d5771c67068503861bfb  colcon-argcomplete-0.3.3.tar.gz
+cbb863e9a7deb3a7b134a3c6d94215af39d5fc8852e1e15d3f729f74dec29eee9b566165012d6e20e963bd3252b79fa9828936f0d515bbaa118016a455ee82ec  workaround-setup-cfg.patch"
