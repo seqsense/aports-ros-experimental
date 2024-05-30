@@ -1,0 +1,31 @@
+# Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
+# Maintainer:
+pkgname=festlex-cmu
+_pkgname=festlex_CMU
+pkgver=2.5.0
+pkgrel=2
+pkgdesc="Festival Speech Synthesis System, festlex CMU"
+url="http://www.cstr.ed.ac.uk/projects/festival/"
+arch="noarch"
+license="custom:festival"
+depends="festival"
+makedepends=""
+subpackages="$pkgname-doc"
+source="$_pkgname-$pkgver.tar.gz::http://festvox.org/packed/festival/2.5/$_pkgname.tar.gz"
+options="!check"  # test is not provided
+
+builddir="$srcdir/festival"
+
+package() {
+	cd "$builddir"
+
+	install -d -m 0755 "$pkgdir"/usr/share/festival/dicts/cmu
+	install -m 0644 "$builddir"/lib/dicts/cmu/cmu_lts_rules.scm "$pkgdir"/usr/share/festival/dicts/cmu
+	install -m 0644 "$builddir"/lib/dicts/cmu/cmudict-0.4.out "$pkgdir"/usr/share/festival/dicts/cmu
+	install -m 0644 "$builddir"/lib/dicts/cmu/cmulex.scm "$pkgdir"/usr/share/festival/dicts/cmu
+
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/$pkgname
+	install -m 0644 "$builddir"/lib/dicts/cmu/COPYING "$pkgdir"/usr/share/licenses/$pkgname
+}
+
+sha512sums="c293344020fd3337193303cd5dfb7e2b0a1012770a484d8bccaae921b0c61b75699204bec45fee0db754506d6f1558fd616866cc94e76afcbb85a4dcbcf9542b  festlex_CMU-2.5.0.tar.gz"

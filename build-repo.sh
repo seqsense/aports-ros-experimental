@@ -32,24 +32,16 @@ case "${STACK_PROTECTOR:-yes}" in
     echo "Stack protector is disabled"
     ;;
 esac
-sudo sed -i "s/export CFLAGS=\".*\"/export CFLAGS=\"${CFLAGS}\"/" /etc/abuild.conf
-
-echo "/etc/abuild.conf:"
-head -n4 /etc/abuild.conf
+echo "export CFLAGS=\"${CFLAGS}\"" | sudo tee -a /etc/abuild.conf
 
 
 # Overwrite make setting if provided
 
 if [ ! -z "${JOBS}" ]; then
-  sudo sed -i "s/export JOBS=.*/export JOBS=${JOBS}/" /etc/abuild.conf
+  echo "export JOBS=${JOBS}" | sudo tee -a /etc/abuild.conf
 fi
 
-sudo sed -i 's/export MAKEFLAGS=.*/export MAKEFLAGS="-j$JOBS -l$JOBS"/' /etc/abuild.conf
-
-echo "/etc/abuild.conf:"
-grep CFLAGS /etc/abuild.conf
-grep JOBS /etc/abuild.conf
-echo
+echo 'export MAKEFLAGS="-j$JOBS -l$JOBS"' | sudo tee -a /etc/abuild.conf
 
 
 # Copy depending repository
@@ -86,7 +78,7 @@ then
   ); do
     echo "Resigning ${index}"
     rm -f ${index}
-    apk index -o ${index} $(find $(dirname ${index})/../ -name '*.apk')
+    apk index --allow-untrusted -o ${index} $(find $(dirname ${index})/../ -name '*.apk')
     abuild-sign -k /home/builder/.abuild/*.rsa ${index}
   done
   echo
@@ -176,7 +168,7 @@ set -e
 # Generate package index
 
 index=${REPODIR}/${repo_out}/x86_64/APKINDEX.tar.gz
-apk index -o ${index} \
+apk index --allow-untrusted -o ${index} \
   $(find $(dirname ${index}) -name '*.apk')
 
 tmpdir=$(mktemp -d)
@@ -205,7 +197,7 @@ rm -rf ${tmpdir}
 # Re-sign
 
 rm -f ${index}
-apk index -o ${index} \
+apk index --allow-untrusted -o ${index} \
   $(find $(dirname ${index})/../ -name '*.apk')
 abuild-sign -k /home/builder/.abuild/*.rsa ${index}
 

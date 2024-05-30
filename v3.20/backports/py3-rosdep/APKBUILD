@@ -1,0 +1,41 @@
+# Contributor: Atsushi Watanabe<atsushi.w@ieee.org>
+# Maintainer:
+pkgname=py3-rosdep
+_pkgname=rosdep
+pkgver=0.24.0
+pkgrel=0
+pkgdesc="rosdep package manager abstraction tool for ROS"
+url="https://pypi.python.org/pypi/rosdep/"
+arch="noarch"
+license="BSD-3-Clause"
+depends="py3-catkin-pkg>=0.4.0 py3-rospkg>=1.1.10 py3-rosdistro>=0.7.5 py3-yaml>=3.1 py3-setuptools"
+makedepends="python3-dev git"
+subpackages="$pkgname-doc"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz
+	LICENSE"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+	# Install license files
+	install -Dm644 $startdir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="
+301ddc350bdf5cc984d9333c502bc7276ebdc6272b4162346f8db8b3d8e80bba7f0d0bc91f219c9e83e14d3acbe64d6d0590a4ab0e106a5b0124a1308e767148  rosdep-0.24.0.tar.gz
+cc1a94988027bf41c993b3e243d9568c1e8eea664bbe6bb5fb157d368541d51f131d4df0573a3b6df62e3a730d20fc279107fd700083b34e90cfef335f7d1e33  LICENSE
+"
