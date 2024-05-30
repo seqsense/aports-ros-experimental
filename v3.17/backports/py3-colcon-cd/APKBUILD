@@ -1,6 +1,6 @@
 pkgname=py3-colcon-cd
 _pkgname=colcon-cd
-pkgver=0.1.1
+pkgver=0.2.1
 pkgrel=0
 pkgdesc="A shell function for colcon to change the current working directory."
 url="http://colcon.readthedocs.io"
@@ -10,26 +10,33 @@ depends="python3 py3-colcon-core"
 makedepends="py3-setuptools"
 checkdepends="py3-pip py3-pytest py3-pytest-runner"
 subpackages="$pkgname-doc"
-source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz
-        workaround-setup-cfg.patch"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
-        python3 setup.py build
+        mkdir .venv
+        python3 -m venv .venv
+        . .venv/bin/activate
+        python3 -m pip install -U build
+        python3 -m build
+        deactivate
 }
 
 check() {
-        pip3 install -U pip setuptools
-        pip3 install -e .[test]
-        python3 setup.py pytest
+        . .venv/bin/activate
+        python3 -m pip install -U pip setuptools
+        python3 -m pip install -e .[test]
+        python3 -m pytest
+        deactivate
 }
 
 package() {
-        python3 setup.py install --prefix=/usr --root="$pkgdir"
+        . .venv/bin/activate
+        python3 -m pip install dist/colcon_cd-"$pkgver"-py3-none-any.whl --prefix=/usr --root="$pkgdir"
+        deactivate
 
         # Install license files
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="7ca343734b5d287a506f5ac78d1c28098ab473f351623114cc3587bbfff18e670aadc46e85db8bd40f31184a4c06062a9f1b4a77200169511e1b7c2b426edc5b  colcon-cd-0.1.1.tar.gz
-df9d38f203b84944bc138c8985ccc4f266927b2b9edf76b3299733de975dd4c9d66f2df96b06c252c7f28126eb9f53de18b644c7b1ba91fd7bc66d43d7dfa904  workaround-setup-cfg.patch"
+sha512sums="9c43d426f65b26ffa8822249d7a5662a93f84f264c628dab0b1121f4c4f9a003c7a2929b959f8993639ea240b053b63a744cf82fa3017592339bc20b46180ff5  colcon-cd-0.2.1.tar.gz"

@@ -1,7 +1,7 @@
 pkgname=py3-colcon-python-setup-py
 _pkgname=colcon-python-setup-py
 pkgver=0.2.8
-pkgrel=0
+pkgrel=1
 pkgdesc="Extension for colcon to support Python packages with the metadata in the setup.py file."
 url="http://colcon.readthedocs.io"
 arch="noarch"
@@ -10,24 +10,35 @@ depends="python3 py3-colcon-core py3-setuptools"
 makedepends="py3-setuptools"
 checkdepends="py3-pip py3-pytest py3-flake8"
 subpackages="$pkgname-doc"
-source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz
+        workaround-setup-cfg.patch"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
-        python3 setup.py build
+        mkdir .venv
+        python3 -m venv .venv
+        . .venv/bin/activate
+        python3 -m pip install -U build
+        python3 -m build
+        deactivate
 }
 
 check() {
-        pip3 install -U pip setuptools
-        pip3 install -e .[test]
+        . .venv/bin/activate
+        python3 -m pip install -U pip setuptools
+        python3 -m pip install -e .[test]
         python3 -m pytest
+        deactivate
 }
 
 package() {
-        python3 setup.py install --prefix=/usr --root="$pkgdir"
+        . .venv/bin/activate
+        python3 -m pip install dist/colcon_python_setup_py-"$pkgver"-py3-none-any.whl --prefix=/usr --root="$pkgdir"
+        deactivate
 
         # Install license files
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="83b4bb90186c6647f56cb9111bb1bf52534a346a6a0b881f446ad5417d0deeaafc55b153bb9d2df1593371c8557d39d26971b48776260a9c8d8f57adc582dca5  colcon-python-setup-py-0.2.8.tar.gz"
+sha512sums="83b4bb90186c6647f56cb9111bb1bf52534a346a6a0b881f446ad5417d0deeaafc55b153bb9d2df1593371c8557d39d26971b48776260a9c8d8f57adc582dca5  colcon-python-setup-py-0.2.8.tar.gz
+36fc8f0d23738e33815a1c7969d513f15c27ab6baddbee0bb8f01732d45fc889b4c3b304a09c028a89f9de7aa85072d7d3f4ebff2ba1c096624cdfe9b60cff11  workaround-setup-cfg.patch"

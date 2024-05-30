@@ -1,6 +1,6 @@
 pkgname=py3-colcon-notification
 _pkgname=colcon-notification
-pkgver=0.2.15
+pkgver=0.3.0
 pkgrel=0
 pkgdesc="Extension for colcon to provide status notifications."
 url="http://colcon.readthedocs.io"
@@ -14,20 +14,29 @@ source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archiv
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
-        python3 setup.py build
+        mkdir .venv
+        python3 -m venv .venv
+        . .venv/bin/activate
+        python3 -m pip install -U build
+        python3 -m build
+        deactivate
 }
 
 check() {
-        pip3 install -U pip setuptools
-        pip3 install -e .[test]
+        . .venv/bin/activate
+        python3 -m pip install -U pip setuptools
+        python3 -m pip install -e .[test]
         python3 -m pytest
+        deactivate
 }
 
 package() {
-        python3 setup.py install --prefix=/usr --root="$pkgdir"
+        . .venv/bin/activate
+        python3 -m pip install dist/colcon_notification-"$pkgver"-py3-none-any.whl --prefix=/usr --root="$pkgdir"
+        deactivate
 
         # Install license files
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="629a9533a5c2e1763861439e66109344836cc0fe7313901ad95ae9ce7297605072d79979a2e79f88df200ee60f77641a97584ac3e49335b6220e8bec88144b41  colcon-notification-0.2.15.tar.gz"
+sha512sums="143f2a0dec3be8143e2ecbba81008c675f427803bfec924892c3cc480d7d619a6ea348fcf2ad6e36d79066ed2321c6b4975f653637186fe1068b835017813444  colcon-notification-0.3.0.tar.gz"

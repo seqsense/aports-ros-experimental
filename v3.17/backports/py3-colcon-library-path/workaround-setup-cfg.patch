@@ -1,8 +1,52 @@
 diff --git a/setup.cfg b/setup.cfg
-index 17c65d1..85604ab 100644
+index 17c65d1..1434c15 100644
 --- a/setup.cfg
 +++ b/setup.cfg
-@@ -56,3 +56,4 @@ colcon_core.environment =
+@@ -25,11 +25,15 @@ long_description = file: README.rst
+ keywords = colcon
+ 
+ [options]
++python_requires = >=3.6
+ install_requires =
+   colcon-core
+ packages = find:
+-tests_require =
+-  flake8
++zip_safe = true
++
++[options.extras_require]
++test =
++  flake8>=3.6.0
+   flake8-blind-except
+   flake8-builtins
+   flake8-class-newline
+@@ -39,16 +43,23 @@ tests_require =
+   flake8-import-order
+   flake8-quotes
+   pep8-naming
+-  pyenchant
+   pylint
+   pytest
+   pytest-cov
+-zip_safe = true
++  scspell3k>=2.2
+ 
+ [tool:pytest]
+ filterwarnings =
+     error
++    # Suppress deprecation warnings in other packages
++    ignore:lib2to3 package is deprecated::scspell
++    ignore:pkg_resources is deprecated as an API::flake8_import_order
++    ignore:SelectableGroups dict interface is deprecated::flake8
++    ignore:Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated::pyreadline
+ junit_suite_name = colcon-library-path
++markers =
++    flake8
++    linter
+ 
+ [options.entry_points]
+ colcon_core.environment =
+@@ -56,3 +67,4 @@ colcon_core.environment =
  
  [flake8]
  import-order-style = google

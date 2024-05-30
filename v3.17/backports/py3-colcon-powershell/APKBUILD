@@ -1,6 +1,6 @@
 pkgname=py3-colcon-powershell
 _pkgname=colcon-powershell
-pkgver=0.3.7
+pkgver=0.4.0
 pkgrel=0
 pkgdesc="Extension for colcon to provide PowerShell scripts."
 url="http://colcon.readthedocs.io"
@@ -14,20 +14,29 @@ source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archiv
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
-        python3 setup.py build
+        mkdir .venv
+        python3 -m venv .venv
+        . .venv/bin/activate
+        python3 -m pip install -U build
+        python3 -m build
+        deactivate
 }
 
 check() {
-        pip3 install -U pip setuptools
-        pip3 install -e .[test]
+        . .venv/bin/activate
+        python3 -m pip install -U pip setuptools
+        python3 -m pip install -e .[test]
         python3 -m pytest
+        deactivate
 }
 
 package() {
-        python3 setup.py install --prefix=/usr --root="$pkgdir"
+        . .venv/bin/activate
+        python3 -m pip install dist/colcon_powershell-"$pkgver"-py3-none-any.whl --prefix=/usr --root="$pkgdir"
+        deactivate
 
         # Install license files
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="d272e26f949292e91c95358843b60b4bc6785acb14c83ac2fab28694004cef71ddb075c7fb041314e557cd783a8e28b5fe3928d34bac62c49d2a70db771a1ae8  colcon-powershell-0.3.7.tar.gz"
+sha512sums="c91a9c037ef8b00b3e84049e02750b9ef38143d449d0801ee52bb2c91539985f9e9e30ebcf7649bed6a6232e8d1d5be04c8777ffcb6b42199177b9bf7276ca2b  colcon-powershell-0.4.0.tar.gz"

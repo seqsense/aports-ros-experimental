@@ -1,7 +1,7 @@
 pkgname=py3-colcon-metadata
 _pkgname=colcon-metadata
 pkgver=0.2.5
-pkgrel=0
+pkgrel=1
 pkgdesc="Extension for colcon to read package metadata from files."
 url="http://colcon.readthedocs.io"
 arch="noarch"
@@ -16,17 +16,26 @@ source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archiv
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
-        python3 setup.py build
+        mkdir .venv
+        python3 -m venv .venv
+        . .venv/bin/activate
+        python3 -m pip install -U build
+        python3 -m build
+        deactivate
 }
 
 check() {
-        pip3 install -U pip setuptools
-        pip3 install -e .[test]
-        python3 setup.py pytest
+        . .venv/bin/activate
+        python3 -m pip install -U pip setuptools
+        python3 -m pip install -e .[test]
+        python3 -m pytest
+        deactivate
 }
 
 package() {
-        python3 setup.py install --prefix=/usr --root="$pkgdir"
+        . .venv/bin/activate
+        python3 -m pip install dist/colcon_metadata-"$pkgver"-py3-none-any.whl --prefix=/usr --root="$pkgdir"
+        deactivate
 
         # Install license files
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
@@ -34,4 +43,4 @@ package() {
 
 sha512sums="3d092d67cec42ba5470a71138f49099ec8d6dd71d2f8f130ba652014462c3e8b3b71cb20c6890a2f00ad4cad302054814e700b21b12dcee863294088defe0fda  colcon-metadata-0.2.5.tar.gz
 e9a748636a63fa17f647087d2cadfa44733d7f9353754ec4d4ad2edd66e064a59bfb5b51457f4b6e418c41845810a4da27577ce0889b865ff19a196ab1525b3b  fix-e721.patch
-b944d1f9480bdc52f9381bbb0942591042b4baffd27e02533d3c16912f33c0dd67e57d16c8cee5e829c64a9d26fe498c395bbb0afcf932e53e10aed63d1868bf  workaround-setup-cfg.patch"
+350e987614eddd796e3d329c220eba26c1e2becb3fdf6bf9cfbab10afc93e977e8845aa13e1fbea3f0138516bdb8727cdde0c0daf105bde37cca30d86b6eeee0  workaround-setup-cfg.patch"

@@ -1,6 +1,6 @@
 pkgname=py3-colcon-ros
 _pkgname=colcon-ros
-pkgver=0.3.23
+pkgver=0.4.1
 pkgrel=0
 pkgdesc="Extension for colcon to support ROS packages."
 url="http://colcon.readthedocs.io"
@@ -14,20 +14,29 @@ source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archiv
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
-        python3 setup.py build
+        mkdir .venv
+        python3 -m venv .venv
+        . .venv/bin/activate
+        python3 -m pip install -U build
+        python3 -m build
+        deactivate
 }
 
 check() {
-        pip3 install -U pip setuptools
-        pip3 install -e .[test]
+        . .venv/bin/activate
+        python3 -m pip install -U pip setuptools
+        python3 -m pip install -e .[test]
         python3 -m pytest
+        deactivate
 }
 
 package() {
-        python3 setup.py install --prefix=/usr --root="$pkgdir"
+        . .venv/bin/activate
+        python3 -m pip install dist/colcon_ros-"$pkgver"-py3-none-any.whl --prefix=/usr --root="$pkgdir"
+        deactivate
 
         # Install license files
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="d298dd66383b1e428fef8cbc2a6d64fc1b14da65aed92b63697a520ab44f87061476ef264dcf2ebec724d256bf374761f484f655d97d296955043ec542e18ed3  colcon-ros-0.3.23.tar.gz"
+sha512sums="3dea3aa961518656b3bc5add702b556cd710e778312440073dd336f03ebc54c0d74c33a0a14558a59fe7142884b028214bb8b6620defc4d95da393d23bf45686  colcon-ros-0.4.1.tar.gz"
