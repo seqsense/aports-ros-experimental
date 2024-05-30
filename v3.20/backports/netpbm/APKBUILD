@@ -2,16 +2,16 @@
 # Maintainer:
 pkgname=netpbm
 pkgver=10.86.41
-pkgrel=0
+pkgrel=1
 pkgdesc="Netpbm - graphics tools and converters"
 url="https://sourceforge.net/projects/netpbm/"
 arch="all"
 options="!check"	# The test fails due to external library's problem on modern environment.
 									# And, this library highly depends on the directory structure. It needs large changes to enable the test.
-license="netpbm"
+license="IJG AND BSD-3-Clause AND GPL-2.0-only"
 depends=""
 makedepends="patchutils perl libjpeg-turbo-dev libpng-dev tiff-dev zlib-dev libx11-dev libxml2-dev"
-subpackages="lib$pkgname:lib lib$pkgname-dev:lib_dev $pkgname-doc"
+subpackages="lib$pkgname:lib lib$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://jaist.dl.sourceforge.net/project/netpbm/super_stable/$pkgver/netpbm-$pkgver.tgz
 	add-config.patch"
 
@@ -38,18 +38,27 @@ package() {
 }
 
 lib() {
-	cd "$builddir"
-
+  so=
+  for file in /tmp/netpbm/lib/*; do
+    if [ ! -L "$file" ]; then
+      so="$file"
+    fi
+  done
+  test -n "$so"
 	install -d -m 0755 "$subpkgdir"/usr/lib
-	install -m 0644 /tmp/netpbm/lib/* "$subpkgdir"/usr/lib
-}
-
-lib_dev() {
-	cd "$builddir"
+  install -m 0644 "$so" "$subpkgdir"/usr/lib
+  so_base=$(basename "$so")
+  ln -s $so_base "$subpkgdir"/usr/lib/${so_base%.*}
+  ln -s ${so_base%.*} "$subpkgdir"/usr/lib/${so_base%.*.*}
 
 	install -d -m 0755 "$subpkgdir"/usr/include/netpbm
 	install -m 0644 /tmp/netpbm/include/netpbm/* "$subpkgdir"/usr/include/netpbm
 }
+
+lib_dev() {
+  default_dev
+}
+
 sha512sums="
 de599e7de5d9cfb400c673e884dd431469b42e5eee9972502d03892aa2fbd7bce0e98a1728b3b3f9f0d014089b09d418b228a18f8477e92914bf6c1b1bfc37ad  netpbm-10.86.41.tar.gz
 28ea14c45422a6faed1675422607ceb843f3587356b18cf3fd2265a39af460636c9780ad9e212d24a75cbcc20fe246647787a24e2cab9864583d082cb48f4be8  add-config.patch
