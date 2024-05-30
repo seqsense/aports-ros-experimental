@@ -1,0 +1,33 @@
+diff --git a/src/camera_nodelet.cpp b/src/camera_nodelet.cpp
+index 1c1a7d8..dfab05e 100644
+--- a/src/camera_nodelet.cpp
++++ b/src/camera_nodelet.cpp
+@@ -32,6 +32,7 @@
+ #include <pcl_ros/point_cloud.h>
+ #include <pluginlib/class_list_macros.h>
+ #include <ros/ros.h>
++#include <sensor_msgs/PointCloud2.h>
+ #include <sensor_msgs/Image.h>
+ #include <sensor_msgs/image_encodings.h>
+ 
+@@ -104,7 +105,7 @@ ifm3d_ros::CameraNodelet::onInit()
+   // Published topics
+   //-------------------
+   this->cloud_pub_ =
+-    this->np_.advertise<pcl::PointCloud<ifm3d::PointT> >("cloud", 1);
++    this->np_.advertise<sensor_msgs::PointCloud2>("cloud", 1);
+   this->distance_pub_ = this->it_->advertise("distance", 1);
+   this->amplitude_pub_ = this->it_->advertise("amplitude", 1);
+   this->raw_amplitude_pub_ = this->it_->advertise("raw_amplitude", 1);
+@@ -594,7 +595,10 @@ ifm3d_ros::CameraNodelet::Run()
+       if ((this->schema_mask_ & ifm3d::IMG_CART) == ifm3d::IMG_CART)
+         {
+           cloud->header = pcl_conversions::toPCL(head);
+-          this->cloud_pub_.publish(cloud);
++          sensor_msgs::PointCloud2 cloud_msg;
++          pcl::toROSMsg(*cloud, cloud_msg);
++
++          this->cloud_pub_.publish(cloud_msg);
+ 
+           sensor_msgs::ImagePtr xyz_image_msg =
+             cv_bridge::CvImage(head,
