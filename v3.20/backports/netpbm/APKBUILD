@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=netpbm
 pkgver=10.86.41
-pkgrel=1
+pkgrel=2
 pkgdesc="Netpbm - graphics tools and converters"
 url="https://sourceforge.net/projects/netpbm/"
 arch="all"
@@ -11,7 +11,7 @@ options="!check"	# The test fails due to external library's problem on modern en
 license="IJG AND BSD-3-Clause AND GPL-2.0-only"
 depends=""
 makedepends="patchutils perl libjpeg-turbo-dev libpng-dev tiff-dev zlib-dev libx11-dev libxml2-dev"
-subpackages="lib$pkgname:lib lib$pkgname-dev $pkgname-doc"
+subpackages="lib$pkgname:lib lib$pkgname-dev:lib_dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://jaist.dl.sourceforge.net/project/netpbm/super_stable/$pkgver/netpbm-$pkgver.tgz
 	add-config.patch"
 
@@ -49,14 +49,22 @@ lib() {
   install -m 0644 "$so" "$subpkgdir"/usr/lib
   so_base=$(basename "$so")
   ln -s $so_base "$subpkgdir"/usr/lib/${so_base%.*}
+}
+
+lib_dev() {
+  so=
+  for file in /tmp/netpbm/lib/*; do
+    if [ ! -L "$file" ]; then
+      so="$file"
+    fi
+  done
+  test -n "$so"
+	install -d -m 0755 "$subpkgdir"/usr/lib
+  so_base=$(basename "$so")
   ln -s ${so_base%.*} "$subpkgdir"/usr/lib/${so_base%.*.*}
 
 	install -d -m 0755 "$subpkgdir"/usr/include/netpbm
 	install -m 0644 /tmp/netpbm/include/netpbm/* "$subpkgdir"/usr/include/netpbm
-}
-
-lib_dev() {
-  default_dev
 }
 
 sha512sums="
