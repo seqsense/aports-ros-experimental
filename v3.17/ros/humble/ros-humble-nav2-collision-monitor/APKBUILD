@@ -1,6 +1,6 @@
 pkgname=ros-humble-nav2-collision-monitor
 _pkgname=nav2_collision_monitor
-pkgver=1.1.14
+pkgver=1.1.15
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: nav2_collision_monitor
     uri: https://github.com/SteveMacenski/navigation2-release.git
-    version: release/humble/nav2_collision_monitor/1.1.14-1
+    version: release/humble/nav2_collision_monitor/1.1.15-1
 "
 
 prepare() {
