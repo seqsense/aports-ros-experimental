@@ -1,0 +1,13 @@
+diff --git a/src/read_pgm_costmap.cpp b/src/read_pgm_costmap.cpp
+index 27f861af..7f73655a 100644
+--- a/src/read_pgm_costmap.cpp
++++ b/src/read_pgm_costmap.cpp
+@@ -37,7 +37,7 @@
+ extern "C" {
+ #include <stdio.h>
+ // pgm.h is not very friendly with system headers... need to undef max() and min() afterwards
+-#include <pgm.h>
++#include <netpbm/pgm.h>
+ #undef max
+ #undef min
+ }
