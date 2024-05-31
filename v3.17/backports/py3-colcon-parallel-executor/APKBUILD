@@ -1,35 +1,38 @@
 pkgname=py3-colcon-parallel-executor
 _pkgname=colcon-parallel-executor
-pkgver=0.2.4
-pkgrel=0
+pkgver=0.3.0
+pkgrel=3
 pkgdesc="Extension for colcon to process packages in parallel."
 url="http://colcon.readthedocs.io"
 arch="noarch"
 license="Apache-2.0"
 depends="python3 py3-colcon-core"
-makedepends="py3-setuptools"
+makedepends="py3-gpep517 py3-setuptools py3-wheel"
 checkdepends="py3-pip py3-pytest py3-pytest-runner"
 subpackages="$pkgname-doc"
-source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz
-        workaround-setup-cfg.patch"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
-        python3 setup.py build
+        gpep517 build-wheel \
+                --wheel-dir .dist \
+                --output-fd 3 3>&1 >&2
 }
 
 check() {
-        pip3 install -U pip setuptools
-        pip3 install -e .[test]
-        python3 setup.py pytest
+        python3 -m venv --clear --system-site-packages .testenv
+        .testenv/bin/python3 -m pip install -e .[test]
+        .testenv/bin/python3 -m pip uninstall -y "$_pkgname"
+        .testenv/bin/python3 -m pip install .dist/*.whl
+        .testenv/bin/python3 -m pytest
 }
 
 package() {
-        python3 setup.py install --prefix=/usr --root="$pkgdir"
+        python3 -m installer -d "$pkgdir" \
+                .dist/*.whl
 
         # Install license files
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="0c0e7d5fc199c9ead4d39047c0e9d055ae672e30b3ebf0cb6650d757689920f95adaec170195187fae8c5c7e563fd3b59a4933393498163fa03dd191cb9fd342  colcon-parallel-executor-0.2.4.tar.gz
-4b3a0b690370d6dc8dfeb73f7acd67408f77c599b1e2c886f8d936d4fd7dca99b311b2e17d6f6a7f23848d7cb2de6debcdc34d4c6277d6ea93889e1e4d43c5b9  workaround-setup-cfg.patch"
+sha512sums="1934a07b4f957f3d24f813b022057a7911d6f41a5ffa27ec4ef413a37f5d8dc3632031927054280f10dcbdcc9a8e3fbdb96c74003cc2290cf6e28af9542ffbc4  colcon-parallel-executor-0.3.0.tar.gz"

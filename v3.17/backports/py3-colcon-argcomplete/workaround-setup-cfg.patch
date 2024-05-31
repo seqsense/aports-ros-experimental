@@ -1,16 +1,40 @@
 diff --git a/setup.cfg b/setup.cfg
-index 1497714..c7fd9c1 100644
+index 1497714..1c64d91 100644
 --- a/setup.cfg
 +++ b/setup.cfg
-@@ -54,6 +54,7 @@ share/colcon_argcomplete/hook =
+@@ -28,8 +28,11 @@ install_requires =
+   argcomplete
+   colcon-core
+ packages = find:
+-tests_require =
+-  flake8
++zip_safe = false
++
++[options.extras_require]
++test =
++  flake8>=3.6.0
+   flake8-blind-except
+   flake8-builtins
+   flake8-class-newline
+@@ -43,7 +46,6 @@ tests_require =
+   pytest
+   pytest-cov
+   scspell3k>=2.2
+-zip_safe = false
+ 
+ [options.data_files]
+ # distutils replaces dashes in keys with underscores
+@@ -54,6 +56,9 @@ share/colcon_argcomplete/hook =
  [tool:pytest]
  filterwarnings =
      error
 +    ignore:lib2to3 package is deprecated::scspell
++    ignore:pkg_resources is deprecated as an API::flake8_import_order
++    ignore:SelectableGroups dict interface is deprecated::flake8
  junit_suite_name = colcon-argcomplete
  
  [options.entry_points]
-@@ -66,3 +67,4 @@ colcon_core.extension_point =
+@@ -66,3 +71,4 @@ colcon_core.extension_point =
  
  [flake8]
  import-order-style = google

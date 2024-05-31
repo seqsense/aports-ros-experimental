@@ -1,33 +1,40 @@
 pkgname=py3-colcon-defaults
 _pkgname=colcon-defaults
-pkgver=0.2.7
-pkgrel=0
+pkgver=0.2.8
+pkgrel=3
 pkgdesc="Extension for colcon to read defaults from a config file."
 url="http://colcon.readthedocs.io"
 arch="noarch"
 license="Apache-2.0"
 depends="python3 py3-colcon-core py3-yaml"
-makedepends="py3-setuptools"
+makedepends="py3-gpep517 py3-setuptools py3-wheel"
 checkdepends="py3-pip py3-pytest py3-flake8"
 subpackages="$pkgname-doc"
-source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz
+        ignore-pkg-resources-error.patch"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
-        python3 setup.py build
+        gpep517 build-wheel \
+                --wheel-dir .dist \
+                --output-fd 3 3>&1 >&2
 }
 
 check() {
-        pip3 install -U pip setuptools
-        pip3 install -e .[test]
-        python3 -m pytest
+        python3 -m venv --clear --system-site-packages .testenv
+        .testenv/bin/python3 -m pip install -e .[test]
+        .testenv/bin/python3 -m pip uninstall -y "$_pkgname"
+        .testenv/bin/python3 -m pip install .dist/*.whl
+        .testenv/bin/python3 -m pytest
 }
 
 package() {
-        python3 setup.py install --prefix=/usr --root="$pkgdir"
+        python3 -m installer -d "$pkgdir" \
+                .dist/*.whl
 
         # Install license files
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="a69a76e5e90cae02ae76700ba09294c8cf2b59c5b3dd0dbdceedeb18f5b004a1fa88b055e4611d3f9d6a9b5df29654cdd10ae6fa5a69385c80bf3e9b306ca4b0  colcon-defaults-0.2.7.tar.gz"
+sha512sums="5ad930da2f977449871ab8746b631c7aaab0cb1a73bee5998eaf3691afe0bdb0cd28d615426c414d1c58dc8c25f7e8c216f08f39e673e9278c453b9e79afe722  colcon-defaults-0.2.8.tar.gz
+8bca842a128dc7460b058798d97e7ffcba4e10f4674f409cb6428287e9873ae0ec4d7a7cc2ced04ff63aa4c92b5d729156339b0791f3473135354423828cf619  ignore-pkg-resources-error.patch"

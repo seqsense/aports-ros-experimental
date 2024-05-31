@@ -1,35 +1,40 @@
 pkgname=py3-colcon-output
 _pkgname=colcon-output
-pkgver=0.2.12
-pkgrel=0
+pkgver=0.2.13
+pkgrel=3
 pkgdesc="Extension for colcon to customize the output in various ways."
 url="http://colcon.readthedocs.io"
 arch="noarch"
 license="Apache-2.0"
 depends="python3 py3-colcon-core"
-makedepends="py3-setuptools"
+makedepends="py3-gpep517 py3-setuptools py3-wheel"
 checkdepends="py3-pip py3-pytest py3-pytest-runner"
 subpackages="$pkgname-doc"
 source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz
-        workaround-setup-cfg.patch"
+        ignore-pkg-resources-error.patch"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
-        python3 setup.py build
+        gpep517 build-wheel \
+                --wheel-dir .dist \
+                --output-fd 3 3>&1 >&2
 }
 
 check() {
-        pip3 install -U pip setuptools
-        pip3 install -e .[test]
-        python3 setup.py pytest
+        python3 -m venv --clear --system-site-packages .testenv
+        .testenv/bin/python3 -m pip install -e .[test]
+        .testenv/bin/python3 -m pip uninstall -y "$_pkgname"
+        .testenv/bin/python3 -m pip install .dist/*.whl
+        .testenv/bin/python3 -m pytest
 }
 
 package() {
-        python3 setup.py install --prefix=/usr --root="$pkgdir"
+        python3 -m installer -d "$pkgdir" \
+                .dist/*.whl
 
         # Install license files
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="15e48214c85d54306e2a22cfb8247215941208146d38dc0e8a525c6b07f349e12c30788fe8a7c251b80642051b4abb085aa5423f0a2936f428a226c1bac12749  colcon-output-0.2.12.tar.gz
-2195c78abbd66bcb2337c8c65b796c38253db575743191982732802bd88892af3c565a31f69ea4154f18e82abecb06b6d75cac43adbf81ef3da73d3f684d0fd5  workaround-setup-cfg.patch"
+sha512sums="f6d99b6024f14eb72b7b1b8a4d615ff43100269b6057438de49d3d50ddd4130f4bf9c8705412e600e90995698af71cee52f778719fbbfea2753209edaa530b04  colcon-output-0.2.13.tar.gz
+b08981f8fc89cf24aad0676d8698c1e7d6abcc89c699fef523575ef69f76897e58e05d25636e0867479f97cdb58d05a9e47d4e1c313f2c8b535379e8b34a4d2b  ignore-pkg-resources-error.patch"

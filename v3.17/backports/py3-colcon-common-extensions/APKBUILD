@@ -1,7 +1,7 @@
 pkgname=py3-colcon-common-extensions
 _pkgname=colcon-common-extensions
 pkgver=0.3.0
-pkgrel=0
+pkgrel=4
 pkgdesc="A meta package aggregating colcon-core as well as a set of common extensions."
 url="http://colcon.readthedocs.io"
 arch="noarch"
@@ -30,21 +30,23 @@ depends="
         py3-colcon-zsh
         py3-colcon-override-check
         "
-makedepends="py3-setuptools"
+makedepends="py3-gpep517 py3-setuptools py3-wheel"
 install=""
 subpackages="$pkgname-doc"
 source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
-        python3 setup.py build
+        gpep517 build-wheel \
+                --wheel-dir .dist \
+                --output-fd 3 3>&1 >&2
 }
 
 package() {
-        python3 setup.py install --prefix=/usr --root="$pkgdir"
+        python3 -m installer -d "$pkgdir" \
+                .dist/*.whl
 
         # Install license files
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
-
 sha512sums="1f78a79f5ccf28ad5e0a2a43485383b1ad347fda5a9d593c6b21bab17173cab7bdb7b6ca68a65107354856deabb9f397ea000b83506c084003b92c78fb5e3a1b  colcon-common-extensions-0.3.0.tar.gz"
