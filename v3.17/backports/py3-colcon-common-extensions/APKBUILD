@@ -1,7 +1,7 @@
 pkgname=py3-colcon-common-extensions
 _pkgname=colcon-common-extensions
 pkgver=0.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A meta package aggregating colcon-core as well as a set of common extensions."
 url="http://colcon.readthedocs.io"
 arch="noarch"
@@ -30,25 +30,21 @@ depends="
         py3-colcon-zsh
         py3-colcon-override-check
         "
-makedepends="py3-setuptools"
+makedepends="py3-gpep517 py3-setuptools py3-wheel"
 install=""
 subpackages="$pkgname-doc"
 source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
-        mkdir .venv
-        python3 -m venv .venv
-        . .venv/bin/activate
-        python3 -m pip install -U build
-        python3 -m build
-        deactivate
+        gpep517 build-wheel \
+		--wheel-dir .dist \
+		--output-fd 3 3>&1 >&2
 }
 
 package() {
-        . .venv/bin/activate
-        python3 -m pip install dist/colcon_common_extensions-"$pkgver"-py3-none-any.whl --prefix=/usr --root="$pkgdir" --no-deps
-        deactivate
+        python3 -m installer -d "$pkgdir" \
+		.dist/*.whl
 
         # Install license files
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE

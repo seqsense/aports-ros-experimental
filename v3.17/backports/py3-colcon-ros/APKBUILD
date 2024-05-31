@@ -1,39 +1,35 @@
 pkgname=py3-colcon-ros
 _pkgname=colcon-ros
 pkgver=0.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Extension for colcon to support ROS packages."
 url="http://colcon.readthedocs.io"
 arch="noarch"
 license="Apache-2.0"
 depends="python3 py3-catkin-pkg py3-colcon-cmake py3-colcon-core py3-colcon-pkg-config py3-colcon-python-setup-py py3-colcon-recursive-crawl"
-makedepends="py3-setuptools"
+makedepends="py3-gpep517 py3-setuptools py3-wheel"
 checkdepends="py3-pip py3-pytest py3-flake8"
 subpackages="$pkgname-doc"
 source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
-        mkdir .venv
-        python3 -m venv .venv
-        . .venv/bin/activate
-        python3 -m pip install -U build
-        python3 -m build
-        deactivate
+        gpep517 build-wheel \
+		--wheel-dir .dist \
+		--output-fd 3 3>&1 >&2
 }
 
 check() {
-        . .venv/bin/activate
-        python3 -m pip install -U pip setuptools
-        python3 -m pip install -e .[test]
-        python3 -m pytest
-        deactivate
+	python3 -m venv --clear --system-site-packages .testenv
+        .testenv/bin/python3 -m pip install -e .[test]
+        .testenv/bin/python3 -m pip uninstall -y "$_pkgname"
+	.testenv/bin/python3 -m pip install .dist/*.whl
+	.testenv/bin/python3 -m pytest
 }
 
 package() {
-        . .venv/bin/activate
-        python3 -m pip install dist/colcon_ros-"$pkgver"-py3-none-any.whl --prefix=/usr --root="$pkgdir" --no-deps
-        deactivate
+        python3 -m installer -d "$pkgdir" \
+		.dist/*.whl
 
         # Install license files
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
