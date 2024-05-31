@@ -1,35 +1,38 @@
 pkgname=py3-colcon-cd
 _pkgname=colcon-cd
-pkgver=0.1.1
-pkgrel=0
+pkgver=0.2.1
+pkgrel=3
 pkgdesc="A shell function for colcon to change the current working directory."
 url="http://colcon.readthedocs.io"
 arch="noarch"
 license="Apache-2.0"
 depends="python3 py3-colcon-core"
-makedepends="py3-setuptools"
+makedepends="py3-gpep517 py3-setuptools py3-wheel"
 checkdepends="py3-pip py3-pytest py3-pytest-runner"
 subpackages="$pkgname-doc"
-source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz
-        workaround-setup-cfg.patch"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
-        python3 setup.py build
+        gpep517 build-wheel \
+                --wheel-dir .dist \
+                --output-fd 3 3>&1 >&2
 }
 
 check() {
-        pip3 install -U pip setuptools
-        pip3 install -e .[test]
-        python3 setup.py pytest
+        python3 -m venv --clear --system-site-packages .testenv
+        .testenv/bin/python3 -m pip install -e .[test]
+        .testenv/bin/python3 -m pip uninstall -y "$_pkgname"
+        .testenv/bin/python3 -m pip install .dist/*.whl
+        .testenv/bin/python3 -m pytest
 }
 
 package() {
-        python3 setup.py install --prefix=/usr --root="$pkgdir"
+        python3 -m installer -d "$pkgdir" \
+                .dist/*.whl
 
         # Install license files
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="7ca343734b5d287a506f5ac78d1c28098ab473f351623114cc3587bbfff18e670aadc46e85db8bd40f31184a4c06062a9f1b4a77200169511e1b7c2b426edc5b  colcon-cd-0.1.1.tar.gz
-df9d38f203b84944bc138c8985ccc4f266927b2b9edf76b3299733de975dd4c9d66f2df96b06c252c7f28126eb9f53de18b644c7b1ba91fd7bc66d43d7dfa904  workaround-setup-cfg.patch"
+sha512sums="9c43d426f65b26ffa8822249d7a5662a93f84f264c628dab0b1121f4c4f9a003c7a2929b959f8993639ea240b053b63a744cf82fa3017592339bc20b46180ff5  colcon-cd-0.2.1.tar.gz"
