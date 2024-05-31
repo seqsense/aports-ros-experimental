@@ -1,7 +1,7 @@
 pkgname=py3-colcon-ros
 _pkgname=colcon-ros
 pkgver=0.4.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Extension for colcon to support ROS packages."
 url="http://colcon.readthedocs.io"
 arch="noarch"
@@ -15,21 +15,21 @@ builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
         gpep517 build-wheel \
-		--wheel-dir .dist \
-		--output-fd 3 3>&1 >&2
+                --wheel-dir .dist \
+                --output-fd 3 3>&1 >&2
 }
 
 check() {
-	python3 -m venv --clear --system-site-packages .testenv
+        python3 -m venv --clear --system-site-packages .testenv
         .testenv/bin/python3 -m pip install -e .[test]
         .testenv/bin/python3 -m pip uninstall -y "$_pkgname"
-	.testenv/bin/python3 -m pip install .dist/*.whl
-	.testenv/bin/python3 -m pytest
+        .testenv/bin/python3 -m pip install .dist/*.whl
+        .testenv/bin/python3 -m pytest
 }
 
 package() {
         python3 -m installer -d "$pkgdir" \
-		.dist/*.whl
+                .dist/*.whl
 
         # Install license files
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE

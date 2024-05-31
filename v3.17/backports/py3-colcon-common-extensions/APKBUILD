@@ -1,7 +1,7 @@
 pkgname=py3-colcon-common-extensions
 _pkgname=colcon-common-extensions
 pkgver=0.3.0
-pkgrel=3
+pkgrel=4
 pkgdesc="A meta package aggregating colcon-core as well as a set of common extensions."
 url="http://colcon.readthedocs.io"
 arch="noarch"
@@ -38,13 +38,13 @@ builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
         gpep517 build-wheel \
-		--wheel-dir .dist \
-		--output-fd 3 3>&1 >&2
+                --wheel-dir .dist \
+                --output-fd 3 3>&1 >&2
 }
 
 package() {
         python3 -m installer -d "$pkgdir" \
-		.dist/*.whl
+                .dist/*.whl
 
         # Install license files
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
