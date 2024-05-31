@@ -51,7 +51,7 @@ $(REPOSITORY): cache-dir
 		-e STACK_PROTECTOR=$(STACK_PROTECTOR) \
 		-e KEEP_GOING=$(KEEP_GOING) \
 		-e RESIGN=true \
-		--name aports-ros-experimental \
+		--name aports-ros-experimental-v$(ALPINE_VERSION)-$(subst /,-,$@) \
 		$(BUILDER_NAME):$(BUILDER_TAG) v$(ALPINE_VERSION)/$@
 
 .PHONY: s3-pull
