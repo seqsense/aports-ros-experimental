@@ -1,0 +1,40 @@
+pkgname=py3-colcon-package-selection
+_pkgname=colcon-package-selection
+pkgver=0.2.10
+pkgrel=4
+pkgdesc="Extension for colcon to select the packages to process."
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="python3 py3-colcon-core"
+makedepends="py3-gpep517 py3-setuptools py3-wheel"
+checkdepends="py3-pip py3-pytest py3-pytest-runner"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz
+        workaround-setup-cfg.patch"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        gpep517 build-wheel \
+                --wheel-dir .dist \
+                --output-fd 3 3>&1 >&2
+}
+
+check() {
+        python3 -m venv --clear --system-site-packages .testenv
+        .testenv/bin/python3 -m pip install -e .[test]
+        .testenv/bin/python3 -m pip uninstall -y "$_pkgname"
+        .testenv/bin/python3 -m pip install .dist/*.whl
+        .testenv/bin/python3 -m pytest
+}
+
+package() {
+        python3 -m installer -d "$pkgdir" \
+                .dist/*.whl
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="054d55066da17d74e29bb5114ef2d0d13b38ade8f658a518033b7a2084e69c2dfb21829fde61c73ca8af4018af46cb23b2f5bd3f5f59fd67e61d4bb39ac03792  colcon-package-selection-0.2.10.tar.gz
+69d5026ae5abf749878189f1b06be1d669f6ed69810dacebee3466752f322319a456f0f4d01c01c8175e876ddb8460d4b7c17e2dcae5c8a66ef61ca5126fccfb  workaround-setup-cfg.patch"

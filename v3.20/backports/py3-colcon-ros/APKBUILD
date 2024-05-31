@@ -1,0 +1,38 @@
+pkgname=py3-colcon-ros
+_pkgname=colcon-ros
+pkgver=0.4.1
+pkgrel=3
+pkgdesc="Extension for colcon to support ROS packages."
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="python3 py3-catkin-pkg py3-colcon-cmake py3-colcon-core py3-colcon-pkg-config py3-colcon-python-setup-py py3-colcon-recursive-crawl"
+makedepends="py3-gpep517 py3-setuptools py3-wheel"
+checkdepends="py3-pip py3-pytest py3-flake8"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        gpep517 build-wheel \
+                --wheel-dir .dist \
+                --output-fd 3 3>&1 >&2
+}
+
+check() {
+        python3 -m venv --clear --system-site-packages .testenv
+        .testenv/bin/python3 -m pip install -e .[test]
+        .testenv/bin/python3 -m pip uninstall -y "$_pkgname"
+        .testenv/bin/python3 -m pip install .dist/*.whl
+        .testenv/bin/python3 -m pytest
+}
+
+package() {
+        python3 -m installer -d "$pkgdir" \
+                .dist/*.whl
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="3dea3aa961518656b3bc5add702b556cd710e778312440073dd336f03ebc54c0d74c33a0a14558a59fe7142884b028214bb8b6620defc4d95da393d23bf45686  colcon-ros-0.4.1.tar.gz"
