@@ -1,13 +1,13 @@
 pkgname=py3-colcon-core
 _pkgname=colcon-core
 pkgver=0.16.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Command line tool to build sets of software packages."
 url="https://pypi.org/project/colcon-core/"
 arch="noarch"
 license="Apache-2.0"
 depends="python3 py3-coloredlogs py3-distlib py3-empy py3-pytest py3-pytest-cov py3-pytest-repeat py3-pytest-rerunfailures py3-setuptools"
-makedepends="py3-setuptools"
+makedepends="py3-gpep517 py3-setuptools py3-wheel"
 checkdepends="py3-pip py3-pytest py3-flake8"
 subpackages="$pkgname-doc"
 source="$_pkgname-$pkgver.tar.gz::https://github.com/colcon/colcon-core/archive/refs/tags/$pkgver.tar.gz
@@ -15,26 +15,21 @@ source="$_pkgname-$pkgver.tar.gz::https://github.com/colcon/colcon-core/archive/
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
-        mkdir .venv
-        python3 -m venv .venv
-        . .venv/bin/activate
-        python3 -m pip install -U build
-        python3 -m build
-        deactivate
+        gpep517 build-wheel \
+		--wheel-dir .dist \
+		--output-fd 3 3>&1 >&2
 }
 
 check() {
-        . .venv/bin/activate
-        python3 -m pip install -U pip setuptools
-        python3 -m pip install -e .[test]
-        python3 -m pytest
-        deactivate
+	python3 -m venv --clear --system-site-packages .testenv
+        .testenv/bin/python3 -m pip install -e .[test]
+	.testenv/bin/python3 -m pip install .dist/*.whl
+	.testenv/bin/python3 -m pytest
 }
 
 package() {
-        . .venv/bin/activate
-        python3 -m pip install dist/colcon_core-"$pkgver"-py3-none-any.whl --prefix=/usr --root="$pkgdir" --no-deps
-        deactivate
+        python3 -m installer -d "$pkgdir" \
+		.dist/*.whl
 
         # Install license files
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
