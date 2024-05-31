@@ -1,17 +1,17 @@
 diff --git a/setup.cfg b/setup.cfg
-index 01a449c..6c46439 100644
+index af13df8..b6e3ba4 100644
 --- a/setup.cfg
 +++ b/setup.cfg
-@@ -47,6 +47,7 @@ zip_safe = false
+@@ -48,6 +48,7 @@ zip_safe = true
  [tool:pytest]
  filterwarnings =
      error
 +    ignore:lib2to3 package is deprecated::scspell
- junit_suite_name = colcon-zsh
+ junit_suite_name = colcon-parallel-executor
  
  [options.entry_points]
-@@ -58,3 +59,4 @@ colcon_zsh.shell.template = *.em
+@@ -56,3 +57,4 @@ colcon_core.executor =
  
  [flake8]
  import-order-style = google
-+ignore=D102,E741
++ignore=E741
