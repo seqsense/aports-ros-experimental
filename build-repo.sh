@@ -13,8 +13,11 @@ ALPINE_VERSION=${ALPINE_VERSION:-$(cat /etc/alpine-release | cut -d. -f1-2)}
 repo_full=$1
 
 BUILD_REPO_OPTIONS=
+case "${KEEP_GOING:-no}" in
+  "y" | "yes" | "Yes" | "on" | "ON" ) BUILD_REPO_OPTIONS="${BUILD_REPO_OPTIONS} -k";;
+esac
 case "${PURGE_OBSOLETE:-no}" in
-  "y" | "yes" | "Yes" | "on" | "ON" ) BUILD_REPO_OPTIONS="-p";;
+  "y" | "yes" | "Yes" | "on" | "ON" ) BUILD_REPO_OPTIONS="${BUILD_REPO_OPTIONS} -p";;
 esac
 
 

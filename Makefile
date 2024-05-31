@@ -9,6 +9,7 @@ APK_REPO_PRIVATE_KEY   ?= # path to your private key
 JOBS                   ?= 2
 RESIGN                 ?= false
 STACK_PROTECTOR        ?= on
+KEEP_GOING             ?=
 
 BUILDER_TAG             = $(ROS_DISTRO).v$(ALPINE_VERSION)
 
@@ -25,21 +26,32 @@ build-builder:
 		--cache-from=$(BUILDER_NAME):$(BUILDER_TAG) \
 		-t $(BUILDER_NAME):$(BUILDER_TAG) .
 
+.PHONY: cache-dir
+cache-dir:
+	mkdir -p packages/.cache/v$(ALPINE_VERSION)/ccache
+	chmod og+rwx packages/.cache/v$(ALPINE_VERSION)/ccache
+	mkdir -p packages/.cache/v$(ALPINE_VERSION)/apk
+	chmod og+rwx packages/.cache/v$(ALPINE_VERSION)/apk
+
 .PHONY: $(REPOSITORY)
-$(REPOSITORY):
-	if [ ! -d packages/v$(ALPINE_VERSION)/$@ ]; then \
-		mkdir -p packages/v$(ALPINE_VERSION)/$@; \
-		chmod og+rwx packages/v$(ALPINE_VERSION)/$@; \
+$(REPOSITORY): cache-dir
+	if [ ! -d packages/v$(ALPINE_VERSION)/$(notdir $@) ]; then \
+		mkdir -p packages/v$(ALPINE_VERSION)/$(notdir $@); \
+		chmod og+rwx packages/v$(ALPINE_VERSION)/$(notdir $@); \
 	fi
-	docker run --rm \
+	docker run --rm -it \
 		-v $(CURDIR):/src \
 		-v $(CURDIR)/packages/v$(ALPINE_VERSION):/home/builder/packages \
+		-v $(CURDIR)/packages/.cache/v$(ALPINE_VERSION)/ccache:/cache/ccache \
+		-v $(CURDIR)/packages/.cache/v$(ALPINE_VERSION)/apk:/etc/apk/cache \
 		$$(if [ '$@' != 'backports' ]; then echo "-v $(CURDIR)/packages/v$(ALPINE_VERSION)/backports:/home/builder/deps.rw/backports"; fi) \
 		$(PRIVATE_KEY_OPT) \
 		-e JOBS=${JOBS} \
 		-e PURGE_OBSOLETE=yes \
 		-e STACK_PROTECTOR=$(STACK_PROTECTOR) \
+		-e KEEP_GOING=$(KEEP_GOING) \
 		-e RESIGN=true \
+		--name aports-ros-experimental-v$(ALPINE_VERSION)-$(subst /,-,$@) \
 		$(BUILDER_NAME):$(BUILDER_TAG) v$(ALPINE_VERSION)/$@
 
 .PHONY: s3-pull
