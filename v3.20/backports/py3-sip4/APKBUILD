@@ -3,13 +3,13 @@
 # Maintainer: Aiden Grossman <agrossman154@yahoo.com>
 pkgname=py3-sip4
 pkgver=4.19.25
-pkgrel=2
+pkgrel=4
 pkgdesc="Tool that makes it easy to create Python bindings for C and C++ libraries"
 options="!check" # No testsuite
 url="http://www.riverbankcomputing.com/software/sip/"
 arch="all"
 license="custom:sip"
-makedepends="python3-dev py3-setuptools"
+makedepends="python3-dev py3-setuptools flex bison"
 depends_dev="py3-sip4"
 subpackages="
 	$pkgname-dev::noarch
@@ -20,6 +20,8 @@ source="https://www.riverbankcomputing.com/static/Downloads/sip/$pkgver/sip-$pkg
 builddir="$srcdir"/sip-$pkgver
 
 build() {
+	flex --outfile=sipgen/lexer.c sipgen/metasrc/lexer.l
+	bison --yacc --defines=sipgen/parser.h --output=sipgen/parser.c sipgen/metasrc/parser.y
 	python3 configure.py CFLAGS="$CFLAGS" LFLAGS="$LDFLAGS"
 }
 
