@@ -1,0 +1,22 @@
+diff --git a/test/time_reset_test.cpp b/test/time_reset_test.cpp
+index 541fac0..de2e77f 100644
+--- a/test/time_reset_test.cpp
++++ b/test/time_reset_test.cpp
+@@ -41,7 +41,7 @@ void spin_for_a_second()
+   ros::spinOnce();
+   for (uint8_t i = 0; i < 10; ++i)
+   {
+-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
++    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+     ros::spinOnce();
+   }
+ }
+@@ -61,6 +61,8 @@ TEST(tf2_ros_transform_listener, time_backwards)
+   c.clock = ros::Time(100);
+   clock.publish(c);
+ 
++  spin_for_a_second();
++
+   // basic test
+   ASSERT_FALSE(buffer.canTransform("foo", "bar", ros::Time(101, 0)));
+ 
