@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-noetic-catkin ros-noetic-class-loader ros-noetic-cmake-modules ros-noetic-common-msgs ros-noetic-gencpp ros-noetic-geneus ros-noetic-genlisp ros-noetic-genmsg ros-noetic-gennodejs ros-noetic-genpy ros-noetic-message-generation ros-noetic-message-runtime ros-noetic-pluginlib ros-noetic-ros ros-noetic-ros-comm ros-noetic-rosbag-migration-rule ros-noetic-rosconsole ros-noetic-rosconsole-bridge ros-noetic-roscpp-core ros-noetic-rosgraph-msgs ros-noetic-roslisp ros-noetic-rospack ros-noetic-std-msgs ros-noetic-std-srvs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -123,8 +123,8 @@ package() {
   # Tweak invalid RPATH
   find $pkgdir -name "*.so" | while read so; do
     chrpath_out=$(chrpath ${so} || true)
-    if echo ${chrpath_out} | grep -q "RPATH="; then
-      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*RPATH=//")
+    if echo ${chrpath_out} | grep -q "R\(UN\)\?PATH="; then
+      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*R\(UN\)\?PATH=//")
       if echo "${rpath}" | grep -q -e "\(home\|aports\)"; then
         echo "RPATH contains home/aports!: ${rpath}"
         rpathfix=$(echo -n "${rpath}" | tr ":" "\n" \
