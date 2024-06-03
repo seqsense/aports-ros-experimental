@@ -1,0 +1,103 @@
+diff --git a/test/talker_listener_test.py b/test/talker_listener_test.py
+index df5f049..0cadb3b 100755
+--- a/test/talker_listener_test.py
++++ b/test/talker_listener_test.py
+@@ -58,7 +58,7 @@ class TestTalkerListener(unittest.TestCase):
+         timeout_t = time.time() + 10.0 #10 seconds
+         while not rospy.is_shutdown() and not self.success and time.time() < timeout_t:
+             time.sleep(0.1)
+-        self.assert_(self.success)
++        self.assertTrue(self.success)
+         
+ if __name__ == '__main__':
+     rostest.rosrun(PKG, NAME, TestTalkerListener, sys.argv)
+diff --git a/test/test_add_two_ints.py b/test/test_add_two_ints.py
+index efd81fa..92f830d 100755
+--- a/test/test_add_two_ints.py
++++ b/test/test_add_two_ints.py
+@@ -58,9 +58,9 @@ class TestAddTwoInts(unittest.TestCase):
+             # test both simple and formal call syntax
+             resp = s(x, y)
+             resp2 = s.call(AddTwoIntsRequest(x, y))
+-            self.assertEquals(resp.sum,resp2.sum)
++            self.assertEqual(resp.sum,resp2.sum)
+             print("%s+%s = %s" % (x, y, resp.sum))
+-            self.assertEquals(resp.sum,(x + y), "integration failure, returned sum was %s vs. %s"%(resp.sum, (x+y)))
++            self.assertEqual(resp.sum,(x + y), "integration failure, returned sum was %s vs. %s"%(resp.sum, (x+y)))
+ 
+     def test_add_two_ints_bad_then_good(self):
+         rospy.wait_for_service('add_two_ints')
+@@ -72,7 +72,7 @@ class TestAddTwoInts(unittest.TestCase):
+             print("success -- ros exception was thrown: %s" % e)
+         s = rospy.ServiceProxy('add_two_ints', AddTwoInts)
+         resp = s.call(AddTwoIntsRequest(1, 2))
+-        self.assertEquals(3,resp.sum)
++        self.assertEqual(3,resp.sum)
+         
+             
+     def test_add_two_ints_bad_type(self):
+diff --git a/test/test_client_connection_header.py b/test/test_client_connection_header.py
+index e383e3e..d399a88 100755
+--- a/test/test_client_connection_header.py
++++ b/test/test_client_connection_header.py
+@@ -72,7 +72,7 @@ class TestClientConnectionHeader(unittest.TestCase):
+             # simplified style
+             resp = add_two_ints(x, y)
+             print("Server's connection headers were", resp._connection_header)
+-            self.assert_('callerid' in resp._connection_header)
++            self.assertTrue('callerid' in resp._connection_header)
+ 
+             return resp.sum
+         except rospy.ServiceException as e:
+diff --git a/test/test_listener_connection_header.py b/test/test_listener_connection_header.py
+index c9f3a2b..fa951ec 100755
+--- a/test/test_listener_connection_header.py
++++ b/test/test_listener_connection_header.py
+@@ -68,7 +68,7 @@ class TestListenerConnectionHeader(unittest.TestCase):
+         timeout_t = time.time() + 10.0*1000 #10 seconds
+         while not rospy.is_shutdown() and not self.success and time.time() < timeout_t:
+             time.sleep(0.1)
+-        self.assert_(self.success, str(self.success))
++        self.assertTrue(self.success, str(self.success))
+         
+ if __name__ == '__main__':
+     rostest.rosrun(PKG, NAME, TestListenerConnectionHeader, sys.argv)
+diff --git a/test/test_on_shutdown.py b/test/test_on_shutdown.py
+index 3fcf5c1..d9fe0df 100755
+--- a/test/test_on_shutdown.py
++++ b/test/test_on_shutdown.py
+@@ -66,7 +66,7 @@ class TestOnShutdown(unittest.TestCase):
+         timeout_t = time.time() + 10.0*1000 #10 seconds
+         while not rospy.is_shutdown() and not self.success and time.time() < timeout_t:
+             time.sleep(0.1)
+-        self.assert_(self.success, str(self.success))
++        self.assertTrue(self.success, str(self.success))
+         
+ if __name__ == '__main__':
+     rostest.rosrun(PKG, NAME, TestOnShutdown, sys.argv)
+diff --git a/test/test_peer_subscribe_notify.py b/test/test_peer_subscribe_notify.py
+index f176c10..0e9b3f7 100755
+--- a/test/test_peer_subscribe_notify.py
++++ b/test/test_peer_subscribe_notify.py
+@@ -67,7 +67,7 @@ class TestPeerSubscribeListener(unittest.TestCase):
+         timeout_t = time.time() + 10.0*1000 #10 seconds
+         while not rospy.is_shutdown() and not self.success and time.time() < timeout_t:
+             time.sleep(0.1)
+-        self.assert_(self.success, str(self.success))
++        self.assertTrue(self.success, str(self.success))
+         
+ if __name__ == '__main__':
+     rostest.rosrun(PKG, NAME, TestPeerSubscribeListener, sys.argv)
+diff --git a/test/test_server_connection_header.py b/test/test_server_connection_header.py
+index e59fb58..544f3fa 100755
+--- a/test/test_server_connection_header.py
++++ b/test/test_server_connection_header.py
+@@ -66,7 +66,7 @@ class TestServerConnectionHeader(unittest.TestCase):
+         timeout_t = time.time() + 10.0*1000 #10 seconds
+         while not rospy.is_shutdown() and not self.success and time.time() < timeout_t:
+             time.sleep(0.1)
+-        self.assert_(self.success, str(self.success))
++        self.assertTrue(self.success, str(self.success))
+         
+ if __name__ == '__main__':
+     rostest.rosrun(PKG, NAME, TestServerConnectionHeader, sys.argv)

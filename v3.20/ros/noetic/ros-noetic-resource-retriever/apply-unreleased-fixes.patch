@@ -1,0 +1,85 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 359c9e8..e2a90cb 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,8 +1,6 @@
+ cmake_minimum_required(VERSION 3.0.2)
+ project(resource_retriever)
+ 
+-set_directory_properties(PROPERTIES COMPILE_OPTIONS "-std=c++11")
+-
+ find_package(catkin REQUIRED COMPONENTS rosconsole roslib)
+ 
+ find_package(Boost REQUIRED)
+@@ -34,7 +32,9 @@ if(CATKIN_ENABLE_TESTING)
+ endif()
+ 
+ install(TARGETS ${PROJECT_NAME}
+-  DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
++  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
++  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
++  RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION})
+ 
+ install(DIRECTORY include/${PROJECT_NAME}/
+   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
+diff --git a/src/resource_retriever/__init__.py b/src/resource_retriever/__init__.py
+index 89b3a2b..2b6418c 100644
+--- a/src/resource_retriever/__init__.py
++++ b/src/resource_retriever/__init__.py
+@@ -31,7 +31,6 @@
+ # POSSIBILITY OF SUCH DAMAGE.
+ #
+ 
+-import roslib; roslib.load_manifest('resource_retriever')
+ import subprocess
+ import rospkg
+ try:
+@@ -42,7 +41,15 @@ except ImportError:
+     from urllib2 import URLError
+ 
+ PACKAGE_PREFIX = 'package://'
+-r = rospkg.RosPack()
++_rospack = None
++
++
++def get_rospack():
++    global _rospack
++    if _rospack is None:
++        _rospack = rospkg.RosPack()
++    return _rospack
++
+ 
+ def get_filename(url, use_protocol=True):
+     mod_url = url
+@@ -54,7 +61,7 @@ def get_filename(url, use_protocol=True):
+ 
+         package = mod_url[0:pos]
+         mod_url = mod_url[pos:]
+-        package_path = r.get_path(package)
++        package_path = get_rospack().get_path(package)
+ 
+         if use_protocol:
+             protocol = "file://"
+diff --git a/src/retriever.cpp b/src/retriever.cpp
+index 01acfff..799d49a 100644
+--- a/src/retriever.cpp
++++ b/src/retriever.cpp
+@@ -34,6 +34,8 @@
+ 
+ #include <curl/curl.h>
+ 
++#include <regex>
++
+ namespace resource_retriever
+ {
+ 
+@@ -118,6 +120,9 @@ MemoryResource Retriever::get(const std::string& url)
+ 
+     mod_url = "file://" + package_path + mod_url;
+   }
++  
++  //newer versions of curl do not accept spaces in URLs
++  mod_url = std::regex_replace(mod_url, std::regex(" "), "%20");
+ 
+   curl_easy_setopt(curl_handle_, CURLOPT_URL, mod_url.c_str());
+   curl_easy_setopt(curl_handle_, CURLOPT_WRITEFUNCTION, curlWriteFunc);

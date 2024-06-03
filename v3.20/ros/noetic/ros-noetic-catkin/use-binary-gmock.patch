@@ -1,0 +1,18 @@
+diff --git a/cmake/test/gtest.cmake b/cmake/test/gtest.cmake
+index a87d3a9..834a0b9 100644
+--- a/cmake/test/gtest.cmake
++++ b/cmake/test/gtest.cmake
+@@ -314,6 +314,13 @@ function(catkin_find_google_test_source gtest_path googletest_path
+ endfunction()
+ 
+ find_package(GMock QUIET)
++
++if(GMock_FOUND)
++  # binary GMock library is available
++  set(GMOCK_FOUND TRUE)
++  set(GTEST_FOUND TRUE)
++endif()
++
+ # the GMockConfig.cmake from the Debian package cmake-extras provides all targets
+ if(TARGET gtest AND TARGET gtest_main AND TARGET gmock AND TARGET gmock_main)
+   set(GMOCK_FOUND TRUE)

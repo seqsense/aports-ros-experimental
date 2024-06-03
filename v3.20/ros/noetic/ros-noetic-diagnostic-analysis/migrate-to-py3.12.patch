@@ -1,0 +1,51 @@
+diff --git a/test/bag_csv_test.py b/test/bag_csv_test.py
+index 1c66956..2da65d4 100755
+--- a/test/bag_csv_test.py
++++ b/test/bag_csv_test.py
+@@ -91,8 +91,8 @@ class TestBagToCSV(unittest.TestCase):
+ 
+     ##\brief Tests that exported file exists and is not None
+     def test_file_exists(self):
+-        self.assert_(self.filename is not None, "CSV file is None")
+-        self.assert_(os.path.isfile(self.filename), "CSV file doesn't exist")
++        self.assertTrue(self.filename is not None, "CSV file is None")
++        self.assertTrue(os.path.isfile(self.filename), "CSV file doesn't exist")
+ 
+     ##\brief Test that CSV file has correct data, number of lines
+     def test_export(self):
+@@ -101,26 +101,26 @@ class TestBagToCSV(unittest.TestCase):
+         count = -1
+         for row in input_reader:
+             if count == -1:
+-                self.assert_(row[2].strip() == 'Message')
+-                self.assert_(row[3].strip() == 'Hardware ID')
+-                self.assert_(row[4].strip() == 'Value A')
++                self.assertTrue(row[2].strip() == 'Message')
++                self.assertTrue(row[3].strip() == 'Hardware ID')
++                self.assertTrue(row[4].strip() == 'Value A')
+                 count += 1
+                 continue
+ 
+-            self.assert_(row[2].strip() == 'OK')
+-            self.assert_(row[3].strip() == 'HW ID')
+-            self.assert_(row[4].strip() == str(count))
++            self.assertTrue(row[2].strip() == 'OK')
++            self.assertTrue(row[3].strip() == 'HW ID')
++            self.assertTrue(row[4].strip() == str(count))
+             count += 1
+       
+-        self.assert_(count == row_count, "Row count doesn't match")
++        self.assertTrue(count == row_count, "Row count doesn't match")
+ 
+     ##\brief Tests that sparse CSV made with 'skip' option has correct number of lines
+     def test_sparse_skip(self):
+-        self.assert_(len(open(self.skip_10).read().split('\n')) <= int(row_count / 10) + 2, "Length of sparse CSV (skipped) incorrect")
++        self.assertTrue(len(open(self.skip_10).read().split('\n')) <= int(row_count / 10) + 2, "Length of sparse CSV (skipped) incorrect")
+ 
+     ##\brief Tests that sparse CSV made with 'length' option has correct number of lines
+     def test_sparse_length(self):
+-        self.assert_(len(open(self.length_10).read().split('\n')) == 12, "Length of sparse CSV incorrect")
++        self.assertTrue(len(open(self.length_10).read().split('\n')) == 12, "Length of sparse CSV incorrect")
+ 
+     def tearDown(self):
+         self.bag.close()

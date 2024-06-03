@@ -1,0 +1,46 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index ce7a1f344..18c502d71 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -96,25 +96,25 @@ if(CATKIN_ENABLE_TESTING)
+     add_dependencies(tests ${PROJECT_NAME}-test_shapeshifter)
+   endif()
+ 
+-  add_rostest(test/shapeshifter.test)
+-  add_rostest(test/throttle.test)
+-  add_rostest(test/throttle_simtime.test)
+-  add_rostest(test/throttle_simtime_loop.test)
+-  add_rostest(test/drop.test)
+-  add_rostest(test/relay.test)
+-  add_rostest(test/relay_stealth.test)
+-  add_rostest(test/lazy_transport.test)
+-  add_rostest(test/mux_initial_none.test)
+-  add_rostest(test/mux_initial_other.test)
+-  add_rostest(test/transform.test)
++  # add_rostest(test/shapeshifter.test)  # cyclic dependency to rostopic
++  # add_rostest(test/throttle.test)  # cyclic dependency to rostopic
++  # add_rostest(test/throttle_simtime.test)  # cyclic dependency to rostopic
++  # add_rostest(test/throttle_simtime_loop.test)  # cyclic dependency to rostopic
++  # add_rostest(test/drop.test)  # cyclic dependency to rostopic
++  # add_rostest(test/relay.test)  # cyclic dependency to rostopic
++  # add_rostest(test/relay_stealth.test)  # cyclic dependency to rostopic
++  # add_rostest(test/lazy_transport.test)  # cyclic dependency to rostopic
++  # add_rostest(test/mux_initial_none.test)  # cyclic dependency to rostopic
++  # add_rostest(test/mux_initial_other.test)  # cyclic dependency to rostopic
++  # add_rostest(test/transform.test)  # cyclic dependency to rostopic
+   ## Latched test disabled until underlying issue in roscpp is resolved,
+   ## #3385, #3434.
+   #rosbuild_add_rostest(test/relay_latched.test)
+-  add_rostest(test/mux.test)
+-  add_rostest(test/switch_mux.test)
+-  add_rostest(test/switch_mux_leading_slash.test)
+-  add_rostest(test/switch_mux_none.test)
+-  #rosbuild_add_rostest(test/mux_add.test)
++  # add_rostest(test/mux.test)  # cyclic dependency to rostopic
++  # add_rostest(test/switch_mux.test)  # cyclic dependency to rostopic
++  # add_rostest(test/switch_mux_leading_slash.test)  # cyclic dependency to rostopic
++  # add_rostest(test/switch_mux_none.test)  # cyclic dependency to rostopic
++  #rosbuild_add_rostest(test/mux_add.test)  # cyclic dependency to rostopic
+ 
+   catkin_add_nosetests(test/args.py)
+ endif()

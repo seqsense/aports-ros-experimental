@@ -1,0 +1,197 @@
+diff --git a/test/add_analyzers_test.py b/test/add_analyzers_test.py
+index 0cfd771..f2198ed 100755
+--- a/test/add_analyzers_test.py
++++ b/test/add_analyzers_test.py
+@@ -78,7 +78,7 @@ class TestAddAnalyzer(unittest.TestCase):
+         add_diagnostics = rospy.ServiceProxy('/diagnostics_agg/add_diagnostics', AddDiagnostics)
+         print(self.namespace)
+         resp = add_diagnostics(load_namespace=self.namespace)
+-        self.assert_(resp.success, 'Service call was unsuccessful: {0}'.format(resp.message))
++        self.assertTrue(resp.success, 'Service call was unsuccessful: {0}'.format(resp.message))
+ 
+     def wait_for_agg(self):
+         self.agg_msgs = {}
+@@ -91,7 +91,7 @@ class TestAddAnalyzer(unittest.TestCase):
+         # confirm that the things we're going to add aren't there already
+         with self._mutex:
+             agg_paths = [msg.name for name, msg in self.agg_msgs.items()]
+-            self.assert_(not any(expected in agg_paths for expected in self.expected))
++            self.assertTrue(not any(expected in agg_paths for expected in self.expected))
+             
+         # add the new groups
+         self.add_analyzer()
+@@ -109,7 +109,7 @@ class TestAddAnalyzer(unittest.TestCase):
+         # hasn't been fully formed
+         with self._mutex:
+             agg_paths = [msg.name for name, msg in self.agg_msgs.items()]
+-            self.assert_(all(expected in agg_paths for expected in self.expected))
++            self.assertTrue(all(expected in agg_paths for expected in self.expected))
+ 
+         rospy.sleep(rospy.Duration(5)) # wait a bit for the new items to move to the right group
+         arr.header.stamp = rospy.get_rostime()
+@@ -118,10 +118,10 @@ class TestAddAnalyzer(unittest.TestCase):
+ 
+         for name, msg in self.agg_msgs.items():
+             if name in self.expected: # should have just received messages on the analyzer
+-                self.assert_(msg.message == 'OK')
++                self.assertTrue(msg.message == 'OK')
+                 
+             agg_paths = [msg.name for name, msg in self.agg_msgs.items()]
+-            self.assert_(all(expected in agg_paths for expected in self.expected))
++            self.assertTrue(all(expected in agg_paths for expected in self.expected))
+                 
+ 
+         self.bond.shutdown()
+@@ -130,7 +130,7 @@ class TestAddAnalyzer(unittest.TestCase):
+         # the aggregator data should no longer contain the paths once the bond is shut down
+         with self._mutex:
+             agg_paths = [msg.name for name, msg in self.agg_msgs.items()]
+-            self.assert_(not any(expected in agg_paths for expected in self.expected))
++            self.assertTrue(not any(expected in agg_paths for expected in self.expected))
+         
+ if __name__ == '__main__':
+     print('SYS ARGS:', sys.argv)
+diff --git a/test/aggregator_test.py b/test/aggregator_test.py
+index 426def9..9622a0d 100755
+--- a/test/aggregator_test.py
++++ b/test/aggregator_test.py
+@@ -207,22 +207,22 @@ class TestAggregator(unittest.TestCase):
+             if rospy.get_time() - start > self.duration:
+                 break
+ 
+-        self.assert_(not rospy.is_shutdown(), "Rospy shutdown")
++        self.assertTrue(not rospy.is_shutdown(), "Rospy shutdown")
+ 
+         with self._mutex:
+             all_headers = {}
+ 
+             for name, msg in self.agg_msgs.items():
+-                self.assert_(name.startswith('/'), "Aggregated name %s doesn't start with \"/\"" % name)
++                self.assertTrue(name.startswith('/'), "Aggregated name %s doesn't start with \"/\"" % name)
+ 
+             # Go through all messages and check that we have them in aggregate
+             for name, msg in self.diag_msgs.items():
+                 agg_name = name_to_agg_name(name, self.params)
+                 
+-                self.assert_(agg_name is not None, 'Aggregated name is None for %s' % name)
+-                self.assert_(agg_name in self.agg_msgs, 'No matching name found for name: %s, aggregated name: %s' % (name, agg_name))
+-                self.assert_(msg.level == self.agg_msgs[agg_name].level, 'Status level of original, aggregated messages doesn\'t match. Name: %s, aggregated name: %s.' % (name, agg_name))
+-                self.assert_(msg.message == self.agg_msgs[agg_name].message, 'Status message of original, aggregated messages doesn\'t match. Name: %s, aggregated name: %s' % (name, agg_name))
++                self.assertTrue(agg_name is not None, 'Aggregated name is None for %s' % name)
++                self.assertTrue(agg_name in self.agg_msgs, 'No matching name found for name: %s, aggregated name: %s' % (name, agg_name))
++                self.assertTrue(msg.level == self.agg_msgs[agg_name].level, 'Status level of original, aggregated messages doesn\'t match. Name: %s, aggregated name: %s.' % (name, agg_name))
++                self.assertTrue(msg.message == self.agg_msgs[agg_name].message, 'Status message of original, aggregated messages doesn\'t match. Name: %s, aggregated name: %s' % (name, agg_name))
+                 
+                 # This is because the analyzers only reports stale if
+                 # all messages underneath it are stale
+@@ -243,17 +243,17 @@ class TestAggregator(unittest.TestCase):
+                 if lvl == -1:
+                     lvl = 3
+ 
+-                self.assert_(header in self.agg_msgs, "Header %s not found in messages" % header)
+-                self.assert_(self.agg_msgs[header].level == lvl, "Level of header %s doesn't match expected value." % header)
++                self.assertTrue(header in self.agg_msgs, "Header %s not found in messages" % header)
++                self.assertTrue(self.agg_msgs[header].level == lvl, "Level of header %s doesn't match expected value." % header)
+                 del self.agg_msgs[header]
+ 
+         # Check that we have the main header message
+             if len(prefix) > 0:
+-                self.assert_(len(self.agg_msgs) == 1, "Incorrect number of messages remaining: %d. Messages: %s" % (len(self.agg_msgs), str(self.agg_msgs)))
++                self.assertTrue(len(self.agg_msgs) == 1, "Incorrect number of messages remaining: %d. Messages: %s" % (len(self.agg_msgs), str(self.agg_msgs)))
+                 
+-                self.assert_(prefix in self.agg_msgs, "Global prefix not found in messages: %s. Messages: %s" % (prefix, str(self.agg_msgs)))
++                self.assertTrue(prefix in self.agg_msgs, "Global prefix not found in messages: %s. Messages: %s" % (prefix, str(self.agg_msgs)))
+             else:
+-                self.assert_(len(self.agg_msgs) == 0, "Incorrect number of messages remaining: %d. Messages: %s. Expected 0." % (len(self.agg_msgs), str(self.agg_msgs)))
++                self.assertTrue(len(self.agg_msgs) == 0, "Incorrect number of messages remaining: %d. Messages: %s. Expected 0." % (len(self.agg_msgs), str(self.agg_msgs)))
+                 
+ 
+ 
+diff --git a/test/discard_stale_not_published_test.py b/test/discard_stale_not_published_test.py
+index e84008c..d92a7ac 100755
+--- a/test/discard_stale_not_published_test.py
++++ b/test/discard_stale_not_published_test.py
+@@ -84,9 +84,9 @@ class TestDiscardStale(unittest.TestCase):
+             with self._mutex:
+                 expecteds = self._expecteds
+ 
+-        self.assert_(len(expecteds.keys()) == 1, "The expected diagnostics are not of length 1."
++        self.assertTrue(len(expecteds.keys()) == 1, "The expected diagnostics are not of length 1."
+                                                  "Received diagnostics: {}".format(expecteds))
+-        self.assert_(expecteds['nonexistent2'].level == DiagnosticStatus.WARN)
++        self.assertTrue(expecteds['nonexistent2'].level == DiagnosticStatus.WARN)
+ 
+         self._start_time = rospy.get_time()
+         duration = 8
+@@ -97,12 +97,12 @@ class TestDiscardStale(unittest.TestCase):
+                 break
+ 
+         with self._mutex:
+-            self.assert_(len(self._agg_expecteds) == 1,
++            self.assertTrue(len(self._agg_expecteds) == 1,
+                          "There should only be one expected aggregated item left, {} found instead!".
+                          format(len(self._agg_expecteds)))
+-            self.assert_(self._agg_expecteds[0].name == "/Nonexistent2",
++            self.assertTrue(self._agg_expecteds[0].name == "/Nonexistent2",
+                          "The name of the first aggregated message should be '/Nonexistent2'!")
+-            self.assert_(self._agg_expecteds[0].level == DiagnosticStatus.STALE,
++            self.assertTrue(self._agg_expecteds[0].level == DiagnosticStatus.STALE,
+                          "The level of the first aggregated message should be stale!")
+ 
+         self._start_time = rospy.get_time()
+@@ -114,7 +114,7 @@ class TestDiscardStale(unittest.TestCase):
+                 break
+ 
+         with self._mutex:
+-            self.assert_(len(self._agg_expecteds) == 0,
++            self.assertTrue(len(self._agg_expecteds) == 0,
+                          "There should't be any aggregated items left, {} found instead! {}".
+                          format(len(self._agg_expecteds), self._agg_expecteds))
+ 
+diff --git a/test/expected_stale_test.py b/test/expected_stale_test.py
+index 442a959..1052dc5 100755
+--- a/test/expected_stale_test.py
++++ b/test/expected_stale_test.py
+@@ -100,14 +100,14 @@ class TestExpectedItemsStale(unittest.TestCase):
+                 break
+ 
+         with self._mutex:
+-            self.assert_(len(self._expecteds) > 0, "No expected items found in raw data!")
++            self.assertTrue(len(self._expecteds) > 0, "No expected items found in raw data!")
+ 
+             for name, item in self._expecteds.items():
+-                self.assert_(name in self._agg_expecteds, "Item %s not found in aggregated diagnostics output" % name)
++                self.assertTrue(name in self._agg_expecteds, "Item %s not found in aggregated diagnostics output" % name)
+                 if item.is_stale():
+-                    self.assert_(self._agg_expecteds[name].level == 3, "Stale item in diagnostics, but aggregated didn't report as stale. Item: %s, state: %d" %(name, self._agg_expecteds[name].level))
++                    self.assertTrue(self._agg_expecteds[name].level == 3, "Stale item in diagnostics, but aggregated didn't report as stale. Item: %s, state: %d" %(name, self._agg_expecteds[name].level))
+                 else:
+-                    self.assert_(self._agg_expecteds[name].level == item.level, "Diagnostic level of aggregated, raw item don't match for %s" % name)
++                    self.assertTrue(self._agg_expecteds[name].level == item.level, "Diagnostic level of aggregated, raw item don't match for %s" % name)
+ 
+ if __name__ == '__main__':
+     rostest.run(PKG, sys.argv[0], TestExpectedItemsStale, sys.argv)
+diff --git a/test/multiple_match_test.py b/test/multiple_match_test.py
+index 8c58a2c..6d50543 100755
+--- a/test/multiple_match_test.py
++++ b/test/multiple_match_test.py
+@@ -99,14 +99,14 @@ class TestMultipleMatch(unittest.TestCase):
+             if rospy.get_time() - self._starttime > DURATION:
+                 break
+         
+-        self.assert_(not rospy.is_shutdown(), "Rospy shutdown!")
++        self.assertTrue(not rospy.is_shutdown(), "Rospy shutdown!")
+ 
+         with self._mutex:
+-            self.assert_(HEADER1 in self._multi_items, "Didn't have item under %s. Items: %s" % (HEADER1, self._multi_items))
+-            self.assert_(self._multi_items[HEADER1].name == MULTI_NAME, "Item name under %s didn't match %s" % (HEADER1, MULTI_NAME))
++            self.assertTrue(HEADER1 in self._multi_items, "Didn't have item under %s. Items: %s" % (HEADER1, self._multi_items))
++            self.assertTrue(self._multi_items[HEADER1].name == MULTI_NAME, "Item name under %s didn't match %s" % (HEADER1, MULTI_NAME))
+ 
+-            self.assert_(HEADER2 in self._multi_items, "Didn't have item under %s" % HEADER2)
+-            self.assert_(self._multi_items[HEADER2].name == MULTI_NAME, "Item name under %s didn't match %s" % (HEADER2, MULTI_NAME))
++            self.assertTrue(HEADER2 in self._multi_items, "Didn't have item under %s" % HEADER2)
++            self.assertTrue(self._multi_items[HEADER2].name == MULTI_NAME, "Item name under %s didn't match %s" % (HEADER2, MULTI_NAME))
+          
+ 
+ if __name__ == '__main__':

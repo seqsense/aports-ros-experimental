@@ -1,0 +1,13 @@
+diff --git a/test/test_snapshot.py b/test/test_snapshot.py
+index 3280af0..602580c 100755
+--- a/test/test_snapshot.py
++++ b/test/test_snapshot.py
+@@ -162,7 +162,7 @@ class TestRosbagSnapshot(unittest.TestCase):
+         # Oneliners :)
+         status_topics = [rospy.resolve_name(list(topic.keys())[0] if type(topic) == dict else topic)
+                          for topic in self.params['topics']]
+-        self.assertEquals(set(topics), set(status_topics))  # Topics from params are same as topics in status message
++        self.assertEqual(set(topics), set(status_topics))  # Topics from params are same as topics in status message
+         for topic in self.last_status.topics:
+             duration = topic.window_stop - topic.window_start
+             memory = topic.traffic
