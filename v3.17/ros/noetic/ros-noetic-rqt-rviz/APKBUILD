@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="boost-dev ros-noetic-pluginlib ros-noetic-rqt-gui ros-noetic-rqt-gui-cpp ros-noetic-rviz boost-dev ros-noetic-pluginlib ros-noetic-rqt-gui ros-noetic-rqt-gui-cpp ros-noetic-rviz"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath boost-dev qt5-qtbase-dev ros-noetic-catkin ros-noetic-class-loader ros-noetic-rqt-gui ros-noetic-rqt-gui-cpp ros-noetic-rviz"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev qt5-qtbase-dev ros-noetic-catkin ros-noetic-class-loader ros-noetic-rqt-gui ros-noetic-rqt-gui-cpp ros-noetic-rviz"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -123,8 +123,8 @@ package() {
   # Tweak invalid RPATH
   find $pkgdir -name "*.so" | while read so; do
     chrpath_out=$(chrpath ${so} || true)
-    if echo ${chrpath_out} | grep -q "RPATH="; then
-      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*RPATH=//")
+    if echo ${chrpath_out} | grep -q "R\(UN\)\?PATH="; then
+      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*R\(UN\)\?PATH=//")
       if echo "${rpath}" | grep -q -e "\(home\|aports\)"; then
         echo "RPATH contains home/aports!: ${rpath}"
         rpathfix=$(echo -n "${rpath}" | tr ":" "\n" \
