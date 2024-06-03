@@ -8,7 +8,7 @@ arch="all"
 license="Apache License 2.0"
 
 depends="ros-humble-action-tutorials-cpp ros-humble-action-tutorials-interfaces ros-humble-action-tutorials-py ros-humble-angles ros-humble-composition ros-humble-demo-nodes-cpp ros-humble-demo-nodes-cpp-native ros-humble-demo-nodes-py ros-humble-depthimage-to-laserscan ros-humble-dummy-map-server ros-humble-dummy-robot-bringup ros-humble-dummy-sensors ros-humble-examples-rclcpp-minimal-action-client ros-humble-examples-rclcpp-minimal-action-server ros-humble-examples-rclcpp-minimal-client ros-humble-examples-rclcpp-minimal-composition ros-humble-examples-rclcpp-minimal-publisher ros-humble-examples-rclcpp-minimal-service ros-humble-examples-rclcpp-minimal-subscriber ros-humble-examples-rclcpp-minimal-timer ros-humble-examples-rclcpp-multithreaded-executor ros-humble-examples-rclpy-executors ros-humble-examples-rclpy-minimal-action-client ros-humble-examples-rclpy-minimal-action-server ros-humble-examples-rclpy-minimal-client ros-humble-examples-rclpy-minimal-publisher ros-humble-examples-rclpy-minimal-service ros-humble-examples-rclpy-minimal-subscriber ros-humble-image-tools ros-humble-intra-process-demo ros-humble-joy ros-humble-lifecycle ros-humble-logging-demo ros-humble-pcl-conversions ros-humble-pendulum-control ros-humble-pendulum-msgs ros-humble-quality-of-service-demo-cpp ros-humble-quality-of-service-demo-py ros-humble-ros-base ros-humble-ros-workspace ros-humble-rqt-common-plugins ros-humble-rviz-default-plugins ros-humble-rviz2 ros-humble-teleop-twist-joy ros-humble-teleop-twist-keyboard ros-humble-tlsf ros-humble-tlsf-cpp ros-humble-topic-monitor ros-humble-turtlesim"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -110,8 +110,8 @@ package() {
   # Tweak invalid RPATH
   find $pkgdir -name "*.so" | while read so; do
     chrpath_out=$(chrpath ${so} || true)
-    if echo ${chrpath_out} | grep -q "RPATH="; then
-      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*RPATH=//")
+    if echo ${chrpath_out} | grep -q "R\(UN\)\?PATH="; then
+      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*R\(UN\)\?PATH=//")
       if echo "${rpath}" | grep -q -e "\(home\|aports\)"; then
         echo "RPATH contains home/aports!: ${rpath}"
         rpathfix=$(echo -n "${rpath}" | tr ":" "\n" \
