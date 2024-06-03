@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="qt5-qtbase-dev ros-humble-ament-index-cpp ros-humble-resource-retriever ros-humble-ros-workspace ros-humble-rviz-assimp-vendor ros-humble-rviz-ogre-vendor eigen-dev qt5-qtbase-dev ros-humble-eigen3-cmake-module ros-humble-rviz-ogre-vendor"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath eigen-dev qt5-qtbase-dev ros-humble-ament-cmake ros-humble-ament-cmake-cppcheck ros-humble-ament-cmake-cpplint ros-humble-ament-cmake-gmock ros-humble-ament-cmake-gtest ros-humble-ament-cmake-lint-cmake ros-humble-ament-cmake-uncrustify ros-humble-ament-cmake-xmllint ros-humble-ament-index-cpp ros-humble-ament-lint-auto ros-humble-eigen3-cmake-module ros-humble-resource-retriever ros-humble-rviz-assimp-vendor ros-humble-rviz-ogre-vendor"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev qt5-qtbase-dev ros-humble-ament-cmake ros-humble-ament-cmake-cppcheck ros-humble-ament-cmake-cpplint ros-humble-ament-cmake-gmock ros-humble-ament-cmake-gtest ros-humble-ament-cmake-lint-cmake ros-humble-ament-cmake-uncrustify ros-humble-ament-cmake-xmllint ros-humble-ament-index-cpp ros-humble-ament-lint-auto ros-humble-eigen3-cmake-module ros-humble-resource-retriever ros-humble-rviz-assimp-vendor ros-humble-rviz-ogre-vendor"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -110,8 +110,8 @@ package() {
   # Tweak invalid RPATH
   find $pkgdir -name "*.so" | while read so; do
     chrpath_out=$(chrpath ${so} || true)
-    if echo ${chrpath_out} | grep -q "RPATH="; then
-      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*RPATH=//")
+    if echo ${chrpath_out} | grep -q "R\(UN\)\?PATH="; then
+      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*R\(UN\)\?PATH=//")
       if echo "${rpath}" | grep -q -e "\(home\|aports\)"; then
         echo "RPATH contains home/aports!: ${rpath}"
         rpathfix=$(echo -n "${rpath}" | tr ":" "\n" \
