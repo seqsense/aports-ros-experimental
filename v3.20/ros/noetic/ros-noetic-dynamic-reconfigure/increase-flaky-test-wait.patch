@@ -1,0 +1,13 @@
+diff --git a/test/test_client.cpp b/test/test_client.cpp
+index 8724a8c..e0c2d4e 100644
+--- a/test/test_client.cpp
++++ b/test/test_client.cpp
+@@ -125,7 +125,7 @@ TEST(dynamic_reconfigure_simple_client, multipleClients) {
+   Client<TestConfig> client2("/ref_server", &configurationCallback);
+   Client<TestConfig> client3("/ref_server", &configurationCallback);
+   client3.setConfiguration(TestConfig::__getDefault__());
+-  ros::Duration(0.2).sleep();
++  ros::Duration(0.5).sleep();
+   EXPECT_EQ(0, CONFIG.int_);
+   client1.setConfiguration(TestConfig::__getMin__());
+   ros::Duration(0.2).sleep();
