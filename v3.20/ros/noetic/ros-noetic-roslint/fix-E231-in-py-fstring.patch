@@ -1,3 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 6f90978..e4b2eb4 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -26,4 +26,6 @@ if(CATKIN_ENABLE_TESTING)
+     src/roslint/cpplint_wrapper.py
+     src/roslint/pycodestyle_wrapper.py)
+   roslint_add_test()
++
++  add_subdirectory(tests)
+ endif()
 diff --git a/tests/clean1.py b/tests/clean1.py
 index 3147046..cc88503 100644
 --- a/tests/clean1.py
