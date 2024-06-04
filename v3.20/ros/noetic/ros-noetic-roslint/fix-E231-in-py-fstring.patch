@@ -23,6 +23,25 @@ index 6f90978..970400a 100644
 +  # Make run_tests depend on the roslint targets created above.
 +  add_dependencies(run_tests_${PROJECT_NAME} roslint_${PROJECT_NAME})
  endif()
+diff --git a/src/roslint/pycodestyle.py b/src/roslint/pycodestyle.py
+index b7e0b2f..60a3016 100644
+
+Ported https://github.com/PyCQA/pycodestyle/pull/1148
+
+--- a/src/roslint/pycodestyle.py
++++ b/src/roslint/pycodestyle.py
+@@ -2011,6 +2011,11 @@ class Checker(object):
+                 continue
+             if token_type == tokenize.STRING:
+                 text = mute_string(text)
++            elif (
++                    sys.version_info >= (3, 12) and
++                    token_type == tokenize.FSTRING_MIDDLE
++            ):
++                text = 'x' * len(text)
+             if prev_row:
+                 (start_row, start_col) = start
+                 if prev_row != start_row:    # different row
 diff --git a/tests/clean1.py b/tests/clean1.py
 index 3147046..43f5b99 100644
 --- a/tests/clean1.py
