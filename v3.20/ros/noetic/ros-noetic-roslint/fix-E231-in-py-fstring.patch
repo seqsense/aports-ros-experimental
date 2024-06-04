@@ -1,0 +1,64 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 6f90978..970400a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -26,4 +26,20 @@ if(CATKIN_ENABLE_TESTING)
+     src/roslint/cpplint_wrapper.py
+     src/roslint/pycodestyle_wrapper.py)
+   roslint_add_test()
++
++  # Run tests in tests/CMakeLists.txt.
++  # add_subdirectory(tests) doesn't work due to
++  # "TARGET 'roslint_roslint' was not created in this directory" error.
++
++  # Some simple Python unit tests, which must return zero status or make
++  # run_tests appears to fail.
++  roslint_python(tests/clean1.py)
++
++  # Run pylint with expected return status:
++  set(_RUNLINT "tests/runlint.py")
++  roslint_custom(${_RUNLINT} "0 pylint tests/clean1.py")
++  roslint_custom(${_RUNLINT} "16 pylint tests/dirty1.py")
++
++  # Make run_tests depend on the roslint targets created above.
++  add_dependencies(run_tests_${PROJECT_NAME} roslint_${PROJECT_NAME})
+ endif()
+diff --git a/src/roslint/pycodestyle.py b/src/roslint/pycodestyle.py
+index b7e0b2f..60a3016 100644
+
+Ported https://github.com/PyCQA/pycodestyle/pull/1148
+
+--- a/src/roslint/pycodestyle.py
++++ b/src/roslint/pycodestyle.py
+@@ -2011,6 +2011,11 @@ class Checker(object):
+                 continue
+             if token_type == tokenize.STRING:
+                 text = mute_string(text)
++            elif (
++                    sys.version_info >= (3, 12) and
++                    token_type == tokenize.FSTRING_MIDDLE
++            ):
++                text = 'x' * len(text)
+             if prev_row:
+                 (start_row, start_col) = start
+                 if prev_row != start_row:    # different row
+diff --git a/tests/clean1.py b/tests/clean1.py
+index 3147046..43f5b99 100644
+--- a/tests/clean1.py
++++ b/tests/clean1.py
+@@ -5,6 +5,7 @@ This Python module should pass ``pylint`` cleanly.
+ 
+ """
+ 
++
+ def get(msg, key):
+     """ Get property value.
+ 
+@@ -19,3 +20,7 @@ def get(msg, key):
+         if prop.key == key:
+             return prop.value
+     return None
++
++
++def colon_in_fstring(hoge, foo):
++    print(f"{hoge}:{foo}")
