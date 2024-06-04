@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="py3-rospkg ros-noetic-python-qt-binding>=0.3.0 tango-icon-theme"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-sip4 py3-sip4-dev py3-qt5 py3-setuptools py3-sip4 qt5-qtbase-dev ros-noetic-catkin"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-qt5 py3-setuptools py3-sip4 py3-sip4-dev qt5-qtbase-dev ros-noetic-catkin"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
