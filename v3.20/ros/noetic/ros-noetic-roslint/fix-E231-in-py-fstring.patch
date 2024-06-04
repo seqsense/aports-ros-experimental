@@ -1,22 +1,45 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 6f90978..e4b2eb4 100644
+index 6f90978..970400a 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -26,4 +26,6 @@ if(CATKIN_ENABLE_TESTING)
+@@ -26,4 +26,20 @@ if(CATKIN_ENABLE_TESTING)
      src/roslint/cpplint_wrapper.py
      src/roslint/pycodestyle_wrapper.py)
    roslint_add_test()
 +
-+  add_subdirectory(tests)
++  # Run tests in tests/CMakeLists.txt.
++  # add_subdirectory(tests) doesn't work due to
++  # "TARGET 'roslint_roslint' was not created in this directory" error.
++
++  # Some simple Python unit tests, which must return zero status or make
++  # run_tests appears to fail.
++  roslint_python(tests/clean1.py)
++
++  # Run pylint with expected return status:
++  set(_RUNLINT "tests/runlint.py")
++  roslint_custom(${_RUNLINT} "0 pylint tests/clean1.py")
++  roslint_custom(${_RUNLINT} "16 pylint tests/dirty1.py")
++
++  # Make run_tests depend on the roslint targets created above.
++  add_dependencies(run_tests_${PROJECT_NAME} roslint_${PROJECT_NAME})
  endif()
 diff --git a/tests/clean1.py b/tests/clean1.py
-index 3147046..cc88503 100644
+index 3147046..43f5b99 100644
 --- a/tests/clean1.py
 +++ b/tests/clean1.py
-@@ -19,3 +19,6 @@ def get(msg, key):
+@@ -5,6 +5,7 @@ This Python module should pass ``pylint`` cleanly.
+ 
+ """
+ 
++
+ def get(msg, key):
+     """ Get property value.
+ 
+@@ -19,3 +20,7 @@ def get(msg, key):
          if prop.key == key:
              return prop.value
      return None
++
 +
 +def colon_in_fstring(hoge, foo):
 +    print(f"{hoge}:{foo}")
