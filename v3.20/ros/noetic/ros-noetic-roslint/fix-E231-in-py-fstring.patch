@@ -1,0 +1,11 @@
+diff --git a/tests/clean1.py b/tests/clean1.py
+index 3147046..2d6a05a 100644
+--- a/tests/clean1.py
++++ b/tests/clean1.py
+@@ -19,3 +19,6 @@ def get(msg, key):
+         if prop.key == key:
+             return prop.value
+     return None
++
++def colon_in_fstring(hoge, foo):
++    return f"{hoge}:{foo}"
