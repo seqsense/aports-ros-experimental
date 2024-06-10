@@ -8,7 +8,7 @@ arch="all"
 license="Apache License 2.0"
 
 depends="ros-humble-lifecycle-msgs ros-humble-rclpy ros-humble-ros-workspace ros-humble-ros2cli ros-humble-ros2node ros-humble-ros2service ros-humble-rclpy ros-humble-ros2cli"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath py3-pytest py3-pytest py3-pytest-timeout ros-humble-ament-copyright ros-humble-ament-flake8 ros-humble-ament-pep257 ros-humble-ament-xmllint ros-humble-launch ros-humble-launch-ros ros-humble-launch-testing ros-humble-launch-testing-ros ros-humble-rclpy ros-humble-ros2cli ros-humble-ros2lifecycle-test-fixtures"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-pytest py3-pytest py3-pytest-timeout ros-humble-ament-copyright ros-humble-ament-flake8 ros-humble-ament-pep257 ros-humble-ament-xmllint ros-humble-launch ros-humble-launch-ros ros-humble-launch-testing ros-humble-launch-testing-ros ros-humble-rclpy ros-humble-ros2cli ros-humble-ros2lifecycle-test-fixtures"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -127,8 +127,8 @@ package() {
   # Tweak invalid RPATH
   find $pkgdir -name "*.so" | while read so; do
     chrpath_out=$(chrpath ${so} || true)
-    if echo ${chrpath_out} | grep -q "RPATH="; then
-      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*RPATH=//")
+    if echo ${chrpath_out} | grep -q "R\(UN\)\?PATH="; then
+      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*R\(UN\)\?PATH=//")
       if echo "${rpath}" | grep -q -e "\(home\|aports\)"; then
         echo "RPATH contains home/aports!: ${rpath}"
         rpathfix=$(echo -n "${rpath}" | tr ":" "\n" \
