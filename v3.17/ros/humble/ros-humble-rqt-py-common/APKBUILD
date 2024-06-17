@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="qt5-qtbase-dev ros-humble-python-qt-binding>=0.3.4 ros-humble-qt-gui ros-humble-rclpy ros-humble-ros-workspace qt5-qtbase-dev ros-humble-rclpy"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath qt5-qtbase-dev ros-humble-ament-cmake ros-humble-ament-cmake-pytest ros-humble-python-cmake-module ros-humble-rclpy ros-humble-rosidl-default-generators ros-humble-rosidl-default-runtime"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath qt5-qtbase-dev ros-humble-ament-cmake ros-humble-ament-cmake-pytest ros-humble-python-cmake-module ros-humble-rclpy ros-humble-rosidl-default-generators ros-humble-rosidl-default-runtime"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -110,8 +110,8 @@ package() {
   # Tweak invalid RPATH
   find $pkgdir -name "*.so" | while read so; do
     chrpath_out=$(chrpath ${so} || true)
-    if echo ${chrpath_out} | grep -q "RPATH="; then
-      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*RPATH=//")
+    if echo ${chrpath_out} | grep -q "R\(UN\)\?PATH="; then
+      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*R\(UN\)\?PATH=//")
       if echo "${rpath}" | grep -q -e "\(home\|aports\)"; then
         echo "RPATH contains home/aports!: ${rpath}"
         rpathfix=$(echo -n "${rpath}" | tr ":" "\n" \

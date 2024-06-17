@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="py3-catkin-pkg ros-humble-ament-index-python ros-humble-python-qt-binding ros-humble-qt-gui>=0.3.0 ros-humble-rclpy ros-humble-ros-workspace"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath py3-pytest ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-qt-gui>=0.3.0"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-pytest ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-qt-gui>=0.3.0"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -127,8 +127,8 @@ package() {
   # Tweak invalid RPATH
   find $pkgdir -name "*.so" | while read so; do
     chrpath_out=$(chrpath ${so} || true)
-    if echo ${chrpath_out} | grep -q "RPATH="; then
-      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*RPATH=//")
+    if echo ${chrpath_out} | grep -q "R\(UN\)\?PATH="; then
+      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*R\(UN\)\?PATH=//")
       if echo "${rpath}" | grep -q -e "\(home\|aports\)"; then
         echo "RPATH contains home/aports!: ${rpath}"
         rpathfix=$(echo -n "${rpath}" | tr ":" "\n" \
