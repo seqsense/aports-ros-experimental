@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="qt5-qtbase-dev ros-humble-geometry-msgs ros-humble-ignition-math6-vendor ros-humble-image-transport ros-humble-interactive-markers ros-humble-laser-geometry ros-humble-map-msgs ros-humble-nav-msgs ros-humble-pluginlib ros-humble-rclcpp ros-humble-resource-retriever ros-humble-ros-workspace ros-humble-rviz-common ros-humble-rviz-ogre-vendor ros-humble-rviz-rendering ros-humble-tf2 ros-humble-tf2-geometry-msgs ros-humble-tf2-ros ros-humble-urdf ros-humble-visualization-msgs ros-humble-geometry-msgs ros-humble-ignition-math6-vendor ros-humble-image-transport ros-humble-interactive-markers ros-humble-laser-geometry ros-humble-map-msgs ros-humble-nav-msgs ros-humble-pluginlib ros-humble-rclcpp ros-humble-resource-retriever ros-humble-rviz-common ros-humble-rviz-ogre-vendor ros-humble-rviz-rendering ros-humble-tf2 ros-humble-tf2-geometry-msgs ros-humble-tf2-ros ros-humble-urdf ros-humble-visualization-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath qt5-qtbase-dev ros-humble-ament-cmake ros-humble-ament-cmake-cppcheck ros-humble-ament-cmake-cpplint ros-humble-ament-cmake-gmock ros-humble-ament-cmake-gtest ros-humble-ament-cmake-lint-cmake ros-humble-ament-cmake-uncrustify ros-humble-ament-cmake-xmllint ros-humble-ament-index-cpp ros-humble-ament-lint-auto ros-humble-geometry-msgs ros-humble-ignition-math6-vendor ros-humble-image-transport ros-humble-interactive-markers ros-humble-laser-geometry ros-humble-map-msgs ros-humble-nav-msgs ros-humble-pluginlib ros-humble-rclcpp ros-humble-resource-retriever ros-humble-rviz-common ros-humble-rviz-ogre-vendor ros-humble-rviz-rendering ros-humble-rviz-rendering-tests ros-humble-rviz-visual-testing-framework ros-humble-tf2 ros-humble-tf2-geometry-msgs ros-humble-tf2-ros ros-humble-urdf ros-humble-visualization-msgs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath qt5-qtbase-dev ros-humble-ament-cmake ros-humble-ament-cmake-cppcheck ros-humble-ament-cmake-cpplint ros-humble-ament-cmake-gmock ros-humble-ament-cmake-gtest ros-humble-ament-cmake-lint-cmake ros-humble-ament-cmake-uncrustify ros-humble-ament-cmake-xmllint ros-humble-ament-index-cpp ros-humble-ament-lint-auto ros-humble-geometry-msgs ros-humble-ignition-math6-vendor ros-humble-image-transport ros-humble-interactive-markers ros-humble-laser-geometry ros-humble-map-msgs ros-humble-nav-msgs ros-humble-pluginlib ros-humble-rclcpp ros-humble-resource-retriever ros-humble-rviz-common ros-humble-rviz-ogre-vendor ros-humble-rviz-rendering ros-humble-rviz-rendering-tests ros-humble-rviz-visual-testing-framework ros-humble-tf2 ros-humble-tf2-geometry-msgs ros-humble-tf2-ros ros-humble-urdf ros-humble-visualization-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -110,8 +110,8 @@ package() {
   # Tweak invalid RPATH
   find $pkgdir -name "*.so" | while read so; do
     chrpath_out=$(chrpath ${so} || true)
-    if echo ${chrpath_out} | grep -q "RPATH="; then
-      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*RPATH=//")
+    if echo ${chrpath_out} | grep -q "R\(UN\)\?PATH="; then
+      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*R\(UN\)\?PATH=//")
       if echo "${rpath}" | grep -q -e "\(home\|aports\)"; then
         echo "RPATH contains home/aports!: ${rpath}"
         rpathfix=$(echo -n "${rpath}" | tr ":" "\n" \
