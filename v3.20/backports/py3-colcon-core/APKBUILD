@@ -1,7 +1,7 @@
 pkgname=py3-colcon-core
 _pkgname=colcon-core
 pkgver=0.16.1
-pkgrel=4
+pkgrel=5
 pkgdesc="Command line tool to build sets of software packages."
 url="https://pypi.org/project/colcon-core/"
 arch="noarch"
