@@ -1,14 +1,14 @@
 pkgname=ros-humble-rclcpp-lifecycle
 _pkgname=rclcpp_lifecycle
 pkgver=16.0.9
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
 depends="ros-humble-lifecycle-msgs ros-humble-rcl-lifecycle ros-humble-rclcpp ros-humble-rmw ros-humble-ros-workspace ros-humble-rosidl-typesupport-cpp ros-humble-rmw"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake-gtest ros-humble-ament-cmake-ros ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-lifecycle-msgs ros-humble-mimick-vendor ros-humble-performance-test-fixture ros-humble-rcl-lifecycle ros-humble-rclcpp ros-humble-rcpputils ros-humble-rcutils ros-humble-rmw ros-humble-rosidl-typesupport-cpp ros-humble-test-msgs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake-gtest ros-humble-ament-cmake-ros ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-lifecycle-msgs ros-humble-mimick-vendor ros-humble-performance-test-fixture ros-humble-rcl-lifecycle ros-humble-rclcpp ros-humble-rcpputils ros-humble-rcutils ros-humble-rmw ros-humble-rosidl-typesupport-cpp ros-humble-test-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -110,8 +110,8 @@ package() {
   # Tweak invalid RPATH
   find $pkgdir -name "*.so" | while read so; do
     chrpath_out=$(chrpath ${so} || true)
-    if echo ${chrpath_out} | grep -q "RPATH="; then
-      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*RPATH=//")
+    if echo ${chrpath_out} | grep -q "R\(UN\)\?PATH="; then
+      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*R\(UN\)\?PATH=//")
       if echo "${rpath}" | grep -q -e "\(home\|aports\)"; then
         echo "RPATH contains home/aports!: ${rpath}"
         rpathfix=$(echo -n "${rpath}" | tr ":" "\n" \
