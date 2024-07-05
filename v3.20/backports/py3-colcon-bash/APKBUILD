@@ -1,7 +1,7 @@
 pkgname=py3-colcon-bash
 _pkgname=colcon-bash
 pkgver=0.5.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Extension for colcon to provide Bash scripts."
 url="http://colcon.readthedocs.io"
 arch="noarch"

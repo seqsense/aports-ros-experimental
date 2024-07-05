@@ -1,7 +1,7 @@
 pkgname=py3-colcon-core
 _pkgname=colcon-core
 pkgver=0.16.1
-pkgrel=4
+pkgrel=5
 pkgdesc="Command line tool to build sets of software packages."
 url="https://pypi.org/project/colcon-core/"
 arch="noarch"
@@ -10,8 +10,7 @@ depends="python3 py3-coloredlogs py3-distlib py3-empy py3-pytest py3-pytest-cov 
 makedepends="py3-gpep517 py3-setuptools py3-wheel"
 checkdepends="py3-pip py3-pytest py3-flake8"
 subpackages="$pkgname-doc"
-source="$_pkgname-$pkgver.tar.gz::https://github.com/colcon/colcon-core/archive/refs/tags/$pkgver.tar.gz
-        test-dependencies.patch"
+source="$_pkgname-$pkgver.tar.gz::https://github.com/colcon/colcon-core/archive/refs/tags/$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
@@ -36,5 +35,4 @@ package() {
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="88d50aaef6b2e5f420b22349ce2b05a3322f5af996ded4466ade0a2fd30f5d27f8f09851d22fcbb5d780be9d9d831e9524875a44cd8bd8250553a00cb019b235  colcon-core-0.16.1.tar.gz
-d5eb7660bb0f0c4779f5b89fb195e73e698f7eb9b8d6915bf9b453267da67e5421236a47da2a1cb414dc1cb411206ab8c04815b58661488dc473b4364d5f1d65  test-dependencies.patch"
+sha512sums="88d50aaef6b2e5f420b22349ce2b05a3322f5af996ded4466ade0a2fd30f5d27f8f09851d22fcbb5d780be9d9d831e9524875a44cd8bd8250553a00cb019b235  colcon-core-0.16.1.tar.gz"
