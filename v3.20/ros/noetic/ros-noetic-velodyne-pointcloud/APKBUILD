@@ -7,10 +7,11 @@ url="http://ros.org/wiki/velodyne_pointcloud"
 arch="all"
 license="BSD"
 
-depends="eigen-dev ros-noetic-angles ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-roslib ros-noetic-sensor-msgs ros-noetic-tf2-ros ros-noetic-velodyne-driver ros-noetic-velodyne-laserscan ros-noetic-velodyne-msgs yaml-cpp-dev eigen-dev ros-noetic-angles ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-roslib ros-noetic-sensor-msgs ros-noetic-tf2-ros ros-noetic-velodyne-driver ros-noetic-velodyne-msgs yaml-cpp-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev ros-noetic-angles ros-noetic-catkin ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-roslaunch ros-noetic-roslib ros-noetic-roslint ros-noetic-rostest ros-noetic-rosunit ros-noetic-sensor-msgs ros-noetic-tf2-ros ros-noetic-velodyne-driver ros-noetic-velodyne-msgs yaml-cpp-dev"
+depends="ros-noetic-angles ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-roslib ros-noetic-sensor-msgs ros-noetic-tf2-ros ros-noetic-velodyne-driver ros-noetic-velodyne-laserscan ros-noetic-velodyne-msgs"
+makedepends="chrpath eigen-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-angles ros-noetic-catkin ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-roslaunch ros-noetic-roslib ros-noetic-roslint ros-noetic-rostest ros-noetic-rosunit ros-noetic-sensor-msgs ros-noetic-tf2-ros ros-noetic-velodyne-driver ros-noetic-velodyne-msgs yaml-cpp-dev"
+depends_dev="eigen-dev ros-noetic-angles ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-roslib ros-noetic-sensor-msgs ros-noetic-tf2-ros ros-noetic-velodyne-driver ros-noetic-velodyne-msgs yaml-cpp-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

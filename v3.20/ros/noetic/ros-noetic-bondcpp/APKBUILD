@@ -7,10 +7,11 @@ url="http://www.ros.org/wiki/bondcpp"
 arch="all"
 license="BSD"
 
-depends="boost-dev ros-noetic-bond ros-noetic-roscpp ros-noetic-smclib util-linux-dev boost-dev ros-noetic-bond ros-noetic-roscpp ros-noetic-smclib util-linux-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev ros-noetic-bond ros-noetic-catkin ros-noetic-cmake-modules>=0.3.2 ros-noetic-roscpp ros-noetic-smclib util-linux-dev"
+depends="ros-noetic-bond ros-noetic-roscpp ros-noetic-smclib"
+makedepends="boost-dev chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-bond ros-noetic-catkin ros-noetic-cmake-modules>=0.3.2 ros-noetic-roscpp ros-noetic-smclib util-linux-dev"
+depends_dev="boost-dev ros-noetic-bond ros-noetic-roscpp ros-noetic-smclib util-linux-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

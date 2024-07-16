@@ -7,10 +7,11 @@ url="http://www.ros.org/wiki/tf2"
 arch="all"
 license="BSD"
 
-depends="console_bridge-dev ros-noetic-geometry-msgs ros-noetic-rostime ros-noetic-tf2-msgs console_bridge-dev ros-noetic-geometry-msgs ros-noetic-rostime ros-noetic-tf2-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath console_bridge-dev ros-noetic-catkin>=0.5.68 ros-noetic-geometry-msgs ros-noetic-rostime ros-noetic-tf2-msgs"
+depends="ros-noetic-geometry-msgs ros-noetic-rostime ros-noetic-tf2-msgs"
+makedepends="chrpath console_bridge-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin>=0.5.68 ros-noetic-geometry-msgs ros-noetic-rostime ros-noetic-tf2-msgs"
+depends_dev="console_bridge-dev ros-noetic-geometry-msgs ros-noetic-rostime ros-noetic-tf2-msgs"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

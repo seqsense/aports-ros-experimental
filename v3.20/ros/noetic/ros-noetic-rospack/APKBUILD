@@ -7,10 +7,11 @@ url="http://wiki.ros.org/rospack"
 arch="all"
 license="BSD"
 
-depends="boost-dev pkgconf py3-catkin-pkg py3-rosdep python3-dev ros-noetic-ros-environment tinyxml2-dev boost-dev pkgconf python3-dev tinyxml2-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev gtest gtest-dev pkgconf py3-coverage python3-dev ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules tinyxml2-dev"
+depends="pkgconf py3-catkin-pkg py3-rosdep ros-noetic-ros-environment"
+makedepends="boost-dev chrpath gtest gtest-dev pkgconf py3-coverage py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool python3-dev ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules tinyxml2-dev"
+depends_dev="boost-dev pkgconf python3-dev tinyxml2-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh
