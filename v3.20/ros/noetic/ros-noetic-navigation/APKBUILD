@@ -8,9 +8,10 @@ arch="all"
 license="BSD,LGPL,LGPL (amcl)"
 
 depends="ros-noetic-amcl ros-noetic-base-local-planner ros-noetic-carrot-planner ros-noetic-clear-costmap-recovery ros-noetic-costmap-2d ros-noetic-dwa-local-planner ros-noetic-fake-localization ros-noetic-global-planner ros-noetic-map-server ros-noetic-move-base ros-noetic-move-base-msgs ros-noetic-move-slow-and-clear ros-noetic-nav-core ros-noetic-navfn ros-noetic-rotate-recovery ros-noetic-voxel-grid"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin"
+depends_dev=""
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

@@ -7,10 +7,11 @@ url="http://ros.org/wiki/depth_image_proc"
 arch="all"
 license="BSD"
 
-depends="boost-dev ros-noetic-cv-bridge ros-noetic-eigen-conversions ros-noetic-image-geometry ros-noetic-image-transport ros-noetic-nodelet ros-noetic-sensor-msgs ros-noetic-tf2 ros-noetic-tf2-ros boost-dev ros-noetic-cv-bridge ros-noetic-eigen-conversions ros-noetic-image-geometry ros-noetic-image-transport ros-noetic-nodelet ros-noetic-sensor-msgs ros-noetic-tf2 ros-noetic-tf2-ros"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev ros-noetic-catkin ros-noetic-cmake-modules ros-noetic-cv-bridge ros-noetic-eigen-conversions ros-noetic-image-geometry ros-noetic-image-transport ros-noetic-message-filters ros-noetic-nodelet ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-stereo-msgs ros-noetic-tf2 ros-noetic-tf2-ros"
+depends="ros-noetic-cv-bridge ros-noetic-eigen-conversions ros-noetic-image-geometry ros-noetic-image-transport ros-noetic-nodelet ros-noetic-sensor-msgs ros-noetic-tf2 ros-noetic-tf2-ros"
+makedepends="boost-dev chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-cmake-modules ros-noetic-cv-bridge ros-noetic-eigen-conversions ros-noetic-image-geometry ros-noetic-image-transport ros-noetic-message-filters ros-noetic-nodelet ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-stereo-msgs ros-noetic-tf2 ros-noetic-tf2-ros"
+depends_dev="boost-dev ros-noetic-cv-bridge ros-noetic-eigen-conversions ros-noetic-image-geometry ros-noetic-image-transport ros-noetic-nodelet ros-noetic-sensor-msgs ros-noetic-tf2 ros-noetic-tf2-ros"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh
