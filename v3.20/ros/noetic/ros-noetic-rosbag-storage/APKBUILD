@@ -7,10 +7,11 @@ url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="boost-dev bzip2-dev console_bridge-dev gpgme-dev openssl-dev ros-noetic-cpp-common>=0.3.17 ros-noetic-pluginlib ros-noetic-roscpp-serialization ros-noetic-roscpp-traits>=0.3.17 ros-noetic-roslz4 ros-noetic-rostime boost-dev bzip2-dev console_bridge-dev gpgme-dev openssl-dev ros-noetic-cpp-common>=0.3.17 ros-noetic-pluginlib ros-noetic-roscpp-serialization ros-noetic-roscpp-traits>=0.3.17 ros-noetic-roslz4 ros-noetic-rostime"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev bzip2-dev console_bridge-dev gpgme-dev openssl-dev ros-noetic-catkin ros-noetic-cpp-common>=0.3.17 ros-noetic-pluginlib ros-noetic-roscpp-serialization ros-noetic-roscpp-traits>=0.3.17 ros-noetic-roslz4 ros-noetic-rostest ros-noetic-rostime ros-noetic-std-msgs"
+depends="ros-noetic-cpp-common>=0.3.17 ros-noetic-pluginlib ros-noetic-roscpp-serialization ros-noetic-roscpp-traits>=0.3.17 ros-noetic-roslz4 ros-noetic-rostime"
+makedepends="boost-dev bzip2-dev chrpath console_bridge-dev gpgme-dev openssl-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-cpp-common>=0.3.17 ros-noetic-pluginlib ros-noetic-roscpp-serialization ros-noetic-roscpp-traits>=0.3.17 ros-noetic-roslz4 ros-noetic-rostest ros-noetic-rostime ros-noetic-std-msgs"
+depends_dev="boost-dev bzip2-dev console_bridge-dev gpgme-dev openssl-dev ros-noetic-cpp-common>=0.3.17 ros-noetic-pluginlib ros-noetic-roscpp-serialization ros-noetic-roscpp-traits>=0.3.17 ros-noetic-roslz4 ros-noetic-rostime"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

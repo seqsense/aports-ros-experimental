@@ -7,10 +7,11 @@ url="http://ros.org/wiki/laser_geometry"
 arch="all"
 license="BSD"
 
-depends="boost-dev eigen-dev py3-numpy py3-numpy-dev ros-noetic-angles ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2 boost-dev eigen-dev ros-noetic-angles ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev eigen-dev ros-noetic-angles ros-noetic-catkin>=0.5.68 ros-noetic-roscpp ros-noetic-rosunit ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2 ros-noetic-tf2-geometry-msgs"
+depends="py3-numpy ros-noetic-angles ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2"
+makedepends="boost-dev chrpath eigen-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-angles ros-noetic-catkin>=0.5.68 ros-noetic-roscpp ros-noetic-rosunit ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2 ros-noetic-tf2-geometry-msgs"
+depends_dev="boost-dev eigen-dev py3-numpy-dev ros-noetic-angles ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

@@ -7,10 +7,11 @@ url="http://wiki.ros.org/velodyne_pcl"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-pcl-ros ros-noetic-pcl-ros"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-pcl-ros ros-noetic-roslint"
+depends="ros-noetic-pcl-ros"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-pcl-ros ros-noetic-roslint"
+depends_dev="ros-noetic-pcl-ros"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

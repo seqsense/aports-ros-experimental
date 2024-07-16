@@ -7,10 +7,11 @@ url="http://wiki.ros.org/rotate_recovery"
 arch="all"
 license="BSD"
 
-depends="eigen-dev ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-nav-core ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros eigen-dev ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-nav-core ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev ros-noetic-angles ros-noetic-base-local-planner ros-noetic-catkin ros-noetic-cmake-modules ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-nav-core ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros"
+depends="ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-nav-core ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros"
+makedepends="chrpath eigen-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-angles ros-noetic-base-local-planner ros-noetic-catkin ros-noetic-cmake-modules ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-nav-core ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros"
+depends_dev="eigen-dev ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-nav-core ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

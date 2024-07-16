@@ -8,9 +8,10 @@ arch="all"
 license="BSD"
 
 depends="py3-paramiko py3-rospkg ros-noetic-rosbuild ros-noetic-rosgraph ros-noetic-roslaunch ros-noetic-roslib ros-noetic-rosnode ros-noetic-rosservice"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules ros-noetic-rosbag ros-noetic-roslang ros-noetic-rostest ros-noetic-std-srvs"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules ros-noetic-rosbag ros-noetic-roslang ros-noetic-rostest ros-noetic-std-srvs"
+depends_dev=""
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

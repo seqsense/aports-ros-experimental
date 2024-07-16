@@ -7,10 +7,11 @@ url="http://ros.org/wiki/rqt_py_common"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-actionlib ros-noetic-genpy ros-noetic-python-qt-binding>=0.2.19 ros-noetic-qt-gui ros-noetic-rosbag ros-noetic-roslib ros-noetic-rospy ros-noetic-rostopic ros-noetic-actionlib ros-noetic-genpy ros-noetic-python-qt-binding>=0.2.19 ros-noetic-qt-gui ros-noetic-rosbag ros-noetic-roslib ros-noetic-rospy ros-noetic-rostopic"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-genmsg ros-noetic-std-msgs"
+depends="ros-noetic-actionlib ros-noetic-genpy ros-noetic-python-qt-binding>=0.2.19 ros-noetic-qt-gui ros-noetic-rosbag ros-noetic-roslib ros-noetic-rospy ros-noetic-rostopic"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-genmsg ros-noetic-std-msgs"
+depends_dev="ros-noetic-actionlib ros-noetic-genpy ros-noetic-python-qt-binding>=0.2.19 ros-noetic-qt-gui ros-noetic-rosbag ros-noetic-roslib ros-noetic-rospy ros-noetic-rostopic"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

@@ -7,10 +7,11 @@ url="http://wiki.ros.org/amcl"
 arch="all"
 license="LGPL"
 
-depends="ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-nav-msgs ros-noetic-rosbag ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-srvs ros-noetic-tf2 ros-noetic-tf2-msgs ros-noetic-tf2-ros ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-nav-msgs ros-noetic-rosbag ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-srvs ros-noetic-tf2 ros-noetic-tf2-msgs ros-noetic-tf2-ros"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-kdl ros-noetic-catkin ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-map-server ros-noetic-message-filters ros-noetic-nav-msgs ros-noetic-rosbag ros-noetic-roscpp ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-std-srvs ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-msgs ros-noetic-tf2-py ros-noetic-tf2-ros"
+depends="ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-nav-msgs ros-noetic-rosbag ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-srvs ros-noetic-tf2 ros-noetic-tf2-msgs ros-noetic-tf2-ros"
+makedepends="chrpath py3-kdl py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-map-server ros-noetic-message-filters ros-noetic-nav-msgs ros-noetic-rosbag ros-noetic-roscpp ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-std-srvs ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-msgs ros-noetic-tf2-py ros-noetic-tf2-ros"
+depends_dev="ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-nav-msgs ros-noetic-rosbag ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-srvs ros-noetic-tf2 ros-noetic-tf2-msgs ros-noetic-tf2-ros"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

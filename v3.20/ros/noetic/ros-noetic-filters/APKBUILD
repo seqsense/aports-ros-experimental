@@ -7,10 +7,11 @@ url="http://ros.org/wiki/filters"
 arch="all"
 license="BSD"
 
-depends="boost-dev ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib boost-dev ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev ros-noetic-catkin>=0.5.68 ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib ros-noetic-rostest"
+depends="ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib"
+makedepends="boost-dev chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin>=0.5.68 ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib ros-noetic-rostest"
+depends_dev="boost-dev ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

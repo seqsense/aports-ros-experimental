@@ -7,10 +7,11 @@ url="http://ros.org/wiki/resource_retriever"
 arch="all"
 license="BSD"
 
-depends="boost-dev libcurl py3-rospkg ros-noetic-rosconsole ros-noetic-roslib boost-dev ros-noetic-rosconsole ros-noetic-roslib"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev curl-dev ros-noetic-catkin>=0.5.68 ros-noetic-rosconsole ros-noetic-roslib"
+depends="libcurl py3-rospkg ros-noetic-rosconsole ros-noetic-roslib"
+makedepends="boost-dev chrpath curl-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin>=0.5.68 ros-noetic-rosconsole ros-noetic-roslib"
+depends_dev="boost-dev ros-noetic-rosconsole ros-noetic-roslib"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

@@ -7,10 +7,11 @@ url="http://ros.org/wiki/audio_common"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-audio-capture ros-noetic-audio-common-msgs ros-noetic-audio-play ros-noetic-sound-play ros-noetic-audio-capture ros-noetic-audio-common-msgs ros-noetic-audio-play ros-noetic-sound-play"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+depends="ros-noetic-audio-capture ros-noetic-audio-common-msgs ros-noetic-audio-play ros-noetic-sound-play"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin"
+depends_dev="ros-noetic-audio-capture ros-noetic-audio-common-msgs ros-noetic-audio-play ros-noetic-sound-play"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

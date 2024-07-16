@@ -7,10 +7,11 @@ url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-message-runtime ros-noetic-std-msgs ros-noetic-message-runtime ros-noetic-std-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-message-generation ros-noetic-roslint ros-noetic-std-msgs"
+depends="ros-noetic-message-runtime ros-noetic-std-msgs"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-message-generation ros-noetic-roslint ros-noetic-std-msgs"
+depends_dev="ros-noetic-message-runtime ros-noetic-std-msgs"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

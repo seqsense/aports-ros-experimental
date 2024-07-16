@@ -7,10 +7,11 @@ url="http://wiki.ros.org/move_slow_and_clear"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-nav-core ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-nav-core ros-noetic-pluginlib ros-noetic-roscpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-cmake-modules ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-nav-core ros-noetic-pluginlib ros-noetic-roscpp"
+depends="ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-nav-core ros-noetic-pluginlib ros-noetic-roscpp"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-cmake-modules ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-nav-core ros-noetic-pluginlib ros-noetic-roscpp"
+depends_dev="ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-nav-core ros-noetic-pluginlib ros-noetic-roscpp"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

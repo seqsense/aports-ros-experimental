@@ -7,10 +7,11 @@ url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="MIT"
 
-depends="readline-dev ros-noetic-catkin"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath cmake readline-dev"
+depends="ros-noetic-catkin"
+makedepends="chrpath cmake py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool readline-dev"
+depends_dev="readline-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

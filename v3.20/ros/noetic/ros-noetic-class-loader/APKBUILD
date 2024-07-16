@@ -7,10 +7,11 @@ url="http://ros.org/wiki/class_loader"
 arch="all"
 license="BSD"
 
-depends="boost-dev console_bridge-dev poco-dev boost-dev console_bridge-dev poco-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev console_bridge-dev poco-dev ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules>=0.3.3"
+depends=""
+makedepends="boost-dev chrpath console_bridge-dev poco-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules>=0.3.3"
+depends_dev="boost-dev console_bridge-dev poco-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

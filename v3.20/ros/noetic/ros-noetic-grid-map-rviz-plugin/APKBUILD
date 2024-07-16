@@ -7,10 +7,11 @@ url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="qt5-qtbase-dev ros-noetic-grid-map-msgs ros-noetic-grid-map-ros ros-noetic-rviz qt5-qtbase-dev ros-noetic-grid-map-msgs ros-noetic-grid-map-ros ros-noetic-rviz"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath gtest gtest-dev qt5-qtbase-dev ros-noetic-catkin ros-noetic-grid-map-msgs ros-noetic-grid-map-ros ros-noetic-rviz"
+depends="ros-noetic-grid-map-msgs ros-noetic-grid-map-ros ros-noetic-rviz"
+makedepends="chrpath gtest gtest-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool qt5-qtbase-dev ros-noetic-catkin ros-noetic-grid-map-msgs ros-noetic-grid-map-ros ros-noetic-rviz"
+depends_dev="qt5-qtbase-dev ros-noetic-grid-map-msgs ros-noetic-grid-map-ros ros-noetic-rviz"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

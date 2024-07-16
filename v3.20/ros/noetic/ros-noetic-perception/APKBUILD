@@ -8,9 +8,10 @@ arch="all"
 license="BSD"
 
 depends="ros-noetic-image-common ros-noetic-image-pipeline ros-noetic-image-transport-plugins ros-noetic-laser-pipeline ros-noetic-perception-pcl ros-noetic-ros-base ros-noetic-vision-opencv"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin"
+depends_dev=""
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

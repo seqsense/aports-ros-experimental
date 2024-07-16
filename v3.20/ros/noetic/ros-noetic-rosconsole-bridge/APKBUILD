@@ -7,10 +7,11 @@ url="http://www.ros.org/wiki/rosconsole_bridge"
 arch="all"
 license="BSD"
 
-depends="console_bridge-dev ros-noetic-cpp-common ros-noetic-rosconsole console_bridge-dev ros-noetic-cpp-common ros-noetic-rosconsole"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath console_bridge-dev ros-noetic-catkin ros-noetic-cpp-common ros-noetic-rosconsole>=1.11.5"
+depends="ros-noetic-cpp-common ros-noetic-rosconsole"
+makedepends="chrpath console_bridge-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-cpp-common ros-noetic-rosconsole>=1.11.5"
+depends_dev="console_bridge-dev ros-noetic-cpp-common ros-noetic-rosconsole"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

@@ -7,10 +7,11 @@ url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="MIT"
 
-depends="boost-dev ncurses-dev ros-noetic-roslib zeromq-dev boost-dev ncurses-dev ros-noetic-roslib zeromq-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev ncurses-dev ros-noetic-catkin ros-noetic-ros-environment ros-noetic-roslib zeromq-dev"
+depends="ros-noetic-roslib"
+makedepends="boost-dev chrpath ncurses-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-ros-environment ros-noetic-roslib zeromq-dev"
+depends_dev="boost-dev ncurses-dev ros-noetic-roslib zeromq-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

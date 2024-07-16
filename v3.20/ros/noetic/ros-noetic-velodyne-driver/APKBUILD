@@ -7,10 +7,11 @@ url="http://www.ros.org/wiki/velodyne_driver"
 arch="all"
 license="BSD"
 
-depends="libpcap-dev ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-tf ros-noetic-velodyne-msgs libpcap-dev ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-tf ros-noetic-velodyne-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath libpcap-dev ros-noetic-catkin ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-roslaunch ros-noetic-roslint ros-noetic-rostest ros-noetic-tf ros-noetic-velodyne-msgs"
+depends="ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-tf ros-noetic-velodyne-msgs"
+makedepends="chrpath libpcap-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-roslaunch ros-noetic-roslint ros-noetic-rostest ros-noetic-tf ros-noetic-velodyne-msgs"
+depends_dev="libpcap-dev ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-tf ros-noetic-velodyne-msgs"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

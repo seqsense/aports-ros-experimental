@@ -7,10 +7,11 @@ url="http://www.ros.org/wiki/cv_bridge"
 arch="all"
 license="BSD"
 
-depends="boost-dev opencv-dev py3-opencv python3-dev ros-noetic-rosconsole opencv-dev ros-noetic-sensor-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev opencv-dev py3-numpy py3-numpy-dev py3-opencv python3-dev ros-noetic-catkin ros-noetic-rosconsole ros-noetic-rostest ros-noetic-sensor-msgs"
+depends="py3-opencv ros-noetic-rosconsole"
+makedepends="boost-dev chrpath opencv-dev py3-numpy py3-numpy-dev py3-opencv py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool python3-dev ros-noetic-catkin ros-noetic-rosconsole ros-noetic-rostest ros-noetic-sensor-msgs"
+depends_dev="boost-dev opencv-dev python3-dev ros-noetic-sensor-msgs"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"

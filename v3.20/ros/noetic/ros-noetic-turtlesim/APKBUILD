@@ -7,10 +7,11 @@ url="http://www.ros.org/wiki/turtlesim"
 arch="all"
 license="BSD"
 
-depends="boost-dev qt5-qtbase-dev ros-noetic-geometry-msgs ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-roslib ros-noetic-rostime ros-noetic-std-msgs ros-noetic-std-srvs boost-dev qt5-qtbase-dev ros-noetic-geometry-msgs ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-roslib ros-noetic-rostime ros-noetic-std-msgs ros-noetic-std-srvs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev qt5-qtbase-dev ros-noetic-catkin ros-noetic-geometry-msgs ros-noetic-message-generation ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-roslib ros-noetic-rostime ros-noetic-std-msgs ros-noetic-std-srvs"
+depends="ros-noetic-geometry-msgs ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-roslib ros-noetic-rostime ros-noetic-std-msgs ros-noetic-std-srvs"
+makedepends="boost-dev chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool qt5-qtbase-dev ros-noetic-catkin ros-noetic-geometry-msgs ros-noetic-message-generation ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-roslib ros-noetic-rostime ros-noetic-std-msgs ros-noetic-std-srvs"
+depends_dev="boost-dev qt5-qtbase-dev ros-noetic-geometry-msgs ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-roslib ros-noetic-rostime ros-noetic-std-msgs ros-noetic-std-srvs"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
