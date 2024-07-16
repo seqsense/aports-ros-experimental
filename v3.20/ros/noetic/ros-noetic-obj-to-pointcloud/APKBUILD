@@ -7,10 +7,11 @@ url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="eigen-dev pcl ros-noetic-geometry-msgs ros-noetic-neonavigation-common ros-noetic-pcl-conversions ros-noetic-roscpp ros-noetic-sensor-msgs eigen-dev ros-noetic-geometry-msgs ros-noetic-neonavigation-common ros-noetic-pcl-conversions ros-noetic-roscpp ros-noetic-sensor-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev pcl-dev ros-noetic-catkin ros-noetic-geometry-msgs ros-noetic-neonavigation-common ros-noetic-pcl-conversions ros-noetic-roscpp ros-noetic-roslint ros-noetic-rostest ros-noetic-sensor-msgs"
+depends="pcl ros-noetic-geometry-msgs ros-noetic-neonavigation-common ros-noetic-pcl-conversions ros-noetic-roscpp ros-noetic-sensor-msgs"
+makedepends="chrpath eigen-dev pcl-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-geometry-msgs ros-noetic-neonavigation-common ros-noetic-pcl-conversions ros-noetic-roscpp ros-noetic-roslint ros-noetic-rostest ros-noetic-sensor-msgs"
+depends_dev="eigen-dev ros-noetic-geometry-msgs ros-noetic-neonavigation-common ros-noetic-pcl-conversions ros-noetic-roscpp ros-noetic-sensor-msgs"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

@@ -7,10 +7,11 @@ url="http://ros.org/wiki/rostest"
 arch="all"
 license="BSD"
 
-depends="boost-dev ros-noetic-rosgraph ros-noetic-roslaunch ros-noetic-rosmaster ros-noetic-rospy ros-noetic-rosunit boost-dev ros-noetic-rosgraph ros-noetic-roslaunch ros-noetic-rosmaster ros-noetic-rospy ros-noetic-rosunit"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev ros-noetic-catkin>=0.7.9 ros-noetic-rosunit"
+depends="ros-noetic-rosgraph ros-noetic-roslaunch ros-noetic-rosmaster ros-noetic-rospy ros-noetic-rosunit"
+makedepends="boost-dev chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin>=0.7.9 ros-noetic-rosunit"
+depends_dev="boost-dev ros-noetic-rosgraph ros-noetic-roslaunch ros-noetic-rosmaster ros-noetic-rospy ros-noetic-rosunit"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

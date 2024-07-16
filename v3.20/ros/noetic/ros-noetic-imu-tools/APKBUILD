@@ -7,10 +7,11 @@ url="http://ros.org/wiki/imu_tools"
 arch="all"
 license="BSD, GPL"
 
-depends="ros-noetic-imu-complementary-filter ros-noetic-imu-filter-madgwick ros-noetic-rviz-imu-plugin ros-noetic-imu-complementary-filter ros-noetic-imu-filter-madgwick ros-noetic-rviz-imu-plugin"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+depends="ros-noetic-imu-complementary-filter ros-noetic-imu-filter-madgwick ros-noetic-rviz-imu-plugin"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin"
+depends_dev="ros-noetic-imu-complementary-filter ros-noetic-imu-filter-madgwick ros-noetic-rviz-imu-plugin"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

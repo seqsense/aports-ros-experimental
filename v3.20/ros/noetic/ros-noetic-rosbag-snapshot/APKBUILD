@@ -7,10 +7,11 @@ url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-rosbag ros-noetic-rosbag-snapshot-msgs ros-noetic-roscpp ros-noetic-rosgraph-msgs ros-noetic-std-srvs ros-noetic-topic-tools ros-noetic-rosbag ros-noetic-rosbag-snapshot-msgs ros-noetic-roscpp ros-noetic-rosgraph-msgs ros-noetic-std-srvs ros-noetic-topic-tools"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-rosbag ros-noetic-rosbag-snapshot-msgs ros-noetic-roscpp ros-noetic-rosgraph-msgs ros-noetic-roslint ros-noetic-rospy ros-noetic-rostest ros-noetic-rostopic ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-topic-tools"
+depends="ros-noetic-rosbag ros-noetic-rosbag-snapshot-msgs ros-noetic-roscpp ros-noetic-rosgraph-msgs ros-noetic-std-srvs ros-noetic-topic-tools"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-rosbag ros-noetic-rosbag-snapshot-msgs ros-noetic-roscpp ros-noetic-rosgraph-msgs ros-noetic-roslint ros-noetic-rospy ros-noetic-rostest ros-noetic-rostopic ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-topic-tools"
+depends_dev="ros-noetic-rosbag ros-noetic-rosbag-snapshot-msgs ros-noetic-roscpp ros-noetic-rosgraph-msgs ros-noetic-std-srvs ros-noetic-topic-tools"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh
