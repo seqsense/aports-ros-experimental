@@ -7,10 +7,11 @@ url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="eigen-dev ros-noetic-diagnostic-updater ros-noetic-geometry-msgs ros-noetic-mcl-3dl-msgs ros-noetic-nav-msgs ros-noetic-pcl-ros ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-tf2-sensor-msgs ros-noetic-visualization-msgs eigen-dev ros-noetic-diagnostic-updater ros-noetic-geometry-msgs ros-noetic-mcl-3dl-msgs ros-noetic-nav-msgs ros-noetic-pcl-ros ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-tf2-sensor-msgs ros-noetic-visualization-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev ros-noetic-catkin ros-noetic-diagnostic-updater ros-noetic-geometry-msgs ros-noetic-mcl-3dl-msgs ros-noetic-nav-msgs ros-noetic-pcl-ros ros-noetic-roscpp ros-noetic-roslint ros-noetic-rostest ros-noetic-rosunit ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-tf2-sensor-msgs ros-noetic-visualization-msgs"
+depends="ros-noetic-diagnostic-updater ros-noetic-geometry-msgs ros-noetic-mcl-3dl-msgs ros-noetic-nav-msgs ros-noetic-pcl-ros ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-tf2-sensor-msgs ros-noetic-visualization-msgs"
+makedepends="chrpath eigen-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-diagnostic-updater ros-noetic-diagnostic-updater-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-mcl-3dl-msgs ros-noetic-mcl-3dl-msgs-dev ros-noetic-nav-msgs ros-noetic-nav-msgs-dev ros-noetic-pcl-ros ros-noetic-pcl-ros-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-roslint ros-noetic-roslint-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-rosunit ros-noetic-rosunit-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-std-srvs ros-noetic-std-srvs-dev ros-noetic-tf2 ros-noetic-tf2-dev ros-noetic-tf2-geometry-msgs ros-noetic-tf2-geometry-msgs-dev ros-noetic-tf2-ros ros-noetic-tf2-ros-dev ros-noetic-tf2-sensor-msgs ros-noetic-tf2-sensor-msgs-dev ros-noetic-visualization-msgs ros-noetic-visualization-msgs-dev"
+depends_dev="eigen-dev ros-noetic-diagnostic-updater ros-noetic-diagnostic-updater-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-mcl-3dl-msgs ros-noetic-mcl-3dl-msgs-dev ros-noetic-nav-msgs ros-noetic-nav-msgs-dev ros-noetic-pcl-ros ros-noetic-pcl-ros-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-std-srvs ros-noetic-std-srvs-dev ros-noetic-tf2 ros-noetic-tf2-dev ros-noetic-tf2-geometry-msgs ros-noetic-tf2-geometry-msgs-dev ros-noetic-tf2-ros ros-noetic-tf2-ros-dev ros-noetic-tf2-sensor-msgs ros-noetic-tf2-sensor-msgs-dev ros-noetic-visualization-msgs ros-noetic-visualization-msgs-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

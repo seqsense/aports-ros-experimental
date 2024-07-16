@@ -7,10 +7,11 @@ url="https://github.com/lovepark/ifm3d-ros"
 arch="all"
 license="Apache 2"
 
-depends="ros-noetic-cv-bridge ros-noetic-ifm3d-core ros-noetic-image-transport ros-noetic-message-generation ros-noetic-nodelet ros-noetic-pcl-ros ros-noetic-roscpp ros-noetic-rospy ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-tf ros-noetic-cv-bridge ros-noetic-ifm3d-core ros-noetic-image-transport ros-noetic-message-generation ros-noetic-nodelet ros-noetic-pcl-ros ros-noetic-roscpp ros-noetic-rospy ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-tf"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-cv-bridge ros-noetic-ifm3d-core ros-noetic-image-transport ros-noetic-message-generation ros-noetic-nodelet ros-noetic-pcl-ros ros-noetic-roscpp ros-noetic-rospy ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-tf"
+depends="ros-noetic-cv-bridge ros-noetic-ifm3d-core ros-noetic-image-transport ros-noetic-message-generation ros-noetic-nodelet ros-noetic-pcl-ros ros-noetic-roscpp ros-noetic-rospy ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-tf"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-cv-bridge ros-noetic-cv-bridge-dev ros-noetic-ifm3d-core ros-noetic-ifm3d-core-dev ros-noetic-image-transport ros-noetic-image-transport-dev ros-noetic-message-generation ros-noetic-message-generation-dev ros-noetic-nodelet ros-noetic-nodelet-dev ros-noetic-pcl-ros ros-noetic-pcl-ros-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rospy ros-noetic-rospy-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-tf ros-noetic-tf-dev"
+depends_dev="ros-noetic-cv-bridge ros-noetic-cv-bridge-dev ros-noetic-ifm3d-core ros-noetic-ifm3d-core-dev ros-noetic-image-transport ros-noetic-image-transport-dev ros-noetic-message-generation ros-noetic-message-generation-dev ros-noetic-nodelet ros-noetic-nodelet-dev ros-noetic-pcl-ros ros-noetic-pcl-ros-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rospy ros-noetic-rospy-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-tf ros-noetic-tf-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

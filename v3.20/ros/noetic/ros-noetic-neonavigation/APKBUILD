@@ -8,9 +8,10 @@ arch="all"
 license="BSD"
 
 depends="ros-noetic-costmap-cspace ros-noetic-joystick-interrupt ros-noetic-map-organizer ros-noetic-neonavigation-common ros-noetic-neonavigation-launch ros-noetic-obj-to-pointcloud ros-noetic-planner-cspace ros-noetic-safety-limiter ros-noetic-track-odometry ros-noetic-trajectory-tracker"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin>=0.7.22"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.7.22 ros-noetic-catkin>=0.7.22"
+depends_dev="ros-noetic-costmap-cspace-dev ros-noetic-joystick-interrupt-dev ros-noetic-map-organizer-dev ros-noetic-neonavigation-common-dev ros-noetic-neonavigation-launch-dev ros-noetic-obj-to-pointcloud-dev ros-noetic-planner-cspace-dev ros-noetic-safety-limiter-dev ros-noetic-track-odometry-dev ros-noetic-trajectory-tracker-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

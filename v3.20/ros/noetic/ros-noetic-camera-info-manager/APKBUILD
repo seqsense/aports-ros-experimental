@@ -7,10 +7,11 @@ url="http://ros.org/wiki/camera_info_manager"
 arch="all"
 license="BSD"
 
-depends="boost-dev ros-noetic-camera-calibration-parsers ros-noetic-image-transport ros-noetic-roscpp ros-noetic-roslib ros-noetic-sensor-msgs boost-dev ros-noetic-camera-calibration-parsers ros-noetic-image-transport ros-noetic-roscpp ros-noetic-roslib ros-noetic-sensor-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev gtest gtest-dev ros-noetic-camera-calibration-parsers ros-noetic-catkin>=0.5.68 ros-noetic-image-transport ros-noetic-roscpp ros-noetic-roslib ros-noetic-rostest ros-noetic-sensor-msgs"
+depends="ros-noetic-camera-calibration-parsers ros-noetic-image-transport ros-noetic-roscpp ros-noetic-roslib ros-noetic-sensor-msgs"
+makedepends="boost-dev chrpath gtest gtest-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-camera-calibration-parsers ros-noetic-camera-calibration-parsers-dev ros-noetic-catkin-dev>=0.5.68 ros-noetic-catkin>=0.5.68 ros-noetic-image-transport ros-noetic-image-transport-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-roslib ros-noetic-roslib-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev"
+depends_dev="boost-dev ros-noetic-camera-calibration-parsers ros-noetic-camera-calibration-parsers-dev ros-noetic-image-transport ros-noetic-image-transport-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-roslib ros-noetic-roslib-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

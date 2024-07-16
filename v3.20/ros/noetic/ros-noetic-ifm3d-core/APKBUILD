@@ -7,10 +7,11 @@ url="https://github.com/ifm/ifm3d"
 arch="all"
 license="Apache"
 
-depends="curl-dev glog-dev pcl-dev ros-noetic-cv-bridge xmlrpc-c-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev cmake curl-dev glog-dev pcl-dev ros-noetic-cv-bridge xmlrpc-c-dev"
+depends="ros-noetic-cv-bridge"
+makedepends="boost-dev chrpath cmake curl-dev glog-dev pcl-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-cv-bridge ros-noetic-cv-bridge-dev xmlrpc-c-dev"
+depends_dev="curl-dev glog-dev pcl-dev ros-noetic-cv-bridge-dev xmlrpc-c-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -231,6 +232,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

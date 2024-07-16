@@ -7,10 +7,11 @@ url="http://ros.org/wiki/image_publisher"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-camera-info-manager ros-noetic-cv-bridge ros-noetic-dynamic-reconfigure ros-noetic-image-transport ros-noetic-nodelet ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-camera-info-manager ros-noetic-cv-bridge ros-noetic-dynamic-reconfigure ros-noetic-image-transport ros-noetic-nodelet ros-noetic-roscpp ros-noetic-sensor-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-camera-info-manager ros-noetic-catkin ros-noetic-cv-bridge ros-noetic-dynamic-reconfigure ros-noetic-image-transport ros-noetic-nodelet ros-noetic-roscpp ros-noetic-sensor-msgs"
+depends="ros-noetic-camera-info-manager ros-noetic-cv-bridge ros-noetic-dynamic-reconfigure ros-noetic-image-transport ros-noetic-nodelet ros-noetic-roscpp ros-noetic-sensor-msgs"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-camera-info-manager ros-noetic-camera-info-manager-dev ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-cv-bridge ros-noetic-cv-bridge-dev ros-noetic-dynamic-reconfigure ros-noetic-dynamic-reconfigure-dev ros-noetic-image-transport ros-noetic-image-transport-dev ros-noetic-nodelet ros-noetic-nodelet-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev"
+depends_dev="ros-noetic-camera-info-manager ros-noetic-camera-info-manager-dev ros-noetic-cv-bridge ros-noetic-cv-bridge-dev ros-noetic-dynamic-reconfigure ros-noetic-dynamic-reconfigure-dev ros-noetic-image-transport ros-noetic-image-transport-dev ros-noetic-nodelet ros-noetic-nodelet-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

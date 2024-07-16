@@ -7,10 +7,11 @@ url="https://github.com/ros-controls/ros_control/wiki"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-roscpp tinyxml-dev ros-noetic-hardware-interface ros-noetic-pluginlib ros-noetic-roscpp tinyxml-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-cmake-modules ros-noetic-hardware-interface ros-noetic-pluginlib ros-noetic-resource-retriever ros-noetic-roscpp tinyxml-dev"
+depends="ros-noetic-roscpp"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-cmake-modules ros-noetic-cmake-modules-dev ros-noetic-hardware-interface ros-noetic-hardware-interface-dev ros-noetic-pluginlib ros-noetic-pluginlib-dev ros-noetic-resource-retriever ros-noetic-resource-retriever-dev ros-noetic-roscpp ros-noetic-roscpp-dev tinyxml-dev"
+depends_dev="ros-noetic-hardware-interface ros-noetic-hardware-interface-dev ros-noetic-pluginlib ros-noetic-pluginlib-dev ros-noetic-roscpp ros-noetic-roscpp-dev tinyxml-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

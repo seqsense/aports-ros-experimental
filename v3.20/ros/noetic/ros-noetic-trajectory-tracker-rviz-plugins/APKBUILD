@@ -7,10 +7,11 @@ url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="qt5-qtbase-dev ros-noetic-pluginlib ros-noetic-rviz>=1.14.21 ros-noetic-trajectory-tracker-msgs ros-noetic-pluginlib ros-noetic-rviz>=1.14.21 ros-noetic-trajectory-tracker-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath qt5-qtbase-dev ros-noetic-catkin ros-noetic-pluginlib ros-noetic-rviz>=1.14.21 ros-noetic-trajectory-tracker-msgs"
+depends="ros-noetic-pluginlib ros-noetic-rviz>=1.14.21 ros-noetic-trajectory-tracker-msgs"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool qt5-qtbase-dev ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-pluginlib ros-noetic-pluginlib-dev ros-noetic-rviz-dev>=1.14.21 ros-noetic-rviz>=1.14.21 ros-noetic-trajectory-tracker-msgs ros-noetic-trajectory-tracker-msgs-dev"
+depends_dev="qt5-qtbase-dev ros-noetic-pluginlib ros-noetic-pluginlib-dev ros-noetic-rviz-dev>=1.14.21 ros-noetic-rviz>=1.14.21 ros-noetic-trajectory-tracker-msgs ros-noetic-trajectory-tracker-msgs-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

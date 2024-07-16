@@ -7,10 +7,11 @@ url="http://wiki.ros.org/rqt_srv"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-rosmsg ros-noetic-rospy ros-noetic-rqt-gui ros-noetic-rqt-gui-py ros-noetic-rqt-msg ros-noetic-rosmsg ros-noetic-rospy ros-noetic-rqt-gui ros-noetic-rqt-gui-py ros-noetic-rqt-msg"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+depends="ros-noetic-rosmsg ros-noetic-rospy ros-noetic-rqt-gui ros-noetic-rqt-gui-py ros-noetic-rqt-msg"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev"
+depends_dev="ros-noetic-rosmsg ros-noetic-rosmsg-dev ros-noetic-rospy ros-noetic-rospy-dev ros-noetic-rqt-gui ros-noetic-rqt-gui-dev ros-noetic-rqt-gui-py ros-noetic-rqt-gui-py-dev ros-noetic-rqt-msg ros-noetic-rqt-msg-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

@@ -7,10 +7,11 @@ url="http://wiki.ros.org/voxel_grid"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-roscpp ros-noetic-roscpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin>=0.5.68 ros-noetic-roscpp ros-noetic-rosunit"
+depends="ros-noetic-roscpp"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.5.68 ros-noetic-catkin>=0.5.68 ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rosunit ros-noetic-rosunit-dev"
+depends_dev="ros-noetic-roscpp ros-noetic-roscpp-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

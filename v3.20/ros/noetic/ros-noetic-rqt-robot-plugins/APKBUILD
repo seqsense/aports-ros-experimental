@@ -7,10 +7,11 @@ url="http://ros.org/wiki/rqt_robot_plugins"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-rqt-moveit ros-noetic-rqt-nav-view ros-noetic-rqt-pose-view ros-noetic-rqt-robot-dashboard ros-noetic-rqt-robot-monitor ros-noetic-rqt-robot-steering ros-noetic-rqt-runtime-monitor ros-noetic-rqt-rviz ros-noetic-rqt-tf-tree ros-noetic-rqt-moveit ros-noetic-rqt-nav-view ros-noetic-rqt-pose-view ros-noetic-rqt-robot-dashboard ros-noetic-rqt-robot-monitor ros-noetic-rqt-robot-steering ros-noetic-rqt-runtime-monitor ros-noetic-rqt-rviz ros-noetic-rqt-tf-tree"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+depends="ros-noetic-rqt-moveit ros-noetic-rqt-nav-view ros-noetic-rqt-pose-view ros-noetic-rqt-robot-dashboard ros-noetic-rqt-robot-monitor ros-noetic-rqt-robot-steering ros-noetic-rqt-runtime-monitor ros-noetic-rqt-rviz ros-noetic-rqt-tf-tree"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev"
+depends_dev="ros-noetic-rqt-moveit ros-noetic-rqt-moveit-dev ros-noetic-rqt-nav-view ros-noetic-rqt-nav-view-dev ros-noetic-rqt-pose-view ros-noetic-rqt-pose-view-dev ros-noetic-rqt-robot-dashboard ros-noetic-rqt-robot-dashboard-dev ros-noetic-rqt-robot-monitor ros-noetic-rqt-robot-monitor-dev ros-noetic-rqt-robot-steering ros-noetic-rqt-robot-steering-dev ros-noetic-rqt-runtime-monitor ros-noetic-rqt-runtime-monitor-dev ros-noetic-rqt-rviz ros-noetic-rqt-rviz-dev ros-noetic-rqt-tf-tree ros-noetic-rqt-tf-tree-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

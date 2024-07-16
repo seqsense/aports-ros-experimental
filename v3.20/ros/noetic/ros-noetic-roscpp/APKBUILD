@@ -7,10 +7,11 @@ url="http://ros.org/wiki/roscpp"
 arch="all"
 license="BSD"
 
-depends="boost-dev ros-noetic-cpp-common>=0.3.17 ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp-serialization ros-noetic-roscpp-traits>=0.3.17 ros-noetic-rosgraph-msgs>=1.10.3 ros-noetic-rostime>=0.6.4 ros-noetic-std-msgs ros-noetic-xmlrpcpp boost-dev ros-noetic-cpp-common>=0.3.17 ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp-serialization ros-noetic-roscpp-traits>=0.3.17 ros-noetic-rosgraph-msgs>=1.10.3 ros-noetic-rostime>=0.6.4 ros-noetic-std-msgs ros-noetic-xmlrpcpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev pkgconf ros-noetic-catkin>=0.5.78 ros-noetic-cpp-common>=0.3.17 ros-noetic-message-generation ros-noetic-rosconsole ros-noetic-roscpp-serialization ros-noetic-roscpp-traits>=0.3.17 ros-noetic-rosgraph-msgs>=1.10.3 ros-noetic-roslang ros-noetic-rostime>=0.6.4 ros-noetic-std-msgs ros-noetic-xmlrpcpp"
+depends="ros-noetic-cpp-common>=0.3.17 ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp-serialization ros-noetic-roscpp-traits>=0.3.17 ros-noetic-rosgraph-msgs>=1.10.3 ros-noetic-rostime>=0.6.4 ros-noetic-std-msgs ros-noetic-xmlrpcpp"
+makedepends="boost-dev chrpath pkgconf py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.5.78 ros-noetic-catkin>=0.5.78 ros-noetic-cpp-common-dev>=0.3.17 ros-noetic-cpp-common>=0.3.17 ros-noetic-message-generation ros-noetic-message-generation-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roscpp-serialization ros-noetic-roscpp-serialization-dev ros-noetic-roscpp-traits-dev>=0.3.17 ros-noetic-roscpp-traits>=0.3.17 ros-noetic-rosgraph-msgs-dev>=1.10.3 ros-noetic-rosgraph-msgs>=1.10.3 ros-noetic-roslang ros-noetic-roslang-dev ros-noetic-rostime-dev>=0.6.4 ros-noetic-rostime>=0.6.4 ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-xmlrpcpp ros-noetic-xmlrpcpp-dev"
+depends_dev="boost-dev ros-noetic-cpp-common-dev>=0.3.17 ros-noetic-cpp-common>=0.3.17 ros-noetic-message-runtime ros-noetic-message-runtime-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roscpp-serialization ros-noetic-roscpp-serialization-dev ros-noetic-roscpp-traits-dev>=0.3.17 ros-noetic-roscpp-traits>=0.3.17 ros-noetic-rosgraph-msgs-dev>=1.10.3 ros-noetic-rosgraph-msgs>=1.10.3 ros-noetic-rostime-dev>=0.6.4 ros-noetic-rostime>=0.6.4 ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-xmlrpcpp ros-noetic-xmlrpcpp-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

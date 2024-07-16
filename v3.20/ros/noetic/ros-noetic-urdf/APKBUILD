@@ -7,10 +7,11 @@ url="http://ros.org/wiki/urdf"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-pluginlib ros-noetic-rosconsole-bridge ros-noetic-roscpp tinyxml-dev tinyxml2-dev urdfdom-dev tinyxml-dev tinyxml2-dev urdfdom_headers"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules ros-noetic-pluginlib ros-noetic-rosconsole-bridge ros-noetic-roscpp ros-noetic-rostest ros-noetic-urdf-parser-plugin tinyxml-dev tinyxml2-dev urdfdom-dev urdfdom_headers"
+depends="ros-noetic-pluginlib ros-noetic-rosconsole-bridge ros-noetic-roscpp"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.5.68 ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules ros-noetic-cmake-modules-dev ros-noetic-pluginlib ros-noetic-pluginlib-dev ros-noetic-rosconsole-bridge ros-noetic-rosconsole-bridge-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-urdf-parser-plugin ros-noetic-urdf-parser-plugin-dev tinyxml-dev tinyxml2-dev urdfdom-dev urdfdom_headers"
+depends_dev="ros-noetic-pluginlib-dev ros-noetic-rosconsole-bridge-dev ros-noetic-roscpp-dev tinyxml-dev tinyxml2-dev urdfdom-dev urdfdom_headers"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

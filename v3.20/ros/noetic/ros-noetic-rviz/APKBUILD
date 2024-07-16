@@ -7,10 +7,11 @@ url="http://wiki.ros.org/rviz"
 arch="all"
 license="BSD"
 
-depends="assimp-dev glu-dev mesa-dev ogre qt5-qtbase-dev ros-noetic-geometry-msgs ros-noetic-image-transport ros-noetic-interactive-markers ros-noetic-laser-geometry ros-noetic-map-msgs ros-noetic-media-export ros-noetic-message-filters ros-noetic-message-runtime ros-noetic-nav-msgs ros-noetic-pluginlib ros-noetic-python-qt-binding ros-noetic-resource-retriever ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib ros-noetic-rospy ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-urdf ros-noetic-visualization-msgs tinyxml2-dev yaml-cpp-dev assimp-dev glu-dev mesa-dev ogre ogre-dev ros-noetic-geometry-msgs ros-noetic-image-transport ros-noetic-interactive-markers ros-noetic-laser-geometry ros-noetic-map-msgs ros-noetic-message-filters ros-noetic-nav-msgs ros-noetic-pluginlib ros-noetic-python-qt-binding ros-noetic-resource-retriever ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib ros-noetic-rospy ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-urdf ros-noetic-visualization-msgs tinyxml2-dev yaml-cpp-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath assimp-dev eigen-dev glu-dev mesa-dev ogre ogre-dev qt5-qtbase-dev ros-noetic-catkin ros-noetic-cmake-modules ros-noetic-geometry-msgs ros-noetic-image-transport ros-noetic-interactive-markers ros-noetic-laser-geometry ros-noetic-map-msgs ros-noetic-message-filters ros-noetic-message-generation ros-noetic-nav-msgs ros-noetic-pluginlib ros-noetic-python-qt-binding ros-noetic-resource-retriever ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib ros-noetic-rospy ros-noetic-rostest ros-noetic-rosunit ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-urdf ros-noetic-visualization-msgs tinyxml2-dev urdfdom-dev urdfdom_headers yaml-cpp-dev"
+depends="ogre ros-noetic-geometry-msgs ros-noetic-image-transport ros-noetic-interactive-markers ros-noetic-laser-geometry ros-noetic-map-msgs ros-noetic-media-export ros-noetic-message-filters ros-noetic-message-runtime ros-noetic-nav-msgs ros-noetic-pluginlib ros-noetic-python-qt-binding ros-noetic-resource-retriever ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib ros-noetic-rospy ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-urdf ros-noetic-visualization-msgs"
+makedepends="assimp-dev chrpath eigen-dev glu-dev mesa-dev ogre ogre-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool qt5-qtbase-dev ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-cmake-modules ros-noetic-cmake-modules-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-image-transport ros-noetic-image-transport-dev ros-noetic-interactive-markers ros-noetic-interactive-markers-dev ros-noetic-laser-geometry ros-noetic-laser-geometry-dev ros-noetic-map-msgs ros-noetic-map-msgs-dev ros-noetic-message-filters ros-noetic-message-filters-dev ros-noetic-message-generation ros-noetic-message-generation-dev ros-noetic-nav-msgs ros-noetic-nav-msgs-dev ros-noetic-pluginlib ros-noetic-pluginlib-dev ros-noetic-python-qt-binding ros-noetic-python-qt-binding-dev ros-noetic-resource-retriever ros-noetic-resource-retriever-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-roslib ros-noetic-roslib-dev ros-noetic-rospy ros-noetic-rospy-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-rosunit ros-noetic-rosunit-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-std-srvs ros-noetic-std-srvs-dev ros-noetic-tf2-geometry-msgs ros-noetic-tf2-geometry-msgs-dev ros-noetic-tf2-ros ros-noetic-tf2-ros-dev ros-noetic-urdf ros-noetic-urdf-dev ros-noetic-visualization-msgs ros-noetic-visualization-msgs-dev tinyxml2-dev urdfdom-dev urdfdom_headers yaml-cpp-dev"
+depends_dev="assimp-dev glu-dev mesa-dev ogre ogre-dev qt5-qtbase-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-image-transport ros-noetic-image-transport-dev ros-noetic-interactive-markers ros-noetic-interactive-markers-dev ros-noetic-laser-geometry ros-noetic-laser-geometry-dev ros-noetic-map-msgs ros-noetic-map-msgs-dev ros-noetic-media-export-dev ros-noetic-message-filters ros-noetic-message-filters-dev ros-noetic-message-runtime-dev ros-noetic-nav-msgs ros-noetic-nav-msgs-dev ros-noetic-pluginlib ros-noetic-pluginlib-dev ros-noetic-python-qt-binding ros-noetic-python-qt-binding-dev ros-noetic-resource-retriever ros-noetic-resource-retriever-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-roslib ros-noetic-roslib-dev ros-noetic-rospy ros-noetic-rospy-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-std-srvs ros-noetic-std-srvs-dev ros-noetic-tf2-geometry-msgs ros-noetic-tf2-geometry-msgs-dev ros-noetic-tf2-ros ros-noetic-tf2-ros-dev ros-noetic-urdf ros-noetic-urdf-dev ros-noetic-visualization-msgs ros-noetic-visualization-msgs-dev tinyxml2-dev yaml-cpp-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,13 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh
