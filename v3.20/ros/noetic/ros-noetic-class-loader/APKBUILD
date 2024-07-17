@@ -7,10 +7,11 @@ url="http://ros.org/wiki/class_loader"
 arch="all"
 license="BSD"
 
-depends="boost-dev console_bridge-dev poco-dev boost-dev console_bridge-dev poco-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev console_bridge-dev poco-dev ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules>=0.3.3"
+depends=""
+makedepends="boost-dev chrpath console_bridge-dev poco-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.5.68 ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules-dev>=0.3.3 ros-noetic-cmake-modules>=0.3.3"
+depends_dev="boost-dev console_bridge-dev poco-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls $pkgdir/usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls $pkgdir/usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh
