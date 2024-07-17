@@ -7,10 +7,11 @@ url="http://www.ros.org/wiki/diagnostic_aggregator"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-bondcpp ros-noetic-bondpy ros-noetic-diagnostic-msgs>=1.11.9 ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-rospy ros-noetic-xmlrpcpp ros-noetic-bondcpp ros-noetic-bondpy ros-noetic-diagnostic-msgs>=1.11.9 ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-rospy ros-noetic-xmlrpcpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-bondcpp ros-noetic-bondpy ros-noetic-catkin>=0.5.68 ros-noetic-diagnostic-msgs>=1.11.9 ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-rospy ros-noetic-rostest ros-noetic-xmlrpcpp"
+depends="ros-noetic-bondcpp ros-noetic-bondpy ros-noetic-diagnostic-msgs>=1.11.9 ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-rospy ros-noetic-xmlrpcpp"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-bondcpp ros-noetic-bondcpp-dev ros-noetic-bondpy ros-noetic-bondpy-dev ros-noetic-catkin-dev>=0.5.68 ros-noetic-catkin>=0.5.68 ros-noetic-diagnostic-msgs-dev>=1.11.9 ros-noetic-diagnostic-msgs>=1.11.9 ros-noetic-pluginlib ros-noetic-pluginlib-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rospy ros-noetic-rospy-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-xmlrpcpp ros-noetic-xmlrpcpp-dev"
+depends_dev="ros-noetic-bondcpp ros-noetic-bondcpp-dev ros-noetic-bondpy ros-noetic-bondpy-dev ros-noetic-diagnostic-msgs-dev>=1.11.9 ros-noetic-diagnostic-msgs>=1.11.9 ros-noetic-pluginlib ros-noetic-pluginlib-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rospy ros-noetic-rospy-dev ros-noetic-xmlrpcpp ros-noetic-xmlrpcpp-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,14 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

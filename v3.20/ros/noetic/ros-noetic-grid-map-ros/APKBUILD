@@ -7,10 +7,11 @@ url="http://github.com/anybotics/grid_map"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-cv-bridge ros-noetic-geometry-msgs ros-noetic-grid-map-core ros-noetic-grid-map-cv ros-noetic-grid-map-msgs ros-noetic-nav-msgs ros-noetic-rosbag ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-tf ros-noetic-visualization-msgs ros-noetic-cv-bridge ros-noetic-geometry-msgs ros-noetic-grid-map-core ros-noetic-grid-map-cv ros-noetic-grid-map-msgs ros-noetic-nav-msgs ros-noetic-rosbag ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-tf ros-noetic-visualization-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath gtest gtest-dev ros-noetic-catkin ros-noetic-cv-bridge ros-noetic-geometry-msgs ros-noetic-grid-map-core ros-noetic-grid-map-cv ros-noetic-grid-map-msgs ros-noetic-nav-msgs ros-noetic-rosbag ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-tf ros-noetic-visualization-msgs"
+depends="ros-noetic-cv-bridge ros-noetic-geometry-msgs ros-noetic-grid-map-core ros-noetic-grid-map-cv ros-noetic-grid-map-msgs ros-noetic-nav-msgs ros-noetic-rosbag ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-tf ros-noetic-visualization-msgs"
+makedepends="chrpath gtest gtest-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-cv-bridge ros-noetic-cv-bridge-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-grid-map-core ros-noetic-grid-map-core-dev ros-noetic-grid-map-cv ros-noetic-grid-map-cv-dev ros-noetic-grid-map-msgs ros-noetic-grid-map-msgs-dev ros-noetic-nav-msgs ros-noetic-nav-msgs-dev ros-noetic-rosbag ros-noetic-rosbag-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-tf ros-noetic-tf-dev ros-noetic-visualization-msgs ros-noetic-visualization-msgs-dev"
+depends_dev="ros-noetic-cv-bridge ros-noetic-cv-bridge-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-grid-map-core ros-noetic-grid-map-core-dev ros-noetic-grid-map-cv ros-noetic-grid-map-cv-dev ros-noetic-grid-map-msgs ros-noetic-grid-map-msgs-dev ros-noetic-nav-msgs ros-noetic-nav-msgs-dev ros-noetic-rosbag ros-noetic-rosbag-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-tf ros-noetic-tf-dev ros-noetic-visualization-msgs ros-noetic-visualization-msgs-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,14 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

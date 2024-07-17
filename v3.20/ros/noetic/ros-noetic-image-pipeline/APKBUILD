@@ -7,10 +7,11 @@ url="http://www.ros.org/wiki/image_pipeline"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-camera-calibration ros-noetic-depth-image-proc ros-noetic-image-proc ros-noetic-image-publisher ros-noetic-image-rotate ros-noetic-image-view ros-noetic-stereo-image-proc ros-noetic-camera-calibration ros-noetic-depth-image-proc ros-noetic-image-proc ros-noetic-image-publisher ros-noetic-image-rotate ros-noetic-image-view ros-noetic-stereo-image-proc"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+depends="ros-noetic-camera-calibration ros-noetic-depth-image-proc ros-noetic-image-proc ros-noetic-image-publisher ros-noetic-image-rotate ros-noetic-image-view ros-noetic-stereo-image-proc"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev"
+depends_dev="ros-noetic-camera-calibration ros-noetic-camera-calibration-dev ros-noetic-depth-image-proc ros-noetic-depth-image-proc-dev ros-noetic-image-proc ros-noetic-image-proc-dev ros-noetic-image-publisher ros-noetic-image-publisher-dev ros-noetic-image-rotate ros-noetic-image-rotate-dev ros-noetic-image-view ros-noetic-image-view-dev ros-noetic-stereo-image-proc ros-noetic-stereo-image-proc-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,14 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh
