@@ -7,10 +7,11 @@ url="http://ros.org/wiki/kdl_parser"
 arch="all"
 license="BSD"
 
-depends="orocos-kdl-dev>=1.3.0 ros-noetic-rosconsole ros-noetic-urdf tinyxml-dev tinyxml2-dev orocos-kdl-dev>=1.3.0 ros-noetic-urdf tinyxml-dev tinyxml2-dev urdfdom_headers"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath orocos-kdl-dev>=1.3.0 ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rostest ros-noetic-urdf tinyxml-dev tinyxml2-dev urdfdom_headers"
+depends="ros-noetic-rosconsole ros-noetic-urdf"
+makedepends="chrpath orocos-kdl-dev>=1.3.0 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.5.68 ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules ros-noetic-cmake-modules-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-urdf ros-noetic-urdf-dev tinyxml-dev tinyxml2-dev urdfdom_headers"
+depends_dev="orocos-kdl-dev>=1.3.0 ros-noetic-rosconsole-dev ros-noetic-urdf ros-noetic-urdf-dev tinyxml-dev tinyxml2-dev urdfdom_headers"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

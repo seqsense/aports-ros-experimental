@@ -7,10 +7,11 @@ url="http://wiki.ros.org/navfn"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-message-runtime ros-noetic-nav-core ros-noetic-nav-msgs ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf2-ros ros-noetic-visualization-msgs ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-nav-core ros-noetic-nav-msgs ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf2-ros ros-noetic-visualization-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath libnetpbm-dev ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-message-generation ros-noetic-nav-core ros-noetic-nav-msgs ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rosunit ros-noetic-sensor-msgs ros-noetic-tf2-ros ros-noetic-visualization-msgs"
+depends="ros-noetic-costmap-2d ros-noetic-geometry-msgs ros-noetic-message-runtime ros-noetic-nav-core ros-noetic-nav-msgs ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf2-ros ros-noetic-visualization-msgs"
+makedepends="chrpath libnetpbm-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.5.68 ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules ros-noetic-cmake-modules-dev ros-noetic-costmap-2d ros-noetic-costmap-2d-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-message-generation ros-noetic-message-generation-dev ros-noetic-nav-core ros-noetic-nav-core-dev ros-noetic-nav-msgs ros-noetic-nav-msgs-dev ros-noetic-pluginlib ros-noetic-pluginlib-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rosunit ros-noetic-rosunit-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-tf2-ros ros-noetic-tf2-ros-dev ros-noetic-visualization-msgs ros-noetic-visualization-msgs-dev"
+depends_dev="ros-noetic-costmap-2d ros-noetic-costmap-2d-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-message-runtime-dev ros-noetic-nav-core ros-noetic-nav-core-dev ros-noetic-nav-msgs ros-noetic-nav-msgs-dev ros-noetic-pluginlib ros-noetic-pluginlib-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-tf2-ros ros-noetic-tf2-ros-dev ros-noetic-visualization-msgs ros-noetic-visualization-msgs-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

@@ -7,10 +7,11 @@ url="http://ros.org/wiki/nodelet"
 arch="all"
 license="BSD"
 
-depends="boost-thread ros-noetic-bondcpp ros-noetic-message-runtime ros-noetic-pluginlib>=1.10.0 ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rospy ros-noetic-std-msgs util-linux-dev ros-noetic-bondcpp ros-noetic-pluginlib>=1.10.0 ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-std-msgs util-linux-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev ros-noetic-bondcpp ros-noetic-catkin ros-noetic-cmake-modules>=0.3.2 ros-noetic-message-generation ros-noetic-pluginlib>=1.10.0 ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-std-msgs util-linux-dev"
+depends="boost-thread ros-noetic-bondcpp ros-noetic-message-runtime ros-noetic-pluginlib>=1.10.0 ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rospy ros-noetic-std-msgs"
+makedepends="boost-dev chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-bondcpp ros-noetic-bondcpp-dev ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-cmake-modules-dev>=0.3.2 ros-noetic-cmake-modules>=0.3.2 ros-noetic-message-generation ros-noetic-message-generation-dev ros-noetic-pluginlib-dev>=1.10.0 ros-noetic-pluginlib>=1.10.0 ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev util-linux-dev"
+depends_dev="ros-noetic-bondcpp ros-noetic-bondcpp-dev ros-noetic-message-runtime-dev ros-noetic-pluginlib-dev>=1.10.0 ros-noetic-pluginlib>=1.10.0 ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rospy-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev util-linux-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

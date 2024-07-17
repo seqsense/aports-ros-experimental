@@ -7,10 +7,11 @@ url="http://wiki.ros.org/genpy"
 arch="all"
 license="BSD"
 
-depends="py3-yaml ros-noetic-genmsg ros-noetic-genmsg"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-numpy py3-numpy-dev py3-setuptools ros-noetic-catkin>=0.5.78 ros-noetic-genmsg"
+depends="py3-yaml ros-noetic-genmsg"
+makedepends="chrpath py3-numpy py3-numpy-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.5.78 ros-noetic-catkin>=0.5.78 ros-noetic-genmsg ros-noetic-genmsg-dev"
+depends_dev="ros-noetic-genmsg ros-noetic-genmsg-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh
