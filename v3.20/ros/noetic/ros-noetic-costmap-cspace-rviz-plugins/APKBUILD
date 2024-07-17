@@ -7,10 +7,11 @@ url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="qt5-qtbase-dev ros-noetic-costmap-cspace-msgs ros-noetic-roscpp ros-noetic-rviz>=1.14.21 qt5-qtbase-dev ros-noetic-costmap-cspace-msgs ros-noetic-roscpp ros-noetic-rviz>=1.14.21"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath qt5-qtbase-dev ros-noetic-catkin ros-noetic-costmap-cspace-msgs ros-noetic-roscpp ros-noetic-roslint ros-noetic-rviz>=1.14.21"
+depends="ros-noetic-costmap-cspace-msgs ros-noetic-roscpp ros-noetic-rviz>=1.14.21"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool qt5-qtbase-dev ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-costmap-cspace-msgs ros-noetic-costmap-cspace-msgs-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-roslint ros-noetic-roslint-dev ros-noetic-rviz-dev>=1.14.21 ros-noetic-rviz>=1.14.21"
+depends_dev="qt5-qtbase-dev ros-noetic-costmap-cspace-msgs ros-noetic-costmap-cspace-msgs-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rviz-dev>=1.14.21 ros-noetic-rviz>=1.14.21"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,14 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

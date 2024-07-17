@@ -7,10 +7,11 @@ url="http://wiki.ros.org/rosbag"
 arch="all"
 license="BSD"
 
-depends="boost-dev py3-gnupg py3-pycryptodomex py3-rospkg ros-noetic-genmsg ros-noetic-genpy ros-noetic-rosbag-storage ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib ros-noetic-rospy ros-noetic-std-srvs ros-noetic-topic-tools ros-noetic-xmlrpcpp boost-dev ros-noetic-rosbag-storage ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-std-srvs ros-noetic-xmlrpcpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev py3-pillow ros-noetic-catkin>=0.5.78 ros-noetic-cpp-common ros-noetic-rosbag-storage ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-std-srvs ros-noetic-topic-tools ros-noetic-xmlrpcpp"
+depends="py3-gnupg py3-pycryptodomex py3-rospkg ros-noetic-genmsg ros-noetic-genpy ros-noetic-rosbag-storage ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslib ros-noetic-rospy ros-noetic-std-srvs ros-noetic-topic-tools ros-noetic-xmlrpcpp"
+makedepends="boost-dev chrpath py3-pillow py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.5.78 ros-noetic-catkin>=0.5.78 ros-noetic-cpp-common ros-noetic-cpp-common-dev ros-noetic-rosbag-storage ros-noetic-rosbag-storage-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-roscpp-serialization ros-noetic-roscpp-serialization-dev ros-noetic-std-srvs ros-noetic-std-srvs-dev ros-noetic-topic-tools ros-noetic-topic-tools-dev ros-noetic-xmlrpcpp ros-noetic-xmlrpcpp-dev"
+depends_dev="boost-dev ros-noetic-genmsg-dev ros-noetic-genpy-dev ros-noetic-rosbag-storage ros-noetic-rosbag-storage-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-roslib-dev ros-noetic-rospy-dev ros-noetic-std-srvs ros-noetic-std-srvs-dev ros-noetic-topic-tools-dev ros-noetic-xmlrpcpp ros-noetic-xmlrpcpp-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,14 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

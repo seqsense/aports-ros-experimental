@@ -7,10 +7,11 @@ url="http://ros.org/wiki/roslisp"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-ros-environment ros-noetic-rosgraph-msgs ros-noetic-roslang ros-noetic-rospack ros-noetic-std-srvs sbcl ros-noetic-ros-environment ros-noetic-rosgraph-msgs ros-noetic-roslang ros-noetic-rospack ros-noetic-std-srvs sbcl"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+depends="ros-noetic-ros-environment ros-noetic-rosgraph-msgs ros-noetic-roslang ros-noetic-rospack ros-noetic-std-srvs sbcl"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev"
+depends_dev="ros-noetic-ros-environment ros-noetic-ros-environment-dev ros-noetic-rosgraph-msgs ros-noetic-rosgraph-msgs-dev ros-noetic-roslang ros-noetic-roslang-dev ros-noetic-rospack ros-noetic-rospack-dev ros-noetic-std-srvs ros-noetic-std-srvs-dev sbcl"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,14 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

@@ -7,10 +7,11 @@ url="http://www.ros.org/wiki/velodyne_driver"
 arch="all"
 license="BSD"
 
-depends="libpcap-dev ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-tf ros-noetic-velodyne-msgs libpcap-dev ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-tf ros-noetic-velodyne-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath libpcap-dev ros-noetic-catkin ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-roslaunch ros-noetic-roslint ros-noetic-rostest ros-noetic-tf ros-noetic-velodyne-msgs"
+depends="ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-tf ros-noetic-velodyne-msgs"
+makedepends="chrpath libpcap-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-diagnostic-updater ros-noetic-diagnostic-updater-dev ros-noetic-dynamic-reconfigure ros-noetic-dynamic-reconfigure-dev ros-noetic-nodelet ros-noetic-nodelet-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-roslaunch ros-noetic-roslaunch-dev ros-noetic-roslint ros-noetic-roslint-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-tf ros-noetic-tf-dev ros-noetic-velodyne-msgs ros-noetic-velodyne-msgs-dev"
+depends_dev="libpcap-dev ros-noetic-diagnostic-updater ros-noetic-diagnostic-updater-dev ros-noetic-dynamic-reconfigure ros-noetic-dynamic-reconfigure-dev ros-noetic-nodelet ros-noetic-nodelet-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-tf ros-noetic-tf-dev ros-noetic-velodyne-msgs ros-noetic-velodyne-msgs-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,14 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

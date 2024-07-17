@@ -7,10 +7,11 @@ url="http://ros.org/wiki/control_msgs"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-actionlib-msgs ros-noetic-geometry-msgs ros-noetic-message-runtime ros-noetic-std-msgs ros-noetic-trajectory-msgs ros-noetic-actionlib-msgs ros-noetic-geometry-msgs ros-noetic-message-runtime ros-noetic-std-msgs ros-noetic-trajectory-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-actionlib-msgs ros-noetic-catkin ros-noetic-geometry-msgs ros-noetic-message-generation ros-noetic-std-msgs ros-noetic-trajectory-msgs"
+depends="ros-noetic-actionlib-msgs ros-noetic-geometry-msgs ros-noetic-message-runtime ros-noetic-std-msgs ros-noetic-trajectory-msgs"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-actionlib-msgs ros-noetic-actionlib-msgs-dev ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-message-generation ros-noetic-message-generation-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-trajectory-msgs ros-noetic-trajectory-msgs-dev"
+depends_dev="ros-noetic-actionlib-msgs ros-noetic-actionlib-msgs-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-message-runtime ros-noetic-message-runtime-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-trajectory-msgs ros-noetic-trajectory-msgs-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,14 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

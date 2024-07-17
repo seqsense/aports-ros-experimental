@@ -7,10 +7,11 @@ url="https://github.com/ros-controls/ros_control/wiki"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-roscpp ros-noetic-rosparam ros-noetic-rospy ros-noetic-std-msgs ros-noetic-controller-interface ros-noetic-controller-manager-msgs ros-noetic-hardware-interface ros-noetic-pluginlib ros-noetic-roscpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-setuptools ros-noetic-catkin ros-noetic-controller-interface ros-noetic-controller-manager-msgs ros-noetic-hardware-interface ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-rostest"
+depends="ros-noetic-roscpp ros-noetic-rosparam ros-noetic-rospy ros-noetic-std-msgs"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-controller-interface ros-noetic-controller-interface-dev ros-noetic-controller-manager-msgs ros-noetic-controller-manager-msgs-dev ros-noetic-hardware-interface ros-noetic-hardware-interface-dev ros-noetic-pluginlib ros-noetic-pluginlib-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rostest ros-noetic-rostest-dev"
+depends_dev="ros-noetic-controller-interface ros-noetic-controller-interface-dev ros-noetic-controller-manager-msgs ros-noetic-controller-manager-msgs-dev ros-noetic-hardware-interface ros-noetic-hardware-interface-dev ros-noetic-pluginlib ros-noetic-pluginlib-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rosparam-dev ros-noetic-rospy-dev ros-noetic-std-msgs-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,14 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

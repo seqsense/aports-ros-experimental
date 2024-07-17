@@ -7,10 +7,11 @@ url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-rosbag ros-noetic-rosbag-snapshot-msgs ros-noetic-roscpp ros-noetic-rosgraph-msgs ros-noetic-std-srvs ros-noetic-topic-tools ros-noetic-rosbag ros-noetic-rosbag-snapshot-msgs ros-noetic-roscpp ros-noetic-rosgraph-msgs ros-noetic-std-srvs ros-noetic-topic-tools"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-rosbag ros-noetic-rosbag-snapshot-msgs ros-noetic-roscpp ros-noetic-rosgraph-msgs ros-noetic-roslint ros-noetic-rospy ros-noetic-rostest ros-noetic-rostopic ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-topic-tools"
+depends="ros-noetic-rosbag ros-noetic-rosbag-snapshot-msgs ros-noetic-roscpp ros-noetic-rosgraph-msgs ros-noetic-std-srvs ros-noetic-topic-tools"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-rosbag ros-noetic-rosbag-dev ros-noetic-rosbag-snapshot-msgs ros-noetic-rosbag-snapshot-msgs-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rosgraph-msgs ros-noetic-rosgraph-msgs-dev ros-noetic-roslint ros-noetic-roslint-dev ros-noetic-rospy ros-noetic-rospy-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-rostopic ros-noetic-rostopic-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-std-srvs ros-noetic-std-srvs-dev ros-noetic-topic-tools ros-noetic-topic-tools-dev"
+depends_dev="ros-noetic-rosbag ros-noetic-rosbag-dev ros-noetic-rosbag-snapshot-msgs ros-noetic-rosbag-snapshot-msgs-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rosgraph-msgs ros-noetic-rosgraph-msgs-dev ros-noetic-std-srvs ros-noetic-std-srvs-dev ros-noetic-topic-tools ros-noetic-topic-tools-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,14 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

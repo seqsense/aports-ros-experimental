@@ -7,10 +7,11 @@ url="http://ros.org/wiki/kdl_conversions"
 arch="all"
 license="BSD"
 
-depends="orocos-kdl ros-noetic-geometry-msgs orocos-kdl-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath orocos-kdl-dev ros-noetic-catkin ros-noetic-geometry-msgs"
+depends="orocos-kdl ros-noetic-geometry-msgs"
+makedepends="chrpath orocos-kdl-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev"
+depends_dev="orocos-kdl-dev ros-noetic-geometry-msgs-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,14 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh
