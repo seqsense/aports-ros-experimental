@@ -1,7 +1,7 @@
 pkgname=ros-noetic-ros
 _pkgname=ros
 pkgver=1.15.8
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/ROS"
 arch="all"

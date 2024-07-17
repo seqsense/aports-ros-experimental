@@ -1,7 +1,7 @@
 pkgname=ros-noetic-kdl-conversions
 _pkgname=kdl_conversions
 pkgver=1.13.2
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/kdl_conversions"
 arch="all"
