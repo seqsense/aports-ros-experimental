@@ -7,10 +7,11 @@ url="http://ros.org/wiki/urg_node"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-laser-proc ros-noetic-message-generation ros-noetic-message-runtime ros-noetic-nodelet ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-tf ros-noetic-urg-c ros-noetic-xacro ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-laser-proc ros-noetic-message-generation ros-noetic-nodelet ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-tf ros-noetic-urg-c"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-laser-proc ros-noetic-message-generation ros-noetic-nodelet ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roslaunch ros-noetic-roslint ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-tf ros-noetic-urg-c"
+depends="ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-laser-proc ros-noetic-message-generation ros-noetic-message-runtime ros-noetic-nodelet ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-std-srvs ros-noetic-tf ros-noetic-urg-c ros-noetic-xacro"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-diagnostic-updater ros-noetic-diagnostic-updater-dev ros-noetic-dynamic-reconfigure ros-noetic-dynamic-reconfigure-dev ros-noetic-laser-proc ros-noetic-laser-proc-dev ros-noetic-message-generation ros-noetic-message-generation-dev ros-noetic-message-runtime-dev ros-noetic-nodelet ros-noetic-nodelet-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-roslaunch ros-noetic-roslaunch-dev ros-noetic-roslint ros-noetic-roslint-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-std-srvs ros-noetic-std-srvs-dev ros-noetic-tf ros-noetic-tf-dev ros-noetic-urg-c ros-noetic-urg-c-dev ros-noetic-xacro-dev"
+depends_dev="ros-noetic-diagnostic-updater ros-noetic-diagnostic-updater-dev ros-noetic-dynamic-reconfigure ros-noetic-dynamic-reconfigure-dev ros-noetic-laser-proc ros-noetic-laser-proc-dev ros-noetic-message-generation ros-noetic-message-generation-dev ros-noetic-message-runtime-dev ros-noetic-nodelet ros-noetic-nodelet-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-std-srvs ros-noetic-std-srvs-dev ros-noetic-tf ros-noetic-tf-dev ros-noetic-urg-c ros-noetic-urg-c-dev ros-noetic-xacro-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls $pkgdir/usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls $pkgdir/usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh
