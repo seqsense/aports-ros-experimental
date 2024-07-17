@@ -7,10 +7,11 @@ url="http://ros.org/wiki/rostest"
 arch="all"
 license="BSD"
 
-depends="boost-dev ros-noetic-rosgraph ros-noetic-roslaunch ros-noetic-rosmaster ros-noetic-rospy ros-noetic-rosunit boost-dev ros-noetic-rosgraph ros-noetic-roslaunch ros-noetic-rosmaster ros-noetic-rospy ros-noetic-rosunit"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev ros-noetic-catkin>=0.7.9 ros-noetic-rosunit"
+depends="ros-noetic-rosgraph ros-noetic-roslaunch ros-noetic-rosmaster ros-noetic-rospy ros-noetic-rosunit"
+makedepends="boost-dev chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.7.9 ros-noetic-catkin>=0.7.9 ros-noetic-rosgraph-dev ros-noetic-roslaunch-dev ros-noetic-rosmaster-dev ros-noetic-rospy-dev ros-noetic-rosunit ros-noetic-rosunit-dev"
+depends_dev="boost-dev ros-noetic-rosgraph ros-noetic-rosgraph-dev ros-noetic-roslaunch ros-noetic-roslaunch-dev ros-noetic-rosmaster ros-noetic-rosmaster-dev ros-noetic-rospy ros-noetic-rospy-dev ros-noetic-rosunit ros-noetic-rosunit-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls $pkgdir/usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls $pkgdir/usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

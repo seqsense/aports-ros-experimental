@@ -7,10 +7,11 @@ url="http://www.ros.org/wiki/camera_calibration"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-cv-bridge ros-noetic-image-geometry ros-noetic-message-filters ros-noetic-rospy ros-noetic-sensor-msgs ros-noetic-std-srvs ros-noetic-cv-bridge ros-noetic-image-geometry ros-noetic-message-filters ros-noetic-rospy ros-noetic-sensor-msgs ros-noetic-std-srvs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin>=0.5.68 ros-noetic-rostest"
+depends="ros-noetic-cv-bridge ros-noetic-image-geometry ros-noetic-message-filters ros-noetic-rospy ros-noetic-sensor-msgs ros-noetic-std-srvs"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.5.68 ros-noetic-catkin>=0.5.68 ros-noetic-cv-bridge-dev ros-noetic-image-geometry-dev ros-noetic-message-filters-dev ros-noetic-rospy-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-sensor-msgs-dev ros-noetic-std-srvs-dev"
+depends_dev="ros-noetic-cv-bridge ros-noetic-cv-bridge-dev ros-noetic-image-geometry ros-noetic-image-geometry-dev ros-noetic-message-filters ros-noetic-message-filters-dev ros-noetic-rospy ros-noetic-rospy-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-std-srvs ros-noetic-std-srvs-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls $pkgdir/usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls $pkgdir/usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

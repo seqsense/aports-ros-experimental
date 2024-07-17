@@ -7,10 +7,11 @@ url="http://www.ros.org/wiki/tf_conversions"
 arch="all"
 license="BSD"
 
-depends="eigen-dev orocos-kdl py3-kdl ros-noetic-geometry-msgs ros-noetic-kdl-conversions ros-noetic-tf orocos-kdl-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev orocos-kdl-dev ros-noetic-catkin>=0.5.68 ros-noetic-geometry-msgs ros-noetic-kdl-conversions ros-noetic-tf"
+depends="orocos-kdl py3-kdl ros-noetic-geometry-msgs ros-noetic-kdl-conversions ros-noetic-tf"
+makedepends="chrpath eigen-dev orocos-kdl-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.5.68 ros-noetic-catkin>=0.5.68 ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-kdl-conversions ros-noetic-kdl-conversions-dev ros-noetic-tf ros-noetic-tf-dev"
+depends_dev="eigen-dev orocos-kdl-dev ros-noetic-geometry-msgs-dev ros-noetic-kdl-conversions-dev ros-noetic-tf-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls $pkgdir/usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls $pkgdir/usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

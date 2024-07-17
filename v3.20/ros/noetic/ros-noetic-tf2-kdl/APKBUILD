@@ -7,10 +7,11 @@ url="http://ros.org/wiki/tf2"
 arch="all"
 license="BSD"
 
-depends="orocos-kdl-dev ros-noetic-tf2 ros-noetic-tf2-ros eigen-dev orocos-kdl-dev ros-noetic-tf2 ros-noetic-tf2-ros"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev orocos-kdl-dev ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules ros-noetic-ros-environment ros-noetic-rostest ros-noetic-tf2 ros-noetic-tf2-ros"
+depends="ros-noetic-tf2 ros-noetic-tf2-ros"
+makedepends="chrpath eigen-dev orocos-kdl-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.5.68 ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules ros-noetic-cmake-modules-dev ros-noetic-ros-environment ros-noetic-ros-environment-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-tf2 ros-noetic-tf2-dev ros-noetic-tf2-ros ros-noetic-tf2-ros-dev"
+depends_dev="eigen-dev orocos-kdl-dev ros-noetic-tf2 ros-noetic-tf2-dev ros-noetic-tf2-ros ros-noetic-tf2-ros-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls $pkgdir/usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls $pkgdir/usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

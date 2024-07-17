@@ -7,10 +7,11 @@ url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="MIT"
 
-depends="boost-dev ncurses-dev ros-noetic-roslib zeromq-dev boost-dev ncurses-dev ros-noetic-roslib zeromq-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev ncurses-dev ros-noetic-catkin ros-noetic-ros-environment ros-noetic-roslib zeromq-dev"
+depends="ros-noetic-roslib"
+makedepends="boost-dev chrpath ncurses-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-ros-environment ros-noetic-ros-environment-dev ros-noetic-roslib ros-noetic-roslib-dev zeromq-dev"
+depends_dev="boost-dev ncurses-dev ros-noetic-roslib ros-noetic-roslib-dev zeromq-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls $pkgdir/usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls $pkgdir/usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh
