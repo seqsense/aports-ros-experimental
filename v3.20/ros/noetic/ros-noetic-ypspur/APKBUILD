@@ -7,10 +7,11 @@ url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="MIT"
 
-depends="readline-dev ros-noetic-catkin"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath cmake readline-dev"
+depends="ros-noetic-catkin"
+makedepends="chrpath cmake py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool readline-dev"
+depends_dev="readline-dev ros-noetic-catkin-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -231,6 +232,24 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  for src in \
+      usr/ros/noetic/lib/pkgconfig/ \
+      usr/ros/noetic/share/*/cmake/; do
+    if [ -e "$pkgdir/$src" ]; then
+      mkdir -p "$subpkgdir/$src"
+      mv "$pkgdir/$src" "$subpkgdir/$src"
+      rmdir "$pkgdir/$src" 2>/dev/null || true
+    fi
+  done
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

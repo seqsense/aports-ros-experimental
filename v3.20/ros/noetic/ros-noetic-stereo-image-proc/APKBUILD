@@ -7,10 +7,11 @@ url="http://www.ros.org/wiki/stereo_image_proc"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-cv-bridge ros-noetic-dynamic-reconfigure ros-noetic-image-geometry ros-noetic-image-proc ros-noetic-image-transport ros-noetic-message-filters ros-noetic-nodelet ros-noetic-sensor-msgs ros-noetic-stereo-msgs ros-noetic-cv-bridge ros-noetic-dynamic-reconfigure ros-noetic-image-geometry ros-noetic-image-proc ros-noetic-image-transport ros-noetic-message-filters ros-noetic-nodelet ros-noetic-sensor-msgs ros-noetic-stereo-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-cv-bridge ros-noetic-dynamic-reconfigure ros-noetic-image-geometry ros-noetic-image-proc ros-noetic-image-transport ros-noetic-message-filters ros-noetic-nodelet ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-stereo-msgs"
+depends="ros-noetic-cv-bridge ros-noetic-dynamic-reconfigure ros-noetic-image-geometry ros-noetic-image-proc ros-noetic-image-transport ros-noetic-message-filters ros-noetic-nodelet ros-noetic-sensor-msgs ros-noetic-stereo-msgs"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-cv-bridge ros-noetic-cv-bridge-dev ros-noetic-dynamic-reconfigure ros-noetic-dynamic-reconfigure-dev ros-noetic-image-geometry ros-noetic-image-geometry-dev ros-noetic-image-proc ros-noetic-image-proc-dev ros-noetic-image-transport ros-noetic-image-transport-dev ros-noetic-message-filters ros-noetic-message-filters-dev ros-noetic-nodelet ros-noetic-nodelet-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-stereo-msgs ros-noetic-stereo-msgs-dev"
+depends_dev="ros-noetic-cv-bridge ros-noetic-cv-bridge-dev ros-noetic-dynamic-reconfigure ros-noetic-dynamic-reconfigure-dev ros-noetic-image-geometry ros-noetic-image-geometry-dev ros-noetic-image-proc ros-noetic-image-proc-dev ros-noetic-image-transport ros-noetic-image-transport-dev ros-noetic-message-filters ros-noetic-message-filters-dev ros-noetic-nodelet ros-noetic-nodelet-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-stereo-msgs ros-noetic-stereo-msgs-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,24 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  for src in \
+      usr/ros/noetic/lib/pkgconfig/ \
+      usr/ros/noetic/share/*/cmake/; do
+    if [ -e "$pkgdir/$src" ]; then
+      mkdir -p "$subpkgdir/$src"
+      mv "$pkgdir/$src" "$subpkgdir/$src"
+      rmdir "$pkgdir/$src" 2>/dev/null || true
+    fi
+  done
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

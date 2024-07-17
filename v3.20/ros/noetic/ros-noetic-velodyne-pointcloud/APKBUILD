@@ -7,10 +7,11 @@ url="http://ros.org/wiki/velodyne_pointcloud"
 arch="all"
 license="BSD"
 
-depends="eigen-dev ros-noetic-angles ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-roslib ros-noetic-sensor-msgs ros-noetic-tf2-ros ros-noetic-velodyne-driver ros-noetic-velodyne-laserscan ros-noetic-velodyne-msgs yaml-cpp-dev eigen-dev ros-noetic-angles ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-roslib ros-noetic-sensor-msgs ros-noetic-tf2-ros ros-noetic-velodyne-driver ros-noetic-velodyne-msgs yaml-cpp-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev ros-noetic-angles ros-noetic-catkin ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-roslaunch ros-noetic-roslib ros-noetic-roslint ros-noetic-rostest ros-noetic-rosunit ros-noetic-sensor-msgs ros-noetic-tf2-ros ros-noetic-velodyne-driver ros-noetic-velodyne-msgs yaml-cpp-dev"
+depends="ros-noetic-angles ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-nodelet ros-noetic-roscpp ros-noetic-roslib ros-noetic-sensor-msgs ros-noetic-tf2-ros ros-noetic-velodyne-driver ros-noetic-velodyne-laserscan ros-noetic-velodyne-msgs"
+makedepends="chrpath eigen-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-angles ros-noetic-angles-dev ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-diagnostic-updater ros-noetic-diagnostic-updater-dev ros-noetic-dynamic-reconfigure ros-noetic-dynamic-reconfigure-dev ros-noetic-nodelet ros-noetic-nodelet-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-roslaunch ros-noetic-roslaunch-dev ros-noetic-roslib ros-noetic-roslib-dev ros-noetic-roslint ros-noetic-roslint-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-rosunit ros-noetic-rosunit-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-tf2-ros ros-noetic-tf2-ros-dev ros-noetic-velodyne-driver ros-noetic-velodyne-driver-dev ros-noetic-velodyne-msgs ros-noetic-velodyne-msgs-dev yaml-cpp-dev"
+depends_dev="eigen-dev ros-noetic-angles ros-noetic-angles-dev ros-noetic-diagnostic-updater ros-noetic-diagnostic-updater-dev ros-noetic-dynamic-reconfigure ros-noetic-dynamic-reconfigure-dev ros-noetic-nodelet ros-noetic-nodelet-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-roslib ros-noetic-roslib-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-tf2-ros ros-noetic-tf2-ros-dev ros-noetic-velodyne-driver ros-noetic-velodyne-driver-dev ros-noetic-velodyne-laserscan-dev ros-noetic-velodyne-msgs ros-noetic-velodyne-msgs-dev yaml-cpp-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,24 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  for src in \
+      usr/ros/noetic/lib/pkgconfig/ \
+      usr/ros/noetic/share/*/cmake/; do
+    if [ -e "$pkgdir/$src" ]; then
+      mkdir -p "$subpkgdir/$src"
+      mv "$pkgdir/$src" "$subpkgdir/$src"
+      rmdir "$pkgdir/$src" 2>/dev/null || true
+    fi
+  done
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

@@ -7,10 +7,11 @@ url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="eigen-dev pcl ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-neonavigation-common ros-noetic-pcl-conversions ros-noetic-pcl-ros ros-noetic-roscpp ros-noetic-safety-limiter-msgs ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-tf2-ros ros-noetic-tf2-sensor-msgs ros-noetic-xmlrpcpp eigen-dev ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-neonavigation-common ros-noetic-pcl-conversions ros-noetic-pcl-ros ros-noetic-roscpp ros-noetic-safety-limiter-msgs ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-tf2-ros ros-noetic-tf2-sensor-msgs ros-noetic-xmlrpcpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev pcl-dev ros-noetic-catkin ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-nav-msgs ros-noetic-neonavigation-common ros-noetic-pcl-conversions ros-noetic-pcl-ros ros-noetic-roscpp ros-noetic-roslint ros-noetic-rostest ros-noetic-safety-limiter-msgs ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-tf2-sensor-msgs ros-noetic-xmlrpcpp"
+depends="pcl ros-noetic-diagnostic-updater ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-neonavigation-common ros-noetic-pcl-conversions ros-noetic-pcl-ros ros-noetic-roscpp ros-noetic-safety-limiter-msgs ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-tf2-ros ros-noetic-tf2-sensor-msgs ros-noetic-xmlrpcpp"
+makedepends="chrpath eigen-dev pcl-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-diagnostic-updater ros-noetic-diagnostic-updater-dev ros-noetic-dynamic-reconfigure ros-noetic-dynamic-reconfigure-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-nav-msgs ros-noetic-nav-msgs-dev ros-noetic-neonavigation-common ros-noetic-neonavigation-common-dev ros-noetic-pcl-conversions ros-noetic-pcl-conversions-dev ros-noetic-pcl-ros ros-noetic-pcl-ros-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-roslint ros-noetic-roslint-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-safety-limiter-msgs ros-noetic-safety-limiter-msgs-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-tf2-geometry-msgs ros-noetic-tf2-geometry-msgs-dev ros-noetic-tf2-ros ros-noetic-tf2-ros-dev ros-noetic-tf2-sensor-msgs ros-noetic-tf2-sensor-msgs-dev ros-noetic-xmlrpcpp ros-noetic-xmlrpcpp-dev"
+depends_dev="eigen-dev ros-noetic-diagnostic-updater ros-noetic-diagnostic-updater-dev ros-noetic-dynamic-reconfigure ros-noetic-dynamic-reconfigure-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-neonavigation-common ros-noetic-neonavigation-common-dev ros-noetic-pcl-conversions ros-noetic-pcl-conversions-dev ros-noetic-pcl-ros ros-noetic-pcl-ros-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-safety-limiter-msgs ros-noetic-safety-limiter-msgs-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-tf2-ros ros-noetic-tf2-ros-dev ros-noetic-tf2-sensor-msgs ros-noetic-tf2-sensor-msgs-dev ros-noetic-xmlrpcpp ros-noetic-xmlrpcpp-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,24 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  for src in \
+      usr/ros/noetic/lib/pkgconfig/ \
+      usr/ros/noetic/share/*/cmake/; do
+    if [ -e "$pkgdir/$src" ]; then
+      mkdir -p "$subpkgdir/$src"
+      mv "$pkgdir/$src" "$subpkgdir/$src"
+      rmdir "$pkgdir/$src" 2>/dev/null || true
+    fi
+  done
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

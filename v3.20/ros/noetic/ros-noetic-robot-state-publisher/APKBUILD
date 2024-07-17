@@ -7,10 +7,11 @@ url="http://wiki.ros.org/robot_state_publisher"
 arch="all"
 license="BSD"
 
-depends="orocos-kdl ros-noetic-kdl-parser ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rostime ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2-kdl ros-noetic-tf2-ros orocos-kdl-dev ros-noetic-kdl-parser ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rostime ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2-kdl ros-noetic-tf2-ros"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev orocos-kdl-dev ros-noetic-catkin ros-noetic-kdl-parser ros-noetic-rosbag ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rostest ros-noetic-rostime ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2-kdl ros-noetic-tf2-ros urdfdom_headers"
+depends="orocos-kdl ros-noetic-kdl-parser ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rostime ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2-kdl ros-noetic-tf2-ros"
+makedepends="chrpath eigen-dev orocos-kdl-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-kdl-parser ros-noetic-kdl-parser-dev ros-noetic-rosbag ros-noetic-rosbag-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-rostime ros-noetic-rostime-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-tf ros-noetic-tf-dev ros-noetic-tf2-kdl ros-noetic-tf2-kdl-dev ros-noetic-tf2-ros ros-noetic-tf2-ros-dev urdfdom_headers"
+depends_dev="orocos-kdl-dev ros-noetic-kdl-parser ros-noetic-kdl-parser-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rostime ros-noetic-rostime-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-tf ros-noetic-tf-dev ros-noetic-tf2-kdl ros-noetic-tf2-kdl-dev ros-noetic-tf2-ros ros-noetic-tf2-ros-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,24 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  for src in \
+      usr/ros/noetic/lib/pkgconfig/ \
+      usr/ros/noetic/share/*/cmake/; do
+    if [ -e "$pkgdir/$src" ]; then
+      mkdir -p "$subpkgdir/$src"
+      mv "$pkgdir/$src" "$subpkgdir/$src"
+      rmdir "$pkgdir/$src" 2>/dev/null || true
+    fi
+  done
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh
