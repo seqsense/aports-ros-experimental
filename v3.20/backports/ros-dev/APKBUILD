@@ -1,0 +1,14 @@
+# Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
+# Maintainer:
+pkgname=ros-dev
+pkgver=0.0
+pkgrel=0
+pkgdesc="Meta package for pulling in all ROS -dev packages"
+url="https://github.com/seqsense/aports-ros-experimental"
+arch="all"
+options="!check"
+license="PublicDomain"
+
+package() {
+  mkdir -p $pkgdir
+}
