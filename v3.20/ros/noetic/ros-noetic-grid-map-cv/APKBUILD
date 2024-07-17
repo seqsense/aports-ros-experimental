@@ -7,10 +7,11 @@ url="http://github.com/anybotics/grid_map"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-cv-bridge ros-noetic-filters ros-noetic-grid-map-core ros-noetic-cv-bridge ros-noetic-filters ros-noetic-grid-map-core"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath gtest gtest-dev ros-noetic-catkin ros-noetic-cv-bridge ros-noetic-filters ros-noetic-grid-map-core"
+depends="ros-noetic-cv-bridge ros-noetic-filters ros-noetic-grid-map-core"
+makedepends="chrpath gtest gtest-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-cv-bridge ros-noetic-cv-bridge-dev ros-noetic-filters ros-noetic-filters-dev ros-noetic-grid-map-core ros-noetic-grid-map-core-dev"
+depends_dev="ros-noetic-cv-bridge ros-noetic-cv-bridge-dev ros-noetic-filters ros-noetic-filters-dev ros-noetic-grid-map-core ros-noetic-grid-map-core-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,16 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  amove usr/ros/*/lib/pkgconfig 'usr/ros/*/share/*/cmake/'
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

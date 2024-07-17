@@ -7,10 +7,11 @@ url="http://wiki.ros.org/costmap_2d"
 arch="all"
 license="BSD"
 
-depends="eigen-dev ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-laser-geometry ros-noetic-map-msgs ros-noetic-message-filters ros-noetic-message-runtime ros-noetic-nav-msgs ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-tf2 ros-noetic-tf2-ros ros-noetic-visualization-msgs ros-noetic-voxel-grid eigen-dev ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-laser-geometry ros-noetic-map-msgs ros-noetic-message-filters ros-noetic-nav-msgs ros-noetic-pluginlib ros-noetic-roscpp ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-tf2 ros-noetic-tf2-ros ros-noetic-visualization-msgs ros-noetic-voxel-grid"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev ros-noetic-catkin ros-noetic-cmake-modules ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-laser-geometry ros-noetic-map-msgs ros-noetic-map-server ros-noetic-message-filters ros-noetic-message-generation ros-noetic-nav-msgs ros-noetic-pluginlib ros-noetic-rosbag ros-noetic-roscpp ros-noetic-rostest ros-noetic-rosunit ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-tf2 ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-tf2-sensor-msgs ros-noetic-visualization-msgs ros-noetic-voxel-grid"
+depends="ros-noetic-dynamic-reconfigure ros-noetic-geometry-msgs ros-noetic-laser-geometry ros-noetic-map-msgs ros-noetic-message-filters ros-noetic-message-runtime ros-noetic-nav-msgs ros-noetic-pluginlib ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-std-msgs ros-noetic-tf2 ros-noetic-tf2-ros ros-noetic-visualization-msgs ros-noetic-voxel-grid"
+makedepends="chrpath eigen-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-cmake-modules ros-noetic-cmake-modules-dev ros-noetic-dynamic-reconfigure ros-noetic-dynamic-reconfigure-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-laser-geometry ros-noetic-laser-geometry-dev ros-noetic-map-msgs ros-noetic-map-msgs-dev ros-noetic-map-server ros-noetic-map-server-dev ros-noetic-message-filters ros-noetic-message-filters-dev ros-noetic-message-generation ros-noetic-message-generation-dev ros-noetic-nav-msgs ros-noetic-nav-msgs-dev ros-noetic-pluginlib ros-noetic-pluginlib-dev ros-noetic-rosbag ros-noetic-rosbag-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-rosunit ros-noetic-rosunit-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-tf2 ros-noetic-tf2-dev ros-noetic-tf2-geometry-msgs ros-noetic-tf2-geometry-msgs-dev ros-noetic-tf2-ros ros-noetic-tf2-ros-dev ros-noetic-tf2-sensor-msgs ros-noetic-tf2-sensor-msgs-dev ros-noetic-visualization-msgs ros-noetic-visualization-msgs-dev ros-noetic-voxel-grid ros-noetic-voxel-grid-dev"
+depends_dev="eigen-dev ros-noetic-dynamic-reconfigure ros-noetic-dynamic-reconfigure-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-laser-geometry ros-noetic-laser-geometry-dev ros-noetic-map-msgs ros-noetic-map-msgs-dev ros-noetic-message-filters ros-noetic-message-filters-dev ros-noetic-message-runtime-dev ros-noetic-nav-msgs ros-noetic-nav-msgs-dev ros-noetic-pluginlib ros-noetic-pluginlib-dev ros-noetic-rosconsole-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-tf2 ros-noetic-tf2-dev ros-noetic-tf2-ros ros-noetic-tf2-ros-dev ros-noetic-visualization-msgs ros-noetic-visualization-msgs-dev ros-noetic-voxel-grid ros-noetic-voxel-grid-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,16 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  amove usr/ros/*/lib/pkgconfig 'usr/ros/*/share/*/cmake/'
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

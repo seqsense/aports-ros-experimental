@@ -7,10 +7,11 @@ url="http://ros.org/wiki/rosbuild"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-catkin ros-noetic-message-generation ros-noetic-message-runtime ros-noetic-catkin ros-noetic-message-generation ros-noetic-message-runtime"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath pkgconf ros-noetic-catkin>=0.5.78"
+depends="ros-noetic-catkin ros-noetic-message-generation ros-noetic-message-runtime"
+makedepends="chrpath pkgconf py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.5.78 ros-noetic-catkin>=0.5.78"
+depends_dev="ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-message-generation ros-noetic-message-generation-dev ros-noetic-message-runtime ros-noetic-message-runtime-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,16 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  amove usr/ros/*/lib/pkgconfig 'usr/ros/*/share/*/cmake/'
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

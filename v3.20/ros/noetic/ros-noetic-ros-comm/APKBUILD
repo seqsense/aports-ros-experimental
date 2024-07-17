@@ -7,10 +7,11 @@ url="http://wiki.ros.org/ros_comm"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-message-filters ros-noetic-ros ros-noetic-rosbag ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rosgraph ros-noetic-rosgraph-msgs ros-noetic-roslaunch ros-noetic-roslisp ros-noetic-rosmaster ros-noetic-rosmsg ros-noetic-rosnode ros-noetic-rosout ros-noetic-rosparam ros-noetic-rospy ros-noetic-rosservice ros-noetic-rostest ros-noetic-rostopic ros-noetic-roswtf ros-noetic-std-srvs ros-noetic-topic-tools ros-noetic-xmlrpcpp ros-noetic-message-filters ros-noetic-ros ros-noetic-rosbag ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rosgraph ros-noetic-rosgraph-msgs ros-noetic-roslaunch ros-noetic-roslisp ros-noetic-rosmaster ros-noetic-rosmsg ros-noetic-rosnode ros-noetic-rosout ros-noetic-rosparam ros-noetic-rospy ros-noetic-rosservice ros-noetic-rostest ros-noetic-rostopic ros-noetic-roswtf ros-noetic-std-srvs ros-noetic-topic-tools ros-noetic-xmlrpcpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+depends="ros-noetic-message-filters ros-noetic-ros ros-noetic-rosbag ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rosgraph ros-noetic-rosgraph-msgs ros-noetic-roslaunch ros-noetic-roslisp ros-noetic-rosmaster ros-noetic-rosmsg ros-noetic-rosnode ros-noetic-rosout ros-noetic-rosparam ros-noetic-rospy ros-noetic-rosservice ros-noetic-rostest ros-noetic-rostopic ros-noetic-roswtf ros-noetic-std-srvs ros-noetic-topic-tools ros-noetic-xmlrpcpp"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev"
+depends_dev="ros-noetic-message-filters ros-noetic-message-filters-dev ros-noetic-ros ros-noetic-ros-dev ros-noetic-rosbag ros-noetic-rosbag-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rosgraph ros-noetic-rosgraph-dev ros-noetic-rosgraph-msgs ros-noetic-rosgraph-msgs-dev ros-noetic-roslaunch ros-noetic-roslaunch-dev ros-noetic-roslisp ros-noetic-roslisp-dev ros-noetic-rosmaster ros-noetic-rosmaster-dev ros-noetic-rosmsg ros-noetic-rosmsg-dev ros-noetic-rosnode ros-noetic-rosnode-dev ros-noetic-rosout ros-noetic-rosout-dev ros-noetic-rosparam ros-noetic-rosparam-dev ros-noetic-rospy ros-noetic-rospy-dev ros-noetic-rosservice ros-noetic-rosservice-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-rostopic ros-noetic-rostopic-dev ros-noetic-roswtf ros-noetic-roswtf-dev ros-noetic-std-srvs ros-noetic-std-srvs-dev ros-noetic-topic-tools ros-noetic-topic-tools-dev ros-noetic-xmlrpcpp ros-noetic-xmlrpcpp-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,16 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  amove usr/ros/*/lib/pkgconfig 'usr/ros/*/share/*/cmake/'
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

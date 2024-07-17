@@ -7,10 +7,11 @@ url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-geometry-msgs ros-noetic-tf2 eigen-dev ros-noetic-geometry-msgs ros-noetic-tf2"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev ros-noetic-catkin ros-noetic-cmake-modules ros-noetic-geometry-msgs ros-noetic-tf2"
+depends="ros-noetic-geometry-msgs ros-noetic-tf2"
+makedepends="chrpath eigen-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-cmake-modules ros-noetic-cmake-modules-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-tf2 ros-noetic-tf2-dev"
+depends_dev="eigen-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-tf2 ros-noetic-tf2-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,16 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  amove usr/ros/*/lib/pkgconfig 'usr/ros/*/share/*/cmake/'
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

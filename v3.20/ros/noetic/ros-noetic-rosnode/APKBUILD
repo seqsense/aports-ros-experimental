@@ -7,10 +7,11 @@ url="http://ros.org/wiki/rosnode"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-rosgraph ros-noetic-rostopic ros-noetic-rosgraph ros-noetic-rostopic"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin>=0.5.68 ros-noetic-rostest"
+depends="ros-noetic-rosgraph ros-noetic-rostopic"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.5.68 ros-noetic-catkin>=0.5.68 ros-noetic-rostest ros-noetic-rostest-dev"
+depends_dev="ros-noetic-rosgraph ros-noetic-rosgraph-dev ros-noetic-rostopic ros-noetic-rostopic-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,16 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  amove usr/ros/*/lib/pkgconfig 'usr/ros/*/share/*/cmake/'
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

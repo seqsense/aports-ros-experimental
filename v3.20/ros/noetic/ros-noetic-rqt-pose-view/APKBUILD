@@ -8,9 +8,10 @@ arch="all"
 license="BSD"
 
 depends="py3-opengl py3-rospkg ros-noetic-geometry-msgs ros-noetic-gl-dependency ros-noetic-python-qt-binding>=0.2.19 ros-noetic-rospy ros-noetic-rostopic ros-noetic-rqt-gui ros-noetic-rqt-gui-py ros-noetic-rqt-py-common ros-noetic-tf"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev"
+depends_dev="ros-noetic-geometry-msgs-dev ros-noetic-gl-dependency-dev ros-noetic-python-qt-binding-dev>=0.2.19 ros-noetic-rospy-dev ros-noetic-rostopic-dev ros-noetic-rqt-gui-dev ros-noetic-rqt-gui-py-dev ros-noetic-rqt-py-common-dev ros-noetic-tf-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,16 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  amove usr/ros/*/lib/pkgconfig 'usr/ros/*/share/*/cmake/'
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

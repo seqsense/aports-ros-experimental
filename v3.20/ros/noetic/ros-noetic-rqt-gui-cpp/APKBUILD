@@ -7,10 +7,11 @@ url="http://ros.org/wiki/rqt_gui_cpp"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-nodelet ros-noetic-qt-gui-cpp>=0.3.0 ros-noetic-qt-gui>=0.3.0 ros-noetic-roscpp ros-noetic-nodelet ros-noetic-qt-gui-cpp>=0.3.0 ros-noetic-qt-gui>=0.3.0 ros-noetic-roscpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath qt5-qtbase-dev ros-noetic-catkin ros-noetic-nodelet ros-noetic-qt-gui-cpp>=0.3.0 ros-noetic-qt-gui>=0.3.0 ros-noetic-roscpp"
+depends="ros-noetic-nodelet ros-noetic-qt-gui-cpp>=0.3.0 ros-noetic-qt-gui>=0.3.0 ros-noetic-roscpp"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool qt5-qtbase-dev ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-nodelet ros-noetic-nodelet-dev ros-noetic-qt-gui-cpp-dev>=0.3.0 ros-noetic-qt-gui-cpp>=0.3.0 ros-noetic-qt-gui-dev>=0.3.0 ros-noetic-qt-gui>=0.3.0 ros-noetic-roscpp ros-noetic-roscpp-dev"
+depends_dev="ros-noetic-nodelet ros-noetic-nodelet-dev ros-noetic-qt-gui-cpp-dev>=0.3.0 ros-noetic-qt-gui-cpp>=0.3.0 ros-noetic-qt-gui-dev>=0.3.0 ros-noetic-qt-gui>=0.3.0 ros-noetic-roscpp ros-noetic-roscpp-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,16 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  amove usr/ros/*/lib/pkgconfig 'usr/ros/*/share/*/cmake/'
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh
