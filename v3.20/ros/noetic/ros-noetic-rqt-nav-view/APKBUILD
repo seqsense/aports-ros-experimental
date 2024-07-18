@@ -1,16 +1,17 @@
 pkgname=ros-noetic-rqt-nav-view
 _pkgname=rqt_nav_view
 pkgver=0.5.7
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/rqt_nav_view"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-geometry-msgs ros-noetic-nav-msgs ros-noetic-python-qt-binding>=0.2.19 ros-noetic-qt-gui ros-noetic-rospy ros-noetic-rqt-gui ros-noetic-rqt-gui-py ros-noetic-rqt-py-common ros-noetic-tf ros-noetic-geometry-msgs ros-noetic-nav-msgs ros-noetic-python-qt-binding>=0.2.19 ros-noetic-qt-gui ros-noetic-rospy ros-noetic-rqt-gui ros-noetic-rqt-gui-py ros-noetic-rqt-py-common ros-noetic-tf"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+depends="ros-noetic-geometry-msgs ros-noetic-nav-msgs ros-noetic-python-qt-binding>=0.2.19 ros-noetic-qt-gui ros-noetic-rospy ros-noetic-rqt-gui ros-noetic-rqt-gui-py ros-noetic-rqt-py-common ros-noetic-tf"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-geometry-msgs-dev ros-noetic-nav-msgs-dev ros-noetic-python-qt-binding-dev>=0.2.19 ros-noetic-qt-gui-dev ros-noetic-rospy-dev ros-noetic-rqt-gui-dev ros-noetic-rqt-gui-py-dev ros-noetic-rqt-py-common-dev ros-noetic-tf-dev"
+depends_dev="ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-nav-msgs ros-noetic-nav-msgs-dev ros-noetic-python-qt-binding-dev>=0.2.19 ros-noetic-python-qt-binding>=0.2.19 ros-noetic-qt-gui ros-noetic-qt-gui-dev ros-noetic-rospy ros-noetic-rospy-dev ros-noetic-rqt-gui ros-noetic-rqt-gui-dev ros-noetic-rqt-gui-py ros-noetic-rqt-gui-py-dev ros-noetic-rqt-py-common ros-noetic-rqt-py-common-dev ros-noetic-tf ros-noetic-tf-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls $pkgdir/usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls $pkgdir/usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

@@ -1,16 +1,17 @@
 pkgname=ros-noetic-roswtf
 _pkgname=roswtf
 pkgver=1.16.0
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/roswtf"
 arch="all"
 license="BSD"
 
 depends="py3-paramiko py3-rospkg ros-noetic-rosbuild ros-noetic-rosgraph ros-noetic-roslaunch ros-noetic-roslib ros-noetic-rosnode ros-noetic-rosservice"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules ros-noetic-rosbag ros-noetic-roslang ros-noetic-rostest ros-noetic-std-srvs"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.5.68 ros-noetic-catkin>=0.5.68 ros-noetic-cmake-modules ros-noetic-cmake-modules-dev ros-noetic-rosbag ros-noetic-rosbag-dev ros-noetic-rosbuild-dev ros-noetic-rosgraph-dev ros-noetic-roslang ros-noetic-roslang-dev ros-noetic-roslaunch-dev ros-noetic-roslib-dev ros-noetic-rosnode-dev ros-noetic-rosservice-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-std-srvs ros-noetic-std-srvs-dev"
+depends_dev="ros-noetic-rosbuild-dev ros-noetic-rosgraph-dev ros-noetic-roslaunch-dev ros-noetic-roslib-dev ros-noetic-rosnode-dev ros-noetic-rosservice-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls $pkgdir/usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls $pkgdir/usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

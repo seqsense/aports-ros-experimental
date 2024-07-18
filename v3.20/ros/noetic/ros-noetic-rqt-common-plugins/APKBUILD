@@ -1,16 +1,17 @@
 pkgname=ros-noetic-rqt-common-plugins
 _pkgname=rqt_common_plugins
 pkgver=0.4.9
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/rqt_common_plugins"
 arch="all"
 license="BSD"
 
 depends="ros-noetic-rqt-action ros-noetic-rqt-bag ros-noetic-rqt-bag-plugins ros-noetic-rqt-console ros-noetic-rqt-dep ros-noetic-rqt-graph ros-noetic-rqt-image-view ros-noetic-rqt-launch ros-noetic-rqt-logger-level ros-noetic-rqt-msg ros-noetic-rqt-plot ros-noetic-rqt-publisher ros-noetic-rqt-py-common ros-noetic-rqt-py-console ros-noetic-rqt-reconfigure ros-noetic-rqt-service-caller ros-noetic-rqt-shell ros-noetic-rqt-srv ros-noetic-rqt-top ros-noetic-rqt-topic ros-noetic-rqt-web"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-rqt-action-dev ros-noetic-rqt-bag-dev ros-noetic-rqt-bag-plugins-dev ros-noetic-rqt-console-dev ros-noetic-rqt-dep-dev ros-noetic-rqt-graph-dev ros-noetic-rqt-image-view-dev ros-noetic-rqt-launch-dev ros-noetic-rqt-logger-level-dev ros-noetic-rqt-msg-dev ros-noetic-rqt-plot-dev ros-noetic-rqt-publisher-dev ros-noetic-rqt-py-common-dev ros-noetic-rqt-py-console-dev ros-noetic-rqt-reconfigure-dev ros-noetic-rqt-service-caller-dev ros-noetic-rqt-shell-dev ros-noetic-rqt-srv-dev ros-noetic-rqt-top-dev ros-noetic-rqt-topic-dev ros-noetic-rqt-web-dev"
+depends_dev="ros-noetic-rqt-action-dev ros-noetic-rqt-bag-dev ros-noetic-rqt-bag-plugins-dev ros-noetic-rqt-console-dev ros-noetic-rqt-dep-dev ros-noetic-rqt-graph-dev ros-noetic-rqt-image-view-dev ros-noetic-rqt-launch-dev ros-noetic-rqt-logger-level-dev ros-noetic-rqt-msg-dev ros-noetic-rqt-plot-dev ros-noetic-rqt-publisher-dev ros-noetic-rqt-py-common-dev ros-noetic-rqt-py-console-dev ros-noetic-rqt-reconfigure-dev ros-noetic-rqt-service-caller-dev ros-noetic-rqt-shell-dev ros-noetic-rqt-srv-dev ros-noetic-rqt-top-dev ros-noetic-rqt-topic-dev ros-noetic-rqt-web-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls $pkgdir/usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls $pkgdir/usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

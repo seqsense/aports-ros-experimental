@@ -1,16 +1,17 @@
 pkgname=ros-noetic-tf2-sensor-msgs
 _pkgname=tf2_sensor_msgs
 pkgver=0.7.7
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/tf2_ros"
 arch="all"
 license="BSD"
 
-depends="py3-kdl ros-noetic-rospy ros-noetic-sensor-msgs ros-noetic-tf2 ros-noetic-tf2-ros eigen-dev ros-noetic-sensor-msgs ros-noetic-tf2 ros-noetic-tf2-ros"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev ros-noetic-catkin>=0.5.6 ros-noetic-cmake-modules ros-noetic-geometry-msgs ros-noetic-rostest ros-noetic-sensor-msgs ros-noetic-tf2 ros-noetic-tf2-ros"
+depends="py3-kdl ros-noetic-rospy ros-noetic-sensor-msgs ros-noetic-tf2 ros-noetic-tf2-ros"
+makedepends="chrpath eigen-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.5.6 ros-noetic-catkin>=0.5.6 ros-noetic-cmake-modules ros-noetic-cmake-modules-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-rospy-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-tf2 ros-noetic-tf2-dev ros-noetic-tf2-ros ros-noetic-tf2-ros-dev"
+depends_dev="eigen-dev ros-noetic-rospy-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-tf2 ros-noetic-tf2-dev ros-noetic-tf2-ros ros-noetic-tf2-ros-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls $pkgdir/usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls $pkgdir/usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

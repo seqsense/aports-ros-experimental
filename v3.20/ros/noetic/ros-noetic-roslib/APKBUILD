@@ -1,16 +1,17 @@
 pkgname=ros-noetic-roslib
 _pkgname=roslib
 pkgver=1.15.8
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/roslib"
 arch="all"
 license="BSD"
 
-depends="py3-rospkg>=1.0.37 ros-noetic-catkin ros-noetic-ros-environment ros-noetic-rospack ros-noetic-rospack"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev py3-setuptools ros-noetic-catkin>=0.6.7 ros-noetic-rosmake ros-noetic-rospack"
+depends="py3-rospkg>=1.0.37 ros-noetic-catkin ros-noetic-ros-environment ros-noetic-rospack"
+makedepends="boost-dev chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev ros-noetic-catkin-dev>=0.6.7 ros-noetic-catkin>=0.6.7 ros-noetic-ros-environment-dev ros-noetic-rosmake ros-noetic-rosmake-dev ros-noetic-rospack ros-noetic-rospack-dev"
+depends_dev="ros-noetic-catkin-dev ros-noetic-ros-environment-dev ros-noetic-rospack ros-noetic-rospack-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls $pkgdir/usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls $pkgdir/usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

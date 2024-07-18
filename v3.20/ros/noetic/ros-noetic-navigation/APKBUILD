@@ -1,16 +1,17 @@
 pkgname=ros-noetic-navigation
 _pkgname=navigation
 pkgver=1.17.3
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/navigation"
 arch="all"
 license="BSD,LGPL,LGPL (amcl)"
 
 depends="ros-noetic-amcl ros-noetic-base-local-planner ros-noetic-carrot-planner ros-noetic-clear-costmap-recovery ros-noetic-costmap-2d ros-noetic-dwa-local-planner ros-noetic-fake-localization ros-noetic-global-planner ros-noetic-map-server ros-noetic-move-base ros-noetic-move-base-msgs ros-noetic-move-slow-and-clear ros-noetic-nav-core ros-noetic-navfn ros-noetic-rotate-recovery ros-noetic-voxel-grid"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-amcl-dev ros-noetic-base-local-planner-dev ros-noetic-carrot-planner-dev ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-clear-costmap-recovery-dev ros-noetic-costmap-2d-dev ros-noetic-dwa-local-planner-dev ros-noetic-fake-localization-dev ros-noetic-global-planner-dev ros-noetic-map-server-dev ros-noetic-move-base-dev ros-noetic-move-base-msgs-dev ros-noetic-move-slow-and-clear-dev ros-noetic-nav-core-dev ros-noetic-navfn-dev ros-noetic-rotate-recovery-dev ros-noetic-voxel-grid-dev"
+depends_dev="ros-noetic-amcl-dev ros-noetic-base-local-planner-dev ros-noetic-carrot-planner-dev ros-noetic-clear-costmap-recovery-dev ros-noetic-costmap-2d-dev ros-noetic-dwa-local-planner-dev ros-noetic-fake-localization-dev ros-noetic-global-planner-dev ros-noetic-map-server-dev ros-noetic-move-base-dev ros-noetic-move-base-msgs-dev ros-noetic-move-slow-and-clear-dev ros-noetic-nav-core-dev ros-noetic-navfn-dev ros-noetic-rotate-recovery-dev ros-noetic-voxel-grid-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls $pkgdir/usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls $pkgdir/usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

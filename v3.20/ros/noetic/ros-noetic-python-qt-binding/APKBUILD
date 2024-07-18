@@ -1,16 +1,17 @@
 pkgname=ros-noetic-python-qt-binding
 _pkgname=python_qt_binding
 pkgver=0.4.4
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/python_qt_binding"
 arch="all"
 license="BSD"
 
-depends="py3-qt5 py3-sip4 py3-sip4-dev py3-qt5 py3-sip4 py3-sip4-dev ros-noetic-catkin"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-qt5 py3-sip4 py3-sip4-dev qt5-qtbase-dev ros-noetic-catkin ros-noetic-rosbuild"
+depends="py3-qt5 py3-sip4"
+makedepends="chrpath py3-qt5 py3-rosdep py3-rosinstall-generator py3-setuptools py3-sip4 py3-sip4-dev py3-vcstool qt5-qtbase-dev ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-rosbuild ros-noetic-rosbuild-dev"
+depends_dev="py3-qt5 py3-sip4 py3-sip4-dev ros-noetic-catkin ros-noetic-catkin-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls $pkgdir/usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls $pkgdir/usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

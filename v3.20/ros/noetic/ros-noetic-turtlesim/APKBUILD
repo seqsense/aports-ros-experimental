@@ -1,16 +1,17 @@
 pkgname=ros-noetic-turtlesim
 _pkgname=turtlesim
 pkgver=0.10.2
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/turtlesim"
 arch="all"
 license="BSD"
 
-depends="boost-dev qt5-qtbase-dev ros-noetic-geometry-msgs ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-roslib ros-noetic-rostime ros-noetic-std-msgs ros-noetic-std-srvs boost-dev qt5-qtbase-dev ros-noetic-geometry-msgs ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-roslib ros-noetic-rostime ros-noetic-std-msgs ros-noetic-std-srvs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev qt5-qtbase-dev ros-noetic-catkin ros-noetic-geometry-msgs ros-noetic-message-generation ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-roslib ros-noetic-rostime ros-noetic-std-msgs ros-noetic-std-srvs"
+depends="ros-noetic-geometry-msgs ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-roslib ros-noetic-rostime ros-noetic-std-msgs ros-noetic-std-srvs"
+makedepends="boost-dev chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool qt5-qtbase-dev ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-message-generation ros-noetic-message-generation-dev ros-noetic-message-runtime-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-roscpp-serialization ros-noetic-roscpp-serialization-dev ros-noetic-roslib ros-noetic-roslib-dev ros-noetic-rostime ros-noetic-rostime-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-std-srvs ros-noetic-std-srvs-dev"
+depends_dev="boost-dev qt5-qtbase-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-message-runtime ros-noetic-message-runtime-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-roscpp-serialization ros-noetic-roscpp-serialization-dev ros-noetic-roslib ros-noetic-roslib-dev ros-noetic-rostime ros-noetic-rostime-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-std-srvs ros-noetic-std-srvs-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls $pkgdir/usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls $pkgdir/usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

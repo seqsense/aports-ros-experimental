@@ -1,16 +1,17 @@
 pkgname=ros-noetic-ros-control
 _pkgname=ros_control
 pkgver=0.20.0
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/ros_control"
 arch="all"
 license="BSD"
 
 depends="ros-noetic-combined-robot-hw ros-noetic-controller-interface ros-noetic-controller-manager ros-noetic-controller-manager-msgs ros-noetic-hardware-interface ros-noetic-joint-limits-interface ros-noetic-realtime-tools ros-noetic-transmission-interface"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-combined-robot-hw-dev ros-noetic-controller-interface-dev ros-noetic-controller-manager-dev ros-noetic-controller-manager-msgs-dev ros-noetic-hardware-interface-dev ros-noetic-joint-limits-interface-dev ros-noetic-realtime-tools-dev ros-noetic-transmission-interface-dev"
+depends_dev="ros-noetic-combined-robot-hw-dev ros-noetic-controller-interface-dev ros-noetic-controller-manager-dev ros-noetic-controller-manager-msgs-dev ros-noetic-hardware-interface-dev ros-noetic-joint-limits-interface-dev ros-noetic-realtime-tools-dev ros-noetic-transmission-interface-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls $pkgdir/usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls $pkgdir/usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

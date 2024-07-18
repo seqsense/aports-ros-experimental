@@ -1,16 +1,17 @@
 pkgname=ros-noetic-rqt-bag-plugins
 _pkgname=rqt_bag_plugins
 pkgver=0.5.1
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/rqt_bag"
 arch="all"
 license="BSD"
 
 depends="py3-cairo py3-pillow ros-noetic-geometry-msgs ros-noetic-rosbag ros-noetic-roslib ros-noetic-rospy ros-noetic-rqt-bag ros-noetic-rqt-gui ros-noetic-rqt-gui-py ros-noetic-rqt-plot ros-noetic-sensor-msgs ros-noetic-std-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-geometry-msgs-dev ros-noetic-rosbag-dev ros-noetic-roslib-dev ros-noetic-rospy-dev ros-noetic-rqt-bag-dev ros-noetic-rqt-gui-dev ros-noetic-rqt-gui-py-dev ros-noetic-rqt-plot-dev ros-noetic-sensor-msgs-dev ros-noetic-std-msgs-dev"
+depends_dev="ros-noetic-geometry-msgs-dev ros-noetic-rosbag-dev ros-noetic-roslib-dev ros-noetic-rospy-dev ros-noetic-rqt-bag-dev ros-noetic-rqt-gui-dev ros-noetic-rqt-gui-py-dev ros-noetic-rqt-plot-dev ros-noetic-sensor-msgs-dev ros-noetic-std-msgs-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls $pkgdir/usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls $pkgdir/usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh

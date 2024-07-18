@@ -1,16 +1,17 @@
 pkgname=ros-noetic-obj-to-pointcloud
 _pkgname=obj_to_pointcloud
 pkgver=0.17.1
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="eigen-dev pcl ros-noetic-geometry-msgs ros-noetic-neonavigation-common ros-noetic-pcl-conversions ros-noetic-roscpp ros-noetic-sensor-msgs eigen-dev ros-noetic-geometry-msgs ros-noetic-neonavigation-common ros-noetic-pcl-conversions ros-noetic-roscpp ros-noetic-sensor-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev pcl-dev ros-noetic-catkin ros-noetic-geometry-msgs ros-noetic-neonavigation-common ros-noetic-pcl-conversions ros-noetic-roscpp ros-noetic-roslint ros-noetic-rostest ros-noetic-sensor-msgs"
+depends="pcl ros-noetic-geometry-msgs ros-noetic-neonavigation-common ros-noetic-pcl-conversions ros-noetic-roscpp ros-noetic-sensor-msgs"
+makedepends="chrpath eigen-dev pcl-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-neonavigation-common ros-noetic-neonavigation-common-dev ros-noetic-pcl-conversions ros-noetic-pcl-conversions-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-roslint ros-noetic-roslint-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev"
+depends_dev="eigen-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-neonavigation-common ros-noetic-neonavigation-common-dev ros-noetic-pcl-conversions ros-noetic-pcl-conversions-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -259,6 +260,21 @@ doc() {
 
   default_doc
 }
+
+dev() {
+  mkdir -p $subpkgdir
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+
+  if ls $pkgdir/usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/lib/pkgconfig'
+  fi
+  if ls $pkgdir/usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
+    amove 'usr/ros/*/share/*/cmake'
+  fi
+
+  default_dev
+}
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh
