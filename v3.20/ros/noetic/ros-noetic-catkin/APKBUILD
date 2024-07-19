@@ -247,7 +247,6 @@ dev() {
   default_dev
 }
 
-
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh
   apkbuild_hook
