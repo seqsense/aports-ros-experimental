@@ -1,6 +1,6 @@
 pkgname=ros-noetic-laser-filters
 _pkgname=laser_filters
-pkgver=1.9.0
+pkgver=1.9.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/laser_filters"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: laser_filters
     uri: https://github.com/ros-gbp/laser_filters-release.git
-    version: release/noetic/laser_filters/1.9.0-1
+    version: release/noetic/laser_filters/1.9.1-2
 "
 
 prepare() {
@@ -259,6 +259,7 @@ doc() {
 
   default_doc
 }
+
 
 if [ -f ./apkbuild_hook.sh ]; then
   . ./apkbuild_hook.sh
