@@ -1,0 +1,44 @@
+diff --git a/include/sensor_msgs/impl/point_cloud2_iterator.h b/include/sensor_msgs/impl/point_cloud2_iterator.h
+index a580102..8d69213 100644
+--- a/include/sensor_msgs/impl/point_cloud2_iterator.h
++++ b/include/sensor_msgs/impl/point_cloud2_iterator.h
+@@ -249,9 +249,9 @@ PointCloud2IteratorBase<T, TT, U, C, V>::PointCloud2IteratorBase(C &cloud_msg, c
+ {
+   int offset = set_field(cloud_msg, field_name);
+ 
+-  data_char_ = &(cloud_msg.data.front()) + offset;
++  data_char_ = cloud_msg.data.data() + offset;
+   data_ = reinterpret_cast<TT*>(data_char_);
+-  data_end_ = reinterpret_cast<TT*>(&(cloud_msg.data.back()) + 1 + offset);
++  data_end_ = reinterpret_cast<TT*>(data_char_ + cloud_msg.data.size());
+ }
+ 
+ /** Assignment operator
+diff --git a/test/main.cpp b/test/main.cpp
+index 90561e7..eb4c763 100644
+--- a/test/main.cpp
++++ b/test/main.cpp
+@@ -34,8 +34,23 @@
+ 
+ #include <gtest/gtest.h>
+ 
++#define _GLIBCXX_DEBUG  // Enable assertions in STL
++
+ #include <sensor_msgs/point_cloud2_iterator.h>
+ 
++TEST(sensor_msgs, PointCloud2Iterator_Empty)
++{
++  EXPECT_EXIT({
++    sensor_msgs::PointCloud2 cloud_msg;
++    cloud_msg.width = 1;
++    sensor_msgs::PointCloud2Modifier modifier(cloud_msg);
++    modifier.setPointCloud2FieldsByString(1, "xyz");
++
++    sensor_msgs::PointCloud2Iterator<float> iter_x(cloud_msg, "x");
++    exit(0);
++  }, ::testing::ExitedWithCode(0), "");
++}
++
+ TEST(sensor_msgs, PointCloud2Iterator)
+ {
+   // Create a dummy PointCloud2
