@@ -1,4 +1,8 @@
 diff --git a/include/sensor_msgs/impl/point_cloud2_iterator.h b/include/sensor_msgs/impl/point_cloud2_iterator.h
+
+front()/back() of empty STL container causes undefined behavior
+and causes assertion error on recent libstdc++.
+
 index a580102..8d69213 100644
 --- a/include/sensor_msgs/impl/point_cloud2_iterator.h
 +++ b/include/sensor_msgs/impl/point_cloud2_iterator.h
