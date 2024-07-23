@@ -12,7 +12,8 @@ makedepends="cmake eigen-dev boost-dev flann-dev qhull-dev qhull-static vtk-dev"
 subpackages="$pkgname-dev $pkgname-doc"
 _gtestver=1.8.0
 source="$pkgname-$pkgver.tar.gz::https://github.com/PointCloudLibrary/$pkgname/archive/$pkgname-$pkgver.tar.gz
-  release-$_gtestver.tar.gz::https://github.com/google/googletest/archive/release-$_gtestver.tar.gz"
+  release-$_gtestver.tar.gz::https://github.com/google/googletest/archive/release-$_gtestver.tar.gz
+  suppress-empty-cloud-conversion-warn.patch"
 builddir="$srcdir/$pkgname-$pkgname-$pkgver"
 
 build() {
@@ -79,4 +80,5 @@ check() {
 sha512sums="
 8e2d2839fe73a955d49b9a72861de2becf2da9a0dc906bd10ab8a3518e270a2f1900d801922d02871d704f2ed380273d35c2d0e04d8da7e24a21eb351c43c00b  pcl-1.14.1.tar.gz
 1dbece324473e53a83a60601b02c92c089f5d314761351974e097b2cf4d24af4296f9eb8653b6b03b1e363d9c5f793897acae1f0c7ac40149216035c4d395d9d  release-1.8.0.tar.gz
+f037e3a492002289e0a4542e96c33aa4c254795fda0198897915731b2f216840476eceba80d6626991e3666c3d6eb1b3b1a436b8804793172c0b1a67344cd228  suppress-empty-cloud-conversion-warn.patch
 "
