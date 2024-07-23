@@ -1,0 +1,41 @@
+diff --git a/CHANGELOG.rst b/image_transport_plugins/CHANGELOG.rst
+index 6cbd6ea..1dde276 100644
+--- a/CHANGELOG.rst
++++ b/CHANGELOG.rst
+@@ -2,6 +2,11 @@
+ Changelog for package image_transport_plugins
+ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 
++1.15.0 (2023-01-30)
++-------------------
++* Update maintainer in ros1 branches (`#132 <https://github.com/ros-perception/image_transport_plugins/issues/132>`_)
++* Contributors: Kenji Brameld, ijnek
++
+ 1.14.0 (2020-05-14)
+ -------------------
+ * Bump CMake version to avoid CMP0048 warning (`#53 <https://github.com/ros-perception/image_transport_plugins/issues/53>`_)
+diff --git a/package.xml b/image_transport_plugins/package.xml
+index 4c84802..87e4e4a 100644
+--- a/package.xml
++++ b/package.xml
+@@ -1,6 +1,6 @@
+ <package>
+   <name>image_transport_plugins</name>
+-  <version>1.14.0</version>
++  <version>1.15.0</version>
+     <description>
+     A set of plugins for publishing and subscribing to sensor_msgs/Image topics
+     in representations other than raw pixel data. For example, for viewing a
+@@ -10,9 +10,10 @@
+   </description>
+   <author>Patrick Mihelich</author>
+   <author>Julius Kammerl</author>
+-  <maintainer email="dgossow@willowgarage.com">David Gossow</maintainer>
++  <author>David Gossow</author>
++  <maintainer email="kenjibrameld@gmail.com">Kenji Brameld</maintainer>
+   <license>BSD</license>
+-  
++
+   <url type="website">http://www.ros.org/wiki/image_transport_plugins</url>
+ 
+   <buildtool_depend>catkin</buildtool_depend>
