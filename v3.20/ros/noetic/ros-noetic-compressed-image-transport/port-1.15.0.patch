@@ -1,0 +1,640 @@
+diff --git a/CHANGELOG.rst b/compressed_image_transport/CHANGELOG.rst
+index 74d5922..51f49de 100644
+--- a/CHANGELOG.rst
++++ b/CHANGELOG.rst
+@@ -2,6 +2,15 @@
+ Changelog for package compressed_image_transport
+ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 
++1.15.0 (2023-01-30)
++-------------------
++* Update maintainer in ros1 branches (`#132 <https://github.com/ros-perception/image_transport_plugins/issues/132>`_)
++* Fix number of elements in vector parameter to call cv::imencode for OpenCV 4.7 (`#130 <https://github.com/ros-perception/image_transport_plugins/issues/130>`_)
++* Performance optimizations for JPEG decompression (`#60 <https://github.com/ros-perception/image_transport_plugins/issues/60>`_)
++* Fix copyright year 20012 -> 2012 (`#80 <https://github.com/ros-perception/image_transport_plugins/issues/80>`_)
++* Add a basic loopback unit test (`#61 <https://github.com/ros-perception/image_transport_plugins/issues/61>`_)
++* Contributors: Johannes Meyer, Kenji Brameld, Lucas Walter, Max Schwarz, Michael Carroll, ijnek, v4hn
++
+ 1.14.0 (2020-05-14)
+ -------------------
+ * Bump CMake version to avoid CMP0048 warning (`#53 <https://github.com/ros-perception/image_transport_plugins/issues/53>`_)
+diff --git a/CMakeLists.txt b/compressed_image_transport/CMakeLists.txt
+index 1b593ed..4fbce9a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -4,6 +4,9 @@ project(compressed_image_transport)
+ find_package(OpenCV REQUIRED)
+ find_package(catkin REQUIRED COMPONENTS cv_bridge dynamic_reconfigure image_transport)
+ 
++find_package(PkgConfig REQUIRED)
++pkg_check_modules(TurboJPEG REQUIRED libturbojpeg)
++
+ # generate the dynamic_reconfigure config file
+ generate_dynamic_reconfigure_options(cfg/CompressedPublisher.cfg cfg/CompressedSubscriber.cfg)
+ 
+@@ -14,11 +17,11 @@ catkin_package(
+   DEPENDS OpenCV
+ )
+ 
+-include_directories(include ${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
++include_directories(include ${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS} ${TurboJPEG_INCLUDE_DIRS})
+ 
+ add_library(${PROJECT_NAME} src/compressed_publisher.cpp src/compressed_subscriber.cpp src/manifest.cpp)
+ add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
+-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
++target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${TurboJPEG_LIBRARIES})
+ 
+ class_loader_hide_library_symbols(${PROJECT_NAME})
+ 
+@@ -35,3 +38,9 @@ install(DIRECTORY include/${PROJECT_NAME}/
+ install(FILES compressed_plugins.xml
+         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+ )
++
++if(CATKIN_ENABLE_TESTING)
++  find_package(rostest REQUIRED)
++  add_rostest_gtest(basic_test test/basic.test test/basic.cpp)
++  target_link_libraries(basic_test ${catkin_LIBRARIES})
++endif()
+diff --git a/include/compressed_image_transport/compressed_publisher.h b/compressed_image_transport/include/compressed_image_transport/compressed_publisher.h
+index 39a4180..8e85142 100644
+--- a/include/compressed_image_transport/compressed_publisher.h
++++ b/include/compressed_image_transport/compressed_publisher.h
+@@ -1,7 +1,7 @@
+ /*********************************************************************
+ * Software License Agreement (BSD License)
+ * 
+-*  Copyright (c) 20012, Willow Garage, Inc.
++*  Copyright (c) 2012, Willow Garage, Inc.
+ *  All rights reserved.
+ * 
+ *  Redistribution and use in source and binary forms, with or without
+diff --git a/include/compressed_image_transport/compressed_subscriber.h b/compressed_image_transport/include/compressed_image_transport/compressed_subscriber.h
+index 6d1789d..08584ce 100644
+--- a/include/compressed_image_transport/compressed_subscriber.h
++++ b/include/compressed_image_transport/compressed_subscriber.h
+@@ -1,7 +1,7 @@
+ /*********************************************************************
+ * Software License Agreement (BSD License)
+ * 
+-*  Copyright (c) 20012, Willow Garage, Inc.
++*  Copyright (c) 2012, Willow Garage, Inc.
+ *  All rights reserved.
+ * 
+ *  Redistribution and use in source and binary forms, with or without
+@@ -37,12 +37,15 @@
+ #include <dynamic_reconfigure/server.h>
+ #include <compressed_image_transport/CompressedSubscriberConfig.h>
+ 
++#include <turbojpeg.h>
++
+ namespace compressed_image_transport {
+ 
+ class CompressedSubscriber : public image_transport::SimpleSubscriberPlugin<sensor_msgs::CompressedImage>
+ {
+ public:
+-  virtual ~CompressedSubscriber() {}
++  CompressedSubscriber();
++  virtual ~CompressedSubscriber();
+ 
+   virtual std::string getTransportName() const
+   {
+@@ -61,11 +64,14 @@ protected:
+   virtual void internalCallback(const sensor_msgs::CompressedImageConstPtr& message,
+                                 const Callback& user_cb);
+ 
++  sensor_msgs::ImagePtr decompressJPEG(const std::vector<uint8_t>& data, const std::string& source_encoding, const std_msgs::Header& header);
++
+   typedef compressed_image_transport::CompressedSubscriberConfig Config;
+   typedef dynamic_reconfigure::Server<Config> ReconfigureServer;
+   boost::shared_ptr<ReconfigureServer> reconfigure_server_;
+   Config config_;
+   int imdecode_flag_;
++  tjhandle tj_;
+ 
+   void configCb(Config& config, uint32_t level);
+ };
+diff --git a/include/compressed_image_transport/compression_common.h b/compressed_image_transport/include/compressed_image_transport/compression_common.h
+index a680a09..937ea5b 100644
+--- a/include/compressed_image_transport/compression_common.h
++++ b/include/compressed_image_transport/compression_common.h
+@@ -1,7 +1,7 @@
+ /*********************************************************************
+ * Software License Agreement (BSD License)
+ * 
+-*  Copyright (c) 20012, Willow Garage, Inc.
++*  Copyright (c) 2012, Willow Garage, Inc.
+ *  All rights reserved.
+ * 
+ *  Redistribution and use in source and binary forms, with or without
+diff --git a/package.xml b/compressed_image_transport/package.xml
+index 32aadc5..b5dbcd8 100644
+--- a/package.xml
++++ b/package.xml
+@@ -1,26 +1,31 @@
+-<package>
++<package format="2">
+   <name>compressed_image_transport</name>
+-  <version>1.14.0</version>
++  <version>1.15.0</version>
+   <description>
+     Compressed_image_transport provides a plugin to image_transport for transparently sending images
+     encoded as JPEG or PNG.
+   </description>
+-  <maintainer email="dgossow@willowgarage.com">David Gossow</maintainer>
++  <maintainer email="kenjibrameld@gmail.com">Kenji Brameld</maintainer>
+   <license>BSD</license>
+ 
+   <url type="website">http://www.ros.org/wiki/image_transport_plugins</url>
+   <author>Patrick Mihelich</author>
+   <author>Julius Kammerl</author>
++  <author>David Gossow</author>
+ 
+   <buildtool_depend>catkin</buildtool_depend>
+ 
++  <depend>image_transport</depend>
++
+   <build_depend>cv_bridge</build_depend>
+   <build_depend>dynamic_reconfigure</build_depend>
+-  <build_depend>image_transport</build_depend>
++  <build_depend>libturbojpeg</build_depend>
++
++  <exec_depend>cv_bridge</exec_depend>
++  <exec_depend>dynamic_reconfigure</exec_depend>
++  <exec_depend>libturbojpeg</exec_depend>
+ 
+-  <run_depend>cv_bridge</run_depend>
+-  <run_depend>dynamic_reconfigure</run_depend>
+-  <run_depend>image_transport</run_depend>
++  <test_depend>rostest</test_depend>
+ 
+   <export>
+     <rviz plugin="${prefix}/plugin_description.xml"/>
+diff --git a/src/compressed_publisher.cpp b/compressed_image_transport/src/compressed_publisher.cpp
+index ef01e35..e0d6e2f 100644
+--- a/src/compressed_publisher.cpp
++++ b/src/compressed_publisher.cpp
+@@ -1,7 +1,7 @@
+ /*********************************************************************
+ * Software License Agreement (BSD License)
+ * 
+-*  Copyright (c) 20012, Willow Garage, Inc.
++*  Copyright (c) 2012, Willow Garage, Inc.
+ *  All rights reserved.
+ * 
+ *  Redistribution and use in source and binary forms, with or without
+@@ -67,7 +67,7 @@ void CompressedPublisher::advertiseImpl(ros::NodeHandle &nh, const std::string &
+ 
+   // Set up reconfigure server for this topic
+   reconfigure_server_ = boost::make_shared<ReconfigureServer>(this->nh());
+-  ReconfigureServer::CallbackType f = boost::bind(&CompressedPublisher::configCb, this, _1, _2);
++  ReconfigureServer::CallbackType f = boost::bind(&CompressedPublisher::configCb, this, boost::placeholders::_1, boost::placeholders::_2);
+   reconfigure_server_->setCallback(f);
+ }
+ 
+@@ -102,15 +102,15 @@ void CompressedPublisher::publish(const sensor_msgs::Image& message, const Publi
+     // JPEG Compression
+     case JPEG:
+     {
+-      params.resize(9, 0);
+-      params[0] = IMWRITE_JPEG_QUALITY;
+-      params[1] = config_.jpeg_quality;
+-      params[2] = IMWRITE_JPEG_PROGRESSIVE;
+-      params[3] = config_.jpeg_progressive ? 1 : 0;
+-      params[4] = IMWRITE_JPEG_OPTIMIZE;
+-      params[5] = config_.jpeg_optimize ? 1 : 0;
+-      params[6] = IMWRITE_JPEG_RST_INTERVAL;
+-      params[7] = config_.jpeg_restart_interval;
++      params.reserve(8);
++      params.emplace_back(IMWRITE_JPEG_QUALITY);
++      params.emplace_back(config_.jpeg_quality);
++      params.emplace_back(IMWRITE_JPEG_PROGRESSIVE);
++      params.emplace_back(config_.jpeg_progressive ? 1 : 0);
++      params.emplace_back(IMWRITE_JPEG_OPTIMIZE);
++      params.emplace_back(config_.jpeg_optimize ? 1 : 0);
++      params.emplace_back(IMWRITE_JPEG_RST_INTERVAL);
++      params.emplace_back(config_.jpeg_restart_interval);
+ 
+       // Update ros message format header
+       compressed.format += "; jpeg compressed ";
+@@ -166,9 +166,9 @@ void CompressedPublisher::publish(const sensor_msgs::Image& message, const Publi
+       // PNG Compression
+     case PNG:
+     {
+-      params.resize(3, 0);
+-      params[0] = IMWRITE_PNG_COMPRESSION;
+-      params[1] = config_.png_level;
++      params.reserve(2);
++      params.emplace_back(IMWRITE_PNG_COMPRESSION);
++      params.emplace_back(config_.png_level);
+ 
+       // Update ros message format header
+       compressed.format += "; png compressed ";
+diff --git a/src/compressed_subscriber.cpp b/compressed_image_transport/src/compressed_subscriber.cpp
+index a84a51f..059f821 100644
+--- a/src/compressed_subscriber.cpp
++++ b/src/compressed_subscriber.cpp
+@@ -1,7 +1,7 @@
+ /*********************************************************************
+ * Software License Agreement (BSD License)
+ * 
+-*  Copyright (c) 20012, Willow Garage, Inc.
++*  Copyright (c) 2012, Willow Garage, Inc.
+ *  All rights reserved.
+ * 
+ *  Redistribution and use in source and binary forms, with or without
+@@ -37,6 +37,7 @@
+ #include <cv_bridge/cv_bridge.h>
+ #include <opencv2/highgui/highgui.hpp>
+ #include <opencv2/imgproc/imgproc.hpp>
++#include <turbojpeg.h>
+ 
+ #include "compressed_image_transport/compression_common.h"
+ 
+@@ -50,6 +51,16 @@ namespace enc = sensor_msgs::image_encodings;
+ namespace compressed_image_transport
+ {
+ 
++CompressedSubscriber::CompressedSubscriber()
++ : tj_(0)
++{}
++
++CompressedSubscriber::~CompressedSubscriber()
++{
++  if (tj_)
++    tjDestroy(tj_);
++}
++
+ void CompressedSubscriber::subscribeImpl(ros::NodeHandle& nh, const std::string& base_topic, uint32_t queue_size,
+                              const Callback& callback, const ros::VoidPtr& tracked_object,
+                              const image_transport::TransportHints& transport_hints)
+@@ -59,7 +70,7 @@ void CompressedSubscriber::subscribeImpl(ros::NodeHandle& nh, const std::string&
+ 
+     // Set up reconfigure server for this topic
+     reconfigure_server_ = boost::make_shared<ReconfigureServer>(this->nh());
+-    ReconfigureServer::CallbackType f = boost::bind(&CompressedSubscriber::configCb, this, _1, _2);
++    ReconfigureServer::CallbackType f = boost::bind(&CompressedSubscriber::configCb, this, boost::placeholders::_1, boost::placeholders::_2);
+     reconfigure_server_->setCallback(f);
+ }
+ 
+@@ -82,11 +93,118 @@ void CompressedSubscriber::shutdown()
+   image_transport::SimpleSubscriberPlugin<sensor_msgs::CompressedImage>::shutdown();
+ }
+ 
++sensor_msgs::ImagePtr CompressedSubscriber::decompressJPEG(const std::vector<uint8_t>& data, const std::string& source_encoding, const std_msgs::Header& header)
++{
++  if (!tj_)
++    tj_ = tjInitDecompress();
++
++  int width, height, jpegSub, jpegColor;
++
++  // Old TurboJPEG require a const_cast here. This was fixed in TurboJPEG 1.5.
++  uint8_t* src = const_cast<uint8_t*>(data.data());
++
++  if (tjDecompressHeader3(tj_, src, data.size(), &width, &height, &jpegSub, &jpegColor) != 0)
++    return sensor_msgs::ImagePtr(); // If we cannot decode the JPEG header, silently fall back to OpenCV
++
++  sensor_msgs::ImagePtr ret(new sensor_msgs::Image);
++  ret->header = header;
++  ret->width = width;
++  ret->height = height;
++  ret->encoding = source_encoding;
++
++  int pixelFormat;
++
++  if (source_encoding == enc::MONO8)
++  {
++    ret->data.resize(height*width);
++    ret->step = ret->width;
++    pixelFormat = TJPF_GRAY;
++  }
++  else if (source_encoding == enc::RGB8)
++  {
++    ret->data.resize(height*width*3);
++    ret->step = width*3;
++    pixelFormat = TJPF_RGB;
++  }
++  else if (source_encoding == enc::BGR8)
++  {
++    ret->data.resize(height*width*3);
++    ret->step = width*3;
++    pixelFormat = TJPF_BGR;
++  }
++  else if (source_encoding == enc::RGBA8)
++  {
++    ret->data.resize(height*width*4);
++    ret->step = width*4;
++    pixelFormat = TJPF_RGBA;
++  }
++  else if (source_encoding == enc::BGRA8)
++  {
++    ret->data.resize(height*width*4);
++    ret->step = width*4;
++    pixelFormat = TJPF_BGRA;
++  }
++  else if (source_encoding.empty())
++  {
++    // Autodetect based on image
++    if(jpegColor == TJCS_GRAY)
++    {
++      ret->data.resize(height*width);
++      ret->step = width;
++      ret->encoding = enc::MONO8;
++      pixelFormat = TJPF_GRAY;
++    }
++    else
++    {
++      ret->data.resize(height*width*3);
++      ret->step = width*3;
++      ret->encoding = enc::RGB8;
++      pixelFormat = TJPF_RGB;
++    }
++  }
++  else
++  {
++    ROS_WARN_THROTTLE(10.0, "Encountered a source encoding that is not supported by TurboJPEG: '%s'", source_encoding.c_str());
++    return sensor_msgs::ImagePtr();
++  }
++
++  if (tjDecompress2(tj_, src, data.size(), ret->data.data(), width, 0, height, pixelFormat, 0) != 0)
++  {
++    ROS_WARN_THROTTLE(10.0, "Could not decompress data using TurboJPEG, falling back to OpenCV");
++    return sensor_msgs::ImagePtr();
++  }
++
++  return ret;
++}
++
+ void CompressedSubscriber::internalCallback(const sensor_msgs::CompressedImageConstPtr& message,
+                                             const Callback& user_cb)
+ 
+ {
++  // Parse format field
++  std::string image_encoding;
++  std::string compressed_encoding;
++  {
++    const size_t split_pos = message->format.find(';');
++    if (split_pos != std::string::npos)
++    {
++      image_encoding = message->format.substr(0, split_pos);
++      compressed_encoding = message->format.substr(split_pos);
++    }
++  }
+ 
++  // Try TurboJPEG first (if the first bytes look like JPEG)
++  if(message->data.size() > 4 && message->data[0] == 0xFF && message->data[1] == 0xD8)
++  {
++    sensor_msgs::ImagePtr decoded = decompressJPEG(message->data, image_encoding, message->header);
++    if(decoded)
++    {
++      user_cb(decoded);
++      return;
++    }
++  }
++
++  // Otherwise, try our luck with OpenCV.
+   cv_bridge::CvImagePtr cv_ptr(new cv_bridge::CvImage);
+ 
+   // Copy message header
+@@ -98,8 +216,7 @@ void CompressedSubscriber::internalCallback(const sensor_msgs::CompressedImageCo
+     cv_ptr->image = cv::imdecode(cv::Mat(message->data), imdecode_flag_);
+ 
+     // Assign image encoding string
+-    const size_t split_pos = message->format.find(';');
+-    if (split_pos==std::string::npos)
++    if (image_encoding.empty())
+     {
+       // Older version of compressed_image_transport does not signal image format
+       switch (cv_ptr->image.channels())
+@@ -116,13 +233,10 @@ void CompressedSubscriber::internalCallback(const sensor_msgs::CompressedImageCo
+       }
+     } else
+     {
+-      std::string image_encoding = message->format.substr(0, split_pos);
+-
+       cv_ptr->encoding = image_encoding;
+ 
+       if ( enc::isColor(image_encoding))
+       {
+-        std::string compressed_encoding = message->format.substr(split_pos);
+         bool compressed_bgr_image = (compressed_encoding.find("compressed bgr") != std::string::npos);
+ 
+         // Revert color transformation
+diff --git a/src/manifest.cpp b/compressed_image_transport/src/manifest.cpp
+index e40e1f1..15f265b 100644
+--- a/src/manifest.cpp
++++ b/src/manifest.cpp
+@@ -1,7 +1,7 @@
+ /*********************************************************************
+ * Software License Agreement (BSD License)
+ * 
+-*  Copyright (c) 20012, Willow Garage, Inc.
++*  Copyright (c) 2012, Willow Garage, Inc.
+ *  All rights reserved.
+ * 
+ *  Redistribution and use in source and binary forms, with or without
+@@ -32,7 +32,7 @@
+ *  POSSIBILITY OF SUCH DAMAGE.
+ *********************************************************************/
+ 
+-#include <pluginlib/class_list_macros.h>
++#include <pluginlib/class_list_macros.hpp>
+ #include "compressed_image_transport/compressed_publisher.h"
+ #include "compressed_image_transport/compressed_subscriber.h"
+ 
+diff --git a/test/basic.cpp b/compressed_image_transport/test/basic.cpp
+new file mode 100644
+index 0000000..1efbf6c
+--- /dev/null
++++ b/test/basic.cpp
+@@ -0,0 +1,181 @@
++/*********************************************************************
++* Software License Agreement (BSD License)
++*
++*  Copyright (c) 2012, Willow Garage, Inc.
++*  All rights reserved.
++*
++*  Redistribution and use in source and binary forms, with or without
++*  modification, are permitted provided that the following conditions
++*  are met:
++*
++*   * Redistributions of source code must retain the above copyright
++*     notice, this list of conditions and the following disclaimer.
++*   * Redistributions in binary form must reproduce the above
++*     copyright notice, this list of conditions and the following
++*     disclaimer in the documentation and/or other materials provided
++*     with the distribution.
++*   * Neither the name of the Willow Garage nor the names of its
++*     contributors may be used to endorse or promote products derived
++*     from this software without specific prior written permission.
++*
++*  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++*  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++*  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
++*  FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
++*  COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
++*  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
++*  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
++*  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
++*  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
++*  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
++*  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
++*  POSSIBILITY OF SUCH DAMAGE.
++*********************************************************************/
++
++#include <image_transport/image_transport.h>
++
++#include <gtest/gtest.h>
++
++#include <cv_bridge/cv_bridge.h>
++
++static unsigned int receivedImages = 0;
++std::vector<std::string> receivedEncodings;
++
++void handleImage(const sensor_msgs::ImageConstPtr& img)
++{
++  cv_bridge::CvImagePtr cvImg = cv_bridge::toCvCopy(img, "bgr8");
++  receivedEncodings.push_back(img->encoding);
++
++  ASSERT_EQ(cvImg->image.rows, 400);
++  ASSERT_EQ(cvImg->image.cols, 400);
++
++  // Red corner
++  cv::Scalar upperLeft = cv::mean(cvImg->image(cv::Rect(0, 0, 200, 200)));
++  EXPECT_LT(upperLeft[0], 10);
++  EXPECT_LT(upperLeft[1], 10);
++  EXPECT_GT(upperLeft[2], 240);
++
++  // Green corner
++  cv::Scalar upperRight = cv::mean(cvImg->image(cv::Rect(200, 0, 200, 200)));
++  EXPECT_LT(upperRight[0], 10);
++  EXPECT_GT(upperRight[1], 240);
++  EXPECT_LT(upperRight[2], 10);
++
++  // Blue corner
++  cv::Scalar lowerRight = cv::mean(cvImg->image(cv::Rect(200, 200, 200, 200)));
++  EXPECT_GT(lowerRight[0], 240);
++  EXPECT_LT(lowerRight[1], 10);
++  EXPECT_LT(lowerRight[2], 10);
++
++  // White corner
++  cv::Scalar lowerLeft = cv::mean(cvImg->image(cv::Rect(0, 200, 200, 200)));
++  EXPECT_GT(lowerLeft[0], 240);
++  EXPECT_GT(lowerLeft[1], 240);
++  EXPECT_GT(lowerLeft[2], 240);
++
++  receivedImages++;
++}
++
++TEST(Basic, loop)
++{
++  ros::NodeHandle nh;
++  image_transport::ImageTransport it(nh);
++
++  image_transport::Publisher pub = it.advertise("img", 20);
++  image_transport::Subscriber sub = it.subscribe("img", 20, &handleImage, image_transport::TransportHints("compressed"));
++
++  // Create a nice test image. Corners will be red, green, blue, white in clock-wise order.
++  cv::Mat_<cv::Vec3b> testImage(400, 400); // This is BGR!
++  for(int y = 0; y < 200; ++y)
++  {
++    for(int x = 0; x < 200; ++x)
++      testImage(y,x) = cv::Vec3b(0, 0, 255);
++
++    for(int x = 200; x < 400; ++x)
++      testImage(y,x) = cv::Vec3b(0, 255, 0);
++  }
++  for(int y = 200; y < 400; ++y)
++  {
++    for(int x = 0; x < 200; ++x)
++      testImage(y,x) = cv::Vec3b(255, 255, 255);
++
++    for(int x = 200; x < 400; ++x)
++      testImage(y,x) = cv::Vec3b(255, 0, 0);
++  }
++
++  ros::spinOnce();
++
++  unsigned int expectedImages = 0;
++  std::vector<std::string> expectedEncodings;
++
++  // Try different formats
++  {
++    cv_bridge::CvImage cvImg;
++    testImage.copyTo(cvImg.image);
++    cvImg.encoding = sensor_msgs::image_encodings::BGR8;
++
++    sensor_msgs::ImagePtr msg = cvImg.toImageMsg();
++    EXPECT_EQ(msg->encoding, sensor_msgs::image_encodings::BGR8);
++
++    pub.publish(msg);
++    expectedImages++;
++    expectedEncodings.push_back(sensor_msgs::image_encodings::BGR8);
++  }
++  {
++    cv_bridge::CvImage cvImg;
++    cv::cvtColor(testImage, cvImg.image, CV_BGR2RGB);
++    cvImg.encoding = sensor_msgs::image_encodings::RGB8;
++
++    sensor_msgs::ImagePtr msg = cvImg.toImageMsg();
++    EXPECT_EQ(msg->encoding, sensor_msgs::image_encodings::RGB8);
++
++    pub.publish(msg);
++    expectedImages++;
++    expectedEncodings.push_back(sensor_msgs::image_encodings::RGB8);
++  }
++  {
++    cv_bridge::CvImage cvImg;
++    cv::cvtColor(testImage, cvImg.image, CV_BGR2RGBA);
++    cvImg.encoding = sensor_msgs::image_encodings::RGBA8;
++
++    sensor_msgs::ImagePtr msg = cvImg.toImageMsg();
++    EXPECT_EQ(msg->encoding, sensor_msgs::image_encodings::RGBA8);
++
++    pub.publish(msg);
++    expectedImages++;
++    expectedEncodings.push_back(sensor_msgs::image_encodings::RGBA8);
++  }
++  {
++    cv_bridge::CvImage cvImg;
++    cv::cvtColor(testImage, cvImg.image, CV_BGR2BGRA);
++    cvImg.encoding = sensor_msgs::image_encodings::BGRA8;
++
++    sensor_msgs::ImagePtr msg = cvImg.toImageMsg();
++    EXPECT_EQ(msg->encoding, sensor_msgs::image_encodings::BGRA8);
++
++    pub.publish(msg);
++    expectedImages++;
++    expectedEncodings.push_back(sensor_msgs::image_encodings::BGRA8);
++  }
++
++  ros::WallTime start = ros::WallTime::now();
++  while(receivedImages < expectedImages && (ros::WallTime::now() - start) < ros::WallDuration(3.0))
++  {
++    ros::spinOnce();
++    ros::WallDuration(0.1).sleep();
++  }
++  EXPECT_EQ(receivedImages, expectedImages);
++
++  ASSERT_EQ(receivedEncodings.size(), expectedEncodings.size());
++  for(std::size_t i = 0; i < receivedEncodings.size(); ++i)
++    EXPECT_EQ(receivedEncodings[i], expectedEncodings[i]);
++}
++
++
++int main(int argc, char **argv)
++{
++  testing::InitGoogleTest(&argc, argv);
++  ros::init(argc, argv, "basic");
++  ros::NodeHandle nh;
++  return RUN_ALL_TESTS();
++}
+diff --git a/test/basic.test b/compressed_image_transport/test/basic.test
+new file mode 100644
+index 0000000..e253351
+--- /dev/null
++++ b/test/basic.test
+@@ -0,0 +1,3 @@
++<launch>
++  <test test-name="basic_test" pkg="compressed_image_transport" type="basic_test" />
++</launch>
