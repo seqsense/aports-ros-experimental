@@ -1,7 +1,7 @@
 pkgname=ros-noetic-laser-geometry
 _pkgname=laser_geometry
 pkgver=1.6.7
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/laser_geometry"
 arch="all"

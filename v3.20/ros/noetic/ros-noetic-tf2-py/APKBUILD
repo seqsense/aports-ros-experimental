@@ -1,7 +1,7 @@
 pkgname=ros-noetic-tf2-py
 _pkgname=tf2_py
 pkgver=0.7.7
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/tf2_py"
 arch="all"

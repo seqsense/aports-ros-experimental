@@ -1,7 +1,7 @@
 pkgname=ros-noetic-class-loader
 _pkgname=class_loader
 pkgver=0.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/class_loader"
 arch="all"

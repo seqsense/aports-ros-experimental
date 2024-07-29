@@ -1,7 +1,7 @@
 pkgname=ros-noetic-audio-capture
 _pkgname=audio_capture
 pkgver=0.3.17
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/audio_capture"
 arch="all"

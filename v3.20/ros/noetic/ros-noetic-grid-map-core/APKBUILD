@@ -1,7 +1,7 @@
 pkgname=ros-noetic-grid-map-core
 _pkgname=grid_map_core
 pkgver=1.6.4
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://github.com/anybotics/grid_map"
 arch="all"

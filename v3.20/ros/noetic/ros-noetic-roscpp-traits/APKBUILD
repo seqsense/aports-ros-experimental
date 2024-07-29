@@ -1,7 +1,7 @@
 pkgname=ros-noetic-roscpp-traits
 _pkgname=roscpp_traits
 pkgver=0.7.3
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/roscpp_traits"
 arch="all"
