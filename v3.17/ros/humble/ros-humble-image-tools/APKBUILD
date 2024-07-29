@@ -1,6 +1,6 @@
 pkgname=ros-humble-image-tools
 _pkgname=image_tools
-pkgver=0.20.4
+pkgver=0.20.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: image_tools
     uri: https://github.com/ros2-gbp/demos-release.git
-    version: release/humble/image_tools/0.20.4-1
+    version: release/humble/image_tools/0.20.5-1
 "
 
 prepare() {
