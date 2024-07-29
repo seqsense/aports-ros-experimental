@@ -1,7 +1,7 @@
 pkgname=ros-noetic-octomap-msgs
 _pkgname=octomap_msgs
 pkgver=0.3.5
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/octomap_msgs"
 arch="all"

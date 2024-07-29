@@ -1,7 +1,7 @@
 pkgname=ros-noetic-rosbridge-library
 _pkgname=rosbridge_library
 pkgver=0.11.17
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/rosbridge_library"
 arch="all"

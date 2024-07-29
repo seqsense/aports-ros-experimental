@@ -1,7 +1,7 @@
 pkgname=ros-noetic-media-export
 _pkgname=media_export
 pkgver=0.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/media_export"
 arch="all"

@@ -1,7 +1,7 @@
 pkgname=ros-noetic-diagnostic-common-diagnostics
 _pkgname=diagnostic_common_diagnostics
 pkgver=1.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/diagnostic_common_diagnostics"
 arch="all"

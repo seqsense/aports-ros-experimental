@@ -1,7 +1,7 @@
 pkgname=ros-noetic-ifm3d
 _pkgname=ifm3d
 pkgver=0.6.2
-pkgrel=2
+pkgrel=3
 pkgdesc="$_pkgname package for ROS noetic"
 url="https://github.com/lovepark/ifm3d-ros"
 arch="all"
