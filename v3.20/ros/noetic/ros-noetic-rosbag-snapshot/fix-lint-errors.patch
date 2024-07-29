@@ -1,0 +1,22 @@
+diff --git a/test/test_snapshot.py b/test/test_snapshot.py
+index 602580c..fc1597c 100755
+--- a/test/test_snapshot.py
++++ b/test/test_snapshot.py
+@@ -70,7 +70,7 @@ class TestRosbagSnapshot(unittest.TestCase):
+             duration = self.default_duration_limit
+             memory = self.default_memory_limit
+             count = self.default_count_limit
+-            if type(topic_obj) == dict:
++            if type(topic_obj) is dict:
+                 topic = list(topic_obj.keys())[0]
+                 duration = topic_obj[topic].get('duration', duration)
+                 memory = topic_obj[topic].get('memory', memory)
+@@ -160,7 +160,7 @@ class TestRosbagSnapshot(unittest.TestCase):
+         self.assertIsNotNone(self.last_status)  # A message was recieved
+         topics = [msg.topic for msg in self.last_status.topics]
+         # Oneliners :)
+-        status_topics = [rospy.resolve_name(list(topic.keys())[0] if type(topic) == dict else topic)
++        status_topics = [rospy.resolve_name(list(topic.keys())[0] if type(topic) is dict else topic)
+                          for topic in self.params['topics']]
+         self.assertEqual(set(topics), set(status_topics))  # Topics from params are same as topics in status message
+         for topic in self.last_status.topics:

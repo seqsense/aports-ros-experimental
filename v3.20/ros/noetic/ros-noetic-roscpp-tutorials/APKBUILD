@@ -1,7 +1,7 @@
 pkgname=ros-noetic-roscpp-tutorials
 _pkgname=roscpp_tutorials
 pkgver=0.10.2
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/roscpp_tutorials"
 arch="all"
@@ -262,17 +262,24 @@ doc() {
 }
 
 dev() {
+  local i=
   mkdir -p $subpkgdir
+
   install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
 
-  if ls $pkgdir/usr/ros/*/lib/pkgconfig >/dev/null 2>/dev/null; then
-    amove 'usr/ros/*/lib/pkgconfig'
-  fi
-  if ls $pkgdir/usr/ros/*/share/*/cmake >/dev/null 2>/dev/null; then
-    amove 'usr/ros/*/share/*/cmake'
-  fi
+  cd $pkgdir || return 0
 
-  default_dev
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then
