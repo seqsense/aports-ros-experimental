@@ -1,6 +1,6 @@
 pkgname=ros-humble-rosbag2-transport
 _pkgname=rosbag2_transport
-pkgver=0.15.11
+pkgver=0.15.12
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
@@ -8,7 +8,7 @@ arch="all"
 license="Apache License 2.0"
 
 depends="ros-humble-keyboard-handler ros-humble-rclcpp ros-humble-rmw ros-humble-ros-workspace ros-humble-rosbag2-compression ros-humble-rosbag2-cpp ros-humble-rosbag2-interfaces ros-humble-rosbag2-storage ros-humble-shared-queues-vendor ros-humble-yaml-cpp-vendor ros-humble-keyboard-handler ros-humble-rclcpp ros-humble-rmw ros-humble-rosbag2-compression ros-humble-rosbag2-cpp ros-humble-rosbag2-interfaces ros-humble-rosbag2-storage ros-humble-shared-queues-vendor ros-humble-yaml-cpp-vendor"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake-gmock ros-humble-ament-cmake-ros ros-humble-ament-index-cpp ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-keyboard-handler ros-humble-rclcpp ros-humble-rmw ros-humble-rmw-implementation-cmake ros-humble-rosbag2-compression ros-humble-rosbag2-compression-zstd ros-humble-rosbag2-cpp ros-humble-rosbag2-interfaces ros-humble-rosbag2-storage ros-humble-rosbag2-test-common ros-humble-shared-queues-vendor ros-humble-test-msgs ros-humble-yaml-cpp-vendor"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake-gmock ros-humble-ament-cmake-ros ros-humble-ament-index-cpp ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-keyboard-handler ros-humble-rclcpp ros-humble-rmw ros-humble-rmw-implementation-cmake ros-humble-rosbag2-compression ros-humble-rosbag2-compression-zstd ros-humble-rosbag2-cpp ros-humble-rosbag2-interfaces ros-humble-rosbag2-storage ros-humble-rosbag2-storage-default-plugins ros-humble-rosbag2-test-common ros-humble-shared-queues-vendor ros-humble-test-msgs ros-humble-yaml-cpp-vendor"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: rosbag2_transport
     uri: https://github.com/ros2-gbp/rosbag2-release.git
-    version: release/humble/rosbag2_transport/0.15.11-1
+    version: release/humble/rosbag2_transport/0.15.12-1
 "
 
 prepare() {
