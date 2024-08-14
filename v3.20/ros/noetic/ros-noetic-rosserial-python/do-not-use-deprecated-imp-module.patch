@@ -1,0 +1,30 @@
+diff --git a/src/rosserial_python/SerialClient.py b/src/rosserial_python/SerialClient.py
+index 6b1b875..d0802f9 100644
+--- a/src/rosserial_python/SerialClient.py
++++ b/src/rosserial_python/SerialClient.py
+@@ -35,7 +35,6 @@ __author__ = "mferguson@willowgarage.com (Michael Ferguson)"
+ 
+ import array
+ import errno
+-import imp
+ import io
+ import multiprocessing
+ import queue
+@@ -63,14 +62,14 @@ def load_pkg_module(package, directory):
+     #check if its in the python path
+     path = sys.path
+     try:
+-        imp.find_module(package)
++        importlib.util.find_spec(package)
+     except ImportError:
+         roslib.load_manifest(package)
+     try:
+-        m = __import__( package + '.' + directory )
++        m = importlib.import_module(f"{package}.{directory}")
+     except ImportError:
+-        rospy.logerr( "Cannot import package : %s"% package )
+-        rospy.logerr( "sys.path was " + str(path) )
++        rospy.logerr(f"Cannot import package: {package}")
++        rospy.logerr(f"sys.path was {path}")
+         return None
+     return m
