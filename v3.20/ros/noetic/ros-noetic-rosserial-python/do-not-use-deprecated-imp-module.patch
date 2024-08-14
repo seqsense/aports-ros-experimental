@@ -1,16 +1,18 @@
 diff --git a/src/rosserial_python/SerialClient.py b/src/rosserial_python/SerialClient.py
-index 6b1b875..d0802f9 100644
+index 6b1b875..02e1256 100644
 --- a/src/rosserial_python/SerialClient.py
 +++ b/src/rosserial_python/SerialClient.py
-@@ -35,7 +35,6 @@ __author__ = "mferguson@willowgarage.com (Michael Ferguson)"
+@@ -35,8 +35,8 @@ __author__ = "mferguson@willowgarage.com (Michael Ferguson)"
  
  import array
  import errno
 -import imp
  import io
++import importlib
  import multiprocessing
  import queue
-@@ -63,14 +62,14 @@ def load_pkg_module(package, directory):
+ import socket
+@@ -63,11 +63,11 @@ def load_pkg_module(package, directory):
      #check if its in the python path
      path = sys.path
      try:
@@ -22,9 +24,19 @@ index 6b1b875..d0802f9 100644
 -        m = __import__( package + '.' + directory )
 +        m = importlib.import_module(f"{package}.{directory}")
      except ImportError:
--        rospy.logerr( "Cannot import package : %s"% package )
--        rospy.logerr( "sys.path was " + str(path) )
-+        rospy.logerr(f"Cannot import package: {package}")
-+        rospy.logerr(f"sys.path was {path}")
-         return None
-     return m
+         rospy.logerr( "Cannot import package : %s"% package )
+         rospy.logerr( "sys.path was " + str(path) )
+@@ -76,12 +76,10 @@ def load_pkg_module(package, directory):
+ 
+ def load_message(package, message):
+     m = load_pkg_module(package, 'msg')
+-    m2 = getattr(m, 'msg')
+-    return getattr(m2, message)
++    return getattr(m, message)
+ 
+ def load_service(package,service):
+     s = load_pkg_module(package, 'srv')
+-    s = getattr(s, 'srv')
+     srv = getattr(s, service)
+     mreq = getattr(s, service+"Request")
+     mres = getattr(s, service+"Response")
