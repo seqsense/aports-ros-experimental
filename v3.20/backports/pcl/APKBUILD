@@ -2,14 +2,14 @@
 # Maintainer: Bradley J Chambers <brad.chambers@gmail.com>
 pkgname=pcl
 pkgver=1.14.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Point Cloud Library (PCL)"
 url="https://github.com/PointCloudLibrary/pcl"
 arch="all !x86 !s390x" # tests fails on x86 and s390x
 license="BSD-3-Clause"
 depends_dev="eigen-dev boost-dev flann-dev qhull-dev qhull-static vtk-dev"
 makedepends="cmake eigen-dev boost-dev flann-dev qhull-dev qhull-static vtk-dev"
-subpackages="$pkgname-dev $pkgname-doc"
+subpackages="$pkgname-dev $pkgname-doc $pkgname-libs"
 _gtestver=1.8.0
 source="$pkgname-$pkgver.tar.gz::https://github.com/PointCloudLibrary/$pkgname/archive/$pkgname-$pkgver.tar.gz
   release-$_gtestver.tar.gz::https://github.com/google/googletest/archive/release-$_gtestver.tar.gz
