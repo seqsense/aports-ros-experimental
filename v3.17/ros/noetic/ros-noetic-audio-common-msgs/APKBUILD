@@ -1,6 +1,6 @@
 pkgname=ros-noetic-audio-common-msgs
 _pkgname=audio_common_msgs
-pkgver=0.3.17
+pkgver=0.3.18
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/audio_common_msgs"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: audio_common_msgs
     uri: https://github.com/ros-gbp/audio_common-release.git
-    version: release/noetic/audio_common_msgs/0.3.17-1
+    version: release/noetic/audio_common_msgs/0.3.18-1
 "
 
 prepare() {
