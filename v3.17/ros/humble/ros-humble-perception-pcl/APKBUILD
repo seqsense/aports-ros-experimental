@@ -1,6 +1,6 @@
 pkgname=ros-humble-perception-pcl
 _pkgname=perception_pcl
-pkgver=2.4.4
+pkgver=2.4.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="http://ros.org/wiki/perception_pcl"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: perception_pcl
     uri: https://github.com/ros2-gbp/perception_pcl-release.git
-    version: release/humble/perception_pcl/2.4.4-1
+    version: release/humble/perception_pcl/2.4.5-2
 "
 
 prepare() {

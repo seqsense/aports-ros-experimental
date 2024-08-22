@@ -1,13 +1,13 @@
 pkgname=ros-humble-pcl-ros
 _pkgname=pcl_ros
-pkgver=2.4.4
+pkgver=2.4.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="http://ros.org/wiki/perception_pcl"
 arch="all"
 license="BSD"
 
-depends="eigen-dev pcl-libs ros-humble-geometry-msgs ros-humble-pcl-conversions ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-ros-workspace ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-geometry-msgs ros-humble-tf2-ros eigen-dev ros-humble-geometry-msgs ros-humble-pcl-conversions ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-geometry-msgs ros-humble-tf2-ros"
+depends="eigen-dev pcl-libs ros-humble-geometry-msgs ros-humble-pcl-conversions ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-ros-workspace ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-geometry-msgs ros-humble-tf2-ros eigen-dev pcl-dev ros-humble-geometry-msgs ros-humble-pcl-conversions ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-geometry-msgs ros-humble-tf2-ros"
 makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev pcl-dev ros-humble-ament-cmake ros-humble-ament-cmake-gtest ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-geometry-msgs ros-humble-pcl-conversions ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-geometry-msgs ros-humble-tf2-ros"
 
 subpackages="$pkgname-dbg $pkgname-doc"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: pcl_ros
     uri: https://github.com/ros2-gbp/perception_pcl-release.git
-    version: release/humble/pcl_ros/2.4.4-1
+    version: release/humble/pcl_ros/2.4.5-2
 "
 
 prepare() {
