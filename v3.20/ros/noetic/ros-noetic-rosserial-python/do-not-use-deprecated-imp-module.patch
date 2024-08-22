@@ -1,16 +1,17 @@
 diff --git a/src/rosserial_python/SerialClient.py b/src/rosserial_python/SerialClient.py
-index 6b1b875..7b071b9 100644
+index 6b1b875..02e1256 100644
 --- a/src/rosserial_python/SerialClient.py
 +++ b/src/rosserial_python/SerialClient.py
-@@ -35,7 +35,7 @@ __author__ = "mferguson@willowgarage.com (Michael Ferguson)"
+@@ -35,8 +35,8 @@ __author__ = "mferguson@willowgarage.com (Michael Ferguson)"
  
  import array
  import errno
 -import imp
-+import importlib
  import io
++import importlib
  import multiprocessing
  import queue
+ import socket
 @@ -63,11 +63,11 @@ def load_pkg_module(package, directory):
      #check if its in the python path
      path = sys.path
@@ -39,29 +40,3 @@ index 6b1b875..7b071b9 100644
      srv = getattr(s, service)
      mreq = getattr(s, service+"Request")
      mres = getattr(s, service+"Response")
-@@ -149,11 +147,7 @@ class ServiceServer:
- 
-         # find message type
-         package, service = topic_info.message_type.split('/')
--        s = load_pkg_module(package, 'srv')
--        s = getattr(s, 'srv')
--        self.mreq = getattr(s, service+"Request")
--        self.mres = getattr(s, service+"Response")
--        srv = getattr(s, service)
-+        srv, self.mreq, self.mres = load_service(package, service)
-         self.service = rospy.Service(self.topic, srv, self.callback)
- 
-         # response message
-@@ -191,11 +185,7 @@ class ServiceClient:
- 
-         # find message type
-         package, service = topic_info.message_type.split('/')
--        s = load_pkg_module(package, 'srv')
--        s = getattr(s, 'srv')
--        self.mreq = getattr(s, service+"Request")
--        self.mres = getattr(s, service+"Response")
--        srv = getattr(s, service)
-+        srv, self.mreq, self.mres = load_service(package, service)
-         rospy.loginfo("Starting service client, waiting for service '" + self.topic + "'")
-         rospy.wait_for_service(self.topic)
-         self.proxy = rospy.ServiceProxy(self.topic, srv)
