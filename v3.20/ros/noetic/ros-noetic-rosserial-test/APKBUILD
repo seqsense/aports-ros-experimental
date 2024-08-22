@@ -45,14 +45,11 @@ prepare() {
   echo "$rosinstall" > pkg.rosinstall
   vcs import --shallow --input pkg.rosinstall src
 
-  echo "dirs"
-  ls -1 src/rosserial
-  echo
   # Remove other packages in the meta-package
-  rm -rf $(ls -1 src/rosserial | grep -v '\(rosserial_test\|rosserial_arduino\)$')
-  echo "dirs filtered"
-  ls -1 src/rosserial
-  echo
+  (
+    cd src/rosserial
+    rm -rf $(ls -1 | grep -v '^\(rosserial_test\|rosserial_arduino\)$')
+  )
 
   find $startdir -maxdepth 1 -name "*.patch" | while read patchfile; do
     echo "Applying $patchfile"
