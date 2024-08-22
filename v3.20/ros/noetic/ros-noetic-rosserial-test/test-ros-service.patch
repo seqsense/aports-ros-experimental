@@ -1,3 +1,5 @@
+Ported from https://github.com/ros-drivers/rosserial/pull/523
+
 diff --git a/rosserial_test/CMakeLists.txt b/rosserial_test/CMakeLists.txt
 index 2024c09..d067c8d 100644
 --- a/rosserial_test/CMakeLists.txt
