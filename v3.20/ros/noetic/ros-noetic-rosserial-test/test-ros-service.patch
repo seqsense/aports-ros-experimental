@@ -1,0 +1,262 @@
+Ported from https://github.com/ros-drivers/rosserial/pull/523
+
+diff --git a/rosserial_test/CMakeLists.txt b/rosserial_test/CMakeLists.txt
+index 2024c09..d067c8d 100644
+--- a/rosserial_test/CMakeLists.txt
++++ b/rosserial_test/CMakeLists.txt
+@@ -3,6 +3,7 @@ project(rosserial_test)
+ 
+ find_package(catkin REQUIRED COMPONENTS
+   roscpp
++  rosserial_arduino
+   rosserial_client
+   rosserial_msgs
+   rosserial_python
+@@ -41,6 +42,7 @@ if(CATKIN_ENABLE_TESTING)
+   endfunction()
+ 
+   add_rosserial_test_executable(publish_subscribe)
++  add_rosserial_test_executable(service_client)
+ 
+   add_rostest(test/rosserial_server_socket.test)
+   add_rostest(test/rosserial_server_serial.test)
+diff --git a/rosserial_test/include/rosserial_test/fixture.h b/rosserial_test/include/rosserial_test/fixture.h
+index fe7fa18..e947ead 100644
+--- a/rosserial_test/include/rosserial_test/fixture.h
++++ b/rosserial_test/include/rosserial_test/fixture.h
+@@ -74,6 +74,7 @@ public:
+ 
+ class SingleClientFixture : public ::testing::Test {
+ protected:
++  SingleClientFixture(): as(1) {}
+   static void SetModeFromParam() {
+     std::string mode;
+     ros::param::get("~mode", mode);
+@@ -90,15 +91,16 @@ protected:
+     if (setup == NULL) SetModeFromParam();
+     setup->SetUp();
+     rosserial::ClientComms::fd = setup->fd;
++    as.start();
+   }
+   virtual void TearDown() {
+     setup->TearDown();
++    as.stop();
+   }
+ 
+   rosserial::ros::NodeHandle client_nh;
+   ros::NodeHandle nh;
++  ros::AsyncSpinner as;
+   static AbstractSetup* setup;
+ };
+ AbstractSetup* SingleClientFixture::setup = NULL;
+-
+-
+diff --git a/rosserial_test/package.xml b/rosserial_test/package.xml
+index efe3d88..74d53d4 100644
+--- a/rosserial_test/package.xml
++++ b/rosserial_test/package.xml
+@@ -15,6 +15,7 @@
+ 
+   <depend>roscpp</depend>
+   <depend>gtest</depend>
++  <depend>rosserial_arduino</depend>
+   <depend>rosserial_client</depend>
+   <depend>rosserial_msgs</depend>
+   <depend>rosserial_python</depend>
+diff --git a/rosserial_test/src/publish_subscribe.cpp b/rosserial_test/src/publish_subscribe.cpp
+index c2ad02d..6d6e62a 100644
+--- a/rosserial_test/src/publish_subscribe.cpp
++++ b/rosserial_test/src/publish_subscribe.cpp
+@@ -30,7 +30,6 @@ TEST_F(SingleClientFixture, single_publish) {
+   for(int attempt = 0; attempt < 50; attempt++) {
+     client_pub.publish(&string_msg);
+     client_nh.spinOnce();
+-    ros::spinOnce();
+     if (str_callback.times_called > 0) break;
+     ros::Duration(0.1).sleep();
+   }
+@@ -62,8 +61,8 @@ TEST_F(SingleClientFixture, single_subscribe) {
+   string_msg.data = "to-rosserial-client";
+   for(int attempt = 0; attempt < 50; attempt++) {
+     pub.publish(string_msg);
+-    ros::spinOnce();
+     client_nh.spinOnce();
++
+     if (rosserial_string_cb_count > 0) break;
+     ros::Duration(0.1).sleep();
+   }
+diff --git a/rosserial_test/src/service_client.cpp b/rosserial_test/src/service_client.cpp
+new file mode 100644
+index 0000000..136beec
+--- /dev/null
++++ b/rosserial_test/src/service_client.cpp
+@@ -0,0 +1,56 @@
++#include "ros/ros.h"
++#include "rosserial_arduino/Test.h"
++
++namespace rosserial {
++#include "rosserial_test/ros.h"
++#include "rosserial/rosserial_arduino/Test.h"
++}
++
++#include <gtest/gtest.h>
++#include "rosserial_test/fixture.h"
++
++int rosserial_echo_count = 0;
++static bool echo(rosserial_arduino::Test::Request &req, rosserial_arduino::Test::Response &res)
++{
++  rosserial_echo_count++;
++  res.output = req.input;
++  return true;
++}
++
++/**
++ * Single service call from a rosserial-connected client,
++ * verified from a roscpp rosservice server.
++ */
++TEST_F(SingleClientFixture, single_service_client) {
++
++  rosserial::ros::ServiceClient<rosserial::rosserial_arduino::Test::Request, rosserial::rosserial_arduino::Test::Response> client_srv_client("test_srv");
++  client_nh.serviceClient(client_srv_client);
++  client_nh.initNode();
++
++  // Roscpp rosservice server to do the response for the client.
++  ros::ServiceServer test_service = nh.advertiseService("test_srv", &echo);
++
++  rosserial::rosserial_arduino::Test::Request req;
++  rosserial::rosserial_arduino::Test::Response res;
++  char hello[13] = "hello world!";
++  req.input = hello;
++
++  for(int attempt = 0; attempt < 50; attempt++) {
++    client_nh.spinOnce();
++    if(client_nh.connected()) break;
++    ros::Duration(0.1).sleep();
++  }
++
++  if(client_nh.connected())
++    client_srv_client.call(req, res);
++
++  EXPECT_GT(rosserial_echo_count, 0);
++  EXPECT_STREQ(req.input, res.output);
++}
++
++int main(int argc, char **argv){
++  ros::init(argc, argv, "test_service_client");
++  ros::start();
++  testing::InitGoogleTest(&argc, argv);
++  return RUN_ALL_TESTS();
++}
+diff --git a/rosserial_test/test/rosserial_python_serial.test b/rosserial_test/test/rosserial_python_serial.test
+index b28c6b4..c14f294 100644
+--- a/rosserial_test/test/rosserial_python_serial.test
++++ b/rosserial_test/test/rosserial_python_serial.test
+@@ -1,11 +1,21 @@
+ <launch>
+-  <node pkg="rosserial_python" type="serial_node.py" name="rosserial_python_node" args="/tmp/rosserial_pty2" output="screen">
++  <arg name="mode" default="serial" />
++  <arg name="port" default="/tmp/rosserial_pty" />
++
++  <node pkg="rosserial_python" type="serial_node.py" name="rosserial_python_node" args="$(arg port)" output="screen">
+     <param name="fix_pyserial_for_test" value="True" />
+   </node>
+ 
+   <test test-name="rosserial_python_serial_test_publish_subscribe" pkg="rosserial_test"
+         type="rosserial_test_publish_subscribe" time-limit="10.0">
+-    <param name="mode" value="serial" />
+-    <param name="port" value="/tmp/rosserial_pty2" />
++    <param name="mode" value="$(arg mode)" />
++    <param name="port" value="$(arg port)" />
++  </test>
++
++  <test test-name="rosserial_server_serial_test_service_client" pkg="rosserial_test"
++        type="rosserial_test_service_client" time-limit="10.0">
++    <param name="mode" value="$(arg mode)" />
++    <param name="port" value="$(arg port)" />
+   </test>
++
+ </launch>
+diff --git a/rosserial_test/test/rosserial_python_socket.test b/rosserial_test/test/rosserial_python_socket.test
+index 538554a..725eff0 100644
+--- a/rosserial_test/test/rosserial_python_socket.test
++++ b/rosserial_test/test/rosserial_python_socket.test
+@@ -1,9 +1,19 @@
+ <launch>
+-  <node pkg="rosserial_python" type="serial_node.py" name="rosserial_python_node" args="tcp 11412" />
++  <arg name="mode" default="socket" />
++  <arg name="port" default="11412" />
++
++  <node pkg="rosserial_python" type="serial_node.py" name="rosserial_python_node" args="tcp $(arg port)" />
+ 
+   <test test-name="rosserial_python_socket_test_publish_subscribe" pkg="rosserial_test"
+         type="rosserial_test_publish_subscribe" time-limit="10.0">
+-    <param name="mode" value="socket" />
+-    <param name="tcp_port" value="11412" />
++    <param name="mode" value="$(arg mode)" />
++    <param name="tcp_port" value="$(arg port)" />
++    </test>
++
++  <test test-name="rosserial_python_socket_test_service_client" pkg="rosserial_test"
++        type="rosserial_test_service_client" time-limit="10.0">
++    <param name="mode" value="$(arg mode)" />
++    <param name="tcp_port" value="$(arg port)" />
+   </test>
++
+ </launch>
+diff --git a/rosserial_test/test/rosserial_server_serial.test b/rosserial_test/test/rosserial_server_serial.test
+index 72feaf3..ac5034c 100644
+--- a/rosserial_test/test/rosserial_server_serial.test
++++ b/rosserial_test/test/rosserial_server_serial.test
+@@ -1,11 +1,21 @@
+ <launch>
++  <arg name="mode" default="serial" />
++  <arg name="port" default="/tmp/rosserial_pty" />
++
+   <include file="$(find rosserial_server)/launch/serial.launch">
+-    <arg name="port" value="/tmp/rosserial_pty" />
++    <arg name="port" value="$(arg port)" />
+   </include>
+ 
+   <test test-name="rosserial_server_serial_test_publish_subscribe" pkg="rosserial_test"
+         type="rosserial_test_publish_subscribe" time-limit="10.0">
+-    <param name="mode" value="serial" />
+-    <param name="port" value="/tmp/rosserial_pty" />
++    <param name="mode" value="$(arg mode)" />
++    <param name="port" value="$(arg port)" />
++  </test>
++
++  <test test-name="rosserial_server_serial_test_service_client" pkg="rosserial_test"
++        type="rosserial_test_service_client" time-limit="10.0">
++    <param name="mode" value="$(arg mode)" />
++    <param name="port" value="$(arg port)" />
+   </test>
++
+ </launch>
+diff --git a/rosserial_test/test/rosserial_server_socket.test b/rosserial_test/test/rosserial_server_socket.test
+index ee597fb..610cf17 100644
+--- a/rosserial_test/test/rosserial_server_socket.test
++++ b/rosserial_test/test/rosserial_server_socket.test
+@@ -1,11 +1,20 @@
+ <launch>
++  <arg name="mode" default="socket" />
++  <arg name="port" default="11413" />
++
+   <node pkg="rosserial_server" type="socket_node" name="rosserial_server">
+-    <param name="port" value="11413" />
++    <param name="port" value="$(arg port)" />
+   </node>
+ 
+   <test test-name="rosserial_server_socket_test_publish_subscribe" pkg="rosserial_test"
+         type="rosserial_test_publish_subscribe" time-limit="10.0">
+-    <param name="mode" value="socket" />
+-    <param name="tcp_port" value="11413" />
++    <param name="mode" value="$(arg mode)" />
++    <param name="tcp_port" value="$(arg port)" />
++  </test>
++
++  <test test-name="rosserial_server_socket_test_service_client" pkg="rosserial_test"
++        type="rosserial_test_service_client" time-limit="10.0">
++    <param name="mode" value="$(arg mode)" />
++    <param name="tcp_port" value="$(arg port)" />
+   </test>
+ </launch>
