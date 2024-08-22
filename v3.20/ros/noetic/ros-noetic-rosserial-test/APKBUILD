@@ -50,7 +50,7 @@ prepare() {
   done
 
   # Remove other packages in the meta-package
-  rm -rf $(ls 1 | grep -v rosserial_test)
+  rm -rf $(ls 1 src | grep -v rosserial_test)
 }
 
 build() {
