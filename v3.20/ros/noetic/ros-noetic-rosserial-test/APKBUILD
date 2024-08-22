@@ -30,7 +30,7 @@ fi
 export ROS_PACKAGE_PATH="$builddir/src/$_pkgname"
 export ROS_PYTHON_VERSION=3
 rosinstall="- git:
-    local-name: rosserial_test
+    local-name: rosserial
     uri: https://github.com/ros-drivers/rosserial.git
     version: 0.9.2
 "
@@ -46,11 +46,11 @@ prepare() {
   vcs import --shallow --input pkg.rosinstall src
 
   # Remove other packages in the meta-package
-  rm -rf $(ls -1 src | grep -v '\(rosserial_test\|rosserial_arduino\)$')
+  rm -rf $(ls -1 src/rosserial | grep -v '\(rosserial_test\|rosserial_arduino\)$')
 
   find $startdir -maxdepth 1 -name "*.patch" | while read patchfile; do
     echo "Applying $patchfile"
-    (cd src && patch -p1 -i $patchfile)
+    (cd src/rosserial && patch -p1 -i $patchfile)
   done
 }
 
