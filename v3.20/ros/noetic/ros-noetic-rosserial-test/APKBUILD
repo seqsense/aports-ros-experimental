@@ -9,9 +9,9 @@ url="http://ros.org/wiki/rosserial_test"
 arch="all"
 license="BSD"
 
-depends="py3-pyserial ros-noetic-diagnostic-msgs ros-noetic-rospy ros-noetic-rosserial-msgs"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-diagnostic-msgs-dev ros-noetic-rospy-dev ros-noetic-rosserial-msgs-dev"
-depends_dev="py3-pyserial ros-noetic-diagnostic-msgs ros-noetic-diagnostic-msgs-dev ros-noetic-rospy ros-noetic-rospy-dev ros-noetic-rosserial-msgs ros-noetic-rosserial-msgs-dev"
+depends="gtest ros-noetic-roscpp ros-noetic-rosserial-client ros-noetic-rosserial-msgs ros-noetic-rosserial-python ros-noetic-rosserial-server ros-noetic-rostest ros-noetic-std-msgs"
+makedepends="chrpath gtest gtest-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rosserial-client ros-noetic-rosserial-client-dev ros-noetic-rosserial-msgs ros-noetic-rosserial-msgs-dev ros-noetic-rosserial-python ros-noetic-rosserial-python-dev ros-noetic-rosserial-server ros-noetic-rosserial-server-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev"
+depends_dev="gtest gtest-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rosserial-client ros-noetic-rosserial-client-dev ros-noetic-rosserial-msgs ros-noetic-rosserial-msgs-dev ros-noetic-rosserial-python ros-noetic-rosserial-python-dev ros-noetic-rosserial-server ros-noetic-rosserial-server-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
