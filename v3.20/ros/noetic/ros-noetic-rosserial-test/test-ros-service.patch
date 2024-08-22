@@ -1,7 +1,7 @@
-diff --git a/CMakeLists.txt b/CMakeLists.txt
+diff --git a/rosserial_test/CMakeLists.txt b/rosserial_test/CMakeLists.txt
 index 2024c09..d067c8d 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
+--- a/rosserial_test/CMakeLists.txt
++++ b/rosserial_test/CMakeLists.txt
 @@ -3,6 +3,7 @@ project(rosserial_test)
  
  find_package(catkin REQUIRED COMPONENTS
@@ -18,10 +18,10 @@ index 2024c09..d067c8d 100644
  
    add_rostest(test/rosserial_server_socket.test)
    add_rostest(test/rosserial_server_serial.test)
-diff --git a/include/rosserial_test/fixture.h b/include/rosserial_test/fixture.h
+diff --git a/rosserial_test/include/rosserial_test/fixture.h b/rosserial_test/include/rosserial_test/fixture.h
 index fe7fa18..e947ead 100644
---- a/include/rosserial_test/fixture.h
-+++ b/include/rosserial_test/fixture.h
+--- a/rosserial_test/include/rosserial_test/fixture.h
++++ b/rosserial_test/include/rosserial_test/fixture.h
 @@ -74,6 +74,7 @@ public:
  
  class SingleClientFixture : public ::testing::Test {
@@ -49,10 +49,10 @@ index fe7fa18..e947ead 100644
  AbstractSetup* SingleClientFixture::setup = NULL;
 -
 -
-diff --git a/package.xml b/package.xml
+diff --git a/rosserial_test/package.xml b/rosserial_test/package.xml
 index efe3d88..74d53d4 100644
---- a/package.xml
-+++ b/package.xml
+--- a/rosserial_test/package.xml
++++ b/rosserial_test/package.xml
 @@ -15,6 +15,7 @@
  
    <depend>roscpp</depend>
@@ -61,10 +61,10 @@ index efe3d88..74d53d4 100644
    <depend>rosserial_client</depend>
    <depend>rosserial_msgs</depend>
    <depend>rosserial_python</depend>
-diff --git a/src/publish_subscribe.cpp b/src/publish_subscribe.cpp
+diff --git a/rosserial_test/src/publish_subscribe.cpp b/rosserial_test/src/publish_subscribe.cpp
 index c2ad02d..6d6e62a 100644
---- a/src/publish_subscribe.cpp
-+++ b/src/publish_subscribe.cpp
+--- a/rosserial_test/src/publish_subscribe.cpp
++++ b/rosserial_test/src/publish_subscribe.cpp
 @@ -30,7 +30,6 @@ TEST_F(SingleClientFixture, single_publish) {
    for(int attempt = 0; attempt < 50; attempt++) {
      client_pub.publish(&string_msg);
@@ -83,11 +83,11 @@ index c2ad02d..6d6e62a 100644
      if (rosserial_string_cb_count > 0) break;
      ros::Duration(0.1).sleep();
    }
-diff --git a/src/service_client.cpp b/src/service_client.cpp
+diff --git a/rosserial_test/src/service_client.cpp b/rosserial_test/src/service_client.cpp
 new file mode 100644
 index 0000000..136beec
 --- /dev/null
-+++ b/src/service_client.cpp
++++ b/rosserial_test/src/service_client.cpp
 @@ -0,0 +1,56 @@
 +#include "ros/ros.h"
 +#include "rosserial_arduino/Test.h"
@@ -145,10 +145,10 @@ index 0000000..136beec
 +  testing::InitGoogleTest(&argc, argv);
 +  return RUN_ALL_TESTS();
 +}
-diff --git a/test/rosserial_python_serial.test b/test/rosserial_python_serial.test
+diff --git a/rosserial_test/test/rosserial_python_serial.test b/rosserial_test/test/rosserial_python_serial.test
 index b28c6b4..c14f294 100644
---- a/test/rosserial_python_serial.test
-+++ b/test/rosserial_python_serial.test
+--- a/rosserial_test/test/rosserial_python_serial.test
++++ b/rosserial_test/test/rosserial_python_serial.test
 @@ -1,11 +1,21 @@
  <launch>
 -  <node pkg="rosserial_python" type="serial_node.py" name="rosserial_python_node" args="/tmp/rosserial_pty2" output="screen">
@@ -174,10 +174,10 @@ index b28c6b4..c14f294 100644
    </test>
 +
  </launch>
-diff --git a/test/rosserial_python_socket.test b/test/rosserial_python_socket.test
+diff --git a/rosserial_test/test/rosserial_python_socket.test b/rosserial_test/test/rosserial_python_socket.test
 index 538554a..725eff0 100644
---- a/test/rosserial_python_socket.test
-+++ b/test/rosserial_python_socket.test
+--- a/rosserial_test/test/rosserial_python_socket.test
++++ b/rosserial_test/test/rosserial_python_socket.test
 @@ -1,9 +1,19 @@
  <launch>
 -  <node pkg="rosserial_python" type="serial_node.py" name="rosserial_python_node" args="tcp 11412" />
@@ -201,10 +201,10 @@ index 538554a..725eff0 100644
    </test>
 +
  </launch>
-diff --git a/test/rosserial_server_serial.test b/test/rosserial_server_serial.test
+diff --git a/rosserial_test/test/rosserial_server_serial.test b/rosserial_test/test/rosserial_server_serial.test
 index 72feaf3..ac5034c 100644
---- a/test/rosserial_server_serial.test
-+++ b/test/rosserial_server_serial.test
+--- a/rosserial_test/test/rosserial_server_serial.test
++++ b/rosserial_test/test/rosserial_server_serial.test
 @@ -1,11 +1,21 @@
  <launch>
 +  <arg name="mode" default="serial" />
@@ -230,10 +230,10 @@ index 72feaf3..ac5034c 100644
    </test>
 +
  </launch>
-diff --git a/test/rosserial_server_socket.test b/test/rosserial_server_socket.test
+diff --git a/rosserial_test/test/rosserial_server_socket.test b/rosserial_test/test/rosserial_server_socket.test
 index ee597fb..610cf17 100644
---- a/test/rosserial_server_socket.test
-+++ b/test/rosserial_server_socket.test
+--- a/rosserial_test/test/rosserial_server_socket.test
++++ b/rosserial_test/test/rosserial_server_socket.test
 @@ -1,11 +1,20 @@
  <launch>
 +  <arg name="mode" default="socket" />
