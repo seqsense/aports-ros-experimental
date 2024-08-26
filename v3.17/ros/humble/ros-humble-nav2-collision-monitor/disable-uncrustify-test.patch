@@ -1,7 +1,7 @@
-diff --git a/nav2_collision_monitor/CMakeLists.txt b/nav2_collision_monitor/CMakeLists.txt
+diff --git a/CMakeLists.txt b/CMakeLists.txt
 index 2cc7b19c..9c3085b1 100644
---- a/nav2_collision_monitor/CMakeLists.txt
-+++ b/nav2_collision_monitor/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
 @@ -94,6 +94,9 @@ install(DIRECTORY params DESTINATION share/${PROJECT_NAME})
  
  if(BUILD_TESTING)
