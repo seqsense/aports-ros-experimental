@@ -13,7 +13,8 @@ subpackages="$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/yhirose/cpp-httplib/archive/v$pkgver.tar.gz
   fix-case-ignore-hash.patch
   fix-find-curl.patch
-  fix-test-makefile.patch"
+  fix-test-makefile.patch
+  disable-ipv6-related-tests.patch"
 
 builddir="$srcdir/$pkgname-$pkgver"
 
@@ -44,4 +45,5 @@ package() {
 sha512sums="69952c1d881c26004d1bbbb853d4745a65f1b20fbe79c24e8389357b82a59b77a46e76394f4c06a0681a89a10ce21b6de28223e691f06188acfe319811f5d144  cpp-httplib-0.17.2.tar.gz
 78c603cde61f77746a05b0e679f10cc25eb18bf8302bbdddc4230d447cfd5674aa8d3415a72320beaca6696b3da77b4464f49acc166113b44570a2e9802d4675  fix-case-ignore-hash.patch
 c3e17674de5d52628896dc3165f60a84dd0113f4c10d0a31a32c584a5e2fef7c11230ee52896dc69eca34feae1c32797470d1c9b62893b2419afadaf418093cf  fix-find-curl.patch
-6aacdb5e4cc1689cb196c3a1e71444ce84a4f5a4537658379774d5e03f6921af79b7de5eceac86779948d27eebb5d4920010d4099d5323025a63f48e94bbb5be  fix-test-makefile.patch"
+6aacdb5e4cc1689cb196c3a1e71444ce84a4f5a4537658379774d5e03f6921af79b7de5eceac86779948d27eebb5d4920010d4099d5323025a63f48e94bbb5be  fix-test-makefile.patch
+98331dda9cd3ad0f6202e3ef763a8067eb4d7df2eff59dc4e55b57f66024ba21b3fd8551a8591ad96aa2ee973be46cff85d7cac887a0c7d1c9944d1af7689910  disable-ipv6-related-tests.patch"
