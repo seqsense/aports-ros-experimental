@@ -1,0 +1,16 @@
+diff --git a/src/idl/src/string.c b/src/idl/src/string.c
+index 336c16c9..f01c03af 100644
+--- a/src/idl/src/string.c
++++ b/src/idl/src/string.c
+@@ -275,7 +275,11 @@ unsigned long long idl_strtoull(const char *str, char **endptr, int base)
+   return _strtoull_l(str, endptr, base, posix_locale());
+ #endif
+ #else
++#if defined(__linux__) && defined(__GLIBC__)
+   return strtoull_l(str, endptr, base, posix_locale());
++#else
++  return strtoull(str, endptr, base);
++#endif
+ #endif
+ }
+ 
