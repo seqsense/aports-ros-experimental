@@ -1,11 +1,24 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 8d68d44b7..4a8b1e7dd 100644
+index d2e0b4f65..3d43a930e 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -33,5 +33,5 @@ if(CATKIN_ENABLE_TESTING)
+@@ -33,6 +33,6 @@ if(CATKIN_ENABLE_TESTING)
    add_rostest(test/clean_master.test)
    add_rostest(test/distro_version.test)
    add_rostest(test/param.test)
 -  add_rostest(test/advertisetest.test)
 +  # add_rostest(test/advertisetest.test)  # cyclic dependency to rosservice
+   add_rostest(test/subscribetest.test)
  endif()
+diff --git a/nodes/subscribetest b/nodes/subscribetest
+index d74551730..68d3d31b4 100755
+--- a/nodes/subscribetest
++++ b/nodes/subscribetest
+@@ -61,7 +61,6 @@ import time
+ import unittest
+ 
+ import rospy
+-import rosservice
+ import rosgraph
+ 
+ PKG = 'rostest'
