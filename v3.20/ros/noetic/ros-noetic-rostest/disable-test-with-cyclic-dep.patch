@@ -10,3 +10,15 @@ index d2e0b4f65..3d43a930e 100644
 +  # add_rostest(test/advertisetest.test)  # cyclic dependency to rosservice
    add_rostest(test/subscribetest.test)
  endif()
+diff --git a/nodes/subscribetest b/nodes/subscribetest
+index d74551730..68d3d31b4 100755
+--- a/nodes/subscribetest
++++ b/nodes/subscribetest
+@@ -61,7 +61,6 @@ import time
+ import unittest
+ 
+ import rospy
+-import rosservice
+ import rosgraph
+ 
+ PKG = 'rostest'
