@@ -1,0 +1,41 @@
+# Contributor: Atsushi Watanabe<atsushi.w@ieee.org>
+# Maintainer:
+pkgname=py3-rosinstall
+_pkgname=rosinstall
+pkgver=0.7.8
+pkgrel=2
+pkgdesc="A tool for managing a workspace of multiple heterogenous SCM repositories"
+url="https://pypi.python.org/pypi/rosinstall/"
+arch="noarch"
+license="BSD-3-Clause"
+depends="py3-vcstools>=0.1.3 py3-yaml py3-rosdistro>=0.3.0 py3-catkin-pkg py3-wstool>=0.1.12 py3-rospkg"
+makedepends="python3-dev py3-setuptools git"
+subpackages="$pkgname-doc"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz
+	LICENSE
+	do-not-use-deprecated-imp-module.patch"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+	# Install license files
+	install -Dm644 $startdir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="a53ae8fb96f9dda4671b22dfd9dbadc18d1e4adbf34a50b6706baf971c1c7ee418e14641d334346b02638f06c10d1bc984b4759c92a39510dd0044fbc346be67  rosinstall-0.7.8.tar.gz
+dbd61d5c0327dcaae296cebd3e05e769e3e6115e47dc36c4726abdf4fbd18473a9c98246c7332ef22954430b56dde5472184ae2ee0fbf8b142abedebcd47994a  LICENSE
+41e0631e1a7acbdaf6b68c4bc54f9f056a69e86ef2c526e454702b9763cc381a2745c7974b1c8bd975ea2dbf5fb1dcc438b89b30e103864d5960ef90d100282f  do-not-use-deprecated-imp-module.patch"
