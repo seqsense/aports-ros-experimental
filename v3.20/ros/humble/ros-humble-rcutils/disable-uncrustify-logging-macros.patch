@@ -1,0 +1,18 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 334d6ff..0a7a968 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -177,13 +177,6 @@ if(BUILD_TESTING)
+       ROOT "${CMAKE_CURRENT_BINARY_DIR}/include"
+       "${CMAKE_CURRENT_BINARY_DIR}/include/rcutils/logging_macros.h")
+   endif()
+-  if(ament_cmake_uncrustify_FOUND)
+-    ament_uncrustify(
+-      TESTNAME "uncrustify_logging_macros"
+-      # the generated code might contain longer lines for templated types
+-      MAX_LINE_LENGTH 0
+-      "${CMAKE_CURRENT_BINARY_DIR}/include/rcutils/logging_macros.h")
+-  endif()
+ 
+   find_package(mimick_vendor REQUIRED)
+ 

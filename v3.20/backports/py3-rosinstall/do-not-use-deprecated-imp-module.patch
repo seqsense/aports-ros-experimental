@@ -1,0 +1,25 @@
+--- a/setup.py	2024-12-11 10:48:11.069837043 +0900
++++ b/setup.py	2024-12-11 10:55:31.542169189 +0900
+@@ -1,18 +1,11 @@
+ from setuptools import setup
+
+-import imp
+-
++import sys
++sys.path.append("src/rosinstall")
++from __version__ import version
+
+ def get_version():
+-    ver_file = None
+-    try:
+-        ver_file, pathname, description = imp.find_module('__version__', ['src/rosinstall'])
+-        vermod = imp.load_module('__version__', ver_file, pathname, description)
+-        version = vermod.version
+-        return version
+-    finally:
+-        if ver_file is not None:
+-            ver_file.close()
++    return version
+
+
+ setup(name='rosinstall',
