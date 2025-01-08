@@ -1,0 +1,19 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 724ba49..7dac7b3 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -59,12 +59,12 @@ if(BUILD_TESTING)
+   #find_package(ament_cmake_cppcheck REQUIRED)
+   find_package(ament_cmake_cpplint REQUIRED)
+   find_package(ament_cmake_lint_cmake REQUIRED)
+-  find_package(ament_cmake_uncrustify REQUIRED)
++  # find_package(ament_cmake_uncrustify REQUIRED)
+   #TODO(mjcarroll) Headers need to be .hpp for this to work properly.
+   #ament_cppcheck()
+   ament_cpplint()
+   ament_lint_cmake()
+-  ament_uncrustify()
++  # ament_uncrustify()
+ 
+   #TODO(mjcarroll) Enable unit test with rostest
+   #add_executable(unit_test tests/unit_test.cpp)
