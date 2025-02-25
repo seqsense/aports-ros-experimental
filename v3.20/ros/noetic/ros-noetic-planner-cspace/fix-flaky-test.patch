@@ -1,0 +1,12 @@
+diff --git a/test/src/test_dynamic_parameter_change.cpp b/test/src/test_dynamic_parameter_change.cpp
+index 97fcde1..185fca4 100644
+--- a/test/src/test_dynamic_parameter_change.cpp
++++ b/test/src/test_dynamic_parameter_change.cpp
+@@ -154,6 +154,7 @@ protected:
+ 
+   void sendGoalAndWaitForPath()
+   {
++    ros::spinOnce();  // flush the buffer
+     path_ = nullptr;
+     const ros::Time start_time = ros::Time::now();
+     ros::Time deadline = start_time + ros::Duration(1.0);
