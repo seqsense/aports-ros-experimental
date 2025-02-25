@@ -1,12 +1,29 @@
 diff --git a/test/src/test_dynamic_parameter_change.cpp b/test/src/test_dynamic_parameter_change.cpp
-index 97fcde1..185fca4 100644
+index 97fcde1..7e9fcde 100644
 --- a/test/src/test_dynamic_parameter_change.cpp
 +++ b/test/src/test_dynamic_parameter_change.cpp
-@@ -154,6 +154,7 @@ protected:
+@@ -154,10 +154,14 @@ protected:
  
    void sendGoalAndWaitForPath()
    {
-+    ros::spinOnce();  // flush the buffer
-     path_ = nullptr;
+-    path_ = nullptr;
      const ros::Time start_time = ros::Time::now();
      ros::Time deadline = start_time + ros::Duration(1.0);
+     move_base_->sendGoal(CreateGoalInFree());
++
++    // Flush message buffer
++    ros::spinOnce();
++    path_ = nullptr;
++
+     while (ros::ok())
+     {
+       if (path_ && (path_->header.stamp > start_time) && (path_->poses.size() > 0))
+@@ -285,6 +289,8 @@ TEST_F(DynamicParameterChangeTest, StartPosePrediction)
+   config.dist_stop_to_previous_path = 0.1;
+   ASSERT_TRUE(planner_3d_client_->setConfiguration(config));
+ 
++  ros::Duration(0.5).sleep();  // Ensure a path is planned with the obstacle and stored
++
+   // No obstacle and the path is same as the first one.
+   map_overlay_.data[13 + 5 * map_overlay_.info.width] = 0;
+   publishMapAndRobot(1.65, 0.65, M_PI);
