@@ -1,7 +1,7 @@
 pkgname=ros-noetic-planner-cspace
 _pkgname=planner_cspace
-pkgver=0.17.3
-pkgrel=0
+pkgver=0.17.5
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/$_pkgname"
 arch="all"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: planner_cspace
     uri: https://github.com/at-wat/neonavigation-release.git
-    version: release/noetic/planner_cspace/0.17.3-1
+    version: release/noetic/planner_cspace/0.17.5-1
 "
 
 prepare() {
