@@ -1,14 +1,15 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index df200309..7be33c7d 100644
+index df200309..885c651b 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -140,6 +140,9 @@ install(DIRECTORY plugins/
- 
+@@ -141,6 +141,10 @@ install(DIRECTORY plugins/
  if(BUILD_TESTING)
    find_package(ament_lint_auto REQUIRED)
+   ament_lint_auto_find_test_dependencies()
 +  list(APPEND AMENT_LINT_AUTO_EXCLUDE
 +    ament_cmake_copyright
++    ament_cmake_uncrustify
 +  )
-   ament_lint_auto_find_test_dependencies()
    find_package(ament_cmake_gtest REQUIRED)
    add_subdirectory(test)
+ endif()
