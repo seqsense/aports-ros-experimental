@@ -1,11 +1,11 @@
 pkgname=ros-humble-bondcpp
 _pkgname=bondcpp
-pkgver=3.0.2
+pkgver=4.1.2
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="http://www.ros.org/wiki/bondcpp"
 arch="all"
-license="BSD"
+license="BSD-3-Clause"
 
 depends="ros-humble-bond ros-humble-rclcpp ros-humble-rclcpp-lifecycle ros-humble-ros-workspace ros-humble-smclib util-linux-dev"
 makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath pkgconf ros-humble-ament-cmake ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-bond ros-humble-rclcpp ros-humble-rclcpp-lifecycle ros-humble-smclib util-linux-dev"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: bondcpp
     uri: https://github.com/ros2-gbp/bond_core-release.git
-    version: release/humble/bondcpp/3.0.2-3
+    version: release/humble/bondcpp/4.1.2-1
 "
 
 prepare() {
