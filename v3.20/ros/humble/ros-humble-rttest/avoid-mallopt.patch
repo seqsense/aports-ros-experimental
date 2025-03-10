@@ -1,0 +1,39 @@
+diff --git a/src/rttest.cpp b/src/rttest.cpp
+index 04ca18e..7c7ab5c 100644
+--- a/src/rttest.cpp
++++ b/src/rttest.cpp
+@@ -608,19 +608,23 @@ int Rttest::lock_and_prefault_dynamic()
+   }
+ 
+   // Turn off malloc trimming.
++  #ifdef __GLIBC__
+   if (mallopt(M_TRIM_THRESHOLD, -1) == 0) {
+     perror("mallopt for trim threshold failed");
+     munlockall();
+     return -1;
+   }
++  #endif  // __GLIBC__
+ 
+   // Turn off mmap usage.
++  #ifdef __GLIBC__
+   if (mallopt(M_MMAP_MAX, 0) == 0) {
+     perror("mallopt for mmap failed");
+     mallopt(M_TRIM_THRESHOLD, 128 * 1024);
+     munlockall();
+     return -1;
+   }
++  #endif  // __GLIBC__
+ 
+   struct rusage usage;
+   size_t page_size = sysconf(_SC_PAGESIZE);
+@@ -650,8 +654,10 @@ int Rttest::lock_and_prefault_dynamic()
+         delete[] ptr;
+       }
+ 
++      #ifdef __GLIBC__
+       mallopt(M_TRIM_THRESHOLD, 128 * 1024);
+       mallopt(M_MMAP_MAX, 65536);
++      #endif  // __GLIBC__
+       munlockall();
+       return -1;
+     }
