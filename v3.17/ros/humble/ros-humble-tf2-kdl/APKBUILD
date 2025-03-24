@@ -1,14 +1,14 @@
 pkgname=ros-humble-tf2-kdl
 _pkgname=tf2_kdl
-pkgver=0.25.10
+pkgver=0.25.12
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="http://ros.org/wiki/tf2"
 arch="all"
 license="BSD"
 
-depends="ros-humble-builtin-interfaces ros-humble-geometry-msgs ros-humble-orocos-kdl-vendor ros-humble-ros-workspace ros-humble-tf2 ros-humble-tf2-ros ros-humble-tf2-ros-py ros-humble-builtin-interfaces ros-humble-geometry-msgs ros-humble-orocos-kdl-vendor ros-humble-tf2 ros-humble-tf2-ros"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake ros-humble-ament-cmake-gtest ros-humble-builtin-interfaces ros-humble-geometry-msgs ros-humble-orocos-kdl-vendor ros-humble-rclcpp ros-humble-tf2 ros-humble-tf2-msgs ros-humble-tf2-ros"
+depends="ros-humble-builtin-interfaces ros-humble-geometry-msgs ros-humble-orocos-kdl-vendor ros-humble-python-orocos-kdl-vendor ros-humble-ros-workspace ros-humble-tf2 ros-humble-tf2-ros ros-humble-tf2-ros-py ros-humble-builtin-interfaces ros-humble-geometry-msgs ros-humble-orocos-kdl-vendor ros-humble-tf2 ros-humble-tf2-ros"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake ros-humble-ament-cmake-gtest ros-humble-builtin-interfaces ros-humble-geometry-msgs ros-humble-orocos-kdl-vendor ros-humble-rclcpp ros-humble-tf2 ros-humble-tf2-ros"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: tf2_kdl
     uri: https://github.com/ros2-gbp/geometry2-release.git
-    version: release/humble/tf2_kdl/0.25.10-1
+    version: release/humble/tf2_kdl/0.25.12-1
 "
 
 prepare() {
