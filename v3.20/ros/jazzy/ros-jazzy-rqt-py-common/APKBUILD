@@ -7,8 +7,8 @@ url="http://ros.org/wiki/rqt_py_common"
 arch="all"
 license="BSD"
 
-depends="qtbase5-dev ros-jazzy-python-qt-binding>=0.3.4 ros-jazzy-qt-gui ros-jazzy-rclpy ros-jazzy-ros-workspace qtbase5-dev ros-jazzy-rclpy"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath qtbase5-dev ros-jazzy-ament-cmake ros-jazzy-ament-cmake-pytest ros-jazzy-python-cmake-module ros-jazzy-rclpy ros-jazzy-rosidl-default-generators ros-jazzy-rosidl-default-runtime"
+depends="qt5-qtbase-dev ros-jazzy-python-qt-binding>=0.3.4 ros-jazzy-qt-gui ros-jazzy-rclpy ros-jazzy-ros-workspace qt5-qtbase-dev ros-jazzy-rclpy"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath qt5-qtbase-dev ros-jazzy-ament-cmake ros-jazzy-ament-cmake-pytest ros-jazzy-python-cmake-module ros-jazzy-rclpy ros-jazzy-rosidl-default-generators ros-jazzy-rosidl-default-runtime"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

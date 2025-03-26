@@ -7,8 +7,8 @@ url="http://www.ros.org/wiki/cv_bridge"
 arch="all"
 license="Apache License 2.0"
 
-depends="libboost-python1.74.0 libopencv-dev py3-numpy py3-opencv ros-jazzy-ament-index-python ros-jazzy-rclcpp ros-jazzy-rcpputils ros-jazzy-ros-workspace ros-jazzy-sensor-msgs libopencv-dev py3-numpy py3-opencv ros-jazzy-rclcpp ros-jazzy-rcpputils ros-jazzy-sensor-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath libboost-dev libboost-python-dev libopencv-dev py3-numpy py3-opencv ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-pytest ros-jazzy-ament-cmake-ros ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-common ros-jazzy-python-cmake-module ros-jazzy-rclcpp ros-jazzy-rcpputils ros-jazzy-sensor-msgs"
+depends="boost-python3 opencv-dev py3-numpy py3-numpy-dev py3-opencv ros-jazzy-ament-index-python ros-jazzy-rclcpp ros-jazzy-rcpputils ros-jazzy-ros-workspace ros-jazzy-sensor-msgs opencv-dev py3-numpy py3-numpy-dev py3-opencv ros-jazzy-rclcpp ros-jazzy-rcpputils ros-jazzy-sensor-msgs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev opencv-dev py3-numpy py3-numpy-dev py3-opencv ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-pytest ros-jazzy-ament-cmake-ros ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-common ros-jazzy-python-cmake-module ros-jazzy-rclcpp ros-jazzy-rcpputils ros-jazzy-sensor-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

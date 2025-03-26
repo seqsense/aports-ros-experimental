@@ -7,7 +7,7 @@ url="http://wiki.ros.org/rqt_bag"
 arch="all"
 license="BSD"
 
-depends="py3-cairo py3-pil ros-jazzy-geometry-msgs ros-jazzy-rclpy ros-jazzy-ros-workspace ros-jazzy-rosbag2 ros-jazzy-rqt-bag ros-jazzy-rqt-gui ros-jazzy-rqt-gui-py ros-jazzy-rqt-plot ros-jazzy-sensor-msgs ros-jazzy-std-msgs"
+depends="py3-cairo py3-pillow ros-jazzy-geometry-msgs ros-jazzy-rclpy ros-jazzy-ros-workspace ros-jazzy-rosbag2 ros-jazzy-rqt-bag ros-jazzy-rqt-gui ros-jazzy-rqt-gui-py ros-jazzy-rqt-plot ros-jazzy-sensor-msgs ros-jazzy-std-msgs"
 makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-pytest py3-pytest"
 
 subpackages="$pkgname-dbg $pkgname-doc"

@@ -1,13 +1,13 @@
 pkgname=ros-jazzy-rqt-plot
 _pkgname=rqt_plot
-pkgver=1.4.0
+pkgver=1.4.2
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://wiki.ros.org/rqt_plot"
 arch="all"
 license="BSD"
 
-depends="py3-catkin-pkg-modules py3-matplotlib py3-numpy ros-jazzy-python-qt-binding>=0.2.19 ros-jazzy-qt-gui-py-common>=0.2.25 ros-jazzy-rclpy ros-jazzy-ros-workspace ros-jazzy-rqt-gui ros-jazzy-rqt-gui-py ros-jazzy-rqt-py-common ros-jazzy-std-msgs"
+depends="py3-catkin-pkg py3-matplotlib py3-numpy py3-numpy-dev ros-jazzy-python-qt-binding>=0.2.19 ros-jazzy-qt-gui-py-common>=0.2.25 ros-jazzy-rclpy ros-jazzy-ros-workspace ros-jazzy-rosidl-runtime-py ros-jazzy-rqt-gui ros-jazzy-rqt-gui-py ros-jazzy-rqt-py-common ros-jazzy-std-msgs"
 makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-pytest py3-pytest ros-jazzy-ament-copyright"
 
 subpackages="$pkgname-dbg $pkgname-doc"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: rqt_plot
     uri: https://github.com/ros2-gbp/rqt_plot-release.git
-    version: release/jazzy/rqt_plot/1.4.0-2
+    version: release/jazzy/rqt_plot/1.4.2-1
 "
 
 prepare() {

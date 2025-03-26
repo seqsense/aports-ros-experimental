@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-image-view
 _pkgname=image_view
-pkgver=5.0.5
+pkgver=5.0.9
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/image_view/github-ros-perception-image_pipeline/"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: image_view
     uri: https://github.com/ros2-gbp/image_pipeline-release.git
-    version: release/jazzy/image_view/5.0.5-1
+    version: release/jazzy/image_view/5.0.9-1
 "
 
 prepare() {

@@ -7,8 +7,8 @@ url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="libopencv-dev ros-jazzy-rclcpp ros-jazzy-ros-workspace ros-jazzy-sensor-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath libopencv-dev ros-jazzy-ament-cmake ros-jazzy-ament-cmake-pytest ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-common ros-jazzy-launch ros-jazzy-launch-testing ros-jazzy-launch-testing-ament-cmake ros-jazzy-rclcpp ros-jazzy-rmw-implementation-cmake ros-jazzy-sensor-msgs ros-jazzy-std-msgs"
+depends="opencv-dev ros-jazzy-rclcpp ros-jazzy-ros-workspace ros-jazzy-sensor-msgs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath opencv-dev ros-jazzy-ament-cmake ros-jazzy-ament-cmake-pytest ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-common ros-jazzy-launch ros-jazzy-launch-testing ros-jazzy-launch-testing-ament-cmake ros-jazzy-rclcpp ros-jazzy-rmw-implementation-cmake ros-jazzy-sensor-msgs ros-jazzy-std-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

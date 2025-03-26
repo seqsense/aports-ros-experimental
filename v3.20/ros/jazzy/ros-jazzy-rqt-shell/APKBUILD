@@ -7,7 +7,7 @@ url="http://wiki.ros.org/rqt_shell"
 arch="all"
 license="BSD"
 
-depends="py3-catkin-pkg-modules ros-jazzy-python-qt-binding>=0.2.19 ros-jazzy-qt-gui ros-jazzy-qt-gui-py-common ros-jazzy-ros-workspace ros-jazzy-rqt-gui ros-jazzy-rqt-gui-py"
+depends="py3-catkin-pkg ros-jazzy-python-qt-binding>=0.2.19 ros-jazzy-qt-gui ros-jazzy-qt-gui-py-common ros-jazzy-ros-workspace ros-jazzy-rqt-gui ros-jazzy-rqt-gui-py"
 makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-pytest py3-pytest"
 
 subpackages="$pkgname-dbg $pkgname-doc"

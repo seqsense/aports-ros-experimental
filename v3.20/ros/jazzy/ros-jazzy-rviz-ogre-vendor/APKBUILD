@@ -1,14 +1,14 @@
 pkgname=ros-jazzy-rviz-ogre-vendor
 _pkgname=rviz_ogre_vendor
-pkgver=14.1.5
+pkgver=14.1.7
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://www.ogre3d.org/"
 arch="all"
 license="Apache License 2.0"
 
-depends="libfreetype6 libgl1-mesa-dev libglu1-mesa-dev libx11-dev libxaw7-dev libxrandr-dev ros-jazzy-ros-workspace libfreetype-dev libgl1-mesa-dev libglu1-mesa-dev libx11-dev libxaw7-dev libxrandr-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath libfreetype-dev libgl1-mesa-dev libglu1-mesa-dev libx11-dev libxaw7-dev libxrandr-dev ros-jazzy-ament-cmake ros-jazzy-ament-cmake-vendor-package ros-jazzy-ament-cmake-xmllint ros-jazzy-ament-lint-auto"
+depends="freetype glu-dev libx11-dev libxaw-dev libxrandr-dev mesa-dev ros-jazzy-ros-workspace freetype-dev glu-dev libx11-dev libxaw-dev libxrandr-dev mesa-dev"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath freetype-dev glu-dev libx11-dev libxaw-dev libxrandr-dev mesa-dev ros-jazzy-ament-cmake ros-jazzy-ament-cmake-vendor-package ros-jazzy-ament-cmake-xmllint ros-jazzy-ament-lint-auto"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: rviz_ogre_vendor
     uri: https://github.com/ros2-gbp/rviz-release.git
-    version: release/jazzy/rviz_ogre_vendor/14.1.5-1
+    version: release/jazzy/rviz_ogre_vendor/14.1.7-1
 "
 
 prepare() {

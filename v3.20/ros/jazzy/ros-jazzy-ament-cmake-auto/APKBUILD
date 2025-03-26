@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-ament-cmake-auto
 _pkgname=ament_cmake_auto
-pkgver=2.5.2
+pkgver=2.5.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: ament_cmake_auto
     uri: https://github.com/ros2-gbp/ament_cmake-release.git
-    version: release/jazzy/ament_cmake_auto/2.5.2-1
+    version: release/jazzy/ament_cmake_auto/2.5.3-1
 "
 
 prepare() {

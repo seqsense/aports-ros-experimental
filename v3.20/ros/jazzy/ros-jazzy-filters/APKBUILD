@@ -7,8 +7,8 @@ url="https://wiki.ros.org/filters"
 arch="all"
 license="BSD"
 
-depends="libboost-dev ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-ros-workspace libboost-dev ros-jazzy-pluginlib ros-jazzy-rclcpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath libboost-dev ros-jazzy-ament-cmake ros-jazzy-ament-cmake-cppcheck ros-jazzy-ament-cmake-cpplint ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-uncrustify ros-jazzy-ament-cmake-xmllint ros-jazzy-pluginlib ros-jazzy-rclcpp"
+depends="boost-dev ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-ros-workspace boost-dev ros-jazzy-pluginlib ros-jazzy-rclcpp"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev ros-jazzy-ament-cmake ros-jazzy-ament-cmake-cppcheck ros-jazzy-ament-cmake-cpplint ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-uncrustify ros-jazzy-ament-cmake-xmllint ros-jazzy-pluginlib ros-jazzy-rclcpp"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

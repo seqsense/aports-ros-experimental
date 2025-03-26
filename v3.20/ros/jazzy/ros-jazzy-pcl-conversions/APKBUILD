@@ -7,8 +7,8 @@ url="http://wiki.ros.org/pcl_conversions"
 arch="all"
 license="BSD"
 
-depends="libeigen3-dev libpcl-common1.12 libpcl-io1.12 ros-jazzy-message-filters ros-jazzy-pcl-msgs ros-jazzy-rclcpp ros-jazzy-ros-workspace ros-jazzy-sensor-msgs ros-jazzy-std-msgs libeigen3-dev libpcl-dev ros-jazzy-message-filters ros-jazzy-pcl-msgs ros-jazzy-rclcpp ros-jazzy-sensor-msgs ros-jazzy-std-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath libeigen3-dev libpcl-dev ros-jazzy-ament-cmake ros-jazzy-ament-cmake-gtest ros-jazzy-message-filters ros-jazzy-pcl-msgs ros-jazzy-rclcpp ros-jazzy-sensor-msgs ros-jazzy-std-msgs"
+depends="eigen-dev pcl-libs ros-jazzy-message-filters ros-jazzy-pcl-msgs ros-jazzy-rclcpp ros-jazzy-ros-workspace ros-jazzy-sensor-msgs ros-jazzy-std-msgs eigen-dev pcl-dev ros-jazzy-message-filters ros-jazzy-pcl-msgs ros-jazzy-rclcpp ros-jazzy-sensor-msgs ros-jazzy-std-msgs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev pcl-dev ros-jazzy-ament-cmake ros-jazzy-ament-cmake-gtest ros-jazzy-message-filters ros-jazzy-pcl-msgs ros-jazzy-rclcpp ros-jazzy-sensor-msgs ros-jazzy-std-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

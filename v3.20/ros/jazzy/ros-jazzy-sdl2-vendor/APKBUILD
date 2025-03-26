@@ -7,8 +7,8 @@ url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="libsdl2-dev ros-jazzy-ros-workspace libsdl2-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath libsdl2-dev ros-jazzy-ament-cmake"
+depends="ros-jazzy-ros-workspace sdl2-dev sdl2-dev"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-jazzy-ament-cmake sdl2-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-image-publisher
 _pkgname=image_publisher
-pkgver=5.0.5
+pkgver=5.0.9
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/image_publisher/github-ros-perception-image_pipeline/"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: image_publisher
     uri: https://github.com/ros2-gbp/image_pipeline-release.git
-    version: release/jazzy/image_publisher/5.0.5-1
+    version: release/jazzy/image_publisher/5.0.9-1
 "
 
 prepare() {

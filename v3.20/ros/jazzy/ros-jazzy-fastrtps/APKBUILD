@@ -32,7 +32,7 @@ if [ ! -f /usr/ros/jazzy/setup.sh ]; then
 fi
 rosinstall="- git:
     local-name: fastrtps
-    uri: https://github.com/ros2-gbp/fastrtps-release.git
+    uri: https://github.com/ros2-gbp/fastdds-release.git
     version: release/jazzy/fastrtps/2.14.4-1
 "
 

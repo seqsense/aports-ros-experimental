@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-rcpputils
 _pkgname=rcpputils
-pkgver=2.11.0
+pkgver=2.11.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: rcpputils
     uri: https://github.com/ros2-gbp/rcpputils-release.git
-    version: release/jazzy/rcpputils/2.11.0-2
+    version: release/jazzy/rcpputils/2.11.1-1
 "
 
 prepare() {

@@ -7,8 +7,8 @@ url="http://ros.org/wiki/depthimage_to_laserscan"
 arch="all"
 license="BSD"
 
-depends="libopencv-dev ros-jazzy-image-geometry ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-ros-workspace ros-jazzy-sensor-msgs libopencv-dev ros-jazzy-image-geometry ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-sensor-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath libopencv-dev ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-ros ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-common ros-jazzy-image-geometry ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-sensor-msgs"
+depends="opencv-dev ros-jazzy-image-geometry ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-ros-workspace ros-jazzy-sensor-msgs opencv-dev ros-jazzy-image-geometry ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-sensor-msgs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath opencv-dev ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-ros ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-common ros-jazzy-image-geometry ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-sensor-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

@@ -1,14 +1,14 @@
 pkgname=ros-jazzy-rviz-assimp-vendor
 _pkgname=rviz_assimp_vendor
-pkgver=14.1.5
+pkgver=14.1.7
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://assimp.sourceforge.net/index.html"
 arch="all"
 license="Apache License 2.0"
 
-depends="libassimp-dev ros-jazzy-ros-workspace libassimp-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath libassimp-dev ros-jazzy-ament-cmake ros-jazzy-ament-cmake-lint-cmake ros-jazzy-ament-cmake-vendor-package ros-jazzy-ament-cmake-xmllint ros-jazzy-ament-lint-auto"
+depends="assimp-dev ros-jazzy-ros-workspace assimp-dev"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath assimp-dev ros-jazzy-ament-cmake ros-jazzy-ament-cmake-lint-cmake ros-jazzy-ament-cmake-vendor-package ros-jazzy-ament-cmake-xmllint ros-jazzy-ament-lint-auto"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: rviz_assimp_vendor
     uri: https://github.com/ros2-gbp/rviz-release.git
-    version: release/jazzy/rviz_assimp_vendor/14.1.5-1
+    version: release/jazzy/rviz_assimp_vendor/14.1.7-1
 "
 
 prepare() {

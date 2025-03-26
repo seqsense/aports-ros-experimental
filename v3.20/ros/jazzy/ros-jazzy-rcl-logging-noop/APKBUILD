@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-rcl-logging-noop
 _pkgname=rcl_logging_noop
-pkgver=3.1.0
+pkgver=3.1.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: rcl_logging_noop
     uri: https://github.com/ros2-gbp/rcl_logging-release.git
-    version: release/jazzy/rcl_logging_noop/3.1.0-2
+    version: release/jazzy/rcl_logging_noop/3.1.1-1
 "
 
 prepare() {

@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-rmw-fastrtps-cpp
 _pkgname=rmw_fastrtps_cpp
-pkgver=8.4.1
+pkgver=8.4.2
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: rmw_fastrtps_cpp
     uri: https://github.com/ros2-gbp/rmw_fastrtps-release.git
-    version: release/jazzy/rmw_fastrtps_cpp/8.4.1-1
+    version: release/jazzy/rmw_fastrtps_cpp/8.4.2-1
 "
 
 prepare() {
