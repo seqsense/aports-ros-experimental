@@ -1,14 +1,12 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 611d016..c7b1b25 100644
+index 82d4d27..dc7898a 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -45,6 +45,9 @@ install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}
- 
- if(BUILD_TESTING)
-   find_package(ament_lint_auto REQUIRED)
-+  list(APPEND AMENT_LINT_AUTO_EXCLUDE
+@@ -50,6 +50,7 @@ if(BUILD_TESTING)
+   # code.  Since we already have cppcheck disabled on Linux, just disable it
+   # completely for this package.
+   list(APPEND AMENT_LINT_AUTO_EXCLUDE
 +    ament_cmake_copyright
-+  )
+     ament_cmake_cppcheck
+   )
    ament_lint_auto_find_test_dependencies()
- 
-   find_package(performance_test_fixture REQUIRED)

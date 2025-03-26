@@ -1,14 +1,14 @@
-pkgname=ros-jazzy-cyclonedds
-_pkgname=cyclonedds
-pkgver=0.10.5
+pkgname=ros-jazzy-rosidl-pycommon
+_pkgname=rosidl_pycommon
+pkgver=4.6.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
-url="https://projects.eclipse.org/projects/iot.cyclonedds"
+url="https://index.ros.org/p/$_pkgname"
 arch="all"
-license="Eclipse Public License 2.0"
+license="Apache License 2.0"
 
-depends="openssl ros-jazzy-iceoryx-binding-c ros-jazzy-iceoryx-hoofs ros-jazzy-iceoryx-posh ros-jazzy-ros-workspace ros-jazzy-iceoryx-binding-c ros-jazzy-iceoryx-hoofs ros-jazzy-iceoryx-posh"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath cmake openssl-dev ros-jazzy-iceoryx-binding-c ros-jazzy-iceoryx-hoofs ros-jazzy-iceoryx-posh linux-headers"
+depends="ros-jazzy-ros-workspace ros-jazzy-rosidl-parser"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-pytest py3-pytest ros-jazzy-ament-copyright ros-jazzy-ament-flake8 ros-jazzy-ament-pep257"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -31,9 +31,9 @@ if [ ! -f /usr/ros/jazzy/setup.sh ]; then
   export AMENT_PREFIX_PATH=/usr/ros/jazzy
 fi
 rosinstall="- git:
-    local-name: cyclonedds
-    uri: https://github.com/ros2-gbp/cyclonedds-release.git
-    version: release/jazzy/cyclonedds/0.10.5-1
+    local-name: rosidl_pycommon
+    uri: https://github.com/ros2-gbp/rosidl-release.git
+    version: release/jazzy/rosidl_pycommon/4.6.5-1
 "
 
 prepare() {
@@ -58,13 +58,13 @@ build() {
   if [ -f /usr/ros/jazzy/setup.sh ]; then
     source /usr/ros/jazzy/setup.sh
   fi
-  mkdir build
-  cd build
-  cmake ../src/$_pkgname \
-    -DCMAKE_INSTALL_PREFIX=/usr/ros/jazzy \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DCMAKE_INSTALL_LIBDIR=lib 2>&1 | tee $buildlog
-  make 2>&1 | tee -a $buildlog
+  # Directory to place intermediate files
+  mkdir -p "$builddir"/tmp
+  cd src/$_pkgname
+  python setup.py egg_info --egg-base="$builddir"/tmp 2>&1 | tee $buildlog
+  python setup.py \
+    build \
+    --build-base="$builddir"/tmp/build
 }
 
 check() {
@@ -78,9 +78,28 @@ check() {
   if [ -f /usr/ros/jazzy/setup.sh ]; then
     source /usr/ros/jazzy/setup.sh
   fi
-  cd build
-  if [ $(make -q test > /dev/null 2> /dev/null; echo $?) -eq 1 ]; then
-    make test 2>&1 | tee $checklog
+  export PYTHONPATH="$builddir"/tmp/pkg/usr/ros/jazzy/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH}
+  export AMENT_PREFIX_PATH="$builddir"/tmp/pkg/usr/ros/jazzy:${AMENT_PREFIX_PATH}
+  export PATH="$builddir"/tmp/pkg/usr/ros/jazzy/bin:${PATH}
+  export LD_LIBRARY_PATH="$builddir"/tmp/pkg/usr/ros/jazzy/lib:${LD_LIBRARY_PATH}
+  mkdir -p "$builddir"/tmp/pkg
+  cd src/$_pkgname
+  python setup.py \
+    build \
+    --build-base="$builddir"/tmp/build \
+    install \
+    --root="$builddir"/tmp/pkg \
+    --prefix=/usr/ros/jazzy 2>&1 | tee $buildlog
+  TEST_TARGET=$(ls -d */ | grep -m1 "\(test\|tests\)") || true
+  if [ -z "$TEST_TARGET" ]; then
+    echo "No \"test\" or \"tests\" directory. Check skipped" | tee $checklog
+    return 0
+  fi
+  USE_PYTEST=$(grep '\<pytest\>' setup.py) || true
+  if [ -n "$USE_PYTEST" ]; then
+    python -m pytest 2>&1 | tee $checklog
+  else
+    python setup.py test 2>&1 | tee $checklog
   fi
 }
 
@@ -93,13 +112,17 @@ package() {
   echo "packaging" >> $statuslog
   mkdir -p "$pkgdir"
   cd "$builddir"
-  export DESTDIR="$pkgdir"
 
   if [ -f /usr/ros/jazzy/setup.sh ]; then
     source /usr/ros/jazzy/setup.sh
   fi
-  cd build
-  make install
+  cd src/$_pkgname
+  python setup.py \
+    build \
+    --build-base="$builddir"/tmp/build \
+    install \
+    --root="$pkgdir" \
+    --prefix=/usr/ros/jazzy
 
   # Tweak invalid RPATH
   find $pkgdir -name "*.so" | while read so; do
@@ -154,10 +177,6 @@ package() {
     # Copy license files under the source
     if echo $file | grep -e '^\./\.'; then
       # Omit files under hidden directory
-      continue
-    fi
-    if echo $file | grep -e '^\./build/'; then
-      # Omit files under build directory
       continue
     fi
     echo "Copying license files from source tree: $file"
