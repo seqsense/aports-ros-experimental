@@ -1,6 +1,6 @@
 pkgname=py3-colcon-core
 _pkgname=colcon-core
-pkgver=0.16.1
+pkgver=0.19.0
 pkgrel=5
 pkgdesc="Command line tool to build sets of software packages."
 url="https://pypi.org/project/colcon-core/"
@@ -35,4 +35,5 @@ package() {
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="88d50aaef6b2e5f420b22349ce2b05a3322f5af996ded4466ade0a2fd30f5d27f8f09851d22fcbb5d780be9d9d831e9524875a44cd8bd8250553a00cb019b235  colcon-core-0.16.1.tar.gz"
+sha512sums="
+9bd75a79c99080a486697942f297081c8ea5a0a20d54f2e2b56f7a0d75373910902c3a3cb9f48ddd19b93c30bd1564b86e46dd58a24179cfb8fe935ed4eb3e68  colcon-core-0.19.0.tar.gz"
