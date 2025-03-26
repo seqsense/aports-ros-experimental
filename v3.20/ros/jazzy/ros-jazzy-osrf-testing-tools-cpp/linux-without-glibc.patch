@@ -79,7 +79,7 @@ index 5984a5c..e8be8ce 100644
  
  const char *
 diff --git a/src/memory_tools/print_backtrace.hpp b/src/memory_tools/print_backtrace.hpp
-index d23c874..93571f9 100644
+index d23c874..9f4e00d 100644
 --- a/src/memory_tools/print_backtrace.hpp
 +++ b/src/memory_tools/print_backtrace.hpp
 @@ -15,7 +15,7 @@
@@ -87,7 +87,7 @@ index d23c874..93571f9 100644
  #define MEMORY_TOOLS__PRINT_BACKTRACE_HPP_
  
 -#if !defined(_WIN32) && !defined(__ANDROID__)
-+#if !defined(_WIN32) && !defined(__ANDROID__) && (defined(__linux__) && !defined(__GLIBC__))
++#if !defined(_WIN32) && !defined(__ANDROID__) && !(defined(__linux__) && !defined(__GLIBC__))
  
  # pragma GCC diagnostic push
  # ifdef __clang__
@@ -96,7 +96,7 @@ index d23c874..93571f9 100644
  # pragma GCC diagnostic pop
  
 -#endif  // !defined(_WIN32) && !defined(__ANDROID__)
-+#endif  // !defined(_WIN32) && !defined(__ANDROID__) && (defined(__linux__) && !defined(__GLIBC__))
++#endif  // !defined(_WIN32) && !defined(__ANDROID__) && !(defined(__linux__) && !defined(__GLIBC__))
  
  namespace osrf_testing_tools_cpp
  {
@@ -105,7 +105,7 @@ index d23c874..93571f9 100644
  print_backtrace(FILE * out = stderr)
  {
 -#if !defined(_WIN32) && !defined(__ANDROID__)
-+#if !defined(_WIN32) && !defined(__ANDROID__) && (defined(__linux__) && !defined(__GLIBC__))
++#if !defined(_WIN32) && !defined(__ANDROID__) && !(defined(__linux__) && !defined(__GLIBC__))
    backward::StackTrace st;
    st.load_here(MaxStackDepth);
    backward::Printer p;
@@ -113,7 +113,7 @@ index d23c874..93571f9 100644
  #else
    fprintf(out, "backtrace unavailable on Windows and Android\n");
 -#endif  // !defined(_WIN32) && !defined(__ANDROID__)
-+#endif  // !defined(_WIN32) && !defined(__ANDROID__) && (defined(__linux__) && !defined(__GLIBC__))
++#endif  // !defined(_WIN32) && !defined(__ANDROID__) && !(defined(__linux__) && !defined(__GLIBC__))
  }
  
  }  // namespace memory_tools
