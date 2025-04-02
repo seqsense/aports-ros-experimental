@@ -7,7 +7,7 @@ url="http://www.ros.org/wiki/image_geometry"
 arch="all"
 license="Apache License 2.0"
 
-depends="opencv-dev py3-deprecated ros-jazzy-ros-workspace ros-jazzy-sensor-msgs opencv-dev py3-deprecated ros-jazzy-sensor-msgs"
+depends="opencv-dev py3-deprecated ros-jazzy-ros-workspace ros-jazzy-sensor-msgs opencv-dev py3-deprecated ros-jazzy-sensor-msgs py3-opencv" 
 makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath opencv-dev py3-deprecated ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-pytest ros-jazzy-ament-cmake-python ros-jazzy-ament-cmake-ros ros-jazzy-sensor-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
