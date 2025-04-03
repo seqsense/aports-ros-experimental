@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-jazzy-angles ros-jazzy-filters ros-jazzy-laser-geometry ros-jazzy-message-filters ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rclcpp-lifecycle ros-jazzy-ros-workspace ros-jazzy-sensor-msgs ros-jazzy-tf2 ros-jazzy-tf2-geometry-msgs ros-jazzy-tf2-kdl ros-jazzy-tf2-ros ros-jazzy-angles ros-jazzy-filters ros-jazzy-laser-geometry ros-jazzy-message-filters ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rclcpp-lifecycle ros-jazzy-sensor-msgs ros-jazzy-tf2 ros-jazzy-tf2-geometry-msgs ros-jazzy-tf2-kdl ros-jazzy-tf2-ros"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-jazzy-ament-cmake-auto ros-jazzy-ament-cmake-gtest ros-jazzy-angles ros-jazzy-filters ros-jazzy-laser-geometry ros-jazzy-launch-testing-ament-cmake ros-jazzy-message-filters ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rclcpp-lifecycle ros-jazzy-sensor-msgs ros-jazzy-tf2 ros-jazzy-tf2-geometry-msgs ros-jazzy-tf2-kdl ros-jazzy-tf2-ros"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-jazzy-ament-cmake-auto ros-jazzy-ament-cmake-gtest ros-jazzy-angles ros-jazzy-filters ros-jazzy-laser-geometry ros-jazzy-launch-testing-ament-cmake ros-jazzy-message-filters ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rclcpp-lifecycle ros-jazzy-sensor-msgs ros-jazzy-tf2 ros-jazzy-tf2-geometry-msgs ros-jazzy-tf2-kdl ros-jazzy-tf2-ros ros-jazzy-launch-ros"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
