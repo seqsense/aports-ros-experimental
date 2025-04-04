@@ -1,0 +1,16 @@
+diff --git a/src/rclcpp/typesupport_helpers.cpp b/src/rclcpp/typesupport_helpers.cpp
+index 04dd8c4c..6a35f304 100644
+--- a/src/rclcpp/typesupport_helpers.cpp
++++ b/src/rclcpp/typesupport_helpers.cpp
+@@ -122,6 +122,11 @@ const void * get_typesupport_handle_impl(
+       package_name + "__" + middle_module + "__" + type_name;
+     const void * (* get_ts)() = nullptr;
+     // This will throw runtime_error if the symbol was not found.
++    for (size_t i=0; i < 1000000; ++i) {
++      if (library.has_symbol(symbol_name)) {
++        break;
++      }
++    }
+     get_ts = reinterpret_cast<decltype(get_ts)>(library.get_symbol(symbol_name));
+     return get_ts();
+   } catch (std::runtime_error &) {

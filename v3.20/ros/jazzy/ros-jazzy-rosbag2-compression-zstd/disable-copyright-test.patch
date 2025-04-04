@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 46d76c7e..88507a41 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -67,6 +67,9 @@ ament_export_dependencies(rosbag2_compression zstd_vendor zstd)
+ if(BUILD_TESTING)
+   find_package(ament_cmake_gmock REQUIRED)
+   find_package(ament_lint_auto REQUIRED)
++  list(APPEND AMENT_LINT_AUTO_EXCLUDE
++    ament_cmake_copyright
++  )
+   find_package(rclcpp REQUIRED)
+   find_package(rosbag2_test_common REQUIRED)
+   ament_lint_auto_find_test_dependencies()

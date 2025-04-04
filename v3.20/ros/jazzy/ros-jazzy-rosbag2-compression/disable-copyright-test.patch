@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0376daa2..498aaea2 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -70,6 +70,9 @@ ament_export_dependencies(pluginlib rcpputils rcutils rosbag2_cpp rosbag2_storag
+ if(BUILD_TESTING)
+   find_package(ament_cmake_gmock REQUIRED)
+   find_package(ament_lint_auto REQUIRED)
++  list(APPEND AMENT_LINT_AUTO_EXCLUDE
++    ament_cmake_copyright
++  )
+   find_package(rclcpp REQUIRED)
+   find_package(rosbag2_test_common REQUIRED)
+   find_package(test_msgs REQUIRED)

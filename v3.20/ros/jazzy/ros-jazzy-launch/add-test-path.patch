@@ -1,0 +1,9 @@
+diff --git a/pytest.ini b/pytest.ini
+index 354fda3..bcd83d4 100644
+--- a/pytest.ini
++++ b/pytest.ini
+@@ -3,3 +3,4 @@ junit_family=xunit2
+ addopts = --doctest-modules
+ timeout=900
+ timeout_method=thread
++pythonpath=test
