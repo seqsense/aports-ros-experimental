@@ -1,6 +1,6 @@
 pkgname=ros-humble-qt-gui
 _pkgname=qt_gui
-pkgver=2.2.3
+pkgver=2.2.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="http://ros.org/wiki/qt_gui"
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: qt_gui
     uri: https://github.com/ros2-gbp/qt_gui_core-release.git
-    version: release/humble/qt_gui/2.2.3-2
+    version: release/humble/qt_gui/2.2.4-1
 "
 
 prepare() {
