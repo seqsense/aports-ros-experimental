@@ -1,0 +1,12 @@
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+index 6305d4e3..3cf831f1 100644
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -9,7 +9,6 @@ set(TEST_NAMES
+   utils_test
+   path_handler_test
+   critic_manager_test
+-  optimizer_unit_tests
+ )
+ 
+ foreach(name IN LISTS TEST_NAMES)

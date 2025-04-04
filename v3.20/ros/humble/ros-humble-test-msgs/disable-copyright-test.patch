@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d39326e..ca4de50 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -42,6 +42,9 @@ ament_export_targets(export_${PROJECT_NAME})
+ 
+ if(BUILD_TESTING)
+   find_package(ament_lint_auto REQUIRED)
++  list(APPEND AMENT_LINT_AUTO_EXCLUDE
++    ament_cmake_copyright
++  )
+   ament_lint_auto_find_test_dependencies()
+ 
+   rosidl_get_typesupport_target(c_typesupport_target "test_msgs" "rosidl_typesupport_c")

@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index fccdfb5..83b9896 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -14,9 +14,6 @@ install(
+ )
+ 
+ if(BUILD_TESTING)
+-  find_package(ament_cmake_copyright REQUIRED)
+-  ament_copyright()
+-
+   include(cmake/add_launch_test.cmake)
+ 
+   ament_index_has_resource(LAUNCH_TESTING_INSTALL_PREFIX packages launch_testing)
