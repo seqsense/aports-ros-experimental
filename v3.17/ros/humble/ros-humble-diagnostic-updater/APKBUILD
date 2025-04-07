@@ -1,6 +1,6 @@
 pkgname=ros-humble-diagnostic-updater
 _pkgname=diagnostic_updater
-pkgver=4.0.2
+pkgver=4.0.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="http://www.ros.org/wiki/diagnostic_updater"
@@ -8,7 +8,7 @@ arch="all"
 license="BSD-3-Clause"
 
 depends="ros-humble-diagnostic-msgs ros-humble-rclcpp ros-humble-rclpy ros-humble-ros-workspace ros-humble-std-msgs ros-humble-diagnostic-msgs ros-humble-rclcpp ros-humble-rclpy ros-humble-std-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-pytest ros-humble-ament-cmake ros-humble-ament-cmake-gtest ros-humble-ament-cmake-pytest ros-humble-ament-cmake-python ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-diagnostic-msgs ros-humble-launch ros-humble-launch-testing ros-humble-launch-testing-ros ros-humble-rclcpp ros-humble-rclcpp-lifecycle ros-humble-rclpy ros-humble-std-msgs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-pytest ros-humble-ament-cmake ros-humble-ament-cmake-gtest ros-humble-ament-cmake-pytest ros-humble-ament-cmake-python ros-humble-ament-cmake-ros ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-diagnostic-msgs ros-humble-launch ros-humble-launch-testing ros-humble-launch-testing-ros ros-humble-rclcpp ros-humble-rclcpp-lifecycle ros-humble-rclpy ros-humble-std-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: diagnostic_updater
     uri: https://github.com/ros2-gbp/diagnostics-release.git
-    version: release/humble/diagnostic_updater/4.0.2-1
+    version: release/humble/diagnostic_updater/4.0.3-1
 "
 
 prepare() {
