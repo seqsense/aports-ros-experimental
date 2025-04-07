@@ -7,7 +7,7 @@ url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="py3-flake8 py3-flake8-builtins py3-flake8-comprehensions py3-flake8-docstrings py3-flake8-import-order py3-flake8-quotes ros-jazzy-ament-lint ros-jazzy-ros-workspace"
+depends="py3-flake8 py3-flake8-builtins py3-flake8-comprehensions py3-flake8-docstrings py3-flake8-import-order py3-flake8-quotes ros-jazzy-ament-lint ros-jazzy-ros-workspace py3-pydocstyle"
 makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-pytest"
 
 subpackages="$pkgname-dbg $pkgname-doc"
