@@ -1,0 +1,9 @@
+diff --git a/pytest.ini b/pytest.ini
+index 35164c4..a7cfa46 100644
+--- a/pytest.ini
++++ b/pytest.ini
+@@ -1,3 +1,4 @@
+ [pytest]
+ junit_family=xunit2
+ addopts = --doctest-modules
++pythonpath=test

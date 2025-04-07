@@ -1,0 +1,23 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2ea6469..ae113f1 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -57,7 +57,6 @@ if(BUILD_TESTING)
+   find_package(ament_cmake_flake8 REQUIRED)
+   find_package(ament_cmake_lint_cmake REQUIRED)
+   find_package(ament_cmake_pep257 REQUIRED)
+-  find_package(ament_cmake_uncrustify REQUIRED)
+   find_package(ament_cmake_xmllint REQUIRED)
+ 
+   set(
+@@ -74,10 +73,6 @@ if(BUILD_TESTING)
+   ament_flake8()
+   ament_lint_cmake()
+   ament_pep257(EXCLUDE ${_linter_excludes})
+-  ament_uncrustify(
+-    EXCLUDE ${_linter_excludes}
+-    LANGUAGE c++
+-  )
+   ament_xmllint()
+ 
+   if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")

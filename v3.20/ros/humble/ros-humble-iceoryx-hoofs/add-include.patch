@@ -1,0 +1,14 @@
+diff --git a/platform/linux/include/iceoryx_hoofs/platform/mqueue.hpp b/platform/linux/include/iceoryx_hoofs/platform/mqueue.hpp
+index 65741d5af..09699f83c 100644
+--- a/platform/linux/include/iceoryx_hoofs/platform/mqueue.hpp
++++ b/platform/linux/include/iceoryx_hoofs/platform/mqueue.hpp
+@@ -17,9 +17,10 @@
+ #ifndef IOX_HOOFS_LINUX_PLATFORM_MQUEUE_HPP
+ #define IOX_HOOFS_LINUX_PLATFORM_MQUEUE_HPP
+
++#include <sys/stat.h>
+ #include <mqueue.h>
+
+ mqd_t iox_mq_open2(const char* name, int oflag);
+ mqd_t iox_mq_open4(const char* name, int oflag, mode_t mode, struct mq_attr* attr);
+
