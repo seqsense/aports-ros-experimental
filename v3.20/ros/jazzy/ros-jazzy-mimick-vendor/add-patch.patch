@@ -1,3 +1,15 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 110b4c9..03fae8f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -7,6 +7,7 @@ find_package(ament_cmake_vendor_package REQUIRED)
+ ament_vendor(mimick_vendor
+   VCS_URL https://github.com/ros2/Mimick.git
+   VCS_VERSION 4dbd495e9f3d87a83c3201ef9d851e85f7133db7
++  PATCHES fix-elf-type.patch.origin
+ )
+
+ ament_export_dependencies(mimick)
 diff --git a/fix-elf-type.patch.origin b/fix-elf-type.patch.origin
 new file mode 100644
 index 0000000..9a64237
