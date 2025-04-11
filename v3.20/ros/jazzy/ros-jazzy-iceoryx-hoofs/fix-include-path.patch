@@ -1,0 +1,13 @@
+diff --git a/platform/linux/include/iceoryx_hoofs/platform/platform_settings.hpp b/platform/linux/include/iceoryx_hoofs/platform/platform_settings.hpp
+index bf29ea9f2..5af8a9b3e 100644
+--- a/platform/linux/include/iceoryx_hoofs/platform/platform_settings.hpp
++++ b/platform/linux/include/iceoryx_hoofs/platform/platform_settings.hpp
+@@ -17,7 +17,7 @@
+ #define IOX_HOOFS_LINUX_PLATFORM_PLATFORM_SETTINGS_HPP
+ 
+ #include <cstdint>
+-#include <linux/limits.h>
++#include <limits.h>
+ 
+ namespace iox
+ {

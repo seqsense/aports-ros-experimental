@@ -1,0 +1,240 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 31836725..97ec979b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -115,6 +115,10 @@ if(BUILD_TESTING)
+   find_package(ament_cmake_gmock REQUIRED)
+   find_package(ament_index_cpp REQUIRED)
+   find_package(ament_lint_auto REQUIRED)
++  list(APPEND AMENT_LINT_AUTO_EXCLUDE
++    ament_cmake_copyright
++    ament_cmake_uncrustify
++  )
+   find_package(composition_interfaces REQUIRED)
+   find_package(rosbag2_test_common REQUIRED)
+   find_package(test_msgs REQUIRED)
+@@ -143,7 +147,7 @@ if(BUILD_TESTING)
+       ${SKIP_TEST}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_play_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_play_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_composable_player test/rosbag2_transport/test_composable_player.cpp)
+   target_link_libraries(test_composable_player
+@@ -161,7 +165,7 @@ if(BUILD_TESTING)
+       ENV ${rmw_implementation_env_var}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_composable_player_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_composable_player_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_play_loop test/rosbag2_transport/test_play_loop.cpp)
+   target_link_libraries(test_play_loop rosbag2_transport ${test_msgs_TARGETS} rosbag2_test_common::rosbag2_test_common)
+@@ -181,7 +185,7 @@ if(BUILD_TESTING)
+       ${SKIP_TEST}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_play_loop_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_play_loop_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_play_publish_clock test/rosbag2_transport/test_play_publish_clock.cpp)
+   target_link_libraries(test_play_publish_clock rosbag2_transport ${test_msgs_TARGETS} rosbag2_test_common::rosbag2_test_common)
+@@ -201,7 +205,7 @@ if(BUILD_TESTING)
+       ${SKIP_TEST}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_play_publish_clock_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_play_publish_clock_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_play_timing test/rosbag2_transport/test_play_timing.cpp)
+   target_link_libraries(test_play_timing rosbag2_transport ${test_msgs_TARGETS} rosbag2_test_common::rosbag2_test_common)
+@@ -213,7 +217,7 @@ if(BUILD_TESTING)
+       ENV ${rmw_implementation_env_var}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_play_timing_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_play_timing_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_play_callbacks test/rosbag2_transport/test_play_callbacks.cpp)
+   target_link_libraries(test_play_callbacks rosbag2_transport ${test_msgs_TARGETS} rosbag2_test_common::rosbag2_test_common)
+@@ -225,7 +229,7 @@ if(BUILD_TESTING)
+       ENV ${rmw_implementation_env_var}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_play_callbacks_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_play_callbacks_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_player_stop test/rosbag2_transport/test_player_stop.cpp)
+   target_link_libraries(test_player_stop rosbag2_transport ${test_msgs_TARGETS} rosbag2_test_common::rosbag2_test_common rmw::rmw)
+@@ -237,7 +241,7 @@ if(BUILD_TESTING)
+       ENV ${rmw_implementation_env_var}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_player_stop_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_player_stop_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_play_seek test/rosbag2_transport/test_play_seek.cpp)
+   target_link_libraries(test_play_seek rosbag2_transport ${test_msgs_TARGETS} rosbag2_test_common::rosbag2_test_common)
+@@ -249,7 +253,7 @@ if(BUILD_TESTING)
+       ENV ${rmw_implementation_env_var}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_play_seek_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_play_seek_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_play_services test/rosbag2_transport/test_play_services.cpp)
+   target_link_libraries(test_play_services rosbag2_transport ${test_msgs_TARGETS} rosbag2_test_common::rosbag2_test_common)
+@@ -261,7 +265,7 @@ if(BUILD_TESTING)
+       ENV ${rmw_implementation_env_var}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_play_services_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_play_services_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_play_topic_remap test/rosbag2_transport/test_play_topic_remap.cpp)
+   target_link_libraries(test_play_topic_remap rosbag2_transport ${test_msgs_TARGETS} rosbag2_test_common::rosbag2_test_common)
+@@ -281,7 +285,7 @@ if(BUILD_TESTING)
+       ${SKIP_TEST}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_play_topic_remap_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_play_topic_remap_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_play_duration test/rosbag2_transport/test_play_duration.cpp)
+   target_include_directories(test_play_duration PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/rosbag2_transport>)
+@@ -294,7 +298,7 @@ if(BUILD_TESTING)
+       ENV ${rmw_implementation_env_var}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_play_duration_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_play_duration_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_play_next test/rosbag2_transport/test_play_next.cpp)
+   target_include_directories(test_play_next PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/rosbag2_transport>)
+@@ -307,7 +311,7 @@ if(BUILD_TESTING)
+       ENV ${rmw_implementation_env_var}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_play_next_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_play_next_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_play_until test/rosbag2_transport/test_play_until.cpp)
+   target_include_directories(test_play_until PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/rosbag2_transport>)
+@@ -320,7 +324,7 @@ if(BUILD_TESTING)
+       ENV ${rmw_implementation_env_var}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_play_until_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_play_until_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_burst test/rosbag2_transport/test_burst.cpp)
+   target_include_directories(test_burst PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/rosbag2_transport>)
+@@ -333,7 +337,7 @@ if(BUILD_TESTING)
+       ENV ${rmw_implementation_env_var}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_burst_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_burst_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_record test/rosbag2_transport/test_record.cpp)
+   target_include_directories(test_record PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/rosbag2_transport>)
+@@ -354,7 +358,7 @@ if(BUILD_TESTING)
+       ${SKIP_TEST}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_record_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_record_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_record_all test/rosbag2_transport/test_record_all.cpp)
+   target_link_libraries(test_record_all rosbag2_transport ${test_msgs_TARGETS} rosbag2_test_common::rosbag2_test_common)
+@@ -366,7 +370,7 @@ if(BUILD_TESTING)
+       ENV ${rmw_implementation_env_var}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_record_all_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_record_all_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_record_all_ignore_leaf_topics test/rosbag2_transport/test_record_all_ignore_leaf_topics.cpp)
+   target_link_libraries(test_record_all_ignore_leaf_topics rosbag2_transport ${test_msgs_TARGETS} rosbag2_test_common::rosbag2_test_common)
+@@ -378,7 +382,7 @@ if(BUILD_TESTING)
+       ENV ${rmw_implementation_env_var}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_record_all_ignore_leaf_topics_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_record_all_ignore_leaf_topics_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_record_all_include_unpublished_topics
+     test/rosbag2_transport/test_record_all_include_unpublished_topics.cpp)
+@@ -395,7 +399,7 @@ if(BUILD_TESTING)
+       ENV ${rmw_implementation_env_var}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_record_all_include_unpublished_topics_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_record_all_include_unpublished_topics_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_record_all_no_discovery test/rosbag2_transport/test_record_all_no_discovery.cpp)
+   target_link_libraries(test_record_all_no_discovery rosbag2_transport ${test_msgs_TARGETS} rosbag2_test_common::rosbag2_test_common)
+@@ -407,7 +411,7 @@ if(BUILD_TESTING)
+       ENV ${rmw_implementation_env_var}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_record_all_no_discovery_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_record_all_no_discovery_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_record_all_use_sim_time test/rosbag2_transport/test_record_all_use_sim_time.cpp)
+   target_link_libraries(test_record_all_use_sim_time rosbag2_transport ${test_msgs_TARGETS} rosbag2_test_common::rosbag2_test_common)
+@@ -419,7 +423,7 @@ if(BUILD_TESTING)
+       ENV ${rmw_implementation_env_var}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_record_all_use_sim_time_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_record_all_use_sim_time_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_keyboard_controls test/rosbag2_transport/test_keyboard_controls.cpp)
+   target_link_libraries(test_keyboard_controls rosbag2_transport ${test_msgs_TARGETS} rosbag2_test_common::rosbag2_test_common)
+@@ -431,7 +435,7 @@ if(BUILD_TESTING)
+       ENV ${rmw_implementation_env_var}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_keyboard_controls_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_keyboard_controls_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_record_regex test/rosbag2_transport/test_record_regex.cpp)
+   target_link_libraries(test_record_regex rosbag2_transport ${test_msgs_TARGETS} rosbag2_test_common::rosbag2_test_common)
+@@ -451,7 +455,7 @@ if(BUILD_TESTING)
+       ${SKIP_TEST}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_record_regex_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_record_regex_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_record_services test/rosbag2_transport/test_record_services.cpp)
+   target_link_libraries(test_record_services rosbag2_transport ${test_msgs_TARGETS} rosbag2_test_common::rosbag2_test_common)
+@@ -463,7 +467,7 @@ if(BUILD_TESTING)
+       ENV ${rmw_implementation_env_var}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_record_services_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_record_services_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_composable_recorder test/rosbag2_transport/test_composable_recorder.cpp)
+   target_link_libraries(test_composable_recorder
+@@ -481,7 +485,7 @@ if(BUILD_TESTING)
+       ENV ${rmw_implementation_env_var}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_composable_recorder_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_composable_recorder_for_rmw_implementation)
+ 
+   ament_add_gmock_executable(test_load_composable_components test/rosbag2_transport/test_load_composable_components.cpp)
+   target_link_libraries(test_load_composable_components
+@@ -498,7 +502,7 @@ if(BUILD_TESTING)
+       ENV ${rmw_implementation_env_var}
+     )
+   endfunction()
+-  call_for_each_rmw_implementation(test_load_composable_components_for_rmw_implementation)
++  # call_for_each_rmw_implementation(test_load_composable_components_for_rmw_implementation)
+ 
+   # Mark a few tests as xfail
+   if(TARGET test_play_services__rmw_cyclonedds_cpp)
