@@ -1,0 +1,20 @@
+diff --git a/CMake/FindCHOLMOD.cmake b/CMake/FindCHOLMOD.cmake
+index 3f098ec..9739892 100644
+--- a/CMake/FindCHOLMOD.cmake
++++ b/CMake/FindCHOLMOD.cmake
+@@ -12,7 +12,7 @@ find_path(CHOLMOD_INCLUDE_DIR
+   $ENV{CHOLMODDIR}
+   ${INCLUDE_INSTALL_DIR}
+   PATH_SUFFIXES
+-  suitesparse
++  suitesparse/suitesparse
+   ufsparse
+ )
+ 
+@@ -86,4 +86,4 @@ include(FindPackageHandleStandardArgs)
+ find_package_handle_standard_args(CHOLMOD DEFAULT_MSG
+                                   CHOLMOD_INCLUDE_DIR CHOLMOD_LIBRARIES)
+ 
+-mark_as_advanced(CHOLMOD_LIBRARIES)
+\ No newline at end of file
++mark_as_advanced(CHOLMOD_LIBRARIES)
