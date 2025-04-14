@@ -1,7 +1,7 @@
 pkgname=ros-noetic-class-loader
 _pkgname=class_loader
-pkgver=0.5.0
-pkgrel=1
+pkgver=0.5.1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/class_loader"
 arch="all"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: class_loader
     uri: https://github.com/ros-gbp/class_loader-release.git
-    version: release/noetic/class_loader/0.5.0-1
+    version: release/noetic/class_loader/0.5.1-1
 "
 
 prepare() {

@@ -1,6 +1,6 @@
 pkgname=ros-noetic-rqt-bag-plugins
 _pkgname=rqt_bag_plugins
-pkgver=0.5.1
+pkgver=0.5.2
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/rqt_bag"
@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="py3-cairo py3-pillow ros-noetic-geometry-msgs ros-noetic-rosbag ros-noetic-roslib ros-noetic-rospy ros-noetic-rqt-bag ros-noetic-rqt-gui ros-noetic-rqt-gui-py ros-noetic-rqt-plot ros-noetic-sensor-msgs ros-noetic-std-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-setuptools ros-noetic-catkin"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: rqt_bag_plugins
     uri: https://github.com/ros-gbp/rqt_bag-release.git
-    version: release/noetic/rqt_bag_plugins/0.5.1-1
+    version: release/noetic/rqt_bag_plugins/0.5.2-1
 "
 
 prepare() {

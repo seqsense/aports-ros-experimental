@@ -1,6 +1,6 @@
 pkgname=ros-noetic-interactive-markers
 _pkgname=interactive_markers
-pkgver=1.12.0
+pkgver=1.12.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/interactive_markers"
@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rospy ros-noetic-rostest ros-noetic-std-msgs ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-visualization-msgs ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rospy ros-noetic-rostest ros-noetic-std-msgs ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-visualization-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rospy ros-noetic-rostest ros-noetic-std-msgs ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-visualization-msgs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-setuptools ros-noetic-catkin ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-rospy ros-noetic-rostest ros-noetic-std-msgs ros-noetic-tf2-geometry-msgs ros-noetic-tf2-ros ros-noetic-visualization-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: interactive_markers
     uri: https://github.com/ros-gbp/interactive_markers-release.git
-    version: release/noetic/interactive_markers/1.12.0-1
+    version: release/noetic/interactive_markers/1.12.1-1
 "
 
 prepare() {
