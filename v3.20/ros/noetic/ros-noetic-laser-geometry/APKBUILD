@@ -1,15 +1,15 @@
 pkgname=ros-noetic-laser-geometry
 _pkgname=laser_geometry
-pkgver=1.6.7
-pkgrel=2
+pkgver=1.6.8
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/laser_geometry"
 arch="all"
 license="BSD"
 
-depends="py3-numpy ros-noetic-angles ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2"
-makedepends="boost-dev chrpath eigen-dev py3-numpy-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-angles ros-noetic-angles-dev ros-noetic-catkin-dev>=0.5.68 ros-noetic-catkin>=0.5.68 ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rosunit ros-noetic-rosunit-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-tf ros-noetic-tf-dev ros-noetic-tf2 ros-noetic-tf2-dev ros-noetic-tf2-geometry-msgs ros-noetic-tf2-geometry-msgs-dev"
-depends_dev="boost-dev eigen-dev py3-numpy-dev ros-noetic-angles ros-noetic-angles-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-tf ros-noetic-tf-dev ros-noetic-tf2 ros-noetic-tf2-dev"
+depends="boost-thread py3-numpy ros-noetic-angles ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2"
+makedepends="boost-dev chrpath eigen-dev py3-numpy-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-angles ros-noetic-angles-dev ros-noetic-catkin-dev>=0.5.68 ros-noetic-catkin>=0.5.68 ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-rosunit ros-noetic-rosunit-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-tf ros-noetic-tf-dev ros-noetic-tf2 ros-noetic-tf2-dev ros-noetic-tf2-geometry-msgs ros-noetic-tf2-geometry-msgs-dev"
+depends_dev="boost-dev eigen-dev py3-numpy-dev ros-noetic-angles ros-noetic-angles-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-tf ros-noetic-tf-dev ros-noetic-tf2 ros-noetic-tf2-dev ros-noetic-tf2-geometry-msgs ros-noetic-tf2-geometry-msgs-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
@@ -30,7 +30,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: laser_geometry
     uri: https://github.com/ros-gbp/laser_geometry-release.git
-    version: release/noetic/laser_geometry/1.6.7-1
+    version: release/noetic/laser_geometry/1.6.8-1
 "
 
 prepare() {
