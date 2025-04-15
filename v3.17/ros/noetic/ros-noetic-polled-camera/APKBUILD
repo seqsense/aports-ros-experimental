@@ -1,6 +1,6 @@
 pkgname=ros-noetic-polled-camera
 _pkgname=polled_camera
-pkgver=1.12.0
+pkgver=1.12.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/polled_camera"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: polled_camera
     uri: https://github.com/ros-gbp/image_common-release.git
-    version: release/noetic/polled_camera/1.12.0-1
+    version: release/noetic/polled_camera/1.12.1-1
 "
 
 prepare() {

@@ -1,14 +1,14 @@
 pkgname=ros-noetic-rqt-gui-cpp
 _pkgname=rqt_gui_cpp
-pkgver=0.5.3
+pkgver=0.5.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/rqt_gui_cpp"
 arch="all"
 license="BSD"
 
-depends="ros-noetic-nodelet ros-noetic-qt-gui-cpp>=0.3.0 ros-noetic-qt-gui>=0.3.0 ros-noetic-roscpp ros-noetic-nodelet ros-noetic-qt-gui-cpp>=0.3.0 ros-noetic-qt-gui>=0.3.0 ros-noetic-roscpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath qt5-qtbase-dev ros-noetic-catkin ros-noetic-nodelet ros-noetic-qt-gui-cpp>=0.3.0 ros-noetic-qt-gui>=0.3.0 ros-noetic-roscpp"
+depends="ros-noetic-nodelet ros-noetic-qt-gui-cpp>=0.3.0 ros-noetic-qt-gui>=0.3.0 ros-noetic-roscpp"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-setuptools qt5-qtbase-dev ros-noetic-catkin ros-noetic-nodelet ros-noetic-qt-gui-cpp>=0.3.0 ros-noetic-qt-gui>=0.3.0 ros-noetic-roscpp"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: rqt_gui_cpp
     uri: https://github.com/ros-gbp/rqt-release.git
-    version: release/noetic/rqt_gui_cpp/0.5.3-1
+    version: release/noetic/rqt_gui_cpp/0.5.4-1
 "
 
 prepare() {
