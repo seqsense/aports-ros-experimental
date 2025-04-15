@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 3880aa7..228d562 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -87,7 +87,7 @@ find_package(CHOLMOD REQUIRED)
+ find_package(CSparse REQUIRED)
+ find_package(G2O REQUIRED)
+ find_package(LAPACK REQUIRED)
+-find_package(Ceres REQUIRED COMPONENTS SuiteSparse)
++find_package(Ceres REQUIRED)
+ 
+ set(CMAKE_INCLUDE_CURRENT_DIR ON)
+ add_definitions(-DQT_NO_KEYWORDS)

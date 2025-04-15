@@ -1,0 +1,24 @@
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+index 6305d4e3..41ddd388 100644
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -12,8 +12,9 @@ set(TEST_NAMES
+   optimizer_unit_tests
+ )
+ 
++find_package(ament_cmake_ros REQUIRED)
+ foreach(name IN LISTS TEST_NAMES)
+-  ament_add_gtest(${name}
++  ament_add_ros_isolated_gtest(${name}
+     ${name}.cpp
+   )
+ 
+@@ -32,7 +33,7 @@ foreach(name IN LISTS TEST_NAMES)
+ endforeach()
+ 
+ # This is a special case requiring linking against the critics library
+-ament_add_gtest(critics_tests critics_tests.cpp)
++ament_add_ros_isolated_gtest(critics_tests critics_tests.cpp)
+ ament_target_dependencies(critics_tests ${dependencies_pkgs})
+ target_link_libraries(critics_tests mppi_controller mppi_critics)
+ if(${TEST_DEBUG_INFO})
