@@ -1,0 +1,62 @@
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+index 2f879e1d..538fc769 100644
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -1,5 +1,6 @@
+ # Kinematics test
+-ament_add_gtest(kinematics_test kinematics_test.cpp)
++find_package(ament_cmake_ros REQUIRED)
++ament_add_ros_isolated_gtest(kinematics_test kinematics_test.cpp)
+ ament_target_dependencies(kinematics_test
+   ${dependencies}
+ )
+@@ -8,7 +9,7 @@ target_link_libraries(kinematics_test
+ )
+ 
+ # Data sources test
+-ament_add_gtest(sources_test sources_test.cpp)
++ament_add_ros_isolated_gtest(sources_test sources_test.cpp)
+ ament_target_dependencies(sources_test
+   ${dependencies}
+ )
+@@ -17,7 +18,7 @@ target_link_libraries(sources_test
+ )
+ 
+ # Polygon shapes test
+-ament_add_gtest(polygons_test polygons_test.cpp)
++ament_add_ros_isolated_gtest(polygons_test polygons_test.cpp)
+ ament_target_dependencies(polygons_test
+   ${dependencies}
+ )
+@@ -26,7 +27,7 @@ target_link_libraries(polygons_test
+ )
+ 
+ # Velocity Polygon test
+-ament_add_gtest(velocity_polygons_test velocity_polygons_test.cpp)
++ament_add_ros_isolated_gtest(velocity_polygons_test velocity_polygons_test.cpp)
+ ament_target_dependencies(velocity_polygons_test
+   ${dependencies}
+ )
+@@ -35,7 +36,7 @@ target_link_libraries(velocity_polygons_test
+ )
+ 
+ # Collision Monitor node test
+-ament_add_gtest(collision_monitor_node_test collision_monitor_node_test.cpp)
++ament_add_ros_isolated_gtest(collision_monitor_node_test collision_monitor_node_test.cpp)
+ ament_target_dependencies(collision_monitor_node_test
+   ${dependencies}
+ )
+@@ -43,10 +44,10 @@ target_link_libraries(collision_monitor_node_test
+   ${monitor_library_name}
+ )
+ # Collision Detector node test
+-ament_add_gtest(collision_detector_node_test collision_detector_node_test.cpp)
++ament_add_ros_isolated_gtest(collision_detector_node_test collision_detector_node_test.cpp)
+ ament_target_dependencies(collision_detector_node_test
+   ${dependencies}
+ )
+ target_link_libraries(collision_detector_node_test
+   ${detector_library_name}
+-)
+\ No newline at end of file
++)
