@@ -1,6 +1,6 @@
 pkgname=ros-noetic-tf2-kdl
 _pkgname=tf2_kdl
-pkgver=0.7.7
+pkgver=0.7.8
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/tf2"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: tf2_kdl
     uri: https://github.com/ros-gbp/geometry2-release.git
-    version: release/noetic/tf2_kdl/0.7.7-1
+    version: release/noetic/tf2_kdl/0.7.8-1
 "
 
 prepare() {

@@ -1,6 +1,6 @@
 pkgname=ros-noetic-kdl-conversions
 _pkgname=kdl_conversions
-pkgver=1.13.2
+pkgver=1.13.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/kdl_conversions"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: kdl_conversions
     uri: https://github.com/ros-gbp/geometry-release.git
-    version: release/noetic/kdl_conversions/1.13.2-1
+    version: release/noetic/kdl_conversions/1.13.3-1
 "
 
 prepare() {
