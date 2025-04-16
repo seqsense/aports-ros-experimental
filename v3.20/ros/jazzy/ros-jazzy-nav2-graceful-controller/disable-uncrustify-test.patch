@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 11a6b89e..c423070c 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -67,6 +67,7 @@ if(BUILD_TESTING)
+ 
+   # the following line skips the linter which checks for copyrights
+   set(ament_cmake_copyright_FOUND TRUE)
++  set(ament_cmake_uncrustify_FOUND TRUE)
+   ament_lint_auto_find_test_dependencies()
+   add_subdirectory(test)
+ endif()
