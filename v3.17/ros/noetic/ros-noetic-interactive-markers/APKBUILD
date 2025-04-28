@@ -1,6 +1,6 @@
 pkgname=ros-noetic-interactive-markers
 _pkgname=interactive_markers
-pkgver=1.12.1
+pkgver=1.12.2
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/interactive_markers"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: interactive_markers
     uri: https://github.com/ros-gbp/interactive_markers-release.git
-    version: release/noetic/interactive_markers/1.12.1-1
+    version: release/noetic/interactive_markers/1.12.2-1
 "
 
 prepare() {

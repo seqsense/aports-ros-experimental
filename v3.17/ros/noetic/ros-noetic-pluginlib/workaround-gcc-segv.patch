@@ -1,5 +1,5 @@
 diff --git a/include/pluginlib/class_loader_imp.hpp b/include/pluginlib/class_loader_imp.hpp
-index e26706d..806c718 100644
+index e0cde6c..080f134 100644
 --- a/include/pluginlib/class_loader_imp.hpp
 +++ b/include/pluginlib/class_loader_imp.hpp
 @@ -62,10 +62,15 @@ const std::string os_pathsep(";");  // NOLINT
@@ -24,21 +24,22 @@ index e26706d..806c718 100644
    /***************************************************************************/
  {
 -  ROS_DEBUG_NAMED("pluginlib.ClassLoader", "Creating ClassLoader, base = %s, address = %p",
--    base_class.c_str(), this);
+-    base_class.c_str(), static_cast<void *>(this));
 +  ROS_DEBUG_STREAM_NAMED("pluginlib.ClassLoader",
-+    "Creating ClassLoader, base = " << base_class.c_str() << ", address = " << this);
++    "Creating ClassLoader, base = " << base_class.c_str() << ", address = " << static_cast<void *>(this));
    if (ros::package::getPath(package_).empty()) {
      throw pluginlib::ClassLoaderException("Unable to find package: " + package_);
    }
-@@ -89,13 +94,12 @@ ClassLoader<T>::ClassLoader(
+@@ -89,13 +94,13 @@ ClassLoader<T>::ClassLoader(
      plugin_xml_paths_ = getPluginXmlPaths(package_, attrib_name_);
    }
    classes_available_ = determineAvailableClasses(plugin_xml_paths_);
 -  ROS_DEBUG_NAMED("pluginlib.ClassLoader",
 -    "Finished constructring ClassLoader, base = %s, address = %p",
--    base_class.c_str(), this);
+-    base_class.c_str(), static_cast<void *>(this));
 +  ROS_DEBUG_STREAM_NAMED("pluginlib.ClassLoader",
-+    "Finished constructring ClassLoader, base = " << base_class.c_str() << ", address = " << this);
++    "Finished constructring ClassLoader, base = "
++    << base_class.c_str() << ", address = " << static_cast<void *>(this));
  }
  
  template<class T>
@@ -47,7 +48,7 @@ index e26706d..806c718 100644
  /***************************************************************************/
  {
    ROS_DEBUG_NAMED("pluginlib.ClassLoader", "Destroying ClassLoader, base = %s, address = %p",
-@@ -104,7 +108,7 @@ ClassLoader<T>::~ClassLoader()
+@@ -104,7 +109,7 @@ ClassLoader<T>::~ClassLoader()
  
  
  template<class T>
@@ -56,13 +57,13 @@ index e26706d..806c718 100644
  /***************************************************************************/
  {
    // Note: This method is deprecated
-@@ -121,87 +125,87 @@ T * ClassLoader<T>::createClassInstance(const std::string & lookup_name, bool au
+@@ -121,87 +126,87 @@ T * ClassLoader<T>::createClassInstance(const std::string & lookup_name, bool au
    try {
      ROS_DEBUG_NAMED("pluginlib.ClassLoader",
        "Attempting to create instance through low-level MultiLibraryClassLoader...");
 -    T * obj = lowlevel_class_loader_.createUnmanagedInstance<T>(getClassType(lookup_name));
 +    const T * obj = lowlevel_class_loader_.createUnmanagedInstance<T>(getClassType(lookup_name));
-     ROS_DEBUG_NAMED("pluginlib.ClassLoader", "Instance created with object pointer = %p", obj);
+     ROS_DEBUG_NAMED("pluginlib.ClassLoader", "Instance created with object pointer = %p", static_cast<void *>(obj));
  
      return obj;
    } catch (const class_loader::CreateClassException & ex) {
@@ -174,7 +175,7 @@ index e26706d..806c718 100644
  
    if (!isClassLoaded(lookup_name)) {
      loadLibraryForClass(lookup_name);
-@@ -211,23 +215,22 @@ T * ClassLoader<T>::createUnmanagedInstance(const std::string & lookup_name)
+@@ -211,23 +216,22 @@ T * ClassLoader<T>::createUnmanagedInstance(const std::string & lookup_name)
    try {
      ROS_DEBUG_NAMED("pluginlib.ClassLoader",
        "Attempting to create instance through low level multi-library class loader.");
@@ -205,7 +206,7 @@ index e26706d..806c718 100644
    const std::string & package,
    const std::string & attrib_name,
    bool force_recrawl)
-@@ -240,7 +243,7 @@ std::vector<std::string> ClassLoader<T>::getPluginXmlPaths(
+@@ -240,7 +244,7 @@ std::vector<std::string> ClassLoader<T>::getPluginXmlPaths(
  }
  
  template<class T>
@@ -214,7 +215,7 @@ index e26706d..806c718 100644
    const std::vector<std::string> & plugin_xml_paths)
  /***************************************************************************/
  {
-@@ -259,9 +262,9 @@ std::map<std::string, ClassDesc> ClassLoader<T>::determineAvailableClasses(
+@@ -259,9 +263,9 @@ std::map<std::string, ClassDesc> ClassLoader<T>::determineAvailableClasses(
      try {
        processSingleXMLPluginFile(*it, classes_available);
      } catch (const pluginlib::InvalidXMLException & e) {
@@ -227,7 +228,7 @@ index e26706d..806c718 100644
      }
    }
  
-@@ -270,36 +273,34 @@ std::map<std::string, ClassDesc> ClassLoader<T>::determineAvailableClasses(
+@@ -270,36 +274,34 @@ std::map<std::string, ClassDesc> ClassLoader<T>::determineAvailableClasses(
  }
  
  template<class T>
@@ -276,7 +277,7 @@ index e26706d..806c718 100644
      return "";
    }
  
-@@ -307,7 +308,7 @@ std::string ClassLoader<T>::extractPackageNameFromPackageXML(const std::string &
+@@ -307,7 +309,7 @@ std::string ClassLoader<T>::extractPackageNameFromPackageXML(const std::string &
  }
  
  template<class T>
@@ -285,7 +286,7 @@ index e26706d..806c718 100644
  /***************************************************************************/
  {
    std::vector<std::string> lib_paths;
-@@ -330,7 +331,7 @@ std::vector<std::string> ClassLoader<T>::getCatkinLibraryPaths()
+@@ -330,7 +332,7 @@ std::vector<std::string> ClassLoader<T>::getCatkinLibraryPaths()
  }
  
  template<class T>
@@ -294,7 +295,7 @@ index e26706d..806c718 100644
    const std::string & library_name,
    const std::string & exporting_package_name)
  /***************************************************************************/
-@@ -345,16 +346,16 @@ std::vector<std::string> ClassLoader<T>::getAllLibraryPathsToTry(
+@@ -345,16 +347,16 @@ std::vector<std::string> ClassLoader<T>::getAllLibraryPathsToTry(
    std::vector<std::string> all_paths;
    std::vector<std::string> all_paths_without_extension = getCatkinLibraryPaths();
    all_paths_without_extension.push_back(getROSBuildLibraryPath(exporting_package_name));
@@ -315,7 +316,7 @@ index e26706d..806c718 100644
  
    const std::string path_separator = getPathSeparator();
  
-@@ -376,21 +377,21 @@ std::vector<std::string> ClassLoader<T>::getAllLibraryPathsToTry(
+@@ -376,21 +378,21 @@ std::vector<std::string> ClassLoader<T>::getAllLibraryPathsToTry(
  }
  
  template<class T>
@@ -340,7 +341,7 @@ index e26706d..806c718 100644
  /***************************************************************************/
  {
    ClassMapIterator it = classes_available_.find(lookup_name);
-@@ -401,7 +402,7 @@ std::string ClassLoader<T>::getClassDescription(const std::string & lookup_name)
+@@ -401,7 +403,7 @@ std::string ClassLoader<T>::getClassDescription(const std::string & lookup_name)
  }
  
  template<class T>
@@ -349,7 +350,7 @@ index e26706d..806c718 100644
  /***************************************************************************/
  {
    ClassMapIterator it = classes_available_.find(lookup_name);
-@@ -412,34 +413,33 @@ std::string ClassLoader<T>::getClassType(const std::string & lookup_name)
+@@ -412,34 +414,33 @@ std::string ClassLoader<T>::getClassType(const std::string & lookup_name)
  }
  
  template<class T>
@@ -394,7 +395,7 @@ index e26706d..806c718 100644
          return *it;
        }
      }
-@@ -448,7 +448,7 @@ std::string ClassLoader<T>::getClassLibraryPath(const std::string & lookup_name)
+@@ -448,7 +449,7 @@ std::string ClassLoader<T>::getClassLibraryPath(const std::string & lookup_name)
  }
  
  template<class T>
@@ -403,7 +404,7 @@ index e26706d..806c718 100644
  /***************************************************************************/
  {
    ClassMapIterator it = classes_available_.find(lookup_name);
-@@ -459,14 +459,14 @@ std::string ClassLoader<T>::getClassPackage(const std::string & lookup_name)
+@@ -459,14 +460,14 @@ std::string ClassLoader<T>::getClassPackage(const std::string & lookup_name)
  }
  
  template<class T>
@@ -420,7 +421,7 @@ index e26706d..806c718 100644
  /***************************************************************************/
  {
    std::vector<std::string> lookup_names;
-@@ -478,11 +478,11 @@ std::vector<std::string> ClassLoader<T>::getDeclaredClasses()
+@@ -478,11 +479,11 @@ std::vector<std::string> ClassLoader<T>::getDeclaredClasses()
  }
  
  template<class T>
@@ -434,7 +435,7 @@ index e26706d..806c718 100644
    for (unsigned int i = 0; i < types.size(); i++) {
      declared_types = declared_types + std::string(" ") + types[i];
    }
-@@ -492,7 +492,7 @@ std::string ClassLoader<T>::getErrorStringForUnknownClass(const std::string & lo
+@@ -492,7 +493,7 @@ std::string ClassLoader<T>::getErrorStringForUnknownClass(const std::string & lo
  }
  
  template<class T>
@@ -443,7 +444,7 @@ index e26706d..806c718 100644
  /***************************************************************************/
  {
    // remove the package name to get the raw plugin name
-@@ -503,7 +503,7 @@ std::string ClassLoader<T>::getName(const std::string & lookup_name)
+@@ -503,7 +504,7 @@ std::string ClassLoader<T>::getName(const std::string & lookup_name)
  
  template<class T>
  std::string
@@ -452,7 +453,7 @@ index e26706d..806c718 100644
  /***************************************************************************/
  {
    // Note: This method takes an input a path to a plugin xml file and must determine which
-@@ -522,21 +522,21 @@ ClassLoader<T>::getPackageFromPluginXMLFilePath(const std::string & plugin_xml_f
+@@ -522,21 +523,21 @@ ClassLoader<T>::getPackageFromPluginXMLFilePath(const std::string & plugin_xml_f
    // 2. Extract name of package from package.xml
  
    std::string package_name;
@@ -479,7 +480,7 @@ index e26706d..806c718 100644
  
        // package_path is a substr of passed plugin xml path
        if (0 == plugin_xml_file_path.find(package_path)) {
-@@ -558,7 +558,7 @@ ClassLoader<T>::getPackageFromPluginXMLFilePath(const std::string & plugin_xml_f
+@@ -558,7 +559,7 @@ ClassLoader<T>::getPackageFromPluginXMLFilePath(const std::string & plugin_xml_f
  }
  
  template<class T>
@@ -488,7 +489,7 @@ index e26706d..806c718 100644
  /***************************************************************************/
  {
  #if BOOST_FILESYSTEM_VERSION >= 3
-@@ -574,7 +574,7 @@ std::string ClassLoader<T>::getPathSeparator()
+@@ -574,7 +575,7 @@ std::string ClassLoader<T>::getPathSeparator()
  
  
  template<class T>
@@ -497,7 +498,7 @@ index e26706d..806c718 100644
  /***************************************************************************/
  {
    ClassMapIterator it = classes_available_.find(lookup_name);
-@@ -586,49 +586,47 @@ std::string ClassLoader<T>::getPluginManifestPath(const std::string & lookup_nam
+@@ -586,49 +587,47 @@ std::string ClassLoader<T>::getPluginManifestPath(const std::string & lookup_nam
  
  
  template<class T>
@@ -556,7 +557,7 @@ index e26706d..806c718 100644
      std::ostringstream error_msg;
      error_msg << "Could not find library corresponding to plugin " << lookup_name <<
        ". Make sure the plugin description XML file has the correct name of the "
-@@ -640,7 +638,7 @@ void ClassLoader<T>::loadLibraryForClass(const std::string & lookup_name)
+@@ -640,7 +639,7 @@ void ClassLoader<T>::loadLibraryForClass(const std::string & lookup_name)
      lowlevel_class_loader_.loadLibrary(library_path);
      it->second.resolved_library_path_ = library_path;
    } catch (const class_loader::LibraryLoadException & ex) {
@@ -565,7 +566,7 @@ index e26706d..806c718 100644
        "Failed to load library " + library_path + ". "
        "Make sure that you are calling the PLUGINLIB_EXPORT_CLASS macro in the "
        "library code, and that names are consistent between this macro and your XML. "
-@@ -650,15 +648,15 @@ void ClassLoader<T>::loadLibraryForClass(const std::string & lookup_name)
+@@ -650,15 +649,15 @@ void ClassLoader<T>::loadLibraryForClass(const std::string & lookup_name)
  }
  
  template<class T>
@@ -584,7 +585,7 @@ index e26706d..806c718 100644
    if (NULL == config) {
      throw pluginlib::InvalidXMLException(
              "XML Document '" + xml_file +
-@@ -685,31 +683,30 @@ void ClassLoader<T>::processSingleXMLPluginFile(
+@@ -685,31 +684,30 @@ void ClassLoader<T>::processSingleXMLPluginFile(
      config = config->FirstChildElement("library");
    }
  
@@ -627,7 +628,7 @@ index e26706d..806c718 100644
      while (class_element) {
        std::string derived_class;
        if (class_element->Attribute("type") != NULL) {
-@@ -730,21 +727,20 @@ void ClassLoader<T>::processSingleXMLPluginFile(
+@@ -730,21 +728,20 @@ void ClassLoader<T>::processSingleXMLPluginFile(
        std::string lookup_name;
        if (class_element->Attribute("name") != NULL) {
          lookup_name = class_element->Attribute("name");
@@ -656,7 +657,7 @@ index e26706d..806c718 100644
          std::string description_str;
          if (description) {
            description_str = description->GetText() ? description->GetText() : "";
-@@ -765,7 +761,7 @@ void ClassLoader<T>::processSingleXMLPluginFile(
+@@ -765,7 +762,7 @@ void ClassLoader<T>::processSingleXMLPluginFile(
  }
  
  template<class T>
@@ -665,7 +666,7 @@ index e26706d..806c718 100644
  /***************************************************************************/
  {
    ROS_DEBUG_NAMED("pluginlib.ClassLoader", "Refreshing declared classes.");
-@@ -788,7 +784,7 @@ void ClassLoader<T>::refreshDeclaredClasses()
+@@ -788,7 +785,7 @@ void ClassLoader<T>::refreshDeclaredClasses()
  
    // add new classes
    plugin_xml_paths_ = getPluginXmlPaths(package_, attrib_name_, true);
@@ -674,7 +675,7 @@ index e26706d..806c718 100644
    for (std::map<std::string, ClassDesc>::const_iterator it = updated_classes.begin();
      it != updated_classes.end(); it++)
    {
-@@ -799,11 +795,10 @@ void ClassLoader<T>::refreshDeclaredClasses()
+@@ -799,11 +796,10 @@ void ClassLoader<T>::refreshDeclaredClasses()
  }
  
  template<class T>
@@ -688,7 +689,7 @@ index e26706d..806c718 100644
    if (std::string::npos == c) {
      return path;
    } else {
-@@ -812,14 +807,14 @@ std::string ClassLoader<T>::stripAllButFileFromPath(const std::string & path)
+@@ -812,14 +808,14 @@ std::string ClassLoader<T>::stripAllButFileFromPath(const std::string & path)
  }
  
  template<class T>
@@ -707,7 +708,7 @@ index e26706d..806c718 100644
      return unloadClassLibraryInternal(library_path);
    } else {
      throw pluginlib::LibraryUnloadException(getErrorStringForUnknownClass(lookup_name));
-@@ -827,7 +822,7 @@ int ClassLoader<T>::unloadLibraryForClass(const std::string & lookup_name)
+@@ -827,7 +823,7 @@ int ClassLoader<T>::unloadLibraryForClass(const std::string & lookup_name)
  }
  
  template<class T>
