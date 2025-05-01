@@ -1,6 +1,6 @@
 pkgname=ros-noetic-tf2-sensor-msgs
 _pkgname=tf2_sensor_msgs
-pkgver=0.7.8
+pkgver=0.7.9
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/tf2_ros"
@@ -30,7 +30,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: tf2_sensor_msgs
     uri: https://github.com/ros-gbp/geometry2-release.git
-    version: release/noetic/tf2_sensor_msgs/0.7.8-1
+    version: release/noetic/tf2_sensor_msgs/0.7.9-1
 "
 
 prepare() {

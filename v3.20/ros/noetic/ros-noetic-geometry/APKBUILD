@@ -1,6 +1,6 @@
 pkgname=ros-noetic-geometry
 _pkgname=geometry
-pkgver=1.13.3
+pkgver=1.13.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/geometry"
@@ -30,7 +30,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: geometry
     uri: https://github.com/ros-gbp/geometry-release.git
-    version: release/noetic/geometry/1.13.3-1
+    version: release/noetic/geometry/1.13.4-1
 "
 
 prepare() {
