@@ -1,6 +1,6 @@
 pkgname=ros-noetic-urdf
 _pkgname=urdf
-pkgver=1.13.3
+pkgver=1.13.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/urdf"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: urdf
     uri: https://github.com/ros-gbp/urdf-release.git
-    version: release/noetic/urdf/1.13.3-1
+    version: release/noetic/urdf/1.13.4-1
 "
 
 prepare() {
