@@ -1,14 +1,14 @@
 pkgname=ros-humble-camera-calibration
 _pkgname=camera_calibration
-pkgver=3.0.7
+pkgver=3.0.8
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/camera_calibration/github-ros-perception-image_pipeline/"
 arch="all"
 license="BSD"
 
-depends="ros-humble-cv-bridge ros-humble-image-geometry ros-humble-message-filters ros-humble-rclpy ros-humble-ros-workspace ros-humble-sensor-msgs ros-humble-std-srvs ros-humble-cv-bridge ros-humble-image-geometry ros-humble-message-filters ros-humble-rclpy ros-humble-sensor-msgs ros-humble-std-srvs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-pytest py3-pytest py3-requests ros-humble-ament-copyright ros-humble-ament-flake8 ros-humble-ament-pep257 ros-humble-cv-bridge ros-humble-image-geometry ros-humble-message-filters ros-humble-rclpy ros-humble-sensor-msgs ros-humble-std-srvs"
+depends="py3-semver ros-humble-cv-bridge ros-humble-image-geometry ros-humble-message-filters ros-humble-rclpy ros-humble-ros-workspace ros-humble-sensor-msgs ros-humble-std-srvs py3-semver ros-humble-cv-bridge ros-humble-image-geometry ros-humble-message-filters ros-humble-rclpy ros-humble-sensor-msgs ros-humble-std-srvs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-pytest py3-pytest py3-requests py3-semver ros-humble-ament-copyright ros-humble-ament-flake8 ros-humble-ament-pep257 ros-humble-cv-bridge ros-humble-image-geometry ros-humble-message-filters ros-humble-rclpy ros-humble-sensor-msgs ros-humble-std-srvs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: camera_calibration
     uri: https://github.com/ros2-gbp/image_pipeline-release.git
-    version: release/humble/camera_calibration/3.0.7-1
+    version: release/humble/camera_calibration/3.0.8-1
 "
 
 prepare() {
