@@ -1,7 +1,7 @@
 pkgname=ros-noetic-bondpy
 _pkgname=bondpy
-pkgver=1.8.6
-pkgrel=2
+pkgver=1.8.7
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/bondpy"
 arch="all"
@@ -30,7 +30,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: bondpy
     uri: https://github.com/ros-gbp/bond_core-release.git
-    version: release/noetic/bondpy/1.8.6-1
+    version: release/noetic/bondpy/1.8.7-1
 "
 
 prepare() {

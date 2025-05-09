@@ -1,6 +1,6 @@
 pkgname=ros-noetic-tf2-eigen
 _pkgname=tf2_eigen
-pkgver=0.7.8
+pkgver=0.7.10
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/$_pkgname"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: tf2_eigen
     uri: https://github.com/ros-gbp/geometry2-release.git
-    version: release/noetic/tf2_eigen/0.7.8-1
+    version: release/noetic/tf2_eigen/0.7.10-1
 "
 
 prepare() {
