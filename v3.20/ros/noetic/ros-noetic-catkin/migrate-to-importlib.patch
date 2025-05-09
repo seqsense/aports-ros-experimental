@@ -131,10 +131,10 @@ index ce09e99..98430ad 100644
  from order_paths import order_paths  # noqa: E402
  
 diff --git a/test/unit_tests/test_parse_package_xml.py b/test/unit_tests/test_parse_package_xml.py
-index b65885f..9a12706 100644
+index c042ee2..ead1067 100644
 --- a/test/unit_tests/test_parse_package_xml.py
 +++ b/test/unit_tests/test_parse_package_xml.py
-@@ -1,14 +1,14 @@
+@@ -1,17 +1,17 @@
 -import imp
  import os
  import shutil
@@ -142,7 +142,10 @@ index b65885f..9a12706 100644
  import unittest
  
 +from .imp import load_source
- from mock import Mock
+ try:
+     from unittest.mock import Mock
+ except ImportError:
+     from mock import Mock
  
 -imp.load_source('parse_package_xml',
 -                os.path.join(os.path.dirname(__file__),
