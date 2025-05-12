@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-tf2-tools
 _pkgname=tf2_tools
-pkgver=0.36.9
+pkgver=0.36.10
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://www.ros.org/wiki/tf2_tools"
@@ -8,9 +8,10 @@ arch="all"
 license="BSD"
 
 depends="graphviz py3-yaml ros-jazzy-rclpy ros-jazzy-ros-workspace ros-jazzy-tf2-msgs ros-jazzy-tf2-py ros-jazzy-tf2-ros-py"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-pytest py3-pytest7 ros-jazzy-ament-copyright ros-jazzy-ament-flake8 ros-jazzy-ament-pep257"
+makedepends="chrpath py3-pytest py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-copyright ros-jazzy-ament-copyright-dev ros-jazzy-ament-flake8 ros-jazzy-ament-flake8-dev ros-jazzy-ament-pep257 ros-jazzy-ament-pep257-dev ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev ros-jazzy-tf2-msgs-dev ros-jazzy-tf2-py-dev ros-jazzy-tf2-ros-py-dev"
+depends_dev="ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev ros-jazzy-tf2-msgs-dev ros-jazzy-tf2-py-dev ros-jazzy-tf2-ros-py-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: tf2_tools
     uri: https://github.com/ros2-gbp/geometry2-release.git
-    version: release/jazzy/tf2_tools/0.36.9-1
+    version: release/jazzy/tf2_tools/0.36.10-1
 "
 
 prepare() {
@@ -262,6 +263,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

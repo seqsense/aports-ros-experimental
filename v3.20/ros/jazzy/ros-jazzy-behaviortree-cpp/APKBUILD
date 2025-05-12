@@ -1,16 +1,17 @@
 pkgname=ros-jazzy-behaviortree-cpp
 _pkgname=behaviortree_cpp
-pkgver=4.6.2
+pkgver=4.7.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="MIT"
 
-depends="ros-jazzy-ament-index-cpp ros-jazzy-rclcpp ros-jazzy-ros-workspace sqlite-dev zeromq-dev ros-jazzy-ament-index-cpp ros-jazzy-rclcpp sqlite-dev zeromq-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-jazzy-ament-cmake ros-jazzy-ament-cmake-gtest ros-jazzy-ament-index-cpp ros-jazzy-rclcpp ros-jazzy-ros-environment sqlite-dev zeromq-dev"
+depends="ros-jazzy-ament-index-cpp ros-jazzy-rclcpp ros-jazzy-ros-workspace"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake ros-jazzy-ament-cmake-dev ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-gtest-dev ros-jazzy-ament-index-cpp ros-jazzy-ament-index-cpp-dev ros-jazzy-rclcpp ros-jazzy-rclcpp-dev ros-jazzy-ros-environment ros-jazzy-ros-environment-dev ros-jazzy-ros-workspace-dev sqlite-dev zeromq-dev"
+depends_dev="ros-jazzy-ament-index-cpp ros-jazzy-ament-index-cpp-dev ros-jazzy-rclcpp ros-jazzy-rclcpp-dev ros-jazzy-ros-workspace-dev sqlite-dev zeromq-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: behaviortree_cpp
     uri: https://github.com/ros2-gbp/behaviortree_cpp_v4-release.git
-    version: release/jazzy/behaviortree_cpp/4.6.2-1
+    version: release/jazzy/behaviortree_cpp/4.7.0-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then
