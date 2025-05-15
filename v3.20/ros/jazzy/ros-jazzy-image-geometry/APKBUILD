@@ -7,10 +7,11 @@ url="http://www.ros.org/wiki/image_geometry"
 arch="all"
 license="Apache License 2.0"
 
-depends="opencv-dev py3-deprecated ros-jazzy-ros-workspace ros-jazzy-sensor-msgs opencv-dev py3-deprecated ros-jazzy-sensor-msgs py3-opencv" 
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath opencv-dev py3-deprecated ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-pytest ros-jazzy-ament-cmake-python ros-jazzy-ament-cmake-ros ros-jazzy-sensor-msgs"
+depends="py3-deprecated ros-jazzy-ros-workspace ros-jazzy-sensor-msgs"
+makedepends="chrpath opencv-dev py3-deprecated py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-gtest-dev ros-jazzy-ament-cmake-pytest ros-jazzy-ament-cmake-pytest-dev ros-jazzy-ament-cmake-python ros-jazzy-ament-cmake-python-dev ros-jazzy-ament-cmake-ros ros-jazzy-ament-cmake-ros-dev ros-jazzy-ros-workspace-dev ros-jazzy-sensor-msgs ros-jazzy-sensor-msgs-dev"
+depends_dev="opencv-dev py3-deprecated ros-jazzy-ros-workspace-dev ros-jazzy-sensor-msgs ros-jazzy-sensor-msgs-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then
