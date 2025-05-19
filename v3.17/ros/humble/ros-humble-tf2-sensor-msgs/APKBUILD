@@ -1,14 +1,14 @@
 pkgname=ros-humble-tf2-sensor-msgs
 _pkgname=tf2_sensor_msgs
-pkgver=0.25.12
+pkgver=0.25.13
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="http://www.ros.org/wiki/tf2_ros"
 arch="all"
 license="BSD"
 
-depends="ros-humble-ros-workspace ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-ros ros-humble-tf2-ros-py eigen-dev ros-humble-eigen3-cmake-module ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-ros"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev ros-humble-ament-cmake-auto ros-humble-ament-cmake-gtest ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-eigen3-cmake-module ros-humble-rclcpp ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-ros"
+depends="py3-numpy py3-numpy-dev ros-humble-geometry-msgs ros-humble-ros-workspace ros-humble-sensor-msgs ros-humble-sensor-msgs-py ros-humble-std-msgs ros-humble-tf2 ros-humble-tf2-ros ros-humble-tf2-ros-py eigen-dev ros-humble-eigen3-cmake-module ros-humble-geometry-msgs ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-ros"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev ros-humble-ament-cmake-auto ros-humble-ament-cmake-gtest ros-humble-ament-cmake-pytest ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-eigen3-cmake-module ros-humble-geometry-msgs ros-humble-rclcpp ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-ros"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: tf2_sensor_msgs
     uri: https://github.com/ros2-gbp/geometry2-release.git
-    version: release/humble/tf2_sensor_msgs/0.25.12-1
+    version: release/humble/tf2_sensor_msgs/0.25.13-1
 "
 
 prepare() {
