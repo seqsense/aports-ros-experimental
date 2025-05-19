@@ -7,10 +7,11 @@ url="http://ros.org/wiki/laser_filters"
 arch="all"
 license="BSD"
 
-depends="ros-jazzy-angles ros-jazzy-filters ros-jazzy-laser-geometry ros-jazzy-message-filters ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rclcpp-lifecycle ros-jazzy-ros-workspace ros-jazzy-sensor-msgs ros-jazzy-tf2 ros-jazzy-tf2-geometry-msgs ros-jazzy-tf2-kdl ros-jazzy-tf2-ros ros-jazzy-angles ros-jazzy-filters ros-jazzy-laser-geometry ros-jazzy-message-filters ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rclcpp-lifecycle ros-jazzy-sensor-msgs ros-jazzy-tf2 ros-jazzy-tf2-geometry-msgs ros-jazzy-tf2-kdl ros-jazzy-tf2-ros"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-jazzy-ament-cmake-auto ros-jazzy-ament-cmake-gtest ros-jazzy-angles ros-jazzy-filters ros-jazzy-laser-geometry ros-jazzy-launch-testing-ament-cmake ros-jazzy-message-filters ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rclcpp-lifecycle ros-jazzy-sensor-msgs ros-jazzy-tf2 ros-jazzy-tf2-geometry-msgs ros-jazzy-tf2-kdl ros-jazzy-tf2-ros ros-jazzy-launch-ros"
+depends="ros-jazzy-angles ros-jazzy-filters ros-jazzy-laser-geometry ros-jazzy-message-filters ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rclcpp-lifecycle ros-jazzy-ros-workspace ros-jazzy-sensor-msgs ros-jazzy-tf2 ros-jazzy-tf2-geometry-msgs ros-jazzy-tf2-kdl ros-jazzy-tf2-ros"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake-auto ros-jazzy-ament-cmake-auto-dev ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-gtest-dev ros-jazzy-angles ros-jazzy-angles-dev ros-jazzy-filters ros-jazzy-filters-dev ros-jazzy-laser-geometry ros-jazzy-laser-geometry-dev ros-jazzy-launch-testing-ament-cmake ros-jazzy-launch-testing-ament-cmake-dev ros-jazzy-message-filters ros-jazzy-message-filters-dev ros-jazzy-pluginlib ros-jazzy-pluginlib-dev ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rclcpp-components-dev ros-jazzy-rclcpp-dev ros-jazzy-rclcpp-lifecycle ros-jazzy-rclcpp-lifecycle-dev ros-jazzy-ros-workspace-dev ros-jazzy-sensor-msgs ros-jazzy-sensor-msgs-dev ros-jazzy-tf2 ros-jazzy-tf2-dev ros-jazzy-tf2-geometry-msgs ros-jazzy-tf2-geometry-msgs-dev ros-jazzy-tf2-kdl ros-jazzy-tf2-kdl-dev ros-jazzy-tf2-ros ros-jazzy-tf2-ros-dev"
+depends_dev="ros-jazzy-angles ros-jazzy-angles-dev ros-jazzy-filters ros-jazzy-filters-dev ros-jazzy-laser-geometry ros-jazzy-laser-geometry-dev ros-jazzy-message-filters ros-jazzy-message-filters-dev ros-jazzy-pluginlib ros-jazzy-pluginlib-dev ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rclcpp-components-dev ros-jazzy-rclcpp-dev ros-jazzy-rclcpp-lifecycle ros-jazzy-rclcpp-lifecycle-dev ros-jazzy-ros-workspace-dev ros-jazzy-sensor-msgs ros-jazzy-sensor-msgs-dev ros-jazzy-tf2 ros-jazzy-tf2-dev ros-jazzy-tf2-geometry-msgs ros-jazzy-tf2-geometry-msgs-dev ros-jazzy-tf2-kdl ros-jazzy-tf2-kdl-dev ros-jazzy-tf2-ros ros-jazzy-tf2-ros-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

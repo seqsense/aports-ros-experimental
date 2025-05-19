@@ -1,16 +1,17 @@
 pkgname=ros-jazzy-ompl
 _pkgname=ompl
-pkgver=1.6.0
+pkgver=1.7.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://ompl.kavrakilab.org"
 arch="all"
 license="BSD"
 
-depends="boost-dev eigen-dev flann-dev ode ros-jazzy-ros-workspace"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev cmake eigen-dev flann-dev ode pkgconf"
+depends="ros-jazzy-ros-workspace"
+makedepends="boost-dev chrpath cmake eigen-dev flann-dev pkgconf py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ros-workspace-dev"
+depends_dev="boost-dev eigen-dev flann-dev ros-jazzy-ros-workspace-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: ompl
     uri: https://github.com/ros2-gbp/ompl-release.git
-    version: release/jazzy/ompl/1.6.0-1
+    version: release/jazzy/ompl/1.7.0-2
 "
 
 prepare() {
@@ -243,6 +244,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then
