@@ -8,9 +8,10 @@ arch="all"
 license="Apache License 2.0"
 
 depends="ros-jazzy-action-tutorials-cpp ros-jazzy-action-tutorials-interfaces ros-jazzy-action-tutorials-py ros-jazzy-angles ros-jazzy-composition ros-jazzy-demo-nodes-cpp ros-jazzy-demo-nodes-cpp-native ros-jazzy-demo-nodes-py ros-jazzy-depthimage-to-laserscan ros-jazzy-dummy-map-server ros-jazzy-dummy-robot-bringup ros-jazzy-dummy-sensors ros-jazzy-examples-rclcpp-minimal-action-client ros-jazzy-examples-rclcpp-minimal-action-server ros-jazzy-examples-rclcpp-minimal-client ros-jazzy-examples-rclcpp-minimal-composition ros-jazzy-examples-rclcpp-minimal-publisher ros-jazzy-examples-rclcpp-minimal-service ros-jazzy-examples-rclcpp-minimal-subscriber ros-jazzy-examples-rclcpp-minimal-timer ros-jazzy-examples-rclcpp-multithreaded-executor ros-jazzy-examples-rclpy-executors ros-jazzy-examples-rclpy-minimal-action-client ros-jazzy-examples-rclpy-minimal-action-server ros-jazzy-examples-rclpy-minimal-client ros-jazzy-examples-rclpy-minimal-publisher ros-jazzy-examples-rclpy-minimal-service ros-jazzy-examples-rclpy-minimal-subscriber ros-jazzy-image-tools ros-jazzy-intra-process-demo ros-jazzy-joy ros-jazzy-lifecycle ros-jazzy-logging-demo ros-jazzy-pcl-conversions ros-jazzy-pendulum-control ros-jazzy-pendulum-msgs ros-jazzy-quality-of-service-demo-cpp ros-jazzy-quality-of-service-demo-py ros-jazzy-ros-base ros-jazzy-ros-workspace ros-jazzy-rqt-common-plugins ros-jazzy-rviz-default-plugins ros-jazzy-rviz2 ros-jazzy-teleop-twist-joy ros-jazzy-teleop-twist-keyboard ros-jazzy-tlsf ros-jazzy-tlsf-cpp ros-jazzy-topic-monitor ros-jazzy-turtlesim"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-jazzy-ament-cmake"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-action-tutorials-cpp-dev ros-jazzy-action-tutorials-interfaces-dev ros-jazzy-action-tutorials-py-dev ros-jazzy-ament-cmake ros-jazzy-ament-cmake-dev ros-jazzy-angles-dev ros-jazzy-composition-dev ros-jazzy-demo-nodes-cpp-dev ros-jazzy-demo-nodes-cpp-native-dev ros-jazzy-demo-nodes-py-dev ros-jazzy-depthimage-to-laserscan-dev ros-jazzy-dummy-map-server-dev ros-jazzy-dummy-robot-bringup-dev ros-jazzy-dummy-sensors-dev ros-jazzy-examples-rclcpp-minimal-action-client-dev ros-jazzy-examples-rclcpp-minimal-action-server-dev ros-jazzy-examples-rclcpp-minimal-client-dev ros-jazzy-examples-rclcpp-minimal-composition-dev ros-jazzy-examples-rclcpp-minimal-publisher-dev ros-jazzy-examples-rclcpp-minimal-service-dev ros-jazzy-examples-rclcpp-minimal-subscriber-dev ros-jazzy-examples-rclcpp-minimal-timer-dev ros-jazzy-examples-rclcpp-multithreaded-executor-dev ros-jazzy-examples-rclpy-executors-dev ros-jazzy-examples-rclpy-minimal-action-client-dev ros-jazzy-examples-rclpy-minimal-action-server-dev ros-jazzy-examples-rclpy-minimal-client-dev ros-jazzy-examples-rclpy-minimal-publisher-dev ros-jazzy-examples-rclpy-minimal-service-dev ros-jazzy-examples-rclpy-minimal-subscriber-dev ros-jazzy-image-tools-dev ros-jazzy-intra-process-demo-dev ros-jazzy-joy-dev ros-jazzy-lifecycle-dev ros-jazzy-logging-demo-dev ros-jazzy-pcl-conversions-dev ros-jazzy-pendulum-control-dev ros-jazzy-pendulum-msgs-dev ros-jazzy-quality-of-service-demo-cpp-dev ros-jazzy-quality-of-service-demo-py-dev ros-jazzy-ros-base-dev ros-jazzy-ros-workspace-dev ros-jazzy-rqt-common-plugins-dev ros-jazzy-rviz-default-plugins-dev ros-jazzy-rviz2-dev ros-jazzy-teleop-twist-joy-dev ros-jazzy-teleop-twist-keyboard-dev ros-jazzy-tlsf-cpp-dev ros-jazzy-tlsf-dev ros-jazzy-topic-monitor-dev ros-jazzy-turtlesim-dev"
+depends_dev="ros-jazzy-action-tutorials-cpp-dev ros-jazzy-action-tutorials-interfaces-dev ros-jazzy-action-tutorials-py-dev ros-jazzy-angles-dev ros-jazzy-composition-dev ros-jazzy-demo-nodes-cpp-dev ros-jazzy-demo-nodes-cpp-native-dev ros-jazzy-demo-nodes-py-dev ros-jazzy-depthimage-to-laserscan-dev ros-jazzy-dummy-map-server-dev ros-jazzy-dummy-robot-bringup-dev ros-jazzy-dummy-sensors-dev ros-jazzy-examples-rclcpp-minimal-action-client-dev ros-jazzy-examples-rclcpp-minimal-action-server-dev ros-jazzy-examples-rclcpp-minimal-client-dev ros-jazzy-examples-rclcpp-minimal-composition-dev ros-jazzy-examples-rclcpp-minimal-publisher-dev ros-jazzy-examples-rclcpp-minimal-service-dev ros-jazzy-examples-rclcpp-minimal-subscriber-dev ros-jazzy-examples-rclcpp-minimal-timer-dev ros-jazzy-examples-rclcpp-multithreaded-executor-dev ros-jazzy-examples-rclpy-executors-dev ros-jazzy-examples-rclpy-minimal-action-client-dev ros-jazzy-examples-rclpy-minimal-action-server-dev ros-jazzy-examples-rclpy-minimal-client-dev ros-jazzy-examples-rclpy-minimal-publisher-dev ros-jazzy-examples-rclpy-minimal-service-dev ros-jazzy-examples-rclpy-minimal-subscriber-dev ros-jazzy-image-tools-dev ros-jazzy-intra-process-demo-dev ros-jazzy-joy-dev ros-jazzy-lifecycle-dev ros-jazzy-logging-demo-dev ros-jazzy-pcl-conversions-dev ros-jazzy-pendulum-control-dev ros-jazzy-pendulum-msgs-dev ros-jazzy-quality-of-service-demo-cpp-dev ros-jazzy-quality-of-service-demo-py-dev ros-jazzy-ros-base-dev ros-jazzy-ros-workspace-dev ros-jazzy-rqt-common-plugins-dev ros-jazzy-rviz-default-plugins-dev ros-jazzy-rviz2-dev ros-jazzy-teleop-twist-joy-dev ros-jazzy-teleop-twist-keyboard-dev ros-jazzy-tlsf-cpp-dev ros-jazzy-tlsf-dev ros-jazzy-topic-monitor-dev ros-jazzy-turtlesim-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

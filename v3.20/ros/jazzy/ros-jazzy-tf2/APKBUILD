@@ -1,16 +1,17 @@
 pkgname=ros-jazzy-tf2
 _pkgname=tf2
-pkgver=0.36.8
+pkgver=0.36.11
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://www.ros.org/wiki/tf2"
 arch="all"
 license="BSD"
 
-depends="ros-jazzy-builtin-interfaces ros-jazzy-geometry-msgs ros-jazzy-rcutils ros-jazzy-ros-workspace ros-jazzy-builtin-interfaces ros-jazzy-geometry-msgs ros-jazzy-rcutils ros-jazzy-rosidl-runtime-cpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-jazzy-ament-cmake ros-jazzy-ament-cmake-copyright ros-jazzy-ament-cmake-cppcheck ros-jazzy-ament-cmake-cpplint ros-jazzy-ament-cmake-google-benchmark ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-lint-cmake ros-jazzy-ament-cmake-ros ros-jazzy-ament-cmake-uncrustify ros-jazzy-ament-cmake-xmllint ros-jazzy-builtin-interfaces ros-jazzy-geometry-msgs ros-jazzy-rcutils ros-jazzy-rosidl-runtime-cpp"
+depends="ros-jazzy-builtin-interfaces ros-jazzy-geometry-msgs ros-jazzy-rcutils ros-jazzy-ros-workspace"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake ros-jazzy-ament-cmake-copyright ros-jazzy-ament-cmake-copyright-dev ros-jazzy-ament-cmake-cppcheck ros-jazzy-ament-cmake-cppcheck-dev ros-jazzy-ament-cmake-cpplint ros-jazzy-ament-cmake-cpplint-dev ros-jazzy-ament-cmake-dev ros-jazzy-ament-cmake-google-benchmark ros-jazzy-ament-cmake-google-benchmark-dev ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-gtest-dev ros-jazzy-ament-cmake-lint-cmake ros-jazzy-ament-cmake-lint-cmake-dev ros-jazzy-ament-cmake-ros ros-jazzy-ament-cmake-ros-dev ros-jazzy-ament-cmake-uncrustify ros-jazzy-ament-cmake-uncrustify-dev ros-jazzy-ament-cmake-xmllint ros-jazzy-ament-cmake-xmllint-dev ros-jazzy-builtin-interfaces ros-jazzy-builtin-interfaces-dev ros-jazzy-geometry-msgs ros-jazzy-geometry-msgs-dev ros-jazzy-rcutils ros-jazzy-rcutils-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosidl-runtime-cpp ros-jazzy-rosidl-runtime-cpp-dev"
+depends_dev="ros-jazzy-builtin-interfaces ros-jazzy-builtin-interfaces-dev ros-jazzy-geometry-msgs ros-jazzy-geometry-msgs-dev ros-jazzy-rcutils ros-jazzy-rcutils-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosidl-runtime-cpp ros-jazzy-rosidl-runtime-cpp-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: tf2
     uri: https://github.com/ros2-gbp/geometry2-release.git
-    version: release/jazzy/tf2/0.36.8-1
+    version: release/jazzy/tf2/0.36.11-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then
