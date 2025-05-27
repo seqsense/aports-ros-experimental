@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-examples-rclcpp-minimal-subscriber
 _pkgname=examples_rclcpp_minimal_subscriber
-pkgver=0.19.4
+pkgver=0.19.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -8,9 +8,10 @@ arch="all"
 license="Apache License 2.0"
 
 depends="ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-ros-workspace ros-jazzy-std-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-jazzy-ament-cmake ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-common ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-std-msgs"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake ros-jazzy-ament-cmake-dev ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-auto-dev ros-jazzy-ament-lint-common ros-jazzy-ament-lint-common-dev ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rclcpp-components-dev ros-jazzy-rclcpp-dev ros-jazzy-ros-workspace-dev ros-jazzy-std-msgs ros-jazzy-std-msgs-dev"
+depends_dev="ros-jazzy-rclcpp-components-dev ros-jazzy-rclcpp-dev ros-jazzy-ros-workspace-dev ros-jazzy-std-msgs-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: examples_rclcpp_minimal_subscriber
     uri: https://github.com/ros2-gbp/examples-release.git
-    version: release/jazzy/examples_rclcpp_minimal_subscriber/0.19.4-1
+    version: release/jazzy/examples_rclcpp_minimal_subscriber/0.19.5-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

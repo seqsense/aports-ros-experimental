@@ -7,10 +7,11 @@ url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="ros-jazzy-ros-workspace ros-jazzy-ament-cmake ros-jazzy-fastcdr ros-jazzy-fastrtps ros-jazzy-fastrtps-cmake-module ros-jazzy-rcpputils ros-jazzy-rcutils ros-jazzy-rmw ros-jazzy-rmw-dds-common ros-jazzy-rmw-fastrtps-shared-cpp ros-jazzy-rosidl-runtime-c ros-jazzy-rosidl-typesupport-introspection-c ros-jazzy-rosidl-typesupport-introspection-cpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-ros ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-common ros-jazzy-fastcdr ros-jazzy-fastrtps ros-jazzy-fastrtps-cmake-module ros-jazzy-osrf-testing-tools-cpp ros-jazzy-rcpputils ros-jazzy-rcutils ros-jazzy-rmw ros-jazzy-rmw-dds-common ros-jazzy-rmw-fastrtps-shared-cpp ros-jazzy-rosidl-runtime-c ros-jazzy-rosidl-typesupport-introspection-c ros-jazzy-rosidl-typesupport-introspection-cpp ros-jazzy-test-msgs"
+depends="ros-jazzy-ros-workspace"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake ros-jazzy-ament-cmake-dev ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-gtest-dev ros-jazzy-ament-cmake-ros ros-jazzy-ament-cmake-ros-dev ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-auto-dev ros-jazzy-ament-lint-common ros-jazzy-ament-lint-common-dev ros-jazzy-fastcdr ros-jazzy-fastcdr-dev ros-jazzy-fastrtps ros-jazzy-fastrtps-cmake-module ros-jazzy-fastrtps-cmake-module-dev ros-jazzy-fastrtps-dev ros-jazzy-osrf-testing-tools-cpp ros-jazzy-osrf-testing-tools-cpp-dev ros-jazzy-rcpputils ros-jazzy-rcpputils-dev ros-jazzy-rcutils ros-jazzy-rcutils-dev ros-jazzy-rmw ros-jazzy-rmw-dds-common ros-jazzy-rmw-dds-common-dev ros-jazzy-rmw-dev ros-jazzy-rmw-fastrtps-shared-cpp ros-jazzy-rmw-fastrtps-shared-cpp-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosidl-runtime-c ros-jazzy-rosidl-runtime-c-dev ros-jazzy-rosidl-typesupport-introspection-c ros-jazzy-rosidl-typesupport-introspection-c-dev ros-jazzy-rosidl-typesupport-introspection-cpp ros-jazzy-rosidl-typesupport-introspection-cpp-dev ros-jazzy-test-msgs ros-jazzy-test-msgs-dev"
+depends_dev="ros-jazzy-ament-cmake ros-jazzy-ament-cmake-dev ros-jazzy-fastcdr ros-jazzy-fastcdr-dev ros-jazzy-fastrtps ros-jazzy-fastrtps-cmake-module ros-jazzy-fastrtps-cmake-module-dev ros-jazzy-fastrtps-dev ros-jazzy-rcpputils ros-jazzy-rcpputils-dev ros-jazzy-rcutils ros-jazzy-rcutils-dev ros-jazzy-rmw ros-jazzy-rmw-dds-common ros-jazzy-rmw-dds-common-dev ros-jazzy-rmw-dev ros-jazzy-rmw-fastrtps-shared-cpp ros-jazzy-rmw-fastrtps-shared-cpp-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosidl-runtime-c ros-jazzy-rosidl-runtime-c-dev ros-jazzy-rosidl-typesupport-introspection-c ros-jazzy-rosidl-typesupport-introspection-c-dev ros-jazzy-rosidl-typesupport-introspection-cpp ros-jazzy-rosidl-typesupport-introspection-cpp-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

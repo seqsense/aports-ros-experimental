@@ -1,16 +1,17 @@
 pkgname=ros-jazzy-image-proc
 _pkgname=image_proc
-pkgver=5.0.9
-pkgrel=1
+pkgver=5.0.11
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/image_proc/github-ros-perception-image_pipeline/"
 arch="all"
 license="BSD"
 
-depends="opencv-dev ros-jazzy-camera-calibration-parsers ros-jazzy-cv-bridge ros-jazzy-geometry-msgs ros-jazzy-image-geometry ros-jazzy-image-transport ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rcutils ros-jazzy-ros-workspace ros-jazzy-sensor-msgs ros-jazzy-tf2 ros-jazzy-tf2-geometry-msgs ros-jazzy-tracetools-image-pipeline opencv-dev ros-jazzy-camera-calibration-parsers ros-jazzy-cv-bridge ros-jazzy-geometry-msgs ros-jazzy-image-geometry ros-jazzy-image-transport ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rcutils ros-jazzy-sensor-msgs ros-jazzy-tf2 ros-jazzy-tf2-geometry-msgs ros-jazzy-tracetools-image-pipeline"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath opencv-dev ros-jazzy-ament-cmake-auto ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-common ros-jazzy-camera-calibration-parsers ros-jazzy-cv-bridge ros-jazzy-geometry-msgs ros-jazzy-image-geometry ros-jazzy-image-transport ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rcutils ros-jazzy-sensor-msgs ros-jazzy-tf2 ros-jazzy-tf2-geometry-msgs ros-jazzy-tracetools-image-pipeline"
+depends="ros-jazzy-camera-calibration-parsers ros-jazzy-cv-bridge ros-jazzy-geometry-msgs ros-jazzy-image-geometry ros-jazzy-image-transport ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rcutils ros-jazzy-ros-workspace ros-jazzy-sensor-msgs ros-jazzy-tf2 ros-jazzy-tf2-geometry-msgs ros-jazzy-tracetools-image-pipeline"
+makedepends="chrpath opencv-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake-auto ros-jazzy-ament-cmake-auto-dev ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-auto-dev ros-jazzy-ament-lint-common ros-jazzy-ament-lint-common-dev ros-jazzy-camera-calibration-parsers ros-jazzy-camera-calibration-parsers-dev ros-jazzy-cv-bridge ros-jazzy-cv-bridge-dev ros-jazzy-geometry-msgs ros-jazzy-geometry-msgs-dev ros-jazzy-image-geometry ros-jazzy-image-geometry-dev ros-jazzy-image-transport ros-jazzy-image-transport-dev ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rclcpp-components-dev ros-jazzy-rclcpp-dev ros-jazzy-rcutils ros-jazzy-rcutils-dev ros-jazzy-ros-workspace-dev ros-jazzy-sensor-msgs ros-jazzy-sensor-msgs-dev ros-jazzy-tf2 ros-jazzy-tf2-dev ros-jazzy-tf2-geometry-msgs ros-jazzy-tf2-geometry-msgs-dev ros-jazzy-tracetools-image-pipeline ros-jazzy-tracetools-image-pipeline-dev"
+depends_dev="opencv-dev ros-jazzy-camera-calibration-parsers ros-jazzy-camera-calibration-parsers-dev ros-jazzy-cv-bridge ros-jazzy-cv-bridge-dev ros-jazzy-geometry-msgs ros-jazzy-geometry-msgs-dev ros-jazzy-image-geometry ros-jazzy-image-geometry-dev ros-jazzy-image-transport ros-jazzy-image-transport-dev ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rclcpp-components-dev ros-jazzy-rclcpp-dev ros-jazzy-rcutils ros-jazzy-rcutils-dev ros-jazzy-ros-workspace-dev ros-jazzy-sensor-msgs ros-jazzy-sensor-msgs-dev ros-jazzy-tf2 ros-jazzy-tf2-dev ros-jazzy-tf2-geometry-msgs ros-jazzy-tf2-geometry-msgs-dev ros-jazzy-tracetools-image-pipeline ros-jazzy-tracetools-image-pipeline-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: image_proc
     uri: https://github.com/ros2-gbp/image_pipeline-release.git
-    version: release/jazzy/image_proc/5.0.9-1
+    version: release/jazzy/image_proc/5.0.11-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

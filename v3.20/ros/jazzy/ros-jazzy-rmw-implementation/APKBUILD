@@ -1,16 +1,17 @@
 pkgname=ros-jazzy-rmw-implementation
 _pkgname=rmw_implementation
 pkgver=2.15.5
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="ros-jazzy-ament-index-cpp ros-jazzy-rcpputils ros-jazzy-rcutils ros-jazzy-rmw-implementation-cmake ros-jazzy-ros-workspace ros-jazzy-ament-index-cpp ros-jazzy-rcpputils ros-jazzy-rcutils ros-jazzy-rmw-implementation-cmake ros-jazzy-rmw-fastrtps-cpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-jazzy-ament-cmake ros-jazzy-ament-cmake-gtest ros-jazzy-ament-index-cpp ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-common ros-jazzy-performance-test-fixture ros-jazzy-rcpputils ros-jazzy-rcutils ros-jazzy-rmw ros-jazzy-rmw-cyclonedds-cpp ros-jazzy-rmw-fastrtps-cpp ros-jazzy-rmw-fastrtps-dynamic-cpp ros-jazzy-rmw-implementation-cmake"
+depends="ros-jazzy-ament-index-cpp ros-jazzy-rcpputils ros-jazzy-rcutils ros-jazzy-rmw-implementation-cmake ros-jazzy-ros-workspace"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake ros-jazzy-ament-cmake-dev ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-gtest-dev ros-jazzy-ament-index-cpp ros-jazzy-ament-index-cpp-dev ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-auto-dev ros-jazzy-ament-lint-common ros-jazzy-ament-lint-common-dev ros-jazzy-performance-test-fixture ros-jazzy-performance-test-fixture-dev ros-jazzy-rcpputils ros-jazzy-rcpputils-dev ros-jazzy-rcutils ros-jazzy-rcutils-dev ros-jazzy-rmw ros-jazzy-rmw-connextdds ros-jazzy-rmw-connextdds-dev ros-jazzy-rmw-cyclonedds-cpp ros-jazzy-rmw-cyclonedds-cpp-dev ros-jazzy-rmw-dev ros-jazzy-rmw-fastrtps-cpp ros-jazzy-rmw-fastrtps-cpp-dev ros-jazzy-rmw-fastrtps-dynamic-cpp ros-jazzy-rmw-fastrtps-dynamic-cpp-dev ros-jazzy-rmw-implementation-cmake ros-jazzy-rmw-implementation-cmake-dev ros-jazzy-ros-workspace-dev"
+depends_dev="ros-jazzy-ament-index-cpp ros-jazzy-ament-index-cpp-dev ros-jazzy-rcpputils ros-jazzy-rcpputils-dev ros-jazzy-rcutils ros-jazzy-rcutils-dev ros-jazzy-rmw-implementation-cmake ros-jazzy-rmw-implementation-cmake-dev ros-jazzy-ros-workspace-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then
