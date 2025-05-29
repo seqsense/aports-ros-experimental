@@ -1,16 +1,17 @@
 pkgname=ros-jazzy-rviz-ogre-vendor
 _pkgname=rviz_ogre_vendor
-pkgver=14.1.7
+pkgver=14.1.11
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://www.ogre3d.org/"
 arch="all"
 license="Apache License 2.0"
 
-depends="freetype glu-dev libx11-dev libxaw-dev libxrandr-dev mesa-dev ros-jazzy-ros-workspace freetype-dev glu-dev libx11-dev libxaw-dev libxrandr-dev mesa-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath freetype-dev glu-dev libx11-dev libxaw-dev libxrandr-dev mesa-dev ros-jazzy-ament-cmake ros-jazzy-ament-cmake-vendor-package ros-jazzy-ament-cmake-xmllint ros-jazzy-ament-lint-auto"
+depends="freetype ros-jazzy-ros-workspace"
+makedepends="chrpath freetype-dev glew-dev glu-dev libx11-dev libxaw-dev libxrandr-dev mesa-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake ros-jazzy-ament-cmake-dev ros-jazzy-ament-cmake-vendor-package ros-jazzy-ament-cmake-vendor-package-dev ros-jazzy-ament-cmake-xmllint ros-jazzy-ament-cmake-xmllint-dev ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-auto-dev ros-jazzy-ros-workspace-dev"
+depends_dev="freetype-dev glew-dev glu-dev libx11-dev libxaw-dev libxrandr-dev mesa-dev ros-jazzy-ros-workspace-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rviz_ogre_vendor
     uri: https://github.com/ros2-gbp/rviz-release.git
-    version: release/jazzy/rviz_ogre_vendor/14.1.7-1
+    version: release/jazzy/rviz_ogre_vendor/14.1.11-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

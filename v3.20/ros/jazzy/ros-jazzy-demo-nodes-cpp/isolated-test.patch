@@ -1,15 +1,15 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 52c504b..a217d95 100644
+index 52c504b..3384195 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -198,6 +198,7 @@ if(BUILD_TESTING)
+@@ -194,6 +194,7 @@ if(BUILD_TESTING)
+     "add_two_ints_server@one_shot=True:add_two_ints_client_async"
+   )
+ 
++  set(INDEX 0)
+   macro(tests)
      set(tutorial_tests_to_test ${tutorial_tests})
      list(APPEND tutorial_tests_to_test ${service_tutorial_tests})
- 
-+    set(INDEX 0)
-     foreach(tutorial_test ${tutorial_tests_to_test})
-       set(DEMO_NODES_CPP_EXPECTED_OUTPUT "")
-       set(DEMO_NODES_CPP_EXECUTABLE "")
 @@ -255,7 +256,9 @@ if(BUILD_TESTING)
          ENV
          RCL_ASSERT_RMW_ID_MATCHES=${rmw_implementation}

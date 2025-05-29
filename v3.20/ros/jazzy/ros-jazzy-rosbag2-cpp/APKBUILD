@@ -1,16 +1,17 @@
 pkgname=ros-jazzy-rosbag2-cpp
 _pkgname=rosbag2_cpp
-pkgver=0.26.6
-pkgrel=2
+pkgver=0.26.7
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="ros-jazzy-ament-index-cpp ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-rcpputils ros-jazzy-rcutils ros-jazzy-rmw ros-jazzy-rmw-implementation ros-jazzy-ros-workspace ros-jazzy-rosbag2-storage ros-jazzy-rosidl-runtime-c ros-jazzy-rosidl-runtime-cpp ros-jazzy-rosidl-typesupport-cpp ros-jazzy-rosidl-typesupport-introspection-cpp ros-jazzy-ament-index-cpp ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-rcpputils ros-jazzy-rcutils ros-jazzy-rmw ros-jazzy-rmw-implementation ros-jazzy-rosbag2-storage ros-jazzy-rosidl-runtime-c ros-jazzy-rosidl-runtime-cpp ros-jazzy-rosidl-typesupport-cpp ros-jazzy-rosidl-typesupport-introspection-cpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-jazzy-ament-cmake ros-jazzy-ament-cmake-gmock ros-jazzy-ament-index-cpp ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-common ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-rcpputils ros-jazzy-rcutils ros-jazzy-rmw ros-jazzy-rmw-implementation ros-jazzy-rmw-implementation-cmake ros-jazzy-rosbag2-storage ros-jazzy-rosbag2-storage-default-plugins ros-jazzy-rosbag2-test-common ros-jazzy-rosbag2-test-msgdefs ros-jazzy-rosidl-runtime-c ros-jazzy-rosidl-runtime-cpp ros-jazzy-rosidl-typesupport-cpp ros-jazzy-rosidl-typesupport-introspection-cpp ros-jazzy-std-msgs ros-jazzy-test-msgs"
+depends="ros-jazzy-ament-index-cpp ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-rcpputils ros-jazzy-rcutils ros-jazzy-rmw ros-jazzy-rmw-implementation ros-jazzy-ros-workspace ros-jazzy-rosbag2-storage ros-jazzy-rosidl-runtime-c ros-jazzy-rosidl-runtime-cpp ros-jazzy-rosidl-typesupport-cpp ros-jazzy-rosidl-typesupport-introspection-cpp"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake ros-jazzy-ament-cmake-dev ros-jazzy-ament-cmake-gmock ros-jazzy-ament-cmake-gmock-dev ros-jazzy-ament-index-cpp ros-jazzy-ament-index-cpp-dev ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-auto-dev ros-jazzy-ament-lint-common ros-jazzy-ament-lint-common-dev ros-jazzy-pluginlib ros-jazzy-pluginlib-dev ros-jazzy-rclcpp ros-jazzy-rclcpp-dev ros-jazzy-rcpputils ros-jazzy-rcpputils-dev ros-jazzy-rcutils ros-jazzy-rcutils-dev ros-jazzy-rmw ros-jazzy-rmw-dev ros-jazzy-rmw-implementation ros-jazzy-rmw-implementation-cmake ros-jazzy-rmw-implementation-cmake-dev ros-jazzy-rmw-implementation-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosbag2-storage ros-jazzy-rosbag2-storage-default-plugins ros-jazzy-rosbag2-storage-default-plugins-dev ros-jazzy-rosbag2-storage-dev ros-jazzy-rosbag2-test-common ros-jazzy-rosbag2-test-common-dev ros-jazzy-rosbag2-test-msgdefs ros-jazzy-rosbag2-test-msgdefs-dev ros-jazzy-rosidl-runtime-c ros-jazzy-rosidl-runtime-c-dev ros-jazzy-rosidl-runtime-cpp ros-jazzy-rosidl-runtime-cpp-dev ros-jazzy-rosidl-typesupport-cpp ros-jazzy-rosidl-typesupport-cpp-dev ros-jazzy-rosidl-typesupport-introspection-cpp ros-jazzy-rosidl-typesupport-introspection-cpp-dev ros-jazzy-std-msgs ros-jazzy-std-msgs-dev ros-jazzy-test-msgs ros-jazzy-test-msgs-dev"
+depends_dev="ros-jazzy-ament-index-cpp ros-jazzy-ament-index-cpp-dev ros-jazzy-pluginlib ros-jazzy-pluginlib-dev ros-jazzy-rclcpp ros-jazzy-rclcpp-dev ros-jazzy-rcpputils ros-jazzy-rcpputils-dev ros-jazzy-rcutils ros-jazzy-rcutils-dev ros-jazzy-rmw ros-jazzy-rmw-dev ros-jazzy-rmw-implementation ros-jazzy-rmw-implementation-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosbag2-storage ros-jazzy-rosbag2-storage-dev ros-jazzy-rosidl-runtime-c ros-jazzy-rosidl-runtime-c-dev ros-jazzy-rosidl-runtime-cpp ros-jazzy-rosidl-runtime-cpp-dev ros-jazzy-rosidl-typesupport-cpp ros-jazzy-rosidl-typesupport-cpp-dev ros-jazzy-rosidl-typesupport-introspection-cpp ros-jazzy-rosidl-typesupport-introspection-cpp-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rosbag2_cpp
     uri: https://github.com/ros2-gbp/rosbag2-release.git
-    version: release/jazzy/rosbag2_cpp/0.26.6-1
+    version: release/jazzy/rosbag2_cpp/0.26.7-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

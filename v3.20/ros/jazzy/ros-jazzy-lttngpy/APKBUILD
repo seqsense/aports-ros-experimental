@@ -7,10 +7,11 @@ url="https://docs.ros.org/en/rolling/p/lttngpy/"
 arch="all"
 license="Apache License 2.0"
 
-depends="lttng-tools-dev ros-jazzy-ros-workspace ros-jazzy-rpyutils lttng-tools-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath lttng-tools-dev pkgconf ros-jazzy-ament-cmake ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-pytest ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-common ros-jazzy-pybind11-vendor ros-jazzy-python-cmake-module"
+depends="ros-jazzy-ros-workspace ros-jazzy-rpyutils"
+makedepends="chrpath lttng-tools-dev pkgconf py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake ros-jazzy-ament-cmake-dev ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-gtest-dev ros-jazzy-ament-cmake-pytest ros-jazzy-ament-cmake-pytest-dev ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-auto-dev ros-jazzy-ament-lint-common ros-jazzy-ament-lint-common-dev ros-jazzy-pybind11-vendor ros-jazzy-pybind11-vendor-dev ros-jazzy-python-cmake-module ros-jazzy-python-cmake-module-dev ros-jazzy-ros-workspace-dev ros-jazzy-rpyutils-dev"
+depends_dev="lttng-tools-dev ros-jazzy-ros-workspace-dev ros-jazzy-rpyutils-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

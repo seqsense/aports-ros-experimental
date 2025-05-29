@@ -1,16 +1,17 @@
 pkgname=ros-jazzy-stereo-image-proc
 _pkgname=stereo_image_proc
-pkgver=5.0.9
+pkgver=5.0.11
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/stereo_image_proc/github-ros-perception-image_pipeline/"
 arch="all"
 license="BSD"
 
-depends="ros-jazzy-cv-bridge ros-jazzy-image-geometry ros-jazzy-image-proc ros-jazzy-image-transport ros-jazzy-message-filters ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-ros-workspace ros-jazzy-sensor-msgs ros-jazzy-stereo-msgs ros-jazzy-cv-bridge ros-jazzy-image-geometry ros-jazzy-image-proc ros-jazzy-image-transport ros-jazzy-message-filters ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-sensor-msgs ros-jazzy-stereo-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-opencv ros-jazzy-ament-cmake-auto ros-jazzy-ament-cmake-pytest ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-common ros-jazzy-cv-bridge ros-jazzy-image-geometry ros-jazzy-image-proc ros-jazzy-image-transport ros-jazzy-launch ros-jazzy-launch-ros ros-jazzy-launch-testing ros-jazzy-launch-testing-ament-cmake ros-jazzy-message-filters ros-jazzy-python-cmake-module ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rclpy ros-jazzy-ros-testing ros-jazzy-sensor-msgs ros-jazzy-stereo-msgs"
+depends="ros-jazzy-cv-bridge ros-jazzy-image-geometry ros-jazzy-image-proc ros-jazzy-image-transport ros-jazzy-message-filters ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-ros-workspace ros-jazzy-sensor-msgs ros-jazzy-stereo-msgs"
+makedepends="chrpath py3-opencv py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake-auto ros-jazzy-ament-cmake-auto-dev ros-jazzy-ament-cmake-pytest ros-jazzy-ament-cmake-pytest-dev ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-auto-dev ros-jazzy-ament-lint-common ros-jazzy-ament-lint-common-dev ros-jazzy-cv-bridge ros-jazzy-cv-bridge-dev ros-jazzy-image-geometry ros-jazzy-image-geometry-dev ros-jazzy-image-proc ros-jazzy-image-proc-dev ros-jazzy-image-transport ros-jazzy-image-transport-dev ros-jazzy-launch ros-jazzy-launch-dev ros-jazzy-launch-ros ros-jazzy-launch-ros-dev ros-jazzy-launch-testing ros-jazzy-launch-testing-ament-cmake ros-jazzy-launch-testing-ament-cmake-dev ros-jazzy-launch-testing-dev ros-jazzy-message-filters ros-jazzy-message-filters-dev ros-jazzy-python-cmake-module ros-jazzy-python-cmake-module-dev ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rclcpp-components-dev ros-jazzy-rclcpp-dev ros-jazzy-rclpy ros-jazzy-rclpy-dev ros-jazzy-ros-testing ros-jazzy-ros-testing-dev ros-jazzy-ros-workspace-dev ros-jazzy-sensor-msgs ros-jazzy-sensor-msgs-dev ros-jazzy-stereo-msgs ros-jazzy-stereo-msgs-dev"
+depends_dev="ros-jazzy-cv-bridge ros-jazzy-cv-bridge-dev ros-jazzy-image-geometry ros-jazzy-image-geometry-dev ros-jazzy-image-proc ros-jazzy-image-proc-dev ros-jazzy-image-transport ros-jazzy-image-transport-dev ros-jazzy-message-filters ros-jazzy-message-filters-dev ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rclcpp-components-dev ros-jazzy-rclcpp-dev ros-jazzy-ros-workspace-dev ros-jazzy-sensor-msgs ros-jazzy-sensor-msgs-dev ros-jazzy-stereo-msgs ros-jazzy-stereo-msgs-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: stereo_image_proc
     uri: https://github.com/ros2-gbp/image_pipeline-release.git
-    version: release/jazzy/stereo_image_proc/5.0.9-1
+    version: release/jazzy/stereo_image_proc/5.0.11-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then
