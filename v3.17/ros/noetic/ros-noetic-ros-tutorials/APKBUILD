@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-noetic-roscpp-tutorials ros-noetic-rospy-tutorials ros-noetic-turtlesim ros-noetic-roscpp-tutorials ros-noetic-rospy-tutorials ros-noetic-turtlesim"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-roscpp-tutorials ros-noetic-rospy-tutorials ros-noetic-turtlesim"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
