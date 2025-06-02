@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-noetic-rosserial-client ros-noetic-rosserial-msgs ros-noetic-rosserial-python"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-rosserial-client-dev ros-noetic-rosserial-msgs-dev ros-noetic-rosserial-python-dev"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-rosserial-client ros-noetic-rosserial-client-dev ros-noetic-rosserial-msgs ros-noetic-rosserial-msgs-dev ros-noetic-rosserial-python ros-noetic-rosserial-python-dev"
 depends_dev="ros-noetic-rosserial-client ros-noetic-rosserial-client-dev ros-noetic-rosserial-msgs ros-noetic-rosserial-msgs-dev ros-noetic-rosserial-python ros-noetic-rosserial-python-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"

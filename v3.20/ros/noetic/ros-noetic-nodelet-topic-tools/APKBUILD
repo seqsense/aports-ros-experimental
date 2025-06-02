@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-noetic-dynamic-reconfigure"
-makedepends="boost-dev chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-dynamic-reconfigure ros-noetic-dynamic-reconfigure-dev"
+makedepends="boost-dev chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-dynamic-reconfigure ros-noetic-dynamic-reconfigure-dev ros-noetic-message-filters ros-noetic-message-filters-dev ros-noetic-nodelet ros-noetic-nodelet-dev ros-noetic-pluginlib ros-noetic-pluginlib-dev ros-noetic-roscpp ros-noetic-roscpp-dev"
 depends_dev="boost-dev ros-noetic-dynamic-reconfigure ros-noetic-dynamic-reconfigure-dev ros-noetic-message-filters ros-noetic-message-filters-dev ros-noetic-nodelet ros-noetic-nodelet-dev ros-noetic-pluginlib ros-noetic-pluginlib-dev ros-noetic-roscpp ros-noetic-roscpp-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
