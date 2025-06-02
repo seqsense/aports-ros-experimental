@@ -8,7 +8,7 @@ arch="all"
 license="Apache License 2.0"
 
 depends="ros-humble-ros-workspace ros-humble-ament-cmake-test ros-humble-launch-testing ros-humble-python-cmake-module"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake ros-humble-ament-cmake-copyright ros-humble-launch-testing ros-humble-python-cmake-module"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake ros-humble-ament-cmake-copyright ros-humble-ament-cmake-test ros-humble-launch-testing ros-humble-python-cmake-module"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
