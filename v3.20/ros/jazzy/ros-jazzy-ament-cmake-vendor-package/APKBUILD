@@ -8,8 +8,8 @@ arch="all"
 license="Apache License 2.0"
 
 depends="ros-jazzy-ros-workspace"
-makedepends="chrpath git py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake-core ros-jazzy-ament-cmake-core-dev ros-jazzy-ament-cmake-export-dependencies ros-jazzy-ament-cmake-export-dependencies-dev ros-jazzy-ament-cmake-test ros-jazzy-ament-cmake-test-dev ros-jazzy-ros-workspace-dev"
-depends_dev="git ros-jazzy-ament-cmake-core ros-jazzy-ament-cmake-core-dev ros-jazzy-ament-cmake-export-dependencies ros-jazzy-ament-cmake-export-dependencies-dev ros-jazzy-ros-workspace-dev"
+makedepends="chrpath git py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake-core ros-jazzy-ament-cmake-core-dev ros-jazzy-ament-cmake-export-dependencies ros-jazzy-ament-cmake-export-dependencies-dev ros-jazzy-ament-cmake-test ros-jazzy-ament-cmake-test-dev ros-jazzy-ros-workspace-dev vcstool"
+depends_dev="git ros-jazzy-ament-cmake-core ros-jazzy-ament-cmake-core-dev ros-jazzy-ament-cmake-export-dependencies ros-jazzy-ament-cmake-export-dependencies-dev ros-jazzy-ros-workspace-dev vcstool"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 

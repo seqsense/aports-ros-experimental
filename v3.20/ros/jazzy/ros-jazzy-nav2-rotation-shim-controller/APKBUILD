@@ -1,16 +1,17 @@
 pkgname=ros-jazzy-nav2-rotation-shim-controller
 _pkgname=nav2_rotation_shim_controller
-pkgver=1.3.5
+pkgver=1.3.7
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache-2.0"
 
-depends="ros-jazzy-angles ros-jazzy-geometry-msgs ros-jazzy-nav2-common ros-jazzy-nav2-core ros-jazzy-nav2-costmap-2d ros-jazzy-nav2-msgs ros-jazzy-nav2-util ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-ros-workspace ros-jazzy-tf2 ros-jazzy-angles ros-jazzy-geometry-msgs ros-jazzy-nav2-common ros-jazzy-nav2-core ros-jazzy-nav2-costmap-2d ros-jazzy-nav2-msgs ros-jazzy-nav2-util ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-tf2"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-jazzy-ament-cmake ros-jazzy-ament-cmake-gtest ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-common ros-jazzy-angles ros-jazzy-geometry-msgs ros-jazzy-nav2-common ros-jazzy-nav2-controller ros-jazzy-nav2-core ros-jazzy-nav2-costmap-2d ros-jazzy-nav2-msgs ros-jazzy-nav2-regulated-pure-pursuit-controller ros-jazzy-nav2-util ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-tf2"
+depends="ros-jazzy-angles ros-jazzy-geometry-msgs ros-jazzy-nav2-common ros-jazzy-nav2-controller ros-jazzy-nav2-core ros-jazzy-nav2-costmap-2d ros-jazzy-nav2-msgs ros-jazzy-nav2-util ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-ros-workspace ros-jazzy-tf2"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake ros-jazzy-ament-cmake-dev ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-gtest-dev ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-auto-dev ros-jazzy-ament-lint-common ros-jazzy-ament-lint-common-dev ros-jazzy-angles ros-jazzy-angles-dev ros-jazzy-geometry-msgs ros-jazzy-geometry-msgs-dev ros-jazzy-nav2-common ros-jazzy-nav2-common-dev ros-jazzy-nav2-controller ros-jazzy-nav2-controller-dev ros-jazzy-nav2-core ros-jazzy-nav2-core-dev ros-jazzy-nav2-costmap-2d ros-jazzy-nav2-costmap-2d-dev ros-jazzy-nav2-msgs ros-jazzy-nav2-msgs-dev ros-jazzy-nav2-regulated-pure-pursuit-controller ros-jazzy-nav2-regulated-pure-pursuit-controller-dev ros-jazzy-nav2-util ros-jazzy-nav2-util-dev ros-jazzy-pluginlib ros-jazzy-pluginlib-dev ros-jazzy-rclcpp ros-jazzy-rclcpp-dev ros-jazzy-ros-workspace-dev ros-jazzy-tf2 ros-jazzy-tf2-dev"
+depends_dev="ros-jazzy-angles ros-jazzy-angles-dev ros-jazzy-geometry-msgs ros-jazzy-geometry-msgs-dev ros-jazzy-nav2-common ros-jazzy-nav2-common-dev ros-jazzy-nav2-controller ros-jazzy-nav2-controller-dev ros-jazzy-nav2-core ros-jazzy-nav2-core-dev ros-jazzy-nav2-costmap-2d ros-jazzy-nav2-costmap-2d-dev ros-jazzy-nav2-msgs ros-jazzy-nav2-msgs-dev ros-jazzy-nav2-util ros-jazzy-nav2-util-dev ros-jazzy-pluginlib ros-jazzy-pluginlib-dev ros-jazzy-rclcpp ros-jazzy-rclcpp-dev ros-jazzy-ros-workspace-dev ros-jazzy-tf2 ros-jazzy-tf2-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: nav2_rotation_shim_controller
     uri: https://github.com/SteveMacenski/navigation2-release.git
-    version: release/jazzy/nav2_rotation_shim_controller/1.3.5-1
+    version: release/jazzy/nav2_rotation_shim_controller/1.3.7-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then
