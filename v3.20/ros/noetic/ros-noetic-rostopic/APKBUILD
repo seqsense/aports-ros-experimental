@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-noetic-genpy>=0.5.4 ros-noetic-rosbag ros-noetic-rospy"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.5.78 ros-noetic-catkin>=0.5.78 ros-noetic-genpy-dev>=0.5.4 ros-noetic-rosbag-dev ros-noetic-rospy-dev ros-noetic-rostest ros-noetic-rostest-dev"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.5.78 ros-noetic-catkin>=0.5.78 ros-noetic-genpy-dev>=0.5.4 ros-noetic-genpy>=0.5.4 ros-noetic-rosbag ros-noetic-rosbag-dev ros-noetic-rospy ros-noetic-rospy-dev ros-noetic-rostest ros-noetic-rostest-dev"
 depends_dev="ros-noetic-genpy-dev>=0.5.4 ros-noetic-genpy>=0.5.4 ros-noetic-rosbag ros-noetic-rosbag-dev ros-noetic-rospy ros-noetic-rospy-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"

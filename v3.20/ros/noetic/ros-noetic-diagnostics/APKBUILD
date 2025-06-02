@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-noetic-diagnostic-aggregator ros-noetic-diagnostic-analysis ros-noetic-diagnostic-common-diagnostics ros-noetic-diagnostic-updater ros-noetic-self-test"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-diagnostic-aggregator-dev ros-noetic-diagnostic-analysis-dev ros-noetic-diagnostic-common-diagnostics-dev ros-noetic-diagnostic-updater-dev ros-noetic-self-test-dev"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-diagnostic-aggregator ros-noetic-diagnostic-aggregator-dev ros-noetic-diagnostic-analysis ros-noetic-diagnostic-analysis-dev ros-noetic-diagnostic-common-diagnostics ros-noetic-diagnostic-common-diagnostics-dev ros-noetic-diagnostic-updater ros-noetic-diagnostic-updater-dev ros-noetic-self-test ros-noetic-self-test-dev"
 depends_dev="ros-noetic-diagnostic-aggregator ros-noetic-diagnostic-aggregator-dev ros-noetic-diagnostic-analysis ros-noetic-diagnostic-analysis-dev ros-noetic-diagnostic-common-diagnostics ros-noetic-diagnostic-common-diagnostics-dev ros-noetic-diagnostic-updater ros-noetic-diagnostic-updater-dev ros-noetic-self-test ros-noetic-self-test-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
