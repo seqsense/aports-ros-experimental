@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="boost-dev ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-rostime ros-noetic-std-msgs boost-dev ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-rostime ros-noetic-std-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev ros-noetic-catkin ros-noetic-message-generation ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-rostime ros-noetic-std-msgs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev ros-noetic-catkin ros-noetic-message-generation ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-rostime ros-noetic-std-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

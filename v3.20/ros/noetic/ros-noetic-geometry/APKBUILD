@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-noetic-angles ros-noetic-eigen-conversions ros-noetic-kdl-conversions ros-noetic-tf ros-noetic-tf-conversions"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-angles-dev ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-eigen-conversions-dev ros-noetic-kdl-conversions-dev ros-noetic-tf-conversions-dev ros-noetic-tf-dev"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-angles ros-noetic-angles-dev ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-eigen-conversions ros-noetic-eigen-conversions-dev ros-noetic-kdl-conversions ros-noetic-kdl-conversions-dev ros-noetic-tf ros-noetic-tf-conversions ros-noetic-tf-conversions-dev ros-noetic-tf-dev"
 depends_dev="ros-noetic-angles ros-noetic-angles-dev ros-noetic-eigen-conversions ros-noetic-eigen-conversions-dev ros-noetic-kdl-conversions ros-noetic-kdl-conversions-dev ros-noetic-tf ros-noetic-tf-conversions ros-noetic-tf-conversions-dev ros-noetic-tf-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
