@@ -8,7 +8,7 @@ arch="all"
 license="Apache License 2.0"
 
 depends="freetype glu-dev libx11-dev libxaw-dev libxrandr-dev mesa-dev ros-humble-ros-workspace freetype-dev glew-dev glu-dev libx11-dev libxaw-dev libxrandr-dev mesa-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath freetype-dev git glu-dev libx11-dev libxaw-dev libxrandr-dev mesa-dev pkgconf ros-humble-ament-cmake ros-humble-ament-cmake-xmllint ros-humble-ament-lint-auto"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath freetype-dev git glew-dev glu-dev libx11-dev libxaw-dev libxrandr-dev mesa-dev pkgconf ros-humble-ament-cmake ros-humble-ament-cmake-xmllint ros-humble-ament-lint-auto"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
