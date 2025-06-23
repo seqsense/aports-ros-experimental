@@ -8,7 +8,7 @@ arch="all"
 license="Apache License 2.0"
 
 depends="curl-dev ros-humble-ros-workspace curl-dev pkgconf"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath curl-dev file ros-humble-ament-cmake"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath curl-dev file pkgconf ros-humble-ament-cmake"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

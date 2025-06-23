@@ -8,7 +8,7 @@ arch="all"
 license="Apache License 2.0"
 
 depends="ros-humble-ament-index-python ros-humble-ros-workspace ros-humble-rosidl-cli ros-humble-rosidl-cmake ros-humble-rosidl-parser python3-dev ros-humble-ament-cmake ros-humble-rosidl-cmake ros-humble-rosidl-runtime-c"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake-ros ros-humble-ament-lint-auto ros-humble-ament-lint-common"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath python3-dev ros-humble-ament-cmake ros-humble-ament-cmake-ros ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-rosidl-cmake ros-humble-rosidl-runtime-c"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
