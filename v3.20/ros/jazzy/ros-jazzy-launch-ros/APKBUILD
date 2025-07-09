@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-launch-ros
 _pkgname=launch_ros
 pkgver=0.26.7
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"

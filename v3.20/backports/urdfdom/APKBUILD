@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=urdfdom
 pkgver=3.0.0
-pkgrel=0
+pkgrel=1
 pkgdesc="URDF (U-Robot Description Format) parser"
 url="http://ros.org/wiki/urdf"
 arch="all"

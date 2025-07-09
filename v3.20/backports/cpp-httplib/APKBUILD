@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=cpp-httplib
 pkgver=0.17.3
-pkgrel=0
+pkgrel=1
 pkgdesc="A C++ header-only HTTP/HTTPS server and client library"
 url="https://github.com/yhirose/cpp-httplib"
 arch="all"
