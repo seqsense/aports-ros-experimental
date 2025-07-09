@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=cpp-httplib
 pkgver=0.17.3
-pkgrel=1
+pkgrel=0
 pkgdesc="A C++ header-only HTTP/HTTPS server and client library"
 url="https://github.com/yhirose/cpp-httplib"
 arch="all"
@@ -20,8 +20,6 @@ builddir="$srcdir/$pkgname-$pkgver"
 build() {
   cd "$builddir"
   mkdir -p build && cd build
-  echo ${CXXFLAGS}
-  export CXXFLAGS=""
   cmake \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DHTTPLIB_TEST=ON \
