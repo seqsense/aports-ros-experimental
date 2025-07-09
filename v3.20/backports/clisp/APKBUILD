@@ -3,7 +3,7 @@
 # Maintainer:
 pkgname=clisp
 pkgver=2.49_git20181112
-pkgrel=2
+pkgrel=1
 pkgdesc="ANSI Common Lisp interpreter, compiler and debugger"
 url="http://clisp.cons.org/"
 arch="x86_64"
