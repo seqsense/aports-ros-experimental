@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=metis
 pkgver=5.1.0
-pkgrel=1
+pkgrel=0
 pkgdesc="Serial Graph Partitioning and Fill-reducing Matrix Ordering"
 url="http://glaros.dtc.umn.edu/gkhome/views/metis"
 arch="all"
