@@ -26,11 +26,10 @@ if [ -n "${ADDITIONAL_APK_REPO:-}" ]; then
 fi
 
 
-# Disable stack protection to improve performance
-
 COMMON_GCC_FLAGS="-fomit-frame-pointer -march=x86-64 -mtune=generic -Os"
 case "${STACK_PROTECTOR:-yes}" in
   "n" | "no" | "No" | "off" | "OFF" )
+    # Disable stack protection to improve performance
     COMMON_GCC_FLAGS="${COMMON_GCC_FLAGS} -fno-stack-protector"
     echo "Stack protector is disabled"
     ;;
