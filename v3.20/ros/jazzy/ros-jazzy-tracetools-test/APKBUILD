@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-tracetools-test
 _pkgname=tracetools_test
 pkgver=8.2.3
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://docs.ros.org/en/rolling/p/tracetools_test/"
 arch="all"

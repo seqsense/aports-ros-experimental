@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-laser-geometry
 _pkgname=laser_geometry
 pkgver=2.7.0
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://ros.org/wiki/laser_geometry"
 arch="all"

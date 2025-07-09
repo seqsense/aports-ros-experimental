@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-ros-environment
 _pkgname=ros_environment
 pkgver=4.2.1
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://github.com/ros/ros_environment"
 arch="all"

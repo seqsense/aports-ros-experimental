@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-examples-rclpy-minimal-subscriber
 _pkgname=examples_rclpy_minimal_subscriber
 pkgver=0.19.5
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"

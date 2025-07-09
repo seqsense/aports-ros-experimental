@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-gmock-vendor
 _pkgname=gmock_vendor
 pkgver=1.14.9000
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"

@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-rmw-connextdds
 _pkgname=rmw_connextdds
 pkgver=0.22.1
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"

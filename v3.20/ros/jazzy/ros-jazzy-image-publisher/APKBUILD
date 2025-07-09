@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-image-publisher
 _pkgname=image_publisher
 pkgver=5.0.11
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/image_publisher/github-ros-perception-image_pipeline/"
 arch="all"

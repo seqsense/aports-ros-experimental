@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-rqt-service-caller
 _pkgname=rqt_service_caller
 pkgver=1.2.1
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://wiki.ros.org/rqt_service_caller"
 arch="all"

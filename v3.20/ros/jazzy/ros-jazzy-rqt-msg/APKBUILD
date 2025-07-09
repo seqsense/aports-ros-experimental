@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-rqt-msg
 _pkgname=rqt_msg
 pkgver=1.5.1
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://wiki.ros.org/rqt_msg"
 arch="all"

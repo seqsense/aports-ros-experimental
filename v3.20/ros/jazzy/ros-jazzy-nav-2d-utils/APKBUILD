@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-nav-2d-utils
 _pkgname=nav_2d_utils
 pkgver=1.3.7
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"

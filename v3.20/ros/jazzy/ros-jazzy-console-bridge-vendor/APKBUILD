@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-console-bridge-vendor
 _pkgname=console_bridge_vendor
 pkgver=1.7.1
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://github.com/ros/console_bridge"
 arch="all"

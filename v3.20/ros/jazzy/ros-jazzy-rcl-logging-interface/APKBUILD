@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-rcl-logging-interface
 _pkgname=rcl_logging_interface
 pkgver=3.1.1
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"

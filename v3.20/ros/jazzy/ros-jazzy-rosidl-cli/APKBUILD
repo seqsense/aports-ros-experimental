@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-rosidl-cli
 _pkgname=rosidl_cli
 pkgver=4.6.5
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"

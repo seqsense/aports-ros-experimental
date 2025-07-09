@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-vision-opencv
 _pkgname=vision_opencv
 pkgver=4.1.0
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://www.ros.org/wiki/vision_opencv"
 arch="all"

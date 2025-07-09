@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-tinyxml2-vendor
 _pkgname=tinyxml2_vendor
 pkgver=0.9.1
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"

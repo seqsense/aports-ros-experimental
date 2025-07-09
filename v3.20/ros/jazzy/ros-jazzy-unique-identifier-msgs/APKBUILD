@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-unique-identifier-msgs
 _pkgname=unique_identifier_msgs
 pkgver=2.5.0
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://ros.org/wiki/unique_identifier_msgs"
 arch="all"

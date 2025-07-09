@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-rviz-assimp-vendor
 _pkgname=rviz_assimp_vendor
 pkgver=14.1.12
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://assimp.sourceforge.net/index.html"
 arch="all"

@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-libcurl-vendor
 _pkgname=libcurl_vendor
 pkgver=3.4.4
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://github.com/curl/curl"
 arch="all"

@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-smclib
 _pkgname=smclib
 pkgver=4.1.2
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://smc.sourceforge.net/"
 arch="all"

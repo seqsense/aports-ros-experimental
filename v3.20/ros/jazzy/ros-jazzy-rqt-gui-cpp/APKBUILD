@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-rqt-gui-cpp
 _pkgname=rqt_gui_cpp
 pkgver=1.6.0
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://ros.org/wiki/rqt_gui_cpp"
 arch="all"

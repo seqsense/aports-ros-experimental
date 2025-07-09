@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-python-qt-binding
 _pkgname=python_qt_binding
 pkgver=2.2.1
-pkgrel=1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://ros.org/wiki/python_qt_binding"
 arch="all"
