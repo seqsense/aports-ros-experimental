@@ -32,7 +32,7 @@ if [ ! -f /usr/ros/humble/setup.sh ]; then
 fi
 rosinstall="- git:
     local-name: fastrtps
-    uri: https://github.com/ros2-gbp/fastrtps-release.git
+    uri: https://github.com/ros2-gbp/fastdds-release.git
     version: release/humble/fastrtps/2.6.9-1
 "
 

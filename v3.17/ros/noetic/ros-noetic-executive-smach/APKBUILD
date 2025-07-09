@@ -1,6 +1,6 @@
 pkgname=ros-noetic-executive-smach
 _pkgname=executive_smach
-pkgver=2.5.2
+pkgver=2.5.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/smach"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: executive_smach
     uri: https://github.com/ros-gbp/executive_smach-release.git
-    version: release/noetic/executive_smach/2.5.2-1
+    version: release/noetic/executive_smach/2.5.3-1
 "
 
 prepare() {
