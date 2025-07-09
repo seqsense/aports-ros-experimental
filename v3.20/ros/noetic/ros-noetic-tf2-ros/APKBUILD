@@ -1,14 +1,14 @@
 pkgname=ros-noetic-tf2-ros
 _pkgname=tf2_ros
-pkgver=0.7.7
-pkgrel=2
+pkgver=0.7.10
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/tf2_ros"
 arch="all"
 license="BSD"
 
 depends="ros-noetic-actionlib ros-noetic-actionlib-msgs ros-noetic-geometry-msgs ros-noetic-message-filters ros-noetic-roscpp ros-noetic-rosgraph ros-noetic-rospy ros-noetic-std-msgs ros-noetic-tf2 ros-noetic-tf2-msgs ros-noetic-tf2-py ros-noetic-xmlrpcpp"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-actionlib ros-noetic-actionlib-dev ros-noetic-actionlib-msgs ros-noetic-actionlib-msgs-dev ros-noetic-catkin-dev>=0.5.68 ros-noetic-catkin>=0.5.68 ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-message-filters-dev ros-noetic-message-filters-dev>=1.11.1 ros-noetic-message-filters>=1.11.1 ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rosgraph ros-noetic-rosgraph-dev ros-noetic-rospy ros-noetic-rospy-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-tf2 ros-noetic-tf2-dev ros-noetic-tf2-msgs ros-noetic-tf2-msgs-dev ros-noetic-tf2-py ros-noetic-tf2-py-dev ros-noetic-xmlrpcpp ros-noetic-xmlrpcpp-dev"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-actionlib ros-noetic-actionlib-dev ros-noetic-actionlib-msgs ros-noetic-actionlib-msgs-dev ros-noetic-catkin-dev>=0.5.68 ros-noetic-catkin>=0.5.68 ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-message-filters ros-noetic-message-filters-dev ros-noetic-message-filters-dev>=1.11.1 ros-noetic-message-filters>=1.11.1 ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rosgraph ros-noetic-rosgraph-dev ros-noetic-rospy ros-noetic-rospy-dev ros-noetic-rostest ros-noetic-rostest-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-tf2 ros-noetic-tf2-dev ros-noetic-tf2-msgs ros-noetic-tf2-msgs-dev ros-noetic-tf2-py ros-noetic-tf2-py-dev ros-noetic-xmlrpcpp ros-noetic-xmlrpcpp-dev"
 depends_dev="ros-noetic-actionlib ros-noetic-actionlib-dev ros-noetic-actionlib-msgs ros-noetic-actionlib-msgs-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-message-filters ros-noetic-message-filters-dev ros-noetic-roscpp ros-noetic-roscpp-dev ros-noetic-rosgraph ros-noetic-rosgraph-dev ros-noetic-rospy ros-noetic-rospy-dev ros-noetic-std-msgs ros-noetic-std-msgs-dev ros-noetic-tf2 ros-noetic-tf2-dev ros-noetic-tf2-msgs ros-noetic-tf2-msgs-dev ros-noetic-tf2-py ros-noetic-tf2-py-dev ros-noetic-xmlrpcpp ros-noetic-xmlrpcpp-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
@@ -30,7 +30,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: tf2_ros
     uri: https://github.com/ros-gbp/geometry2-release.git
-    version: release/noetic/tf2_ros/0.7.7-1
+    version: release/noetic/tf2_ros/0.7.10-1
 "
 
 prepare() {

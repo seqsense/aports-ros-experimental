@@ -1,14 +1,14 @@
 pkgname=ros-noetic-laser-geometry
 _pkgname=laser_geometry
-pkgver=1.6.7
+pkgver=1.6.8
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/laser_geometry"
 arch="all"
 license="BSD"
 
-depends="boost-dev eigen-dev py3-numpy py3-numpy-dev ros-noetic-angles ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2 boost-dev eigen-dev ros-noetic-angles ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev eigen-dev ros-noetic-angles ros-noetic-catkin>=0.5.68 ros-noetic-roscpp ros-noetic-rosunit ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2 ros-noetic-tf2-geometry-msgs"
+depends="boost-thread py3-numpy py3-numpy-dev ros-noetic-angles ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2 boost-dev eigen-dev ros-noetic-angles ros-noetic-roscpp ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2 ros-noetic-tf2-geometry-msgs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev eigen-dev ros-noetic-angles ros-noetic-catkin>=0.5.68 ros-noetic-roscpp ros-noetic-rostest ros-noetic-rosunit ros-noetic-sensor-msgs ros-noetic-tf ros-noetic-tf2 ros-noetic-tf2-geometry-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: laser_geometry
     uri: https://github.com/ros-gbp/laser_geometry-release.git
-    version: release/noetic/laser_geometry/1.6.7-1
+    version: release/noetic/laser_geometry/1.6.8-1
 "
 
 prepare() {

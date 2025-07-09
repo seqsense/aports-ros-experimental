@@ -1,7 +1,7 @@
 pkgname=ros-noetic-python-qt-binding
 _pkgname=python_qt_binding
-pkgver=0.4.4
-pkgrel=1
+pkgver=0.4.6
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/python_qt_binding"
 arch="all"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: python_qt_binding
     uri: https://github.com/ros-gbp/python_qt_binding-release.git
-    version: release/noetic/python_qt_binding/0.4.4-1
+    version: release/noetic/python_qt_binding/0.4.6-1
 "
 
 prepare() {

@@ -1,0 +1,24 @@
+diff --git a/include/point_cloud_transport/simple_publisher_plugin.hpp b/include/point_cloud_transport/simple_publisher_plugin.hpp
+index 38d2ad1..95e978b 100644
+--- a/include/point_cloud_transport/simple_publisher_plugin.hpp
++++ b/include/point_cloud_transport/simple_publisher_plugin.hpp
+@@ -38,6 +38,7 @@
+ #include <string>
+ #include <type_traits>
+ #include <optional>
++#include <sys/types.h>
+ 
+ #include <rclcpp/rclcpp.hpp>
+ #include "rclcpp/serialization.hpp"
+diff --git a/include/point_cloud_transport/simple_subscriber_plugin.hpp b/include/point_cloud_transport/simple_subscriber_plugin.hpp
+index a4958ff..280ba13 100644
+--- a/include/point_cloud_transport/simple_subscriber_plugin.hpp
++++ b/include/point_cloud_transport/simple_subscriber_plugin.hpp
+@@ -37,6 +37,7 @@
+ #include <memory>
+ #include <string>
+ #include <type_traits>
++#include <sys/types.h>
+ 
+ #include "rclcpp/serialization.hpp"
+ #include "rclcpp/subscription.hpp"

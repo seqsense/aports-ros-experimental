@@ -1,0 +1,32 @@
+diff --git a/src/rclcpp/typesupport_helpers.cpp b/src/rclcpp/typesupport_helpers.cpp
+index 04dd8c4c..565c0016 100644
+--- a/src/rclcpp/typesupport_helpers.cpp
++++ b/src/rclcpp/typesupport_helpers.cpp
+@@ -15,11 +15,14 @@
+ 
+ #include "rclcpp/typesupport_helpers.hpp"
+ 
++#include <iostream>
++#include <chrono>
+ #include <functional>
+ #include <memory>
+ #include <sstream>
+ #include <stdexcept>
+ #include <string>
++#include <thread>
+ #include <tuple>
+ #include <utility>
+ 
+@@ -122,6 +125,12 @@ const void * get_typesupport_handle_impl(
+       package_name + "__" + middle_module + "__" + type_name;
+     const void * (* get_ts)() = nullptr;
+     // This will throw runtime_error if the symbol was not found.
++    for (size_t i=0; i < 10; ++i) {
++      if (library.has_symbol(symbol_name)) {
++        break;
++      }
++      std::this_thread::sleep_for(std::chrono::milliseconds(1));
++    }
+     get_ts = reinterpret_cast<decltype(get_ts)>(library.get_symbol(symbol_name));
+     return get_ts();
+   } catch (std::runtime_error &) {

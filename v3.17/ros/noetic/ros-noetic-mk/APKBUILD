@@ -1,6 +1,6 @@
 pkgname=ros-noetic-mk
 _pkgname=mk
-pkgver=1.15.8
+pkgver=1.15.10
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/ROS"
@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-noetic-rosbuild ros-noetic-rospack ros-noetic-rosbuild ros-noetic-rospack"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin>=0.5.69"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin>=0.5.69 ros-noetic-rosbuild ros-noetic-rospack"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: mk
     uri: https://github.com/ros-gbp/ros-release.git
-    version: release/noetic/mk/1.15.8-1
+    version: release/noetic/mk/1.15.10-1
 "
 
 prepare() {

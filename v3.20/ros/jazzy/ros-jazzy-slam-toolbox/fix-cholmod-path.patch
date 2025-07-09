@@ -1,0 +1,13 @@
+diff --git a/CMake/FindCHOLMOD.cmake b/CMake/FindCHOLMOD.cmake
+index 3f098ec..9739892 100644
+--- a/CMake/FindCHOLMOD.cmake
++++ b/CMake/FindCHOLMOD.cmake
+@@ -12,7 +12,7 @@ find_path(CHOLMOD_INCLUDE_DIR
+   $ENV{CHOLMODDIR}
+   ${INCLUDE_INSTALL_DIR}
+   PATH_SUFFIXES
+-  suitesparse
++  suitesparse/suitesparse
+   ufsparse
+ )
+

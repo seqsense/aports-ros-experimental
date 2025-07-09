@@ -1,6 +1,6 @@
 pkgname=ros-noetic-image-common
 _pkgname=image_common
-pkgver=1.12.0
+pkgver=1.12.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/image_common"
@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-noetic-camera-calibration-parsers ros-noetic-camera-info-manager ros-noetic-image-transport ros-noetic-polled-camera ros-noetic-camera-calibration-parsers ros-noetic-camera-info-manager ros-noetic-image-transport ros-noetic-polled-camera"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-camera-calibration-parsers ros-noetic-camera-info-manager ros-noetic-catkin ros-noetic-image-transport ros-noetic-polled-camera"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: image_common
     uri: https://github.com/ros-gbp/image_common-release.git
-    version: release/noetic/image_common/1.12.0-1
+    version: release/noetic/image_common/1.12.1-1
 "
 
 prepare() {

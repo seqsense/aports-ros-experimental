@@ -1,14 +1,14 @@
 pkgname=ros-noetic-common-msgs
 _pkgname=common_msgs
-pkgver=1.13.1
-pkgrel=2
+pkgver=1.13.2
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/common_msgs"
 arch="all"
 license="BSD"
 
 depends="ros-noetic-actionlib-msgs ros-noetic-diagnostic-msgs ros-noetic-geometry-msgs ros-noetic-nav-msgs ros-noetic-sensor-msgs ros-noetic-shape-msgs ros-noetic-stereo-msgs ros-noetic-trajectory-msgs ros-noetic-visualization-msgs"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-actionlib-msgs-dev ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-diagnostic-msgs-dev ros-noetic-geometry-msgs-dev ros-noetic-nav-msgs-dev ros-noetic-sensor-msgs-dev ros-noetic-shape-msgs-dev ros-noetic-stereo-msgs-dev ros-noetic-trajectory-msgs-dev ros-noetic-visualization-msgs-dev"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-actionlib-msgs ros-noetic-actionlib-msgs-dev ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-diagnostic-msgs ros-noetic-diagnostic-msgs-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-nav-msgs ros-noetic-nav-msgs-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-shape-msgs ros-noetic-shape-msgs-dev ros-noetic-stereo-msgs ros-noetic-stereo-msgs-dev ros-noetic-trajectory-msgs ros-noetic-trajectory-msgs-dev ros-noetic-visualization-msgs ros-noetic-visualization-msgs-dev"
 depends_dev="ros-noetic-actionlib-msgs ros-noetic-actionlib-msgs-dev ros-noetic-diagnostic-msgs ros-noetic-diagnostic-msgs-dev ros-noetic-geometry-msgs ros-noetic-geometry-msgs-dev ros-noetic-nav-msgs ros-noetic-nav-msgs-dev ros-noetic-sensor-msgs ros-noetic-sensor-msgs-dev ros-noetic-shape-msgs ros-noetic-shape-msgs-dev ros-noetic-stereo-msgs ros-noetic-stereo-msgs-dev ros-noetic-trajectory-msgs ros-noetic-trajectory-msgs-dev ros-noetic-visualization-msgs ros-noetic-visualization-msgs-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
@@ -30,7 +30,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: common_msgs
     uri: https://github.com/ros-gbp/common_msgs-release.git
-    version: release/noetic/common_msgs/1.13.1-1
+    version: release/noetic/common_msgs/1.13.2-1
 "
 
 prepare() {

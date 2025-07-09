@@ -1,6 +1,6 @@
 pkgname=ros-noetic-rosmaster
 _pkgname=rosmaster
-pkgver=1.17.0
+pkgver=1.17.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/rosmaster"
@@ -30,7 +30,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: rosmaster
     uri: https://github.com/ros-gbp/ros_comm-release.git
-    version: release/noetic/rosmaster/1.17.0-1
+    version: release/noetic/rosmaster/1.17.4-1
 "
 
 prepare() {

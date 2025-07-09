@@ -1,6 +1,6 @@
 pkgname=ros-noetic-move-base-msgs
 _pkgname=move_base_msgs
-pkgver=1.14.1
+pkgver=1.14.2
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/move_base_msgs"
@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-noetic-actionlib-msgs ros-noetic-geometry-msgs ros-noetic-message-runtime ros-noetic-actionlib-msgs ros-noetic-geometry-msgs ros-noetic-message-runtime"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-actionlib-msgs ros-noetic-catkin ros-noetic-geometry-msgs ros-noetic-message-generation"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-actionlib-msgs ros-noetic-catkin ros-noetic-geometry-msgs ros-noetic-message-generation ros-noetic-message-runtime"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: move_base_msgs
     uri: https://github.com/ros-gbp/navigation_msgs-release.git
-    version: release/noetic/move_base_msgs/1.14.1-1
+    version: release/noetic/move_base_msgs/1.14.2-1
 "
 
 prepare() {

@@ -1,14 +1,14 @@
 pkgname=ros-noetic-imu-tools
 _pkgname=imu_tools
-pkgver=1.2.6
-pkgrel=2
+pkgver=1.2.7
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/imu_tools"
 arch="all"
 license="BSD, GPL"
 
 depends="ros-noetic-imu-complementary-filter ros-noetic-imu-filter-madgwick ros-noetic-rviz-imu-plugin"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-imu-complementary-filter-dev ros-noetic-imu-filter-madgwick-dev ros-noetic-rviz-imu-plugin-dev"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-imu-complementary-filter ros-noetic-imu-complementary-filter-dev ros-noetic-imu-filter-madgwick ros-noetic-imu-filter-madgwick-dev ros-noetic-rviz-imu-plugin ros-noetic-rviz-imu-plugin-dev"
 depends_dev="ros-noetic-imu-complementary-filter ros-noetic-imu-complementary-filter-dev ros-noetic-imu-filter-madgwick ros-noetic-imu-filter-madgwick-dev ros-noetic-rviz-imu-plugin ros-noetic-rviz-imu-plugin-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
@@ -30,7 +30,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: imu_tools
     uri: https://github.com/uos-gbp/imu_tools-release.git
-    version: release/noetic/imu_tools/1.2.6-1
+    version: release/noetic/imu_tools/1.2.7-1
 "
 
 prepare() {

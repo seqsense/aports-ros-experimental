@@ -1,14 +1,14 @@
 pkgname=ros-noetic-rosconsole-bridge
 _pkgname=rosconsole_bridge
-pkgver=0.5.4
-pkgrel=2
+pkgver=0.5.5
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/rosconsole_bridge"
 arch="all"
 license="BSD"
 
 depends="ros-noetic-cpp-common ros-noetic-rosconsole"
-makedepends="chrpath console_bridge-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-cpp-common ros-noetic-cpp-common-dev ros-noetic-rosconsole-dev ros-noetic-rosconsole-dev>=1.11.5 ros-noetic-rosconsole>=1.11.5"
+makedepends="chrpath console_bridge-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-cpp-common ros-noetic-cpp-common-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-rosconsole-dev>=1.11.5 ros-noetic-rosconsole>=1.11.5"
 depends_dev="console_bridge-dev ros-noetic-cpp-common ros-noetic-cpp-common-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
@@ -30,7 +30,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: rosconsole_bridge
     uri: https://github.com/ros-gbp/rosconsole_bridge-release.git
-    version: release/noetic/rosconsole_bridge/0.5.4-1
+    version: release/noetic/rosconsole_bridge/0.5.5-1
 "
 
 prepare() {

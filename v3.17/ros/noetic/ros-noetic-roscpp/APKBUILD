@@ -1,6 +1,6 @@
 pkgname=ros-noetic-roscpp
 _pkgname=roscpp
-pkgver=1.17.0
+pkgver=1.17.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/roscpp"
@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="boost-dev ros-noetic-cpp-common>=0.3.17 ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp-serialization ros-noetic-roscpp-traits>=0.3.17 ros-noetic-rosgraph-msgs>=1.10.3 ros-noetic-rostime>=0.6.4 ros-noetic-std-msgs ros-noetic-xmlrpcpp boost-dev ros-noetic-cpp-common>=0.3.17 ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp-serialization ros-noetic-roscpp-traits>=0.3.17 ros-noetic-rosgraph-msgs>=1.10.3 ros-noetic-rostime>=0.6.4 ros-noetic-std-msgs ros-noetic-xmlrpcpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev pkgconf ros-noetic-catkin>=0.5.78 ros-noetic-cpp-common>=0.3.17 ros-noetic-message-generation ros-noetic-rosconsole ros-noetic-roscpp-serialization ros-noetic-roscpp-traits>=0.3.17 ros-noetic-rosgraph-msgs>=1.10.3 ros-noetic-roslang ros-noetic-rostime>=0.6.4 ros-noetic-std-msgs ros-noetic-xmlrpcpp"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev pkgconf ros-noetic-catkin>=0.5.78 ros-noetic-cpp-common>=0.3.17 ros-noetic-message-generation ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp-serialization ros-noetic-roscpp-traits>=0.3.17 ros-noetic-rosgraph-msgs>=1.10.3 ros-noetic-roslang ros-noetic-rostime>=0.6.4 ros-noetic-std-msgs ros-noetic-xmlrpcpp"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: roscpp
     uri: https://github.com/ros-gbp/ros_comm-release.git
-    version: release/noetic/roscpp/1.17.0-1
+    version: release/noetic/roscpp/1.17.4-1
 "
 
 prepare() {
