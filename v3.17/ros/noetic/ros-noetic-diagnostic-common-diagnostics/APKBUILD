@@ -1,6 +1,6 @@
 pkgname=ros-noetic-diagnostic-common-diagnostics
 _pkgname=diagnostic_common_diagnostics
-pkgver=1.11.0
+pkgver=1.12.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/diagnostic_common_diagnostics"
@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="hddtemp lm-sensors py3-psutil ros-noetic-diagnostic-updater ros-noetic-rospy ros-noetic-tf hddtemp lm-sensors py3-psutil ros-noetic-diagnostic-updater ros-noetic-rospy ros-noetic-tf"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-diagnostic-updater ros-noetic-rospy ros-noetic-rostest"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath hddtemp lm-sensors py3-psutil ros-noetic-catkin ros-noetic-diagnostic-updater ros-noetic-rospy ros-noetic-rostest ros-noetic-tf"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: diagnostic_common_diagnostics
     uri: https://github.com/ros-gbp/diagnostics-release.git
-    version: release/noetic/diagnostic_common_diagnostics/1.11.0-1
+    version: release/noetic/diagnostic_common_diagnostics/1.12.1-1
 "
 
 prepare() {

@@ -1,13 +1,13 @@
 pkgname=ros-noetic-pluginlib
 _pkgname=pluginlib
-pkgver=1.13.0
-pkgrel=4
+pkgver=1.13.2
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/pluginlib"
 arch="all"
 license="BSD"
 
-depends=""
+depends="boost-filesystem ros-noetic-class-loader ros-noetic-rosconsole ros-noetic-roslib>=1.11.1"
 makedepends="boost-dev chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin-dev>=0.5.68 ros-noetic-catkin>=0.5.68 ros-noetic-class-loader ros-noetic-class-loader-dev ros-noetic-cmake-modules ros-noetic-cmake-modules-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roslib-dev>=1.11.1 ros-noetic-roslib>=1.11.1 tinyxml2-dev"
 depends_dev="boost-dev ros-noetic-class-loader ros-noetic-class-loader-dev ros-noetic-rosconsole ros-noetic-rosconsole-dev ros-noetic-roslib-dev>=1.11.1 ros-noetic-roslib>=1.11.1 tinyxml2-dev"
 
@@ -30,7 +30,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: pluginlib
     uri: https://github.com/ros-gbp/pluginlib-release.git
-    version: release/noetic/pluginlib/1.13.0-1
+    version: release/noetic/pluginlib/1.13.2-1
 "
 
 prepare() {

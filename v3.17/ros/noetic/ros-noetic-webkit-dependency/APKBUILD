@@ -1,6 +1,6 @@
 pkgname=ros-noetic-webkit-dependency
 _pkgname=webkit_dependency
-pkgver=1.1.2
+pkgver=1.1.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://wiki.ros.org/$_pkgname"
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: webkit_dependency
     uri: https://github.com/ros-gbp/webkit_dependency-release.git
-    version: release/noetic/webkit_dependency/1.1.2-1
+    version: release/noetic/webkit_dependency/1.1.3-1
 "
 
 prepare() {

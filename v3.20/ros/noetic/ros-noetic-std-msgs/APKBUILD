@@ -1,14 +1,14 @@
 pkgname=ros-noetic-std-msgs
 _pkgname=std_msgs
-pkgver=0.5.13
-pkgrel=2
+pkgver=0.5.14
+pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/std_msgs"
 arch="all"
 license="BSD"
 
 depends="ros-noetic-message-runtime"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-message-generation ros-noetic-message-generation-dev ros-noetic-message-runtime-dev"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-noetic-catkin ros-noetic-catkin-dev ros-noetic-message-generation ros-noetic-message-generation-dev ros-noetic-message-runtime ros-noetic-message-runtime-dev"
 depends_dev="ros-noetic-message-runtime ros-noetic-message-runtime-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
@@ -30,7 +30,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: std_msgs
     uri: https://github.com/ros-gbp/std_msgs-release.git
-    version: release/noetic/std_msgs/0.5.13-1
+    version: release/noetic/std_msgs/0.5.14-1
 "
 
 prepare() {

@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 4f6ae5f..1d9ee18 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -170,6 +170,8 @@ if(BUILD_TESTING)
+   # for this package.
+   list(APPEND AMENT_LINT_AUTO_EXCLUDE
+     ament_cmake_cppcheck
++    ament_cmake_flake8
++    ament_cmake_uncrustify
+   )
+   ament_lint_auto_find_test_dependencies()

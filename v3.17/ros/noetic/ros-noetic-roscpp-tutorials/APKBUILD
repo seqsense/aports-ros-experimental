@@ -1,6 +1,6 @@
 pkgname=ros-noetic-roscpp-tutorials
 _pkgname=roscpp_tutorials
-pkgver=0.10.2
+pkgver=0.10.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/roscpp_tutorials"
@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="boost-dev ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-rostime ros-noetic-std-msgs boost-dev ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-rostime ros-noetic-std-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev ros-noetic-catkin ros-noetic-message-generation ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-rostime ros-noetic-std-msgs"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev ros-noetic-catkin ros-noetic-message-generation ros-noetic-message-runtime ros-noetic-rosconsole ros-noetic-roscpp ros-noetic-roscpp-serialization ros-noetic-rostime ros-noetic-std-msgs"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: roscpp_tutorials
     uri: https://github.com/ros-gbp/ros_tutorials-release.git
-    version: release/noetic/roscpp_tutorials/0.10.2-1
+    version: release/noetic/roscpp_tutorials/0.10.3-1
 "
 
 prepare() {

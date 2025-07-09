@@ -1,6 +1,6 @@
 pkgname=ros-noetic-std-srvs
 _pkgname=std_srvs
-pkgver=1.11.3
+pkgver=1.11.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/std_srvs"
@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-noetic-message-runtime ros-noetic-message-runtime"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-message-generation"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-noetic-catkin ros-noetic-message-generation ros-noetic-message-runtime"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -29,7 +29,7 @@ export ROS_PYTHON_VERSION=3
 rosinstall="- git:
     local-name: std_srvs
     uri: https://github.com/ros-gbp/ros_comm_msgs-release.git
-    version: release/noetic/std_srvs/1.11.3-1
+    version: release/noetic/std_srvs/1.11.4-1
 "
 
 prepare() {

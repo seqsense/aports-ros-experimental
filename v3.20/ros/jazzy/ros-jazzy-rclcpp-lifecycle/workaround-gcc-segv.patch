@@ -1,0 +1,16 @@
+diff --git a/include/rclcpp_lifecycle/lifecycle_publisher.hpp b/include/rclcpp_lifecycle/lifecycle_publisher.hpp
+index 8df08dcb..5fce6e8c 100644
+--- a/include/rclcpp_lifecycle/lifecycle_publisher.hpp
++++ b/include/rclcpp_lifecycle/lifecycle_publisher.hpp
+@@ -111,8 +111,9 @@ private:
+     // Log the message
+     RCLCPP_WARN(
+       logger_,
+-      "Trying to publish message on the topic '%s', but the publisher is not activated",
+-      this->get_topic_name());
++      (std::string("Trying to publish message on the topic '") +
++        this->get_topic_name() + "', but the publisher is not activated").c_str()
++    );
+ 
+     // We stop logging until the flag gets enabled again
+     should_log_ = false;
