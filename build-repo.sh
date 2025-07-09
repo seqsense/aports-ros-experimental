@@ -30,7 +30,7 @@ fi
 
 # Disable stack protection to improve performance
 
-CFLAGS="-fomit-frame-pointer -march=x86-64 -mtune=generic -Os"
+CFLAGS="-fomit-frame-pointer -march=x86-64 -mtune=generic -Os -freport-bug"
 case "${STACK_PROTECTOR:-yes}" in
   "n" | "no" | "No" | "off" | "OFF" )
     CFLAGS="${CFLAGS} -fno-stack-protector"
@@ -40,7 +40,7 @@ esac
 echo "export CFLAGS=\"${CFLAGS}\"" | sudo tee -a /etc/abuild.conf
 
 if [ "${ALPINE_VERSION}" != "3.17" ]; then
-  echo "export CXXFLAGS=\"-std=c++14\"" | sudo tee -a /etc/abuild.conf
+  echo "export CXXFLAGS=\"${CXXFLAGS} ${CFLAGS} -std=c++14\"" | sudo tee -a /etc/abuild.conf
 fi
 
 
@@ -173,7 +173,6 @@ set +e
 exit_code=$?
 set -e
 
-
 # Generate package index
 
 index=${REPODIR}/${repo_out}/x86_64/APKINDEX.tar.gz
@@ -211,6 +210,7 @@ apk index --allow-untrusted -o ${index} \
 abuild-sign -k /home/builder/.abuild/*.rsa ${index}
 
 if [ ${exit_code} -ne 0 ]; then
+  sleep 1h
   exit ${exit_code}
 fi
 
