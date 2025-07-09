@@ -20,6 +20,8 @@ builddir="$srcdir/$pkgname-$pkgver"
 build() {
   cd "$builddir"
   mkdir -p build && cd build
+  echo ${CXXFLAGS}
+  export CXXFLAGS=""
   cmake \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DHTTPLIB_TEST=ON \
