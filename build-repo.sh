@@ -2,6 +2,8 @@
 
 set -eu
 
+ulimit -a
+
 ls -la /cache
 sudo chmod o+w /cache
 mkdir -p \
