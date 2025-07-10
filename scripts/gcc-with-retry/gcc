@@ -2,8 +2,6 @@
 
 set -u
 
-echo "gcc with retry on internal compiler error: $@" >&2
-
 GCC_ICE_RETRY_NUM=${GCC_ICE_RETRY_NUM:-5}
 
 compiler=$(basename $0)
