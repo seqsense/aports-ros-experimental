@@ -1,8 +1,8 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index af00689..3a51977 100644
+index 2bccfe5..4473107 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -43,6 +43,9 @@ install(TARGETS
+@@ -44,6 +44,9 @@ install(TARGETS
  
  if(BUILD_TESTING)
    find_package(ament_lint_auto REQUIRED)
