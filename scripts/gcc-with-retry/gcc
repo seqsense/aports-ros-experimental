@@ -2,6 +2,8 @@
 
 set -u
 
+echo "gcc with retry on internal compiler error: $@" >&2
+
 GCC_ICE_RETRY_NUM=${GCC_ICE_RETRY_NUM:-5}
 
 compiler=$(basename $0)
@@ -11,10 +13,14 @@ for i in $(seq ${GCC_ICE_RETRY_NUM}); do
   exit_code=$?
   case ${exit_code} in
     4)
-      echo "gcc internal compiler error is detected: retrying (${i})"
+      echo "gcc internal compiler error is detected: retrying (${i})" >&2
       continue
       ;;
+    0)
+      exit 0
+      ;;
     *)
+      echo "gcc failed with exit code ${exit_code}" >&2
       exit ${exit_code}
       ;;
   esac
