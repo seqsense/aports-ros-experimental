@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=cpp-httplib
 pkgver=0.22.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A C++ header-only HTTP/HTTPS server and client library"
 url="https://github.com/yhirose/cpp-httplib"
 arch="all"
@@ -11,7 +11,8 @@ depends=""
 makedepends="cmake curl-dev gmock gtest-dev"
 subpackages="$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/yhirose/cpp-httplib/archive/v$pkgver.tar.gz
-  fix-test-makefile.patch"
+  fix-test-makefile.patch
+  remove-httpwatch.com-related-tests.patch"
 
 builddir="$srcdir/$pkgname-$pkgver"
 
@@ -40,4 +41,5 @@ package() {
 }
 
 sha512sums="c355ab3814efce40759a3328b4e1079dc372d3cce8a841c42d22adb4eb228351f0602b5e82135c0bf69321fd5138a0052882ab801908ad4c32fa963d655a11d9  cpp-httplib-0.22.0.tar.gz
-988f1159c370174d564d7ca51ce920d35a369d8a513628776b80ce56cab30e1cf66b83d98498105aa00439cd028cf4dc5a429df2a8f585186b0289375bae52f0  fix-test-makefile.patch"
+988f1159c370174d564d7ca51ce920d35a369d8a513628776b80ce56cab30e1cf66b83d98498105aa00439cd028cf4dc5a429df2a8f585186b0289375bae52f0  fix-test-makefile.patch
+f994059073801d2053225fd8540bef003ade06d677e649a5ac19a2b4d070163990437b190c74cce312ddfb2f1252716a3a542bb9f6bf93e719a775d04c4e1f41  remove-httpwatch.com-related-tests.patch"

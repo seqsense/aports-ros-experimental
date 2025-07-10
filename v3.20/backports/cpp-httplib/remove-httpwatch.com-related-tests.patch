@@ -1,0 +1,101 @@
+diff --git a/test/test.cc b/test/test.cc
+index df52529..040b911 100644
+--- a/test/test.cc
++++ b/test/test.cc
+@@ -736,29 +736,6 @@ TEST(BufferStreamTest, read) {
+   EXPECT_EQ(0, strm.read(buf, 1));
+ }
+ 
+-TEST(ChunkedEncodingTest, FromHTTPWatch_Online) {
+-  auto host = "www.httpwatch.com";
+-
+-#ifdef CPPHTTPLIB_OPENSSL_SUPPORT
+-  auto port = 443;
+-  SSLClient cli(host, port);
+-#else
+-  auto port = 80;
+-  Client cli(host, port);
+-#endif
+-  cli.set_connection_timeout(2);
+-
+-  auto res =
+-      cli.Get("/httpgallery/chunked/chunkedimage.aspx?0.4153841143030137");
+-  ASSERT_TRUE(res);
+-
+-  std::string out;
+-  read_file("./image.jpg", out);
+-
+-  EXPECT_EQ(StatusCode::OK_200, res->status);
+-  EXPECT_EQ(out, res->body);
+-}
+-
+ TEST(HostnameToIPConversionTest, HTTPWatch_Online) {
+   auto host = "www.httpwatch.com";
+ 
+@@ -784,66 +761,6 @@ TEST(HostnameToIPConversionTest, YouTube_Online) {
+ }
+ #endif
+ 
+-TEST(ChunkedEncodingTest, WithContentReceiver_Online) {
+-  auto host = "www.httpwatch.com";
+-
+-#ifdef CPPHTTPLIB_OPENSSL_SUPPORT
+-  auto port = 443;
+-  SSLClient cli(host, port);
+-#else
+-  auto port = 80;
+-  Client cli(host, port);
+-#endif
+-  cli.set_connection_timeout(2);
+-
+-  std::string body;
+-  auto res =
+-      cli.Get("/httpgallery/chunked/chunkedimage.aspx?0.4153841143030137",
+-              [&](const char *data, size_t data_length) {
+-                body.append(data, data_length);
+-                return true;
+-              });
+-  ASSERT_TRUE(res);
+-
+-  std::string out;
+-  read_file("./image.jpg", out);
+-
+-  EXPECT_EQ(StatusCode::OK_200, res->status);
+-  EXPECT_EQ(out, body);
+-}
+-
+-TEST(ChunkedEncodingTest, WithResponseHandlerAndContentReceiver_Online) {
+-  auto host = "www.httpwatch.com";
+-
+-#ifdef CPPHTTPLIB_OPENSSL_SUPPORT
+-  auto port = 443;
+-  SSLClient cli(host, port);
+-#else
+-  auto port = 80;
+-  Client cli(host, port);
+-#endif
+-  cli.set_connection_timeout(2);
+-
+-  std::string body;
+-  auto res = cli.Get(
+-      "/httpgallery/chunked/chunkedimage.aspx?0.4153841143030137",
+-      [&](const Response &response) {
+-        EXPECT_EQ(StatusCode::OK_200, response.status);
+-        return true;
+-      },
+-      [&](const char *data, size_t data_length) {
+-        body.append(data, data_length);
+-        return true;
+-      });
+-  ASSERT_TRUE(res);
+-
+-  std::string out;
+-  read_file("./image.jpg", out);
+-
+-  EXPECT_EQ(StatusCode::OK_200, res->status);
+-  EXPECT_EQ(out, body);
+-}
+-
+ TEST(RangeTest, FromHTTPBin_Online) {
+ #ifdef CPPHTTPLIB_DEFAULT_HTTPBIN
+   auto host = "httpbin.org";
