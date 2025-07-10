@@ -1,16 +1,17 @@
 pkgname=ros-jazzy-slam-toolbox
 _pkgname=slam_toolbox
-pkgver=2.8.2
+pkgver=2.8.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="LGPL"
 
-depends="boost-dev ceres-solver ceres-solver-dev eigen-dev lapack-dev libtbb-dev qt5-qtbase-dev ros-jazzy-bond ros-jazzy-bondcpp ros-jazzy-builtin-interfaces ros-jazzy-interactive-markers ros-jazzy-lifecycle-msgs ros-jazzy-message-filters ros-jazzy-nav-msgs ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-rclcpp-lifecycle ros-jazzy-ros-workspace ros-jazzy-rosidl-default-generators ros-jazzy-rviz-common ros-jazzy-rviz-default-plugins ros-jazzy-rviz-ogre-vendor ros-jazzy-rviz-rendering ros-jazzy-sensor-msgs ros-jazzy-std-msgs ros-jazzy-std-srvs ros-jazzy-tf2 ros-jazzy-tf2-geometry-msgs ros-jazzy-tf2-ros ros-jazzy-tf2-sensor-msgs ros-jazzy-visualization-msgs suitesparse-dev ros-jazzy-rviz-common ros-jazzy-rviz-default-plugins ros-jazzy-rviz-ogre-vendor ros-jazzy-rviz-rendering"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev ceres-solver ceres-solver-dev eigen-dev lapack-dev libtbb-dev qt5-qtbase-dev ros-jazzy-ament-cmake ros-jazzy-ament-cmake-cpplint ros-jazzy-ament-cmake-flake8 ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-uncrustify ros-jazzy-ament-lint-auto ros-jazzy-bond ros-jazzy-bondcpp ros-jazzy-builtin-interfaces ros-jazzy-interactive-markers ros-jazzy-launch ros-jazzy-launch-testing ros-jazzy-lifecycle-msgs ros-jazzy-message-filters ros-jazzy-nav-msgs ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-rclcpp-lifecycle ros-jazzy-rosidl-default-generators ros-jazzy-rviz-common ros-jazzy-rviz-default-plugins ros-jazzy-rviz-ogre-vendor ros-jazzy-rviz-rendering ros-jazzy-sensor-msgs ros-jazzy-std-msgs ros-jazzy-std-srvs ros-jazzy-tf2 ros-jazzy-tf2-geometry-msgs ros-jazzy-tf2-ros ros-jazzy-tf2-sensor-msgs ros-jazzy-visualization-msgs suitesparse-dev"
+depends="ceres-solver ros-jazzy-bond ros-jazzy-bondcpp ros-jazzy-builtin-interfaces ros-jazzy-interactive-markers ros-jazzy-lifecycle-msgs ros-jazzy-message-filters ros-jazzy-nav-msgs ros-jazzy-pluginlib ros-jazzy-rclcpp ros-jazzy-rclcpp-lifecycle ros-jazzy-ros-workspace ros-jazzy-rosidl-default-generators ros-jazzy-rviz-common ros-jazzy-rviz-default-plugins ros-jazzy-rviz-ogre-vendor ros-jazzy-rviz-rendering ros-jazzy-sensor-msgs ros-jazzy-std-msgs ros-jazzy-std-srvs ros-jazzy-tf2 ros-jazzy-tf2-geometry-msgs ros-jazzy-tf2-ros ros-jazzy-tf2-sensor-msgs ros-jazzy-visualization-msgs"
+makedepends="boost-dev ceres-solver ceres-solver-dev chrpath eigen-dev lapack-dev libtbb-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool qt5-qtbase-dev ros-jazzy-ament-cmake ros-jazzy-ament-cmake-cpplint ros-jazzy-ament-cmake-cpplint-dev ros-jazzy-ament-cmake-dev ros-jazzy-ament-cmake-flake8 ros-jazzy-ament-cmake-flake8-dev ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-gtest-dev ros-jazzy-ament-cmake-uncrustify ros-jazzy-ament-cmake-uncrustify-dev ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-auto-dev ros-jazzy-bond ros-jazzy-bond-dev ros-jazzy-bondcpp ros-jazzy-bondcpp-dev ros-jazzy-builtin-interfaces ros-jazzy-builtin-interfaces-dev ros-jazzy-interactive-markers ros-jazzy-interactive-markers-dev ros-jazzy-launch ros-jazzy-launch-dev ros-jazzy-launch-testing ros-jazzy-launch-testing-dev ros-jazzy-lifecycle-msgs ros-jazzy-lifecycle-msgs-dev ros-jazzy-message-filters ros-jazzy-message-filters-dev ros-jazzy-nav-msgs ros-jazzy-nav-msgs-dev ros-jazzy-pluginlib ros-jazzy-pluginlib-dev ros-jazzy-rclcpp ros-jazzy-rclcpp-dev ros-jazzy-rclcpp-lifecycle ros-jazzy-rclcpp-lifecycle-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosidl-default-generators ros-jazzy-rosidl-default-generators-dev ros-jazzy-rviz-common ros-jazzy-rviz-common-dev ros-jazzy-rviz-default-plugins ros-jazzy-rviz-default-plugins-dev ros-jazzy-rviz-ogre-vendor ros-jazzy-rviz-ogre-vendor-dev ros-jazzy-rviz-rendering ros-jazzy-rviz-rendering-dev ros-jazzy-sensor-msgs ros-jazzy-sensor-msgs-dev ros-jazzy-std-msgs ros-jazzy-std-msgs-dev ros-jazzy-std-srvs ros-jazzy-std-srvs-dev ros-jazzy-tf2 ros-jazzy-tf2-dev ros-jazzy-tf2-geometry-msgs ros-jazzy-tf2-geometry-msgs-dev ros-jazzy-tf2-ros ros-jazzy-tf2-ros-dev ros-jazzy-tf2-sensor-msgs ros-jazzy-tf2-sensor-msgs-dev ros-jazzy-visualization-msgs ros-jazzy-visualization-msgs-dev suitesparse-dev"
+depends_dev="boost-dev ceres-solver-dev eigen-dev lapack-dev libtbb-dev qt5-qtbase-dev ros-jazzy-bond-dev ros-jazzy-bondcpp-dev ros-jazzy-builtin-interfaces-dev ros-jazzy-interactive-markers-dev ros-jazzy-lifecycle-msgs-dev ros-jazzy-message-filters-dev ros-jazzy-nav-msgs-dev ros-jazzy-pluginlib-dev ros-jazzy-rclcpp-dev ros-jazzy-rclcpp-lifecycle-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosidl-default-generators-dev ros-jazzy-rviz-common ros-jazzy-rviz-common-dev ros-jazzy-rviz-default-plugins ros-jazzy-rviz-default-plugins-dev ros-jazzy-rviz-ogre-vendor ros-jazzy-rviz-ogre-vendor-dev ros-jazzy-rviz-rendering ros-jazzy-rviz-rendering-dev ros-jazzy-sensor-msgs-dev ros-jazzy-std-msgs-dev ros-jazzy-std-srvs-dev ros-jazzy-tf2-dev ros-jazzy-tf2-geometry-msgs-dev ros-jazzy-tf2-ros-dev ros-jazzy-tf2-sensor-msgs-dev ros-jazzy-visualization-msgs-dev suitesparse-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: slam_toolbox
     uri: https://github.com/SteveMacenski/slam_toolbox-release.git
-    version: release/jazzy/slam_toolbox/2.8.2-1
+    version: release/jazzy/slam_toolbox/2.8.3-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then
