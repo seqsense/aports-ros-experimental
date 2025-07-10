@@ -1,16 +1,17 @@
 pkgname=ros-humble-fastrtps
 _pkgname=fastrtps
-pkgver=2.6.8
+pkgver=2.6.10
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://www.eprosima.com/"
 arch="all"
 license="Apache 2.0"
 
-depends="openssl-dev python3-dev ros-humble-fastcdr ros-humble-foonathan-memory-vendor ros-humble-ros-workspace tinyxml2-dev openssl-dev python3-dev ros-humble-fastcdr ros-humble-foonathan-memory-vendor tinyxml2-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath asio-dev cmake openssl-dev python3-dev ros-humble-fastcdr ros-humble-foonathan-memory-vendor tinyxml2-dev"
+depends="ros-humble-fastcdr ros-humble-foonathan-memory-vendor ros-humble-ros-workspace"
+makedepends="asio-dev chrpath cmake openssl-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool python3-dev ros-humble-fastcdr ros-humble-fastcdr-dev ros-humble-foonathan-memory-vendor ros-humble-foonathan-memory-vendor-dev ros-humble-ros-workspace-dev tinyxml2-dev"
+depends_dev="openssl-dev python3-dev ros-humble-fastcdr ros-humble-fastcdr-dev ros-humble-foonathan-memory-vendor ros-humble-foonathan-memory-vendor-dev ros-humble-ros-workspace-dev tinyxml2-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -32,8 +33,8 @@ if [ ! -f /usr/ros/humble/setup.sh ]; then
 fi
 rosinstall="- git:
     local-name: fastrtps
-    uri: https://github.com/ros2-gbp/fastrtps-release.git
-    version: release/humble/fastrtps/2.6.8-1
+    uri: https://github.com/ros2-gbp/fastdds-release.git
+    version: release/humble/fastrtps/2.6.10-1
 "
 
 prepare() {
@@ -243,6 +244,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

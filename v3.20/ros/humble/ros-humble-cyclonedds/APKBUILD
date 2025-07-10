@@ -1,16 +1,17 @@
 pkgname=ros-humble-cyclonedds
 _pkgname=cyclonedds
-pkgver=0.10.4
+pkgver=0.10.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://projects.eclipse.org/projects/iot.cyclonedds"
 arch="all"
 license="Eclipse Public License 2.0"
 
-depends="openssl ros-humble-iceoryx-binding-c ros-humble-iceoryx-hoofs ros-humble-iceoryx-posh ros-humble-ros-workspace ros-humble-iceoryx-binding-c ros-humble-iceoryx-hoofs ros-humble-iceoryx-posh"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath cmake openssl-dev ros-humble-iceoryx-binding-c ros-humble-iceoryx-hoofs ros-humble-iceoryx-posh"
+depends="openssl ros-humble-iceoryx-binding-c ros-humble-iceoryx-hoofs ros-humble-iceoryx-posh ros-humble-ros-workspace"
+makedepends="chrpath cmake openssl-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-iceoryx-binding-c ros-humble-iceoryx-binding-c-dev ros-humble-iceoryx-hoofs ros-humble-iceoryx-hoofs-dev ros-humble-iceoryx-posh ros-humble-iceoryx-posh-dev ros-humble-ros-workspace-dev"
+depends_dev="ros-humble-iceoryx-binding-c ros-humble-iceoryx-binding-c-dev ros-humble-iceoryx-hoofs ros-humble-iceoryx-hoofs-dev ros-humble-iceoryx-posh ros-humble-iceoryx-posh-dev ros-humble-ros-workspace-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: cyclonedds
     uri: https://github.com/ros2-gbp/cyclonedds-release.git
-    version: release/humble/cyclonedds/0.10.4-1
+    version: release/humble/cyclonedds/0.10.5-2
 "
 
 prepare() {
@@ -243,6 +244,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

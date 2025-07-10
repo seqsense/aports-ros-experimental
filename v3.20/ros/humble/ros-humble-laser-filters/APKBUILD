@@ -1,16 +1,17 @@
 pkgname=ros-humble-laser-filters
 _pkgname=laser_filters
-pkgver=2.0.7
+pkgver=2.0.9
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="http://ros.org/wiki/laser_filters"
 arch="all"
 license="BSD"
 
-depends="ros-humble-angles ros-humble-filters ros-humble-laser-geometry ros-humble-message-filters ros-humble-pluginlib ros-humble-rclcpp ros-humble-rclcpp-lifecycle ros-humble-ros-workspace ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-ros ros-humble-angles ros-humble-filters ros-humble-laser-geometry ros-humble-message-filters ros-humble-pluginlib ros-humble-rclcpp ros-humble-rclcpp-lifecycle ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-ros"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake-auto ros-humble-ament-cmake-gtest ros-humble-angles ros-humble-filters ros-humble-laser-geometry ros-humble-message-filters ros-humble-pluginlib ros-humble-rclcpp ros-humble-rclcpp-lifecycle ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-ros"
+depends="ros-humble-angles ros-humble-diagnostic-msgs ros-humble-diagnostic-updater ros-humble-filters ros-humble-laser-geometry ros-humble-message-filters ros-humble-pluginlib ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-rclcpp-lifecycle ros-humble-ros-workspace ros-humble-sensor-msgs ros-humble-tf2 ros-humble-tf2-geometry-msgs ros-humble-tf2-kdl ros-humble-tf2-ros"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake-auto ros-humble-ament-cmake-auto-dev ros-humble-ament-cmake-gtest ros-humble-ament-cmake-gtest-dev ros-humble-angles ros-humble-angles-dev ros-humble-diagnostic-msgs ros-humble-diagnostic-msgs-dev ros-humble-diagnostic-updater ros-humble-diagnostic-updater-dev ros-humble-filters ros-humble-filters-dev ros-humble-laser-geometry ros-humble-laser-geometry-dev ros-humble-launch-testing-ament-cmake ros-humble-launch-testing-ament-cmake-dev ros-humble-message-filters ros-humble-message-filters-dev ros-humble-pluginlib ros-humble-pluginlib-dev ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-rclcpp-components-dev ros-humble-rclcpp-dev ros-humble-rclcpp-lifecycle ros-humble-rclcpp-lifecycle-dev ros-humble-ros-workspace-dev ros-humble-sensor-msgs ros-humble-sensor-msgs-dev ros-humble-tf2 ros-humble-tf2-dev ros-humble-tf2-geometry-msgs ros-humble-tf2-geometry-msgs-dev ros-humble-tf2-kdl ros-humble-tf2-kdl-dev ros-humble-tf2-ros ros-humble-tf2-ros-dev"
+depends_dev="ros-humble-angles ros-humble-angles-dev ros-humble-diagnostic-msgs ros-humble-diagnostic-msgs-dev ros-humble-diagnostic-updater ros-humble-diagnostic-updater-dev ros-humble-filters ros-humble-filters-dev ros-humble-laser-geometry ros-humble-laser-geometry-dev ros-humble-message-filters ros-humble-message-filters-dev ros-humble-pluginlib ros-humble-pluginlib-dev ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-rclcpp-components-dev ros-humble-rclcpp-dev ros-humble-rclcpp-lifecycle ros-humble-rclcpp-lifecycle-dev ros-humble-ros-workspace-dev ros-humble-sensor-msgs ros-humble-sensor-msgs-dev ros-humble-tf2 ros-humble-tf2-dev ros-humble-tf2-geometry-msgs ros-humble-tf2-geometry-msgs-dev ros-humble-tf2-kdl ros-humble-tf2-kdl-dev ros-humble-tf2-ros ros-humble-tf2-ros-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: laser_filters
     uri: https://github.com/ros2-gbp/laser_filters-release.git
-    version: release/humble/laser_filters/2.0.7-1
+    version: release/humble/laser_filters/2.0.9-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

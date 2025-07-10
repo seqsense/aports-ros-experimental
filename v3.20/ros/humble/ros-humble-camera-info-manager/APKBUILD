@@ -1,16 +1,17 @@
 pkgname=ros-humble-camera-info-manager
 _pkgname=camera_info_manager
-pkgver=3.1.9
+pkgver=3.1.12
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="http://ros.org/wiki/camera_info_manager"
 arch="all"
 license="BSD"
 
-depends="ros-humble-ament-index-cpp ros-humble-camera-calibration-parsers ros-humble-rclcpp ros-humble-rcpputils ros-humble-ros-workspace ros-humble-sensor-msgs ros-humble-ament-index-cpp ros-humble-camera-calibration-parsers ros-humble-rclcpp ros-humble-rcpputils ros-humble-sensor-msgs"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake-gtest ros-humble-ament-cmake-ros ros-humble-ament-index-cpp ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-camera-calibration-parsers ros-humble-rclcpp ros-humble-rcpputils ros-humble-sensor-msgs"
+depends="ros-humble-ament-index-cpp ros-humble-camera-calibration-parsers ros-humble-rclcpp ros-humble-rcpputils ros-humble-ros-workspace ros-humble-sensor-msgs"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake-gtest ros-humble-ament-cmake-gtest-dev ros-humble-ament-cmake-ros ros-humble-ament-cmake-ros-dev ros-humble-ament-index-cpp ros-humble-ament-index-cpp-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-camera-calibration-parsers ros-humble-camera-calibration-parsers-dev ros-humble-rclcpp ros-humble-rclcpp-dev ros-humble-rcpputils ros-humble-rcpputils-dev ros-humble-ros-workspace-dev ros-humble-sensor-msgs ros-humble-sensor-msgs-dev"
+depends_dev="ros-humble-ament-index-cpp ros-humble-ament-index-cpp-dev ros-humble-camera-calibration-parsers ros-humble-camera-calibration-parsers-dev ros-humble-rclcpp ros-humble-rclcpp-dev ros-humble-rcpputils ros-humble-rcpputils-dev ros-humble-ros-workspace-dev ros-humble-sensor-msgs ros-humble-sensor-msgs-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: camera_info_manager
     uri: https://github.com/ros2-gbp/image_common-release.git
-    version: release/humble/camera_info_manager/3.1.9-1
+    version: release/humble/camera_info_manager/3.1.12-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

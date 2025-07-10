@@ -7,10 +7,11 @@ url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="ros-humble-ament-index-python ros-humble-fastcdr ros-humble-rmw ros-humble-ros-workspace ros-humble-rosidl-cli ros-humble-rosidl-cmake ros-humble-rosidl-runtime-c ros-humble-rosidl-typesupport-fastrtps-cpp python3-dev ros-humble-ament-cmake-ros ros-humble-ament-index-python ros-humble-fastcdr ros-humble-fastrtps-cmake-module ros-humble-rmw ros-humble-rosidl-cli ros-humble-rosidl-cmake ros-humble-rosidl-generator-c ros-humble-rosidl-runtime-c ros-humble-rosidl-runtime-cpp ros-humble-rosidl-typesupport-fastrtps-cpp ros-humble-rosidl-typesupport-interface"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake-gtest ros-humble-ament-cmake-pytest ros-humble-ament-cmake-python ros-humble-ament-cmake-ros ros-humble-ament-index-python ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-fastcdr ros-humble-osrf-testing-tools-cpp ros-humble-performance-test-fixture ros-humble-rmw ros-humble-rosidl-cli ros-humble-rosidl-cmake ros-humble-rosidl-runtime-c ros-humble-rosidl-typesupport-fastrtps-cpp"
+depends="ros-humble-ament-index-python ros-humble-fastcdr ros-humble-rmw ros-humble-ros-workspace ros-humble-rosidl-cli ros-humble-rosidl-cmake ros-humble-rosidl-runtime-c ros-humble-rosidl-typesupport-fastrtps-cpp"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool python3-dev ros-humble-ament-cmake-gtest ros-humble-ament-cmake-gtest-dev ros-humble-ament-cmake-pytest ros-humble-ament-cmake-pytest-dev ros-humble-ament-cmake-python ros-humble-ament-cmake-python-dev ros-humble-ament-cmake-ros ros-humble-ament-cmake-ros-dev ros-humble-ament-index-python ros-humble-ament-index-python-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-fastcdr ros-humble-fastcdr-dev ros-humble-fastrtps-cmake-module ros-humble-fastrtps-cmake-module-dev ros-humble-osrf-testing-tools-cpp ros-humble-osrf-testing-tools-cpp-dev ros-humble-performance-test-fixture ros-humble-performance-test-fixture-dev ros-humble-rmw ros-humble-rmw-dev ros-humble-ros-workspace-dev ros-humble-rosidl-cli ros-humble-rosidl-cli-dev ros-humble-rosidl-cmake ros-humble-rosidl-cmake-dev ros-humble-rosidl-generator-c ros-humble-rosidl-generator-c-dev ros-humble-rosidl-runtime-c ros-humble-rosidl-runtime-c-dev ros-humble-rosidl-runtime-cpp ros-humble-rosidl-runtime-cpp-dev ros-humble-rosidl-typesupport-fastrtps-cpp ros-humble-rosidl-typesupport-fastrtps-cpp-dev ros-humble-rosidl-typesupport-interface ros-humble-rosidl-typesupport-interface-dev"
+depends_dev="python3-dev ros-humble-ament-cmake-ros ros-humble-ament-cmake-ros-dev ros-humble-ament-index-python ros-humble-ament-index-python-dev ros-humble-fastcdr ros-humble-fastcdr-dev ros-humble-fastrtps-cmake-module ros-humble-fastrtps-cmake-module-dev ros-humble-rmw ros-humble-rmw-dev ros-humble-ros-workspace-dev ros-humble-rosidl-cli ros-humble-rosidl-cli-dev ros-humble-rosidl-cmake ros-humble-rosidl-cmake-dev ros-humble-rosidl-generator-c ros-humble-rosidl-generator-c-dev ros-humble-rosidl-runtime-c ros-humble-rosidl-runtime-c-dev ros-humble-rosidl-runtime-cpp ros-humble-rosidl-runtime-cpp-dev ros-humble-rosidl-typesupport-fastrtps-cpp ros-humble-rosidl-typesupport-fastrtps-cpp-dev ros-humble-rosidl-typesupport-interface ros-humble-rosidl-typesupport-interface-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

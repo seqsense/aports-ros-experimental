@@ -8,9 +8,10 @@ arch="all"
 license="Apache License 2.0"
 
 depends="ros-humble-lifecycle-msgs ros-humble-rcl ros-humble-rcutils ros-humble-rmw ros-humble-ros-workspace ros-humble-rosidl-runtime-c ros-humble-tracetools"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake-gen-version-h ros-humble-ament-cmake-gtest ros-humble-ament-cmake-ros ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-lifecycle-msgs ros-humble-osrf-testing-tools-cpp ros-humble-rcl ros-humble-rcutils ros-humble-rmw ros-humble-rosidl-runtime-c ros-humble-tracetools"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake-gen-version-h ros-humble-ament-cmake-gen-version-h-dev ros-humble-ament-cmake-gtest ros-humble-ament-cmake-gtest-dev ros-humble-ament-cmake-ros ros-humble-ament-cmake-ros-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-lifecycle-msgs ros-humble-lifecycle-msgs-dev ros-humble-osrf-testing-tools-cpp ros-humble-osrf-testing-tools-cpp-dev ros-humble-rcl ros-humble-rcl-dev ros-humble-rcutils ros-humble-rcutils-dev ros-humble-rmw ros-humble-rmw-dev ros-humble-ros-workspace-dev ros-humble-rosidl-runtime-c ros-humble-rosidl-runtime-c-dev ros-humble-tracetools ros-humble-tracetools-dev"
+depends_dev="ros-humble-lifecycle-msgs-dev ros-humble-rcl-dev ros-humble-rcutils-dev ros-humble-rmw-dev ros-humble-ros-workspace-dev ros-humble-rosidl-runtime-c-dev ros-humble-tracetools-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

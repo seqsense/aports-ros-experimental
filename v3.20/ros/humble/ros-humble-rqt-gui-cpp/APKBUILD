@@ -7,10 +7,11 @@ url="http://ros.org/wiki/rqt_gui_cpp"
 arch="all"
 license="BSD"
 
-depends="ros-humble-pluginlib ros-humble-qt-gui-cpp>=0.3.0 ros-humble-qt-gui>=0.3.0 ros-humble-rclcpp ros-humble-ros-workspace ros-humble-pluginlib ros-humble-rclcpp"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath qt5-qtbase-dev ros-humble-ament-cmake ros-humble-pluginlib ros-humble-qt-gui-cpp>=0.3.0 ros-humble-qt-gui>=0.3.0 ros-humble-rclcpp"
+depends="ros-humble-pluginlib ros-humble-qt-gui-cpp>=0.3.0 ros-humble-qt-gui>=0.3.0 ros-humble-rclcpp ros-humble-ros-workspace"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool qt5-qtbase-dev ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-pluginlib ros-humble-pluginlib-dev ros-humble-qt-gui-cpp-dev>=0.3.0 ros-humble-qt-gui-cpp>=0.3.0 ros-humble-qt-gui-dev>=0.3.0 ros-humble-qt-gui>=0.3.0 ros-humble-rclcpp ros-humble-rclcpp-dev ros-humble-ros-workspace-dev"
+depends_dev="ros-humble-pluginlib ros-humble-pluginlib-dev ros-humble-qt-gui-cpp-dev>=0.3.0 ros-humble-qt-gui-dev>=0.3.0 ros-humble-rclcpp ros-humble-rclcpp-dev ros-humble-ros-workspace-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

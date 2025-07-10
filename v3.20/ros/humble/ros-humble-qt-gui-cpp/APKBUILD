@@ -1,6 +1,6 @@
 pkgname=ros-humble-qt-gui-cpp
 _pkgname=qt_gui_cpp
-pkgver=2.2.3
+pkgver=2.2.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="http://ros.org/wiki/qt_gui_cpp"
@@ -8,9 +8,10 @@ arch="all"
 license="BSD"
 
 depends="ros-humble-pluginlib>=1.9.23 ros-humble-qt-gui>=0.3.0 ros-humble-rcpputils ros-humble-ros-workspace ros-humble-tinyxml2-vendor"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath pkgconf qt5-qtbase-dev ros-humble-ament-cmake ros-humble-ament-cmake-pytest ros-humble-pluginlib>=1.9.23 ros-humble-python-qt-binding>=0.3.0 ros-humble-rcpputils ros-humble-tinyxml2-vendor"
+makedepends="chrpath pkgconf py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool qt5-qtbase-dev ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-cmake-pytest ros-humble-ament-cmake-pytest-dev ros-humble-pluginlib-dev>=1.9.23 ros-humble-pluginlib>=1.9.23 ros-humble-python-qt-binding-dev>=0.3.0 ros-humble-python-qt-binding>=0.3.0 ros-humble-qt-gui-dev>=0.3.0 ros-humble-rcpputils ros-humble-rcpputils-dev ros-humble-ros-workspace-dev ros-humble-tinyxml2-vendor ros-humble-tinyxml2-vendor-dev"
+depends_dev="ros-humble-pluginlib-dev>=1.9.23 ros-humble-qt-gui-dev>=0.3.0 ros-humble-rcpputils-dev ros-humble-ros-workspace-dev ros-humble-tinyxml2-vendor-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: qt_gui_cpp
     uri: https://github.com/ros2-gbp/qt_gui_core-release.git
-    version: release/humble/qt_gui_cpp/2.2.3-2
+    version: release/humble/qt_gui_cpp/2.2.4-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

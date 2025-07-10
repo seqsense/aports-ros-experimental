@@ -1,16 +1,17 @@
 pkgname=ros-humble-rclcpp
 _pkgname=rclcpp
-pkgver=16.0.10
+pkgver=16.0.13
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="ros-humble-libstatistics-collector ros-humble-rcl ros-humble-rcl-yaml-param-parser ros-humble-rcpputils ros-humble-rcutils ros-humble-rmw ros-humble-ros-workspace ros-humble-statistics-msgs ros-humble-tracetools ros-humble-ament-index-cpp ros-humble-builtin-interfaces ros-humble-libstatistics-collector ros-humble-rcl ros-humble-rcl-interfaces ros-humble-rcl-yaml-param-parser ros-humble-rcpputils ros-humble-rcutils ros-humble-rmw ros-humble-rosgraph-msgs ros-humble-rosidl-runtime-cpp ros-humble-rosidl-typesupport-c ros-humble-rosidl-typesupport-cpp ros-humble-statistics-msgs ros-humble-tracetools"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath python3-dev ros-humble-ament-cmake-gen-version-h ros-humble-ament-cmake-gmock ros-humble-ament-cmake-google-benchmark ros-humble-ament-cmake-gtest ros-humble-ament-cmake-ros ros-humble-ament-index-cpp ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-builtin-interfaces ros-humble-libstatistics-collector ros-humble-mimick-vendor ros-humble-performance-test-fixture ros-humble-rcl ros-humble-rcl-interfaces ros-humble-rcl-yaml-param-parser ros-humble-rcpputils ros-humble-rcutils ros-humble-rmw ros-humble-rmw-implementation-cmake ros-humble-rosgraph-msgs ros-humble-rosidl-default-generators ros-humble-rosidl-runtime-cpp ros-humble-rosidl-typesupport-c ros-humble-rosidl-typesupport-cpp ros-humble-statistics-msgs ros-humble-test-msgs ros-humble-tracetools"
+depends="ros-humble-libstatistics-collector ros-humble-rcl ros-humble-rcl-yaml-param-parser ros-humble-rcpputils ros-humble-rcutils ros-humble-rmw ros-humble-ros-workspace ros-humble-statistics-msgs ros-humble-tracetools"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool python3-dev ros-humble-ament-cmake-gen-version-h ros-humble-ament-cmake-gen-version-h-dev ros-humble-ament-cmake-gmock ros-humble-ament-cmake-gmock-dev ros-humble-ament-cmake-google-benchmark ros-humble-ament-cmake-google-benchmark-dev ros-humble-ament-cmake-gtest ros-humble-ament-cmake-gtest-dev ros-humble-ament-cmake-ros ros-humble-ament-cmake-ros-dev ros-humble-ament-index-cpp ros-humble-ament-index-cpp-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-builtin-interfaces ros-humble-builtin-interfaces-dev ros-humble-libstatistics-collector ros-humble-libstatistics-collector-dev ros-humble-mimick-vendor ros-humble-mimick-vendor-dev ros-humble-performance-test-fixture ros-humble-performance-test-fixture-dev ros-humble-rcl ros-humble-rcl-dev ros-humble-rcl-interfaces ros-humble-rcl-interfaces-dev ros-humble-rcl-yaml-param-parser ros-humble-rcl-yaml-param-parser-dev ros-humble-rcpputils ros-humble-rcpputils-dev ros-humble-rcutils ros-humble-rcutils-dev ros-humble-rmw ros-humble-rmw-dev ros-humble-rmw-implementation-cmake ros-humble-rmw-implementation-cmake-dev ros-humble-ros-workspace-dev ros-humble-rosgraph-msgs ros-humble-rosgraph-msgs-dev ros-humble-rosidl-default-generators ros-humble-rosidl-default-generators-dev ros-humble-rosidl-runtime-cpp ros-humble-rosidl-runtime-cpp-dev ros-humble-rosidl-typesupport-c ros-humble-rosidl-typesupport-c-dev ros-humble-rosidl-typesupport-cpp ros-humble-rosidl-typesupport-cpp-dev ros-humble-statistics-msgs ros-humble-statistics-msgs-dev ros-humble-test-msgs ros-humble-test-msgs-dev ros-humble-tracetools ros-humble-tracetools-dev"
+depends_dev="ros-humble-ament-index-cpp ros-humble-ament-index-cpp-dev ros-humble-builtin-interfaces ros-humble-builtin-interfaces-dev ros-humble-libstatistics-collector ros-humble-libstatistics-collector-dev ros-humble-rcl ros-humble-rcl-dev ros-humble-rcl-interfaces ros-humble-rcl-interfaces-dev ros-humble-rcl-yaml-param-parser ros-humble-rcl-yaml-param-parser-dev ros-humble-rcpputils ros-humble-rcpputils-dev ros-humble-rcutils ros-humble-rcutils-dev ros-humble-rmw ros-humble-rmw-dev ros-humble-ros-workspace-dev ros-humble-rosgraph-msgs ros-humble-rosgraph-msgs-dev ros-humble-rosidl-runtime-cpp ros-humble-rosidl-runtime-cpp-dev ros-humble-rosidl-typesupport-c ros-humble-rosidl-typesupport-c-dev ros-humble-rosidl-typesupport-cpp ros-humble-rosidl-typesupport-cpp-dev ros-humble-statistics-msgs ros-humble-statistics-msgs-dev ros-humble-tracetools ros-humble-tracetools-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rclcpp
     uri: https://github.com/ros2-gbp/rclcpp-release.git
-    version: release/humble/rclcpp/16.0.10-1
+    version: release/humble/rclcpp/16.0.13-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

@@ -7,10 +7,11 @@ url="http://ros.org/wiki/rqt_py_common"
 arch="all"
 license="BSD"
 
-depends="qt5-qtbase-dev ros-humble-python-qt-binding>=0.3.4 ros-humble-qt-gui ros-humble-rclpy ros-humble-ros-workspace qt5-qtbase-dev ros-humble-rclpy"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath qt5-qtbase-dev ros-humble-ament-cmake ros-humble-ament-cmake-pytest ros-humble-python-cmake-module ros-humble-rclpy ros-humble-rosidl-default-generators ros-humble-rosidl-default-runtime"
+depends="ros-humble-python-qt-binding>=0.3.4 ros-humble-qt-gui ros-humble-rclpy ros-humble-ros-workspace"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool qt5-qtbase-dev ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-cmake-pytest ros-humble-ament-cmake-pytest-dev ros-humble-python-cmake-module ros-humble-python-cmake-module-dev ros-humble-python-qt-binding-dev>=0.3.4 ros-humble-qt-gui-dev ros-humble-rclpy ros-humble-rclpy-dev ros-humble-ros-workspace-dev ros-humble-rosidl-default-generators ros-humble-rosidl-default-generators-dev ros-humble-rosidl-default-runtime ros-humble-rosidl-default-runtime-dev"
+depends_dev="qt5-qtbase-dev ros-humble-python-qt-binding-dev>=0.3.4 ros-humble-qt-gui-dev ros-humble-rclpy ros-humble-rclpy-dev ros-humble-ros-workspace-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

@@ -1,16 +1,17 @@
 pkgname=ros-humble-resource-retriever
 _pkgname=resource_retriever
-pkgver=3.1.2
+pkgver=3.1.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="http://ros.org/wiki/resource_retriever"
 arch="all"
 license="BSD"
 
-depends="ros-humble-ament-index-cpp ros-humble-ament-index-python ros-humble-libcurl-vendor ros-humble-ros-workspace ros-humble-ament-index-cpp ros-humble-ament-index-python ros-humble-libcurl-vendor"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-pytest ros-humble-ament-cmake-gtest ros-humble-ament-cmake-pytest ros-humble-ament-cmake-ros ros-humble-ament-index-cpp ros-humble-ament-index-python ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-libcurl-vendor ros-humble-python-cmake-module"
+depends="ros-humble-ament-index-cpp ros-humble-ament-index-python ros-humble-libcurl-vendor ros-humble-ros-workspace"
+makedepends="chrpath py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake-gtest ros-humble-ament-cmake-gtest-dev ros-humble-ament-cmake-pytest ros-humble-ament-cmake-pytest-dev ros-humble-ament-cmake-ros ros-humble-ament-cmake-ros-dev ros-humble-ament-index-cpp ros-humble-ament-index-cpp-dev ros-humble-ament-index-python ros-humble-ament-index-python-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-libcurl-vendor ros-humble-libcurl-vendor-dev ros-humble-python-cmake-module ros-humble-python-cmake-module-dev ros-humble-ros-workspace-dev"
+depends_dev="ros-humble-ament-index-cpp ros-humble-ament-index-cpp-dev ros-humble-ament-index-python ros-humble-ament-index-python-dev ros-humble-libcurl-vendor ros-humble-libcurl-vendor-dev ros-humble-ros-workspace-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: resource_retriever
     uri: https://github.com/ros2-gbp/resource_retriever-release.git
-    version: release/humble/resource_retriever/3.1.2-1
+    version: release/humble/resource_retriever/3.1.3-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

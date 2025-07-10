@@ -1,16 +1,17 @@
 pkgname=ros-humble-libcurl-vendor
 _pkgname=libcurl_vendor
-pkgver=3.1.2
+pkgver=3.1.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://github.com/curl/curl"
 arch="all"
 license="Apache License 2.0"
 
-depends="curl-dev ros-humble-ros-workspace curl-dev pkgconf"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath curl-dev file ros-humble-ament-cmake"
+depends="ros-humble-ros-workspace"
+makedepends="chrpath curl-dev file pkgconf py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ros-workspace-dev"
+depends_dev="curl-dev pkgconf ros-humble-ros-workspace-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: libcurl_vendor
     uri: https://github.com/ros2-gbp/resource_retriever-release.git
-    version: release/humble/libcurl_vendor/3.1.2-1
+    version: release/humble/libcurl_vendor/3.1.3-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

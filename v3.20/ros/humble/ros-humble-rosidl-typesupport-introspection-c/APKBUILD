@@ -1,16 +1,17 @@
 pkgname=ros-humble-rosidl-typesupport-introspection-c
 _pkgname=rosidl_typesupport_introspection_c
-pkgver=3.1.5
+pkgver=3.1.6
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="ros-humble-ament-index-python ros-humble-ros-workspace ros-humble-rosidl-cli ros-humble-rosidl-cmake ros-humble-rosidl-parser python3-dev ros-humble-ament-cmake ros-humble-rosidl-cmake ros-humble-rosidl-runtime-c"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake-ros ros-humble-ament-lint-auto ros-humble-ament-lint-common"
+depends="ros-humble-ament-index-python ros-humble-ros-workspace ros-humble-rosidl-cli ros-humble-rosidl-cmake ros-humble-rosidl-parser"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool python3-dev ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-cmake-ros ros-humble-ament-cmake-ros-dev ros-humble-ament-index-python-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-ros-workspace-dev ros-humble-rosidl-cli-dev ros-humble-rosidl-cmake ros-humble-rosidl-cmake-dev ros-humble-rosidl-parser-dev ros-humble-rosidl-runtime-c ros-humble-rosidl-runtime-c-dev"
+depends_dev="python3-dev ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-index-python-dev ros-humble-ros-workspace-dev ros-humble-rosidl-cli-dev ros-humble-rosidl-cmake ros-humble-rosidl-cmake-dev ros-humble-rosidl-parser-dev ros-humble-rosidl-runtime-c ros-humble-rosidl-runtime-c-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rosidl_typesupport_introspection_c
     uri: https://github.com/ros2-gbp/rosidl-release.git
-    version: release/humble/rosidl_typesupport_introspection_c/3.1.5-2
+    version: release/humble/rosidl_typesupport_introspection_c/3.1.6-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

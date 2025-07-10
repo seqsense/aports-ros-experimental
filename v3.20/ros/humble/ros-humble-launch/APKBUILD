@@ -1,16 +1,17 @@
 pkgname=ros-humble-launch
 _pkgname=launch
-pkgver=1.0.6
+pkgver=1.0.9
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="py3-importlib-metadata py3-lark-parser py3-yaml ros-humble-ament-index-python ros-humble-osrf-pycommon ros-humble-ros-workspace ros-humble-osrf-pycommon"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-pytest py3-pytest ros-humble-ament-copyright ros-humble-ament-flake8 ros-humble-ament-pep257 ros-humble-osrf-pycommon"
+depends="py3-importlib-metadata py3-lark-parser py3-yaml ros-humble-ament-index-python ros-humble-osrf-pycommon ros-humble-ros-workspace"
+makedepends="chrpath py3-pytest py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-copyright ros-humble-ament-copyright-dev ros-humble-ament-flake8 ros-humble-ament-flake8-dev ros-humble-ament-index-python-dev ros-humble-ament-pep257 ros-humble-ament-pep257-dev ros-humble-osrf-pycommon ros-humble-osrf-pycommon-dev ros-humble-ros-workspace-dev"
+depends_dev="ros-humble-ament-index-python-dev ros-humble-osrf-pycommon ros-humble-osrf-pycommon-dev ros-humble-ros-workspace-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: launch
     uri: https://github.com/ros2-gbp/launch-release.git
-    version: release/humble/launch/1.0.6-1
+    version: release/humble/launch/1.0.9-1
 "
 
 prepare() {
@@ -262,6 +263,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then
