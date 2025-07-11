@@ -1,0 +1,43 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 54d5b0d..14b198b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -100,32 +100,32 @@ if(BUILD_TESTING)
+ 
+   find_package(ament_cmake_gtest)
+ 
+-  ament_add_gtest(${PROJECT_NAME}-camera_common test/test_camera_common.cpp)
++  ament_add_ros_isolated_gtest(${PROJECT_NAME}-camera_common test/test_camera_common.cpp)
+   if(TARGET ${PROJECT_NAME}-camera_common)
+     target_link_libraries(${PROJECT_NAME}-camera_common ${PROJECT_NAME})
+   endif()
+ 
+-  ament_add_gtest(${PROJECT_NAME}-publisher test/test_publisher.cpp)
++  ament_add_ros_isolated_gtest(${PROJECT_NAME}-publisher test/test_publisher.cpp)
+   if(TARGET ${PROJECT_NAME}-publisher)
+     target_link_libraries(${PROJECT_NAME}-publisher ${PROJECT_NAME})
+   endif()
+ 
+-  ament_add_gtest(${PROJECT_NAME}-subscriber test/test_subscriber.cpp)
++  ament_add_ros_isolated_gtest(${PROJECT_NAME}-subscriber test/test_subscriber.cpp)
+   if(TARGET ${PROJECT_NAME}-subscriber)
+     target_link_libraries(${PROJECT_NAME}-subscriber ${PROJECT_NAME})
+   endif()
+ 
+-  ament_add_gtest(${PROJECT_NAME}-message_passing test/test_message_passing.cpp)
++  ament_add_ros_isolated_gtest(${PROJECT_NAME}-message_passing test/test_message_passing.cpp)
+   if(TARGET ${PROJECT_NAME}-message_passing)
+     target_link_libraries(${PROJECT_NAME}-message_passing ${PROJECT_NAME})
+   endif()
+ 
+-  ament_add_gtest(${PROJECT_NAME}-remapping test/test_remapping.cpp)
++  ament_add_ros_isolated_gtest(${PROJECT_NAME}-remapping test/test_remapping.cpp)
+   if(TARGET ${PROJECT_NAME}-remapping)
+     target_link_libraries(${PROJECT_NAME}-remapping ${PROJECT_NAME})
+   endif()
+ 
+-  ament_add_gtest(${PROJECT_NAME}-single_subscriber_publisher test/test_single_subscriber_publisher.cpp)
++  ament_add_ros_isolated_gtest(${PROJECT_NAME}-single_subscriber_publisher test/test_single_subscriber_publisher.cpp)
+   if(TARGET ${PROJECT_NAME}-single_subscriber_publisher)
+     target_link_libraries(${PROJECT_NAME}-single_subscriber_publisher ${PROJECT_NAME})
+   endif()
