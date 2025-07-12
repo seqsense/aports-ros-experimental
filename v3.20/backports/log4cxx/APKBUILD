@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=log4cxx
 pkgver=0.10.0_git20180321
-pkgrel=6
+pkgrel=5
 pkgdesc="Logging framework for C++ patterned after Apache log4j"
 url="https://logging.apache.org/log4cxx/latest_stable/index.html"
 arch="all"
