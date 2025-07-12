@@ -1,7 +1,7 @@
 # Maintainer: Simon Zeni <simon@bl4ckb0ne.ca>
 pkgname=xtl
 pkgver=0.7.7
-pkgrel=0
+pkgrel=1
 pkgdesc="The x template library"
 url="https://github.com/xtensor-stack/xtl"
 arch="noarch"

@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-ament-xmllint
 _pkgname=ament_xmllint
 pkgver=0.17.2
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"

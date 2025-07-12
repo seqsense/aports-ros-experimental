@@ -2,7 +2,7 @@
 # Maintainer: Bradley J Chambers <brad.chambers@gmail.com>
 pkgname=flann
 pkgver=1.9.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Fast Library for Approximate Nearest Neighbors"
 url="https://github.com/mariusmuja/flann"
 arch="all"

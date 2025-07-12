@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=netpbm
 pkgver=10.86.41
-pkgrel=2
+pkgrel=3
 pkgdesc="Netpbm - graphics tools and converters"
 url="https://sourceforge.net/projects/netpbm/"
 arch="all"

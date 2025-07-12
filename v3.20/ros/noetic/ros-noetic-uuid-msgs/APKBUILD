@@ -1,7 +1,7 @@
 pkgname=ros-noetic-uuid-msgs
 _pkgname=uuid_msgs
 pkgver=1.0.6
-pkgrel=2
+pkgrel=3
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/uuid_msgs"
 arch="all"

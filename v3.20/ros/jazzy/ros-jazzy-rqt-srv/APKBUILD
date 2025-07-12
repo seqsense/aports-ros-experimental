@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-rqt-srv
 _pkgname=rqt_srv
 pkgver=1.2.2
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://wiki.ros.org/rqt_srv"
 arch="all"

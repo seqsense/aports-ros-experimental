@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-rqt-topic
 _pkgname=rqt_topic
 pkgver=1.7.3
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://wiki.ros.org/rqt_topic"
 arch="all"

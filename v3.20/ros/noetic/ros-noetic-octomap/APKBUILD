@@ -1,7 +1,7 @@
 pkgname=ros-noetic-octomap
 _pkgname=octomap
 pkgver=1.9.8
-pkgrel=2
+pkgrel=3
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://octomap.github.io"
 arch="all"

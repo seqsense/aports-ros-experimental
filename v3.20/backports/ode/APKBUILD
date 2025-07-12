@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=ode
 pkgver=0.16.4
-pkgrel=0
+pkgrel=1
 pkgdesc="A free, industrial quality library for simulating articulated rigid body dynamics."
 url="https://www.ode.org/"
 arch="all"

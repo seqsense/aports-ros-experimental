@@ -1,7 +1,7 @@
 pkgname=ros-noetic-depth-image-proc
 _pkgname=depth_image_proc
 pkgver=1.17.0
-pkgrel=2
+pkgrel=3
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/depth_image_proc"
 arch="all"

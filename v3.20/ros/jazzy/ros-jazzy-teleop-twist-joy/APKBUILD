@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-teleop-twist-joy
 _pkgname=teleop_twist_joy
 pkgver=2.6.3
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://wiki.ros.org/teleop_twist_joy"
 arch="all"

@@ -1,7 +1,7 @@
 pkgname=ros-noetic-smach-viewer
 _pkgname=smach_viewer
 pkgver=4.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/smach_viewer"
 arch="all"

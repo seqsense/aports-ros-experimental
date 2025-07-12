@@ -1,7 +1,7 @@
 pkgname=ros-noetic-urdf
 _pkgname=urdf
 pkgver=1.13.4
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/urdf"
 arch="all"

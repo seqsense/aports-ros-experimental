@@ -1,7 +1,7 @@
 pkgname=ros-noetic-tf2-sensor-msgs
 _pkgname=tf2_sensor_msgs
 pkgver=0.7.10
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/tf2_ros"
 arch="all"

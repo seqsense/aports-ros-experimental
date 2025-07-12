@@ -3,7 +3,7 @@
 pkgname=py-pysdl2-dll
 _pkgname=pysdl2-dll
 pkgver=2.30.2
-pkgrel=0
+pkgrel=1
 pkgdesc="A package that bundles the SDL2 libraries for PySDL2 so they don't have to be installed manually"
 url="https://github.com/a-hurst/pysdl2-dll"
 arch="all"

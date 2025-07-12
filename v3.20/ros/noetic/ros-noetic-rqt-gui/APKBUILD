@@ -1,7 +1,7 @@
 pkgname=ros-noetic-rqt-gui
 _pkgname=rqt_gui
 pkgver=0.5.5
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/rqt_gui"
 arch="all"

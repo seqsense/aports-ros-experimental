@@ -3,7 +3,7 @@
 pkgname=hddtemp
 pkgver=0.3_beta15
 _pkgver=0.3-beta15
-pkgrel=1
+pkgrel=2
 pkgdesc="hard drive temperature monitoring utility"
 url="https://logging.apache.org/hddtemp/latest_stable/index.html"
 arch="all"

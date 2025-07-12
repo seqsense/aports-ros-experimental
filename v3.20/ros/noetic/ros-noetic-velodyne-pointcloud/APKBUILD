@@ -1,7 +1,7 @@
 pkgname=ros-noetic-velodyne-pointcloud
 _pkgname=velodyne_pointcloud
 pkgver=1.7.0
-pkgrel=2
+pkgrel=3
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/velodyne_pointcloud"
 arch="all"

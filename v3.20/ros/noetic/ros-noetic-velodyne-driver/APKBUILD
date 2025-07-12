@@ -1,7 +1,7 @@
 pkgname=ros-noetic-velodyne-driver
 _pkgname=velodyne_driver
 pkgver=1.7.0
-pkgrel=2
+pkgrel=3
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://www.ros.org/wiki/velodyne_driver"
 arch="all"

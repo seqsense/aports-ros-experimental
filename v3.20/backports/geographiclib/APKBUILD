@@ -3,7 +3,7 @@
 # Maintainer:
 pkgname=geographiclib
 pkgver=2.3
-pkgrel=0
+pkgrel=1
 pkgdesc="A C++ library for geographic projections."
 url="https://github.com/geographiclib/geographiclib"
 arch="all"

@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-nav2-collision-monitor
 _pkgname=nav2_collision_monitor
 pkgver=1.3.7
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
