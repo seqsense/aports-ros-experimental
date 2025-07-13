@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-ros-workspace
 _pkgname=ros_workspace
 pkgver=1.0.3
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"

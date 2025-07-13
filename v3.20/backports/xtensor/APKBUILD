@@ -1,7 +1,7 @@
 # Maintainer: Simon Zeni <simon@bl4ckb0ne.ca>
 pkgname=xtensor
 pkgver=0.25.0
-pkgrel=0
+pkgrel=1
 pkgdesc="C++ tensors with broadcasting and lazy computing"
 url="https://github.com/xtensor-stack/xtensor"
 arch="noarch !s390x" # test failure on s390x

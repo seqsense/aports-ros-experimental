@@ -1,7 +1,7 @@
 pkgname=ros-noetic-ros-base
 _pkgname=ros_base
 pkgver=1.5.0
-pkgrel=2
+pkgrel=3
 pkgdesc="$_pkgname package for ROS noetic"
 url="https://github.com/ros/metapackages"
 arch="all"

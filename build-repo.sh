@@ -26,20 +26,24 @@ if [ -n "${ADDITIONAL_APK_REPO:-}" ]; then
 fi
 
 
-# Disable stack protection to improve performance
-
-CFLAGS="-fomit-frame-pointer -march=x86-64 -mtune=generic -Os"
+COMMON_GCC_FLAGS="-fomit-frame-pointer -march=x86-64 -mtune=generic -Os"
 case "${STACK_PROTECTOR:-yes}" in
   "n" | "no" | "No" | "off" | "OFF" )
-    CFLAGS="${CFLAGS} -fno-stack-protector"
+    # Disable stack protection to improve performance
+    COMMON_GCC_FLAGS="${COMMON_GCC_FLAGS} -fno-stack-protector"
     echo "Stack protector is disabled"
     ;;
 esac
-echo "export CFLAGS=\"${CFLAGS}\"" | sudo tee -a /etc/abuild.conf
+
+CFLAGS="${COMMON_GCC_FLAGS} ${CFLAGS:-}"
+CXXFLAGS="${COMMON_GCC_FLAGS} ${CXXFLAGS:-}"
 
 if [ "${ALPINE_VERSION}" != "3.17" ]; then
-  echo "export CXXFLAGS=\"-std=c++14\"" | sudo tee -a /etc/abuild.conf
+  CXXFLAGS="${CXXFLAGS} -std=c++14"
 fi
+
+echo "export CFLAGS=\"${CFLAGS}\"" | sudo tee -a /etc/abuild.conf
+echo "export CXXFLAGS=\"${CXXFLAGS}\"" | sudo tee -a /etc/abuild.conf
 
 
 # Overwrite make setting if provided

@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-ros2node
 _pkgname=ros2node
 pkgver=0.32.4
-pkgrel=0
+pkgrel=1
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"

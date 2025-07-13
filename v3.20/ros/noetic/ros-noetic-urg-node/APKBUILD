@@ -1,7 +1,7 @@
 pkgname=ros-noetic-urg-node
 _pkgname=urg_node
 pkgver=0.1.18
-pkgrel=2
+pkgrel=3
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/urg_node"
 arch="all"

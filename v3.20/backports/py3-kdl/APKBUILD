@@ -3,7 +3,7 @@
 pkgname=py3-kdl
 _pkgname=orocos_kinematics_dynamics
 pkgver=1.5.1
-pkgrel=0
+pkgrel=1
 pkgdesc="Python binding of Orocos Kinematics and Dynamics library"
 url="https://github.com/orocos/orocos_kinematics_dynamics"
 arch="all"

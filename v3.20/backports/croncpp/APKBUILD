@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=croncpp
 pkgver=2023.03.30
-pkgrel=0
+pkgrel=1
 pkgdesc="A C++11/14/17 header-only cross-platform library for handling CRON expressions"
 url="https://github.com/mariusbancila/croncpp"
 arch="all"
