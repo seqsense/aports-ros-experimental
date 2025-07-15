@@ -1,16 +1,17 @@
 pkgname=ros-humble-tf2-py
 _pkgname=tf2_py
-pkgver=0.25.8
+pkgver=0.25.14
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="http://ros.org/wiki/tf2_py"
 arch="all"
 license="BSD"
 
-depends="ros-humble-builtin-interfaces ros-humble-geometry-msgs ros-humble-rclpy ros-humble-ros-workspace ros-humble-rpyutils ros-humble-tf2 ros-humble-tf2"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake ros-humble-ament-cmake-pytest ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-geometry-msgs ros-humble-python-cmake-module ros-humble-tf2"
+depends="ros-humble-builtin-interfaces ros-humble-geometry-msgs ros-humble-rclpy ros-humble-ros-workspace ros-humble-rpyutils ros-humble-tf2"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-cmake-pytest ros-humble-ament-cmake-pytest-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-builtin-interfaces-dev ros-humble-geometry-msgs ros-humble-geometry-msgs-dev ros-humble-python-cmake-module ros-humble-python-cmake-module-dev ros-humble-rclpy-dev ros-humble-ros-workspace-dev ros-humble-rpyutils-dev ros-humble-tf2 ros-humble-tf2-dev"
+depends_dev="ros-humble-builtin-interfaces-dev ros-humble-geometry-msgs-dev ros-humble-rclpy-dev ros-humble-ros-workspace-dev ros-humble-rpyutils-dev ros-humble-tf2 ros-humble-tf2-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: tf2_py
     uri: https://github.com/ros2-gbp/geometry2-release.git
-    version: release/humble/tf2_py/0.25.8-1
+    version: release/humble/tf2_py/0.25.14-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

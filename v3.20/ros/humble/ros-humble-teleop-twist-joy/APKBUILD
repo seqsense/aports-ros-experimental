@@ -1,6 +1,6 @@
 pkgname=ros-humble-teleop-twist-joy
 _pkgname=teleop_twist_joy
-pkgver=2.4.7
+pkgver=2.4.8
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="http://wiki.ros.org/teleop_twist_joy"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: teleop_twist_joy
     uri: https://github.com/ros2-gbp/teleop_twist_joy-release.git
-    version: release/humble/teleop_twist_joy/2.4.7-1
+    version: release/humble/teleop_twist_joy/2.4.8-1
 "
 
 prepare() {

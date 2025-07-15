@@ -1,16 +1,17 @@
 pkgname=ros-humble-message-filters
 _pkgname=message_filters
-pkgver=4.3.5
+pkgver=4.3.7
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://github.com/intel/ros2_message_filters"
 arch="all"
 license="BSD"
 
-depends="ros-humble-builtin-interfaces ros-humble-rclpy ros-humble-ros-workspace ros-humble-rclcpp ros-humble-rcutils"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake-gtest ros-humble-ament-cmake-pytest ros-humble-ament-cmake-python ros-humble-ament-cmake-ros ros-humble-ament-lint-auto ros-humble-python-cmake-module ros-humble-rclcpp ros-humble-rclcpp-lifecycle ros-humble-rcutils ros-humble-sensor-msgs ros-humble-std-msgs"
+depends="ros-humble-builtin-interfaces ros-humble-rclpy ros-humble-ros-workspace"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake-gtest ros-humble-ament-cmake-gtest-dev ros-humble-ament-cmake-pytest ros-humble-ament-cmake-pytest-dev ros-humble-ament-cmake-python ros-humble-ament-cmake-python-dev ros-humble-ament-cmake-ros ros-humble-ament-cmake-ros-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-builtin-interfaces-dev ros-humble-python-cmake-module ros-humble-python-cmake-module-dev ros-humble-rclcpp ros-humble-rclcpp-dev ros-humble-rclcpp-lifecycle ros-humble-rclcpp-lifecycle-dev ros-humble-rclpy-dev ros-humble-rcutils ros-humble-rcutils-dev ros-humble-ros-workspace-dev ros-humble-sensor-msgs ros-humble-sensor-msgs-dev ros-humble-std-msgs ros-humble-std-msgs-dev"
+depends_dev="ros-humble-builtin-interfaces-dev ros-humble-rclcpp ros-humble-rclcpp-dev ros-humble-rclpy-dev ros-humble-rcutils ros-humble-rcutils-dev ros-humble-ros-workspace-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: message_filters
     uri: https://github.com/ros2-gbp/ros2_message_filters-release.git
-    version: release/humble/message_filters/4.3.5-1
+    version: release/humble/message_filters/4.3.7-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

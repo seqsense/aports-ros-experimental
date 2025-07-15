@@ -1,6 +1,6 @@
 pkgname=ros-humble-rosbag2
 _pkgname=rosbag2
-pkgver=0.15.12
+pkgver=0.15.14
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
@@ -8,9 +8,10 @@ arch="all"
 license="Apache License 2.0"
 
 depends="ros-humble-ros-workspace ros-humble-ros2bag ros-humble-rosbag2-compression ros-humble-rosbag2-compression-zstd ros-humble-rosbag2-cpp ros-humble-rosbag2-py ros-humble-rosbag2-storage ros-humble-rosbag2-storage-default-plugins ros-humble-rosbag2-transport ros-humble-shared-queues-vendor ros-humble-sqlite3-vendor"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake ros-humble-rosbag2-test-common ros-humble-rosbag2-tests"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ros-workspace-dev ros-humble-ros2bag-dev ros-humble-rosbag2-compression-dev ros-humble-rosbag2-compression-zstd-dev ros-humble-rosbag2-cpp-dev ros-humble-rosbag2-py-dev ros-humble-rosbag2-storage-default-plugins-dev ros-humble-rosbag2-storage-dev ros-humble-rosbag2-test-common ros-humble-rosbag2-test-common-dev ros-humble-rosbag2-tests ros-humble-rosbag2-tests-dev ros-humble-rosbag2-transport-dev ros-humble-shared-queues-vendor-dev ros-humble-sqlite3-vendor-dev"
+depends_dev="ros-humble-ros-workspace-dev ros-humble-ros2bag-dev ros-humble-rosbag2-compression-dev ros-humble-rosbag2-compression-zstd-dev ros-humble-rosbag2-cpp-dev ros-humble-rosbag2-py-dev ros-humble-rosbag2-storage-default-plugins-dev ros-humble-rosbag2-storage-dev ros-humble-rosbag2-transport-dev ros-humble-shared-queues-vendor-dev ros-humble-sqlite3-vendor-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rosbag2
     uri: https://github.com/ros2-gbp/rosbag2-release.git
-    version: release/humble/rosbag2/0.15.12-1
+    version: release/humble/rosbag2/0.15.14-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

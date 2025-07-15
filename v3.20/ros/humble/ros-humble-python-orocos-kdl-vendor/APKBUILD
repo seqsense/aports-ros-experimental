@@ -1,15 +1,15 @@
-pkgname=ros-humble-geometry2
-_pkgname=geometry2
-pkgver=0.25.14
+pkgname=ros-humble-python-orocos-kdl-vendor
+_pkgname=python_orocos_kdl_vendor
+pkgver=0.2.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
-url="http://www.ros.org/wiki/geometry2"
+url="https://github.com/orocos/orocos_kinematics_dynamics"
 arch="all"
-license="BSD"
+license="Apache License 2.0"
 
-depends="ros-humble-ros-workspace ros-humble-tf2 ros-humble-tf2-bullet ros-humble-tf2-eigen ros-humble-tf2-eigen-kdl ros-humble-tf2-geometry-msgs ros-humble-tf2-kdl ros-humble-tf2-msgs ros-humble-tf2-py ros-humble-tf2-ros ros-humble-tf2-sensor-msgs ros-humble-tf2-tools"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ros-workspace-dev ros-humble-tf2-bullet-dev ros-humble-tf2-dev ros-humble-tf2-eigen-dev ros-humble-tf2-eigen-kdl-dev ros-humble-tf2-geometry-msgs-dev ros-humble-tf2-kdl-dev ros-humble-tf2-msgs-dev ros-humble-tf2-py-dev ros-humble-tf2-ros-dev ros-humble-tf2-sensor-msgs-dev ros-humble-tf2-tools-dev"
-depends_dev="ros-humble-ros-workspace-dev ros-humble-tf2-bullet-dev ros-humble-tf2-dev ros-humble-tf2-eigen-dev ros-humble-tf2-eigen-kdl-dev ros-humble-tf2-geometry-msgs-dev ros-humble-tf2-kdl-dev ros-humble-tf2-msgs-dev ros-humble-tf2-py-dev ros-humble-tf2-ros-dev ros-humble-tf2-sensor-msgs-dev ros-humble-tf2-tools-dev"
+depends="py3-kdl ros-humble-orocos-kdl-vendor ros-humble-pybind11-vendor ros-humble-ros-workspace"
+makedepends="chrpath py3-kdl py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-cmake-python ros-humble-ament-cmake-python-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-orocos-kdl-vendor ros-humble-orocos-kdl-vendor-dev ros-humble-pybind11-vendor ros-humble-pybind11-vendor-dev ros-humble-python-cmake-module ros-humble-python-cmake-module-dev ros-humble-ros-workspace-dev"
+depends_dev="py3-kdl ros-humble-orocos-kdl-vendor ros-humble-orocos-kdl-vendor-dev ros-humble-pybind11-vendor ros-humble-pybind11-vendor-dev ros-humble-ros-workspace-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
@@ -32,9 +32,9 @@ if [ ! -f /usr/ros/humble/setup.sh ]; then
   export AMENT_PREFIX_PATH=/usr/ros/humble
 fi
 rosinstall="- git:
-    local-name: geometry2
-    uri: https://github.com/ros2-gbp/geometry2-release.git
-    version: release/humble/geometry2/0.25.14-1
+    local-name: python_orocos_kdl_vendor
+    uri: https://github.com/ros2-gbp/orocos_kdl_vendor-release.git
+    version: release/humble/python_orocos_kdl_vendor/0.2.5-1
 "
 
 prepare() {

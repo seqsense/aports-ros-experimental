@@ -1,16 +1,17 @@
 pkgname=ros-humble-tf2-eigen-kdl
 _pkgname=tf2_eigen_kdl
-pkgver=0.25.8
+pkgver=0.25.14
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="ros-humble-orocos-kdl-vendor ros-humble-ros-workspace ros-humble-tf2 eigen-dev ros-humble-orocos-kdl-vendor ros-humble-tf2"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath eigen-dev ros-humble-ament-cmake ros-humble-ament-cmake-gtest ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-orocos-kdl-vendor ros-humble-tf2"
+depends="ros-humble-orocos-kdl-vendor ros-humble-ros-workspace ros-humble-tf2"
+makedepends="chrpath eigen-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-cmake-gtest ros-humble-ament-cmake-gtest-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-orocos-kdl-vendor ros-humble-orocos-kdl-vendor-dev ros-humble-ros-workspace-dev ros-humble-tf2 ros-humble-tf2-dev"
+depends_dev="eigen-dev ros-humble-orocos-kdl-vendor ros-humble-orocos-kdl-vendor-dev ros-humble-ros-workspace-dev ros-humble-tf2 ros-humble-tf2-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -33,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: tf2_eigen_kdl
     uri: https://github.com/ros2-gbp/geometry2-release.git
-    version: release/humble/tf2_eigen_kdl/0.25.8-1
+    version: release/humble/tf2_eigen_kdl/0.25.14-1
 "
 
 prepare() {
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

@@ -7,10 +7,11 @@ url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="BSD"
 
-depends="ros-humble-builtin-interfaces ros-humble-geometry-msgs ros-humble-kdl-parser ros-humble-orocos-kdl-vendor ros-humble-rcl-interfaces ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-ros-workspace ros-humble-sensor-msgs ros-humble-std-msgs ros-humble-tf2-ros ros-humble-urdf ros-humble-builtin-interfaces ros-humble-geometry-msgs ros-humble-kdl-parser ros-humble-orocos-kdl-vendor ros-humble-rcl-interfaces ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-sensor-msgs ros-humble-std-msgs ros-humble-tf2-ros ros-humble-urdf"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake ros-humble-ament-cmake-gtest ros-humble-ament-lint-auto ros-humble-ament-lint-common ros-humble-builtin-interfaces ros-humble-geometry-msgs ros-humble-kdl-parser ros-humble-launch-ros ros-humble-launch-testing-ament-cmake ros-humble-orocos-kdl-vendor ros-humble-rcl-interfaces ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-sensor-msgs ros-humble-std-msgs ros-humble-tf2-ros ros-humble-urdf"
+depends="ros-humble-builtin-interfaces ros-humble-geometry-msgs ros-humble-kdl-parser ros-humble-orocos-kdl-vendor ros-humble-rcl-interfaces ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-ros-workspace ros-humble-sensor-msgs ros-humble-std-msgs ros-humble-tf2-ros ros-humble-urdf"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-cmake-gtest ros-humble-ament-cmake-gtest-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-builtin-interfaces ros-humble-builtin-interfaces-dev ros-humble-geometry-msgs ros-humble-geometry-msgs-dev ros-humble-kdl-parser ros-humble-kdl-parser-dev ros-humble-launch-ros ros-humble-launch-ros-dev ros-humble-launch-testing-ament-cmake ros-humble-launch-testing-ament-cmake-dev ros-humble-orocos-kdl-vendor ros-humble-orocos-kdl-vendor-dev ros-humble-rcl-interfaces ros-humble-rcl-interfaces-dev ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-rclcpp-components-dev ros-humble-rclcpp-dev ros-humble-ros-workspace-dev ros-humble-sensor-msgs ros-humble-sensor-msgs-dev ros-humble-std-msgs ros-humble-std-msgs-dev ros-humble-tf2-ros ros-humble-tf2-ros-dev ros-humble-urdf ros-humble-urdf-dev"
+depends_dev="ros-humble-builtin-interfaces ros-humble-builtin-interfaces-dev ros-humble-geometry-msgs ros-humble-geometry-msgs-dev ros-humble-kdl-parser ros-humble-kdl-parser-dev ros-humble-orocos-kdl-vendor ros-humble-orocos-kdl-vendor-dev ros-humble-rcl-interfaces ros-humble-rcl-interfaces-dev ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-rclcpp-components-dev ros-humble-rclcpp-dev ros-humble-ros-workspace-dev ros-humble-sensor-msgs ros-humble-sensor-msgs-dev ros-humble-std-msgs ros-humble-std-msgs-dev ros-humble-tf2-ros ros-humble-tf2-ros-dev ros-humble-urdf ros-humble-urdf-dev"
 
-subpackages="$pkgname-dbg $pkgname-doc"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
 source=""
 builddir="$startdir/abuild"
@@ -249,6 +250,27 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then
