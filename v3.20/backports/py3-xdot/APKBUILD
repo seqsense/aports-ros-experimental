@@ -3,7 +3,7 @@
 pkgname=py3-xdot
 _pkgname=xdot
 pkgver=1.4
-pkgrel=0
+pkgrel=1
 pkgdesc="Interactive viewer for Graphviz dot files"
 url="https://pypi.python.org/pypi/xdot"
 arch="all"

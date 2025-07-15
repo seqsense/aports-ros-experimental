@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=ignition-cmake2
 pkgver=2.17.2
-pkgrel=0
+pkgrel=1
 pkgdesc="A set of CMake modules that are used by the C++-based Gazebo projects."
 url="https://github.com/gazebosim/gz-cmake"
 arch="all"

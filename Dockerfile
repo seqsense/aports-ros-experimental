@@ -31,8 +31,11 @@ RUN apk add --no-cache \
 
 VOLUME /cache
 
-ENV CC=/usr/lib/ccache/bin/gcc \
-  CXX=/usr/lib/ccache/bin/g++ \
+COPY scripts/gcc-with-retry/gcc /usr/lib/gcc-with-retry/gcc
+RUN ln -s /usr/lib/gcc-with-retry/gcc /usr/lib/gcc-with-retry/g++
+
+ENV CC=/usr/lib/gcc-with-retry/gcc \
+  CXX=/usr/lib/gcc-with-retry/g++ \
   CCACHE_DIR=/cache/ccache \
   CCACHE_DEPEND=true
 

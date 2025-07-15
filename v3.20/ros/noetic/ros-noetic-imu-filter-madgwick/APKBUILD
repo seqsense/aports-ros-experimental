@@ -1,7 +1,7 @@
 pkgname=ros-noetic-imu-filter-madgwick
 _pkgname=imu_filter_madgwick
 pkgver=1.2.7
-pkgrel=1
+pkgrel=2
 pkgdesc="$_pkgname package for ROS noetic"
 url="http://ros.org/wiki/imu_filter_madgwick"
 arch="all"
