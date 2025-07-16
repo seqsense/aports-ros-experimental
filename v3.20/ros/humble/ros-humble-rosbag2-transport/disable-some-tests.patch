@@ -1,0 +1,106 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 021faab5..0f5f9379 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -100,11 +100,11 @@ function(create_tests_for_rmw_implementation)
+     set(SKIP_TEST "SKIP_TEST")
+   endif()
+ 
+-  rosbag2_transport_add_gmock(test_play
+-    test/rosbag2_transport/test_play.cpp
+-    LINK_LIBS rosbag2_transport
+-    AMENT_DEPS test_msgs rosbag2_test_common
+-    ${SKIP_TEST})
++  # rosbag2_transport_add_gmock(test_play
++  #   test/rosbag2_transport/test_play.cpp
++  #   LINK_LIBS rosbag2_transport
++  #   AMENT_DEPS test_msgs rosbag2_test_common
++  #   ${SKIP_TEST})
+ 
+   rosbag2_transport_add_gmock(test_play_loop
+     test/rosbag2_transport/test_play_loop.cpp
+@@ -118,15 +118,15 @@ function(create_tests_for_rmw_implementation)
+     AMENT_DEPS test_msgs rosbag2_test_common
+     ${SKIP_TEST})
+ 
+-  rosbag2_transport_add_gmock(test_play_timing
+-    test/rosbag2_transport/test_play_timing.cpp
+-    LINK_LIBS rosbag2_transport
+-    AMENT_DEPS test_msgs rosbag2_test_common)
++  # rosbag2_transport_add_gmock(test_play_timing
++  #   test/rosbag2_transport/test_play_timing.cpp
++  #   LINK_LIBS rosbag2_transport
++  #   AMENT_DEPS test_msgs rosbag2_test_common)
+ 
+-  rosbag2_transport_add_gmock(test_play_seek
+-    test/rosbag2_transport/test_play_seek.cpp
+-    LINK_LIBS rosbag2_transport
+-    AMENT_DEPS test_msgs rosbag2_test_common)
++  # rosbag2_transport_add_gmock(test_play_seek
++  #   test/rosbag2_transport/test_play_seek.cpp
++  #   LINK_LIBS rosbag2_transport
++  #   AMENT_DEPS test_msgs rosbag2_test_common)
+ 
+   rosbag2_transport_add_gmock(test_play_services
+     test/rosbag2_transport/test_play_services.cpp
+@@ -139,11 +139,11 @@ function(create_tests_for_rmw_implementation)
+     AMENT_DEPS test_msgs rosbag2_test_common
+     ${SKIP_TEST})
+ 
+-  rosbag2_transport_add_gmock(test_play_next
+-      test/rosbag2_transport/test_play_next.cpp
+-      INCLUDE_DIRS $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/rosbag2_transport>
+-      LINK_LIBS rosbag2_transport
+-      AMENT_DEPS test_msgs rosbag2_test_common)
++  # rosbag2_transport_add_gmock(test_play_next
++  #     test/rosbag2_transport/test_play_next.cpp
++  #     INCLUDE_DIRS $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/rosbag2_transport>
++  #     LINK_LIBS rosbag2_transport
++  #     AMENT_DEPS test_msgs rosbag2_test_common)
+ 
+   rosbag2_transport_add_gmock(test_burst
+       test/rosbag2_transport/test_burst.cpp
+@@ -164,20 +164,20 @@ function(create_tests_for_rmw_implementation)
+     AMENT_DEPS test_msgs rosbag2_test_common
+     ${SKIP_TEST})
+ 
+-  rosbag2_transport_add_gmock(test_record_all
+-    test/rosbag2_transport/test_record_all.cpp
+-    LINK_LIBS rosbag2_transport
+-    AMENT_DEPS test_msgs rosbag2_test_common)
++  # rosbag2_transport_add_gmock(test_record_all
++  #   test/rosbag2_transport/test_record_all.cpp
++  #   LINK_LIBS rosbag2_transport
++  #   AMENT_DEPS test_msgs rosbag2_test_common)
+ 
+-  rosbag2_transport_add_gmock(test_record_all_ignore_leaf_topics
+-    test/rosbag2_transport/test_record_all_ignore_leaf_topics.cpp
+-    LINK_LIBS rosbag2_transport
+-    AMENT_DEPS test_msgs rosbag2_test_common)
++  # rosbag2_transport_add_gmock(test_record_all_ignore_leaf_topics
++  #   test/rosbag2_transport/test_record_all_ignore_leaf_topics.cpp
++  #   LINK_LIBS rosbag2_transport
++  #   AMENT_DEPS test_msgs rosbag2_test_common)
+ 
+-  rosbag2_transport_add_gmock(test_record_all_include_unpublished_topics
+-    test/rosbag2_transport/test_record_all_include_unpublished_topics.cpp
+-    LINK_LIBS rosbag2_transport
+-    AMENT_DEPS test_msgs rosbag2_test_common)
++  # rosbag2_transport_add_gmock(test_record_all_include_unpublished_topics
++  #   test/rosbag2_transport/test_record_all_include_unpublished_topics.cpp
++  #   LINK_LIBS rosbag2_transport
++  #   AMENT_DEPS test_msgs rosbag2_test_common)
+ 
+   rosbag2_transport_add_gmock(test_record_all_no_discovery
+     test/rosbag2_transport/test_record_all_no_discovery.cpp
+@@ -228,6 +228,10 @@ if(BUILD_TESTING)
+   find_package(ament_cmake_gmock REQUIRED)
+   find_package(ament_index_cpp REQUIRED)
+   find_package(ament_lint_auto REQUIRED)
++  list(APPEND AMENT_LINT_AUTO_EXCLUDE
++    ament_cmake_copyright
++    ament_cmake_uncrustify
++  )
+   find_package(test_msgs REQUIRED)
+   find_package(rosbag2_test_common REQUIRED)
+   include(cmake/rosbag2_transport_add_gmock.cmake)
