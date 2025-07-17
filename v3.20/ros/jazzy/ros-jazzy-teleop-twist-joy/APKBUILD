@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-teleop-twist-joy
 _pkgname=teleop_twist_joy
-pkgver=2.6.3
-pkgrel=1
+pkgver=2.6.4
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://wiki.ros.org/teleop_twist_joy"
 arch="all"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: teleop_twist_joy
     uri: https://github.com/ros2-gbp/teleop_twist_joy-release.git
-    version: release/jazzy/teleop_twist_joy/2.6.3-1
+    version: release/jazzy/teleop_twist_joy/2.6.4-1
 "
 
 prepare() {
