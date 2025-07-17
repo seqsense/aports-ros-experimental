@@ -1,6 +1,6 @@
 pkgname=ros-humble-examples-tf2-py
 _pkgname=examples_tf2_py
-pkgver=0.25.14
+pkgver=0.25.15
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: examples_tf2_py
     uri: https://github.com/ros2-gbp/geometry2-release.git
-    version: release/humble/examples_tf2_py/0.25.14-1
+    version: release/humble/examples_tf2_py/0.25.15-1
 "
 
 prepare() {

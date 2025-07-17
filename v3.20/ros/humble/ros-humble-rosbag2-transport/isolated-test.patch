@@ -1,0 +1,21 @@
+diff --git a/cmake/rosbag2_transport_add_gmock.cmake b/cmake/rosbag2_transport_add_gmock.cmake
+index bbaba9f1..b930bc2f 100644
+--- a/cmake/rosbag2_transport_add_gmock.cmake
++++ b/cmake/rosbag2_transport_add_gmock.cmake
+@@ -34,6 +34,7 @@
+ # :type INCLUDE_DIRS: list of strings
+ #
+ function(rosbag2_transport_add_gmock target_base)
++  find_package(ament_cmake_ros REQUIRED)
+   cmake_parse_arguments(ARG
+     "SKIP_TEST"
+     ""
+@@ -51,7 +52,7 @@ function(rosbag2_transport_add_gmock target_base)
+ 
+   set(target_name ${target_base}${target_suffix})
+   set(rmw_implementation_env_var RMW_IMPLEMENTATION=${rmw_implementation})
+-  ament_add_gmock(${target_name}
++  ament_add_ros_isolated_gmock(${target_name}
+     ${ARG_UNPARSED_ARGUMENTS}
+     ENV ${rmw_implementation_env_var}
+     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
