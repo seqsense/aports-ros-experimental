@@ -1,0 +1,22 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a1ee6b2..87a55aa 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -169,6 +169,7 @@ if(BUILD_TESTING)
+   )
+ 
+   macro(tests)
++    set(INDEX 0)
+     set(tutorial_tests_to_test ${tutorial_tests})
+     list(APPEND tutorial_tests_to_test ${service_tutorial_tests})
+ 
+@@ -202,7 +203,9 @@ if(BUILD_TESTING)
+         ENV
+         RCL_ASSERT_RMW_ID_MATCHES=${rmw_implementation}
+         RMW_IMPLEMENTATION=${rmw_implementation}
++        ROS_DOMAIN_ID=${INDEX}
+       )
++      math(EXPR INDEX "${INDEX} + 1")
+       foreach(executable ${tutorial_executables})
+         set_property(
+           TEST test_tutorial_${exe_list_underscore}${target_suffix}
