@@ -8,7 +8,7 @@ arch="all"
 license="Apache License 2.0"
 
 depends="ros-humble-launch-testing ros-humble-launch-testing-ros ros-humble-ros-workspace ros-humble-ros2test ros-humble-launch-testing ros-humble-launch-testing-ament-cmake ros-humble-launch-testing-ros ros-humble-ros2test"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake ros-humble-ament-cmake-core ros-humble-ament-cmake-export-dependencies"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-humble-ament-cmake ros-humble-ament-cmake-core ros-humble-ament-cmake-export-dependencies ros-humble-launch-testing ros-humble-launch-testing-ament-cmake ros-humble-launch-testing-ros ros-humble-ros2test"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 

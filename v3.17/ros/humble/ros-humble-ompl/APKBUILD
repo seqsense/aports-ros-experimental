@@ -1,14 +1,14 @@
 pkgname=ros-humble-ompl
 _pkgname=ompl
-pkgver=1.6.0
+pkgver=1.7.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://ompl.kavrakilab.org"
 arch="all"
 license="BSD"
 
-depends="boost-dev eigen-dev flann-dev ode ros-humble-ros-workspace"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev cmake eigen-dev flann-dev ode pkgconf"
+depends="boost-dev eigen-dev flann-dev ros-humble-ros-workspace"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath boost-dev cmake eigen-dev flann-dev pkgconf"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: ompl
     uri: https://github.com/ros2-gbp/ompl-release.git
-    version: release/humble/ompl/1.6.0-1
+    version: release/humble/ompl/1.7.0-3
 "
 
 prepare() {
