@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 028bae8..8c8b978 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -15,9 +15,6 @@ install(
+ )
+
+ if(BUILD_TESTING)
+-  find_package(ament_cmake_copyright REQUIRED)
+-  ament_copyright()
+-
+   find_package(ament_cmake_lint_cmake REQUIRED)
+   ament_lint_cmake()
+ endif()

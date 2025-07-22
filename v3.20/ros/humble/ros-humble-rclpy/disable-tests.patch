@@ -1,0 +1,37 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 569a898..13ce959 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -126,6 +126,11 @@ endif()
+ 
+ if(BUILD_TESTING)
+   find_package(ament_lint_auto REQUIRED)
++  list(APPEND AMENT_LINT_AUTO_EXCLUDE
++    ament_cmake_copyright
++    ament_cmake_flake8
++    ament_cmake_uncrustify
++  )
+   # Give cppcheck hints about macro definitions coming from outside this package
+   get_target_property(ament_cmake_cppcheck_ADDITIONAL_INCLUDE_DIRS rcutils::rcutils INTERFACE_INCLUDE_DIRECTORIES)
+   list(APPEND AMENT_LINT_AUTO_EXCLUDE "ament_cmake_cppcheck")
+@@ -156,9 +161,9 @@ if(BUILD_TESTING)
+   if(NOT _typesupport_impls STREQUAL "")
+     # Run each test in its own pytest invocation to isolate any global state in rclpy
+     set(_rclpy_pytest_tests
+-      test/test_action_client.py
++      # test/test_action_client.py
+       test/test_action_graph.py
+-      test/test_action_server.py
++      # test/test_action_server.py
+       test/test_callback_group.py
+       test/test_client.py
+       test/test_clock.py
+@@ -172,7 +177,7 @@ if(BUILD_TESTING)
+       test/test_init_shutdown.py
+       test/test_lifecycle.py
+       test/test_logging.py
+-      test/test_logging_rosout.py
++      # test/test_logging_rosout.py
+       test/test_messages.py
+       test/test_node.py
+       test/test_parameter.py

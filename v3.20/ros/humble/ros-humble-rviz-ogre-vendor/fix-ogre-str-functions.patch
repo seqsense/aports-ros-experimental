@@ -1,0 +1,100 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 3f5fda2e..6a6737dd 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -190,7 +190,8 @@ macro(build_ogre)
+     PATCH_COMMAND
+       ${Patch_EXECUTABLE} -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/pragma-patch.diff &&
+       ${Patch_EXECUTABLE} -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/fix-arm64.diff &&
+-      ${Patch_EXECUTABLE} -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/relocatable.patch
++      ${Patch_EXECUTABLE} -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/relocatable.patch &&
++      ${Patch_EXECUTABLE} -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/fix-str-functions.patch
+     COMMAND
+       ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/FindFreetype.cmake ${CMAKE_CURRENT_BINARY_DIR}/ogre-v1.12.1-prefix/src/ogre-v1.12.1/CMake/Packages/FindFreetype.cmake
+   )
+diff --git a/fix-str-functions.patch b/fix-str-functions.patch
+new file mode 100644
+index 00000000..2eda36c9
+--- /dev/null
++++ b/fix-str-functions.patch
+@@ -0,0 +1,80 @@
++diff --git a/OgreMain/src/OgreStringConverter.cpp b/OgreMain/src/OgreStringConverter.cpp
++index 42dfb3d33..cbb577867 100644
++--- a/OgreMain/src/OgreStringConverter.cpp
+++++ b/OgreMain/src/OgreStringConverter.cpp
++@@ -237,47 +237,75 @@ namespace Ogre {
++     bool StringConverter::parse(const String& val, float& ret)
++     {
++         char* end;
+++        #ifdef __GLIBC__
++         ret = (float)strtod_l(val.c_str(), &end, _numLocale);
+++        #else
+++        ret = (float)strtod(val.c_str(), &end);
+++        #endif  // __GLIBC__
++         return val.c_str() != end;
++     }
++     bool StringConverter::parse(const String& val, double& ret)
++     {
++         char* end;
+++        #ifdef __GLIBC__
++         ret = strtod_l(val.c_str(), &end, _numLocale);
+++        #else
+++        ret = strtod(val.c_str(), &end);
+++        #endif  // __GLIBC__
++         return val.c_str() != end;
++     }
++     //-----------------------------------------------------------------------
++     bool StringConverter::parse(const String& val, int32& ret)
++     {
++         char* end;
+++        #ifdef __GLIBC__
++         ret = (int32)strtol_l(val.c_str(), &end, 0, _numLocale);
+++        #else
+++        ret = (int32)strtol(val.c_str(), &end, 0);
+++        #endif  // __GLIBC__
++         return val.c_str() != end;
++     }
++     //-----------------------------------------------------------------------
++     bool StringConverter::parse(const String& val, int64& ret)
++     {
++         char* end;
+++        #ifdef __GLIBC__
++         ret = strtoll_l(val.c_str(), &end, 0, _numLocale);
+++        #else
+++        ret = strtoll(val.c_str(), &end, 0);
+++        #endif  // __GLIBC__
++         return val.c_str() != end;
++     }
++     //-----------------------------------------------------------------------
++     bool StringConverter::parse(const String& val, unsigned long& ret)
++     {
++         char* end;
+++        #ifdef __GLIBC__
++         ret = strtoull_l(val.c_str(), &end, 0, _numLocale);
+++        #else
+++        ret = strtoull(val.c_str(), &end, 0);
+++        #endif  // __GLIBC__
++         return val.c_str() != end;
++     }
++     bool StringConverter::parse(const String& val, unsigned long long& ret)
++     {
++         char* end;
+++        #ifdef __GLIBC__
++         ret = strtoull_l(val.c_str(), &end, 0, _numLocale);
+++        #else
+++        ret = strtoull(val.c_str(), &end, 0);
+++        #endif  // __GLIBC__
++         return val.c_str() != end;
++     }
++     //-----------------------------------------------------------------------
++     bool StringConverter::parse(const String& val, uint32& ret)
++     {
++         char* end;
+++        #ifdef __GLIBC__
++         ret = (uint32)strtoul_l(val.c_str(), &end, 0, _numLocale);
+++        #else
+++        ret = (uint32)strtoul(val.c_str(), &end, 0);
+++        #endif  // __GLIBC__
++         return val.c_str() != end;
++     }
++     bool StringConverter::parse(const String& val, bool& ret)

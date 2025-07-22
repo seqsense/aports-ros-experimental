@@ -1,0 +1,292 @@
+pkgname=ros-humble-ros2bag
+_pkgname=ros2bag
+pkgver=0.15.15
+pkgrel=0
+pkgdesc="$_pkgname package for ROS humble"
+url="https://index.ros.org/p/$_pkgname"
+arch="all"
+license="Apache License 2.0"
+
+depends="ros-humble-ament-index-python ros-humble-rclpy ros-humble-ros-workspace ros-humble-ros2cli ros-humble-rosbag2-py"
+makedepends="chrpath py3-pytest py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-copyright ros-humble-ament-copyright-dev ros-humble-ament-flake8 ros-humble-ament-flake8-dev ros-humble-ament-index-python-dev ros-humble-ament-pep257 ros-humble-ament-pep257-dev ros-humble-launch-testing ros-humble-launch-testing-dev ros-humble-launch-testing-ros ros-humble-launch-testing-ros-dev ros-humble-rclpy-dev ros-humble-ros-workspace-dev ros-humble-ros2cli-dev ros-humble-rosbag2-py-dev ros-humble-rosbag2-storage-default-plugins ros-humble-rosbag2-storage-default-plugins-dev"
+depends_dev="ros-humble-ament-index-python-dev ros-humble-rclpy-dev ros-humble-ros-workspace-dev ros-humble-ros2cli-dev ros-humble-rosbag2-py-dev"
+
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
+
+source=""
+builddir="$startdir/abuild"
+srcdir="/tmp/dummy-src-dir"
+buildlog="$builddir/ros-abuild-build.log"
+checklog="$builddir/ros-abuild-check.log"
+statuslog="$builddir/ros-abuild-status.log"
+if [ x${GENERATE_BUILD_LOGS} != "xyes" ]; then
+  buildlog="/dev/null"
+  checklog="/dev/null"
+  statuslog="/dev/null"
+fi
+
+export ROS_PYTHON_VERSION=3
+export PYTHON_VERSION=$(python3 -c 'import sys; print("%i.%i" % (sys.version_info.major, sys.version_info.minor))')
+if [ ! -f /usr/ros/humble/setup.sh ]; then
+  export PYTHONPATH=/usr/ros/humble/lib/python${PYTHON_VERSION}/site-packages:$PYTHONPATH
+  export AMENT_PREFIX_PATH=/usr/ros/humble
+fi
+rosinstall="- git:
+    local-name: ros2bag
+    uri: https://github.com/ros2-gbp/rosbag2-release.git
+    version: release/humble/ros2bag/0.15.15-1
+"
+
+prepare() {
+  set -o pipefail
+  mkdir -p $builddir
+  echo "preparing" > $statuslog
+  cd "$builddir"
+  rm -rf src || true
+  mkdir -p src
+  echo "$rosinstall" > pkg.rosinstall
+  vcs import --shallow --input pkg.rosinstall src
+  find $startdir -maxdepth 1 -name "*.patch" | while read patchfile; do
+    echo "Applying $patchfile"
+    (cd src/* && patch -p1 -i $patchfile)
+  done
+}
+
+build() {
+  set -o pipefail
+  echo "building" > $statuslog
+  cd "$builddir"
+  if [ -f /usr/ros/humble/setup.sh ]; then
+    source /usr/ros/humble/setup.sh
+  fi
+  # Directory to place intermediate files
+  mkdir -p "$builddir"/tmp
+  cd src/$_pkgname
+  python setup.py egg_info --egg-base="$builddir"/tmp 2>&1 | tee $buildlog
+  python setup.py \
+    build \
+    --build-base="$builddir"/tmp/build
+}
+
+check() {
+  if [ -f $startdir/NOCHECK ]; then
+    echo "Check skipped" | tee $checklog
+    return 0
+  fi
+  set -o pipefail
+  echo "checking" >> $statuslog
+  cd "$builddir"
+  if [ -f /usr/ros/humble/setup.sh ]; then
+    source /usr/ros/humble/setup.sh
+  fi
+  export PYTHONPATH="$builddir"/tmp/pkg/usr/ros/humble/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH}
+  export AMENT_PREFIX_PATH="$builddir"/tmp/pkg/usr/ros/humble:${AMENT_PREFIX_PATH}
+  export PATH="$builddir"/tmp/pkg/usr/ros/humble/bin:${PATH}
+  export LD_LIBRARY_PATH="$builddir"/tmp/pkg/usr/ros/humble/lib:${LD_LIBRARY_PATH}
+  mkdir -p "$builddir"/tmp/pkg
+  cd src/$_pkgname
+  python setup.py \
+    build \
+    --build-base="$builddir"/tmp/build \
+    install \
+    --root="$builddir"/tmp/pkg \
+    --prefix=/usr/ros/humble 2>&1 | tee $buildlog
+  TEST_TARGET=$(ls -d */ | grep -m1 "\(test\|tests\)") || true
+  if [ -z "$TEST_TARGET" ]; then
+    echo "No \"test\" or \"tests\" directory. Check skipped" | tee $checklog
+    return 0
+  fi
+  USE_PYTEST=$(grep '\<pytest\>' setup.py) || true
+  if [ -n "$USE_PYTEST" ]; then
+    python -m pytest 2>&1 | tee $checklog
+  else
+    python setup.py test 2>&1 | tee $checklog
+  fi
+}
+
+dbg() {
+  mkdir -p "$subpkgdir"
+  default_dbg
+}
+
+package() {
+  echo "packaging" >> $statuslog
+  mkdir -p "$pkgdir"
+  cd "$builddir"
+
+  if [ -f /usr/ros/humble/setup.sh ]; then
+    source /usr/ros/humble/setup.sh
+  fi
+  cd src/$_pkgname
+  python setup.py \
+    build \
+    --build-base="$builddir"/tmp/build \
+    install \
+    --root="$pkgdir" \
+    --prefix=/usr/ros/humble
+
+  # Tweak invalid RPATH
+  find $pkgdir -name "*.so" | while read so; do
+    chrpath_out=$(chrpath ${so} || true)
+    if echo ${chrpath_out} | grep -q "R\(UN\)\?PATH="; then
+      rpath=$(echo -n "${chrpath_out}" | sed -e "s/^.*R\(UN\)\?PATH=//")
+      if echo "${rpath}" | grep -q -e "\(home\|aports\)"; then
+        echo "RPATH contains home/aports!: ${rpath}"
+        rpathfix=$(echo -n "${rpath}" | tr ":" "\n" \
+          | grep -v -e home | grep -v -e aports \
+          | tr "\n" ":" | sed -e "s/:$//; s/::/:/;")
+        echo "Fixing to ${rpathfix}"
+        chrpath -r ${rpathfix} ${so} || (echo chrpath failed; false)
+      fi
+    fi
+  done
+
+  # Tweak hardcoded library versions
+  find $pkgdir -name "*.cmake" | while read cm; do
+    libs=$(sed -n '/^set(libraries/{s/^.*"\(.*\)")$/\1/;s/;/ /g;p}' $cm)
+    for lib in $libs; do
+      rep=
+      # lib.so.0.1.2 -> lib.so.0.1
+      if echo $lib | grep -q -e '\.so\.[0-9]\{1,\}\.[0-9]\{1,\}\.[0-9]\{1,\}$'; then
+        rep=$(echo $lib | sed -e 's/\(\.so\.[0-9]\{1,\}\.[0-9]\{1,\}\)\.[0-9]\{1,\}$/\1/')
+      fi
+      # lib-0.1.so.2 -> lib-0.1.so
+      if echo $lib | grep -q -e '-[0-9]\{1,\}\.[0-9]\{1,\}\.so\.[0-9]\{1,\}$'; then
+        rep=$(echo $lib | sed -e 's/\(-[0-9]\{1,\}\.[0-9]\{1,\}\.so\)\.[0-9]\{1,\}$/\1/')
+      fi
+
+      if [ ! -z "$rep" ]; then
+        if [ -f $rep ]; then
+          echo "$cm: $lib -> $rep"
+          sed -e "s|\([\";]\)$lib\([\";]\)|\1$rep\2|g" -i $cm
+        else
+          echo "$cm: $lib is specified, but $rep doesn't exist"
+        fi
+      fi
+    done
+  done
+
+  # Install license files
+  licensedir="$pkgdir"/usr/share/licenses/$pkgname/
+  cd $builddir/src/$_pkgname
+  find . \
+      -iname "license*" -or \
+      -iname "copyright*" -or \
+      -iname "copying*" -or \
+      -iname "gnu-*gpl*" \
+    | while read file; do
+    # Copy license files under the source
+    if echo $file | grep -e '^\./\.'; then
+      # Omit files under hidden directory
+      continue
+    fi
+    echo "Copying license files from source tree: $file"
+    install -Dm644 $file "$licensedir"/$file
+  done
+  if [ -f $startdir/LICENSE ]; then
+    # If LICENSE file is in aports directory, copy it
+    echo "Copying license file from aports"
+    install -Dm644 $startdir/LICENSE "$licensedir"/LICENSE
+  fi
+  if [ -f $startdir/LICENSE_URLS ]; then
+    # If LICENSE_URLS file is in aports directory, download it
+    echo "Downloading license file from URLs"
+    cat $startdir/LICENSE_URLS | while read url; do
+      echo "- $url"
+      mkdir -p "$licensedir"
+      wget -O "$licensedir"/$(basename $url) $url
+    done
+  fi
+  if [ -z "$(find "$licensedir" -type f)" ]; then
+    # If no explicit license file found, extract from source files
+    mkdir -p "$licensedir"
+    echo "Copying license from source file headers"
+    find . -name "*.h" -or -name "*.c" -or -name "*.cpp" -or -name "*.py" | while read file; do
+      echo "Checking license header in $file"
+      tmplicense=$(mktemp)
+      # Extract heading comment
+      sed -n '1{/^#!/d};
+        /\/\*/{/\*\//d; :l0; p; n; /\*\//!b l0; p; q};
+        /^\s*#/{:l1; /^#!/!p; n; /^\s*#/b l1; q};
+        /^\s*\/\//{:l2; p; n; /^\s*\/\//b l2; q};' $file > $tmplicense
+      # Remove comment syntax
+      sed 's/\/\*//; s/\*\///; s/^s*\/\/\s\{0,1\}//;
+        s/^ \* \{0,1\}//; s/^\s*# \{0,1\}//; s/\s\+$//;' -i $tmplicense
+      # Trim empty lines
+      sed ':l0; /^$/d; n; /^$/!b l0; :l1; n; b l1;' -i $tmplicense
+      sed '${/^$/d}' -i $tmplicense
+
+      if ! grep -i -e "\(license\|copyright\|copyleft\)" $tmplicense > /dev/null; then
+        # Looks not like a license statement
+        echo "No license statement"
+        rm -f $tmplicense
+        continue
+      fi
+
+      echo "Checking duplication"
+      licenses=$(mktemp)
+      find "$licensedir" -type f > $licenses
+      savethis=true
+      while read existing; do
+        if diff -bBiw $tmplicense $existing > /dev/null; then
+          # Same license statement found
+          savethis=false
+          break
+        fi
+      done < $licenses
+
+      if $savethis; then
+        # Save license statement
+        local num=0
+        while true; do
+          newfile="$licensedir"/LICENSE.$num
+          if [ ! -f "$newfile" ]; then
+            echo "Saving license statement as $newfile"
+            mv $tmplicense $newfile
+            break
+          fi
+          num=$(expr $num + 1)
+        done
+      fi
+
+      rm -f $licenses $tmplicense
+    done
+  fi
+  # List license files
+  echo "License files:"
+  find "$licensedir" -type f | xargs -n1 echo "-"
+
+  echo "finished" >> $statuslog
+}
+
+doc() {
+  mkdir -p $subpkgdir
+
+  default_doc
+}
+
+dev() {
+  local i=
+  mkdir -p $subpkgdir
+
+  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
+	depends="$depends_dev"
+	pkgdesc="$pkgdesc (development files)"
+
+  cd $pkgdir || return 0
+
+  for i in \
+    usr/ros/*/lib/pkgconfig \
+    usr/ros/*/share/*/cmake \
+    usr/ros/*/include \
+    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
+    if [ -e "$i" ] || [ -L "$i" ]; then
+      amove "$i"
+    fi
+  done
+}
+
+if [ -f ./apkbuild_hook.sh ]; then
+  . ./apkbuild_hook.sh
+  apkbuild_hook
+fi
