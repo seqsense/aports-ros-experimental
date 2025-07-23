@@ -1,6 +1,6 @@
 pkgname=ros-humble-rviz-ogre-vendor
 _pkgname=rviz_ogre_vendor
-pkgver=11.2.17
+pkgver=11.2.19
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://www.ogre3d.org/"
@@ -8,7 +8,7 @@ arch="all"
 license="Apache License 2.0"
 
 depends="freetype glu-dev libx11-dev libxaw-dev libxrandr-dev mesa-dev ros-humble-ros-workspace freetype-dev glew-dev glu-dev libx11-dev libxaw-dev libxrandr-dev mesa-dev"
-makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath freetype-dev git glu-dev libx11-dev libxaw-dev libxrandr-dev mesa-dev pkgconf ros-humble-ament-cmake ros-humble-ament-cmake-xmllint ros-humble-ament-lint-auto"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath freetype-dev git glew-dev glu-dev libx11-dev libxaw-dev libxrandr-dev mesa-dev pkgconf ros-humble-ament-cmake ros-humble-ament-cmake-xmllint ros-humble-ament-lint-auto"
 
 subpackages="$pkgname-dbg $pkgname-doc"
 
@@ -33,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: rviz_ogre_vendor
     uri: https://github.com/ros2-gbp/rviz-release.git
-    version: release/humble/rviz_ogre_vendor/11.2.17-1
+    version: release/humble/rviz_ogre_vendor/11.2.19-1
 "
 
 prepare() {
