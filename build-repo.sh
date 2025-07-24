@@ -36,11 +36,7 @@ case "${STACK_PROTECTOR:-yes}" in
 esac
 
 CFLAGS="${COMMON_GCC_FLAGS} ${CFLAGS:-}"
-CXXFLAGS="${COMMON_GCC_FLAGS} ${CXXFLAGS:-}"
-
-if [ "${ALPINE_VERSION}" != "3.17" ]; then
-  CXXFLAGS="${CXXFLAGS} -std=c++14"
-fi
+CXXFLAGS="${COMMON_GCC_FLAGS} ${CXXFLAGS:-} -std=c++14"
 
 echo "export CFLAGS=\"${CFLAGS}\"" | sudo tee -a /etc/abuild.conf
 echo "export CXXFLAGS=\"${CXXFLAGS}\"" | sudo tee -a /etc/abuild.conf
