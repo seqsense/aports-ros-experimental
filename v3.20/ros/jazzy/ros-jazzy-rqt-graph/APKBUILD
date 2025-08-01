@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-rqt-graph
 _pkgname=rqt_graph
-pkgver=1.5.4
-pkgrel=1
+pkgver=1.5.5
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://wiki.ros.org/rqt_graph"
 arch="all"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rqt_graph
     uri: https://github.com/ros2-gbp/rqt_graph-release.git
-    version: release/jazzy/rqt_graph/1.5.4-1
+    version: release/jazzy/rqt_graph/1.5.5-1
 "
 
 prepare() {
