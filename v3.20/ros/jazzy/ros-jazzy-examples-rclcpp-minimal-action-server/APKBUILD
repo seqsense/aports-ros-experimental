@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-examples-rclcpp-minimal-action-server
 _pkgname=examples_rclcpp_minimal_action_server
-pkgver=0.19.5
-pkgrel=1
+pkgver=0.19.6
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: examples_rclcpp_minimal_action_server
     uri: https://github.com/ros2-gbp/examples-release.git
-    version: release/jazzy/examples_rclcpp_minimal_action_server/0.19.5-1
+    version: release/jazzy/examples_rclcpp_minimal_action_server/0.19.6-1
 "
 
 prepare() {

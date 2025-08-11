@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-rosidl-typesupport-fastrtps-c
 _pkgname=rosidl_typesupport_fastrtps_c
-pkgver=3.6.1
-pkgrel=1
+pkgver=3.6.2
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rosidl_typesupport_fastrtps_c
     uri: https://github.com/ros2-gbp/rosidl_typesupport_fastrtps-release.git
-    version: release/jazzy/rosidl_typesupport_fastrtps_c/3.6.1-1
+    version: release/jazzy/rosidl_typesupport_fastrtps_c/3.6.2-1
 "
 
 prepare() {
