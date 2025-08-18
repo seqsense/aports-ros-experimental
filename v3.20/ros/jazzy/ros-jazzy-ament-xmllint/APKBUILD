@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-ament-xmllint
 _pkgname=ament_xmllint
-pkgver=0.17.2
-pkgrel=1
+pkgver=0.17.3
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: ament_xmllint
     uri: https://github.com/ros2-gbp/ament_lint-release.git
-    version: release/jazzy/ament_xmllint/0.17.2-1
+    version: release/jazzy/ament_xmllint/0.17.3-1
 "
 
 prepare() {

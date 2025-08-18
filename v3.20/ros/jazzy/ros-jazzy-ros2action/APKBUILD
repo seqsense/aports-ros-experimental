@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-ros2action
 _pkgname=ros2action
-pkgver=0.32.4
-pkgrel=1
+pkgver=0.32.5
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: ros2action
     uri: https://github.com/ros2-gbp/ros2cli-release.git
-    version: release/jazzy/ros2action/0.32.4-1
+    version: release/jazzy/ros2action/0.32.5-1
 "
 
 prepare() {
