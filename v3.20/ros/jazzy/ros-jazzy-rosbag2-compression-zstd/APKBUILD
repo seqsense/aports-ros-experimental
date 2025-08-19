@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-rosbag2-compression-zstd
 _pkgname=rosbag2_compression_zstd
-pkgver=0.26.8
+pkgver=0.26.9
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rosbag2_compression_zstd
     uri: https://github.com/ros2-gbp/rosbag2-release.git
-    version: release/jazzy/rosbag2_compression_zstd/0.26.8-1
+    version: release/jazzy/rosbag2_compression_zstd/0.26.9-1
 "
 
 prepare() {
