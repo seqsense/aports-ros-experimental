@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-rosidl-cmake
 _pkgname=rosidl_cmake
-pkgver=4.6.5
-pkgrel=1
+pkgver=4.6.6
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rosidl_cmake
     uri: https://github.com/ros2-gbp/rosidl-release.git
-    version: release/jazzy/rosidl_cmake/4.6.5-1
+    version: release/jazzy/rosidl_cmake/4.6.6-1
 "
 
 prepare() {
