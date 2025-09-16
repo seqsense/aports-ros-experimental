@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-rclcpp
 _pkgname=rclcpp
-pkgver=28.1.11
+pkgver=28.1.12
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rclcpp
     uri: https://github.com/ros2-gbp/rclcpp-release.git
-    version: release/jazzy/rclcpp/28.1.11-1
+    version: release/jazzy/rclcpp/28.1.12-1
 "
 
 prepare() {
