@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-logging-demo
 _pkgname=logging_demo
-pkgver=0.33.6
+pkgver=0.33.7
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: logging_demo
     uri: https://github.com/ros2-gbp/demos-release.git
-    version: release/jazzy/logging_demo/0.33.6-1
+    version: release/jazzy/logging_demo/0.33.7-1
 "
 
 prepare() {
