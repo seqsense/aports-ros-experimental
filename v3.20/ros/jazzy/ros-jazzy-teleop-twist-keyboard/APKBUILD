@@ -1,15 +1,15 @@
 pkgname=ros-jazzy-teleop-twist-keyboard
 _pkgname=teleop_twist_keyboard
-pkgver=2.4.0
-pkgrel=1
+pkgver=2.4.1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="BSD License 2.0"
 
-depends="ros-jazzy-geometry-msgs ros-jazzy-rclpy ros-jazzy-ros-workspace"
-makedepends="chrpath py3-pytest py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-copyright ros-jazzy-ament-copyright-dev ros-jazzy-ament-flake8 ros-jazzy-ament-flake8-dev ros-jazzy-ament-pep257 ros-jazzy-ament-pep257-dev ros-jazzy-geometry-msgs-dev ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev"
-depends_dev="ros-jazzy-geometry-msgs-dev ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev"
+depends="ros-jazzy-geometry-msgs ros-jazzy-rcl-interfaces ros-jazzy-rclpy ros-jazzy-ros-workspace"
+makedepends="chrpath py3-pytest py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-copyright ros-jazzy-ament-copyright-dev ros-jazzy-ament-flake8 ros-jazzy-ament-flake8-dev ros-jazzy-ament-pep257 ros-jazzy-ament-pep257-dev ros-jazzy-ament-xmllint ros-jazzy-ament-xmllint-dev ros-jazzy-geometry-msgs-dev ros-jazzy-rcl-interfaces-dev ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev"
+depends_dev="ros-jazzy-geometry-msgs-dev ros-jazzy-rcl-interfaces-dev ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: teleop_twist_keyboard
     uri: https://github.com/ros2-gbp/teleop_twist_keyboard-release.git
-    version: release/jazzy/teleop_twist_keyboard/2.4.0-2
+    version: release/jazzy/teleop_twist_keyboard/2.4.1-1
 "
 
 prepare() {
