@@ -57,7 +57,7 @@ package() {
 	cd "$builddir"/build
 	make DESTDIR="$pkgdir" install
 
-	install -Dm 0644 "$builddir"/COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
+	install -Dm 0644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 sha512sums="
