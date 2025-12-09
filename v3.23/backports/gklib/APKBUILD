@@ -1,0 +1,37 @@
+# Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
+# Maintainer:
+pkgname=gklib
+pkgver=5.1.1
+pkgrel=0
+pkgdesc="Serial Graph Partitioning and Fill-reducing Matrix Ordering"
+url="https://github.com/KarypisLab/GKlib"
+arch="all"
+license="Apache-2.0"
+options="!check" # No test is provided.
+makedepends="build-base cmake"
+subpackages="$pkgname-dev $pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/KarypisLab/GKlib/archive/refs/tags/METIS-v$pkgver-DistDGL-0.5.tar.gz"
+
+builddir="$srcdir/GKlib-METIS-v$pkgver-DistDGL-0.5"
+
+build() {
+	cd "$builddir"
+	mkdir -p build && cd build
+	cmake .. \
+		-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=None \
+		-DBUILD_SHARED_LIBS=ON
+	make
+}
+
+package() {
+	cd "$builddir"/build
+	make DESTDIR="$pkgdir" install
+
+	install -Dm644 "$builddir"/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
+}
+
+sha512sums="
+248db76a51c66ae9b94ac759e19f6e5504dd75d6e1b3a1c0f8a1f2db899099ec7b62328213bfdefef8c70b6be40f122a27d427c016cbf4419fd1e032a52567ca  gklib-5.1.1.tar.gz
+"

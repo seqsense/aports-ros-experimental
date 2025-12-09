@@ -4,28 +4,36 @@ pkgname=metis
 pkgver=5.2.1
 pkgrel=0
 pkgdesc="Serial Graph Partitioning and Fill-reducing Matrix Ordering"
-url="http://glaros.dtc.umn.edu/gkhome/views/metis"
+url="https://github.com/KarypisLab/METIS"
 arch="all"
 license="Apache-2.0"
-# No test is provided.
-options="!check"
-makedepends="build-base cmake"
+options="!check" # No test is provided.
+makedepends="build-base cmake gklib-dev"
 subpackages="$pkgname-dev $pkgname-doc"
-source="$pkgname-$pkgver.tar.gz::https://github.com/KarypisLab/METIS/archive/refs/tags/v$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/KarypisLab/METIS/archive/refs/tags/v$pkgver.tar.gz
+	remove-wrong-cmake-include.patch"
 
-builddir="$srcdir/$pkgname-$pkgver"
+builddir="$srcdir/METIS-$pkgver"
 
 build() {
-  make config shared=1 prefix=/usr
-  make
+	cd "$builddir"
+	mkdir -p build && cd build
+	cmake .. \
+		-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=None \
+		-DBUILD_SHARED_LIBS=ON
+	make
 }
 
 package() {
-  make DESTDIR="$pkgdir" install
+	cd "$builddir"/build
+	make DESTDIR="$pkgdir" install
 
-  install -Dm644 "$builddir"/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
+	install -Dm644 "$builddir"/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
 }
 
 sha512sums="
 69127b7a777f9ba14cf399a7122000af9d6094a5f44be600a28384cfc0495c024fb0c6eab37c4473a5763ec1077cd9f30d9bcbb3c952462f6c9ead31c6b9e790  metis-5.2.1.tar.gz
+c4556cecd3037afc833f6c6653e7de848b30de2d61f944cbabe4592374e0018a1c4c14664be12251b4570fa60c400f97b3c30e9231729aee5af120d8f25b794a  remove-wrong-cmake-include.patch
 "
