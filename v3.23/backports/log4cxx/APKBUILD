@@ -21,7 +21,7 @@ build() {
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DBUILD_SHARED_LIBS=ON \
 		-DCMAKE_BUILD_TYPE=None
-	make -j1
+	make
 }
 
 check() {
