@@ -5,6 +5,7 @@ _pkgname=grpcio_reflection
 pkgver=1.76.0
 pkgrel=0
 pkgdesc="Testing utilities for gRPC Python."
+options="!check" # No testsuite
 url="https://grpc.io/"
 arch="all"
 license="Apache-2.0"
@@ -18,11 +19,6 @@ builddir="$srcdir/${_pkgname}-${pkgver}"
 build() {
 	cd "$builddir"
 	python3 setup.py build
-}
-
-check() {
-	cd "$builddir"
-	python3 setup.py test
 }
 
 package() {
