@@ -40,7 +40,7 @@ CXXFLAGS="${COMMON_GCC_FLAGS} ${CXXFLAGS:-} -std=c++14"
 
 echo "export CFLAGS=\"${CFLAGS}\"" | sudo tee -a /etc/abuild.conf
 echo "export CXXFLAGS=\"${CXXFLAGS}\"" | sudo tee -a /etc/abuild.conf
-echo "export CMAKE_GENERATOR=" | sudo tee -a /etc/abuild.conf
+echo "unset CMAKE_GENERATOR" | sudo tee -a /etc/abuild.conf
 
 
 # Overwrite make setting if provided
