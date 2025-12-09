@@ -1,0 +1,29 @@
+diff --git a/test/Makefile b/test/Makefile
+index 3107702..628e196 100644
+--- a/test/Makefile
++++ b/test/Makefile
+@@ -1,9 +1,7 @@
+-CXX = clang++
++CXX = g++
+ CXXFLAGS = -g -std=c++11 -I. -Wall -Wextra -Wtype-limits -Wconversion -Wshadow $(EXTRA_CXXFLAGS) # -fno-exceptions -DCPPHTTPLIB_NO_EXCEPTIONS -fsanitize=address
+ 
+-PREFIX ?= $(shell brew --prefix)
+-
+-OPENSSL_DIR = $(PREFIX)/opt/openssl@3
++OPENSSL_DIR = /usr
+ OPENSSL_SUPPORT = -DCPPHTTPLIB_OPENSSL_SUPPORT -I$(OPENSSL_DIR)/include -L$(OPENSSL_DIR)/lib -lssl -lcrypto
+ 
+ ifneq ($(OS), Windows_NT)
+@@ -15,10 +13,10 @@ endif
+ 
+ ZLIB_SUPPORT = -DCPPHTTPLIB_ZLIB_SUPPORT -lz
+ 
+-BROTLI_DIR = $(PREFIX)/opt/brotli
++BROTLI_DIR = /usr
+ BROTLI_SUPPORT = -DCPPHTTPLIB_BROTLI_SUPPORT -I$(BROTLI_DIR)/include -L$(BROTLI_DIR)/lib -lbrotlicommon -lbrotlienc -lbrotlidec
+ 
+-ZSTD_DIR = $(PREFIX)/opt/zstd
++ZSTD_DIR = /usr
+ ZSTD_SUPPORT = -DCPPHTTPLIB_ZSTD_SUPPORT -I$(ZSTD_DIR)/include -L$(ZSTD_DIR)/lib -lzstd
+ 
+ TEST_ARGS = gtest/src/gtest-all.cc gtest/src/gtest_main.cc -Igtest -Igtest/include $(OPENSSL_SUPPORT) $(ZLIB_SUPPORT) $(BROTLI_SUPPORT) $(ZSTD_SUPPORT) -pthread -lcurl

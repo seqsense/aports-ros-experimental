@@ -1,0 +1,39 @@
+# Contributor: Florent Ferreri <florent@seqsense.com>
+# Maintainer:
+pkgname=py3-pysdl2
+_pkgname=pysdl2
+pkgver=0.9.17
+pkgrel=1
+pkgdesc="Python ctypes wrapper around SDL2"
+url="https://github.com/py-sdl/py-sdl2"
+arch="noarch"
+license="CC0 Public Domain Dedication"
+depends="sdl2 py-pysdl2-dll python3"
+makedepends="python3-dev py-setuptools"
+options="!check" #no testsuite
+subpackages="$pkgname-doc"
+source="$_pkgname-$pkgver.tar.gz::https://github.com/py-sdl/py-sdl2/archive/$pkgver.tar.gz"
+builddir="$srcdir"/py-sdl2-$pkgver
+
+build() {
+  cd "$builddir"
+  python3 setup.py build
+}
+
+package() {
+  mkdir -p "$pkgdir"
+
+  install -D -m 644 AUTHORS.txt \
+    "$pkgdir"/usr/share/licenses/$pkgname/AUTHORS.txt
+  install -D -m 644 COPYING.txt \
+    "$pkgdir"/usr/share/licenses/$pkgname/COPYING.txt
+  install -D -m 644 doc/copying.rst \
+    "$pkgdir"/usr/share/licenses/$pkgname/doc/copying.rst
+
+  cd "$builddir"
+  python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="
+5d077b0016a7f46e10d0dcdd9bc555d18cf4b62eabf5997ad49d9ab2d31e7ac09680883037daa55c5e06dff65d4ab0fce8d7bc620290db1141064892a55a6ec1  pysdl2-0.9.17.tar.gz
+"

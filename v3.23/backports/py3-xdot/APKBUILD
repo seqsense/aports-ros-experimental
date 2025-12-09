@@ -1,0 +1,39 @@
+# Contributor: Atsushi Watanabe<atsushi.w@ieee.org>
+# Maintainer:
+pkgname=py3-xdot
+_pkgname=xdot
+pkgver=1.6
+pkgrel=0
+pkgdesc="Interactive viewer for Graphviz dot files"
+url="https://pypi.python.org/pypi/xdot"
+arch="all"
+license="LGPL-3.0"
+depends="graphviz py3-gobject3 py3-numpy"
+makedepends="py3-setuptools"
+subpackages="$pkgname-doc"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+	# Install license files
+	install -Dm644 $startdir/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
+}
+
+sha512sums="
+9aaca6e92b13413ca6e261daadac470bd21118a959a82a74fe69e2596797be91b74e31398b58c9b5848f6dafd0166ef80f36aab26f69a04054d1d8841d92977b  xdot-1.6.tar.gz
+"

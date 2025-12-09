@@ -1,0 +1,42 @@
+# Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
+# Maintainer:
+pkgname=log4cxx
+pkgver=v0.13.0
+pkgrel=0
+pkgdesc="Logging framework for C++ patterned after Apache log4j"
+url="https://logging.apache.org/log4cxx/latest_stable/index.html"
+arch="all"
+license="Apache-2.0"
+depends=""
+makedepends="apr-dev apr-util-dev autoconf automake libtool gzip zip"
+subpackages="$pkgname-dev $pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/apache/logging-log4cxx/archive/refs/tags/rel/$pkgver.tar.gz"
+
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+
+	./autogen.sh
+	./configure \
+		--prefix=/usr \
+		CXXFLAGS="-Os -Wno-narrowing"
+	make -j1
+}
+
+check() {
+	cd "$builddir"
+	make check
+}
+
+package() {
+	cd "$builddir"
+	make DESTDIR="$pkgdir" install
+
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/log4cxx
+	install -m 0644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/log4cxx
+}
+
+sha512sums="
+e429371408e8a38f50cab34bfa1e546d9db4d52439fc5ef1c8597b9c3fe966701f79151eb00e0691c7bc72165c2b2260400d583f917335c64eba3f03251ec3e0  log4cxx-v0.13.0.tar.gz
+"

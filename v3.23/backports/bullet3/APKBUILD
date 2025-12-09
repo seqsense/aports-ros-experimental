@@ -1,0 +1,42 @@
+# Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
+# Maintainer:
+pkgname=bullet3
+pkgver=2.89
+pkgrel=0
+pkgdesc="Real-time collision detection and multi-physics simulation for VR, games, visual effects, robotics, machine learning etc."
+url="http://bulletphysics.org/"
+arch="all"
+options="!check"	# the test deeply depends on the examples using embedded pre-built binaries which are incompatible with alpine
+license="zlib"
+makedepends="cmake linux-headers"
+subpackages="$pkgname-dev $pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/bulletphysics/$pkgname/archive/$pkgver.tar.gz"
+
+build() {
+	cd "$builddir"
+	cmake \
+		-DUSE_DOUBLE_PRECISION=ON \
+		-DUSE_GRAPHICAL_BENCHMARK=OFF \
+		-DBUILD_CPU_DEMOS=OFF \
+		-DBUILD_OPENGL3_DEMOS=OFF \
+		-DBUILD_BULLET2_DEMOS=OFF \
+		-DBUILD_UNIT_TESTS=OFF \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DBUILD_SHARED_LIBS=True \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_CXX_FLAGS="$CXXFLAGS" \
+		-DCMAKE_C_FLAGS="$CFLAGS"
+	make
+}
+
+package() {
+	cd "$builddir"
+	make DESTDIR="$pkgdir" install
+
+  cd "$builddir"
+  install -Dm644 LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
+}
+sha512sums="
+3c4ba6a3b3623ef44dd4a23e0bc2e90dec1f2b7af463edcb886e110feac1dfb4a91945f0ed640052cac228318539e275976d37238102fb10a0f78aef065a730b  bullet3-2.89.tar.gz
+"

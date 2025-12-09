@@ -84,3 +84,22 @@ repos:
       - remote: "mirror"
         paths: ["v3.20/ros/jazzy"]
         archive_paths: ["archives/v3.20/ros/jazzy"]
+  backports-3.23:
+    main_ref: "master"
+    build_args:
+      ALPINE_VERSION: "3.23"
+    envs:
+      JOBS: 4
+      PURGE_OBSOLETE: "yes"
+      STACK_PROTECTOR: "on"
+    args: ["v3.23/backports"]
+    repo_path: "/home/builder/packages/backports"
+    cache_path: "/cache"
+    sign_key_path: "/home/builder/.abuild/builder@alpine-ros-experimental.rsa"
+    upload:
+      - remote: "main"
+        paths: ["v3.23/backports"]
+        archive_paths: ["archives/v3.23/backports"]
+      - remote: "mirror"
+        paths: ["v3.23/backports"]
+        archive_paths: ["archives/v3.23/backports"]

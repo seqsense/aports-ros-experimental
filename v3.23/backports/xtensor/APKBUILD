@@ -1,0 +1,38 @@
+# Maintainer: Simon Zeni <simon@bl4ckb0ne.ca>
+pkgname=xtensor
+pkgver=0.27.0
+pkgrel=0
+pkgdesc="C++ tensors with broadcasting and lazy computing"
+url="https://github.com/xtensor-stack/xtensor"
+arch="noarch !s390x" # test failure on s390x
+license="BSD-3-Clause"
+depends="xtl"
+makedepends="cmake samurai doctest-dev nlohmann-json"
+source="$pkgname-$pkgver.tar.gz::https://github.com/xtensor-stack/xtensor/archive/refs/tags/$pkgver.tar.gz"
+
+build() {
+	if [ "$CBUILD" != "$CHOST" ]; then
+		CMAKE_CROSSOPTS="-DCMAKE_SYSTEM_NAME=Linux -DCMAKE_HOST_SYSTEM_NAME=Linux"
+	fi
+	cmake -B build -G Ninja \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DCMAKE_BUILD_TYPE=MinSizeRel \
+		-DBUILD_TESTS="$(want_check && echo ON || echo OFF)" \
+		$CMAKE_CROSSOPTS
+	cmake --build build
+}
+
+check() {
+	cd build
+	ctest
+}
+
+package() {
+	DESTDIR="$pkgdir" cmake --install build
+}
+
+
+sha512sums="
+52616a61f9c74c9a37daea5615edb210ff9ef636620266c04ef3e145a067ed685c36febdee4d225ff7c4865e45384e92034a0e7bf9d255727aca7100bc45143c  xtensor-0.27.0.tar.gz
+"

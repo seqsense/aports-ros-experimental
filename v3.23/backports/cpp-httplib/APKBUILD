@@ -1,0 +1,45 @@
+# Contributor: Florent Ferreri <florent@seqsense.com>
+# Maintainer:
+pkgname=cpp-httplib
+pkgver=0.28.0
+pkgrel=0
+pkgdesc="A C++ header-only HTTP/HTTPS server and client library"
+url="https://github.com/yhirose/cpp-httplib"
+arch="all"
+license="MIT"
+depends=""
+makedepends="cmake curl-dev gmock gtest-dev"
+subpackages="$pkgname-dev $pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/yhirose/cpp-httplib/archive/v$pkgver.tar.gz
+  fix-test-makefile.patch"
+
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+  cd "$builddir"
+  mkdir -p build && cd build
+  cmake \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DHTTPLIB_TEST=ON \
+    -DCMAKE_BUILD_TYPE=Release \
+    ..
+  make
+}
+
+check() {
+  cd "$builddir"/test
+  make
+  make fuzz_test
+}
+
+package() {
+  cd "$builddir"/build
+  make DESTDIR="$pkgdir" install
+
+  install -Dm 0644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="
+e7a8877d489c97669a8ee536e1498575be921e558ed947253013fe6b67a49d4569eedd01f543caa70183b92d8ac0e8687d662a70d880954412e387317008a239  cpp-httplib-0.28.0.tar.gz
+988f1159c370174d564d7ca51ce920d35a369d8a513628776b80ce56cab30e1cf66b83d98498105aa00439cd028cf4dc5a429df2a8f585186b0289375bae52f0  fix-test-makefile.patch
+"

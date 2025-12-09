@@ -1,0 +1,47 @@
+# Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
+# Maintainer:
+pkgname=ogre
+pkgver=1.12.13
+pkgrel=0
+pkgdesc="OGRE is a scene-oriented, flexible 3D engine written in C++"
+url="https://ogrecave.github.io/ogre/"
+arch="all"
+license="MIT"
+depends=""
+makedepends="cmake boost-dev freeimage-dev freetype-dev tinyxml-dev zziplib-dev zlib-dev mesa-dev glu-dev libxaw-dev libxt-dev libxrandr-dev"
+subpackages="$pkgname-dev $pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/OGRECave/ogre/archive/v$pkgver.tar.gz"
+
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	mkdir -p build && cd build
+	cmake .. \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_CXX_FLAGS="$CXXFLAGS -Wno-deprecated-copy" \
+		-DCMAKE_C_FLAGS="$CFLAGS -Wno-error" \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DOGRE_BUILD_TESTS=ON \
+		-DOGRE_INSTALL_SAMPLES=OFF \
+		-DOGRE_INSTALL_SAMPLES_SOURCE=OFF \
+		-DBUILD_SHARED_LIBS=ON
+	make
+}
+
+check() {
+	cd "$builddir"/build
+	make test
+}
+
+package() {
+	cd "$builddir"/build
+	make DESTDIR="$pkgdir" install
+
+	install -Dm 0644 "$builddir"/COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
+}
+
+sha512sums="
+818d03047d81c315b8fea9eda39225afb63e0331bd8be4e17c78f382a6f514e87c2661a8bf1f065a9a68eb728debdc2f9b5f9e231951b7302b770d2f06f5f562  ogre-1.12.13.tar.gz
+"

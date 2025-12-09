@@ -1,0 +1,35 @@
+# Contributor: Kazuki Takahashi <ktakahashi@seqsense.com>
+# Maintainer: Kazuki Takahashi <ktakahashi@seqsense.com>
+pkgname=py3-flake8-comprehensions
+_pkgname=flake8_comprehensions
+pkgver=3.17.0
+pkgrel=0
+pkgdesc="A flake8 plugin to help you write better list/set/dict comprehensions."
+options="!check" # Requires unpackaged pylama
+url="https://github.com/adamchainz/flake8-comprehensions"
+arch="noarch"
+license="MIT"
+depends="py3-flake8 py3-setuptools"
+makedepends="py3-gpep517 py3-wheel"
+subpackages="$pkgname-pyc"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+builddir="$srcdir"/$_pkgname-$pkgver
+
+replaces="py-flake8-comprehensions"                  # Backwards compatibility
+provides="py-flake8-comprehensions=$pkgver-r$pkgrel" # Backwards compatibility
+
+build() {
+	gpep517 build-wheel \
+		--wheel-dir .dist \
+		--output-fd 3 3>&1 >&2
+}
+
+package() {
+	gpep517 install-wheel --destdir "$pkgdir" \
+		.dist/*.whl
+}
+
+
+sha512sums="
+b427661949fef097198a0e0a5ad4bbcdc77139f720cfa6eb3f1613453974e2b19af1b8b2822082df367887fea57aab26920d6cc59559f0adbd8ba2c6e6c9e8c9  flake8_comprehensions-3.17.0.tar.gz
+"

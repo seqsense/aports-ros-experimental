@@ -1,0 +1,42 @@
+# Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
+# Maintainer:
+pkgname=orocos-kdl
+_pkgname=orocos_kinematics_dynamics
+pkgver=1.5.3
+pkgrel=0
+pkgdesc="Orocos Kinematics and Dynamics C++ library"
+url="https://github.com/orocos/orocos_kinematics_dynamics"
+arch="all"
+license="LGPL-2.1-only"
+depends=""
+depends_dev="eigen-dev"
+makedepends="cmake eigen-dev pkgconfig"
+checkdepends="cppunit-dev"
+subpackages="$pkgname-dev $pkgname-doc"
+options="!check"  # test code is broken on the latest compiler and cppunit
+source="$_pkgname-$pkgver.tar.gz::https://github.com/orocos/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
+
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+  mkdir -p $builddir/orocos_kdl/build && cd $builddir/orocos_kdl/build
+  cmake .. \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_MODELS=ON \
+    -DBUILD_SHARED_LIBS=ON
+  # -DENABLE_TESTS=ON
+  make
+}
+
+package() {
+  cd $builddir/orocos_kdl/build
+  make DESTDIR="$pkgdir" install
+
+  install -Dm 0644 "$builddir"/orocos_kdl/COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
+}
+
+sha512sums="
+5d2b3329c1015c1ed2f91860cc95f933f3fd42405e42dfe06f6c117c0c64bde8f8b1f49b2399555ee70782dfbf1da4d4a7a92a1860aee10e5bceff95a892b4a2  orocos_kinematics_dynamics-1.5.3.tar.gz
+"
