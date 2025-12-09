@@ -1,0 +1,10 @@
+diff --git a/test/Makefile b/test/Makefile
+index 900cb56..4f2bedd 100644
+--- a/test/Makefile
++++ b/test/Makefile
+@@ -1,4 +1,4 @@
+-CXX = clang++
++CXX = g++
+ CXXFLAGS = -g -std=c++11 -I. -Wall -Wextra -Wtype-limits -Wconversion -Wshadow $(EXTRA_CXXFLAGS) -DCPPHTTPLIB_USE_NON_BLOCKING_GETADDRINFO # -fno-exceptions -DCPPHTTPLIB_NO_EXCEPTIONS -fsanitize=address
+ 
+ PREFIX ?= $(shell brew --prefix)

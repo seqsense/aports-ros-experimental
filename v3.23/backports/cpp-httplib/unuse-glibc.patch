@@ -1,0 +1,27 @@
+diff --git a/test/Makefile b/test/Makefile
+index 900cb56..dd102bf 100644
+--- a/test/Makefile
++++ b/test/Makefile
+@@ -27,9 +27,6 @@ ifneq ($(OS), Windows_NT)
+ 	ifeq ($(UNAME_S), Darwin)
+ 		LIBS += -framework CoreFoundation -framework CFNetwork
+ 	endif
+-	ifneq ($(UNAME_S), Darwin)
+-		LIBS += -lanl
+-	endif
+ endif
+ 
+ TEST_ARGS = gtest/src/gtest-all.cc gtest/src/gtest_main.cc -Igtest -Igtest/include $(OPENSSL_SUPPORT) $(ZLIB_SUPPORT) $(BROTLI_SUPPORT) $(ZSTD_SUPPORT) $(LIBS)
+diff --git a/test/fuzzing/Makefile b/test/fuzzing/Makefile
+index b08ecd0..d6a3e21 100644
+--- a/test/fuzzing/Makefile
++++ b/test/fuzzing/Makefile
+@@ -20,7 +20,7 @@ all : server_fuzzer
+ # Fuzz target, so that you can choose which $(LIB_FUZZING_ENGINE) to use.
+ server_fuzzer : server_fuzzer.cc ../../httplib.h
+ # 	$(CXX) $(CXXFLAGS) -o $@  $<  -Wl,-Bstatic $(OPENSSL_SUPPORT)  -Wl,-Bdynamic -ldl  $(ZLIB_SUPPORT)  $(LIB_FUZZING_ENGINE) -pthread
+-	$(CXX) $(CXXFLAGS) -o $@  $<  $(ZLIB_SUPPORT)  $(LIB_FUZZING_ENGINE) -pthread -lanl
++	$(CXX) $(CXXFLAGS) -o $@  $<  $(ZLIB_SUPPORT)  $(LIB_FUZZING_ENGINE) -pthread
+ 	zip -q -r server_fuzzer_seed_corpus.zip corpus
+ 
+ clean:
