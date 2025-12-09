@@ -25,12 +25,12 @@ build() {
 }
 
 check() {
-	cd "$builddir"
-	make check
+	cd "$builddir/build"
+	ctest -C Debug --output-on-failure
 }
 
 package() {
-	cd "$builddir"
+	cd "$builddir/build"
 	make DESTDIR="$pkgdir" install
 
 	install -d -m 0755 "$pkgdir"/usr/share/licenses/log4cxx
