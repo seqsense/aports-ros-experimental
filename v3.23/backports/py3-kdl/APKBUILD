@@ -13,7 +13,7 @@ makedepends="python3-dev py3-pybind11-dev cmake eigen-dev pkgconfig orocos-kdl-d
 checkdepends="py3-psutil"
 subpackages="$pkgname-doc"
 options="!check"  # test fails due to floating point calculation error
-source="$_pkgname-$pkgver.tar.gz::https://github.com/orocos/$_pkgname/archive/refs/tags/v$pkgver.tar.gz
+source="$_pkgname-$pkgver.tar.gz::https://github.com/orocos/$_pkgname/archive/refs/tags/$pkgver.tar.gz
   use-system-pybind11.patch"
 
 builddir="$srcdir/$_pkgname-$pkgver"
