@@ -8,7 +8,7 @@ url="https://logging.apache.org/log4cxx/latest_stable/index.html"
 arch="all"
 license="Apache-2.0"
 depends=""
-makedepends="apr-dev apr-util-dev autoconf automake libtool gzip zip"
+makedepends="apr-dev apr-util-dev cmake gzip zip"
 subpackages="$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/apache/logging-log4cxx/archive/refs/tags/rel/v$pkgver.tar.gz"
 
@@ -16,11 +16,11 @@ builddir="$srcdir/logging-$pkgname-rel-v$pkgver"
 
 build() {
 	cd "$builddir"
-
-	./autogen.sh
-	./configure \
-		--prefix=/usr \
-		CXXFLAGS="-Os -Wno-narrowing"
+	mkdir build && cd build
+	cmake .. \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DBUILD_SHARED_LIBS=ON \
+		-DCMAKE_BUILD_TYPE=None
 	make -j1
 }
 
@@ -38,5 +38,5 @@ package() {
 }
 
 sha512sums="
-f423ad827ca5327c6183040100316ab3c54b8f72ac6f88fba04be65812f7367ed18a442157a73b6d7f9a69b71775a471b0ccbd1f5efbc17a477e104a682281e0  log4cxx-1.5.0.tar.gz
+f423ad827ca5327c6183040100316ab3c54b8f72ac6f88fba04be65812f7367ed18a442157a73b6d7f9a69b71775a471b0ccbd1f5efbc17a477e104a682281e0	log4cxx-1.5.0.tar.gz
 "
