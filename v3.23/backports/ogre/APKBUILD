@@ -26,7 +26,8 @@ makedepends="
 "
 subpackages="$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/OGRECave/ogre/archive/v$pkgver.tar.gz
-	use-system-gtest.patch"
+	use-system-gtest.patch
+	do-not-install-test-binary.patch"
 
 builddir="$srcdir/$pkgname-$pkgver"
 
@@ -38,12 +39,12 @@ build() {
 		-DCMAKE_BUILD_TYPE=None \
 		-DCMAKE_CXX_FLAGS="$CXXFLAGS -Wno-deprecated-copy" \
 		-DCMAKE_C_FLAGS="$CFLAGS -Wno-error" \
-		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_RPATH="/usr/lib;/usr/lib/OGRE" \
 		-DOGRE_BUILD_TESTS=ON \
 		-DOGRE_INSTALL_SAMPLES=OFF \
 		-DOGRE_INSTALL_SAMPLES_SOURCE=OFF \
-    -DOGRE_BUILD_DEPENDENCIES=FALSE \
+		-DOGRE_BUILD_DEPENDENCIES=FALSE \
 		-DBUILD_SHARED_LIBS=ON
 	make
 }
@@ -63,4 +64,5 @@ package() {
 sha512sums="
 818d03047d81c315b8fea9eda39225afb63e0331bd8be4e17c78f382a6f514e87c2661a8bf1f065a9a68eb728debdc2f9b5f9e231951b7302b770d2f06f5f562  ogre-1.12.13.tar.gz
 6588e1522aeb5839b3d79d74b6bf47bf72c546be6153fdb6be64e7eeba3c4215a0df246b876a2d835cbb142cfe2ede7a1d3fb32b40ebb28366c648aecb676e4c  use-system-gtest.patch
+7df28cbbae376fcbc03441f185309e13011082ed94bd1fcbee8d6ad443181490228fb51d53dc40247a464a6975f1981bf097114dce907915c8b8541b16181aa1  do-not-install-test-binary.patch
 "
