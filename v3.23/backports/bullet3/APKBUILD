@@ -15,6 +15,7 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/bulletphysics/$pkgname/archi
 build() {
 	cd "$builddir"
 	cmake \
+		-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
 		-DUSE_DOUBLE_PRECISION=ON \
 		-DUSE_GRAPHICAL_BENCHMARK=OFF \
 		-DBUILD_CPU_DEMOS=OFF \
