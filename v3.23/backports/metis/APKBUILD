@@ -11,29 +11,22 @@ options="!check" # No test is provided.
 makedepends="build-base cmake gklib-dev"
 subpackages="$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/KarypisLab/METIS/archive/refs/tags/v$pkgver.tar.gz
-	remove-wrong-cmake-include.patch"
+	bump-cmake-min-version.patch"
 
 builddir="$srcdir/METIS-$pkgver"
 
 build() {
-	cd "$builddir"
-	mkdir -p build && cd build
-	cmake .. \
-		-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
-		-DCMAKE_INSTALL_PREFIX=/usr \
-		-DCMAKE_BUILD_TYPE=None \
-		-DBUILD_SHARED_LIBS=ON
+	make config shared=1 prefix=/usr gklib_path=/usr
 	make
 }
 
 package() {
-	cd "$builddir"/build
 	make DESTDIR="$pkgdir" install
 
-	install -Dm644 "$builddir"/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 sha512sums="
 69127b7a777f9ba14cf399a7122000af9d6094a5f44be600a28384cfc0495c024fb0c6eab37c4473a5763ec1077cd9f30d9bcbb3c952462f6c9ead31c6b9e790  metis-5.2.1.tar.gz
-c4556cecd3037afc833f6c6653e7de848b30de2d61f944cbabe4592374e0018a1c4c14664be12251b4570fa60c400f97b3c30e9231729aee5af120d8f25b794a  remove-wrong-cmake-include.patch
+969964d38d6334872b862085c2df24bb91d45181df46c3eebe380f0940ab7a40bd82774a38bab723810d0d88c0c41d7c5167c5353ec6d95600df73c169838316  bump-cmake-min-version.patch
 "
