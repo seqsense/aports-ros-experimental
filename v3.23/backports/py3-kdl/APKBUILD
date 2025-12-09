@@ -3,7 +3,7 @@
 pkgname=py3-kdl
 _pkgname=orocos_kinematics_dynamics
 pkgver=1.5.3
-pkgrel=0
+pkgrel=1
 pkgdesc="Python binding of Orocos Kinematics and Dynamics library"
 url="https://github.com/orocos/orocos_kinematics_dynamics"
 arch="all"
@@ -24,7 +24,7 @@ build() {
   ROS_PYTHON_VERSION=3 \
   cmake .. \
     -DPYTHON_EXECUTABLE=$(python3 -c "import sys; print(sys.executable)") \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_SHARED_LIBS=ON

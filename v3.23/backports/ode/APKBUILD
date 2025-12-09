@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=ode
 pkgver=0.16.6
-pkgrel=0
+pkgrel=1
 pkgdesc="A free, industrial quality library for simulating articulated rigid body dynamics."
 url="https://www.ode.org/"
 arch="all"
@@ -19,7 +19,7 @@ build() {
 	mkdir -p build && cd build
 	cmake .. \
 		-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
-		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_BUILD_TYPE=None \
 		-DCMAKE_INSTALL_PREFIX=/usr
 	make
 }

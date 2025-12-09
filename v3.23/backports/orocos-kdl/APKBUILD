@@ -3,7 +3,7 @@
 pkgname=orocos-kdl
 _pkgname=orocos_kinematics_dynamics
 pkgver=1.5.3
-pkgrel=0
+pkgrel=1
 pkgdesc="Orocos Kinematics and Dynamics C++ library"
 url="https://github.com/orocos/orocos_kinematics_dynamics"
 arch="all"
@@ -21,7 +21,7 @@ builddir="$srcdir/$_pkgname-$pkgver"
 build() {
   mkdir -p $builddir/orocos_kdl/build && cd $builddir/orocos_kdl/build
   cmake .. \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_MODELS=ON \

@@ -20,9 +20,11 @@ options="!check" # No tests
 
 build() {
 	cmake -B build -G Ninja \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=None \
-		-DBUILD_SHARED_LIBS=True
+		-DBUILD_SHARED_LIBS=True \
+    -DBUILD_MATLAB_BINDINGS=OFF
 	cmake --build build
 }
 

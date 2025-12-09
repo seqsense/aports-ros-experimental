@@ -20,6 +20,7 @@ build() {
 	cd "$builddir"
 	mkdir -p build && cd build
 	cmake .. \
+		-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DBUILD_SHARED_LIBS=ON
 	make

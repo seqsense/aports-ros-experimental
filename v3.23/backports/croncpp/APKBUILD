@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=croncpp
 pkgver=2023.03.30
-pkgrel=1
+pkgrel=2
 pkgdesc="A C++11/14/17 header-only cross-platform library for handling CRON expressions"
 url="https://github.com/mariusbancila/croncpp"
 arch="all"
@@ -19,7 +19,7 @@ build() {
   mkdir -p build && cd build
   cmake \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=None \
     -DCRONCPP_BUILD_TESTS=ON \
     -DCRONCPP_ENABLE_PROFILING=ON \
     -Wdev \
