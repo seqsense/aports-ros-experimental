@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=urdfdom_headers
 pkgver=1.0.5
-pkgrel=0
+pkgrel=1
 pkgdesc="URDF (U-Robot Description Format) parser"
 url="http://ros.org/wiki/urdf"
 arch="all"
@@ -11,7 +11,8 @@ license="BSD-3-Clause"
 depends=""
 makedepends="cmake"
 subpackages="$pkgname-doc"
-source="$pkgname-$pkgver.tar.gz::https://github.com/ros/urdfdom_headers/archive/$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/ros/urdfdom_headers/archive/$pkgver.tar.gz
+	include-cstdint.patch"
 
 builddir="$srcdir/$pkgname-$pkgver"
 
@@ -33,4 +34,5 @@ package() {
 }
 sha512sums="
 c16d83282c189d7720326ed0628c4b3359a859f45157e08f78ffa10a5607d01e6f64b2caa3b721ab9fcf2d83ee1240bc6f43ab484946e7a381122b27bd057b58  urdfdom_headers-1.0.5.tar.gz
+048cbc6ca5a3e3a33abbb44ab1738d02d6d6f9e7d4c5bef8bbd18cc3b49e0d22e339605d69ef7b6e39dc7aad24fdc1ac5b0a44475b517d228580a4b47075280f  include-cstdint.patch
 "
