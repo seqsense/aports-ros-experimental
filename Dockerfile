@@ -39,7 +39,9 @@ ENV CC=/usr/lib/gcc-with-retry/gcc \
   CCACHE_DIR=/cache/ccache \
   CCACHE_DEPEND=true
 
-RUN ln -s /cache/apk /etc/apk/cache
+RUN ln -s /cache/apk /etc/apk/cache \
+  && rm -rf /var/cache/distfiles \
+  && ln -s /cache/distfiles /var/cache/distfiles
 
 # Workaround for rospack on fakeroot
 RUN mkdir -p /root/.ros \
