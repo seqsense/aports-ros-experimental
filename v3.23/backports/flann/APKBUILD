@@ -2,7 +2,7 @@
 # Maintainer: Bradley J Chambers <brad.chambers@gmail.com>
 pkgname=flann
 pkgver=1.9.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast Library for Approximate Nearest Neighbors"
 url="https://github.com/flann-lib/flann"
 arch="all"
@@ -20,7 +20,7 @@ options="!check" # No tests
 
 build() {
 	cmake -B build -G Ninja \
-    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.10 \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=None \
 		-DBUILD_SHARED_LIBS=True \

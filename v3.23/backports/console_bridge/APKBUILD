@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=console_bridge
 pkgver=1.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Package for logging that seamlessly pipes into rosconsole/rosout for ROS-dependent packages"
 url="https://github.com/ros/console_bridge/"
 arch="all"
@@ -21,7 +21,7 @@ build() {
   cd "$builddir"
   mkdir -p build && cd build
   cmake .. \
-    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.10 \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DCMAKE_INSTALL_PREFIX=/usr \

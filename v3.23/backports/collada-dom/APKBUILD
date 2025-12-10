@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=collada-dom
 pkgver=2.5.0
-pkgrel=4
+pkgrel=5
 pkgdesc="COLLADA Document Object Model (DOM) C++ Library"
 url="https://github.com/rdiankov/collada-dom"
 arch="all"
@@ -20,7 +20,7 @@ build() {
 	cd "$builddir"
 	mkdir -p build && cd build
 	cmake .. \
-		-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+		-DCMAKE_POLICY_VERSION_MINIMUM=3.10 \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DBUILD_SHARED_LIBS=ON
 	make

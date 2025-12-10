@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=gl2ps
 pkgver=1.4.2
-pkgrel=1
+pkgrel=2
 pkgdesc="GL2PS: an OpenGL to PostScript printing library"
 url="http://geuz.org/gl2ps/"
 arch="all"
@@ -19,7 +19,7 @@ build() {
   mkdir build && cd build
 
   cmake .. \
-		-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+		-DCMAKE_POLICY_VERSION_MINIMUM=3.10 \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=None
   make

@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=ogre
 pkgver=1.12.13
-pkgrel=1
+pkgrel=2
 pkgdesc="OGRE is a scene-oriented, flexible 3D engine written in C++"
 url="https://ogrecave.github.io/ogre/"
 arch="all"
@@ -35,7 +35,7 @@ build() {
 	cd "$builddir"
 	mkdir -p build && cd build
 	cmake .. \
-		-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+		-DCMAKE_POLICY_VERSION_MINIMUM=3.10 \
 		-DCMAKE_BUILD_TYPE=None \
 		-DCMAKE_CXX_FLAGS="$CXXFLAGS -Wno-deprecated-copy" \
 		-DCMAKE_C_FLAGS="$CFLAGS -Wno-error" \
