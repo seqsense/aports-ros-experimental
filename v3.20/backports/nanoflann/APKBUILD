@@ -2,13 +2,14 @@
 # Maintainer:
 pkgname=nanoflann
 pkgver=1.8.0
-pkgrel=0
+pkgrel=1
 pkgdesc="nanoflann: a C++11 header-only library for Nearest Neighbor (NN) search with KD-trees"
 url="https://github.com/jlblancoc/nanoflann"
 arch="all"
 license="BSD"
 depends=""
-makedepends="cmake gtest eigen"
+makedepends="cmake gtest eigen-dev"
+depends_dev="eigen-dev"
 subpackages="$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/jlblancoc/nanoflann/archive/refs/tags/v$pkgver.tar.gz"
 
