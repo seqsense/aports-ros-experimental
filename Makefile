@@ -32,6 +32,8 @@ cache-dir:
 	chmod og+rwx packages/.cache/v$(ALPINE_VERSION)/ccache
 	mkdir -p packages/.cache/v$(ALPINE_VERSION)/apk
 	chmod og+rwx packages/.cache/v$(ALPINE_VERSION)/apk
+	mkdir -p packages/.cache/v$(ALPINE_VERSION)/distfiles
+	chmod og+rwx packages/.cache/v$(ALPINE_VERSION)/distfiles
 
 .PHONY: $(REPOSITORY)
 $(REPOSITORY): cache-dir
@@ -44,6 +46,7 @@ $(REPOSITORY): cache-dir
 		-v $(CURDIR)/packages/v$(ALPINE_VERSION):/home/builder/packages \
 		-v $(CURDIR)/packages/.cache/v$(ALPINE_VERSION)/ccache:/cache/ccache \
 		-v $(CURDIR)/packages/.cache/v$(ALPINE_VERSION)/apk:/etc/apk/cache \
+		-v $(CURDIR)/packages/.cache/v$(ALPINE_VERSION)/distfiles:/cache/distfiles \
 		$$(if [ '$@' != 'backports' ]; then echo "-v $(CURDIR)/packages/v$(ALPINE_VERSION)/backports:/home/builder/deps.rw/backports"; fi) \
 		$(PRIVATE_KEY_OPT) \
 		-e JOBS=${JOBS} \
