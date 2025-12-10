@@ -13,7 +13,10 @@ makedepends="python3-dev py3-pybind11-dev cmake eigen-dev pkgconfig orocos-kdl-d
 checkdepends="py3-psutil"
 subpackages="$pkgname-doc"
 options="!check" # test fails due to floating point calculation error
-source="$_pkgname-$pkgver.tar.gz::https://github.com/orocos/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
+source="
+	$_pkgname-$pkgver.tar.gz::https://github.com/orocos/$_pkgname/archive/refs/tags/$pkgver.tar.gz
+	assert-float-with-tolerance.patch
+	"
 
 builddir="$srcdir/$_pkgname-$pkgver"
 
@@ -52,4 +55,5 @@ package() {
 
 sha512sums="
 5d2b3329c1015c1ed2f91860cc95f933f3fd42405e42dfe06f6c117c0c64bde8f8b1f49b2399555ee70782dfbf1da4d4a7a92a1860aee10e5bceff95a892b4a2  orocos_kinematics_dynamics-1.5.3.tar.gz
+f68610a479e80090aeb3df3b1ed5af67d9326ae1929962bdfbf6fc428a17a6d33dd0b86d75ca3706d2873fa11b5f3a2414962912665bddef7cc3389a27070576  assert-float-with-tolerance.patch
 "
