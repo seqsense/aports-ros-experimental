@@ -10,5 +10,5 @@ options="!check"
 license="PublicDomain"
 
 package() {
-  mkdir -p $pkgdir
+	mkdir -p $pkgdir
 }

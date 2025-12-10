@@ -29,7 +29,6 @@ package() {
 		.dist/*.whl
 }
 
-
 sha512sums="
 a07728047b3e3c5058c1ace7d8fd33cc20f01501501ca3658a671371bc475cde52f2efa9cd8d34cee1a4bdecc813ff90ba8aaf9c0658421d793b087ade2c86ca  flake8_import_order-0.19.2.tar.gz
 "

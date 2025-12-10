@@ -9,39 +9,41 @@ arch="noarch"
 license="MIT"
 depends="python3 py3-snowballstemmer"
 makedepends="
-  py3-gpep517
-  py3-poetry-core
-  py3-setuptools_scm
-  "
+	py3-gpep517
+	py3-poetry-core
+	py3-setuptools_scm
+	"
 checkdepends="py3-pytest py3-mock"
 subpackages="$pkgname-pyc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/PyCQA/pydocstyle/archive/$pkgver.tar.gz
-  fix-fstring-tests.patch"
+	fix-fstring-tests.patch
+	"
 builddir="$srcdir/pydocstyle-$pkgver"
 
 prepare() {
-  default_prepare
+	default_prepare
 
-  sed -i "s|0.0.0-dev|$pkgver|" pyproject.toml
+	sed -i "s|0.0.0-dev|$pkgver|" pyproject.toml
 }
 
 build() {
-  gpep517 build-wheel \
-    --wheel-dir .dist \
-    --output-fd 3 3>&1 >&2
+	gpep517 build-wheel \
+		--wheel-dir .dist \
+		--output-fd 3 3>&1 >&2
 }
 
 check() {
-  python3 -m venv --clear --without-pip --system-site-packages .testenv
-  .testenv/bin/python3 -m installer .dist/*.whl
-  .testenv/bin/python3 -m pytest --deselect src/tests/test_integration.py
+	python3 -m venv --clear --without-pip --system-site-packages .testenv
+	.testenv/bin/python3 -m installer .dist/*.whl
+	.testenv/bin/python3 -m pytest --deselect src/tests/test_integration.py
 }
 
 package() {
-  python3 -m installer -d "$pkgdir" \
-    .dist/*.whl
+	python3 -m installer -d "$pkgdir" \
+		.dist/*.whl
 }
 
 sha512sums="
 f8473b19ab6ef0b61787875558f9dd6f9f7f1954e1baa0010942af6d4de8dbca30c8c08be6acbf24aadd1c0a601ba9467b747026a6cd22379f0c4b84a38b57c7  py3-pydocstyle-6.3.0.tar.gz
-4c751edede0fcc39f929ac6c919452b9cd29ee32597c07abb1d4c31ce1c248b56a8dad55f3652864619a8840aaf300b55e1a351ae88de6814848d08febbafc93 fix-fstring-tests.patch"
+4c751edede0fcc39f929ac6c919452b9cd29ee32597c07abb1d4c31ce1c248b56a8dad55f3652864619a8840aaf300b55e1a351ae88de6814848d08febbafc93  fix-fstring-tests.patch
+"

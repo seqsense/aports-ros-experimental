@@ -13,7 +13,8 @@ subpackages="$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/yhirose/cpp-httplib/archive/v$pkgver.tar.gz
 	disable-broken-tests.patch
 	fix-test-makefile.patch
-	unuse-glibc.patch"
+	unuse-glibc.patch
+	"
 
 builddir="$srcdir/$pkgname-$pkgver"
 

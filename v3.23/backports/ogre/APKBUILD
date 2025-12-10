@@ -23,11 +23,12 @@ makedepends="
 	tinyxml-dev
 	zlib-dev
 	zziplib-dev
-"
+	"
 subpackages="$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/OGRECave/ogre/archive/v$pkgver.tar.gz
 	use-system-gtest.patch
-	do-not-install-test-binary.patch"
+	do-not-install-test-binary.patch
+	"
 
 builddir="$srcdir/$pkgname-$pkgver"
 
@@ -40,7 +41,7 @@ build() {
 		-DCMAKE_CXX_FLAGS="$CXXFLAGS -Wno-deprecated-copy" \
 		-DCMAKE_C_FLAGS="$CFLAGS -Wno-error" \
 		-DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_RPATH="/usr/lib;/usr/lib/OGRE" \
+		-DCMAKE_INSTALL_RPATH="/usr/lib;/usr/lib/OGRE" \
 		-DOGRE_BUILD_TESTS=ON \
 		-DOGRE_INSTALL_SAMPLES=OFF \
 		-DOGRE_INSTALL_SAMPLES_SOURCE=OFF \

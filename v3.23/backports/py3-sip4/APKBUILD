@@ -13,10 +13,12 @@ makedepends="python3-dev py3-setuptools flex bison"
 depends_dev="py3-sip4"
 subpackages="
 	$pkgname-dev::noarch
-	$pkgname-doc"
+	$pkgname-doc
+	"
 source="https://www.riverbankcomputing.com/static/Downloads/sip/$pkgver/sip-$pkgver.tar.gz
 	sip-4.19.25-pyframe_getback.patch
-	sip-4.19.25-py_ssize_t_clean.patch"
+	sip-4.19.25-py_ssize_t_clean.patch
+	"
 builddir="$srcdir"/sip-$pkgver
 
 build() {

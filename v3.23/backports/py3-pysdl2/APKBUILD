@@ -16,22 +16,22 @@ source="$_pkgname-$pkgver.tar.gz::https://github.com/py-sdl/py-sdl2/archive/$pkg
 builddir="$srcdir"/py-sdl2-$pkgver
 
 build() {
-  cd "$builddir"
-  python3 setup.py build
+	cd "$builddir"
+	python3 setup.py build
 }
 
 package() {
-  mkdir -p "$pkgdir"
+	mkdir -p "$pkgdir"
 
-  install -D -m 644 AUTHORS.txt \
-    "$pkgdir"/usr/share/licenses/$pkgname/AUTHORS.txt
-  install -D -m 644 COPYING.txt \
-    "$pkgdir"/usr/share/licenses/$pkgname/COPYING.txt
-  install -D -m 644 doc/copying.rst \
-    "$pkgdir"/usr/share/licenses/$pkgname/doc/copying.rst
+	install -D -m 644 AUTHORS.txt \
+		"$pkgdir"/usr/share/licenses/$pkgname/AUTHORS.txt
+	install -D -m 644 COPYING.txt \
+		"$pkgdir"/usr/share/licenses/$pkgname/COPYING.txt
+	install -D -m 644 doc/copying.rst \
+		"$pkgdir"/usr/share/licenses/$pkgname/doc/copying.rst
 
-  cd "$builddir"
-  python3 setup.py install --prefix=/usr --root="$pkgdir"
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
 }
 
 sha512sums="

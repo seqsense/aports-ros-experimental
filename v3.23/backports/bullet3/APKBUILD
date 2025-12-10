@@ -38,6 +38,7 @@ package() {
   cd "$builddir"
   install -Dm644 LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
 }
+
 sha512sums="
 3c4ba6a3b3623ef44dd4a23e0bc2e90dec1f2b7af463edcb886e110feac1dfb4a91945f0ed640052cac228318539e275976d37238102fb10a0f78aef065a730b  bullet3-2.89.tar.gz
 "

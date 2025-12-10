@@ -32,7 +32,6 @@ package() {
 	DESTDIR="$pkgdir" cmake --install build
 }
 
-
 sha512sums="
 52616a61f9c74c9a37daea5615edb210ff9ef636620266c04ef3e145a067ed685c36febdee4d225ff7c4865e45384e92034a0e7bf9d255727aca7100bc45143c  xtensor-0.27.0.tar.gz
 "

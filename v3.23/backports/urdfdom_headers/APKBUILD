@@ -12,7 +12,8 @@ depends=""
 makedepends="cmake"
 subpackages="$pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/ros/urdfdom_headers/archive/$pkgver.tar.gz
-	include-cstdint.patch"
+	include-cstdint.patch
+	"
 
 builddir="$srcdir/$pkgname-$pkgver"
 

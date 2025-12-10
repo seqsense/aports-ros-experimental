@@ -12,7 +12,8 @@ depends="py3-catkin-pkg>=0.1.28 py3-rosdistro>=0.7.3 py3-rospkg py3-yaml"
 makedepends="python3-dev py3-setuptools git"
 subpackages="$pkgname-doc"
 source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz
-	LICENSE.txt"
+	LICENSE.txt
+	"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {

@@ -32,4 +32,3 @@ package() {
 sha512sums="
 74c564e2fd4b6efc16cff2c6d3472b231079e4321f98354e7cfc77cbcc9063987c51d6289451f1cbeaba83e8b2c51865bd23cdb168fd24cf9a7705b62f6e4b8f  flake8-quotes-3.4.0.tar.gz
 "
-

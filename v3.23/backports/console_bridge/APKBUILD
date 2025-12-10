@@ -12,37 +12,41 @@ makedepends="cmake"
 checkdepends="cppcheck"
 subpackages="$pkgname-dev $pkgname-dbg $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/ros/console_bridge/archive/$pkgver.tar.gz
-  cmake_config_install_dir.patch
-  disable-broken-lint.patch"
+	cmake_config_install_dir.patch
+	disable-broken-lint.patch
+	"
 
 builddir="$srcdir/$pkgname-$pkgver"
 
 build() {
-  cd "$builddir"
-  mkdir -p build && cd build
-  cmake .. \
-    -DCMAKE_POLICY_VERSION_MINIMUM=3.10 \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DBUILD_SHARED_LIBS=ON \
-    -DBUILD_TESTING=True
-  make
+	cd "$builddir"
+	mkdir -p build && cd build
+	cmake .. \
+		-DCMAKE_POLICY_VERSION_MINIMUM=3.10 \
+		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DBUILD_SHARED_LIBS=ON \
+		-DBUILD_TESTING=True
+	make
 }
 
 check() {
-  cd "$builddir"/build
-  export AMENT_CPPCHECK_ALLOW_SLOW_VERSIONS=1
-  make test ARGS="-VV"
+	cd "$builddir"/build
+	export AMENT_CPPCHECK_ALLOW_SLOW_VERSIONS=1
+	make test ARGS="-VV"
 }
 
 package() {
-  cd "$builddir"/build
-  make DESTDIR="$pkgdir" install
+	cd "$builddir"/build
+	make DESTDIR="$pkgdir" install
 
-  cd "$builddir"
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+	cd "$builddir"
+	install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
-sha512sums="ed427da8e59f9629f8d70e0a14415f88177c06fbaf7334bee56135dde91d19a1b54f5c9c668e0fd68314ab8dfd61446a174b9f528304decc5d4626a7c98882cb  console_bridge-1.0.2.tar.gz
+
+sha512sums="
+ed427da8e59f9629f8d70e0a14415f88177c06fbaf7334bee56135dde91d19a1b54f5c9c668e0fd68314ab8dfd61446a174b9f528304decc5d4626a7c98882cb  console_bridge-1.0.2.tar.gz
 d06771cc5adcd5230d24e9e25751b3ee716024855b0d1c02d30e4792a82e2544cf48161527af27a033a003b85aaf52776ce16f56ef74006cc704fc987a220055  cmake_config_install_dir.patch
-a0991ef978fca6b2933987e69b43383a5ae3fcf4bbc5c1b34711a62b1e83fe61c93a1a4ef8c59898cadefeda218dbdcf29368369d06d6bc4d0fa08c7293866ce  disable-broken-lint.patch"
+a0991ef978fca6b2933987e69b43383a5ae3fcf4bbc5c1b34711a62b1e83fe61c93a1a4ef8c59898cadefeda218dbdcf29368369d06d6bc4d0fa08c7293866ce  disable-broken-lint.patch
+"

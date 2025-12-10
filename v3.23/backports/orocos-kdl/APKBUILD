@@ -13,28 +13,28 @@ depends_dev="eigen-dev"
 makedepends="cmake eigen-dev pkgconfig"
 checkdepends="cppunit-dev"
 subpackages="$pkgname-dev $pkgname-doc"
-options="!check"  # test code is broken on the latest compiler and cppunit
+options="!check" # test code is broken on the latest compiler and cppunit
 source="$_pkgname-$pkgver.tar.gz::https://github.com/orocos/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
 
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
-  mkdir -p $builddir/orocos_kdl/build && cd $builddir/orocos_kdl/build
-  cmake .. \
-    -DCMAKE_BUILD_TYPE=None \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DBUILD_MODELS=ON \
-    -DBUILD_SHARED_LIBS=ON
-  # -DENABLE_TESTS=ON
-  make
+	mkdir -p $builddir/orocos_kdl/build && cd $builddir/orocos_kdl/build
+	cmake .. \
+		-DCMAKE_BUILD_TYPE=None \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DBUILD_MODELS=ON \
+		-DBUILD_SHARED_LIBS=ON
+	# -DENABLE_TESTS=ON
+	make
 }
 
 package() {
-  cd $builddir/orocos_kdl/build
-  make DESTDIR="$pkgdir" install
+	cd $builddir/orocos_kdl/build
+	make DESTDIR="$pkgdir" install
 
-  install -Dm 0644 "$builddir"/orocos_kdl/COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
+	install -Dm 0644 "$builddir"/orocos_kdl/COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
 }
 
 sha512sums="

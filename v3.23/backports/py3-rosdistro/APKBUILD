@@ -12,8 +12,9 @@ depends="py3-yaml"
 makedepends="python3-dev py3-setuptools"
 subpackages="$pkgname-doc"
 source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz
-  force-to-enable-alpine-platform.patch
-  LICENSE.txt"
+	force-to-enable-alpine-platform.patch
+	LICENSE.txt
+	"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {

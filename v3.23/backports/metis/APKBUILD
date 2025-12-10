@@ -11,7 +11,8 @@ options="!check" # No test is provided.
 makedepends="build-base cmake gklib-dev"
 subpackages="$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/KarypisLab/METIS/archive/refs/tags/v$pkgver.tar.gz
-	bump-cmake-min-version.patch"
+	bump-cmake-min-version.patch
+	"
 
 builddir="$srcdir/METIS-$pkgver"
 

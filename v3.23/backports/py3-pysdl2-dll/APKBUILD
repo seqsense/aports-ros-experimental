@@ -16,17 +16,17 @@ source="$_pkgname-$pkgver.tar.gz::https://github.com/a-hurst/$_pkgname/archive/v
 builddir="$srcdir"/$_pkgname-$pkgver
 
 build() {
-  cd "$builddir"
-  python3 setup.py build
+	cd "$builddir"
+	python3 setup.py build
 }
 
 package() {
-  mkdir -p "$pkgdir"
-  install -D -m 644 LICENSE \
-    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+	mkdir -p "$pkgdir"
+	install -D -m 644 LICENSE \
+		"$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 
-  cd "$builddir"
-  python3 setup.py install --prefix=/usr --root="$pkgdir"
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
 }
 
 sha512sums="

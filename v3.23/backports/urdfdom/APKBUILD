@@ -12,7 +12,8 @@ makedepends="cmake console_bridge-dev urdfdom_headers tinyxml-dev"
 subpackages="$pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/ros/urdfdom/archive/$pkgver.tar.gz
 	cmake_config_install_dir.patch
-	include-cstdint.patch"
+	include-cstdint.patch
+	"
 
 builddir="$srcdir/$pkgname-$pkgver"
 
@@ -37,6 +38,7 @@ package() {
 
 	install -Dm 0644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
+
 sha512sums="
 1fa3372d5beed6b119444ef99d50991a417d42bc7a3152e4697dc26e1bd1e351d45edd4c56f9dfff6f2c8480b3f43c6dfe246d22890db0f676d68591a5c0aaf6  urdfdom-3.0.0.tar.gz
 c54ce7be4a883ccf89b378e8ec622033bf95de4ec74bcf72fd006500ef4faa00accfb3fd5e34ca8f0c8728c4d992420698555a848728274ad8eedc8a3b855e4a  cmake_config_install_dir.patch

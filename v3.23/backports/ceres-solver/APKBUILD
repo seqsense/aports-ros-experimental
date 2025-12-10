@@ -38,4 +38,6 @@ package() {
   install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="d4cefe5851e25bd3c7b76352092d8d549eb371af2e35a325736554c54fe58a3523658697c3e2d65af660fe6895ae3d96fe31bd1875870474fc4b6fed3bbdfae9  ceres-solver-2.2.0.tar.gz"
+sha512sums="
+d4cefe5851e25bd3c7b76352092d8d549eb371af2e35a325736554c54fe58a3523658697c3e2d65af660fe6895ae3d96fe31bd1875870474fc4b6fed3bbdfae9  ceres-solver-2.2.0.tar.gz
+"
