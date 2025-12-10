@@ -1,0 +1,10 @@
+diff --git a/orocos_kdl/tests/kinfamtest.cpp b/orocos_kdl/tests/kinfamtest.cpp
+index c1ec785..61bcad3 100644
+--- a/orocos_kdl/tests/kinfamtest.cpp
++++ b/orocos_kdl/tests/kinfamtest.cpp
+@@ -1,3 +1,5 @@
++#include <sys/types.h>
++
+ #include "kinfamtest.hpp"
+ #include <frames_io.hpp>
+ #include <kinfam_io.hpp>

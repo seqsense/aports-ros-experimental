@@ -3,7 +3,7 @@
 pkgname=orocos-kdl
 _pkgname=orocos_kinematics_dynamics
 pkgver=1.5.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Orocos Kinematics and Dynamics C++ library"
 url="https://github.com/orocos/orocos_kinematics_dynamics"
 arch="all"
@@ -13,8 +13,10 @@ depends_dev="eigen-dev"
 makedepends="cmake eigen-dev pkgconfig"
 checkdepends="cppunit-dev"
 subpackages="$pkgname-dev $pkgname-doc"
-options="!check" # test code is broken on the latest compiler and cppunit
-source="$_pkgname-$pkgver.tar.gz::https://github.com/orocos/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
+source="
+	$_pkgname-$pkgver.tar.gz::https://github.com/orocos/$_pkgname/archive/refs/tags/$pkgver.tar.gz
+	fix-type-in-test.patch
+	"
 
 builddir="$srcdir/$_pkgname-$pkgver"
 
@@ -25,9 +27,14 @@ build() {
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DBUILD_MODELS=ON \
-		-DBUILD_SHARED_LIBS=ON
-	# -DENABLE_TESTS=ON
+		-DBUILD_SHARED_LIBS=ON \
+		-DENABLE_TESTS=ON
 	make
+}
+
+check() {
+	cd "$builddir"/orocos_kdl/build
+	make check
 }
 
 package() {
@@ -39,4 +46,5 @@ package() {
 
 sha512sums="
 5d2b3329c1015c1ed2f91860cc95f933f3fd42405e42dfe06f6c117c0c64bde8f8b1f49b2399555ee70782dfbf1da4d4a7a92a1860aee10e5bceff95a892b4a2  orocos_kinematics_dynamics-1.5.3.tar.gz
+90a73743e577a88accb08b0dcb9627aca58b3755889f7e2929947366c50881d600e1e5a72d9f822bb451eb0f194e867aebe3c760481638f271183ff4e91c1921  fix-type-in-test.patch
 "
