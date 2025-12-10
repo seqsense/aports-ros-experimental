@@ -6,7 +6,8 @@ ls -la /cache
 sudo chmod o+w /cache
 mkdir -p \
   /cache/apk \
-  /cache/ccache
+  /cache/ccache \
+  /cache/distfiles
 
 ALPINE_VERSION=${ALPINE_VERSION:-$(cat /etc/alpine-release | cut -d. -f1-2)}
 
