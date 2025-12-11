@@ -1,0 +1,41 @@
+# Contributor: Kazuki Takahashi <ktakahashi@seqsense.com>
+# Maintainer:
+pkgname=ignition-cmake2
+pkgver=2.17.2
+pkgrel=1
+pkgdesc="A set of CMake modules that are used by the C++-based Gazebo projects."
+url="https://github.com/gazebosim/gz-cmake"
+arch="all"
+license="Apache-2.0"
+depends="cmake"
+makedepends="cmake"
+checkdepends=""
+install=""
+subpackages="$pkgname-dev $pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/gazebosim/gz-cmake/archive/refs/tags/ignition-cmake2_$pkgver.tar.gz"
+builddir="$srcdir/gz-cmake-${pkgname}_$pkgver"
+
+build() {
+	cd "$builddir"
+	mkdir -p build && cd build
+	cmake .. \
+		-DCMAKE_BUILD_TYPE=None \
+		-DCMAKE_INSTALL_PREFIX=/usr
+	make
+}
+
+check() {
+	cd "$builddir"/build
+	make test
+}
+
+package() {
+	cd "$builddir"/build
+	make DESTDIR="$pkgdir" install
+
+	install -Dm 0644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="
+2745afb72b6a410df4b4a256eafecc7e0b5ca6e6b1a334d6778859cd75462f4a03bd783cec66e5d8dc1428b4fce6ffb5f39a67744a92b424c058686d2ab889ec  ignition-cmake2-2.17.2.tar.gz
+"
