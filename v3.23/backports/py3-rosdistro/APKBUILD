@@ -3,7 +3,7 @@
 pkgname=py3-rosdistro
 _pkgname=rosdistro
 pkgver=1.0.1
-pkgrel=0
+pkgrel=1
 pkgdesc="A tool to work with rosdistro files"
 url="https://pypi.python.org/pypi/rosdistro/"
 arch="noarch"
@@ -39,6 +39,6 @@ package() {
 
 sha512sums="
 e37ab85b55816d29728fa029b4510776a0d6304b41149d4b2e5ae9fb6dbee9e7b4b0c42ae46777bfa1abbb1641ef0a79295f0f0bd325c5305da08b7b4a200123  rosdistro-1.0.1.tar.gz
-d7d6a2a2ce6674c64434f2f1c5885afddaef237d5cd8197e2289ffa74c16cb3a725d82f332ced204dbee394ccabb204fbb977f306283140d214e1ba892b4d17f  force-to-enable-alpine-platform.patch
+f97ef19442f85a8093270f2c84a72da86db5698bcc278b52278e7f21fd3a5d407772b4ed2b81e09fc2144a2db8fef4b31d2c8ad87fcd1962973777ff34126bc5  force-to-enable-alpine-platform.patch
 a526a429919c239795465aa876bb1abca7f1393fe53ccbb721c967b350be9ceb5bbe1ebecade390be3557e203c6e8dcf35eb6424b2165e0412c11957f92b49c9  LICENSE.txt
 "
