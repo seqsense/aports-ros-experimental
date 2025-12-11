@@ -1,0 +1,26 @@
+diff --git a/Tests/CMakeLists.txt b/Tests/CMakeLists.txt
+index 1d90410..bc594e7 100644
+--- a/Tests/CMakeLists.txt
++++ b/Tests/CMakeLists.txt
+@@ -10,21 +10,6 @@
+ # Configure Tests build
+ if (OGRE_BUILD_TESTS)
+ 
+-  if(NOT EXISTS ${PROJECT_BINARY_DIR}/googletest-1.8.x)
+-    message(STATUS "Building gtest")
+-    file(DOWNLOAD
+-        https://github.com/google/googletest/archive/v1.8.x.tar.gz
+-        ${PROJECT_BINARY_DIR}/v1.8.x.tar.gz)
+-    execute_process(COMMAND ${CMAKE_COMMAND}
+-        -E tar xf v1.8.x.tar.gz WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
+-    execute_process(COMMAND ${BUILD_COMMAND_COMMON}
+-        ${PROJECT_BINARY_DIR}/googletest-1.8.x
+-        -Dgtest_force_shared_crt=TRUE
+-        -DBUILD_GMOCK=FALSE
+-        WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/googletest-1.8.x)
+-    execute_process(COMMAND ${CMAKE_COMMAND}
+-        --build ${PROJECT_BINARY_DIR}/googletest-1.8.x ${BUILD_COMMAND_OPTS})
+-  endif()
+   find_package(GTest REQUIRED CONFIG)
+   include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Common/include)
+ 

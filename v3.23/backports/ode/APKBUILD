@@ -1,0 +1,43 @@
+# Contributor: Kazuki Takahashi <ktakahashi@seqsense.com>
+# Maintainer:
+pkgname=ode
+pkgver=0.16.6
+pkgrel=2
+pkgdesc="A free, industrial quality library for simulating articulated rigid body dynamics."
+url="https://www.ode.org/"
+arch="all"
+license="BSD-3-Clause LGPL-2.1-or-later"
+depends=""
+makedepends="cmake libx11-dev mesa-dev glu-dev"
+subpackages="$pkgname-dev $pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://bitbucket.org/odedevs/ode/downloads/ode-$pkgver.tar.gz"
+
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	mkdir -p build && cd build
+	cmake .. \
+		-DCMAKE_POLICY_VERSION_MINIMUM=3.10 \
+		-DCMAKE_BUILD_TYPE=None \
+		-DCMAKE_INSTALL_PREFIX=/usr
+	make
+}
+
+check() {
+	cd "$builddir"/build
+	make test
+}
+
+package() {
+	cd "$builddir"/build
+	make DESTDIR="$pkgdir" install
+
+	install -Dm 0644 "$builddir"/COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
+	install -Dm 0644 "$builddir"/LICENSE.TXT "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.TXT
+	install -Dm 0644 "$builddir"/LICENSE-BSD.TXT "$pkgdir"/usr/share/licenses/$pkgname/LICENSE-BSD.TXT
+}
+
+sha512sums="
+57b4caca0bdd9a577239ba8cdfaeddd3316523a0f0835470caccc31793fb2231f62e3a16e3b8693c8b8a42c336b1c782f6427e60f949a6fba2bfd216b107a946  ode-0.16.6.tar.gz
+"

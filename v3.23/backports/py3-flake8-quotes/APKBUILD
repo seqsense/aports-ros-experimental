@@ -1,0 +1,34 @@
+# Contributor: Kazuki Takahashi <ktakahashi@seqsense.com>
+# Maintainer: Kazuki Takahashi <ktakahashi@seqsense.com>
+pkgname=py3-flake8-quotes
+_pkgname=flake8-quotes
+pkgver=3.4.0
+pkgrel=0
+pkgdesc="Flake8 lint for quotes."
+options="!check" # Requires unpackaged pylama
+url="https://github.com/zheller/flake8-quotes"
+arch="noarch"
+license="MIT"
+depends="py3-flake8 py3-setuptools"
+makedepends="py3-gpep517 py3-wheel"
+subpackages="$pkgname-pyc"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+builddir="$srcdir"/$_pkgname-$pkgver
+
+replaces="py-flake8-quotes"                  # Backwards compatibility
+provides="py-flake8-quotes=$pkgver-r$pkgrel" # Backwards compatibility
+
+build() {
+	gpep517 build-wheel \
+		--wheel-dir .dist \
+		--output-fd 3 3>&1 >&2
+}
+
+package() {
+	gpep517 install-wheel --destdir "$pkgdir" \
+		.dist/*.whl
+}
+
+sha512sums="
+74c564e2fd4b6efc16cff2c6d3472b231079e4321f98354e7cfc77cbcc9063987c51d6289451f1cbeaba83e8b2c51865bd23cdb168fd24cf9a7705b62f6e4b8f  flake8-quotes-3.4.0.tar.gz
+"

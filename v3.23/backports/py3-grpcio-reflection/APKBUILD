@@ -1,0 +1,36 @@
+# Contributor: Daiki Maekawa <daikimaekawa29@gmail.com>
+# Maintainer: Daiki Maekawa <daikimaekawa29@gmail.com>
+pkgname=py3-grpcio-reflection
+_pkgname=grpcio_reflection
+pkgver=1.76.0
+pkgrel=0
+pkgdesc="Testing utilities for gRPC Python."
+options="!check" # No testsuite
+url="https://grpc.io/"
+arch="all"
+license="Apache-2.0"
+depends="py3-grpcio>=${pkgver} py3-protobuf>=3.10.0 py3-wheel"
+makedepends="python3-dev py3-setuptools cython linux-headers"
+install=""
+subpackages="$pkgname-doc"
+source="py-$_pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+builddir="$srcdir/${_pkgname}-${pkgver}"
+
+build() {
+	cd "$builddir"
+	python3 setup.py build
+}
+
+package() {
+	mkdir -p "$pkgdir"
+
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir" || return 1
+
+	# Install license files
+	install -Dm644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="
+a95e734e8a9e85b9018d6f5ee93838f6e0aadbe63c4fe3d5404e821b6df7f75dfebedc4be9e3d7b511e95e650044974595e5d4f5f24077f50356eaba0f315eb3  py-grpcio_reflection-1.76.0.tar.gz
+"

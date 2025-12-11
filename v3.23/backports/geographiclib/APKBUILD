@@ -1,0 +1,45 @@
+# Contributor: Florent Ferreri <florent@seqsense.com>
+# Contributor: Kazuki Takahashi <ktakahashi@seqsense.com>
+# Maintainer:
+pkgname=geographiclib
+pkgver=2.3
+pkgrel=1
+pkgdesc="A C++ library for geographic projections."
+url="https://github.com/geographiclib/geographiclib"
+arch="all"
+license="MIT"
+options=""
+makedepends="cmake"
+subpackages="$pkgname-dev $pkgname-doc $pkgname-tools"
+source="$pkgname-$pkgver.tar.gz::https://github.com/geographiclib/geographiclib/archive/refs/tags/v$pkgver.tar.gz"
+
+build() {
+	mkdir build && cd build
+	cmake .. \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=None \
+		-DBUILD_SHARED_LIBS=ON
+	make
+}
+
+check() {
+	cd "$builddir"/build
+	make test
+}
+
+package() {
+	cd "$builddir"/build
+	make DESTDIR="$pkgdir" install
+
+	install -Dm644 "$builddir"/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
+}
+
+tools() {
+	cd "$pkgdir"
+	amove usr/bin
+	amove usr/sbin
+}
+
+sha512sums="
+b98a1eaf33832e19ac2b386d2428ec395052afaee04e08cb24d2b9910c014ab9ffae55f0e80fe0cdfcdb53350de171faf4a2e29d97380a678833ba260f332cdf  geographiclib-2.3.tar.gz
+"

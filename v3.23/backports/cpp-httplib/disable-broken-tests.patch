@@ -1,0 +1,133 @@
+diff --git a/test/test.cc b/test/test.cc
+index 72e0436..609a806 100644
+--- a/test/test.cc
++++ b/test/test.cc
+@@ -144,8 +144,6 @@ void performance_test(const char *host) {
+ 
+ TEST(BenchmarkTest, localhost) { performance_test("localhost"); }
+ 
+-TEST(BenchmarkTest, v6) { performance_test("::1"); }
+-
+ class UnixSocketTest : public ::testing::Test {
+ protected:
+   void TearDown() override { std::remove(pathname_.c_str()); }
+@@ -2312,71 +2310,6 @@ TEST(RedirectFromPageWithContent, Redirect) {
+   }
+ }
+ 
+-TEST(RedirectFromPageWithContentIP6, Redirect) {
+-  Server svr;
+-
+-  svr.Get("/1", [&](const Request & /*req*/, Response &res) {
+-    res.set_content("___", "text/plain");
+-    // res.set_redirect("/2");
+-    res.set_redirect("http://[::1]:1234/2");
+-  });
+-
+-  svr.Get("/2", [&](const Request &req, Response &res) {
+-    auto host_header = req.headers.find("Host");
+-    ASSERT_TRUE(host_header != req.headers.end());
+-    EXPECT_EQ("[::1]:1234", host_header->second);
+-
+-    res.set_content("Hello World!", "text/plain");
+-  });
+-
+-  auto th = std::thread([&]() { svr.listen("::1", 1234); });
+-  auto se = detail::scope_exit([&] {
+-    svr.stop();
+-    th.join();
+-    ASSERT_FALSE(svr.is_running());
+-  });
+-
+-  // When IPV6 support isn't available svr.listen("::1", 1234) never
+-  // actually starts anything, so the condition !svr.is_running() will
+-  // always remain true, and the loop never stops.
+-  // This basically counts how many milliseconds have passed since the
+-  // call to svr.listen(), and if after 5 seconds nothing started yet
+-  // aborts the test.
+-  for (unsigned int milliseconds = 0; !svr.is_running(); milliseconds++) {
+-    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+-    ASSERT_LT(milliseconds, 5000U);
+-  }
+-
+-  {
+-    Client cli("http://[::1]:1234");
+-    cli.set_follow_location(true);
+-
+-    std::string body;
+-    auto res = cli.Get("/1", [&](const char *data, size_t data_length) {
+-      body.append(data, data_length);
+-      return true;
+-    });
+-
+-    ASSERT_TRUE(res);
+-    EXPECT_EQ(StatusCode::OK_200, res->status);
+-    EXPECT_EQ("Hello World!", body);
+-  }
+-
+-  {
+-    Client cli("http://[::1]:1234");
+-
+-    std::string body;
+-    auto res = cli.Get("/1", [&](const char *data, size_t data_length) {
+-      body.append(data, data_length);
+-      return true;
+-    });
+-
+-    ASSERT_TRUE(res);
+-    EXPECT_EQ(StatusCode::Found_302, res->status);
+-    EXPECT_EQ("___", body);
+-  }
+-}
+-
+ TEST(PathUrlEncodeTest, PathUrlEncode) {
+   Server svr;
+ 
+@@ -7581,47 +7514,6 @@ TEST(KeepAliveTest, SSLClientReconnectionPost) {
+   EXPECT_EQ(200, result->status);
+ }
+ 
+-TEST(SNI_AutoDetectionTest, SNI_Logic) {
+-  {
+-    SSLServer svr(SERVER_CERT_FILE, SERVER_PRIVATE_KEY_FILE);
+-    ASSERT_TRUE(svr.is_valid());
+-
+-    svr.Get("/sni", [&](const Request &req, Response &res) {
+-      std::string expected;
+-      if (req.ssl) {
+-        if (const char *sni =
+-                SSL_get_servername(req.ssl, TLSEXT_NAMETYPE_host_name)) {
+-          expected = sni;
+-        }
+-      }
+-      EXPECT_EQ(expected, req.get_param_value("expected"));
+-      res.set_content("ok", "text/plain");
+-    });
+-
+-    auto listen_thread = std::thread([&svr] { svr.listen(HOST, PORT); });
+-    auto se = detail::scope_exit([&] {
+-      svr.stop();
+-      listen_thread.join();
+-      ASSERT_FALSE(svr.is_running());
+-    });
+-
+-    svr.wait_until_ready();
+-
+-    {
+-      SSLClient cli("localhost", PORT);
+-      cli.enable_server_certificate_verification(false);
+-      auto res = cli.Get("/sni?expected=localhost");
+-      ASSERT_TRUE(res);
+-    }
+-
+-    {
+-      SSLClient cli("::1", PORT);
+-      cli.enable_server_certificate_verification(false);
+-      auto res = cli.Get("/sni?expected=");
+-      ASSERT_TRUE(res);
+-    }
+-  }
+-}
+ #endif
+ 
+ TEST(ClientProblemDetectionTest, ContentProvider) {

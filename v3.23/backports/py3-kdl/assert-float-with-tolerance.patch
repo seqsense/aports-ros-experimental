@@ -1,0 +1,15 @@
+diff --git a/python_orocos_kdl/tests/framestest.py b/python_orocos_kdl/tests/framestest.py
+index cd6abe1..d31ea2a 100644
+--- a/python_orocos_kdl/tests/framestest.py
++++ b/python_orocos_kdl/tests/framestest.py
+@@ -333,8 +333,8 @@ class FramesTestFunctions(unittest.TestCase):
+         self.assertEqual(rc, c)
+         r = Rotation.EulerZYZ(a, b, c)
+         (ra, rb, rc) = r.GetEulerZYZ()
+-        self.assertEqual(ra, a)
+-        self.assertEqual(rb, b)
++        self.assertAlmostEqual(ra, a, 15)
++        self.assertAlmostEqual(rb, b, 15)
+         self.assertAlmostEqual(rc, c, 15)
+         (angle, v2) = r.GetRotAngle()
+         r2 = Rotation.Rot(v2, angle)

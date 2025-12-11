@@ -1,0 +1,20 @@
+diff --git a/src/rosdistro/distribution_file.py b/src/rosdistro/distribution_file.py
+index c330329..90ad9b1 100644
+--- a/src/rosdistro/distribution_file.py
++++ b/src/rosdistro/distribution_file.py
+@@ -74,6 +74,15 @@ class DistributionFile(object):
+                     assert os_code_name not in self.release_platforms[os_name], "Distribution '%s' specifies the os_code_name '%s' multiple times for the os_name '%s'" % (self.name, os_code_name, os_name)
+                     self.release_platforms[os_name].append(os_code_name)
+ 
++        # Tweak for alpine platform
++        self.release_platforms['alpine'] = []
++        if name == 'noetic':
++            self.release_platforms['alpine'].append('3.23')
++        if name == 'humble':
++            self.release_platforms['alpine'].append('3.23')
++        if name == 'jazzy':
++            self.release_platforms['alpine'].append('3.23')
++
+         self.tags = []
+         if 'tags' in data and data['tags']:
+             for tag in data['tags']:

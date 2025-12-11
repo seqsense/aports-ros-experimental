@@ -1,0 +1,42 @@
+# Contributor: Atsushi Watanabe<atsushi.w@ieee.org>
+# Maintainer:
+pkgname=py3-rosinstall-generator
+_pkgname=rosinstall_generator
+pkgver=0.1.23
+pkgrel=0
+pkgdesc="A tool for generating rosinstall files"
+url="https://pypi.python.org/pypi/rosinstall_generator/"
+arch="noarch"
+license="BSD-3-Clause"
+depends="py3-catkin-pkg>=0.1.28 py3-rosdistro>=0.7.3 py3-rospkg py3-yaml"
+makedepends="python3-dev py3-setuptools git"
+subpackages="$pkgname-doc"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz
+	LICENSE.txt
+	"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+	# Install license files
+	install -Dm644 $startdir/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
+}
+
+sha512sums="
+09fff9f49dbbcd14acfa22b049c10e4dc293d59b2b08bc885a6ac997da4d85cf74962762dafc80c1ca8445d6375a6a08784784e669eec4d61caf3ca9736da3e2  rosinstall_generator-0.1.23.tar.gz
+0145a27b16e6e1ad8827d4c827f57b4aae25c64951352c097c6ec5c58863979fa19912dab2dc5e9517bcb87569ebf63f15132c3681ff9311f3a640121897cda8  LICENSE.txt
+"

@@ -1,0 +1,12 @@
+diff --git a/urdf_model_state/include/urdf_model_state/model_state.h b/urdf_model_state/include/urdf_model_state/model_state.h
+index 0d04e56..67619d6 100644
+--- a/urdf_model_state/include/urdf_model_state/model_state.h
++++ b/urdf_model_state/include/urdf_model_state/model_state.h
+@@ -37,6 +37,7 @@
+ #ifndef URDF_MODEL_STATE_H
+ #define URDF_MODEL_STATE_H
+ 
++#include <cstdint>
+ #include <string>
+ #include <vector>
+ #include <map>

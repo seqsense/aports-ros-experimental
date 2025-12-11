@@ -1,0 +1,59 @@
+# Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
+# Maintainer:
+pkgname=py3-kdl
+_pkgname=orocos_kinematics_dynamics
+pkgver=1.5.3
+pkgrel=1
+pkgdesc="Python binding of Orocos Kinematics and Dynamics library"
+url="https://github.com/orocos/orocos_kinematics_dynamics"
+arch="all"
+license="LGPL-2"
+depends="python3 orocos-kdl"
+makedepends="python3-dev py3-pybind11-dev cmake eigen-dev pkgconfig orocos-kdl-dev>=${pkgver}"
+checkdepends="py3-psutil"
+subpackages="$pkgname-doc"
+options="!check" # test fails due to floating point calculation error
+source="
+	$_pkgname-$pkgver.tar.gz::https://github.com/orocos/$_pkgname/archive/refs/tags/$pkgver.tar.gz
+	assert-float-with-tolerance.patch
+	"
+
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+	mkdir -p $builddir/python_orocos_kdl/build
+	cd $builddir/python_orocos_kdl/build
+	ROS_PYTHON_VERSION=3 \
+	cmake .. \
+		-DPYTHON_EXECUTABLE=$(python3 -c "import sys; print(sys.executable)") \
+		-DCMAKE_BUILD_TYPE=None \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DBUILD_SHARED_LIBS=ON
+	make
+}
+
+check() {
+	cd $builddir/python_orocos_kdl
+	PYTHONPATH=$builddir/python_orocos_kdl/build python3 tests/PyKDLtest.py
+}
+
+package() {
+	mkdir -p "$pkgdir"
+
+	cd $builddir/python_orocos_kdl/build
+	make DESTDIR="$pkgdir" install
+
+	pydir=$(ls -1d $pkgdir/usr/lib/python3.* | head -n1)
+	mkdir -p ${pydir}/site-packages
+	mv ${pydir}/dist-packages/* ${pydir}/site-packages/
+	rm -rf ${pydir}/dist-packages
+
+	# Install license files
+	install -Dm644 "$builddir"/orocos_kdl/COPYING "$pkgdir"/usr/share/licenses/$pkgname/py3-kdl/COPYING
+}
+
+sha512sums="
+5d2b3329c1015c1ed2f91860cc95f933f3fd42405e42dfe06f6c117c0c64bde8f8b1f49b2399555ee70782dfbf1da4d4a7a92a1860aee10e5bceff95a892b4a2  orocos_kinematics_dynamics-1.5.3.tar.gz
+f68610a479e80090aeb3df3b1ed5af67d9326ae1929962bdfbf6fc428a17a6d33dd0b86d75ca3706d2873fa11b5f3a2414962912665bddef7cc3389a27070576  assert-float-with-tolerance.patch
+"
