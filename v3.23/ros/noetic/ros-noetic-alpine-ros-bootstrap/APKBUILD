@@ -1,0 +1,14 @@
+# Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
+# Maintainer:
+pkgname=ros-noetic-alpine-ros-bootstrap
+pkgver=0.0.0
+pkgrel=0
+pkgdesc="Dummy package to bootstreap Alpine ROS repository"
+url="https://github.com/seqsense/aports-ros-experimental"
+arch="all"
+options="!check"
+license="PublicDomain"
+
+package() {
+	mkdir -p $pkgdir
+}
