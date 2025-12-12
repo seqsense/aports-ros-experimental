@@ -1,0 +1,42 @@
+# Contributor: Kazuki Takahashi <ktakahashi@seqsense.com>
+# Maintainer:
+pkgname=nanoflann
+pkgver=1.8.0
+pkgrel=1
+pkgdesc="nanoflann: a C++11 header-only library for Nearest Neighbor (NN) search with KD-trees"
+url="https://github.com/jlblancoc/nanoflann"
+arch="all"
+license="BSD"
+depends=""
+makedepends="cmake gtest eigen-dev"
+depends_dev="eigen-dev"
+subpackages="$pkgname-dev $pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/jlblancoc/nanoflann/archive/refs/tags/v$pkgver.tar.gz"
+
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+  cd "$builddir"
+  mkdir -p build && cd build
+  cmake \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=None \
+    ..
+  make
+}
+
+check() {
+  cd "$builddir"/build
+  make test
+}
+
+package() {
+  cd "$builddir"/build
+  make DESTDIR="$pkgdir" install
+
+  install -Dm 0644 "$builddir"/COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
+}
+
+sha512sums="
+4e775d58a5d5a53df75f7d808ff4a9984dcf621e0246c1a7c3155ae51c53506140ee55eac9c25f7159e77ed0926a170e5a34a197697fa2a72ff8920f955e3bb6  nanoflann-1.8.0.tar.gz
+"

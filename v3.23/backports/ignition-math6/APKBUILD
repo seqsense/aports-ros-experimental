@@ -1,0 +1,41 @@
+# Contributor: Kazuki Takahashi <ktakahashi@seqsense.com>
+# Maintainer:
+pkgname=ignition-math6
+pkgver=6.15.1
+pkgrel=2
+pkgdesc="General purpose math library for robot applications."
+url="https://github.com/gazebosim/gz-math"
+arch="all"
+license="Apache-2.0"
+depends=""
+makedepends="cmake ignition-cmake2-dev ignition-cmake2"
+checkdepends=""
+install=""
+subpackages="$pkgname-dev $pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/gazebosim/gz-math/archive/refs/tags/ignition-math6_$pkgver.tar.gz"
+builddir="$srcdir/gz-math-${pkgname}_$pkgver"
+
+build() {
+	cd "$builddir"
+	mkdir -p build && cd build
+	cmake .. \
+		-DCMAKE_BUILD_TYPE=None \
+		-DCMAKE_INSTALL_PREFIX=/usr
+	make
+}
+
+check() {
+	cd "$builddir"/build
+	make test
+}
+
+package() {
+	cd "$builddir"/build
+	make DESTDIR="$pkgdir" install
+
+	install -Dm 0644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="
+569fb37be4b42f170189de680beb71c6274e2a48d02f77d6a9d675ca9901be32df7af6b86f69916ff96b4f7065f8f1d4a9fb3ef81c2b7f5fc3f325e17279edba  ignition-math6-6.15.1.tar.gz
+"
