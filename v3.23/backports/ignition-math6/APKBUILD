@@ -19,7 +19,7 @@ build() {
 	cd "$builddir"
 	mkdir -p build && cd build
 	cmake .. \
-		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_BUILD_TYPE=None \
 		-DCMAKE_INSTALL_PREFIX=/usr
 	make
 }
