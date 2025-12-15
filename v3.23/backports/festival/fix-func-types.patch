@@ -1,0 +1,54 @@
+diff --git a/speech_tools/siod/editline.c b/speech_tools/siod/editline.c
+index 6a1b847..e5b4265 100644
+--- a/speech_tools/siod/editline.c
++++ b/speech_tools/siod/editline.c
+@@ -224,10 +224,10 @@ int		rl_meta_chars = 0;
+ */
+ STATIC ECHAR	*editinput();
+ #if	defined(USE_TERMCAP)
+-extern char	*getenv();
+-extern char	*tgetstr();
+-extern int	tgetent();
+-extern int	tgetnum();
++extern char	*getenv(const char *);
++extern char	*tgetstr(char *, char **);
++extern int	tgetent(char *, const char *);
++extern int	tgetnum(char *);
+ #endif	/* defined(USE_TERMCAP) */
+ 
+ /*
+@@ -821,9 +821,7 @@ STATIC int substrcmp(char *text, char *pat, int len)
+ STATIC ECHAR *search_hist(ECHAR *search, ECHAR *(*move)())
+ {
+     static ECHAR	*old_search;
+-    int		len;
+     int		pos;
+-    int		(*match)();
+     char	*pat;
+ 
+     /* Save or get remembered search pattern. */
+@@ -840,18 +838,18 @@ STATIC ECHAR *search_hist(ECHAR *search, ECHAR *(*move)())
+ 
+     /* Set up pattern-finder. */
+     if (*search == '^') {
+-	match = strncmp;
+ 	pat = (char *)(search + 1);
++	for (pos = H.Pos; (*move)() != NULL; )
++	    if (strncmp((char *)H.Lines[H.Pos], pat, strlen(pat)) == 0)
++	        return H.Lines[H.Pos];
+     }
+     else {
+-	match = substrcmp;
+ 	pat = (char *)search;
++	for (pos = H.Pos; (*move)() != NULL; )
++	    if (substrcmp((char *)H.Lines[H.Pos], pat, strlen(pat)) == 0)
++	        return H.Lines[H.Pos];
+     }
+-    len = strlen(pat);
+ 
+-    for (pos = H.Pos; (*move)() != NULL; )
+-	if ((*match)((char *)H.Lines[H.Pos], pat, len) == 0)
+-            return H.Lines[H.Pos];
+     H.Pos = pos;
+     return NULL;
+ }

@@ -13,23 +13,25 @@ depends=""
 makedepends="linux-headers ncurses-dev alsa-lib-dev git"
 subpackages="$pkgname-doc $pkgname-dbg"
 source="$pkgname-$pkgver.tar.gz::https://github.com/festvox/festival/archive/$hash_festival.tar.gz
-  speech_tools-$pkgver.tar.gz::https://github.com/festvox/speech_tools/archive/$hash_speech_tools.tar.gz
-  musl-support.patch
+	speech_tools-$pkgver.tar.gz::https://github.com/festvox/speech_tools/archive/$hash_speech_tools.tar.gz
+	add-nullptr-check.patch
 	fix-libdir.patch
 	fix-optimization.patch
-	add-nullptr-check.patch
+	fix-posix-c-source.patch
+	fix-func-types.patch
+	musl-support.patch
 	"
 options="!check" # test is not provided
 
 builddir="$srcdir"
 
 prepare() {
-  cd "$srcdir"
+	cd "$srcdir"
 
-  mv festival-$hash_festival festival
-  mv speech_tools-$hash_speech_tools speech_tools
+	mv festival-$hash_festival festival
+	mv speech_tools-$hash_speech_tools speech_tools
 
-  default_prepare
+	default_prepare
 }
 
 build() {
@@ -38,11 +40,11 @@ build() {
 	make \
 		CFLAGS="-fPIC -g -Os -fno-strict-aliasing" \
 		CXXFLAGS="-fPIC -g -Os -std=gnu++98 -fno-strict-aliasing -fno-delete-null-pointer-checks" \
-    -j1
+		-j1
 
 	cd "$builddir"/$pkgname
 	./configure \
-    --prefix="$pkgdir"/usr
+		--prefix="$pkgdir"/usr
 	make \
 		CFLAGS="-fPIC -g -Os -fno-strict-aliasing" \
 		CXXFLAGS="-fPIC -g -Os -std=gnu++98 -fno-strict-aliasing -fno-delete-null-pointer-checks" \
@@ -80,8 +82,10 @@ package() {
 sha512sums="
 61b28d8a30d360141e86ae7683ea8b37c8292ce64c734863f654a806861d71cd71a6a038fa60adeac36e13a3aaaa685722a8716808b258a09b364353c1fc853a  festival-2.5.0_git20220406.tar.gz
 c89dd0480c7bc40c5d2332416e07dc2f0a8bc176d04dff75542b3d1b4b683efc3d56b0bb56aed35d3aa89b4bebe0ccdc4000324e5d15d9bcc4c9420c496d4939  speech_tools-2.5.0_git20220406.tar.gz
-25f85d14918571caf9792170a4745fa432416dc5a0a6ca262006f7dc2d3adc9ee6f69b8464671b70657f9693c3314f17f5626fadd12e94387f940156e47d0d2a  musl-support.patch
+44cb9271180f95fed078950f5bfd1dabb953948a641fbd6ea0c2553a88e880d1ffa30b420912077291cdb4bacf42b1345e4d0f9e6dbda71b9c432485706c09b5  add-nullptr-check.patch
 742b405fc92157b5534dce396b6fd2fa3cc9a19e067a9a1885a67c2942600ed007abf324fca5e29891c7b1f32e01f16553883a98589597ca47dc41c80598d031  fix-libdir.patch
 b01bbd9514b2030f304993194d792842d3d701e931fa56b6f17286369e2340a5e4e16ca048546fd7a47184e02b0d430a788fc486b602b66a4e3f09768629a302  fix-optimization.patch
-44cb9271180f95fed078950f5bfd1dabb953948a641fbd6ea0c2553a88e880d1ffa30b420912077291cdb4bacf42b1345e4d0f9e6dbda71b9c432485706c09b5  add-nullptr-check.patch
+d3400e79ce3021a9525845461973992345678b3ce210c5b2d3df477db203c017a7628299d830096e0185d1a60a16885662d4baf71fbdfe3ce8c7c30b9973e768  fix-posix-c-source.patch
+8b9b132278a3be8774a272b0bc6d7bc6dac1fe28bed95a55b88ef6eeed49a4a57202c931467bba9ee1d627156bf0529ab59fd4c84a87cd87035034d7c292e845  fix-func-types.patch
+25f85d14918571caf9792170a4745fa432416dc5a0a6ca262006f7dc2d3adc9ee6f69b8464671b70657f9693c3314f17f5626fadd12e94387f940156e47d0d2a  musl-support.patch
 "
