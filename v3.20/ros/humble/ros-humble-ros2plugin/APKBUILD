@@ -1,15 +1,15 @@
-pkgname=ros-humble-rosidl-typesupport-interface
-_pkgname=rosidl_typesupport_interface
-pkgver=3.1.8
+pkgname=ros-humble-ros2plugin
+_pkgname=ros2plugin
+pkgver=5.1.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="ros-humble-ros-workspace"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-cmake-gtest ros-humble-ament-cmake-gtest-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-ros-workspace-dev"
-depends_dev="ros-humble-ros-workspace-dev"
+depends="ros-humble-ament-index-python ros-humble-rclpy ros-humble-ros-workspace ros-humble-ros2cli ros-humble-ros2pkg"
+makedepends="chrpath py3-pytest py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-copyright ros-humble-ament-copyright-dev ros-humble-ament-flake8 ros-humble-ament-flake8-dev ros-humble-ament-index-python-dev ros-humble-ament-pep257 ros-humble-ament-pep257-dev ros-humble-ament-xmllint ros-humble-ament-xmllint-dev ros-humble-rclpy-dev ros-humble-ros-workspace-dev ros-humble-ros2cli-dev ros-humble-ros2pkg-dev"
+depends_dev="ros-humble-ament-index-python-dev ros-humble-rclpy-dev ros-humble-ros-workspace-dev ros-humble-ros2cli-dev ros-humble-ros2pkg-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
@@ -32,9 +32,9 @@ if [ ! -f /usr/ros/humble/setup.sh ]; then
   export AMENT_PREFIX_PATH=/usr/ros/humble
 fi
 rosinstall="- git:
-    local-name: rosidl_typesupport_interface
-    uri: https://github.com/ros2-gbp/rosidl-release.git
-    version: release/humble/rosidl_typesupport_interface/3.1.8-1
+    local-name: ros2plugin
+    uri: https://github.com/ros2-gbp/pluginlib-release.git
+    version: release/humble/ros2plugin/5.1.3-1
 "
 
 prepare() {
@@ -59,13 +59,13 @@ build() {
   if [ -f /usr/ros/humble/setup.sh ]; then
     source /usr/ros/humble/setup.sh
   fi
-  mkdir build
-  cd build
-  cmake ../src/$_pkgname \
-    -DCMAKE_INSTALL_PREFIX=/usr/ros/humble \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DCMAKE_INSTALL_LIBDIR=lib 2>&1 | tee $buildlog
-  make 2>&1 | tee -a $buildlog
+  # Directory to place intermediate files
+  mkdir -p "$builddir"/tmp
+  cd src/$_pkgname
+  python setup.py egg_info --egg-base="$builddir"/tmp 2>&1 | tee $buildlog
+  python setup.py \
+    build \
+    --build-base="$builddir"/tmp/build
 }
 
 check() {
@@ -84,10 +84,23 @@ check() {
   export PATH="$builddir"/tmp/pkg/usr/ros/humble/bin:${PATH}
   export LD_LIBRARY_PATH="$builddir"/tmp/pkg/usr/ros/humble/lib:${LD_LIBRARY_PATH}
   mkdir -p "$builddir"/tmp/pkg
-  cd build
-  make install DESTDIR="$builddir"/tmp/pkg
-  if [ $(make -q test > /dev/null 2> /dev/null; echo $?) -eq 1 ]; then
-    make test 2>&1 | tee $checklog
+  cd src/$_pkgname
+  python setup.py \
+    build \
+    --build-base="$builddir"/tmp/build \
+    install \
+    --root="$builddir"/tmp/pkg \
+    --prefix=/usr/ros/humble 2>&1 | tee $buildlog
+  TEST_TARGET=$(ls -d */ | grep -m1 "\(test\|tests\)") || true
+  if [ -z "$TEST_TARGET" ]; then
+    echo "No \"test\" or \"tests\" directory. Check skipped" | tee $checklog
+    return 0
+  fi
+  USE_PYTEST=$(grep '\<pytest\>' setup.py) || true
+  if [ -n "$USE_PYTEST" ]; then
+    python -m pytest 2>&1 | tee $checklog
+  else
+    python setup.py test 2>&1 | tee $checklog
   fi
 }
 
@@ -100,13 +113,17 @@ package() {
   echo "packaging" >> $statuslog
   mkdir -p "$pkgdir"
   cd "$builddir"
-  export DESTDIR="$pkgdir"
 
   if [ -f /usr/ros/humble/setup.sh ]; then
     source /usr/ros/humble/setup.sh
   fi
-  cd build
-  make install
+  cd src/$_pkgname
+  python setup.py \
+    build \
+    --build-base="$builddir"/tmp/build \
+    install \
+    --root="$pkgdir" \
+    --prefix=/usr/ros/humble
 
   # Tweak invalid RPATH
   find $pkgdir -name "*.so" | while read so; do
@@ -161,10 +178,6 @@ package() {
     # Copy license files under the source
     if echo $file | grep -e '^\./\.'; then
       # Omit files under hidden directory
-      continue
-    fi
-    if echo $file | grep -e '^\./build/'; then
-      # Omit files under build directory
       continue
     fi
     echo "Copying license files from source tree: $file"

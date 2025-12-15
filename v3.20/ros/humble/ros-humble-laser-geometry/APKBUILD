@@ -1,6 +1,6 @@
 pkgname=ros-humble-laser-geometry
 _pkgname=laser_geometry
-pkgver=2.4.0
+pkgver=2.4.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="http://ros.org/wiki/laser_geometry"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: laser_geometry
     uri: https://github.com/ros2-gbp/laser_geometry-release.git
-    version: release/humble/laser_geometry/2.4.0-2
+    version: release/humble/laser_geometry/2.4.1-1
 "
 
 prepare() {

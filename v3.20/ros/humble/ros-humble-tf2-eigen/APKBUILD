@@ -1,6 +1,6 @@
 pkgname=ros-humble-tf2-eigen
 _pkgname=tf2_eigen
-pkgver=0.25.16
+pkgver=0.25.18
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: tf2_eigen
     uri: https://github.com/ros2-gbp/geometry2-release.git
-    version: release/humble/tf2_eigen/0.25.16-1
+    version: release/humble/tf2_eigen/0.25.18-1
 "
 
 prepare() {
