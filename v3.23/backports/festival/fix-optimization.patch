@@ -14,17 +14,3 @@ index b66e5bc..673206a 100644
 +OPTIMISE_LINKFLAGS = -O$(OPTIMISE) -g
  
  PROFILE_DEFAULT = gprof
- 
-diff --git a/speech_tools/config/config.in b/speech_tools/config/config.in
-index 1104720..92ba8ec 100644
---- a/speech_tools/config/config.in
-+++ b/speech_tools/config/config.in
-@@ -56,7 +56,7 @@ CONFIGURATION =
- ##
- ## OPTIMISE=4 will turn off DEBUG
- 
--OPTIMISE=3
-+OPTIMISE=s
- WARN=1
- # VERBOSE=1
- #DEBUG=1
