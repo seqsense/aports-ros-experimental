@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-rmw-connextdds-common
 _pkgname=rmw_connextdds_common
-pkgver=0.22.1
-pkgrel=1
+pkgver=0.22.2
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rmw_connextdds_common
     uri: https://github.com/ros2-gbp/rmw_connextdds-release.git
-    version: release/jazzy/rmw_connextdds_common/0.22.1-1
+    version: release/jazzy/rmw_connextdds_common/0.22.2-1
 "
 
 prepare() {

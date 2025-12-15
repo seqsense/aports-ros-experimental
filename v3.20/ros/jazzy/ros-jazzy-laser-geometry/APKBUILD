@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-laser-geometry
 _pkgname=laser_geometry
-pkgver=2.7.1
-pkgrel=1
+pkgver=2.7.2
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://ros.org/wiki/laser_geometry"
 arch="all"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: laser_geometry
     uri: https://github.com/ros2-gbp/laser_geometry-release.git
-    version: release/jazzy/laser_geometry/2.7.1-1
+    version: release/jazzy/laser_geometry/2.7.2-1
 "
 
 prepare() {

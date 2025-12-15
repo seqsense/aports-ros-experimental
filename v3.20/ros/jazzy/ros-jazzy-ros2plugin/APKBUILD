@@ -1,15 +1,15 @@
-pkgname=ros-jazzy-tf2-msgs
-_pkgname=tf2_msgs
-pkgver=0.36.17
+pkgname=ros-jazzy-ros2plugin
+_pkgname=ros2plugin
+pkgver=5.4.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
-url="http://www.ros.org/wiki/tf2_msgs"
+url="https://index.ros.org/p/$_pkgname"
 arch="all"
-license="BSD"
+license="Apache License 2.0"
 
-depends="ros-jazzy-builtin-interfaces ros-jazzy-geometry-msgs ros-jazzy-ros-workspace ros-jazzy-rosidl-default-runtime"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake ros-jazzy-ament-cmake-dev ros-jazzy-ament-lint-common ros-jazzy-ament-lint-common-dev ros-jazzy-builtin-interfaces ros-jazzy-builtin-interfaces-dev ros-jazzy-geometry-msgs ros-jazzy-geometry-msgs-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosidl-default-generators ros-jazzy-rosidl-default-generators-dev ros-jazzy-rosidl-default-runtime-dev"
-depends_dev="ros-jazzy-builtin-interfaces ros-jazzy-builtin-interfaces-dev ros-jazzy-geometry-msgs ros-jazzy-geometry-msgs-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosidl-default-runtime-dev"
+depends="ros-jazzy-ament-index-python ros-jazzy-rclpy ros-jazzy-ros-workspace ros-jazzy-ros2cli ros-jazzy-ros2pkg"
+makedepends="chrpath py3-pytest py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-copyright ros-jazzy-ament-copyright-dev ros-jazzy-ament-flake8 ros-jazzy-ament-flake8-dev ros-jazzy-ament-index-python-dev ros-jazzy-ament-pep257 ros-jazzy-ament-pep257-dev ros-jazzy-ament-xmllint ros-jazzy-ament-xmllint-dev ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev ros-jazzy-ros2cli-dev ros-jazzy-ros2pkg-dev"
+depends_dev="ros-jazzy-ament-index-python-dev ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev ros-jazzy-ros2cli-dev ros-jazzy-ros2pkg-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
@@ -32,9 +32,9 @@ if [ ! -f /usr/ros/jazzy/setup.sh ]; then
   export AMENT_PREFIX_PATH=/usr/ros/jazzy
 fi
 rosinstall="- git:
-    local-name: tf2_msgs
-    uri: https://github.com/ros2-gbp/geometry2-release.git
-    version: release/jazzy/tf2_msgs/0.36.17-1
+    local-name: ros2plugin
+    uri: https://github.com/ros2-gbp/pluginlib-release.git
+    version: release/jazzy/ros2plugin/5.4.4-1
 "
 
 prepare() {
@@ -59,13 +59,13 @@ build() {
   if [ -f /usr/ros/jazzy/setup.sh ]; then
     source /usr/ros/jazzy/setup.sh
   fi
-  mkdir build
-  cd build
-  cmake ../src/$_pkgname \
-    -DCMAKE_INSTALL_PREFIX=/usr/ros/jazzy \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DCMAKE_INSTALL_LIBDIR=lib 2>&1 | tee $buildlog
-  make 2>&1 | tee -a $buildlog
+  # Directory to place intermediate files
+  mkdir -p "$builddir"/tmp
+  cd src/$_pkgname
+  python setup.py egg_info --egg-base="$builddir"/tmp 2>&1 | tee $buildlog
+  python setup.py \
+    build \
+    --build-base="$builddir"/tmp/build
 }
 
 check() {
@@ -84,10 +84,23 @@ check() {
   export PATH="$builddir"/tmp/pkg/usr/ros/jazzy/bin:${PATH}
   export LD_LIBRARY_PATH="$builddir"/tmp/pkg/usr/ros/jazzy/lib:${LD_LIBRARY_PATH}
   mkdir -p "$builddir"/tmp/pkg
-  cd build
-  make install DESTDIR="$builddir"/tmp/pkg
-  if [ $(make -q test > /dev/null 2> /dev/null; echo $?) -eq 1 ]; then
-    make test 2>&1 | tee $checklog
+  cd src/$_pkgname
+  python setup.py \
+    build \
+    --build-base="$builddir"/tmp/build \
+    install \
+    --root="$builddir"/tmp/pkg \
+    --prefix=/usr/ros/jazzy 2>&1 | tee $buildlog
+  TEST_TARGET=$(ls -d */ | grep -m1 "\(test\|tests\)") || true
+  if [ -z "$TEST_TARGET" ]; then
+    echo "No \"test\" or \"tests\" directory. Check skipped" | tee $checklog
+    return 0
+  fi
+  USE_PYTEST=$(grep '\<pytest\>' setup.py) || true
+  if [ -n "$USE_PYTEST" ]; then
+    python -m pytest 2>&1 | tee $checklog
+  else
+    python setup.py test 2>&1 | tee $checklog
   fi
 }
 
@@ -100,13 +113,17 @@ package() {
   echo "packaging" >> $statuslog
   mkdir -p "$pkgdir"
   cd "$builddir"
-  export DESTDIR="$pkgdir"
 
   if [ -f /usr/ros/jazzy/setup.sh ]; then
     source /usr/ros/jazzy/setup.sh
   fi
-  cd build
-  make install
+  cd src/$_pkgname
+  python setup.py \
+    build \
+    --build-base="$builddir"/tmp/build \
+    install \
+    --root="$pkgdir" \
+    --prefix=/usr/ros/jazzy
 
   # Tweak invalid RPATH
   find $pkgdir -name "*.so" | while read so; do
@@ -161,10 +178,6 @@ package() {
     # Copy license files under the source
     if echo $file | grep -e '^\./\.'; then
       # Omit files under hidden directory
-      continue
-    fi
-    if echo $file | grep -e '^\./build/'; then
-      # Omit files under build directory
       continue
     fi
     echo "Copying license files from source tree: $file"

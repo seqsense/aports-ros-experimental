@@ -1,15 +1,15 @@
 pkgname=ros-jazzy-ros2cli-common-extensions
 _pkgname=ros2cli_common_extensions
-pkgver=0.3.0
-pkgrel=1
+pkgver=0.3.1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="ros-jazzy-launch-xml ros-jazzy-launch-yaml ros-jazzy-ros-workspace ros-jazzy-ros2action ros-jazzy-ros2cli ros-jazzy-ros2component ros-jazzy-ros2doctor ros-jazzy-ros2interface ros-jazzy-ros2launch ros-jazzy-ros2lifecycle ros-jazzy-ros2multicast ros-jazzy-ros2node ros-jazzy-ros2param ros-jazzy-ros2pkg ros-jazzy-ros2run ros-jazzy-ros2service ros-jazzy-ros2topic ros-jazzy-sros2"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake ros-jazzy-ament-cmake-dev ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-auto-dev ros-jazzy-ament-lint-common ros-jazzy-ament-lint-common-dev ros-jazzy-launch-xml-dev ros-jazzy-launch-yaml-dev ros-jazzy-ros-workspace-dev ros-jazzy-ros2action-dev ros-jazzy-ros2cli-dev ros-jazzy-ros2component-dev ros-jazzy-ros2doctor-dev ros-jazzy-ros2interface-dev ros-jazzy-ros2launch-dev ros-jazzy-ros2lifecycle-dev ros-jazzy-ros2multicast-dev ros-jazzy-ros2node-dev ros-jazzy-ros2param-dev ros-jazzy-ros2pkg-dev ros-jazzy-ros2run-dev ros-jazzy-ros2service-dev ros-jazzy-ros2topic-dev ros-jazzy-sros2-dev"
-depends_dev="ros-jazzy-launch-xml-dev ros-jazzy-launch-yaml-dev ros-jazzy-ros-workspace-dev ros-jazzy-ros2action-dev ros-jazzy-ros2cli-dev ros-jazzy-ros2component-dev ros-jazzy-ros2doctor-dev ros-jazzy-ros2interface-dev ros-jazzy-ros2launch-dev ros-jazzy-ros2lifecycle-dev ros-jazzy-ros2multicast-dev ros-jazzy-ros2node-dev ros-jazzy-ros2param-dev ros-jazzy-ros2pkg-dev ros-jazzy-ros2run-dev ros-jazzy-ros2service-dev ros-jazzy-ros2topic-dev ros-jazzy-sros2-dev"
+depends="ros-jazzy-launch-xml ros-jazzy-launch-yaml ros-jazzy-ros-workspace ros-jazzy-ros2action ros-jazzy-ros2cli ros-jazzy-ros2component ros-jazzy-ros2doctor ros-jazzy-ros2interface ros-jazzy-ros2launch ros-jazzy-ros2lifecycle ros-jazzy-ros2multicast ros-jazzy-ros2node ros-jazzy-ros2param ros-jazzy-ros2pkg ros-jazzy-ros2plugin ros-jazzy-ros2run ros-jazzy-ros2service ros-jazzy-ros2topic ros-jazzy-sros2"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake ros-jazzy-ament-cmake-dev ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-auto-dev ros-jazzy-ament-lint-common ros-jazzy-ament-lint-common-dev ros-jazzy-launch-xml-dev ros-jazzy-launch-yaml-dev ros-jazzy-ros-workspace-dev ros-jazzy-ros2action-dev ros-jazzy-ros2cli-dev ros-jazzy-ros2component-dev ros-jazzy-ros2doctor-dev ros-jazzy-ros2interface-dev ros-jazzy-ros2launch-dev ros-jazzy-ros2lifecycle-dev ros-jazzy-ros2multicast-dev ros-jazzy-ros2node-dev ros-jazzy-ros2param-dev ros-jazzy-ros2pkg-dev ros-jazzy-ros2plugin-dev ros-jazzy-ros2run-dev ros-jazzy-ros2service-dev ros-jazzy-ros2topic-dev ros-jazzy-sros2-dev"
+depends_dev="ros-jazzy-launch-xml-dev ros-jazzy-launch-yaml-dev ros-jazzy-ros-workspace-dev ros-jazzy-ros2action-dev ros-jazzy-ros2cli-dev ros-jazzy-ros2component-dev ros-jazzy-ros2doctor-dev ros-jazzy-ros2interface-dev ros-jazzy-ros2launch-dev ros-jazzy-ros2lifecycle-dev ros-jazzy-ros2multicast-dev ros-jazzy-ros2node-dev ros-jazzy-ros2param-dev ros-jazzy-ros2pkg-dev ros-jazzy-ros2plugin-dev ros-jazzy-ros2run-dev ros-jazzy-ros2service-dev ros-jazzy-ros2topic-dev ros-jazzy-sros2-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: ros2cli_common_extensions
     uri: https://github.com/ros2-gbp/ros2cli_common_extensions-release.git
-    version: release/jazzy/ros2cli_common_extensions/0.3.0-3
+    version: release/jazzy/ros2cli_common_extensions/0.3.1-1
 "
 
 prepare() {
