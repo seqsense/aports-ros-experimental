@@ -29,10 +29,10 @@ index fc79493..9067160 100644
      int s_i_start, s_i_end, t_i_start, t_i_end;
      EST_Item *s;
 @@ -622,6 +625,9 @@ void us_mapping(EST_Utterance &utt, const EST_String &method)
-        source_lab = utt.relation("SourceSegments");
+        source_lab = utt.relation("SourceSegments"); */
      target_lab = utt.relation("Segment", 1);
  
-+    if (source_lab == NULL || target_lab == NULL)
++    if (target_lab == NULL)
 +      return;
 +
  /*    if (method == "segment")
