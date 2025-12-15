@@ -1,0 +1,84 @@
+# Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
+# Maintainer:
+pkgname=festival
+pkgver=2.5.0_git20180620
+pkgrel=1
+pkgdesc="Festival Speech Synthesis System"
+url="http://www.cstr.ed.ac.uk/projects/festival/"
+arch="all"
+license="custom:festival"
+depends=""
+makedepends="linux-headers ncurses-dev alsa-lib-dev git"
+subpackages="$pkgname-doc $pkgname-dbg"
+source="musl-support.patch
+	fix-libdir.patch
+	fix-optimization.patch
+	fix-memleaks.patch
+	add-nullptr-check.patch
+	fix-const-export.patch
+	"
+options="!check" # test is not provided
+
+builddir="$srcdir"
+
+prepare() {
+	cd "$srcdir"
+	git clone https://github.com/festvox/festival.git
+	git -C festival checkout 1330e5350e
+	git clone https://github.com/festvox/speech_tools.git
+	git -C speech_tools checkout b8b5568e03
+	default_prepare
+}
+
+build() {
+	cd "$builddir"/speech_tools
+	./configure
+	make \
+		CFLAGS="-fPIC -g -Os -fno-strict-aliasing" \
+		CXXFLAGS="-fPIC -g -Os -std=gnu++98 -fno-strict-aliasing -fno-delete-null-pointer-checks" \
+		-j1
+
+	cd "$builddir"/$pkgname
+	./configure --prefix="$pkgdir"/usr
+	make \
+		CFLAGS="-fPIC -g -Os -fno-strict-aliasing" \
+		CXXFLAGS="-fPIC -g -Os -std=gnu++98 -fno-strict-aliasing -fno-delete-null-pointer-checks" \
+		LINUXAUDIO="alsa" \
+		-j1
+}
+
+package() {
+	cd "$builddir"/$pkgname
+
+	install -d -m 0755 "$pkgdir"/usr/bin
+	install -m 0755 "$builddir"/$pkgname/bin/festival "$pkgdir"/usr/bin
+	install -m 0755 "$builddir"/$pkgname/bin/festival_client "$pkgdir"/usr/bin
+	install -m 0755 "$builddir"/$pkgname/bin/text2wave "$pkgdir"/usr/bin
+
+	install -d -m 0755 "$pkgdir"/usr/lib
+	install -d -m 0755 "$pkgdir"/usr/lib/festival
+	install -m 0755 "$builddir"/$pkgname/lib/etc/*/audsp "$pkgdir"/usr/lib/festival
+
+	install -d -m 0755 "$pkgdir"/usr/share/festival
+	(find "$builddir"/$pkgname/lib -name "*.scm"; \
+	 find "$builddir"/$pkgname/lib -name "*.gram"; \
+	 find "$builddir"/$pkgname/lib -name "*.ngrambin") \
+			| sed -e "s|^$builddir/$pkgname/lib/||" | while read file; do
+		dirn=$(dirname $file)
+		install -d -m 0755 "$pkgdir"/usr/share/festival/$dirn
+		install -m 0644 "$builddir"/$pkgname/lib/$file "$pkgdir"/usr/share/festival/$dirn
+	done
+
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/festival
+	install -m 0644 "$builddir"/$pkgname/COPYING "$pkgdir"/usr/share/licenses/festival
+	install -m 0644 "$builddir"/$pkgname/ACKNOWLEDGMENTS "$pkgdir"/usr/share/licenses/festival
+}
+
+sha512sums="
+25f85d14918571caf9792170a4745fa432416dc5a0a6ca262006f7dc2d3adc9ee6f69b8464671b70657f9693c3314f17f5626fadd12e94387f940156e47d0d2a  musl-support.patch
+742b405fc92157b5534dce396b6fd2fa3cc9a19e067a9a1885a67c2942600ed007abf324fca5e29891c7b1f32e01f16553883a98589597ca47dc41c80598d031  fix-libdir.patch
+6e27aa0b29789917a4f080a10fbf18c2d3c4103b07982a7fabb466581ca0fb8d1bb1772bb348ab85c5225a3f8eced832b4b325823cd701762324470b0a4e44a4  fix-optimization.patch
+142f8ca646c0e7f77586ba8ea62bd36c46791de3dd9be6d6a2f00598e964f14d12c296d470be42d8fe22bcc363dd70d4513f204ecbd237778de6cc8e9ba3aae3  fix-memleaks.patch
+44cb9271180f95fed078950f5bfd1dabb953948a641fbd6ea0c2553a88e880d1ffa30b420912077291cdb4bacf42b1345e4d0f9e6dbda71b9c432485706c09b5  add-nullptr-check.patch
+37de80d51ed0039ec0ba3f30a44773cc359d4e89f80b3ca76e8b9cbdad4e9d254acbe81e107eb58214081f11862449b055d3ef07148a99105f29a7b96bfe5db3  fix-const-export.patch
+"
