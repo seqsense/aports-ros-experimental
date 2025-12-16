@@ -1,0 +1,47 @@
+diff --git a/test/projection_test.py b/test/projection_test.py
+index e9da60c..349a5c5 100755
+--- a/test/projection_test.py
++++ b/test/projection_test.py
+@@ -70,28 +70,28 @@ class ProjectionTest(unittest.TestCase):
+ 
+             cloud_out = projector.projectLaser(scan, -1.0,
+                     LaserProjection.ChannelOption.INDEX)
+-            self.assertEquals(len(cloud_out.fields), 4,
++            self.assertEqual(len(cloud_out.fields), 4,
+                     "PointCloud2 with channel INDEX: fields size != 4")
+ 
+             cloud_out = projector.projectLaser(scan, -1.0,
+                     LaserProjection.ChannelOption.INTENSITY)
+-            self.assertEquals(len(cloud_out.fields), 4,
++            self.assertEqual(len(cloud_out.fields), 4,
+                     "PointCloud2 with channel INDEX: fields size != 4")
+ 
+             cloud_out = projector.projectLaser(scan, -1.0)
+-            self.assertEquals(len(cloud_out.fields), 5,
++            self.assertEqual(len(cloud_out.fields), 5,
+                     "PointCloud2 with channel INDEX: fields size != 5")
+             cloud_out = projector.projectLaser(scan, -1.0,
+                     LaserProjection.ChannelOption.INTENSITY |
+                     LaserProjection.ChannelOption.INDEX)
+-            self.assertEquals(len(cloud_out.fields), 5,
++            self.assertEqual(len(cloud_out.fields), 5,
+                     "PointCloud2 with channel INDEX: fields size != 5")
+ 
+             cloud_out = projector.projectLaser(scan, -1.0,
+                     LaserProjection.ChannelOption.INTENSITY |
+                     LaserProjection.ChannelOption.INDEX |
+                     LaserProjection.ChannelOption.DISTANCE)
+-            self.assertEquals(len(cloud_out.fields), 6,
++            self.assertEqual(len(cloud_out.fields), 6,
+                     "PointCloud2 with channel INDEX: fields size != 6")
+ 
+             cloud_out = projector.projectLaser(scan, -1.0,
+@@ -99,7 +99,7 @@ class ProjectionTest(unittest.TestCase):
+                     LaserProjection.ChannelOption.INDEX |
+                     LaserProjection.ChannelOption.DISTANCE |
+                     LaserProjection.ChannelOption.TIMESTAMP)
+-            self.assertEquals(len(cloud_out.fields), 7,
++            self.assertEqual(len(cloud_out.fields), 7,
+                     "PointCloud2 with channel INDEX: fields size != 7")
+ 
+             valid_points = 0

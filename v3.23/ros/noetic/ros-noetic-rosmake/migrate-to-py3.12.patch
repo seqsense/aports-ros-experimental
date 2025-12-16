@@ -1,0 +1,31 @@
+diff --git a/test/test_parallel_build.py b/test/test_parallel_build.py
+index 76938094..1ff8bac2 100644
+--- a/test/test_parallel_build.py
++++ b/test/test_parallel_build.py
+@@ -46,18 +46,18 @@ class TestDependencyTracker(unittest.TestCase):
+         self.dt.load_fake_deps(self.deps, self.deps1)
+ 
+     def test_deps_1(self):
+-        self.assertEquals(self.deps1['a'], self.dt.get_deps_1('a'))
+-        self.assertEquals(self.deps1['b'], self.dt.get_deps_1('b'))
+-        self.assertEquals(self.deps1['d'], self.dt.get_deps_1('d'))
++        self.assertEqual(self.deps1['a'], self.dt.get_deps_1('a'))
++        self.assertEqual(self.deps1['b'], self.dt.get_deps_1('b'))
++        self.assertEqual(self.deps1['d'], self.dt.get_deps_1('d'))
+ 
+     def test_deps(self):
+-        self.assertEquals(self.deps['a'], self.dt.get_deps('a'))
+-        self.assertEquals(self.deps['b'], self.dt.get_deps('b'))
+-        self.assertEquals(self.deps['d'], self.dt.get_deps('d'))
++        self.assertEqual(self.deps['a'], self.dt.get_deps('a'))
++        self.assertEqual(self.deps['b'], self.dt.get_deps('b'))
++        self.assertEqual(self.deps['d'], self.dt.get_deps('d'))
+ 
+     def test_not_package(self):
+-        self.assertEquals([], self.dt.get_deps('This is not a valid package name'))
+-        self.assertEquals([], self.dt.get_deps_1('This is not a valid package name'))
++        self.assertEqual([], self.dt.get_deps('This is not a valid package name'))
++        self.assertEqual([], self.dt.get_deps_1('This is not a valid package name'))
+ 
+ 
+ class TestBuildQueue(unittest.TestCase):

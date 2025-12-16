@@ -1,0 +1,135 @@
+diff --git a/test/test_junitxml.py b/test/test_junitxml.py
+index 6757ffca..2787f3df 100644
+--- a/test/test_junitxml.py
++++ b/test/test_junitxml.py
+@@ -112,14 +112,14 @@ class XmlResultTestGeneration(unittest.TestCase):
+     def testGenerateError(self):
+         error = junitxml.TestError('error_type', 'error_text')
+         error_str = error.xml()
+-        self.assertEquals(b"""<error type="error_type">&lt;![CDATA[
++        self.assertEqual(b"""<error type="error_type">&lt;![CDATA[
+ error_text
+ ]]&gt;</error>""", error_str)
+ 
+     def testGenerateFailure(self):
+         failure = junitxml.TestFailure('failure_type', 'failure_text')
+         failure_str = failure.xml()
+-        self.assertEquals(b"""<failure type="failure_type">&lt;![CDATA[
++        self.assertEqual(b"""<failure type="failure_type">&lt;![CDATA[
+ failure_text
+ ]]&gt;</failure>""", failure_str)
+ 
+@@ -132,7 +132,7 @@ failure_text
+         testcase.add_error(error)
+         testcase.add_failure(failure)
+         testcase_str = testcase.xml()
+-        self.assertEquals(b"""<testcase classname="" name="test_case" time="0.0"><failure type="failure_type">&lt;![CDATA[
++        self.assertEqual(b"""<testcase classname="" name="test_case" time="0.0"><failure type="failure_type">&lt;![CDATA[
+ failure_text
+ ]]&gt;</failure><error type="error_type">&lt;![CDATA[
+ error_text
+@@ -180,56 +180,56 @@ class XmlResultTestRead(unittest.TestCase):
+ 
+     def testReadNoSuites(self):
+         result = junitxml.read(self.mockresults['empty'].filename, 'fooname')
+-        self.assert_(result is not None)
+-        self.assertEquals(0.0, result.time)
+-        self.assertEquals(0, result.num_tests)
+-        self.assertEquals(0, result.num_errors)
+-        self.assertEquals(0, result.num_failures)
++        self.assertTrue(result is not None)
++        self.assertEqual(0.0, result.time)
++        self.assertEqual(0, result.num_tests)
++        self.assertEqual(0, result.num_errors)
++        self.assertEqual(0, result.num_failures)
+ 
+     def testReadEmptySuite(self):
+         result = junitxml.read(self.mockresults['emptysuite'].filename, 'fooname')
+-        self.assert_(result is not None)
+-        self.assertEquals(0.0, result.time)
+-        self.assertEquals(0, result.num_tests)
+-        self.assertEquals(0, result.num_errors)
+-        self.assertEquals(0, result.num_failures)
++        self.assertTrue(result is not None)
++        self.assertEqual(0.0, result.time)
++        self.assertEqual(0, result.num_tests)
++        self.assertEqual(0, result.num_errors)
++        self.assertEqual(0, result.num_failures)
+ 
+     def testReadSuccess(self):
+         result = junitxml.read(self.mockresults['succ1'].filename, 'fooname')
+-        self.assert_(result is not None)
+-        self.assertEquals(1.0, result.time)
+-        self.assertEquals(1, result.num_tests)
+-        self.assertEquals(0, result.num_errors)
+-        self.assertEquals(0, result.num_failures)
++        self.assertTrue(result is not None)
++        self.assertEqual(1.0, result.time)
++        self.assertEqual(1, result.num_tests)
++        self.assertEqual(0, result.num_errors)
++        self.assertEqual(0, result.num_failures)
+ 
+     def testReadError(self):
+         result = junitxml.read(self.mockresults['err1'].filename, 'fooname')
+-        self.assert_(result is not None)
+-        self.assertEquals(1.0, result.time)
+-        self.assertEquals(1, result.num_tests)
+-        self.assertEquals(1, result.num_errors)
+-        self.assertEquals(0, result.num_failures)
++        self.assertTrue(result is not None)
++        self.assertEqual(1.0, result.time)
++        self.assertEqual(1, result.num_tests)
++        self.assertEqual(1, result.num_errors)
++        self.assertEqual(0, result.num_failures)
+ 
+     def testReadFail(self):
+         result = junitxml.read(self.mockresults['fail1'].filename, 'fooname')
+-        self.assert_(result is not None)
+-        self.assertEquals(1.0, result.time)
+-        self.assertEquals(1, result.num_tests)
+-        self.assertEquals(0, result.num_errors)
+-        self.assertEquals(1, result.num_failures)
++        self.assertTrue(result is not None)
++        self.assertEqual(1.0, result.time)
++        self.assertEqual(1, result.num_tests)
++        self.assertEqual(0, result.num_errors)
++        self.assertEqual(1, result.num_failures)
+ 
+     def testReadMulticase(self):
+         result = junitxml.read(self.mockresults['multicase'].filename, 'fooname')
+-        self.assert_(result is not None)
+-        self.assertEquals(3.0, result.time)
+-        self.assertEquals(3, result.num_tests)
+-        self.assertEquals(1, result.num_errors)
+-        self.assertEquals(1, result.num_failures)
++        self.assertTrue(result is not None)
++        self.assertEqual(3.0, result.time)
++        self.assertEqual(3, result.num_tests)
++        self.assertEqual(1, result.num_errors)
++        self.assertEqual(1, result.num_failures)
+ 
+     def testReadMultisuite(self):
+         result = junitxml.read(self.mockresults['multisuite'].filename, 'fooname')
+-        self.assert_(result is not None)
+-        self.assertEquals(3.0, result.time)
+-        self.assertEquals(3, result.num_tests)
+-        self.assertEquals(1, result.num_errors)
+-        self.assertEquals(1, result.num_failures)
++        self.assertTrue(result is not None)
++        self.assertEqual(3.0, result.time)
++        self.assertEqual(3, result.num_tests)
++        self.assertEqual(1, result.num_errors)
++        self.assertEqual(1, result.num_failures)
+diff --git a/test/test_xmlrunner.py b/test/test_xmlrunner.py
+index 2c350950..4fb56030 100644
+--- a/test/test_xmlrunner.py
++++ b/test/test_xmlrunner.py
+@@ -78,7 +78,7 @@ class XMLTestRunnerTest(unittest.TestCase):
+         class TestTest(unittest.TestCase):
+ 
+             def test_foo(self):
+-                self.assert_(False)
++                self.assertTrue(False)
+         py2_expected = """<testsuite errors="0" failures="1" name="unittest.suite.TestSuite" tests="1" time="0.000"><testcase classname="test.test_xmlrunner.TestTest" name="test_foo" time="0.000"><failure type="AssertionError">Foobar</failure></testcase><system-out>&lt;![CDATA[\n\n]]&gt;</system-out><system-err>&lt;![CDATA[\n\n]]&gt;</system-err></testsuite>"""
+         py3_expected = py2_expected.replace('TestTest', 'XMLTestRunnerTest.test_failure.&lt;locals&gt;.TestTest')
+         self._try_test_run(TestTest, [py2_expected, py3_expected])

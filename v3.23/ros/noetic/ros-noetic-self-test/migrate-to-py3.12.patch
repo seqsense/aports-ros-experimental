@@ -1,0 +1,54 @@
+diff --git a/scripts/test_selftest.py b/scripts/test_selftest.py
+index 3b6ed66..f5fa7f9 100755
+--- a/scripts/test_selftest.py
++++ b/scripts/test_selftest.py
+@@ -79,32 +79,32 @@ class TestSelfTest(unittest.TestCase):
+         try:
+             rospy.wait_for_service(SRV_NAME, 15)
+         except Exception as e:
+-            self.assert_(False, "Service %s did not respond. Unable to test self_test" % SRV_NAME)
++            self.assertTrue(False, "Service %s did not respond. Unable to test self_test" % SRV_NAME)
+ 
+         try:
+             res = proxy()
+         except Exception as e:
+             import traceback
+-            self.assert_(False, "Error calling self_test service. Exception: %s" % traceback.format_exc())
++            self.assertTrue(False, "Error calling self_test service. Exception: %s" % traceback.format_exc())
+ 
+         if self.no_id:
+-            self.assert_(res.id == '', "Result had node ID even though ID was not expected. ID: %s" % res.id)
++            self.assertTrue(res.id == '', "Result had node ID even though ID was not expected. ID: %s" % res.id)
+         else:
+-            self.assert_(res.id != '', "Result had no node ID")
++            self.assertTrue(res.id != '', "Result had no node ID")
+ 
+         if self.expect_fail or self.exception:
+-            self.assert_(res.passed == 0, "Self test passed, but it shouldn't have. Result: %d" % res.passed)
++            self.assertTrue(res.passed == 0, "Self test passed, but it shouldn't have. Result: %d" % res.passed)
+ 
+             max_val = 0
+             for tst in res.status:
+                 max_val = max(max_val, tst.level)
+ 
+-            self.assert_(max_val > 0, "Self test failed, but no sub tests reported a failure or warning")
++            self.assertTrue(max_val > 0, "Self test failed, but no sub tests reported a failure or warning")
+         else:
+-            self.assert_(res.passed, "Self test failed, but we expected a pass")
++            self.assertTrue(res.passed, "Self test failed, but we expected a pass")
+ 
+             for tst in res.status:
+-                self.assert_(tst.level == 0, "Self test subtest failed, but we marked it as a pass")
++                self.assertTrue(tst.level == 0, "Self test subtest failed, but we marked it as a pass")
+                 
+ 
+         if self.exception:
+@@ -113,7 +113,7 @@ class TestSelfTest(unittest.TestCase):
+                 if tst.message.find('exception') > -1:
+                     found_ex = True
+ 
+-            self.assert_(found_ex, "Self test threw and exception, but we didn't catch it and report it")
++            self.assertTrue(found_ex, "Self test threw and exception, but we didn't catch it and report it")
+ 
+             
+ if __name__ == '__main__':
