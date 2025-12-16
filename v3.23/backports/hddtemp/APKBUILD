@@ -11,7 +11,9 @@ license="GPL-2"
 depends=""
 makedepends="linux-headers"
 subpackages="$pkgname-doc"
-source="$pkgname-$_pkgver.tar.bz2::http://download.savannah.nongnu.org/releases/$pkgname/$pkgname-$_pkgver.tar.bz2"
+source="$pkgname-$_pkgver.tar.bz2::http://download.savannah.nongnu.org/releases/$pkgname/$pkgname-$_pkgver.tar.bz2
+	fix-func-types.patch
+	"
 
 builddir="$srcdir"/$pkgname-$_pkgver
 
@@ -34,8 +36,8 @@ package() {
 	cd "$builddir"/build
 	make DESTDIR="$pkgdir" install
 
-  rm -rf "$pkgdir"/usr/share/locale "$pkgdir"/usr/lib/charset.alias
-  find "$pkgdir"/usr/man -type f | xargs gzip
+	rm -rf "$pkgdir"/usr/share/locale "$pkgdir"/usr/lib/charset.alias
+	find "$pkgdir"/usr/man -type f | xargs gzip
 
 	install -d -m 0755 "$pkgdir"/usr/share/licenses/hddtemp
 	install -m 0644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/hddtemp
@@ -43,4 +45,5 @@ package() {
 
 sha512sums="
 7db5a3dff60c59ce147b996ea4f8b6de1abcd34301bb863507b4d4b44e72fdc031078867a7f37161e67e74f6b426a1d856d3081179c678d2a442815bb0faa94d  hddtemp-0.3-beta15.tar.bz2
+f3a51c055545115e46077eca1b26ad5e2bf855669c847e95261370f8283b59c4e139fcf9697c8f242e6e60bcef2b361d8e28a9d654fb07d300516cb323cd3ad0  fix-func-types.patch
 "
