@@ -1,0 +1,13 @@
+diff --git a/speech_tools/rxp/url.c b/speech_tools/rxp/url.c
+index 4f5bdae..62a8d59 100644
+--- a/speech_tools/rxp/url.c
++++ b/speech_tools/rxp/url.c
+@@ -12,7 +12,7 @@
+ /* WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.       */
+ /*                                                                       */
+ /*************************************************************************/
+-#define _POSIX_C_SOURCE 200809L
++#define _POSIX_C_SOURCE 200808L // 200809L drops gethostbyname on musl
+ #ifdef FOR_LT
+ 
+ #include "lt-defs.h"

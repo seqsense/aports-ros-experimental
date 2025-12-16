@@ -1,0 +1,25 @@
+diff --git a/festival/config/project.mak b/festival/config/project.mak
+index 69d38d1..7243bce 100644
+--- a/festival/config/project.mak
++++ b/festival/config/project.mak
+@@ -112,6 +112,6 @@ PROJECT_JAVA_ROOT=$(TOP)/src/modules/java
+ DOCXX_DIRS = $(TOP)/src 
+ MODULE_TO_DOCXX = perl $(TOP)/src/modules/utilities/extract_module_doc++.prl
+ 
+-FTLIBDIR = $(FESTIVAL_HOME)/lib 
++FTLIBDIR = /usr/share/festival
+ 
+ 
+diff --git a/festival/examples/Makefile b/festival/examples/Makefile
+index b677cb9..06d4d20 100644
+--- a/festival/examples/Makefile
++++ b/festival/examples/Makefile
+@@ -55,7 +55,7 @@ include $(TOP)/config/common_make_rules
+ $(ALL) : % : %.sh
+ 	rm -f $@
+ 	@echo "#!/bin/sh" >$@
+-	@echo "\"true\" ; exec "$(FESTIVAL_HOME)/bin/festival --script '$$0 $$*' >>$@
++	@echo "\"true\" ; exec "/usr/bin/festival --script '$$0 $$*' >>$@
+ 	cat $< >>$@
+ 	chmod +x $@
+ 
