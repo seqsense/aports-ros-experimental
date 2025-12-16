@@ -1,0 +1,49 @@
+# Contributor: Atsushi Watanabe <atsushi.w@ieee.org>
+# Maintainer:
+pkgname=hddtemp
+pkgver=0.3_beta15
+_pkgver=0.3-beta15
+pkgrel=2
+pkgdesc="hard drive temperature monitoring utility"
+url="https://savannah.nongnu.org/projects/hddtemp/"
+arch="all"
+license="GPL-2"
+depends=""
+makedepends="linux-headers"
+subpackages="$pkgname-doc"
+source="$pkgname-$_pkgver.tar.bz2::http://download.savannah.nongnu.org/releases/$pkgname/$pkgname-$_pkgver.tar.bz2
+	fix-func-types.patch
+	"
+
+builddir="$srcdir"/$pkgname-$_pkgver
+
+build() {
+	cd "$builddir"
+
+	mkdir -p build && cd build
+	../configure \
+		--prefix=/usr \
+		CFLAGS="-Os -Wno-narrowing"
+	make
+}
+
+check() {
+	cd "$builddir"/build
+	make check
+}
+
+package() {
+	cd "$builddir"/build
+	make DESTDIR="$pkgdir" install
+
+	rm -rf "$pkgdir"/usr/share/locale "$pkgdir"/usr/lib/charset.alias
+	find "$pkgdir"/usr/man -type f | xargs gzip
+
+	install -d -m 0755 "$pkgdir"/usr/share/licenses/hddtemp
+	install -m 0644 "$builddir"/LICENSE "$pkgdir"/usr/share/licenses/hddtemp
+}
+
+sha512sums="
+7db5a3dff60c59ce147b996ea4f8b6de1abcd34301bb863507b4d4b44e72fdc031078867a7f37161e67e74f6b426a1d856d3081179c678d2a442815bb0faa94d  hddtemp-0.3-beta15.tar.bz2
+f3a51c055545115e46077eca1b26ad5e2bf855669c847e95261370f8283b59c4e139fcf9697c8f242e6e60bcef2b361d8e28a9d654fb07d300516cb323cd3ad0  fix-func-types.patch
+"
