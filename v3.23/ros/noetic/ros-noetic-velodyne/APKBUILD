@@ -70,6 +70,7 @@ build() {
   source /usr/ros/noetic/setup.sh
   catkin_make_isolated \
     -DCMAKE_POLICY_VERSION_MINIMUM=3.10 \
+    -DCMAKE_INSTALL_RPATH=/usr/ros/noetic/lib \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo 2>&1 | tee $buildlog
 }
 

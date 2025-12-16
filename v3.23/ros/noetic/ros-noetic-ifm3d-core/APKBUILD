@@ -56,6 +56,7 @@ build() {
   cd build
   cmake ../src/$_pkgname \
     -DCMAKE_POLICY_VERSION_MINIMUM=3.10 \
+    -DCMAKE_INSTALL_RPATH=/usr/ros/noetic/lib \
     -DCMAKE_INSTALL_PREFIX=/usr/ros/noetic \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_LIBDIR=lib 2>&1 | tee $buildlog
