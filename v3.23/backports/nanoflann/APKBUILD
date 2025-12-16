@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=nanoflann
 pkgver=1.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc="nanoflann: a C++11 header-only library for Nearest Neighbor (NN) search with KD-trees"
 url="https://github.com/jlblancoc/nanoflann"
 arch="all"
@@ -35,6 +35,15 @@ package() {
   make DESTDIR="$pkgdir" install
 
   install -Dm 0644 "$builddir"/COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
+}
+
+dev() {
+  default_dev
+
+  if [ -d "$pkgdir"/usr/share/cmake ]; then
+    mkdir -p "$subpkgdir"/usr/share
+    mv "$pkgdir"/usr/share/cmake "$subpkgdir"/usr/share/
+  fi
 }
 
 sha512sums="
