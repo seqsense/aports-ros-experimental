@@ -1,0 +1,40 @@
+diff --git a/festival/src/modules/Intonation/int_aux.cc b/festival/src/modules/Intonation/int_aux.cc
+index eb31a0a..6aa8d59 100644
+--- a/festival/src/modules/Intonation/int_aux.cc
++++ b/festival/src/modules/Intonation/int_aux.cc
+@@ -95,6 +95,11 @@ void targets_to_f0(EST_Relation &targ, EST_Track &f0, const float shift)
+     EST_Item *s;
+     int i;
+ 
++    if (targ.first() == NULL)
++    {
++      f0.resize(0, 1);
++      return;
++    }
+     f0.resize(int(ceil(last_leaf(targ.first())->F("pos",0) / shift)), 1);
+     f0.fill_time(shift);
+ 
+diff --git a/festival/src/modules/UniSyn/us_mapping.cc b/festival/src/modules/UniSyn/us_mapping.cc
+index fc79493..9067160 100644
+--- a/festival/src/modules/UniSyn/us_mapping.cc
++++ b/festival/src/modules/UniSyn/us_mapping.cc
+@@ -104,6 +104,9 @@ void make_segment_single_mapping(EST_Relation &source_lab,
+                                 EST_Track &source_pm, 
+                                 EST_Track &target_pm, EST_IVector &map) 
+ {
++    if (source_lab.tail() == NULL || source_lab.head() == NULL)
++      return;
++
+     int i = 0;
+     int s_i_start, s_i_end, t_i_start, t_i_end;
+     EST_Item *s;
+@@ -622,6 +625,9 @@ void us_mapping(EST_Utterance &utt, const EST_String &method)
+        source_lab = utt.relation("SourceSegments"); */
+     target_lab = utt.relation("Segment", 1);
+ 
++    if (target_lab == NULL)
++      return;
++
+ /*    if (method == "segment")
+        make_segment_double_mapping(*source_lab, *source_coef, *target_lab, 
+                             *target_coef, *map);
