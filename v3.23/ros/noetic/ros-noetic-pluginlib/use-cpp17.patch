@@ -17,7 +17,7 @@ index 289c5af..baed723 100644
 +  catkin_add_gtest(${PROJECT_NAME}_unique_ptr_test test/unique_ptr_test.cpp)
 +  if(TARGET ${PROJECT_NAME}_unique_ptr_test)
 +    target_link_libraries(${PROJECT_NAME}_unique_ptr_test ${TinyXML2_LIBRARIES} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
-+    set_target_properties(${PROJECT_NAME}_unique_ptr_test PROPERTIES COMPILE_FLAGS -std=c++14 LINK_FLAGS -std=c++14)
++    set_target_properties(${PROJECT_NAME}_unique_ptr_test PROPERTIES COMPILE_FLAGS -std=c++17 LINK_FLAGS -std=c++17)
 +    add_dependencies(${PROJECT_NAME}_unique_ptr_test test_plugins)
    endif()
  

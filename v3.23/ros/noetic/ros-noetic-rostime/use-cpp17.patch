@@ -7,7 +7,7 @@ index 32a76bb..5da4e93 100644
    catkin_add_gtest(${PROJECT_NAME}-test_time test/time.cpp)
    if(TARGET ${PROJECT_NAME}-test_time)
 -    set_property(TARGET ${PROJECT_NAME}-test_time APPEND_STRING PROPERTY COMPILE_FLAGS "-std=c++11")
-+    set_property(TARGET ${PROJECT_NAME}-test_time APPEND_STRING PROPERTY COMPILE_FLAGS "-std=c++14")
++    set_property(TARGET ${PROJECT_NAME}-test_time APPEND_STRING PROPERTY COMPILE_FLAGS "-std=c++17")
      target_link_libraries(${PROJECT_NAME}-test_time ${catkin_LIBRARIES} rostime)
    endif()
  endif()
