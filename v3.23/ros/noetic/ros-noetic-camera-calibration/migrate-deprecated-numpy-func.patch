@@ -1,0 +1,12 @@
+diff --git a/src/camera_calibration/calibrator.py b/src/camera_calibration/calibrator.py
+index 51b721e..2c875fa 100644
+--- a/src/camera_calibration/calibrator.py
++++ b/src/camera_calibration/calibrator.py
+@@ -692,7 +692,7 @@ def image_from_archive(archive, name):
+     Used for tarfile loading and unit test.
+     """
+     member = archive.getmember(name)
+-    imagefiledata = numpy.fromstring(archive.extractfile(member).read(), numpy.uint8)
++    imagefiledata = numpy.frombuffer(archive.extractfile(member).read(), dtype=numpy.uint8)
+     imagefiledata.resize((1, imagefiledata.size))
+     return cv2.imdecode(imagefiledata, cv2.IMREAD_COLOR)
