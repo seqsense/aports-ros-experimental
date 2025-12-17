@@ -1,0 +1,24 @@
+diff --git a/cartographer_ros/ros_log_sink.cc b/cartographer_ros/ros_log_sink.cc
+index e79d40a..8581ea4 100644
+--- a/cartographer_ros/ros_log_sink.cc
++++ b/cartographer_ros/ros_log_sink.cc
+@@ -18,6 +18,7 @@
+ 
+ #include <chrono>
+ #include <cstring>
++#include <ctime>
+ #include <string>
+ #include <thread>
+ 
+@@ -45,8 +46,10 @@ void ScopedRosLogSink::send(const ::google::LogSeverity severity,
+                             const struct std::tm* const tm_time,
+                             const char* const message,
+                             const size_t message_len) {
++  const auto tt_time = std::mktime(const_cast<std::tm*>(tm_time));
++  const auto chrono_time = std::chrono::system_clock::from_time_t(tt_time);
+   const std::string message_string = ::google::LogSink::ToString(
+-      severity, GetBasename(filename), line, ::google::LogMessageTime(*tm_time),
++      severity, GetBasename(filename), line, ::google::LogMessageTime(chrono_time),
+       message, message_len);
+   switch (severity) {
+     case ::google::GLOG_INFO:
