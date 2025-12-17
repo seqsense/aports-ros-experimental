@@ -1,0 +1,53 @@
+diff --git a/python/cv_bridge/core.py b/python/cv_bridge/core.py
+index 423aa54..0539eb1 100644
+--- a/python/cv_bridge/core.py
++++ b/python/cv_bridge/core.py
+@@ -175,7 +175,7 @@ class CvBridge(object):
+                                dtype=dtype, buffer=img_msg.data)
+         # If the byt order is different between the message and the system.
+         if img_msg.is_bigendian == (sys.byteorder == 'little'):
+-            im = im.byteswap().newbyteorder()
++            im = im.byteswap().view(im.dtype.newbyteorder('S'))
+ 
+         if desired_encoding == "passthrough":
+             return im
+@@ -220,7 +220,7 @@ class CvBridge(object):
+         cmprs_img_msg.format = dst_format
+         ext_format = '.' + dst_format
+         try:
+-            cmprs_img_msg.data = np.array(cv2.imencode(ext_format, cvim)[1]).tostring()
++            cmprs_img_msg.data = np.array(cv2.imencode(ext_format, cvim)[1]).tobytes()
+         except RuntimeError as e:
+             raise CvBridgeError(e)
+ 
+@@ -267,7 +267,7 @@ class CvBridge(object):
+                 raise CvBridgeError("encoding specified as %s, but image has incompatible type %s" % (encoding, cv_type))
+         if cvim.dtype.byteorder == '>':
+             img_msg.is_bigendian = True
+-        img_msg.data = cvim.tostring()
++        img_msg.data = cvim.tobytes()
+         img_msg.step = len(img_msg.data) // img_msg.height
+ 
+         return img_msg
+diff --git a/test/conversions.py b/test/conversions.py
+index 5f4b51a..30240c9 100644
+--- a/test/conversions.py
++++ b/test/conversions.py
+@@ -42,7 +42,7 @@ class TestConversions(unittest.TestCase):
+                             self.assertTrue(original.shape[:2] == newimg.shape[:2])
+                         else:
+                             self.assertTrue(original.shape == newimg.shape)
+-                        self.assertTrue(len(original.tostring()) == len(newimg.tostring()))
++                        self.assertTrue(len(original.tobytes()) == len(newimg.tobytes()))
+ 
+     def test_encode_decode_cv2_compressed(self):
+         import numpy as np
+@@ -71,7 +71,7 @@ class TestConversions(unittest.TestCase):
+                             self.assertTrue(original.shape[:2] == newimg.shape[:2])
+                         else:
+                             self.assertTrue(original.shape == newimg.shape)
+-                        self.assertTrue(len(original.tostring()) == len(newimg.tostring()))
++                        self.assertTrue(len(original.tobytes()) == len(newimg.tobytes()))
+ 
+     def test_endianness(self):
+         br = CvBridge()
