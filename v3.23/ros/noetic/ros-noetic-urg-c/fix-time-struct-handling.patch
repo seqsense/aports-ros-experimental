@@ -1,0 +1,22 @@
+diff --git a/current/src/urg_time.c b/current/src/urg_time.c
+index 68824e1..31e3cab 100644
+--- a/current/src/urg_time.c
++++ b/current/src/urg_time.c
+@@ -20,8 +20,8 @@ void urg_walltime(unsigned long *sec, unsigned long *nsec)
+ #else
+     struct timeval timeofday;
+     gettimeofday(&timeofday,NULL);
+-    sec  = timeofday.tv_sec;
+-    nsec = timeofday.tv_usec * 1000;
++    *sec  = (unsigned long)timeofday.tv_sec;
++    *nsec = timeofday.tv_usec * 1000;
+ #endif
+ #else
+     // Win32 implementation
+@@ -86,4 +86,4 @@ void urg_get_walltime(unsigned long long *nsecs){
+     unsigned long nsec;
+     urg_walltime(&sec, &nsec);
+     *nsecs = (unsigned long long)sec*1000000000ll + (unsigned long long)nsec;
+-}
+\ No newline at end of file
++}
