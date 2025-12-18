@@ -1,9 +1,9 @@
 pkgname=ros-humble-image-view
 _pkgname=image_view
-pkgver=3.0.8
+pkgver=3.0.9
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
-url="https://index.ros.org/p/image_view/github-ros-perception-image_pipeline/"
+url="https://index.ros.org/p/image_view/"
 arch="all"
 license="BSD"
 
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: image_view
     uri: https://github.com/ros2-gbp/image_pipeline-release.git
-    version: release/humble/image_view/3.0.8-1
+    version: release/humble/image_view/3.0.9-1
 "
 
 prepare() {
