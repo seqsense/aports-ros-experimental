@@ -1,6 +1,6 @@
 pkgname=ros-humble-rosidl-typesupport-introspection-cpp
 _pkgname=rosidl_typesupport_introspection_cpp
-pkgver=3.1.7
+pkgver=3.1.8
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rosidl_typesupport_introspection_cpp
     uri: https://github.com/ros2-gbp/rosidl-release.git
-    version: release/humble/rosidl_typesupport_introspection_cpp/3.1.7-1
+    version: release/humble/rosidl_typesupport_introspection_cpp/3.1.8-1
 "
 
 prepare() {
