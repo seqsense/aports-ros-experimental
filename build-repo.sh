@@ -36,8 +36,19 @@ case "${STACK_PROTECTOR:-yes}" in
     ;;
 esac
 
+# GTest doesn't support old C++ standards
+MIN_CPP_VERSION=
+case "${ALPINE_VERSION}" in
+  3.20)
+    MIN_CPP_VERSION=14
+    ;;
+  *)
+    MIN_CPP_VERSION=17
+    ;;
+esac
+
 CFLAGS="${COMMON_GCC_FLAGS} ${CFLAGS:-}"
-CXXFLAGS="${COMMON_GCC_FLAGS} ${CXXFLAGS:-} -std=c++14"
+CXXFLAGS="${COMMON_GCC_FLAGS} ${CXXFLAGS:-} -std=c++${MIN_CPP_VERSION}"
 
 echo "export CFLAGS=\"${CFLAGS}\"" | sudo tee -a /etc/abuild.conf
 echo "export CXXFLAGS=\"${CXXFLAGS}\"" | sudo tee -a /etc/abuild.conf

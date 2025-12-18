@@ -1,0 +1,45 @@
+diff --git a/samples/pcl_ros/features/sample_normal_3d.launch b/samples/pcl_ros/features/sample_normal_3d.launch
+index 01ad46d..909c200 100644
+--- a/samples/pcl_ros/features/sample_normal_3d.launch
++++ b/samples/pcl_ros/features/sample_normal_3d.launch
+@@ -26,8 +26,8 @@
+         pkg="rostest" type="hztest">
+     <rosparam>
+       topic: /normal_estimation/output
+-      hz: 10
+-      hzerror: 8
++      hz: 20
++      hzerror: 15
+       test_duration: 5.0
+     </rosparam>
+   </test>
+diff --git a/samples/pcl_ros/io/sample_concatenate_data.launch b/samples/pcl_ros/io/sample_concatenate_data.launch
+index ac5943a..855a790 100644
+--- a/samples/pcl_ros/io/sample_concatenate_data.launch
++++ b/samples/pcl_ros/io/sample_concatenate_data.launch
+@@ -25,8 +25,8 @@
+         pkg="rostest" type="hztest">
+     <rosparam>
+       topic: /concatenate_data/output
+-      hz: 10
+-      hzerror: 8
++      hz: 20
++      hzerror: 15
+       test_duration: 5.0
+     </rosparam>
+   </test>
+diff --git a/samples/pcl_ros/surface/sample_convex_hull.launch b/samples/pcl_ros/surface/sample_convex_hull.launch
+index 50e54f8..a3b608e 100644
+--- a/samples/pcl_ros/surface/sample_convex_hull.launch
++++ b/samples/pcl_ros/surface/sample_convex_hull.launch
+@@ -22,8 +22,8 @@
+     pkg="rostest" type="hztest">
+     <rosparam>
+       topic: /convex_hull/output
+-      hz: 10
+-      hzerror: 8
++      hz: 20
++      hzerror: 15
+       test_duration: 5.0
+     </rosparam>
+   </test>

@@ -1,0 +1,915 @@
+diff --git a/test/test_roslib_manifest.py b/test/test_roslib_manifest.py
+index 70700881..dfd4a315 100644
+--- a/test/test_roslib_manifest.py
++++ b/test/test_roslib_manifest.py
+@@ -42,7 +42,7 @@ class RoslibManifestTest(unittest.TestCase):
+ 
+     def test_ManifestException(self):
+         from roslib.manifest import ManifestException
+-        self.assert_(isinstance(ManifestException(), Exception))
++        self.assertTrue(isinstance(ManifestException(), Exception))
+ 
+     def test_Depend(self):
+         from roslib.manifestlib import Depend
+@@ -54,13 +54,13 @@ class RoslibManifestTest(unittest.TestCase):
+                 pass
+ 
+         d = Depend('roslib')
+-        self.assertEquals('roslib', str(d))
+-        self.assertEquals('roslib', repr(d))
++        self.assertEqual('roslib', str(d))
++        self.assertEqual('roslib', repr(d))
+ 
+-        self.assertEquals('<depend package="roslib" />', d.xml())
+-        self.assertEquals(d, Depend('roslib'))
+-        self.assertNotEquals(d, Depend('roslib2'))
+-        self.assertNotEquals(d, 1)
++        self.assertEqual('<depend package="roslib" />', d.xml())
++        self.assertEqual(d, Depend('roslib'))
++        self.assertNotEqual(d, Depend('roslib2'))
++        self.assertNotEqual(d, 1)
+ 
+     def test_ROSDep(self):
+         from roslib.manifest import ROSDep
+@@ -72,7 +72,7 @@ class RoslibManifestTest(unittest.TestCase):
+                 pass
+ 
+         rd = ROSDep('python')
+-        self.assertEquals('<rosdep name="python" />', rd.xml())
++        self.assertEqual('<rosdep name="python" />', rd.xml())
+ 
+     def test_VersionControl(self):
+         from roslib.manifest import VersionControl
+@@ -92,23 +92,23 @@ class RoslibManifestTest(unittest.TestCase):
+         ]
+         for type_, url, xml in tests:
+             vc = VersionControl(type_, url)
+-            self.assertEquals(type_, vc.type)
+-            self.assertEquals(url, vc.url)
+-            self.assertEquals(xml, vc.xml())
++            self.assertEqual(type_, vc.type)
++            self.assertEqual(url, vc.url)
++            self.assertEqual(xml, vc.xml())
+ 
+     def _subtest_parse_example1(self, m):
+         from roslib.manifest import Manifest
+-        self.assert_(isinstance(m, Manifest))
+-        self.assertEquals('a brief description', m.brief)
+-        self.assertEquals('Line 1\nLine 2', m.description.strip())
+-        self.assertEquals('The authors\ngo here', m.author.strip())
+-        self.assertEquals('Public Domain\nwith other stuff', m.license.strip())
+-        self.assertEquals('http://pr.willowgarage.com/package/', m.url)
+-        self.assertEquals('http://www.willowgarage.com/files/willowgarage/robot10.jpg', m.logo)
++        self.assertTrue(isinstance(m, Manifest))
++        self.assertEqual('a brief description', m.brief)
++        self.assertEqual('Line 1\nLine 2', m.description.strip())
++        self.assertEqual('The authors\ngo here', m.author.strip())
++        self.assertEqual('Public Domain\nwith other stuff', m.license.strip())
++        self.assertEqual('http://pr.willowgarage.com/package/', m.url)
++        self.assertEqual('http://www.willowgarage.com/files/willowgarage/robot10.jpg', m.logo)
+         dpkgs = [d.package for d in m.depends]
+-        self.assertEquals({'pkgname', 'common'}, set(dpkgs))
++        self.assertEqual({'pkgname', 'common'}, set(dpkgs))
+         rdpkgs = [d.name for d in m.rosdeps]
+-        self.assertEquals({'python', 'bar', 'baz'}, set(rdpkgs))
++        self.assertEqual({'python', 'bar', 'baz'}, set(rdpkgs))
+ 
+     def test_parse_example1_file(self):
+         from roslib.manifest import parse_file
+@@ -144,7 +144,7 @@ class RoslibManifestTest(unittest.TestCase):
+                 self.fail('parse should have failed on bad manifest')
+             except ManifestException as e:
+                 print(str(e))
+-                self.assert_(b in str(e), 'file name should be in error message: %s' % (str(e)))
++                self.assertTrue(b in str(e), 'file name should be in error message: %s' % (str(e)))
+ 
+ 
+ EXAMPLE1 = """<package>
+diff --git a/test/test_roslib_manifestlib.py b/test/test_roslib_manifestlib.py
+index 8f792919..8f360fc2 100644
+--- a/test/test_roslib_manifestlib.py
++++ b/test/test_roslib_manifestlib.py
+@@ -38,7 +38,7 @@ class RoslibManifestlibTest(unittest.TestCase):
+ 
+     def test_ManifestException(self):
+         from roslib.manifestlib import ManifestException
+-        self.assert_(isinstance(ManifestException(), Exception))
++        self.assertTrue(isinstance(ManifestException(), Exception))
+ 
+     def test_Platform(self):
+         from roslib.manifestlib import Platform
+@@ -55,27 +55,27 @@ class RoslibManifestlibTest(unittest.TestCase):
+                 pass
+ 
+         p = Platform('ubuntu', '8.04')
+-        self.assertEquals('ubuntu 8.04', str(p))
+-        self.assertEquals('ubuntu 8.04', repr(p))
++        self.assertEqual('ubuntu 8.04', str(p))
++        self.assertEqual('ubuntu 8.04', repr(p))
+ 
+-        self.assertEquals('<platform os="ubuntu" version="8.04"/>', p.xml())
+-        self.assertEquals(p, Platform('ubuntu', '8.04'))
+-        self.assertEquals(p, Platform('ubuntu', '8.04', notes=None))
+-        self.assertNotEquals(p, Platform('ubuntu', '8.04', 'some notes'))
+-        self.assertNotEquals(p, 'foo')
+-        self.assertNotEquals(p, 1)
++        self.assertEqual('<platform os="ubuntu" version="8.04"/>', p.xml())
++        self.assertEqual(p, Platform('ubuntu', '8.04'))
++        self.assertEqual(p, Platform('ubuntu', '8.04', notes=None))
++        self.assertNotEqual(p, Platform('ubuntu', '8.04', 'some notes'))
++        self.assertNotEqual(p, 'foo')
++        self.assertNotEqual(p, 1)
+ 
+         # note: probably actually "osx"
+         p = Platform('OS X', '10.6', 'macports')
+-        self.assertEquals('OS X 10.6', str(p))
+-        self.assertEquals('OS X 10.6', repr(p))
++        self.assertEqual('OS X 10.6', str(p))
++        self.assertEqual('OS X 10.6', repr(p))
+ 
+-        self.assertEquals('<platform os="OS X" version="10.6" notes="macports"/>', p.xml())
+-        self.assertEquals(p, p)
+-        self.assertEquals(p, Platform('OS X', '10.6', 'macports'))
+-        self.assertNotEquals(p, Platform('OS X', '10.6'))
+-        self.assertNotEquals(p, 'foo')
+-        self.assertNotEquals(p, 1)
++        self.assertEqual('<platform os="OS X" version="10.6" notes="macports"/>', p.xml())
++        self.assertEqual(p, p)
++        self.assertEqual(p, Platform('OS X', '10.6', 'macports'))
++        self.assertNotEqual(p, Platform('OS X', '10.6'))
++        self.assertNotEqual(p, 'foo')
++        self.assertNotEqual(p, 1)
+ 
+     def test_Depend(self):
+         from roslib.manifestlib import Depend, StackDepend
+@@ -87,14 +87,14 @@ class RoslibManifestlibTest(unittest.TestCase):
+                 pass
+ 
+         d = Depend('roslib')
+-        self.assertEquals('roslib', str(d))
+-        self.assertEquals('roslib', repr(d))
++        self.assertEqual('roslib', str(d))
++        self.assertEqual('roslib', repr(d))
+ 
+-        self.assertEquals('<depend package="roslib" />', d.xml())
+-        self.assertEquals(d, Depend('roslib'))
+-        self.assertNotEquals(d, StackDepend('roslib'))
+-        self.assertNotEquals(d, Depend('roslib2'))
+-        self.assertNotEquals(d, 1)
++        self.assertEqual('<depend package="roslib" />', d.xml())
++        self.assertEqual(d, Depend('roslib'))
++        self.assertNotEqual(d, StackDepend('roslib'))
++        self.assertNotEqual(d, Depend('roslib2'))
++        self.assertNotEqual(d, 1)
+ 
+     def test_StackDepend(self):
+         from roslib.manifestlib import Depend, StackDepend
+@@ -106,14 +106,14 @@ class RoslibManifestlibTest(unittest.TestCase):
+                 pass
+ 
+         d = StackDepend('common')
+-        self.assertEquals('common', str(d))
+-        self.assertEquals('common', repr(d))
++        self.assertEqual('common', str(d))
++        self.assertEqual('common', repr(d))
+ 
+-        self.assertEquals('<depend stack="common" />', d.xml())
+-        self.assertEquals(d, StackDepend('common'))
+-        self.assertNotEquals(d, Depend('common'))
+-        self.assertNotEquals(d, StackDepend('common2'))
+-        self.assertNotEquals(d, 1)
++        self.assertEqual('<depend stack="common" />', d.xml())
++        self.assertEqual(d, StackDepend('common'))
++        self.assertNotEqual(d, Depend('common'))
++        self.assertNotEqual(d, StackDepend('common2'))
++        self.assertNotEqual(d, 1)
+ 
+     def test_ROSDep(self):
+         from roslib.manifestlib import ROSDep
+@@ -125,7 +125,7 @@ class RoslibManifestlibTest(unittest.TestCase):
+                 pass
+ 
+         rd = ROSDep('python')
+-        self.assertEquals('<rosdep name="python" />', rd.xml())
++        self.assertEqual('<rosdep name="python" />', rd.xml())
+ 
+     def test_VersionControl(self):
+         from roslib.manifestlib import VersionControl
+@@ -147,50 +147,50 @@ class RoslibManifestlibTest(unittest.TestCase):
+         ]
+         for type_, url, xml in tests:
+             vc = VersionControl(type_, url)
+-            self.assertEquals(type_, vc.type)
+-            self.assertEquals(url, vc.url)
+-            self.assertEquals(xml, vc.xml())
++            self.assertEqual(type_, vc.type)
++            self.assertEqual(url, vc.url)
++            self.assertEqual(xml, vc.xml())
+ 
+     def _subtest_parse_example1(self, m):
+         from roslib.manifestlib import _Manifest
+-        self.assert_(isinstance(m, _Manifest))
+-        self.assertEquals('a brief description', m.brief)
+-        self.assertEquals('Line 1\nLine 2', m.description.strip())
+-        self.assertEquals('The authors\ngo here', m.author.strip())
+-        self.assertEquals('Public Domain\nwith other stuff', m.license.strip())
+-        self.assertEquals('http://pr.willowgarage.com/package/', m.url)
+-        self.assertEquals('http://www.willowgarage.com/files/willowgarage/robot10.jpg', m.logo)
++        self.assertTrue(isinstance(m, _Manifest))
++        self.assertEqual('a brief description', m.brief)
++        self.assertEqual('Line 1\nLine 2', m.description.strip())
++        self.assertEqual('The authors\ngo here', m.author.strip())
++        self.assertEqual('Public Domain\nwith other stuff', m.license.strip())
++        self.assertEqual('http://pr.willowgarage.com/package/', m.url)
++        self.assertEqual('http://www.willowgarage.com/files/willowgarage/robot10.jpg', m.logo)
+         dpkgs = [d.package for d in m.depends]
+-        self.assertEquals({'pkgname', 'common'}, set(dpkgs))
++        self.assertEqual({'pkgname', 'common'}, set(dpkgs))
+         rdpkgs = [d.name for d in m.rosdeps]
+-        self.assertEquals({'python', 'bar', 'baz'}, set(rdpkgs))
++        self.assertEqual({'python', 'bar', 'baz'}, set(rdpkgs))
+         for p in m.platforms:
+             if p.os == 'ubuntu':
+-                self.assertEquals('8.04', p.version)
+-                self.assertEquals('', p.notes)
++                self.assertEqual('8.04', p.version)
++                self.assertEqual('', p.notes)
+             elif p.os == 'OS X':
+-                self.assertEquals('10.6', p.version)
+-                self.assertEquals('macports', p.notes)
++                self.assertEqual('10.6', p.version)
++                self.assertEqual('macports', p.notes)
+             else:
+                 self.fail('unknown platform '+str(p))
+ 
+     def _subtest_parse_stack_example1(self, m):
+         from roslib.manifestlib import _Manifest
+-        self.assert_(isinstance(m, _Manifest))
+-        self.assertEquals('stack', m._type)
+-        self.assertEquals('a brief description', m.brief)
+-        self.assertEquals('Line 1\nLine 2', m.description.strip())
+-        self.assertEquals('The authors\ngo here', m.author.strip())
+-        self.assertEquals('Public Domain\nwith other stuff', m.license.strip())
+-        self.assertEquals('http://ros.org/stack/', m.url)
+-        self.assertEquals('http://www.willowgarage.com/files/willowgarage/robot10.jpg', m.logo)
++        self.assertTrue(isinstance(m, _Manifest))
++        self.assertEqual('stack', m._type)
++        self.assertEqual('a brief description', m.brief)
++        self.assertEqual('Line 1\nLine 2', m.description.strip())
++        self.assertEqual('The authors\ngo here', m.author.strip())
++        self.assertEqual('Public Domain\nwith other stuff', m.license.strip())
++        self.assertEqual('http://ros.org/stack/', m.url)
++        self.assertEqual('http://www.willowgarage.com/files/willowgarage/robot10.jpg', m.logo)
+         dpkgs = [d.stack for d in m.depends]
+-        self.assertEquals({'stackname', 'common'}, set(dpkgs))
+-        self.assertEquals([], m.rosdeps)
+-        self.assertEquals([], m.exports)
++        self.assertEqual({'stackname', 'common'}, set(dpkgs))
++        self.assertEqual([], m.rosdeps)
++        self.assertEqual([], m.exports)
+ 
+     def _subtest_parse_stack_version(self, m):
+-        self.assertEquals('1.2.3', m.version)
++        self.assertEqual('1.2.3', m.version)
+ 
+     def test_parse_example1_file(self):
+         from roslib.manifestlib import parse_file, _Manifest
+@@ -212,9 +212,9 @@ class RoslibManifestlibTest(unittest.TestCase):
+         from roslib.manifestlib import _Manifest
+         m = _Manifest()
+         # check defaults
+-        self.assertEquals('package', m._type)
++        self.assertEqual('package', m._type)
+         m = _Manifest('stack')
+-        self.assertEquals('stack', m._type)
++        self.assertEqual('stack', m._type)
+ 
+     def test_Manifest_str(self):
+         # just make sure it doesn't crash
+@@ -243,7 +243,7 @@ class RoslibManifestlibTest(unittest.TestCase):
+                 self.fail('parse should have failed on bad manifest')
+             except ManifestException as e:
+                 print(str(e))
+-                self.assert_(b in str(e), 'file name should be in error message [%s]' % (str(e)))
++                self.assertTrue(b in str(e), 'file name should be in error message [%s]' % (str(e)))
+ 
+ 
+ EXAMPLE1 = """<package>
+diff --git a/test/test_roslib_names.py b/test/test_roslib_names.py
+index 751d17b8..b4b2328c 100644
+--- a/test/test_roslib_names.py
++++ b/test/test_roslib_names.py
+@@ -49,31 +49,31 @@ class NamesTest(unittest.TestCase):
+ 
+         try:
+             sys.argv = []
+-            self.assertEquals('/', roslib.names.get_ros_namespace())
+-            self.assertEquals('/', roslib.names.get_ros_namespace(argv=[]))
+-            self.assertEquals('/', roslib.names.get_ros_namespace(env={}))
+-            self.assertEquals('/', roslib.names.get_ros_namespace(env={}, argv=[]))
++            self.assertEqual('/', roslib.names.get_ros_namespace())
++            self.assertEqual('/', roslib.names.get_ros_namespace(argv=[]))
++            self.assertEqual('/', roslib.names.get_ros_namespace(env={}))
++            self.assertEqual('/', roslib.names.get_ros_namespace(env={}, argv=[]))
+ 
+             os.environ['ROS_NAMESPACE'] = 'unresolved'
+-            self.assertEquals('/unresolved/', roslib.names.get_ros_namespace())
+-            self.assertEquals('/unresolved/', roslib.names.get_ros_namespace(env={'ROS_NAMESPACE': 'unresolved'}))
++            self.assertEqual('/unresolved/', roslib.names.get_ros_namespace())
++            self.assertEqual('/unresolved/', roslib.names.get_ros_namespace(env={'ROS_NAMESPACE': 'unresolved'}))
+             sys.argv = ['foo', '__ns:=unresolved_override']
+-            self.assertEquals('/unresolved_override/', roslib.names.get_ros_namespace(env={'ROS_NAMESPACE': 'unresolved'}))
+-            self.assertEquals('/override2/', roslib.names.get_ros_namespace(env={'ROS_NAMESPACE': 'unresolved'}, argv=['foo', '__ns:=override2']))
++            self.assertEqual('/unresolved_override/', roslib.names.get_ros_namespace(env={'ROS_NAMESPACE': 'unresolved'}))
++            self.assertEqual('/override2/', roslib.names.get_ros_namespace(env={'ROS_NAMESPACE': 'unresolved'}, argv=['foo', '__ns:=override2']))
+ 
+             sys.argv = []
+             os.environ['ROS_NAMESPACE'] = '/resolved/'
+-            self.assertEquals('/resolved/', roslib.names.get_ros_namespace())
+-            self.assertEquals('/resolved/', roslib.names.get_ros_namespace(env={'ROS_NAMESPACE': '/resolved'}))
++            self.assertEqual('/resolved/', roslib.names.get_ros_namespace())
++            self.assertEqual('/resolved/', roslib.names.get_ros_namespace(env={'ROS_NAMESPACE': '/resolved'}))
+ 
+             del os.environ['ROS_NAMESPACE']
+ 
+             sys.argv = ['foo', '__ns:=unresolved_ns']
+-            self.assertEquals('/unresolved_ns/', roslib.names.get_ros_namespace())
+-            self.assertEquals('/unresolved_ns2/', roslib.names.get_ros_namespace(argv=['foo', '__ns:=unresolved_ns2']))
++            self.assertEqual('/unresolved_ns/', roslib.names.get_ros_namespace())
++            self.assertEqual('/unresolved_ns2/', roslib.names.get_ros_namespace(argv=['foo', '__ns:=unresolved_ns2']))
+             sys.argv = ['foo', '__ns:=/resolved_ns/']
+-            self.assertEquals('/resolved_ns/', roslib.names.get_ros_namespace())
+-            self.assertEquals('/resolved_ns2/', roslib.names.get_ros_namespace(argv=['foo', '__ns:=resolved_ns2']))
++            self.assertEqual('/resolved_ns/', roslib.names.get_ros_namespace())
++            self.assertEqual('/resolved_ns2/', roslib.names.get_ros_namespace(argv=['foo', '__ns:=resolved_ns2']))
+         finally:
+             sys.argv = sysargv
+ 
+@@ -91,12 +91,12 @@ class NamesTest(unittest.TestCase):
+             except ValueError:
+                 pass
+ 
+-        self.assertEquals('/foo/', make_global_ns('foo'))
+-        self.assertEquals('/', make_global_ns(''))
+-        self.assertEquals('/foo/', make_global_ns('/foo'))
+-        self.assertEquals('/foo/', make_global_ns('/foo/'))
+-        self.assertEquals('/foo/bar/', make_global_ns('/foo/bar'))
+-        self.assertEquals('/foo/bar/', make_global_ns('/foo/bar/'))
++        self.assertEqual('/foo/', make_global_ns('foo'))
++        self.assertEqual('/', make_global_ns(''))
++        self.assertEqual('/foo/', make_global_ns('/foo'))
++        self.assertEqual('/foo/', make_global_ns('/foo/'))
++        self.assertEqual('/foo/bar/', make_global_ns('/foo/bar'))
++        self.assertEqual('/foo/bar/', make_global_ns('/foo/bar/'))
+ 
+     def test_is_global(self):
+         try:
+@@ -106,10 +106,10 @@ class NamesTest(unittest.TestCase):
+             pass
+         tests = ['/', '/global', '/global2']
+         for t in tests:
+-            self.assert_(roslib.names.is_global(t))
++            self.assertTrue(roslib.names.is_global(t))
+         fails = ['', 'not_global', 'not/global']
+         for t in fails:
+-            self.failIf(roslib.names.is_global(t))
++            self.assertFalse(roslib.names.is_global(t))
+ 
+     def test_is_private(self):
+         try:
+@@ -119,10 +119,10 @@ class NamesTest(unittest.TestCase):
+             pass
+         tests = ['~name', '~name/sub']
+         for t in tests:
+-            self.assert_(roslib.names.is_private(t))
++            self.assertTrue(roslib.names.is_private(t))
+         fails = ['', 'not_private', 'not/private', 'not/~private', '/not/~private']
+         for t in fails:
+-            self.failIf(roslib.names.is_private(t))
++            self.assertFalse(roslib.names.is_private(t))
+ 
+     def test_namespace(self):
+         from roslib.names import namespace
+@@ -136,88 +136,88 @@ class NamesTest(unittest.TestCase):
+             self.fail('None')
+         except ValueError:
+             pass
+-        self.assertEquals('/', namespace(''))
+-        self.assertEquals('/', namespace('/'))
+-        self.assertEquals('/', namespace('/foo'))
+-        self.assertEquals('/', namespace('/foo/'))
+-        self.assertEquals('/foo/', namespace('/foo/bar'))
+-        self.assertEquals('/foo/', namespace('/foo/bar/'))
+-        self.assertEquals('/foo/bar/', namespace('/foo/bar/baz'))
+-        self.assertEquals('/foo/bar/', namespace('/foo/bar/baz/'))
++        self.assertEqual('/', namespace(''))
++        self.assertEqual('/', namespace('/'))
++        self.assertEqual('/', namespace('/foo'))
++        self.assertEqual('/', namespace('/foo/'))
++        self.assertEqual('/foo/', namespace('/foo/bar'))
++        self.assertEqual('/foo/', namespace('/foo/bar/'))
++        self.assertEqual('/foo/bar/', namespace('/foo/bar/baz'))
++        self.assertEqual('/foo/bar/', namespace('/foo/bar/baz/'))
+ 
+         # unicode tests
+-        self.assertEquals(u'/', namespace(u''))
+-        self.assertEquals(u'/', namespace(u'/'))
+-        self.assertEquals(u'/foo/bar/', namespace(u'/foo/bar/baz/'))
++        self.assertEqual(u'/', namespace(u''))
++        self.assertEqual(u'/', namespace(u'/'))
++        self.assertEqual(u'/foo/bar/', namespace(u'/foo/bar/baz/'))
+ 
+     def test_nsjoin(self):
+         from roslib.names import ns_join
+ 
+         # private and global names cannot be joined
+-        self.assertEquals('~name', ns_join('/foo', '~name'))
+-        self.assertEquals('/name', ns_join('/foo', '/name'))
+-        self.assertEquals('~name', ns_join('~', '~name'))
+-        self.assertEquals('/name', ns_join('/', '/name'))
++        self.assertEqual('~name', ns_join('/foo', '~name'))
++        self.assertEqual('/name', ns_join('/foo', '/name'))
++        self.assertEqual('~name', ns_join('~', '~name'))
++        self.assertEqual('/name', ns_join('/', '/name'))
+ 
+         # ns can be '~' or '/'
+-        self.assertEquals('~name', ns_join('~', 'name'))
+-        self.assertEquals('/name', ns_join('/', 'name'))
++        self.assertEqual('~name', ns_join('~', 'name'))
++        self.assertEqual('/name', ns_join('/', 'name'))
+ 
+-        self.assertEquals('/ns/name', ns_join('/ns', 'name'))
+-        self.assertEquals('/ns/name', ns_join('/ns/', 'name'))
+-        self.assertEquals('/ns/ns2/name', ns_join('/ns', 'ns2/name'))
+-        self.assertEquals('/ns/ns2/name', ns_join('/ns/', 'ns2/name'))
++        self.assertEqual('/ns/name', ns_join('/ns', 'name'))
++        self.assertEqual('/ns/name', ns_join('/ns/', 'name'))
++        self.assertEqual('/ns/ns2/name', ns_join('/ns', 'ns2/name'))
++        self.assertEqual('/ns/ns2/name', ns_join('/ns/', 'ns2/name'))
+ 
+         # allow ns to be empty
+-        self.assertEquals('name', ns_join('', 'name'))
++        self.assertEqual('name', ns_join('', 'name'))
+ 
+     def test_load_mappings(self):
+         from roslib.names import load_mappings
+-        self.assertEquals({}, load_mappings([]))
+-        self.assertEquals({}, load_mappings(['foo']))
+-        self.assertEquals({}, load_mappings([':=']))
+-        self.assertEquals({}, load_mappings([':=:=']))
+-        self.assertEquals({}, load_mappings(['f:=']))
+-        self.assertEquals({}, load_mappings([':=b']))
+-        self.assertEquals({}, load_mappings(['foo:=bar:=baz']))
++        self.assertEqual({}, load_mappings([]))
++        self.assertEqual({}, load_mappings(['foo']))
++        self.assertEqual({}, load_mappings([':=']))
++        self.assertEqual({}, load_mappings([':=:=']))
++        self.assertEqual({}, load_mappings(['f:=']))
++        self.assertEqual({}, load_mappings([':=b']))
++        self.assertEqual({}, load_mappings(['foo:=bar:=baz']))
+         # should ignore node param assignments
+-        self.assertEquals({}, load_mappings(['_foo:=bar']))
++        self.assertEqual({}, load_mappings(['_foo:=bar']))
+ 
+-        self.assertEquals({'foo': 'bar'}, load_mappings(['foo:=bar']))
++        self.assertEqual({'foo': 'bar'}, load_mappings(['foo:=bar']))
+         # should allow double-underscore names
+-        self.assertEquals({'__foo': 'bar'}, load_mappings(['__foo:=bar']))
+-        self.assertEquals({'foo': 'bar'}, load_mappings(['./f', '-x', '--blah', 'foo:=bar']))
+-        self.assertEquals({'a': '1', 'b': '2', 'c': '3'}, load_mappings(['c:=3', 'c:=', ':=3', 'a:=1', 'b:=2']))
++        self.assertEqual({'__foo': 'bar'}, load_mappings(['__foo:=bar']))
++        self.assertEqual({'foo': 'bar'}, load_mappings(['./f', '-x', '--blah', 'foo:=bar']))
++        self.assertEqual({'a': '1', 'b': '2', 'c': '3'}, load_mappings(['c:=3', 'c:=', ':=3', 'a:=1', 'b:=2']))
+ 
+     def test_resource_name(self):
+         from roslib.names import resource_name
+-        self.assertEquals('foo/bar', resource_name('foo', 'bar'))
+-        self.assertEquals('bar', resource_name('foo', 'bar', my_pkg='foo'))
+-        self.assertEquals('foo/bar', resource_name('foo', 'bar', my_pkg='bar'))
+-        self.assertEquals('foo/bar', resource_name('foo', 'bar', my_pkg=''))
+-        self.assertEquals('foo/bar', resource_name('foo', 'bar', my_pkg=None))
++        self.assertEqual('foo/bar', resource_name('foo', 'bar'))
++        self.assertEqual('bar', resource_name('foo', 'bar', my_pkg='foo'))
++        self.assertEqual('foo/bar', resource_name('foo', 'bar', my_pkg='bar'))
++        self.assertEqual('foo/bar', resource_name('foo', 'bar', my_pkg=''))
++        self.assertEqual('foo/bar', resource_name('foo', 'bar', my_pkg=None))
+ 
+     def test_resource_name_base(self):
+         from roslib.names import resource_name_base
+-        self.assertEquals('', resource_name_base(''))
+-        self.assertEquals('bar', resource_name_base('bar'))
+-        self.assertEquals('bar', resource_name_base('foo/bar'))
+-        self.assertEquals('bar', resource_name_base('/bar'))
+-        self.assertEquals('', resource_name_base('foo/'))
++        self.assertEqual('', resource_name_base(''))
++        self.assertEqual('bar', resource_name_base('bar'))
++        self.assertEqual('bar', resource_name_base('foo/bar'))
++        self.assertEqual('bar', resource_name_base('/bar'))
++        self.assertEqual('', resource_name_base('foo/'))
+ 
+     def test_resource_name_package(self):
+         from roslib.names import resource_name_package
+-        self.assertEquals(None, resource_name_package(''))
+-        self.assertEquals(None, resource_name_package('foo'))
+-        self.assertEquals('foo', resource_name_package('foo/'))
+-        self.assertEquals('foo', resource_name_package('foo/bar'))
++        self.assertEqual(None, resource_name_package(''))
++        self.assertEqual(None, resource_name_package('foo'))
++        self.assertEqual('foo', resource_name_package('foo/'))
++        self.assertEqual('foo', resource_name_package('foo/bar'))
+ 
+     def test_package_resource_name(self):
+         from roslib.names import package_resource_name
+-        self.assertEquals(('', ''), package_resource_name(''))
+-        self.assertEquals(('', 'foo'), package_resource_name('foo'))
+-        self.assertEquals(('foo', 'bar'), package_resource_name('foo/bar'))
+-        self.assertEquals(('foo', ''), package_resource_name('foo/'))
++        self.assertEqual(('', ''), package_resource_name(''))
++        self.assertEqual(('', 'foo'), package_resource_name('foo'))
++        self.assertEqual(('foo', 'bar'), package_resource_name('foo/bar'))
++        self.assertEqual(('foo', ''), package_resource_name('foo/'))
+         try:
+             # only allowed single separator
+             package_resource_name('foo/bar/baz')
+@@ -232,10 +232,10 @@ class NamesTest(unittest.TestCase):
+                     '~name', '/name',
+                     '1name', 'foo\\']
+         for f in failures:
+-            self.failIf(is_legal_resource_name(f), f)
++            self.assertFalse(is_legal_resource_name(f), f)
+         tests = ['f', 'f1', 'f_', 'foo', 'foo_bar', 'foo/bar', 'roslib/Log']
+         for t in tests:
+-            self.assert_(is_legal_resource_name(t), t)
++            self.assertTrue(is_legal_resource_name(t), t)
+ 
+     def test_is_legal_name(self):
+         from roslib.names import is_legal_name
+@@ -245,14 +245,14 @@ class NamesTest(unittest.TestCase):
+                     'f//b',
+                     '1name', 'foo\\']
+         for f in failures:
+-            self.failIf(is_legal_name(f), f)
++            self.assertFalse(is_legal_name(f), f)
+         tests = ['',
+                  'f', 'f1', 'f_', 'f/', 'foo', 'foo_bar', 'foo/bar', 'foo/bar/baz',
+                  '~f', '~a/b/c',
+                  '~/f',
+                  '/a/b/c/d', '/']
+         for t in tests:
+-            self.assert_(is_legal_name(t), '[%s]' % t)
++            self.assertTrue(is_legal_name(t), '[%s]' % t)
+ 
+     def test_is_legal_base_name(self):
+         from roslib.names import is_legal_base_name
+@@ -263,10 +263,10 @@ class NamesTest(unittest.TestCase):
+                     ' name', 'name ',
+                     '1name', 'foo\\']
+         for f in failures:
+-            self.failIf(is_legal_base_name(f), f)
++            self.assertFalse(is_legal_base_name(f), f)
+         tests = ['f', 'f1', 'f_', 'foo', 'foo_bar']
+         for t in tests:
+-            self.assert_(is_legal_base_name(t), '[%s]' % t)
++            self.assertTrue(is_legal_base_name(t), '[%s]' % t)
+ 
+     def test_is_legal_resource_base_name(self):
+         from roslib.names import is_legal_resource_base_name
+@@ -278,10 +278,10 @@ class NamesTest(unittest.TestCase):
+                     ' name', 'name ',
+                     '1name', 'foo\\']
+         for f in failures:
+-            self.failIf(is_legal_resource_base_name(f), f)
++            self.assertFalse(is_legal_resource_base_name(f), f)
+         tests = ['f', 'f1', 'f_', 'foo', 'foo_bar']
+         for t in tests:
+-            self.assert_(is_legal_resource_base_name(t), '[%s]' % t)
++            self.assertTrue(is_legal_resource_base_name(t), '[%s]' % t)
+ 
+     def test_resolve_name(self):
+         from roslib.names import resolve_name
+@@ -325,4 +325,4 @@ class NamesTest(unittest.TestCase):
+ 
+             ]
+         for name, node_name, v in tests:
+-            self.assertEquals(v, resolve_name(name, node_name))
++            self.assertEqual(v, resolve_name(name, node_name))
+diff --git a/test/test_roslib_packages.py b/test/test_roslib_packages.py
+index 71576209..eec0e3e2 100644
+--- a/test/test_roslib_packages.py
++++ b/test/test_roslib_packages.py
+@@ -40,17 +40,17 @@ class RoslibPackagesTest(unittest.TestCase):
+         import roslib.packages
+         d = roslib.packages.get_pkg_dir('roslib')
+         p = os.path.join(d, 'test', 'fake_node.py')
+-        self.assertEquals([p], roslib.packages.find_node('roslib', 'fake_node.py'))
++        self.assertEqual([p], roslib.packages.find_node('roslib', 'fake_node.py'))
+ 
+-        self.assertEquals([], roslib.packages.find_node('roslib', 'not_a_node'))
++        self.assertEqual([], roslib.packages.find_node('roslib', 'not_a_node'))
+ 
+     def test_get_pkg_dir(self):
+         import roslib.packages
+         import roslib.rospack
+         path = os.path.normpath(roslib.rospack.rospackexec(['find', 'roslib']))
+-        self.assertEquals(path, roslib.packages.get_pkg_dir('roslib'))
++        self.assertEqual(path, roslib.packages.get_pkg_dir('roslib'))
+         try:
+-            self.assertEquals(path, roslib.packages.get_pkg_dir('fake_roslib'))
++            self.assertEqual(path, roslib.packages.get_pkg_dir('fake_roslib'))
+             self.fail('should have raised')
+         except roslib.packages.InvalidROSPkgException:
+             pass
+@@ -61,13 +61,13 @@ class RoslibPackagesTest(unittest.TestCase):
+ 
+         res = roslib.packages.get_dir_pkg(path)
+         res = (os.path.realpath(res[0]), res[1])
+-        self.assertEquals((path, 'roslib'), res)
++        self.assertEqual((path, 'roslib'), res)
+         res = roslib.packages.get_dir_pkg(os.path.join(path, 'test'))
+         res = (os.path.realpath(res[0]), res[1])
+-        self.assertEquals((path, 'roslib'), res)
++        self.assertEqual((path, 'roslib'), res)
+ 
+         # must fail on parent of roslib
+-        self.assertEquals((None, None), roslib.packages.get_dir_pkg(os.path.dirname(path)))
++        self.assertEqual((None, None), roslib.packages.get_dir_pkg(os.path.dirname(path)))
+ 
+ 
+ def get_roslib_path():
+diff --git a/test/test_roslib_rosenv.py b/test/test_roslib_rosenv.py
+index d1891646..60da0bc3 100644
+--- a/test/test_roslib_rosenv.py
++++ b/test/test_roslib_rosenv.py
+@@ -40,8 +40,8 @@ class EnvTest(unittest.TestCase):
+ 
+     def test_get_ros_root(self):
+         from roslib.rosenv import get_ros_root
+-        self.assertEquals(None, get_ros_root(required=False, env={}))
+-        self.assertEquals(None, get_ros_root(False, {}))
++        self.assertEqual(None, get_ros_root(required=False, env={}))
++        self.assertEqual(None, get_ros_root(False, {}))
+         try:
+             get_ros_root(required=True, env={})
+             self.fail('get_ros_root should have failed')
+@@ -49,7 +49,7 @@ class EnvTest(unittest.TestCase):
+             pass
+ 
+         env = {'ROS_ROOT': '/fake/path'}
+-        self.assertEquals('/fake/path', get_ros_root(required=False, env=env))
++        self.assertEqual('/fake/path', get_ros_root(required=False, env=env))
+         try:
+             get_ros_root(required=True, env=env)
+             self.fail('get_ros_root should have failed')
+@@ -58,36 +58,36 @@ class EnvTest(unittest.TestCase):
+ 
+     def test_get_ros_package_path(self):
+         from roslib.rosenv import get_ros_package_path
+-        self.assertEquals(None, get_ros_package_path(required=False, env={}))
+-        self.assertEquals(None, get_ros_package_path(False, {}))
++        self.assertEqual(None, get_ros_package_path(required=False, env={}))
++        self.assertEqual(None, get_ros_package_path(False, {}))
+         try:
+             get_ros_package_path(required=True, env={})
+             self.fail('get_ros_package_path should have raised')
+         except Exception:
+             pass
+         env = {'ROS_PACKAGE_PATH': ':'}
+-        self.assertEquals(':', get_ros_package_path(True, env=env))
+-        self.assertEquals(':', get_ros_package_path(False, env=env))
++        self.assertEqual(':', get_ros_package_path(True, env=env))
++        self.assertEqual(':', get_ros_package_path(False, env=env))
+ 
+         # trip-wire tests. Cannot guarantee that ROS_PACKAGE_PATH is set
+         # to valid value on test machine, just make sure logic doesn't crash
+-        self.assertEquals(os.environ.get('ROS_PACKAGE_PATH', None), get_ros_package_path(required=False))
++        self.assertEqual(os.environ.get('ROS_PACKAGE_PATH', None), get_ros_package_path(required=False))
+ 
+     def test_get_ros_master_uri(self):
+         from roslib.rosenv import get_master_uri
+-        self.assertEquals(None, get_master_uri(required=False, env={}))
+-        self.assertEquals(None, get_master_uri(False, {}))
++        self.assertEqual(None, get_master_uri(required=False, env={}))
++        self.assertEqual(None, get_master_uri(False, {}))
+         try:
+             get_master_uri(required=True, env={})
+             self.fail('get_ros_package_path should have raised')
+         except Exception:
+             pass
+         env = {'ROS_MASTER_URI': 'http://localhost:1234'}
+-        self.assertEquals('http://localhost:1234', get_master_uri(True, env=env))
+-        self.assertEquals('http://localhost:1234', get_master_uri(False, env=env))
++        self.assertEqual('http://localhost:1234', get_master_uri(True, env=env))
++        self.assertEqual('http://localhost:1234', get_master_uri(False, env=env))
+ 
+         argv = ['__master:=http://localhost:5678']
+-        self.assertEquals('http://localhost:5678', get_master_uri(False, env=env, argv=argv))
++        self.assertEqual('http://localhost:5678', get_master_uri(False, env=env, argv=argv))
+ 
+         try:
+             argv = ['__master:=http://localhost:5678:=http://localhost:1234']
+@@ -104,4 +104,4 @@ class EnvTest(unittest.TestCase):
+             pass
+ 
+         # make sure test works with os.environ
+-        self.assertEquals(os.environ.get('ROS_MASTER_URI', None), get_master_uri(required=False))
++        self.assertEqual(os.environ.get('ROS_MASTER_URI', None), get_master_uri(required=False))
+diff --git a/test/test_roslib_stack_manifest.py b/test/test_roslib_stack_manifest.py
+index b7af386a..2cc699bd 100644
+--- a/test/test_roslib_stack_manifest.py
++++ b/test/test_roslib_stack_manifest.py
+@@ -42,21 +42,21 @@ class RoslibStackManifestTest(unittest.TestCase):
+ 
+     def _subtest_parse_stack_example1(self, m):
+         from roslib.manifestlib import _Manifest
+-        self.assert_(isinstance(m, _Manifest))
+-        self.assertEquals('stack', m._type)
+-        self.assertEquals('a brief description', m.brief)
+-        self.assertEquals('Line 1\nLine 2', m.description.strip())
+-        self.assertEquals('The authors\ngo here', m.author.strip())
+-        self.assertEquals('Public Domain\nwith other stuff', m.license.strip())
+-        self.assertEquals('http://ros.org/stack/', m.url)
+-        self.assertEquals('http://www.willowgarage.com/files/willowgarage/robot10.jpg', m.logo)
++        self.assertTrue(isinstance(m, _Manifest))
++        self.assertEqual('stack', m._type)
++        self.assertEqual('a brief description', m.brief)
++        self.assertEqual('Line 1\nLine 2', m.description.strip())
++        self.assertEqual('The authors\ngo here', m.author.strip())
++        self.assertEqual('Public Domain\nwith other stuff', m.license.strip())
++        self.assertEqual('http://ros.org/stack/', m.url)
++        self.assertEqual('http://www.willowgarage.com/files/willowgarage/robot10.jpg', m.logo)
+         dpkgs = [d.stack for d in m.depends]
+-        self.assertEquals({'stackname', 'common'}, set(dpkgs))
+-        self.assertEquals([], m.rosdeps)
+-        self.assertEquals([], m.exports)
++        self.assertEqual({'stackname', 'common'}, set(dpkgs))
++        self.assertEqual([], m.rosdeps)
++        self.assertEqual([], m.exports)
+ 
+     def _subtest_parse_stack_version(self, m):
+-        self.assertEquals('1.2.3', m.version)
++        self.assertEqual('1.2.3', m.version)
+ 
+     def test_parse_example1_file(self):
+         from roslib.stack_manifest import parse_file
+@@ -74,7 +74,7 @@ class RoslibStackManifestTest(unittest.TestCase):
+     def test_StackManifest(self):
+         from roslib.stack_manifest import StackManifest
+         m = StackManifest()
+-        self.assertEquals('stack', m._type)
++        self.assertEqual('stack', m._type)
+ 
+     def test_StackManifest_str(self):
+         # just make sure it doesn't crash
+diff --git a/test/test_roslib_stacks.py b/test/test_roslib_stacks.py
+index 774a3a6f..a782bbf9 100644
+--- a/test/test_roslib_stacks.py
++++ b/test/test_roslib_stacks.py
+@@ -44,7 +44,7 @@ class RoslibStacksTest(unittest.TestCase):
+         from roslib.stacks import list_stacks
+         # roslib can't depend on ros and therefore can't expect it being in the environment
+         # l = list_stacks()
+-        # self.assert_('ros' in l)
++        # self.assertTrue('ros' in l)
+ 
+         # test with env
+         test_dir = os.path.join(roslib.packages.get_pkg_dir('roslib'), 'test', 'stack_tests', 's1')
+@@ -54,31 +54,31 @@ class RoslibStacksTest(unittest.TestCase):
+         # ros stack not guaranteed to list anymore as ROS_ROOT may not be set
+         if 'ros' in val:
+             val.remove('ros')
+-        self.assertEquals({'foo', 'bar'}, val)
++        self.assertEqual({'foo', 'bar'}, val)
+ 
+     def test_list_stacks_by_path(self):
+         from roslib.stacks import list_stacks_by_path
+ 
+         # test with synthetic stacks
+         test_dir = os.path.join(roslib.packages.get_pkg_dir('roslib'), 'test', 'stack_tests')
+-        self.assertEquals({'bar', 'foo'}, set(list_stacks_by_path(test_dir)))
++        self.assertEqual({'bar', 'foo'}, set(list_stacks_by_path(test_dir)))
+ 
+         test_dir = os.path.join(roslib.packages.get_pkg_dir('roslib'), 'test', 'stack_tests', 's1')
+-        self.assertEquals({'bar', 'foo'}, set(list_stacks_by_path(test_dir)))
++        self.assertEqual({'bar', 'foo'}, set(list_stacks_by_path(test_dir)))
+ 
+         test_dir = os.path.join(roslib.packages.get_pkg_dir('roslib'), 'test', 'stack_tests', 's1', 'bar')
+-        self.assertEquals(['bar'], list_stacks_by_path(test_dir))
++        self.assertEqual(['bar'], list_stacks_by_path(test_dir))
+ 
+         # test symlink following
+ 
+         test_dir = os.path.join(roslib.packages.get_pkg_dir('roslib'), 'test', 'stack_tests2')
+-        self.assertEquals({'foo', 'bar'}, set(list_stacks_by_path(test_dir)))
++        self.assertEqual({'foo', 'bar'}, set(list_stacks_by_path(test_dir)))
+ 
+     def test_list_stacks_by_path_unary(self):
+         from roslib.stacks import list_stacks_by_path
+         # test with synthetic stacks
+         test_dir = os.path.join(roslib.packages.get_pkg_dir('roslib'), 'test', 'stack_tests_unary')
+-        self.assertEquals({'bar', 'foo', 'baz'}, set(list_stacks_by_path(test_dir)))
++        self.assertEqual({'bar', 'foo', 'baz'}, set(list_stacks_by_path(test_dir)))
+ 
+     def test_get_stack_dir_unary(self):
+         # now manipulate the environment to test precedence
+@@ -90,9 +90,9 @@ class RoslibStacksTest(unittest.TestCase):
+         try:
+             paths = [d]
+             os.environ[rospkg.environment.ROS_PACKAGE_PATH] = os.pathsep.join(paths)
+-            self.assertEquals(os.path.join(s1_d, 'foo'), roslib.stacks.get_stack_dir('foo'))
+-            self.assertEquals(os.path.join(s1_d, 'bar'), roslib.stacks.get_stack_dir('bar'))
+-            self.assertEquals(os.path.join(s1_d, 'baz'), roslib.stacks.get_stack_dir('baz'))
++            self.assertEqual(os.path.join(s1_d, 'foo'), roslib.stacks.get_stack_dir('foo'))
++            self.assertEqual(os.path.join(s1_d, 'bar'), roslib.stacks.get_stack_dir('bar'))
++            self.assertEqual(os.path.join(s1_d, 'baz'), roslib.stacks.get_stack_dir('baz'))
+         finally:
+             # restore rpp
+             if rpp is not None:
+@@ -123,13 +123,13 @@ class RoslibStacksTest(unittest.TestCase):
+             # - run multiple times to test caching
+             for i in range(2):
+                 stacks = roslib.stacks.list_stacks()
+-                self.assert_('foo' in stacks)
+-                self.assert_('bar' in stacks)
++                self.assertTrue('foo' in stacks)
++                self.assertTrue('bar' in stacks)
+ 
+                 foo_p = os.path.join(d, 's1', 'foo')
+                 bar_p = os.path.join(d, 's1', 'bar')
+-                self.assertEquals(foo_p, roslib.stacks.get_stack_dir('foo'))
+-                self.assertEquals(bar_p, roslib.stacks.get_stack_dir('bar'))
++                self.assertEqual(foo_p, roslib.stacks.get_stack_dir('foo'))
++                self.assertEqual(bar_p, roslib.stacks.get_stack_dir('bar'))
+ 
+             # - s2/s3/s1
+             print('s2/s3/s1')
+@@ -137,13 +137,13 @@ class RoslibStacksTest(unittest.TestCase):
+             paths = [os.path.join(d, p) for p in ['s2', 's3', 's1']]
+             os.environ[rospkg.environment.ROS_PACKAGE_PATH] = os.pathsep.join(paths)
+             stacks = roslib.stacks.list_stacks()
+-            self.assert_('foo' in stacks)
+-            self.assert_('bar' in stacks)
++            self.assertTrue('foo' in stacks)
++            self.assertTrue('bar' in stacks)
+ 
+             foo_p = os.path.join(d, 's2', 'foo')
+             bar_p = os.path.join(d, 's1', 'bar')
+-            self.assertEquals(foo_p, roslib.stacks.get_stack_dir('foo'))
+-            self.assertEquals(bar_p, roslib.stacks.get_stack_dir('bar'))
++            self.assertEqual(foo_p, roslib.stacks.get_stack_dir('foo'))
++            self.assertEqual(bar_p, roslib.stacks.get_stack_dir('bar'))
+         finally:
+             # restore rpp
+             if rpp is not None:
+@@ -159,8 +159,8 @@ class RoslibStacksTest(unittest.TestCase):
+         env[rospkg.environment.ROS_PACKAGE_PATH] = test_dir
+ 
+         from roslib.stacks import expand_to_packages
+-        self.assertEquals((['foo'], []), expand_to_packages(['foo'], env=env))
+-        self.assertEquals((['foo', 'bar'], []), expand_to_packages(['foo', 'bar'], env=env))
++        self.assertEqual((['foo'], []), expand_to_packages(['foo'], env=env))
++        self.assertEqual((['foo', 'bar'], []), expand_to_packages(['foo', 'bar'], env=env))
+ 
+     def test_expand_to_packages(self):
+         from roslib.stacks import expand_to_packages
+@@ -168,23 +168,23 @@ class RoslibStacksTest(unittest.TestCase):
+             # it's possible to accidentally pass in a sequence type
+             # like a string and get weird results, so check that we
+             # don't
+-            self.assertEquals(([], []), expand_to_packages('ros'))
++            self.assertEqual(([], []), expand_to_packages('ros'))
+             self.fail('expand_to_packages should only take in a list of strings')
+         except ValueError:
+             pass
+ 
+-        self.assertEquals(([], []), expand_to_packages([]))
+-        self.assertEquals((['rosmake', 'roslib', 'roslib'], []), expand_to_packages(['rosmake', 'roslib', 'roslib']))
+-        self.assertEquals(([], ['bogus_one', 'bogus_two']), expand_to_packages(['bogus_one', 'bogus_two']))
++        self.assertEqual(([], []), expand_to_packages([]))
++        self.assertEqual((['rosmake', 'roslib', 'roslib'], []), expand_to_packages(['rosmake', 'roslib', 'roslib']))
++        self.assertEqual(([], ['bogus_one', 'bogus_two']), expand_to_packages(['bogus_one', 'bogus_two']))
+ 
+         # this test case is no more valid in a package-only world
+         # TODO: setup directory tree so that this can be more precisely calculated
+         # valid, invalid = expand_to_packages(['ros', 'bogus_one'])
+-        # self.assertEquals(['bogus_one'], invalid)
++        # self.assertEqual(['bogus_one'], invalid)
+         # check = ['rosbuild', 'rosunit', 'roslib']
+         # print valid
+         # for c in check:
+-        #     self.assert_(c in valid, "expected [%s] to be in ros expansion"%c)
++        #     self.assertTrue(c in valid, "expected [%s] to be in ros expansion"%c)
+ 
+     def test_get_stack_version(self):
+         test_dir = os.path.join(get_test_path(), 'stack_tests', 's1')
+@@ -192,9 +192,9 @@ class RoslibStacksTest(unittest.TestCase):
+         env[rospkg.environment.ROS_PACKAGE_PATH] = test_dir
+ 
+         # REP 109: stack.xml has precedence over CMakeLists.txt, version is whitespace stripped
+-        self.assertEquals('1.6.0-manifest', roslib.stacks.get_stack_version('foo', env=env))
++        self.assertEqual('1.6.0-manifest', roslib.stacks.get_stack_version('foo', env=env))
+         # REP 109: test fallback to CMakeLists.txt version
+-        self.assertEquals('1.5.0-cmake', roslib.stacks.get_stack_version('bar', env=env))
++        self.assertEqual('1.5.0-cmake', roslib.stacks.get_stack_version('bar', env=env))
+ 
+         if 0:
+             test_dir = os.path.join(roslib.packages.get_pkg_dir('roslib'), 'test', 'stack_tests_unary')

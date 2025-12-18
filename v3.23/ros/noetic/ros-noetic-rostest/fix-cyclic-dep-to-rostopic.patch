@@ -1,0 +1,20 @@
+diff --git a/test/publishtest.test b/test/publishtest.test
+index 8e652c902..eb05c0ef0 100644
+--- a/test/publishtest.test
++++ b/test/publishtest.test
+@@ -1,12 +1,12 @@
+ <launch>
+ 
+-    <node pkg="rostopic" type="rostopic" name="freq_topic_pub" args="pub /frequent_topic std_msgs/Bool 'data: false' -r 10" />
+-    <node pkg="rostopic" type="rostopic" name="once_topic_pub" args="pub /once_topic std_msgs/Bool 'data: false' -1l" />
++    <node pkg="rostest" type="talker.py" name="freq_topic_pub"/>
++    <node pkg="rostest" type="publish_once.py" name="once_topic_pub"/>
+ 
+     <test test-name="publishtest_test" pkg="rostest" type="publishtest" time-limit="5.0" retry="3">
+         <rosparam>
+             topics:
+-              - name: /frequent_topic
++              - name: /chatter
+                 timeout: 2.
+               - name: /once_topic
+                 timeout: 2.

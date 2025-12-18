@@ -1,0 +1,20 @@
+diff --git a/test/multiple_boards.py b/test/multiple_boards.py
+index a726a70..e26f2e8 100644
+--- a/test/multiple_boards.py
++++ b/test/multiple_boards.py
+@@ -68,13 +68,13 @@ class TestMultipleBoards(unittest.TestCase):
+         l1_big = image_from_archive(archive, "left-0000.png")
+         r1_big = image_from_archive(archive, "right-0000.png")
+         epi_big = stereo_cal.epipolar_error_from_images(l1_big, r1_big)
+-        self.assert_(epi_big < 1.0, "Epipolar error for large checkerboard > 1.0. Error: %.2f" % epi_big)
++        self.assertTrue(epi_big < 1.0, "Epipolar error for large checkerboard > 1.0. Error: %.2f" % epi_big)
+ 
+         # Small checkerboard has larger error threshold for now
+         l1_sm = image_from_archive(archive, "left-0012-sm.png")
+         r1_sm = image_from_archive(archive, "right-0012-sm.png")
+         epi_sm =  stereo_cal.epipolar_error_from_images(l1_sm, r1_sm)
+-        self.assert_(epi_sm < 2.0, "Epipolar error for small checkerboard > 2.0. Error: %.2f" % epi_sm)
++        self.assertTrue(epi_sm < 2.0, "Epipolar error for small checkerboard > 2.0. Error: %.2f" % epi_sm)
+ 
+ 
+ 

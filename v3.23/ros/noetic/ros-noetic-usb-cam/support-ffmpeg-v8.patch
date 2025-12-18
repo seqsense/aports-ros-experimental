@@ -1,0 +1,37 @@
+diff --git a/src/usb_cam.cpp b/src/usb_cam.cpp
+index 57d6a61..91d3feb 100644
+--- a/src/usb_cam.cpp
++++ b/src/usb_cam.cpp
+@@ -493,12 +493,19 @@ void UsbCam::mjpeg2rgb(char *MJPEG, int len, char *RGB, int NumPixels)
+ 
+ #if LIBAVCODEC_VERSION_MAJOR > 52
+   int decoded_len;
+-  AVPacket avpkt;
++  AVPacket *avpkt_ptr = av_packet_alloc();
++  if (!avpkt_ptr)
++  {
++    ROS_ERROR("Error allocating packet.");
++    return;
++  }
++
++  AVPacket &avpkt = *avpkt_ptr;
+   //av_init_packet(&avpkt);
+ 
+   //avpkt.size = len;
+   //avpkt.data = (unsigned char*)MJPEG;
+-  av_init_packet(&avpkt);
++  //av_init_packet(&avpkt);
+   av_packet_from_data (&avpkt, (unsigned char*)MJPEG, len);
+   decoded_len = avcodec_send_packet(avcodec_context_, &avpkt);
+   //decoded_len = avcodec_decode_video2(avcodec_context_, avframe_camera_, &got_picture, &avpkt);
+@@ -1217,9 +1224,7 @@ void UsbCam::shutdown(void)
+ 
+   if (avcodec_context_)
+   {
+-    avcodec_close(avcodec_context_);
+-    av_free(avcodec_context_);
+-    avcodec_context_ = NULL;
++    avcodec_free_context(&avcodec_context_);
+   }
+   if (avframe_camera_)
+     av_free(avframe_camera_);

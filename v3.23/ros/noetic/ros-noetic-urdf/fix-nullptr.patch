@@ -1,0 +1,40 @@
+diff --git a/test/test_model_parser_initxml.cpp b/test/test_model_parser_initxml.cpp
+index 6acf9d8..0bd0f4a 100644
+--- a/test/test_model_parser_initxml.cpp
++++ b/test/test_model_parser_initxml.cpp
+@@ -58,7 +58,7 @@ TEST(model_parser_initxml, initstring_good)
+ TEST(model_parser_initxml, initxml_tinyxml_element_bad)
+ {
+   urdf::Model model;
+-  ASSERT_FALSE(model.initXml(reinterpret_cast<TiXmlElement *>(NULL)));
++  ASSERT_FALSE(model.initXml(static_cast<TiXmlElement *>(nullptr)));
+ }
+ 
+ TEST(model_parser_initxml, initxml_tinyxml_element_good)
+@@ -73,7 +73,7 @@ TEST(model_parser_initxml, initxml_tinyxml_element_good)
+ TEST(model_parser_initxml, initxml_tinyxml_document_bad)
+ {
+   urdf::Model model;
+-  ASSERT_FALSE(model.initXml(reinterpret_cast<TiXmlDocument *>(NULL)));
++  ASSERT_FALSE(model.initXml(static_cast<TiXmlDocument *>(nullptr)));
+ }
+ 
+ TEST(model_parser_initxml, initxml_tinyxml_document_good)
+@@ -88,7 +88,7 @@ TEST(model_parser_initxml, initxml_tinyxml_document_good)
+ TEST(model_parser_initxml, initxml_tinyxml2_element_bad)
+ {
+   urdf::Model model;
+-  ASSERT_FALSE(model.initXml(reinterpret_cast<tinyxml2::XMLElement *>(NULL)));
++  ASSERT_FALSE(model.initXml(static_cast<tinyxml2::XMLElement *>(nullptr)));
+ }
+ 
+ TEST(model_parser_initxml, initxml_tinyxml2_element_good)
+@@ -103,7 +103,7 @@ TEST(model_parser_initxml, initxml_tinyxml2_element_good)
+ TEST(model_parser_initxml, initxml_tinyxml2_document_bad)
+ {
+   urdf::Model model;
+-  ASSERT_FALSE(model.initXml(reinterpret_cast<tinyxml2::XMLDocument *>(NULL)));
++  ASSERT_FALSE(model.initXml(static_cast<tinyxml2::XMLDocument *>(nullptr)));
+ }
+ 
+ TEST(model_parser_initxml, initxml_tinyxml2_document_good)

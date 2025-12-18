@@ -1,0 +1,22 @@
+diff --git a/src/testing/unit_tests.cpp b/src/testing/unit_tests.cpp
+index a3bf2c6..270d1f8 100644
+--- a/src/testing/unit_tests.cpp
++++ b/src/testing/unit_tests.cpp
+@@ -146,12 +146,15 @@ int main(int argc, char** argv) {
+     graph->addNode(measurement, node_pose);
+     EXPECT_TRUE (graph->writeBinary("test.graph"));
+     delete graph;
++
++    ScanGraph graph2;
++    EXPECT_TRUE (graph2.readBinary("test.graph"));
+   // ------------------------------------------------------------
+   // graph read file test
+   } else if (test_name == "ReadGraph") {
+     // not really meaningful, see better test in "test_scans.cpp"
+-    ScanGraph graph;
+-    EXPECT_TRUE (graph.readBinary("test.graph"));
++    // ScanGraph graph;
++    // EXPECT_TRUE (graph.readBinary("test.graph"));
+   // ------------------------------------------------------------
+ 
+   } else if (test_name == "StampedTree") {

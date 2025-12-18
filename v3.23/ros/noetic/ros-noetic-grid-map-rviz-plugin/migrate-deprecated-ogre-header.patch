@@ -1,0 +1,24 @@
+diff --git a/include/grid_map_rviz_plugin/GridMapVisual.hpp b/include/grid_map_rviz_plugin/GridMapVisual.hpp
+index 7409417..79ec1ce 100644
+--- a/include/grid_map_rviz_plugin/GridMapVisual.hpp
++++ b/include/grid_map_rviz_plugin/GridMapVisual.hpp
+@@ -8,18 +8,11 @@
+ 
+ #pragma once
+ 
+-#include <OGRE/OgreMaterial.h>
+-#include <OGRE/OgreSharedPtr.h>
++#include <Ogre.h>
+ 
+ #include <grid_map_msgs/GridMap.h>
+ #include <grid_map_core/GridMap.hpp>
+ 
+-namespace Ogre {
+-class Vector3;
+-class Quaternion;
+-class ManualObject;
+-class ColourValue;
+-}  // namespace Ogre
+ 
+ namespace rviz {
+ class BillboardLine;

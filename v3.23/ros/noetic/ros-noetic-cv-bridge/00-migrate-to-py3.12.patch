@@ -1,0 +1,77 @@
+diff --git a/test/conversions.py b/test/conversions.py
+index bddc178..5f4b51a 100644
+--- a/test/conversions.py
++++ b/test/conversions.py
+@@ -36,13 +36,13 @@ class TestConversions(unittest.TestCase):
+                         rosmsg = cvb_en.cv2_to_imgmsg(original)
+                         newimg = cvb_de.imgmsg_to_cv2(rosmsg)
+ 
+-                        self.assert_(original.dtype == newimg.dtype)
++                        self.assertTrue(original.dtype == newimg.dtype)
+                         if channels == 1:
+                             # in that case, a gray image has a shape of size 2
+-                            self.assert_(original.shape[:2] == newimg.shape[:2])
++                            self.assertTrue(original.shape[:2] == newimg.shape[:2])
+                         else:
+-                            self.assert_(original.shape == newimg.shape)
+-                        self.assert_(len(original.tostring()) == len(newimg.tostring()))
++                            self.assertTrue(original.shape == newimg.shape)
++                        self.assertTrue(len(original.tostring()) == len(newimg.tostring()))
+ 
+     def test_encode_decode_cv2_compressed(self):
+         import numpy as np
+@@ -65,13 +65,13 @@ class TestConversions(unittest.TestCase):
+                             original = np.uint8(np.random.randint(0, 255, size=(h, w, channels)))
+                         compress_rosmsg = cvb_en.cv2_to_compressed_imgmsg(original, f)
+                         newimg          = cvb_de.compressed_imgmsg_to_cv2(compress_rosmsg)
+-                        self.assert_(original.dtype == newimg.dtype)
++                        self.assertTrue(original.dtype == newimg.dtype)
+                         if channels == 1:
+                             # in that case, a gray image has a shape of size 2
+-                            self.assert_(original.shape[:2] == newimg.shape[:2])
++                            self.assertTrue(original.shape[:2] == newimg.shape[:2])
+                         else:
+-                            self.assert_(original.shape == newimg.shape)
+-                        self.assert_(len(original.tostring()) == len(newimg.tostring()))
++                            self.assertTrue(original.shape == newimg.shape)
++                        self.assertTrue(len(original.tostring()) == len(newimg.tostring()))
+ 
+     def test_endianness(self):
+         br = CvBridge()
+@@ -80,8 +80,8 @@ class TestConversions(unittest.TestCase):
+         dtype = dtype.newbyteorder('>')
+         img = np.random.randint(0, 255, size=(30, 40))
+         msg = br.cv2_to_imgmsg(img.astype(dtype))
+-        self.assert_(msg.is_bigendian == True)
+-        self.assert_((br.imgmsg_to_cv2(msg) == img).all())
++        self.assertTrue(msg.is_bigendian == True)
++        self.assertTrue((br.imgmsg_to_cv2(msg) == img).all())
+ 
+ if __name__ == '__main__':
+     rosunit.unitrun('opencv_tests', 'conversions', TestConversions)
+diff --git a/test/enumerants.py b/test/enumerants.py
+index dbb3363..c9d4c41 100644
+--- a/test/enumerants.py
++++ b/test/enumerants.py
+@@ -22,7 +22,7 @@ class TestEnumerants(unittest.TestCase):
+         bridge_ = CvBridge()
+         cvim = bridge_.imgmsg_to_cv2(img_msg, "rgb8")
+         import sys
+-        self.assert_(sys.getrefcount(cvim) == 2)
++        self.assertTrue(sys.getrefcount(cvim) == 2)
+ 
+         # A 3 channel image cannot be sent as an rgba8
+         self.assertRaises(CvBridgeError, lambda: bridge_.cv2_to_imgmsg(cvim, "rgba8"))
+@@ -31,9 +31,9 @@ class TestEnumerants(unittest.TestCase):
+         bridge_.cv2_to_imgmsg(cvim, "rgb8")
+         bridge_.cv2_to_imgmsg(cvim, "bgr8")
+ 
+-        self.assert_(getCvType("32FC4") == cv2.CV_32FC4)
+-        self.assert_(getCvType("8UC1") == cv2.CV_8UC1)
+-        self.assert_(getCvType("8U") == cv2.CV_8UC1)
++        self.assertTrue(getCvType("32FC4") == cv2.CV_32FC4)
++        self.assertTrue(getCvType("8UC1") == cv2.CV_8UC1)
++        self.assertTrue(getCvType("8U") == cv2.CV_8UC1)
+ 
+     def test_numpy_types(self):
+         import cv2

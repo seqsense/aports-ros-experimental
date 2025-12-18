@@ -1,0 +1,475 @@
+diff --git a/src/rosconsole/impl/rosconsole_log4cxx.cpp b/src/rosconsole/impl/rosconsole_log4cxx.cpp
+index 90183126..f165832f 100644
+--- a/src/rosconsole/impl/rosconsole_log4cxx.cpp
++++ b/src/rosconsole/impl/rosconsole_log4cxx.cpp
+@@ -166,7 +166,7 @@ void initialize()
+   }
+ 
+   log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger(ROSCONSOLE_ROOT_LOGGER_NAME);
+-  logger->addAppender(new ROSConsoleStdioAppender);
++  logger->addAppender(std::make_shared<ROSConsoleStdioAppender>());
+ #ifdef _MSC_VER
+   if ( ros_root_cstr != NULL ) {
+ 	  free(ros_root_cstr);
+@@ -184,7 +184,7 @@ void print(void* handle, ::ros::console::Level level, const char* str, const cha
+   log4cxx::Logger* logger  = (log4cxx::Logger*)handle;
+   try
+   {
+-    logger->forcedLog(g_level_lookup[level], str, log4cxx::spi::LocationInfo(file, function, line));
++    logger->forcedLog(g_level_lookup[level], str, log4cxx::spi::LocationInfo(file, log4cxx::spi::LocationInfo::calcShortFileName(file), function, line));
+   }
+   catch (std::exception& e)
+   {
+@@ -200,7 +200,7 @@ bool isEnabledFor(void* handle, ::ros::console::Level level)
+ 
+ void* getHandle(const std::string& name)
+ {
+-  return log4cxx::Logger::getLogger(name);
++  return log4cxx::Logger::getLogger(name).get();
+ }
+ 
+ std::string getName(void* handle)
+@@ -216,7 +216,7 @@ std::string getName(void* handle)
+ 
+ bool get_loggers(std::map<std::string, levels::Level>& loggers)
+ {
+-  log4cxx::spi::LoggerRepositoryPtr repo = log4cxx::Logger::getLogger(ROSCONSOLE_ROOT_LOGGER_NAME)->getLoggerRepository();
++  log4cxx::spi::LoggerRepository* repo = log4cxx::Logger::getLogger(ROSCONSOLE_ROOT_LOGGER_NAME)->getLoggerRepository();
+ 
+   log4cxx::LoggerList current_loggers = repo->getCurrentLoggers();
+   log4cxx::LoggerList::iterator it = current_loggers.begin();
+@@ -352,11 +352,11 @@ protected:
+   ros::console::LogAppender* appender_;
+ };
+ 
+-Log4cxxAppender* g_log4cxx_appender = 0;
++std::shared_ptr<Log4cxxAppender> g_log4cxx_appender = 0;
+ 
+ void register_appender(LogAppender* appender)
+ {
+-  g_log4cxx_appender = new Log4cxxAppender(appender);
++  g_log4cxx_appender.reset(new Log4cxxAppender(appender));
+   const log4cxx::LoggerPtr& logger = log4cxx::Logger::getLogger(ROSCONSOLE_ROOT_LOGGER_NAME);
+   logger->addAppender(g_log4cxx_appender);
+ }
+@@ -366,8 +366,7 @@ void deregister_appender(LogAppender* appender){
+   {
+     const log4cxx::LoggerPtr& logger = log4cxx::Logger::getLogger(ROSCONSOLE_ROOT_LOGGER_NAME);
+     logger->removeAppender(g_log4cxx_appender);
+-    delete g_log4cxx_appender;
+-    g_log4cxx_appender = 0;
++    g_log4cxx_appender.reset();
+   }
+ }
+ void shutdown()
+@@ -376,7 +375,7 @@ void shutdown()
+   {
+     const log4cxx::LoggerPtr& logger = log4cxx::Logger::getLogger(ROSCONSOLE_ROOT_LOGGER_NAME);
+     logger->removeAppender(g_log4cxx_appender);
+-    g_log4cxx_appender = 0;
++    g_log4cxx_appender.reset();
+   }
+   // reset this so that the logger doesn't get crashily destroyed
+   // again during global destruction.  
+diff --git a/test/thread_test.cpp b/test/thread_test.cpp
+index 908edaef..d279a291 100644
+--- a/test/thread_test.cpp
++++ b/test/thread_test.cpp
+@@ -40,6 +40,7 @@
+   #include "log4cxx/helpers/transcoder.h"
+ #endif
+ 
++#include <memory>
+ #include <vector>
+ 
+ class TestAppender : public log4cxx::AppenderSkeleton
+@@ -95,7 +96,7 @@ TEST(Rosconsole, threadedCalls)
+ {
+   log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+ 
+-  TestAppender* appender = new TestAppender;
++  std::shared_ptr<TestAppender> appender(new TestAppender);
+   logger->addAppender( appender );
+ 
+   boost::thread_group tg;
+diff --git a/test/utest.cpp b/test/utest.cpp
+index 0357a8a3..cc4c2857 100644
+--- a/test/utest.cpp
++++ b/test/utest.cpp
+@@ -36,6 +36,7 @@
+   #include "log4cxx/helpers/transcoder.h"
+ #endif
+ 
++#include <memory>
+ #include <vector>
+ #include <stdexcept>
+ 
+@@ -119,7 +120,7 @@ BasicFilter g_filter(true);
+ #define DEFINE_COND_TESTS(name, macro_base, level, log4cxx_level) \
+   TEST(RosConsole, name##Cond) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base##_COND(true, "Testing %d %d %d", 1, 2, 3); \
+     macro_base##_COND(false, "Testing %d %d %d", 1, 2, 3); \
+@@ -130,7 +131,7 @@ BasicFilter g_filter(true);
+   } \
+   TEST(RosConsole, name##NamedCond) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base##_COND_NAMED(true, "test", "Testing %d %d %d", 1, 2, 3); \
+     macro_base##_COND_NAMED(false, "test", "Testing %d %d %d", 1, 2, 3); \
+@@ -142,7 +143,7 @@ BasicFilter g_filter(true);
+   } \
+   TEST(RosConsole, name##StreamCond) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base##_STREAM_COND(true, "Testing " << 1 << " " << 2 << " " << 3); \
+     macro_base##_STREAM_COND(false, "Testing " << 1 << " " << 2 << " " << 3); \
+@@ -153,7 +154,7 @@ BasicFilter g_filter(true);
+   } \
+   TEST(RosConsole, name##StreamCondNamed) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base##_STREAM_COND_NAMED(true, "test", "Testing " << 1 << " " << 2 << " " << 3); \
+     macro_base##_STREAM_COND_NAMED(false, "test", "Testing " << 1 << " " << 2 << " " << 3); \
+@@ -167,7 +168,7 @@ BasicFilter g_filter(true);
+ #define DEFINE_ONCE_TESTS(name, macro_base, level, log4cxx_level) \
+   TEST(RosConsole, name##Once) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base##_ONCE("Testing %d %d %d", 1, 2, 3); \
+     ASSERT_EQ((int)appender->info_.size(), 1); \
+@@ -177,7 +178,7 @@ BasicFilter g_filter(true);
+   } \
+   TEST(RosConsole, name##NamedOnce) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base##_ONCE_NAMED("test", "Testing %d %d %d", 1, 2, 3); \
+     ASSERT_EQ((int)appender->info_.size(), 1); \
+@@ -188,7 +189,7 @@ BasicFilter g_filter(true);
+   } \
+   TEST(RosConsole, name##StreamOnce) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base##_STREAM_ONCE("Testing " << 1 << " " << 2 << " " << 3); \
+     ASSERT_EQ((int)appender->info_.size(), 1); \
+@@ -198,7 +199,7 @@ BasicFilter g_filter(true);
+   } \
+   TEST(RosConsole, name##StreamOnceNamed) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base##_STREAM_ONCE_NAMED("test", "Testing " << 1 << " " << 2 << " " << 3); \
+     ASSERT_EQ((int)appender->info_.size(), 1); \
+@@ -211,7 +212,7 @@ BasicFilter g_filter(true);
+ #define DEFINE_THROTTLE_TESTS(name, macro_base, level, log4cxx_level) \
+   TEST(RosConsole, name##Throttle) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base##_THROTTLE(0.5, "Testing %d %d %d", 1, 2, 3); \
+     ASSERT_EQ((int)appender->info_.size(), 1); \
+@@ -221,7 +222,7 @@ BasicFilter g_filter(true);
+   } \
+   TEST(RosConsole, name##NamedThrottle) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base##_THROTTLE_NAMED(0.5, "test", "Testing %d %d %d", 1, 2, 3); \
+     ASSERT_EQ((int)appender->info_.size(), 1); \
+@@ -232,7 +233,7 @@ BasicFilter g_filter(true);
+   } \
+   TEST(RosConsole, name##StreamThrottle) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base##_STREAM_THROTTLE(0.5, "Testing " << 1 << " " << 2 << " " << 3); \
+     ASSERT_EQ((int)appender->info_.size(), 1); \
+@@ -242,7 +243,7 @@ BasicFilter g_filter(true);
+   } \
+   TEST(RosConsole, name##StreamThrottleNamed) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base##_STREAM_THROTTLE_NAMED(0.5, "test", "Testing " << 1 << " " << 2 << " " << 3); \
+     ASSERT_EQ((int)appender->info_.size(), 1); \
+@@ -255,7 +256,7 @@ BasicFilter g_filter(true);
+ #define DEFINE_FILTER_TESTS(name, macro_base, level, log4cxx_level) \
+   TEST(RosConsole, name##Filter) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base##_FILTER(&g_filter, "Testing %d %d %d", 1, 2, 3); \
+     ASSERT_EQ((int)appender->info_.size(), 1); \
+@@ -265,7 +266,7 @@ BasicFilter g_filter(true);
+   } \
+   TEST(RosConsole, name##NamedFilter) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base##_FILTER_NAMED(&g_filter, "test", "Testing %d %d %d", 1, 2, 3); \
+     ASSERT_EQ((int)appender->info_.size(), 1); \
+@@ -276,7 +277,7 @@ BasicFilter g_filter(true);
+   } \
+   TEST(RosConsole, name##StreamFilter) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base##_STREAM_FILTER(&g_filter, "Testing " << 1 << " " << 2 << " " << 3); \
+     ASSERT_EQ((int)appender->info_.size(), 1); \
+@@ -286,7 +287,7 @@ BasicFilter g_filter(true);
+   } \
+   TEST(RosConsole, name##StreamFilterNamed) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base##_STREAM_FILTER_NAMED(&g_filter, "test", "Testing " << 1 << " " << 2 << " " << 3); \
+     ASSERT_EQ((int)appender->info_.size(), 1); \
+@@ -299,7 +300,7 @@ BasicFilter g_filter(true);
+ #define DEFINE_LEVEL_TESTS(name, macro_base, level, log4cxx_level) \
+   TEST(RosConsole, name) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base("Testing %d %d %d", 1, 2, 3); \
+     ASSERT_EQ((int)appender->info_.size(), 1); \
+@@ -309,7 +310,7 @@ BasicFilter g_filter(true);
+   } \
+   TEST(RosConsole, name##Named) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base##_NAMED("test", "Testing %d %d %d", 1, 2, 3); \
+     ASSERT_EQ((int)appender->info_.size(), 1); \
+@@ -320,7 +321,7 @@ BasicFilter g_filter(true);
+   } \
+   TEST(RosConsole, name##Stream) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base##_STREAM("Testing " << 1 << " " << 2 << " " << 3); \
+     ASSERT_EQ((int)appender->info_.size(), 1); \
+@@ -330,7 +331,7 @@ BasicFilter g_filter(true);
+   } \
+   TEST(RosConsole, name##StreamNamed) \
+   { \
+-    TestAppender* appender = new TestAppender; \
++    std::shared_ptr<TestAppender> appender(new TestAppender); \
+     log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->addAppender( appender ); \
+     macro_base##_STREAM_NAMED("test", "Testing " << 1 << " " << 2 << " " << 3); \
+     ASSERT_EQ((int)appender->info_.size(), 1); \
+@@ -354,7 +355,7 @@ TEST(RosConsole, loggingLevels)
+ {
+   log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+ 
+-  TestAppender* appender = new TestAppender;
++  std::shared_ptr<TestAppender> appender(new TestAppender);
+   logger->addAppender( appender );
+ 
+   int pre_count = 0;
+@@ -575,7 +576,7 @@ TEST(RosConsole, changingLevel)
+ {
+   log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+ 
+-  TestAppender* appender = new TestAppender;
++  std::shared_ptr<TestAppender> appender(new TestAppender);
+   logger->addAppender( appender );
+ 
+   logger->setLevel( log4cxx::Level::getError() );
+@@ -595,7 +596,7 @@ TEST(RosConsole, changingLoggerLevel)
+ {
+   log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+ 
+-  TestAppender* appender = new TestAppender;
++  std::shared_ptr<TestAppender> appender(new TestAppender);
+   logger->addAppender( appender );
+ 
+   logger->setLevel(log4cxx::Level::getDebug());
+@@ -629,7 +630,7 @@ TEST(RosConsole, longPrintfStyleOutput)
+ {
+   log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+ 
+-  TestAppender* appender = new TestAppender;
++  std::shared_ptr<TestAppender> appender(new TestAppender);
+   logger->addAppender( appender );
+ 
+   std::stringstream ss;
+@@ -652,7 +653,7 @@ TEST(RosConsole, throwingAppender)
+ {
+   log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+ 
+-  TestAppenderWithThrow* appender = new TestAppenderWithThrow;
++  std::shared_ptr<TestAppenderWithThrow> appender(new TestAppenderWithThrow);
+   logger->addAppender( appender );
+ 
+   try
+@@ -677,7 +678,7 @@ TEST(RosConsole, once)
+ {
+   log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+ 
+-  TestAppender* appender = new TestAppender;
++  std::shared_ptr<TestAppender> appender(new TestAppender);
+   logger->addAppender(appender);
+ 
+   onceFunc();
+@@ -697,7 +698,7 @@ TEST(RosConsole, throttle)
+ {
+   log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+ 
+-  TestAppender* appender = new TestAppender;
++  std::shared_ptr<TestAppender> appender(new TestAppender);
+   logger->addAppender(appender);
+ 
+   ros::Time start = ros::Time::now();
+@@ -728,7 +729,7 @@ TEST(RosConsole, delayedThrottle)
+ {
+   log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+ 
+-  TestAppender* appender = new TestAppender;
++  std::shared_ptr<TestAppender> appender(new TestAppender);
+   logger->addAppender(appender);
+ 
+   ros::Time start = ros::Time::now();
+@@ -765,7 +766,7 @@ TEST(RosConsole, onceStream)
+ {
+   log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+ 
+-  TestAppender* appender = new TestAppender;
++  std::shared_ptr<TestAppender> appender(new TestAppender);
+   logger->addAppender(appender);
+ 
+   onceStreamFunc();
+@@ -785,7 +786,7 @@ TEST(RosConsole, throttleStream)
+ {
+   log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+ 
+-  TestAppender* appender = new TestAppender;
++  std::shared_ptr<TestAppender> appender(new TestAppender);
+   logger->addAppender(appender);
+ 
+   ros::Time start = ros::Time::now();
+@@ -816,7 +817,7 @@ TEST(RosConsole, delayedStreamThrottle)
+ {
+   log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+ 
+-  TestAppender* appender = new TestAppender;
++  std::shared_ptr<TestAppender> appender(new TestAppender);
+   logger->addAppender(appender);
+ 
+   ros::Time start = ros::Time::now();
+@@ -847,7 +848,7 @@ TEST(RosConsole, basicFilter)
+ {
+   log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+ 
+-  TestAppender* appender = new TestAppender;
++  std::shared_ptr<TestAppender> appender(new TestAppender);
+   logger->addAppender(appender);
+ 
+   BasicFilter trueFilter(true), falseFilter(false);
+@@ -864,7 +865,7 @@ TEST(RosConsole, basicFilterStream)
+ {
+   log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+ 
+-  TestAppender* appender = new TestAppender;
++  std::shared_ptr<TestAppender> appender(new TestAppender);
+   logger->addAppender(appender);
+ 
+   BasicFilter trueFilter(true), falseFilter(false);
+@@ -900,7 +901,7 @@ TEST(RosConsole, advancedFilter)
+ {
+   log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+ 
+-  TestAppender* appender = new TestAppender;
++  std::shared_ptr<TestAppender> appender(new TestAppender);
+   logger->addAppender(appender);
+ 
+   AdvancedFilter trueFilter(true), falseFilter(false);
+@@ -919,7 +920,7 @@ TEST(RosConsole, advancedFilterStream)
+ {
+   log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+ 
+-  TestAppender* appender = new TestAppender;
++  std::shared_ptr<TestAppender> appender(new TestAppender);
+   logger->addAppender(appender);
+ 
+   AdvancedFilter trueFilter(true), falseFilter(false);
+@@ -949,7 +950,7 @@ TEST(RosConsole, changeFilter)
+ {
+   log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+ 
+-  TestAppender* appender = new TestAppender;
++  std::shared_ptr<TestAppender> appender(new TestAppender);
+   logger->addAppender(appender);
+ 
+   ChangeFilter filter;
+@@ -966,7 +967,7 @@ TEST(RosConsole, changeFilterStream)
+ {
+   log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+ 
+-  TestAppender* appender = new TestAppender;
++  std::shared_ptr<TestAppender> appender(new TestAppender);
+   logger->addAppender(appender);
+ 
+   ChangeFilter filter;
+@@ -1022,7 +1023,7 @@ TEST(RosConsole, formatter)
+     ros::console::g_formatter.init(format_string.c_str());
+ 
+     result = ros::console::g_formatter.getTokenStrings(
+-      log4cxx::Logger::getLogger(ROSCONSOLE_ROOT_LOGGER_NAME), level, str,
++      log4cxx::Logger::getLogger(ROSCONSOLE_ROOT_LOGGER_NAME).get(), level, str,
+       file, function, 0);
+ 
+     boost::regex expr("([0-9]+)\\.([0-9]+)");
+@@ -1037,7 +1038,7 @@ TEST(RosConsole, formatter)
+     ros::console::g_formatter.init(format_string.c_str());
+ 
+     result = ros::console::g_formatter.getTokenStrings(
+-      log4cxx::Logger::getLogger(ROSCONSOLE_ROOT_LOGGER_NAME), level, str,
++      log4cxx::Logger::getLogger(ROSCONSOLE_ROOT_LOGGER_NAME).get(), level, str,
+       file, function, 0);
+ 
+     boost::regex expr("([0-9]{4}) ([0-9]{2}:[0-9]{2}:[0-9]{2})");
+@@ -1052,7 +1053,7 @@ TEST(RosConsole, formatter)
+     ros::console::g_formatter.init(format_string.c_str());
+ 
+     result = ros::console::g_formatter.getTokenStrings(
+-      log4cxx::Logger::getLogger(ROSCONSOLE_ROOT_LOGGER_NAME), level, str,
++      log4cxx::Logger::getLogger(ROSCONSOLE_ROOT_LOGGER_NAME).get(), level, str,
+       file, function, 0);
+ 
+     boost::regex expr("([0-9]+)\\.([0-9]+)");
+@@ -1067,7 +1068,7 @@ TEST(RosConsole, formatter)
+     ros::console::g_formatter.init(format_string.c_str());
+ 
+     result = ros::console::g_formatter.getTokenStrings(
+-      log4cxx::Logger::getLogger(ROSCONSOLE_ROOT_LOGGER_NAME), level, str,
++      log4cxx::Logger::getLogger(ROSCONSOLE_ROOT_LOGGER_NAME).get(), level, str,
+       file, function, 0);
+ 
+     boost::regex expr("([0-9]{4}) ([0-9]{2}:[0-9]{2}:[0-9]{2})");

@@ -1,0 +1,24 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 289c5af..baed723 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -24,14 +24,11 @@ if(CATKIN_ENABLE_TESTING)
+   endif()
+ 
+   include(CheckCXXCompilerFlag)
+-  check_cxx_compiler_flag("-std=c++11" COMPILER_SUPPORTS_CXX11)
+-  if(COMPILER_SUPPORTS_CXX11)
+-    catkin_add_gtest(${PROJECT_NAME}_unique_ptr_test test/unique_ptr_test.cpp)
+-    if(TARGET ${PROJECT_NAME}_unique_ptr_test)
+-      target_link_libraries(${PROJECT_NAME}_unique_ptr_test ${TinyXML2_LIBRARIES} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+-      set_target_properties(${PROJECT_NAME}_unique_ptr_test PROPERTIES COMPILE_FLAGS -std=c++11 LINK_FLAGS -std=c++11)
+-      add_dependencies(${PROJECT_NAME}_unique_ptr_test test_plugins)
+-    endif()
++  catkin_add_gtest(${PROJECT_NAME}_unique_ptr_test test/unique_ptr_test.cpp)
++  if(TARGET ${PROJECT_NAME}_unique_ptr_test)
++    target_link_libraries(${PROJECT_NAME}_unique_ptr_test ${TinyXML2_LIBRARIES} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
++    set_target_properties(${PROJECT_NAME}_unique_ptr_test PROPERTIES COMPILE_FLAGS -std=c++17 LINK_FLAGS -std=c++17)
++    add_dependencies(${PROJECT_NAME}_unique_ptr_test test_plugins)
+   endif()
+ 
+ endif()

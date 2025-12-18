@@ -1,0 +1,162 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a22596b..1800965 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.0.2)
++cmake_minimum_required(VERSION 3.0.2...3.10)
+ 
+ set(catkin_EXTRAS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+ 
+diff --git a/cmake/python.cmake b/cmake/python.cmake
+index c72b859..edf7c7b 100644
+--- a/cmake/python.cmake
++++ b/cmake/python.cmake
+@@ -1,7 +1,13 @@
+ # the CMake variable PYTHON_INSTALL_DIR has the same value as the Python function catkin.builder.get_python_install_dir()
+ 
+ set(PYTHON_VERSION "$ENV{ROS_PYTHON_VERSION}" CACHE STRING "Specify specific Python version to use ('major.minor' or 'major')")
+-find_package(PythonInterp ${PYTHON_VERSION} REQUIRED)
++find_package(Python ${PYTHON_VERSION} REQUIRED)
++
++# For compatibility with FindPythonInterp
++set(PYTHON_EXECUTABLE ${Python_EXECUTABLE})
++set(PYTHON_VERSION_MAJOR ${Python_VERSION_MAJOR})
++set(PYTHON_VERSION_MINOR ${Python_VERSION_MINOR})
++set(PYTHON_VERSION_PATCH ${Python_VERSION_PATCH})
+ 
+ message(STATUS "Using PYTHON_EXECUTABLE: ${PYTHON_EXECUTABLE}")
+ 
+diff --git a/cmake/toplevel.cmake b/cmake/toplevel.cmake
+index 744c4b2..4c3fd04 100644
+--- a/cmake/toplevel.cmake
++++ b/cmake/toplevel.cmake
+@@ -1,7 +1,7 @@
+ # toplevel CMakeLists.txt for a catkin workspace
+ # catkin/cmake/toplevel.cmake
+ 
+-cmake_minimum_required(VERSION 3.0.2)
++cmake_minimum_required(VERSION 3.0.2...3.10)
+ 
+ project(Project)
+ 
+diff --git a/test/mock_resources/src-fail/badly_specified_changelog/CMakeLists.txt b/test/mock_resources/src-fail/badly_specified_changelog/CMakeLists.txt
+index 5e4c067..0b9930b 100644
+--- a/test/mock_resources/src-fail/badly_specified_changelog/CMakeLists.txt
++++ b/test/mock_resources/src-fail/badly_specified_changelog/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.0.2)
++cmake_minimum_required(VERSION 3.0.2...3.10)
+ 
+ project(badly_specified_changelog)
+ find_package(catkin)
+diff --git a/test/mock_resources/src-fail/noproject/CMakeLists.txt b/test/mock_resources/src-fail/noproject/CMakeLists.txt
+index 4f112c7..92b0bb3 100644
+--- a/test/mock_resources/src-fail/noproject/CMakeLists.txt
++++ b/test/mock_resources/src-fail/noproject/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.0.2)
++cmake_minimum_required(VERSION 3.0.2...3.10)
+ # commented to cause failure
+ # project(noproject)
+ find_package(catkin)
+diff --git a/test/mock_resources/src/catkin_test/CMakeLists.txt b/test/mock_resources/src/catkin_test/CMakeLists.txt
+index ed319bf..6e1370e 100644
+--- a/test/mock_resources/src/catkin_test/CMakeLists.txt
++++ b/test/mock_resources/src/catkin_test/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.3)
++cmake_minimum_required(VERSION 3.0.2...3.10)
+ project(catkin_test)
+ find_package(catkin REQUIRED)
+ 
+diff --git a/test/mock_resources/src/catkin_test/a/CMakeLists.txt b/test/mock_resources/src/catkin_test/a/CMakeLists.txt
+index 289a208..512aecf 100644
+--- a/test/mock_resources/src/catkin_test/a/CMakeLists.txt
++++ b/test/mock_resources/src/catkin_test/a/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.3)
++cmake_minimum_required(VERSION 3.0.2...3.10)
+ project(a)
+ find_package(catkin REQUIRED COMPONENTS genmsg std_msgs)
+ 
+diff --git a/test/mock_resources/src/catkin_test/b/CMakeLists.txt b/test/mock_resources/src/catkin_test/b/CMakeLists.txt
+index 1159dfc..bb05279 100644
+--- a/test/mock_resources/src/catkin_test/b/CMakeLists.txt
++++ b/test/mock_resources/src/catkin_test/b/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.3)
++cmake_minimum_required(VERSION 3.0.2...3.10)
+ project(b)
+ find_package(catkin REQUIRED)
+ catkin_package(
+diff --git a/test/mock_resources/src/catkin_test/c/CMakeLists.txt b/test/mock_resources/src/catkin_test/c/CMakeLists.txt
+index 96b87e8..7723135 100644
+--- a/test/mock_resources/src/catkin_test/c/CMakeLists.txt
++++ b/test/mock_resources/src/catkin_test/c/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.3)
++cmake_minimum_required(VERSION 3.0.2...3.10)
+ project(c)
+ find_package(catkin REQUIRED)
+ 
+diff --git a/test/mock_resources/src/catkin_test/d/CMakeLists.txt b/test/mock_resources/src/catkin_test/d/CMakeLists.txt
+index 0543f31..0e82cd9 100644
+--- a/test/mock_resources/src/catkin_test/d/CMakeLists.txt
++++ b/test/mock_resources/src/catkin_test/d/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.3)
++cmake_minimum_required(VERSION 3.0.2...3.10)
+ project(d)
+ find_package(catkin REQUIRED)
+ 
+diff --git a/test/mock_resources/src/catkin_test/quux_msgs/CMakeLists.txt b/test/mock_resources/src/catkin_test/quux_msgs/CMakeLists.txt
+index 82bce27..abaccff 100644
+--- a/test/mock_resources/src/catkin_test/quux_msgs/CMakeLists.txt
++++ b/test/mock_resources/src/catkin_test/quux_msgs/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.3)
++cmake_minimum_required(VERSION 3.0.2...3.10)
+ project(quux_msgs)
+ find_package(catkin REQUIRED)
+ find_package(genmsg REQUIRED)
+diff --git a/test/mock_resources/src/catkin_test/quux_user/CMakeLists.txt b/test/mock_resources/src/catkin_test/quux_user/CMakeLists.txt
+index 6b144ae..1832d99 100644
+--- a/test/mock_resources/src/catkin_test/quux_user/CMakeLists.txt
++++ b/test/mock_resources/src/catkin_test/quux_user/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.3)
++cmake_minimum_required(VERSION 3.0.2...3.10)
+ project(quux_user)
+ find_package(catkin REQUIRED)
+ 
+diff --git a/test/mock_resources/src/linker_options/src/leaf_pkg/CMakeLists.txt b/test/mock_resources/src/linker_options/src/leaf_pkg/CMakeLists.txt
+index 851aefc..265c9f7 100644
+--- a/test/mock_resources/src/linker_options/src/leaf_pkg/CMakeLists.txt
++++ b/test/mock_resources/src/linker_options/src/leaf_pkg/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.0.2)
++cmake_minimum_required(VERSION 3.0.2...3.10)
+ project(leaf_pkg)
+ 
+ find_package(catkin REQUIRED COMPONENTS root_pkg)
+diff --git a/test/mock_resources/src/linker_options/src/root_pkg/CMakeLists.txt b/test/mock_resources/src/linker_options/src/root_pkg/CMakeLists.txt
+index 8687aed..850fbaf 100644
+--- a/test/mock_resources/src/linker_options/src/root_pkg/CMakeLists.txt
++++ b/test/mock_resources/src/linker_options/src/root_pkg/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.0.2)
++cmake_minimum_required(VERSION 3.0.2...3.10)
+ project(root_pkg)
+ 
+ find_package(catkin REQUIRED)
+diff --git a/test/mock_resources/src/nolangs/CMakeLists.txt b/test/mock_resources/src/nolangs/CMakeLists.txt
+index 99e04c2..96c505d 100644
+--- a/test/mock_resources/src/nolangs/CMakeLists.txt
++++ b/test/mock_resources/src/nolangs/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.3)
++cmake_minimum_required(VERSION 3.0.2...3.10)
+ 
+ project(nolangs)
+ find_package(catkin REQUIRED)

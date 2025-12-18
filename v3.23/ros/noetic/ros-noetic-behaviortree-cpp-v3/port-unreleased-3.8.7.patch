@@ -1,0 +1,525 @@
+diff --git a/CHANGELOG.rst b/CHANGELOG.rst
+index 424c14f..d615400 100644
+--- a/CHANGELOG.rst
++++ b/CHANGELOG.rst
+@@ -2,6 +2,36 @@
+ Changelog for package behaviortree_cpp
+ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 
++Forthcoming
++-----------
++* Backport of some build-related flatbuffers changes (`#825 <https://github.com/BehaviorTree/BehaviorTree.CPP/issues/825>`_)
++  * From flatbuffers upstream: Fix compiler error
++  Original author of change: avaliente-bc
++  Backport/update from upstream flatbuffers repository.
++  Change taken from https://github.com/google/flatbuffers/pull/7227
++  * From flatbuffers upstream: Fix include of string_view with C++17 abseil
++  Original author of change: ocpalo
++  Backport/update from upstream flatbuffers repository.
++  Changes taken from https://github.com/google/flatbuffers/pull/7897.
++* Add in call to ament_export_targets. (`#826 <https://github.com/BehaviorTree/BehaviorTree.CPP/issues/826>`_)
++  That way downstream ament packages can use this
++  package as a CMake target.
++* Fixed `#810 <https://github.com/BehaviorTree/BehaviorTree.CPP/issues/810>`_ - halting of subsequent nodes in ReactiveSequence/Fallback (`#817 <https://github.com/BehaviorTree/BehaviorTree.CPP/issues/817>`_)
++  * ReactiveSequence and ReactiveFallback will behave more similarly to 3.8
++  * Reactive Sequence/Fallback defaulting to allow multiple async nodes
++  ---------
++  Co-authored-by: Davide Faconti <davide.faconti@gmail.com>
++  Co-authored-by: Matej Vargovcik <vargovcik@robotechvision.com>
++* Merge pull request `#769 <https://github.com/BehaviorTree/BehaviorTree.CPP/issues/769>`_ from bi0ha2ard/fewer_boost_dependencies
++  depend only on libboost-coroutine(-dev) for v3.8
++* fix(dependency): depend only on libboost-coroutine(-dev)
++  At least on Ubuntu, boost-all-dev depends on openmpi, which depends on a
++  fortran compiler and gcc. This is very heavy for Docker containers where
++  only exec dependencies are really needed.
++* alternative to `#719 <https://github.com/BehaviorTree/BehaviorTree.CPP/issues/719>`_
++* fix issue `#725 <https://github.com/BehaviorTree/BehaviorTree.CPP/issues/725>`_ : SetBlackboard can copy entries
++* Contributors: Chris Lalancette, Davide Faconti, Felix, Lars Toenning, afrixs
++
+ 3.8.5 (2023-08-14)
+ ------------------
+ 
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 95b2663..334d657 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -250,6 +250,7 @@ if(ament_cmake_FOUND)
+ 
+     ament_export_include_directories(include)
+     ament_export_libraries(${BEHAVIOR_TREE_LIBRARY})
++    ament_export_targets(${BEHAVIOR_TREE_LIBRARY}Targets)
+     ament_package()
+ elseif(catkin_FOUND)
+ 
+diff --git a/include/behaviortree_cpp_v3/actions/set_blackboard_node.h b/include/behaviortree_cpp_v3/actions/set_blackboard_node.h
+index bbdc080..8c30b38 100644
+--- a/include/behaviortree_cpp_v3/actions/set_blackboard_node.h
++++ b/include/behaviortree_cpp_v3/actions/set_blackboard_node.h
+@@ -26,6 +26,12 @@ namespace BT
+  *  <SetBlackboard value="42" output_key="the_answer" />
+  *
+  * Will store the string "42" in the entry with key "the_answer".
++ *
++ * Alternatively, you can use it to copy one port inside another port:
++ *
++ * <SetBlackboard value="{src_port}" output_key="dst_port" />
++ *
++ * This will copy the type and content of {src_port} into {dst_port}
+  */
+ class SetBlackboard : public SyncActionNode
+ {
+@@ -38,26 +44,45 @@ public:
+ 
+   static PortsList providedPorts()
+   {
+-    return {InputPort("value", "Value represented as a string. convertFromString must be "
+-                               "implemented."),
++    return {InputPort("value", "Value to be written int othe output_key"),
+             BidirectionalPort("output_key", "Name of the blackboard entry where the "
+-                                            "value "
+-                                            "should be written")};
++                                            "value should be written")};
+   }
+ 
+ private:
+   virtual BT::NodeStatus tick() override
+   {
+-    std::string key, value;
+-    if (!getInput("output_key", key))
++    std::string output_key;
++    if (!getInput("output_key", output_key))
+     {
+       throw RuntimeError("missing port [output_key]");
+     }
+-    if (!getInput("value", value))
++
++    const std::string value_str = config().input_ports.at("value");
++
++    if(isBlackboardPointer(value_str))
+     {
+-      throw RuntimeError("missing port [value]");
++      StringView stripped_key = stripBlackboardPointer(value_str);
++      const auto input_key = std::string(stripped_key);
++      std::shared_ptr<Blackboard::Entry> src_entry = config().blackboard->getEntry(input_key);
++      std::shared_ptr<Blackboard::Entry> dst_entry = config().blackboard->getEntry(output_key);
++
++      if(!src_entry)
++      {
++        throw RuntimeError("Can't find the port referred by [value]");
++      }
++      if(!dst_entry)
++      {
++        config().blackboard->createEntry(output_key, src_entry->port_info);
++        dst_entry = config().blackboard->getEntry(output_key);
++      }
++      dst_entry->value = src_entry->value;
++    }
++    else
++    {
++      config().blackboard->set(output_key, value_str);
+     }
+-    setOutput("output_key", value);
++
+     return NodeStatus::SUCCESS;
+   }
+ };
+diff --git a/include/behaviortree_cpp_v3/basic_types.h b/include/behaviortree_cpp_v3/basic_types.h
+index edfa7aa..2ec051c 100644
+--- a/include/behaviortree_cpp_v3/basic_types.h
++++ b/include/behaviortree_cpp_v3/basic_types.h
+@@ -216,7 +216,11 @@ using Optional = nonstd::expected<T, std::string>;
+  * */
+ using Result = Optional<void>;
+ 
+-const std::unordered_set<std::string> ReservedPortNames = {"ID", "name", "_description"};
++inline bool IsReservedPortname(StringView name)
++{
++  return name == "ID" || name == "name" || name == "_description";
++}
++
+ 
+ class PortInfo
+ {
+@@ -271,7 +275,7 @@ std::pair<std::string, PortInfo> CreatePort(PortDirection direction, StringView
+                                             StringView description = {})
+ {
+   auto sname = static_cast<std::string>(name);
+-  if (ReservedPortNames.count(sname) != 0)
++  if (IsReservedPortname(sname))
+   {
+     throw std::runtime_error("A port can not use a reserved name. See ReservedPortNames");
+   }
+diff --git a/include/behaviortree_cpp_v3/blackboard.h b/include/behaviortree_cpp_v3/blackboard.h
+index 5df2362..12cd715 100644
+--- a/include/behaviortree_cpp_v3/blackboard.h
++++ b/include/behaviortree_cpp_v3/blackboard.h
+@@ -178,7 +178,6 @@ public:
+     createEntryImpl(key, info);
+   }
+ 
+-private:
+   struct Entry
+   {
+     Any value;
+@@ -188,10 +187,18 @@ private:
+     {}
+ 
+     Entry(Any&& other_any, const PortInfo& info) :
+-      value(std::move(other_any)), port_info(info)
++        value(std::move(other_any)), port_info(info)
+     {}
+   };
+ 
++  std::shared_ptr<Entry> getEntry(const std::string& key) const
++  {
++    auto it = storage_.find(key);
++    return it == storage_.end() ? std::shared_ptr<Entry>() : it->second;
++  }
++
++private:
++
+   std::shared_ptr<Entry> createEntryImpl(const std::string& key, const PortInfo& info);
+ 
+   mutable std::mutex mutex_;
+diff --git a/include/behaviortree_cpp_v3/controls/reactive_fallback.h b/include/behaviortree_cpp_v3/controls/reactive_fallback.h
+index af92539..bb4fc67 100644
+--- a/include/behaviortree_cpp_v3/controls/reactive_fallback.h
++++ b/include/behaviortree_cpp_v3/controls/reactive_fallback.h
+@@ -36,8 +36,19 @@ public:
+   ReactiveFallback(const std::string& name) : ControlNode(name, {})
+   {}
+ 
++  /** A ReactiveFallback is not supposed to have more than a single
++  * anychronous node; if it does an exception is thrown.
++  * You can disabled that check, if you know what you are doing.
++  */
++  static void EnableException(bool enable);
++
+ private:
+-  virtual BT::NodeStatus tick() override;
++  BT::NodeStatus tick() override;
++
++  void halt() override;
++
++  int running_child_ = -1;
++  static bool throw_if_multiple_running;
+ };
+ 
+ }   // namespace BT
+diff --git a/include/behaviortree_cpp_v3/controls/reactive_sequence.h b/include/behaviortree_cpp_v3/controls/reactive_sequence.h
+index 3f05b1d..2f47d1d 100644
+--- a/include/behaviortree_cpp_v3/controls/reactive_sequence.h
++++ b/include/behaviortree_cpp_v3/controls/reactive_sequence.h
+@@ -36,8 +36,20 @@ public:
+   ReactiveSequence(const std::string& name) : ControlNode(name, {})
+   {}
+ 
++  /** A ReactiveSequence is not supposed to have more than a single
++  * anychronous node; if it does an exception is thrown.
++  * You can disabled that check, if you know what you are doing.
++  */
++  static void EnableException(bool enable);
++
+ private:
+-  virtual BT::NodeStatus tick() override;
++  BT::NodeStatus tick() override;
++
++  void halt() override;
++
++  int running_child_ = -1;
++
++  static bool throw_if_multiple_running;
+ };
+ 
+ }   // namespace BT
+diff --git a/include/behaviortree_cpp_v3/flatbuffers/base.h b/include/behaviortree_cpp_v3/flatbuffers/base.h
+index 54a51aa..abe0b95 100644
+--- a/include/behaviortree_cpp_v3/flatbuffers/base.h
++++ b/include/behaviortree_cpp_v3/flatbuffers/base.h
+@@ -237,12 +237,17 @@ namespace flatbuffers {
+       }
+       #define FLATBUFFERS_HAS_STRING_VIEW 1
+     // Check for absl::string_view
+-    #elif __has_include("absl/strings/string_view.h")
+-      #include "absl/strings/string_view.h"
+-      namespace flatbuffers {
+-        typedef absl::string_view string_view;
+-      }
+-      #define FLATBUFFERS_HAS_STRING_VIEW 1
++    #elif __has_include("absl/strings/string_view.h") && \
++          __has_include("absl/base/config.h") && \
++          (__cplusplus >= 201411)
++      #include "absl/base/config.h"
++      #if !defined(ABSL_USES_STD_STRING_VIEW)
++        #include "absl/strings/string_view.h"
++        namespace flatbuffers {
++          typedef absl::string_view string_view;
++        }
++        #define FLATBUFFERS_HAS_STRING_VIEW 1
++      #endif
+     #endif
+   #endif // __has_include
+ #endif // !FLATBUFFERS_HAS_STRING_VIEW
+diff --git a/include/behaviortree_cpp_v3/flatbuffers/stl_emulation.h b/include/behaviortree_cpp_v3/flatbuffers/stl_emulation.h
+index 77e0f66..ec10dc1 100644
+--- a/include/behaviortree_cpp_v3/flatbuffers/stl_emulation.h
++++ b/include/behaviortree_cpp_v3/flatbuffers/stl_emulation.h
+@@ -625,7 +625,7 @@ class span FLATBUFFERS_FINAL_CLASS {
+  private:
+   // This is a naive implementation with 'count_' member even if (Extent != dynamic_extent).
+   pointer const data_;
+-  const size_type count_;
++  size_type count_;
+ };
+ 
+  #if !defined(FLATBUFFERS_SPAN_MINIMAL)
+diff --git a/package.xml b/package.xml
+index 4b5e89b..5064f89 100644
+--- a/package.xml
++++ b/package.xml
+@@ -22,7 +22,8 @@
+   <depend condition="$ROS_VERSION == 2">rclcpp</depend>
+   <depend condition="$ROS_VERSION == 2">ament_index_cpp</depend>
+ 
+-  <depend>boost</depend>
++  <build_depend>libboost-coroutine-dev</build_depend>
++  <exec_depend>libboost-coroutine</exec_depend>
+   <depend>libzmq3-dev</depend>
+   <depend>libncurses-dev</depend>
+ 
+diff --git a/src/controls/reactive_fallback.cpp b/src/controls/reactive_fallback.cpp
+index f5a7fb1..d6d30d2 100644
+--- a/src/controls/reactive_fallback.cpp
++++ b/src/controls/reactive_fallback.cpp
+@@ -14,9 +14,22 @@
+ 
+ namespace BT
+ {
++
++bool ReactiveFallback::throw_if_multiple_running = false;
++
++void ReactiveFallback::EnableException(bool enable)
++{
++  ReactiveFallback::throw_if_multiple_running = enable;
++}
++
+ NodeStatus ReactiveFallback::tick()
+ {
+   size_t failure_count = 0;
++  if(status() == NodeStatus::IDLE)
++  {
++    running_child_ = -1;
++  }
++  setStatus(NodeStatus::RUNNING);
+ 
+   for (size_t index = 0; index < childrenCount(); index++)
+   {
+@@ -26,12 +39,23 @@ NodeStatus ReactiveFallback::tick()
+     switch (child_status)
+     {
+       case NodeStatus::RUNNING: {
+-
+-        // reset the previous children, to make sure that they are in IDLE state
+-        // the next time we tick them
+-        for (size_t i = 0; i < index; i++)
++        // reset the previous children, to make sure that they are
++        // in IDLE state the next time we tick them
++        for (size_t i = 0; i < childrenCount(); i++)
+         {
+-          haltChild(i);
++          if(i != index)
++          {
++            haltChild(i);
++          }
++        }
++        if(running_child_ == -1)
++        {
++          running_child_ = int(index);
++        }
++        else if(throw_if_multiple_running && running_child_ != int(index))
++        {
++          throw LogicError("[ReactiveFallback]: only a single child can return RUNNING.\n"
++                           "This throw can be disabled with ReactiveFallback::EnableException(false)");
+         }
+         return NodeStatus::RUNNING;
+       }
+@@ -61,4 +85,10 @@ NodeStatus ReactiveFallback::tick()
+   return NodeStatus::RUNNING;
+ }
+ 
++void ReactiveFallback::halt()
++{
++  running_child_ = -1;
++  ControlNode::halt();
++}
++
+ }   // namespace BT
+diff --git a/src/controls/reactive_sequence.cpp b/src/controls/reactive_sequence.cpp
+index 5db10cf..f4e0024 100644
+--- a/src/controls/reactive_sequence.cpp
++++ b/src/controls/reactive_sequence.cpp
+@@ -14,9 +14,22 @@
+ 
+ namespace BT
+ {
++
++bool ReactiveSequence::throw_if_multiple_running = false;
++
++void ReactiveSequence::EnableException(bool enable)
++{
++  ReactiveSequence::throw_if_multiple_running = enable;
++}
++
+ NodeStatus ReactiveSequence::tick()
+ {
+   size_t success_count = 0;
++  if(status() == NodeStatus::IDLE)
++  {
++    running_child_ = -1;
++  }
++  setStatus(NodeStatus::RUNNING);
+ 
+   for (size_t index = 0; index < childrenCount(); index++)
+   {
+@@ -26,11 +39,23 @@ NodeStatus ReactiveSequence::tick()
+     switch (child_status)
+     {
+       case NodeStatus::RUNNING: {
+-        // reset the previous children, to make sure that they are in IDLE state
+-        // the next time we tick them
+-        for (size_t i = 0; i < index; i++)
++        // reset the previous children, to make sure that they are
++        // in IDLE state the next time we tick them
++        for (size_t i = 0; i < childrenCount(); i++)
+         {
+-          haltChild(i);
++          if(i != index)
++          {
++            haltChild(i);
++          }
++        }
++        if(running_child_ == -1)
++        {
++          running_child_ = int(index);
++        }
++        else if(throw_if_multiple_running && running_child_ != int(index))
++        {
++          throw LogicError("[ReactiveSequence]: only a single child can return RUNNING.\n"
++                           "This throw can be disabled with ReactiveSequence::EnableException(false)");
+         }
+         return NodeStatus::RUNNING;
+       }
+@@ -59,4 +84,10 @@ NodeStatus ReactiveSequence::tick()
+   return NodeStatus::RUNNING;
+ }
+ 
++void ReactiveSequence::halt()
++{
++  running_child_ = -1;
++  ControlNode::halt();
++}
++
+ }   // namespace BT
+diff --git a/src/xml_parsing.cpp b/src/xml_parsing.cpp
+index da3aa9d..d6a8b8d 100644
+--- a/src/xml_parsing.cpp
++++ b/src/xml_parsing.cpp
+@@ -523,7 +523,7 @@ TreeNode::Ptr XMLParser::Pimpl::createNodeFromXML(const XMLElement* element,
+     for (const XMLAttribute* att = element->FirstAttribute(); att; att = att->Next())
+     {
+       const std::string attribute_name = att->Name();
+-      if (ReservedPortNames.count(attribute_name) == 0)
++      if (!IsReservedPortname(attribute_name))
+       {
+         port_remap[attribute_name] = att->Value();
+       }
+@@ -699,7 +699,7 @@ void BT::XMLParser::Pimpl::recursivelyCreateTree(const std::string& tree_ID,
+           for (const XMLAttribute* attr = element->FirstAttribute(); attr != nullptr;
+                attr = attr->Next())
+           {
+-            if (ReservedPortNames.count(attr->Name()) == 0)
++            if (!IsReservedPortname(attr->Name()))
+             {
+               new_bb->addSubtreeRemapping(attr->Name(), attr->Value());
+             }
+@@ -720,7 +720,7 @@ void BT::XMLParser::Pimpl::recursivelyCreateTree(const std::string& tree_ID,
+           const char* attr_name = attr->Name();
+           const char* attr_value = attr->Value();
+ 
+-          if (ReservedPortNames.count(attr->Name()) != 0)
++          if (IsReservedPortname(attr->Name()))
+           {
+             continue;
+           }
+@@ -779,7 +779,7 @@ void XMLParser::Pimpl::getPortsRecursively(const XMLElement* element,
+   {
+     const char* attr_name = attr->Name();
+     const char* attr_value = attr->Value();
+-    if (ReservedPortNames.count(attr_name) == 0 &&
++    if (!IsReservedPortname(attr_name) &&
+         TreeNode::isBlackboardPointer(attr_value))
+     {
+       auto port_name = TreeNode::stripBlackboardPointer(attr_value);
+diff --git a/tests/gtest_blackboard.cpp b/tests/gtest_blackboard.cpp
+index 345bf7b..3341967 100644
+--- a/tests/gtest_blackboard.cpp
++++ b/tests/gtest_blackboard.cpp
+@@ -1,4 +1,4 @@
+-/* Copyright (C) 2018-2019 Davide Faconti, Eurecat - All Rights Reserved
++/* Copyright (C) 2018-2023 Davide Faconti, Eurecat - All Rights Reserved
+ *
+ *   Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
+ *   to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+@@ -11,12 +11,10 @@
+ */
+ 
+ #include <gtest/gtest.h>
+-#include "action_test_node.h"
+-#include "condition_test_node.h"
+-#include "behaviortree_cpp_v3/behavior_tree.h"
+ #include "behaviortree_cpp_v3/bt_factory.h"
+ #include "behaviortree_cpp_v3/blackboard.h"
+-#include "behaviortree_cpp_v3/xml_parsing.h"
++
++#include "../sample_nodes/dummy_nodes.h"
+ 
+ using namespace BT;
+ 
+@@ -295,3 +293,37 @@ TEST(BlackboardTest, CheckTypeSafety)
+   is = std::is_constructible<BT::StringView, std::string>::value;
+   ASSERT_TRUE(is);
+ }
++
++struct Point {
++  double x;
++  double y;
++};
++
++TEST(BlackboardTest, SetBlackboard_Issue725)
++{
++  BT::BehaviorTreeFactory factory;
++
++  const std::string xml_text = R"(
++  <root main_tree_to_execute = "MainTree"  >
++    <BehaviorTree ID="MainTree">
++      <SetBlackboard value="{first_point}" output_key="other_point" />
++    </BehaviorTree>
++  </root> )";
++
++  factory.registerNodeType<DummyNodes::SaySomething>("SaySomething");
++  factory.registerBehaviorTreeFromText(xml_text);
++  auto tree = factory.createTree("MainTree");
++  auto& blackboard = tree.blackboard_stack.front();
++
++  const Point point = {2,7};
++  blackboard->set("first_point", point);
++
++  const auto status = tree.tickRoot();
++
++  Point other_point = blackboard->get<Point>("other_point");
++
++  ASSERT_EQ(status, BT::NodeStatus::SUCCESS);
++  ASSERT_EQ(other_point.x, point.x);
++  ASSERT_EQ(other_point.y, point.y);
++}
++
