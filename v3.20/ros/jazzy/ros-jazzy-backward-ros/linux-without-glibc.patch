@@ -1,0 +1,36 @@
+diff --git a/include/backward_ros/backward.hpp b/include/backward_ros/backward.hpp
+index 93037d5..82e78f6 100644
+--- a/include/backward_ros/backward.hpp
++++ b/include/backward_ros/backward.hpp
+@@ -199,7 +199,7 @@
+ 
+ #include <cxxabi.h>
+ #include <fcntl.h>
+-#ifdef __ANDROID__
++#if defined(__ANDROID__) || (defined(__linux__) && !defined(__GLIBC__))
+ //		Old Android API levels define _Unwind_Ptr in both link.h and
+ // unwind.h 		Rename the one in link.h as we are not going to be using
+ // it
+@@ -238,6 +238,13 @@
+ #include <dwarf.h>
+ #include <elfutils/libdw.h>
+ #include <elfutils/libdwfl.h>
++#ifndef _GNU_SOURCE
++#define _GNU_SOURCE
++#include <dlfcn.h>
++#undef _GNU_SOURCE
++#else
++#include <dlfcn.h>
++#endif
+ #endif
+ 
+ #if BACKWARD_HAS_DWARF == 1
+@@ -731,7 +738,7 @@ public:
+ protected:
+   void load_thread_info() {
+ #ifdef BACKWARD_SYSTEM_LINUX
+-#ifndef __ANDROID__
++#if !(defined(__ANDROID__) || (defined(__linux__) && !defined(__GLIBC__)))
+     _thread_id = static_cast<size_t>(syscall(SYS_gettid));
+ #else
+     _thread_id = static_cast<size_t>(gettid());
