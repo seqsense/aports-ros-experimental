@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-nav-2d-utils
 _pkgname=nav_2d_utils
-pkgver=1.3.9
+pkgver=1.3.10
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: nav_2d_utils
     uri: https://github.com/SteveMacenski/navigation2-release.git
-    version: release/jazzy/nav_2d_utils/1.3.9-1
+    version: release/jazzy/nav_2d_utils/1.3.10-1
 "
 
 prepare() {

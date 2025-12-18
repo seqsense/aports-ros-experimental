@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-python-qt-binding
 _pkgname=python_qt_binding
-pkgver=2.2.1
-pkgrel=1
+pkgver=2.2.2
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://ros.org/wiki/python_qt_binding"
 arch="all"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: python_qt_binding
     uri: https://github.com/ros2-gbp/python_qt_binding-release.git
-    version: release/jazzy/python_qt_binding/2.2.1-1
+    version: release/jazzy/python_qt_binding/2.2.2-1
 "
 
 prepare() {

@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-rosidl-typesupport-fastrtps-cpp
 _pkgname=rosidl_typesupport_fastrtps_cpp
-pkgver=3.6.2
+pkgver=3.6.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -8,8 +8,8 @@ arch="all"
 license="Apache License 2.0"
 
 depends="ros-jazzy-ament-index-python ros-jazzy-fastcdr ros-jazzy-rmw ros-jazzy-ros-workspace ros-jazzy-rosidl-cli ros-jazzy-rosidl-pycommon ros-jazzy-rosidl-runtime-c"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool python3-dev ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-gtest-dev ros-jazzy-ament-cmake-pytest ros-jazzy-ament-cmake-pytest-dev ros-jazzy-ament-cmake-python ros-jazzy-ament-cmake-python-dev ros-jazzy-ament-cmake-ros ros-jazzy-ament-cmake-ros-dev ros-jazzy-ament-index-python ros-jazzy-ament-index-python-dev ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-auto-dev ros-jazzy-ament-lint-common ros-jazzy-ament-lint-common-dev ros-jazzy-fastcdr ros-jazzy-fastcdr-dev ros-jazzy-fastrtps-cmake-module ros-jazzy-fastrtps-cmake-module-dev ros-jazzy-osrf-testing-tools-cpp ros-jazzy-osrf-testing-tools-cpp-dev ros-jazzy-performance-test-fixture ros-jazzy-performance-test-fixture-dev ros-jazzy-rcutils ros-jazzy-rcutils-dev ros-jazzy-rmw ros-jazzy-rmw-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosidl-cli ros-jazzy-rosidl-cli-dev ros-jazzy-rosidl-generator-c ros-jazzy-rosidl-generator-c-dev ros-jazzy-rosidl-generator-cpp ros-jazzy-rosidl-generator-cpp-dev ros-jazzy-rosidl-pycommon-dev ros-jazzy-rosidl-runtime-c ros-jazzy-rosidl-runtime-c-dev ros-jazzy-rosidl-runtime-cpp ros-jazzy-rosidl-runtime-cpp-dev ros-jazzy-rosidl-typesupport-interface ros-jazzy-rosidl-typesupport-interface-dev"
-depends_dev="python3-dev ros-jazzy-ament-cmake-ros ros-jazzy-ament-cmake-ros-dev ros-jazzy-ament-index-python ros-jazzy-ament-index-python-dev ros-jazzy-fastcdr ros-jazzy-fastcdr-dev ros-jazzy-fastrtps-cmake-module ros-jazzy-fastrtps-cmake-module-dev ros-jazzy-rmw ros-jazzy-rmw-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosidl-cli ros-jazzy-rosidl-cli-dev ros-jazzy-rosidl-generator-c ros-jazzy-rosidl-generator-c-dev ros-jazzy-rosidl-generator-cpp ros-jazzy-rosidl-generator-cpp-dev ros-jazzy-rosidl-pycommon-dev ros-jazzy-rosidl-runtime-c ros-jazzy-rosidl-runtime-c-dev ros-jazzy-rosidl-runtime-cpp ros-jazzy-rosidl-runtime-cpp-dev ros-jazzy-rosidl-typesupport-interface ros-jazzy-rosidl-typesupport-interface-dev"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool python3-dev ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-gtest-dev ros-jazzy-ament-cmake-pytest ros-jazzy-ament-cmake-pytest-dev ros-jazzy-ament-cmake-python ros-jazzy-ament-cmake-python-dev ros-jazzy-ament-cmake-ros ros-jazzy-ament-cmake-ros-dev ros-jazzy-ament-index-python-dev ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-auto-dev ros-jazzy-ament-lint-common ros-jazzy-ament-lint-common-dev ros-jazzy-fastcdr ros-jazzy-fastcdr-dev ros-jazzy-fastrtps-cmake-module ros-jazzy-fastrtps-cmake-module-dev ros-jazzy-osrf-testing-tools-cpp ros-jazzy-osrf-testing-tools-cpp-dev ros-jazzy-performance-test-fixture ros-jazzy-performance-test-fixture-dev ros-jazzy-rcutils ros-jazzy-rcutils-dev ros-jazzy-rmw ros-jazzy-rmw-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosidl-cli-dev ros-jazzy-rosidl-generator-c ros-jazzy-rosidl-generator-c-dev ros-jazzy-rosidl-generator-cpp ros-jazzy-rosidl-generator-cpp-dev ros-jazzy-rosidl-pycommon-dev ros-jazzy-rosidl-runtime-c ros-jazzy-rosidl-runtime-c-dev ros-jazzy-rosidl-runtime-cpp ros-jazzy-rosidl-runtime-cpp-dev ros-jazzy-rosidl-typesupport-interface ros-jazzy-rosidl-typesupport-interface-dev"
+depends_dev="python3-dev ros-jazzy-ament-cmake-ros ros-jazzy-ament-cmake-ros-dev ros-jazzy-ament-index-python-dev ros-jazzy-fastcdr ros-jazzy-fastcdr-dev ros-jazzy-fastrtps-cmake-module ros-jazzy-fastrtps-cmake-module-dev ros-jazzy-rmw ros-jazzy-rmw-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosidl-cli-dev ros-jazzy-rosidl-generator-c ros-jazzy-rosidl-generator-c-dev ros-jazzy-rosidl-generator-cpp ros-jazzy-rosidl-generator-cpp-dev ros-jazzy-rosidl-pycommon-dev ros-jazzy-rosidl-runtime-c ros-jazzy-rosidl-runtime-c-dev ros-jazzy-rosidl-runtime-cpp ros-jazzy-rosidl-runtime-cpp-dev ros-jazzy-rosidl-typesupport-interface ros-jazzy-rosidl-typesupport-interface-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rosidl_typesupport_fastrtps_cpp
     uri: https://github.com/ros2-gbp/rosidl_typesupport_fastrtps-release.git
-    version: release/jazzy/rosidl_typesupport_fastrtps_cpp/3.6.2-1
+    version: release/jazzy/rosidl_typesupport_fastrtps_cpp/3.6.3-1
 "
 
 prepare() {
