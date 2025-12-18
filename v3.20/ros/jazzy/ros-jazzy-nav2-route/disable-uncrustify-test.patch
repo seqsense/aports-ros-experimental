@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 7d7a4cfc..cfaa4aa1 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -143,6 +143,9 @@ install(DIRECTORY test/test_graphs DESTINATION share/${PROJECT_NAME}/test)
+ 
+ if(BUILD_TESTING)
+   find_package(ament_lint_auto REQUIRED)
++  list(APPEND AMENT_LINT_AUTO_EXCLUDE
++    ament_cmake_uncrustify
++  )
+   # the following line skips the linter which checks for copyrights
+   set(ament_cmake_copyright_FOUND TRUE)
+   ament_lint_auto_find_test_dependencies()
