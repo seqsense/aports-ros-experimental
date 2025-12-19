@@ -1,0 +1,30 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 789ed61..e8dbacc 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -104,15 +104,23 @@ endif()
+ 
+ if(BUILD_TESTING)
+   find_package(ament_lint_auto REQUIRED)
++  list(APPEND AMENT_LINT_AUTO_EXCLUDE
++    ament_cmake_copyright
++    ament_cmake_uncrustify
++  )
+   ament_lint_auto_find_test_dependencies()
+ 
+   add_definitions(-D_SRC_RESOURCES_DIR_PATH="${CMAKE_CURRENT_SOURCE_DIR}/test/resources")
+ 
+   find_package(ament_cmake_gtest)
+-  ament_auto_add_gtest(test_rectify test/test_rectify.cpp)
++  ament_auto_add_gtest(test_rectify test/test_rectify.cpp
++    ENV ROS_DOMAIN_ID=1
++  )
+ 
+   find_package(ament_cmake_gtest)
+-  ament_auto_add_gtest(rostest test/rostest.cpp)
++  ament_auto_add_gtest(rostest test/rostest.cpp
++    ENV ROS_DOMAIN_ID=2
++  )
+ endif()
+ 
+ ament_auto_package(INSTALL_TO_SHARE launch)

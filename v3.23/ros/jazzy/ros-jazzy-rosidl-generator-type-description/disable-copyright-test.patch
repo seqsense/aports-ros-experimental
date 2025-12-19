@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2a3949a..2372fd2 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -11,6 +11,9 @@ ament_python_install_package(${PROJECT_NAME})
+ if(BUILD_TESTING)
+   find_package(ament_lint_auto REQUIRED)
+   find_package(ament_cmake_pytest REQUIRED)
++  list(APPEND AMENT_LINT_AUTO_EXCLUDE
++      ament_cmake_copyright
++  )
+   ament_lint_auto_find_test_dependencies()
+   ament_add_pytest_test(pytest_type_hash_generator test)
+ endif()
