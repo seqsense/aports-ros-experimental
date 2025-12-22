@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-rviz2
 _pkgname=rviz2
-pkgver=14.1.18
+pkgver=14.1.19
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://github.com/ros2/rviz/blob/ros2/README.md"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rviz2
     uri: https://github.com/ros2-gbp/rviz-release.git
-    version: release/jazzy/rviz2/14.1.18-1
+    version: release/jazzy/rviz2/14.1.19-1
 "
 
 prepare() {
