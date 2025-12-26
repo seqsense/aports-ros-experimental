@@ -1,0 +1,150 @@
+diff --git a/surface/include/pcl/surface/impl/convex_hull.hpp b/surface/include/pcl/surface/impl/convex_hull.hpp
+index d17f47b9d..989b09d4a 100644
+--- a/surface/include/pcl/surface/impl/convex_hull.hpp
++++ b/surface/include/pcl/surface/impl/convex_hull.hpp
+@@ -81,28 +81,34 @@ pcl::ConvexHull<PointInT>::performReconstruction2D (PointCloud &hull, std::vecto
+   bool yz_proj_safe = true;
+   bool xz_proj_safe = true;
+ 
++  Eigen::Vector4d normal_calc_centroid;
++  Eigen::Matrix3d normal_calc_covariance;
++
+   // Check the input's normal to see which projection to use
+   PointInT p0 = (*input_)[(*indices_)[0]];
+   PointInT p1 = (*input_)[(*indices_)[indices_->size () - 1]];
+   PointInT p2 = (*input_)[(*indices_)[indices_->size () / 2]];
+-  while (!pcl::isXYZFinite(p0) || !pcl::isXYZFinite(p1) || !pcl::isXYZFinite(p2) || 
+-  (p1.getVector3fMap() - p0.getVector3fMap()).cross(p2.getVector3fMap() - p0.getVector3fMap()).stableNorm() < Eigen::NumTraits<float>::dummy_precision ())
+-  {
+-    p0 = (*input_)[(*indices_)[rand () % indices_->size ()]];
+-    p1 = (*input_)[(*indices_)[rand () % indices_->size ()]];
+-    p2 = (*input_)[(*indices_)[rand () % indices_->size ()]];
++  if (pcl::isXYZFinite(p0) && pcl::isXYZFinite(p1) && pcl::isXYZFinite(p2) &&
++      (p1.getVector3fMap() - p0.getVector3fMap())
++              .cross(p2.getVector3fMap() - p0.getVector3fMap())
++              .stableNorm() > Eigen::NumTraits<float>::dummy_precision()) {
++    pcl::PointCloud<PointInT> normal_calc_cloud;
++    normal_calc_cloud.resize(3);
++    normal_calc_cloud[0] = p0;
++    normal_calc_cloud[1] = p1;
++    normal_calc_cloud[2] = p2;
++
++    pcl::compute3DCentroid(normal_calc_cloud, normal_calc_centroid);
++    pcl::computeCovarianceMatrixNormalized(
++        normal_calc_cloud, normal_calc_centroid, normal_calc_covariance);
++  }
++  else {
++    // Three points do not form a valid triangle, fallback to use all points to
++    // calculate the covariance matrix
++    pcl::compute3DCentroid(*input_, normal_calc_centroid);
++    pcl::computeCovarianceMatrixNormalized(
++        *input_, normal_calc_centroid, normal_calc_covariance);
+   }
+-    
+-  pcl::PointCloud<PointInT> normal_calc_cloud;
+-  normal_calc_cloud.resize (3);
+-  normal_calc_cloud[0] = p0;
+-  normal_calc_cloud[1] = p1;
+-  normal_calc_cloud[2] = p2;
+-    
+-  Eigen::Vector4d normal_calc_centroid;
+-  Eigen::Matrix3d normal_calc_covariance;
+-  pcl::compute3DCentroid (normal_calc_cloud, normal_calc_centroid);
+-  pcl::computeCovarianceMatrixNormalized (normal_calc_cloud, normal_calc_centroid, normal_calc_covariance);
+ 
+   // Need to set -1 here. See eigen33 for explanations.
+   Eigen::Vector3d::Scalar eigen_value;
+diff --git a/test/surface/test_convex_hull.cpp b/test/surface/test_convex_hull.cpp
+index f814cb89a..c429255be 100644
+--- a/test/surface/test_convex_hull.cpp
++++ b/test/surface/test_convex_hull.cpp
+@@ -39,7 +39,11 @@
+ 
+ #include <pcl/test/gtest.h>
+ 
++#include <atomic>
++#include <chrono>
++#include <cstdlib>
+ #include <random>
++#include <thread>
+ 
+ #include <pcl/point_types.h>
+ #include <pcl/io/pcd_io.h>
+@@ -484,6 +488,77 @@ TEST (PCL, ConvexHull_4points)
+   EXPECT_NEAR (convex_hull.getTotalArea (), 1.0f, 1e-6);
+ }
+ 
++TEST (PCL, ConvexHull_insufficient_points)
++{
++  // ConvexHull must not enter an infinite busy loop
++  // even if insufficient points are passed
++
++  // PCL 1.15.0 and 1.15.1 enter infinite busy loop if insufficient points are passed.
++  // Use EXPECT_EXIT to run the convex hull calculation in a sub-process to
++  // safely check the timeout.
++  const auto check_no_timeout = [](pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud) {
++    std::atomic_bool finished(false);
++    std::thread thread([&]() {
++      using namespace std::chrono_literals;
++      std::this_thread::sleep_for(1s);
++      if (!finished) {
++        abort(); // Abort if deadline exceeded
++      }
++    });
++
++    ConvexHull<PointXYZ> convex_hull;
++    convex_hull.setComputeAreaVolume(true);
++    convex_hull.setInputCloud(cloud);
++
++    PolygonMesh mesh;
++    convex_hull.reconstruct(mesh);
++    finished = true;
++    EXPECT_EQ(mesh.polygons.size(), 0);
++    thread.join();
++    exit(0); // Exit if process returned
++  };
++
++  pcl::PointCloud<pcl::PointXYZ>::Ptr input_cloud(new pcl::PointCloud<pcl::PointXYZ>());
++  pcl::PointXYZ p;
++  p.x = p.y = p.z = 0.f;
++  input_cloud->push_back(p);
++
++  EXPECT_EXIT(
++      {
++        SCOPED_TRACE("1 point");
++        check_no_timeout(input_cloud);
++      },
++      ::testing::ExitedWithCode(0),
++      ".*")
++      << "Did not return against 1 point input";
++
++  p.x = 0.1f;
++  p.y = p.z = 0.f;
++  input_cloud->push_back(p);
++
++  EXPECT_EXIT(
++      {
++        SCOPED_TRACE("2 points");
++        check_no_timeout(input_cloud);
++      },
++      ::testing::ExitedWithCode(0),
++      ".*")
++      << "Did not return against 2 point input";
++
++  p.x = 0.2f;
++  p.y = p.z = 0.f;
++  input_cloud->push_back(p);
++
++  EXPECT_EXIT(
++      {
++        SCOPED_TRACE("3 points on a line");
++        check_no_timeout(input_cloud);
++      },
++      ::testing::ExitedWithCode(0),
++      ".*")
++      << "Did not return against 3 point input on a line";
++}
++
+ /* ---[ */
+ int
+ main (int argc, char** argv)
