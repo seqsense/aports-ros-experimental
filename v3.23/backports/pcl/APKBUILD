@@ -2,7 +2,7 @@
 # Maintainer: Bradley J Chambers <brad.chambers@gmail.com>
 pkgname=pcl
 pkgver=1.15.1
-pkgrel=4
+pkgrel=5
 pkgdesc="Point Cloud Library (PCL)"
 url="https://github.com/PointCloudLibrary/pcl"
 arch="all !x86 !s390x" # tests fails on x86 and s390x
@@ -25,8 +25,7 @@ makedepends="
 	gtest-dev
 	gtest-src
 	"
-subpackages="$pkgname-doc $pkgname-dev $pkgname-libs"
-_gtestver=1.8.0
+subpackages="$pkgname-doc $pkgname-dev $pkgname-libs $pkgname-dbg"
 source="$pkgname-$pkgver.tar.gz::https://github.com/PointCloudLibrary/$pkgname/archive/$pkgname-$pkgver.tar.gz
 	fix-infinite-loop-in-convex-hull.patch
 	"
@@ -51,7 +50,7 @@ build() {
 		-DCMAKE_BUILD_TYPE=None \
 		-DHAVE_SSE3_EXTENSIONS=1 \
 		-DHAVE_MM_MALLOC=1 \
-		-DCMAKE_CXX_FLAGS="$CFLAGS -march=x86-64 -msse3 -mfpmath=sse" \
+		-DCMAKE_CXX_FLAGS="$CFLAGS -g -march=x86-64 -msse3 -mfpmath=sse" \
 		-DWITH_CUDA=OFF \
 		-DWITH_DAVIDSDK=OFF \
 		-DWITH_DSSDK=OFF \
