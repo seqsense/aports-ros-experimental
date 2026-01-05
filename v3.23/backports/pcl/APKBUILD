@@ -2,7 +2,7 @@
 # Maintainer: Bradley J Chambers <brad.chambers@gmail.com>
 pkgname=pcl
 pkgver=1.15.1
-pkgrel=3
+pkgrel=5
 pkgdesc="Point Cloud Library (PCL)"
 url="https://github.com/PointCloudLibrary/pcl"
 arch="all !x86 !s390x" # tests fails on x86 and s390x
@@ -26,7 +26,9 @@ makedepends="
 	gtest-src
 	"
 subpackages="$pkgname-doc $pkgname-dev $pkgname-libs $pkgname-dbg"
-source="$pkgname-$pkgver.tar.gz::https://github.com/PointCloudLibrary/$pkgname/archive/$pkgname-$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/PointCloudLibrary/$pkgname/archive/$pkgname-$pkgver.tar.gz
+	fix-infinite-loop-in-convex-hull.patch
+	"
 builddir="$srcdir/$pkgname-$pkgname-$pkgver"
 
 build() {
@@ -98,4 +100,5 @@ check() {
 
 sha512sums="
 ca9e742bc24b38f31c42c9ea08e19054e18d045f487269b64a7b831dada89936445d90a5b46870d8c24c2d25b33a59df2d904fe7e51bc0b231317cdb319951e9  pcl-1.15.1.tar.gz
+47c8aeaa470bac3b3d093694982d43c3ed9eef4e60c673d08bf137f327fea7e46472d7fb33e0d5a6f838817dd28d95d54bc564cd19fff58566bbc6fc6a20259f  fix-infinite-loop-in-convex-hull.patch
 "
