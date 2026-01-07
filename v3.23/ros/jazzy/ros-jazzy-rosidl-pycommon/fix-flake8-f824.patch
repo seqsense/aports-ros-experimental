@@ -1,0 +1,28 @@
+diff --git a/rosidl_pycommon/__init__.py b/rosidl_pycommon/__init__.py
+index 36d8871..71f5542 100644
+--- a/rosidl_pycommon/__init__.py
++++ b/rosidl_pycommon/__init__.py
+@@ -132,7 +132,6 @@ template_prefix_path = []
+ 
+ 
+ def get_template_path(template_name):
+-    global template_prefix_path
+     for basepath in template_prefix_path:
+         template_path = basepath / template_name
+         if template_path.exists():
+@@ -153,7 +152,6 @@ def expand_template(
+         template_basepath = template_name.parent
+         template_name = template_name.name
+ 
+-    global template_prefix_path
+     template_prefix_path.append(template_basepath)
+     template_path = get_template_path(template_name)
+ 
+@@ -231,7 +229,6 @@ def _add_helper_functions(data):
+ 
+ 
+ def _expand_template(template_name, **kwargs):
+-    global interpreter
+     template_path = get_template_path(template_name)
+     _add_helper_functions(kwargs)
+     with template_path.open('r') as h:
