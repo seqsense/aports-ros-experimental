@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 95eabf6c..738d876d 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -40,6 +40,7 @@ foreach(pkg IN LISTS dependencies_pkgs)
+ endforeach()
+ 
+ nav2_package()
++add_compile_options(-Wno-null-dereference)
+ 
+ include(CheckCXXCompilerFlag)
+ 
