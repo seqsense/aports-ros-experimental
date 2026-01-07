@@ -1,0 +1,15 @@
+diff --git a/test/map_saver_cli/CMakeLists.txt b/test/map_saver_cli/CMakeLists.txt
+index 01859094..ea1367f8 100644
+--- a/test/map_saver_cli/CMakeLists.txt
++++ b/test/map_saver_cli/CMakeLists.txt
+@@ -1,7 +1,8 @@
++find_package(ament_cmake_ros REQUIRED)
+ include_directories(${PROJECT_SOURCE_DIR}/test)
+
+ # map_saver CLI
+-ament_add_gtest(test_map_saver_cli
++ament_add_ros_isolated_gtest(test_map_saver_cli
+   test_map_saver_cli.cpp
+   ${PROJECT_SOURCE_DIR}/test/test_constants.cpp
+ )
+
