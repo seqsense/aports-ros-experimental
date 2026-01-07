@@ -1,0 +1,26 @@
+diff --git a/plugins/test/goal_checker.cpp b/plugins/test/goal_checker.cpp
+index d1d337a5..e8cac56c 100644
+--- a/plugins/test/goal_checker.cpp
++++ b/plugins/test/goal_checker.cpp
+@@ -344,5 +344,7 @@ int main(int argc, char ** argv)
+ {
+   rclcpp::init(argc, argv);
+   testing::InitGoogleTest(&argc, argv);
+-  return RUN_ALL_TESTS();
++  const int ret = RUN_ALL_TESTS();
++  rclcpp::shutdown();
++  return ret;
+ }
+diff --git a/plugins/test/progress_checker.cpp b/plugins/test/progress_checker.cpp
+index de14fae7..023ba305 100644
+--- a/plugins/test/progress_checker.cpp
++++ b/plugins/test/progress_checker.cpp
+@@ -295,5 +295,7 @@ int main(int argc, char ** argv)
+ {
+   rclcpp::init(argc, argv);
+   testing::InitGoogleTest(&argc, argv);
+-  return RUN_ALL_TESTS();
++  const int ret = RUN_ALL_TESTS();
++  rclcpp::shutdown();
++  return ret;
+ }
