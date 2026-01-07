@@ -1,0 +1,240 @@
+diff --git a/include/nav2_mppi_controller/critic_data.hpp b/include/nav2_mppi_controller/critic_data.hpp
+index 8f06566e..9d1a9765 100644
+--- a/include/nav2_mppi_controller/critic_data.hpp
++++ b/include/nav2_mppi_controller/critic_data.hpp
+@@ -22,7 +22,7 @@
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Warray-bounds"
+ #pragma GCC diagnostic ignored "-Wstringop-overflow"
+-#include <xtensor/xtensor.hpp>
++#include <xtensor.hpp>
+ #pragma GCC diagnostic pop
+
+ #include "geometry_msgs/msg/pose_stamped.hpp"
+diff --git a/include/nav2_mppi_controller/critic_manager.hpp b/include/nav2_mppi_controller/critic_manager.hpp
+index 7e09fcf9..4997f280 100644
+--- a/include/nav2_mppi_controller/critic_manager.hpp
++++ b/include/nav2_mppi_controller/critic_manager.hpp
+@@ -24,7 +24,7 @@
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Warray-bounds"
+ #pragma GCC diagnostic ignored "-Wstringop-overflow"
+-#include <xtensor/xtensor.hpp>
++#include <xtensor.hpp>
+ #pragma GCC diagnostic pop
+
+ #include "geometry_msgs/msg/twist.hpp"
+diff --git a/include/nav2_mppi_controller/models/control_sequence.hpp b/include/nav2_mppi_controller/models/control_sequence.hpp
+index ad797e9a..771c0e92 100644
+--- a/include/nav2_mppi_controller/models/control_sequence.hpp
++++ b/include/nav2_mppi_controller/models/control_sequence.hpp
+@@ -19,7 +19,7 @@
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Warray-bounds"
+ #pragma GCC diagnostic ignored "-Wstringop-overflow"
+-#include <xtensor/xtensor.hpp>
++#include <xtensor.hpp>
+ #pragma GCC diagnostic pop
+
+ namespace mppi::models
+diff --git a/include/nav2_mppi_controller/models/path.hpp b/include/nav2_mppi_controller/models/path.hpp
+index f1bab3f8..838ff3c6 100644
+--- a/include/nav2_mppi_controller/models/path.hpp
++++ b/include/nav2_mppi_controller/models/path.hpp
+@@ -19,7 +19,7 @@
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Warray-bounds"
+ #pragma GCC diagnostic ignored "-Wstringop-overflow"
+-#include <xtensor/xtensor.hpp>
++#include <xtensor.hpp>
+ #pragma GCC diagnostic pop
+
+ namespace mppi::models
+diff --git a/include/nav2_mppi_controller/models/state.hpp b/include/nav2_mppi_controller/models/state.hpp
+index 75f8c752..ee7e9597 100644
+--- a/include/nav2_mppi_controller/models/state.hpp
++++ b/include/nav2_mppi_controller/models/state.hpp
+@@ -19,7 +19,7 @@
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Warray-bounds"
+ #pragma GCC diagnostic ignored "-Wstringop-overflow"
+-#include <xtensor/xtensor.hpp>
++#include <xtensor.hpp>
+ #pragma GCC diagnostic pop
+
+ #include <geometry_msgs/msg/pose_stamped.hpp>
+diff --git a/include/nav2_mppi_controller/models/trajectories.hpp b/include/nav2_mppi_controller/models/trajectories.hpp
+index 0862c2ca..9bb9a243 100644
+--- a/include/nav2_mppi_controller/models/trajectories.hpp
++++ b/include/nav2_mppi_controller/models/trajectories.hpp
+@@ -19,8 +19,8 @@
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Warray-bounds"
+ #pragma GCC diagnostic ignored "-Wstringop-overflow"
+-#include <xtensor/xtensor.hpp>
+-#include <xtensor/xview.hpp>
++#include <xtensor.hpp>
++#include <xtensor/views/xview.hpp>
+ #pragma GCC diagnostic pop
+
+ namespace mppi::models
+diff --git a/include/nav2_mppi_controller/motion_models.hpp b/include/nav2_mppi_controller/motion_models.hpp
+index 3cf15a20..0562e66f 100644
+--- a/include/nav2_mppi_controller/motion_models.hpp
++++ b/include/nav2_mppi_controller/motion_models.hpp
+@@ -26,10 +26,10 @@
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Warray-bounds"
+ #pragma GCC diagnostic ignored "-Wstringop-overflow"
+-#include <xtensor/xmath.hpp>
+-#include <xtensor/xmasked_view.hpp>
+-#include <xtensor/xview.hpp>
+-#include <xtensor/xnoalias.hpp>
++#include <xtensor/core/xmath.hpp>
++#include <xtensor/views/xmasked_view.hpp>
++#include <xtensor/views/xview.hpp>
++#include <xtensor/core/xnoalias.hpp>
+ #pragma GCC diagnostic pop
+
+ #include "nav2_mppi_controller/tools/parameters_handler.hpp"
+diff --git a/include/nav2_mppi_controller/optimizer.hpp b/include/nav2_mppi_controller/optimizer.hpp
+index 0997634b..c2fb6fe0 100644
+--- a/include/nav2_mppi_controller/optimizer.hpp
++++ b/include/nav2_mppi_controller/optimizer.hpp
+@@ -22,8 +22,8 @@
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Warray-bounds"
+ #pragma GCC diagnostic ignored "-Wstringop-overflow"
+-#include <xtensor/xtensor.hpp>
+-#include <xtensor/xview.hpp>
++#include <xtensor.hpp>
++#include <xtensor/views/xview.hpp>
+ #pragma GCC diagnostic pop
+
+ #include "rclcpp_lifecycle/lifecycle_node.hpp"
+diff --git a/include/nav2_mppi_controller/tools/noise_generator.hpp b/include/nav2_mppi_controller/tools/noise_generator.hpp
+index f16bb909..4958b30c 100644
+--- a/include/nav2_mppi_controller/tools/noise_generator.hpp
++++ b/include/nav2_mppi_controller/tools/noise_generator.hpp
+@@ -25,8 +25,8 @@
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Warray-bounds"
+ #pragma GCC diagnostic ignored "-Wstringop-overflow"
+-#include <xtensor/xtensor.hpp>
+-#include <xtensor/xview.hpp>
++#include <xtensor.hpp>
++#include <xtensor/views/xview.hpp>
+ #pragma GCC diagnostic pop
+
+ #include "nav2_mppi_controller/models/optimizer_settings.hpp"
+diff --git a/include/nav2_mppi_controller/tools/trajectory_visualizer.hpp b/include/nav2_mppi_controller/tools/trajectory_visualizer.hpp
+index 32842431..cedc01f1 100644
+--- a/include/nav2_mppi_controller/tools/trajectory_visualizer.hpp
++++ b/include/nav2_mppi_controller/tools/trajectory_visualizer.hpp
+@@ -22,7 +22,7 @@
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Warray-bounds"
+ #pragma GCC diagnostic ignored "-Wstringop-overflow"
+-#include <xtensor/xtensor.hpp>
++#include <xtensor.hpp>
+ #pragma GCC diagnostic pop
+
+ #include "nav_msgs/msg/path.hpp"
+diff --git a/include/nav2_mppi_controller/tools/utils.hpp b/include/nav2_mppi_controller/tools/utils.hpp
+index 9f3c6bbe..3bbcfd71 100644
+--- a/include/nav2_mppi_controller/tools/utils.hpp
++++ b/include/nav2_mppi_controller/tools/utils.hpp
+@@ -28,10 +28,10 @@
+ #pragma GCC diagnostic ignored "-Warray-bounds"
+ #pragma GCC diagnostic ignored "-Wstringop-overflow"
+ #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+-#include <xtensor/xarray.hpp>
+-#include <xtensor/xnorm.hpp>
+-#include <xtensor/xmath.hpp>
+-#include <xtensor/xview.hpp>
++#include <xtensor/containers/xarray.hpp>
++#include <xtensor/reducers/xnorm.hpp>
++#include <xtensor/core/xmath.hpp>
++#include <xtensor/views/xview.hpp>
+ #pragma GCC diagnostic pop
+
+ #include "angles/angles.h"
+diff --git a/src/critics/path_follow_critic.cpp b/src/critics/path_follow_critic.cpp
+index 74c2736e..460139e8 100644
+--- a/src/critics/path_follow_critic.cpp
++++ b/src/critics/path_follow_critic.cpp
+@@ -14,8 +14,8 @@
+
+ #include "nav2_mppi_controller/critics/path_follow_critic.hpp"
+
+-#include <xtensor/xmath.hpp>
+-#include <xtensor/xsort.hpp>
++#include <xtensor/core/xmath.hpp>
++#include <xtensor/misc/xsort.hpp>
+
+ namespace mppi::critics
+ {
+diff --git a/src/noise_generator.cpp b/src/noise_generator.cpp
+index b7c452aa..5c839de7 100644
+--- a/src/noise_generator.cpp
++++ b/src/noise_generator.cpp
+@@ -16,9 +16,9 @@
+
+ #include <memory>
+ #include <mutex>
+-#include <xtensor/xmath.hpp>
+-#include <xtensor/xrandom.hpp>
+-#include <xtensor/xnoalias.hpp>
++#include <xtensor/core/xmath.hpp>
++#include <xtensor/generators/xrandom.hpp>
++#include <xtensor/core/xnoalias.hpp>
+
+ namespace mppi
+ {
+diff --git a/src/optimizer.cpp b/src/optimizer.cpp
+index b193d47b..07ff39d0 100644
+--- a/src/optimizer.cpp
++++ b/src/optimizer.cpp
+@@ -20,9 +20,9 @@
+ #include <string>
+ #include <vector>
+ #include <cmath>
+-#include <xtensor/xmath.hpp>
+-#include <xtensor/xrandom.hpp>
+-#include <xtensor/xnoalias.hpp>
++#include <xtensor/core/xmath.hpp>
++#include <xtensor/generators/xrandom.hpp>
++#include <xtensor/core/xnoalias.hpp>
+
+ #include "nav2_core/controller_exceptions.hpp"
+ #include "nav2_costmap_2d/costmap_filters/filter_values.hpp"
+diff --git a/test/optimizer_smoke_test.cpp b/test/optimizer_smoke_test.cpp
+index b2210ee2..53ede21c 100644
+--- a/test/optimizer_smoke_test.cpp
++++ b/test/optimizer_smoke_test.cpp
+@@ -22,9 +22,9 @@
+ #include <nav2_costmap_2d/costmap_2d_ros.hpp>
+ #include <nav2_core/goal_checker.hpp>
+
+-#include <xtensor/xarray.hpp>
+-#include <xtensor/xio.hpp>
+-#include <xtensor/xview.hpp>
++#include <xtensor/containers/xarray.hpp>
++#include <xtensor/io/xio.hpp>
++#include <xtensor/views/xview.hpp>
+
+ #include "nav2_mppi_controller/optimizer.hpp"
+ #include "nav2_mppi_controller/tools/parameters_handler.hpp"
+diff --git a/test/utils_test.cpp b/test/utils_test.cpp
+index 1136e581..c95abf6a 100644
+--- a/test/utils_test.cpp
++++ b/test/utils_test.cpp
+@@ -17,7 +17,7 @@
+
+ #pragma GCC diagnostic ignored "-Warray-bounds"
+ #pragma GCC diagnostic ignored "-Wstringop-overflow"
+-#include <xtensor/xrandom.hpp>
++#include <xtensor/generators/xrandom.hpp>
+ #pragma GCC diagnostic pop
+
+ #include "gtest/gtest.h"

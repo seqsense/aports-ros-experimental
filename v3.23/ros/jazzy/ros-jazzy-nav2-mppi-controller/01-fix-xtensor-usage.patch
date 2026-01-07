@@ -1,0 +1,19 @@
+diff --git a/include/nav2_mppi_controller/motion_models.hpp b/include/nav2_mppi_controller/motion_models.hpp
+index 3cf15a20..0562e66f 100644
+--- a/include/nav2_mppi_controller/motion_models.hpp
++++ b/include/nav2_mppi_controller/motion_models.hpp
+@@ -173,8 +173,12 @@ public:
+     auto & vx = control_sequence.vx;
+     auto & wz = control_sequence.wz;
+
+-    auto view = xt::masked_view(wz, (xt::fabs(vx) / xt::fabs(wz)) < min_turning_r_);
+-    view = xt::sign(wz) * xt::fabs(vx) / min_turning_r_;
++    // auto view = xt::masked_view(wz, (xt::fabs(vx) / xt::fabs(wz)) < min_turning_r_);
++    // view = xt::sign(wz) * xt::fabs(vx) / min_turning_r_;
++    auto mask = (xt::fabs(vx) / xt::fabs(wz)) < min_turning_r_;
++    wz = xt::where(mask,
++                   xt::sign(wz) * xt::fabs(vx) / min_turning_r_,
++                   wz);
+   }
+
+   /**
