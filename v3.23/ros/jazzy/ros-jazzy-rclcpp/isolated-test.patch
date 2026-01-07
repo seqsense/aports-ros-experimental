@@ -1,8 +1,8 @@
 diff --git a/test/rclcpp/CMakeLists.txt b/test/rclcpp/CMakeLists.txt
-index 5826d1bb..7da08d55 100644
+index 5826d1bb..9faf7e11 100644
 --- a/test/rclcpp/CMakeLists.txt
 +++ b/test/rclcpp/CMakeLists.txt
-@@ -16,46 +16,46 @@ rosidl_generate_interfaces(${PROJECT_NAME}_test_msgs
+@@ -16,64 +16,64 @@ rosidl_generate_interfaces(${PROJECT_NAME}_test_msgs
  # Need the target name to depend on generated interface libraries
  rosidl_get_typesupport_target(cpp_typesupport_target "${PROJECT_NAME}_test_msgs" "rosidl_typesupport_cpp")
  
@@ -58,7 +58,9 @@ index 5826d1bb..7da08d55 100644
  if(TARGET test_clock)
    target_link_libraries(test_clock ${PROJECT_NAME} mimick ${rcl_interfaces_TARGETS} ${test_msgs_TARGETS})
  endif()
-@@ -64,16 +64,16 @@ ament_add_test_label(test_clock_conditional mimick)
+-ament_add_gtest(test_clock_conditional test_clock_conditional.cpp)
++ament_add_ros_isolated_gtest(test_clock_conditional test_clock_conditional.cpp)
+ ament_add_test_label(test_clock_conditional mimick)
  if(TARGET test_clock_conditional)
    target_link_libraries(test_clock_conditional ${PROJECT_NAME} mimick ${rcl_interfaces_TARGETS} ${test_msgs_TARGETS})
  endif()
