@@ -1,0 +1,35 @@
+diff --git a/python/cv_bridge/core.py b/python/cv_bridge/core.py
+index 43797b4..2763584 100644
+--- a/python/cv_bridge/core.py
++++ b/python/cv_bridge/core.py
+@@ -183,7 +183,7 @@ class CvBridge(object):
+ 
+         # If the byte order is different between the message and the system.
+         if img_msg.is_bigendian == (sys.byteorder == 'little'):
+-            im = im.byteswap().newbyteorder()
++            im = im.byteswap().view(im.dtype.newbyteorder('S'))
+ 
+         if desired_encoding == 'passthrough':
+             return im
+diff --git a/test/conversions.py b/test/conversions.py
+index a9bd576..c97ce7a 100644
+--- a/test/conversions.py
++++ b/test/conversions.py
+@@ -34,7 +34,7 @@ class TestConversions(unittest.TestCase):
+                             self.assertTrue(original.shape[:2] == newimg.shape[:2])
+                         else:
+                             self.assertTrue(original.shape == newimg.shape)
+-                        self.assertTrue(len(original.tostring()) == len(newimg.tostring()))
++                        self.assertTrue(len(original.tobytes()) == len(newimg.tobytes()))
+ 
+     # From:
+     # http://docs.opencv.org/2.4/modules/highgui/doc/reading_and_writing_images_and_video.html#Mat
+@@ -65,7 +65,7 @@ class TestConversions(unittest.TestCase):
+                             self.assertTrue(original.shape[:2] == newimg.shape[:2])
+                         else:
+                             self.assertTrue(original.shape == newimg.shape)
+-                        self.assertTrue(len(original.tostring()) == len(newimg.tostring()))
++                        self.assertTrue(len(original.tobytes()) == len(newimg.tobytes()))
+ 
+     def test_endianness(self):
+         br = CvBridge()
