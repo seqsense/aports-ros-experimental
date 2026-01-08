@@ -1,6 +1,6 @@
 pkgname=ros-humble-fastrtps
 _pkgname=fastrtps
-pkgver=2.6.10
+pkgver=2.6.11
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://www.eprosima.com/"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: fastrtps
     uri: https://github.com/ros2-gbp/fastdds-release.git
-    version: release/humble/fastrtps/2.6.10-1
+    version: release/humble/fastrtps/2.6.11-1
 "
 
 prepare() {
