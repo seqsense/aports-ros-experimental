@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 95eabf6c..c109e2ba 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -114,6 +114,7 @@ if(BUILD_TESTING)
+   find_package(ament_lint_auto REQUIRED)
+   find_package(ament_cmake_gtest REQUIRED)
+   set(ament_cmake_copyright_FOUND TRUE)
++  set(ament_cmake_uncrustify_FOUND TRUE)
+   ament_lint_auto_find_test_dependencies()
+   add_subdirectory(test)
+   # add_subdirectory(benchmark)

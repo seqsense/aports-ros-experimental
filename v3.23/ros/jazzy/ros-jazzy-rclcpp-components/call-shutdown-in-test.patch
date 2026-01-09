@@ -1,0 +1,32 @@
+diff --git a/test/test_component_manager.cpp b/test/test_component_manager.cpp
+index ebc86ff6..1d825a36 100644
+--- a/test/test_component_manager.cpp
++++ b/test/test_component_manager.cpp
+@@ -27,6 +27,11 @@ protected:
+   {
+     rclcpp::init(0, nullptr);
+   }
++
++  static void TearDownTestCase()
++  {
++    rclcpp::shutdown();
++  }
+ };
+ 
+ TEST_F(TestComponentManager, get_component_resources_invalid)
+diff --git a/test/test_component_manager_api.cpp b/test/test_component_manager_api.cpp
+index 5282e1fb..feb12746 100644
+--- a/test/test_component_manager_api.cpp
++++ b/test/test_component_manager_api.cpp
+@@ -34,6 +34,11 @@ protected:
+   {
+     rclcpp::init(0, nullptr);
+   }
++
++  static void TearDownTestCase()
++  {
++    rclcpp::shutdown();
++  }
+ };
+ 
+ // TODO(hidmic): split up tests once Node bring up/tear down races

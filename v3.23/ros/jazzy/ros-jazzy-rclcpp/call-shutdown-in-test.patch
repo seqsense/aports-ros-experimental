@@ -1,0 +1,217 @@
+diff --git a/test/rclcpp/executors/test_multi_threaded_executor.cpp b/test/rclcpp/executors/test_multi_threaded_executor.cpp
+index b6fd2c3f..09dfa03f 100644
+--- a/test/rclcpp/executors/test_multi_threaded_executor.cpp
++++ b/test/rclcpp/executors/test_multi_threaded_executor.cpp
+@@ -32,6 +32,11 @@ protected:
+   {
+     rclcpp::init(0, nullptr);
+   }
++
++  static void TearDownTestCase()
++  {
++    rclcpp::shutdown();
++  }
+ };
+
+ constexpr std::chrono::milliseconds PERIOD_MS = 1000ms;
+diff --git a/test/rclcpp/node_interfaces/test_get_node_interfaces.cpp b/test/rclcpp/node_interfaces/test_get_node_interfaces.cpp
+index d91570e3..d890f74d 100644
+--- a/test/rclcpp/node_interfaces/test_get_node_interfaces.cpp
++++ b/test/rclcpp/node_interfaces/test_get_node_interfaces.cpp
+@@ -38,6 +38,7 @@ protected:
+   {
+     node.reset();
+     wrapped_node.reset();
++    rclcpp::shutdown();
+   }
+
+   static rclcpp::Node::SharedPtr node;
+diff --git a/test/rclcpp/test_externally_defined_services.cpp b/test/rclcpp/test_externally_defined_services.cpp
+index 563f7f6e..21a7d111 100644
+--- a/test/rclcpp/test_externally_defined_services.cpp
++++ b/test/rclcpp/test_externally_defined_services.cpp
+@@ -34,6 +34,11 @@ protected:
+   {
+     rclcpp::init(0, nullptr);
+   }
++
++  static void TearDownTestCase()
++  {
++    rclcpp::shutdown();
++  }
+ };
+
+ void
+diff --git a/test/rclcpp/test_find_weak_nodes.cpp b/test/rclcpp/test_find_weak_nodes.cpp
+index d402f02a..739a247b 100644
+--- a/test/rclcpp/test_find_weak_nodes.cpp
++++ b/test/rclcpp/test_find_weak_nodes.cpp
+@@ -27,6 +27,11 @@ protected:
+   {
+     rclcpp::init(0, nullptr);
+   }
++
++  static void TearDownTestCase()
++  {
++    rclcpp::shutdown();
++  }
+ };
+
+ TEST_F(TestFindWeakNodes, allocator_strategy_with_weak_nodes) {
+diff --git a/test/rclcpp/test_guard_condition.cpp b/test/rclcpp/test_guard_condition.cpp
+index ed54074a..c9fc138c 100644
+--- a/test/rclcpp/test_guard_condition.cpp
++++ b/test/rclcpp/test_guard_condition.cpp
+@@ -27,6 +27,11 @@ protected:
+   {
+     rclcpp::init(0, nullptr);
+   }
++
++  static void TearDownTestCase()
++  {
++    rclcpp::shutdown();
++  }
+ };
+
+ /*
+diff --git a/test/rclcpp/test_node_global_args.cpp b/test/rclcpp/test_node_global_args.cpp
+index febef6bb..c3b0726d 100644
+--- a/test/rclcpp/test_node_global_args.cpp
++++ b/test/rclcpp/test_node_global_args.cpp
+@@ -32,6 +32,11 @@ protected:
+     const int argc = sizeof(args) / sizeof(const char *);
+     rclcpp::init(argc, args);
+   }
++
++  static void TearDownTestCase()
++  {
++    rclcpp::shutdown();
++  }
+ };
+
+ TEST_F(TestNodeWithGlobalArgs, local_arguments_before_global) {
+diff --git a/test/rclcpp/test_parameter.cpp b/test/rclcpp/test_parameter.cpp
+index 0d798dc4..a2e05480 100644
+--- a/test/rclcpp/test_parameter.cpp
++++ b/test/rclcpp/test_parameter.cpp
+@@ -31,6 +31,11 @@ protected:
+   {
+     rclcpp::init(0, nullptr);
+   }
++
++  static void TearDownTestCase()
++  {
++    rclcpp::shutdown();
++  }
+ };
+
+ TEST_F(TestParameter, construct_destruct) {
+diff --git a/test/rclcpp/test_parameter_client.cpp b/test/rclcpp/test_parameter_client.cpp
+index afc48a65..8faf77c2 100644
+--- a/test/rclcpp/test_parameter_client.cpp
++++ b/test/rclcpp/test_parameter_client.cpp
+@@ -44,6 +44,11 @@ protected:
+     rclcpp::init(0, nullptr);
+   }
+
++  static void TearDownTestCase()
++  {
++    rclcpp::shutdown();
++  }
++
+   void SetUp()
+   {
+     node = std::make_shared<rclcpp::Node>("test_parameter_client", "/ns");
+diff --git a/test/rclcpp/test_parameter_event_handler.cpp b/test/rclcpp/test_parameter_event_handler.cpp
+index c80ca2f6..eeb359ec 100644
+--- a/test/rclcpp/test_parameter_event_handler.cpp
++++ b/test/rclcpp/test_parameter_event_handler.cpp
+@@ -51,6 +51,11 @@ protected:
+     rclcpp::init(0, nullptr);
+   }
+
++  static void TearDownTestCase()
++  {
++    rclcpp::shutdown();
++  }
++
+   void SetUp()
+   {
+     rclcpp::NodeOptions options;
+diff --git a/test/rclcpp/test_publisher.cpp b/test/rclcpp/test_publisher.cpp
+index 450a43d7..987dfe40 100644
+--- a/test/rclcpp/test_publisher.cpp
++++ b/test/rclcpp/test_publisher.cpp
+@@ -44,6 +44,11 @@ public:
+     }
+   }
+
++  static void TearDownTestCase()
++  {
++    rclcpp::shutdown();
++  }
++
+ protected:
+   void initialize(const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions())
+   {
+@@ -82,6 +87,12 @@ class TestPublisherSub : public ::testing::Test
+ protected:
+   static void SetUpTestCase()
+   {
++    rclcpp::init(0, nullptr);
++  }
++
++  static void TearDownTestCase()
++  {
++    rclcpp::shutdown();
+   }
+
+   void SetUp()
+diff --git a/test/rclcpp/test_qos_event.cpp b/test/rclcpp/test_qos_event.cpp
+index 734a7195..32731b4d 100644
+--- a/test/rclcpp/test_qos_event.cpp
++++ b/test/rclcpp/test_qos_event.cpp
+@@ -38,6 +38,11 @@ protected:
+     rclcpp::init(0, nullptr);
+   }
+
++  static void TearDownTestCase()
++  {
++    rclcpp::shutdown();
++  }
++
+   void SetUp()
+   {
+     node = std::make_shared<rclcpp::Node>("test_qos_event", "/ns");
+diff --git a/test/rclcpp/test_subscription_options.cpp b/test/rclcpp/test_subscription_options.cpp
+index 212c8258..6468bea7 100644
+--- a/test/rclcpp/test_subscription_options.cpp
++++ b/test/rclcpp/test_subscription_options.cpp
+@@ -40,6 +40,11 @@ public:
+     rclcpp::init(0, nullptr);
+   }
+
++  static void TearDownTestCase()
++  {
++    rclcpp::shutdown();
++  }
++
+ protected:
+   void initialize(const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions())
+   {
+diff --git a/test/rclcpp/test_wait_set.cpp b/test/rclcpp/test_wait_set.cpp
+index bf7ee26e..78e102f3 100644
+--- a/test/rclcpp/test_wait_set.cpp
++++ b/test/rclcpp/test_wait_set.cpp
+@@ -31,6 +31,11 @@ protected:
+   {
+     rclcpp::init(0, nullptr);
+   }
++
++  static void TearDownTestCase()
++  {
++    rclcpp::shutdown();
++  }
+ };
+
+ /*

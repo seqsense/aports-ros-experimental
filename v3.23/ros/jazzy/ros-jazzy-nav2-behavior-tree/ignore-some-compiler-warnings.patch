@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 8f6711da..064b6bb5 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -21,6 +21,7 @@ find_package(nav2_util REQUIRED)
+ nav2_package()
+ 
+ add_compile_options(-Wno-shadow) # Delete after https://github.com/BehaviorTree/BehaviorTree.CPP/issues/811 is released
++add_compile_options(-Wno-free-nonheap-object -Wno-unused-result -Wno-null-dereference)
+ 
+ include_directories(
+   include

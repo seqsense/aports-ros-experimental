@@ -1,0 +1,12 @@
+diff --git a/examples_rclpy_minimal_subscriber/subscriber_old_school.py b/examples_rclpy_minimal_subscriber/subscriber_old_school.py
+index a15e789..37ca32b 100644
+--- a/examples_rclpy_minimal_subscriber/subscriber_old_school.py
++++ b/examples_rclpy_minimal_subscriber/subscriber_old_school.py
+@@ -20,7 +20,6 @@ g_node = None
+ 
+ 
+ def chatter_callback(msg):
+-    global g_node
+     g_node.get_logger().info(
+         'I heard: "%s"' % msg.data)
+ 

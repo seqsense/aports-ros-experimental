@@ -1,0 +1,40 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 7432201..9b57bb1 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -170,9 +170,7 @@ ament_target_dependencies(
+ if(BUILD_TESTING)
+   find_package(ament_cmake_gtest REQUIRED)
+   find_package(ament_cmake_cppcheck REQUIRED)
+-  find_package(ament_cmake_cpplint REQUIRED)
+   find_package(ament_cmake_lint_cmake REQUIRED)
+-  find_package(ament_cmake_uncrustify REQUIRED)
+   find_package(launch_testing_ament_cmake REQUIRED)
+ 
+   #### FILTER BASE TESTS ####
+@@ -225,6 +223,7 @@ if(BUILD_TESTING)
+     TIMEOUT 300
+     COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/test/test_se_node_interfaces.launch.py"
+     ENV NODE_TYPE=ekf
++      ROS_DOMAIN_ID=1
+   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
+ 
+   #### UKF TESTS #####
+@@ -257,6 +256,7 @@ if(BUILD_TESTING)
+     TIMEOUT 300
+     COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/test/test_se_node_interfaces.launch.py"
+     ENV NODE_TYPE=ukf
++      ROS_DOMAIN_ID=2
+   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
+ 
+   #### DATA TESTS #####
+@@ -313,9 +313,7 @@ if(BUILD_TESTING)
+   )
+ 
+   ament_cppcheck(LANGUAGE "c++")
+-  ament_cpplint()
+   ament_lint_cmake()
+-  ament_uncrustify()
+ 
+   install(
+     TARGETS

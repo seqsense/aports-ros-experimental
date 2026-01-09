@@ -1,0 +1,10 @@
+diff --git a/test/test_bt_utils.cpp b/test/test_bt_utils.cpp
+index 008e0a36..42f7f9fa 100644
+--- a/test/test_bt_utils.cpp
++++ b/test/test_bt_utils.cpp
+@@ -406,4 +406,5 @@ TEST(deconflictPortAndParamFrameTest, test_correct_syntax)
+     node, "test", tree.rootNode());
+ 
+   EXPECT_EQ(value, 1);
++  rclcpp::shutdown();
+ }
