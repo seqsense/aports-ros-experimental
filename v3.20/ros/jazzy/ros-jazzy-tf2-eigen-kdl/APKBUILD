@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-tf2-eigen-kdl
 _pkgname=tf2_eigen_kdl
-pkgver=0.36.17
+pkgver=0.36.18
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: tf2_eigen_kdl
     uri: https://github.com/ros2-gbp/geometry2-release.git
-    version: release/jazzy/tf2_eigen_kdl/0.36.17-1
+    version: release/jazzy/tf2_eigen_kdl/0.36.18-1
 "
 
 prepare() {
