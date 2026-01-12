@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-jazzy-ros-workspace ros-jazzy-rqt-gui ros-jazzy-rqt-gui-py ros-jazzy-rqt-msg"
-makedepends="chrpath py3-pytest py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-flake8 ros-jazzy-ament-flake8-dev ros-jazzy-ament-xmllint ros-jazzy-ament-xmllint-dev ros-jazzy-ros-workspace-dev ros-jazzy-rqt-gui-dev ros-jazzy-rqt-gui-py-dev ros-jazzy-rqt-msg-dev"
+makedepends="chrpath py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-flake8 ros-jazzy-ament-flake8-dev ros-jazzy-ament-xmllint ros-jazzy-ament-xmllint-dev ros-jazzy-ros-workspace-dev ros-jazzy-rqt-gui-dev ros-jazzy-rqt-gui-py-dev ros-jazzy-rqt-msg-dev"
 depends_dev="ros-jazzy-ros-workspace-dev ros-jazzy-rqt-gui-dev ros-jazzy-rqt-gui-py-dev ros-jazzy-rqt-msg-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"

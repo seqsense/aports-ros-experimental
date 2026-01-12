@@ -8,7 +8,7 @@ arch="all"
 license="Apache License 2.0"
 
 depends="py3-importlib-metadata ros-jazzy-ros-workspace"
-makedepends="chrpath py3-pytest py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ros-workspace-dev"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ros-workspace-dev"
 depends_dev="ros-jazzy-ros-workspace-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"

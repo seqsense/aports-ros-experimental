@@ -8,7 +8,7 @@ arch="all"
 license="Apache License 2.0"
 
 depends="ros-jazzy-rclpy ros-jazzy-ros-workspace ros-jazzy-std-msgs"
-makedepends="chrpath py3-pytest py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-copyright ros-jazzy-ament-copyright-dev ros-jazzy-ament-flake8 ros-jazzy-ament-flake8-dev ros-jazzy-ament-pep257 ros-jazzy-ament-pep257-dev ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev ros-jazzy-std-msgs-dev"
+makedepends="chrpath py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-copyright ros-jazzy-ament-copyright-dev ros-jazzy-ament-flake8 ros-jazzy-ament-flake8-dev ros-jazzy-ament-pep257 ros-jazzy-ament-pep257-dev ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev ros-jazzy-std-msgs-dev"
 depends_dev="ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev ros-jazzy-std-msgs-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
