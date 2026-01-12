@@ -8,7 +8,7 @@ arch="all"
 license="Apache License 2.0"
 
 depends="py3-numpy py3-yaml ros-humble-ros-workspace ros-humble-rosidl-parser"
-makedepends="chrpath py3-numpy-dev py3-pytest py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-copyright ros-humble-ament-copyright-dev ros-humble-ament-flake8 ros-humble-ament-flake8-dev ros-humble-ament-pep257 ros-humble-ament-pep257-dev ros-humble-ament-xmllint ros-humble-ament-xmllint-dev ros-humble-ros-workspace-dev ros-humble-rosidl-parser-dev ros-humble-std-msgs ros-humble-std-msgs-dev ros-humble-std-srvs ros-humble-std-srvs-dev ros-humble-test-msgs ros-humble-test-msgs-dev"
+makedepends="chrpath py3-numpy-dev py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-copyright ros-humble-ament-copyright-dev ros-humble-ament-flake8 ros-humble-ament-flake8-dev ros-humble-ament-pep257 ros-humble-ament-pep257-dev ros-humble-ament-xmllint ros-humble-ament-xmllint-dev ros-humble-ros-workspace-dev ros-humble-rosidl-parser-dev ros-humble-std-msgs ros-humble-std-msgs-dev ros-humble-std-srvs ros-humble-std-srvs-dev ros-humble-test-msgs ros-humble-test-msgs-dev"
 depends_dev="py3-numpy-dev ros-humble-ros-workspace-dev ros-humble-rosidl-parser-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"

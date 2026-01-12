@@ -8,7 +8,7 @@ arch="all"
 license="Apache-2.0"
 
 depends="ros-humble-action-msgs ros-humble-geometry-msgs ros-humble-lifecycle-msgs ros-humble-nav2-msgs ros-humble-rclpy ros-humble-ros-workspace"
-makedepends="chrpath py3-pytest py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-action-msgs-dev ros-humble-ament-copyright ros-humble-ament-copyright-dev ros-humble-ament-flake8 ros-humble-ament-flake8-dev ros-humble-ament-pep257 ros-humble-ament-pep257-dev ros-humble-geometry-msgs-dev ros-humble-lifecycle-msgs-dev ros-humble-nav2-msgs-dev ros-humble-rclpy-dev ros-humble-ros-workspace-dev"
+makedepends="chrpath py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-action-msgs-dev ros-humble-ament-copyright ros-humble-ament-copyright-dev ros-humble-ament-flake8 ros-humble-ament-flake8-dev ros-humble-ament-pep257 ros-humble-ament-pep257-dev ros-humble-geometry-msgs-dev ros-humble-lifecycle-msgs-dev ros-humble-nav2-msgs-dev ros-humble-rclpy-dev ros-humble-ros-workspace-dev"
 depends_dev="ros-humble-action-msgs-dev ros-humble-geometry-msgs-dev ros-humble-lifecycle-msgs-dev ros-humble-nav2-msgs-dev ros-humble-rclpy-dev ros-humble-ros-workspace-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"

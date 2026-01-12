@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="py3-numpy ros-humble-ros-workspace ros-humble-sensor-msgs"
-makedepends="chrpath py3-numpy-dev py3-pytest py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-copyright ros-humble-ament-copyright-dev ros-humble-ament-flake8 ros-humble-ament-flake8-dev ros-humble-ament-pep257 ros-humble-ament-pep257-dev ros-humble-ros-workspace-dev ros-humble-sensor-msgs-dev"
+makedepends="chrpath py3-numpy-dev py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-copyright ros-humble-ament-copyright-dev ros-humble-ament-flake8 ros-humble-ament-flake8-dev ros-humble-ament-pep257 ros-humble-ament-pep257-dev ros-humble-ros-workspace-dev ros-humble-sensor-msgs-dev"
 depends_dev="py3-numpy-dev ros-humble-ros-workspace-dev ros-humble-sensor-msgs-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
