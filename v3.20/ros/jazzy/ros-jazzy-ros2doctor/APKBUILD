@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-ros2doctor
 _pkgname=ros2doctor
-pkgver=0.32.6
+pkgver=0.32.7
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -8,7 +8,7 @@ arch="all"
 license="Apache License 2.0"
 
 depends="py3-catkin-pkg py3-importlib-metadata py3-psutil py3-rosdistro ros-jazzy-ament-index-python ros-jazzy-rclpy ros-jazzy-ros-environment ros-jazzy-ros-workspace ros-jazzy-ros2cli ros-jazzy-std-msgs"
-makedepends="chrpath py3-pytest py3-pytest-timeout py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-copyright ros-jazzy-ament-copyright-dev ros-jazzy-ament-flake8 ros-jazzy-ament-flake8-dev ros-jazzy-ament-index-python-dev ros-jazzy-ament-pep257 ros-jazzy-ament-pep257-dev ros-jazzy-ament-xmllint ros-jazzy-ament-xmllint-dev ros-jazzy-launch ros-jazzy-launch-dev ros-jazzy-launch-ros ros-jazzy-launch-ros-dev ros-jazzy-launch-testing ros-jazzy-launch-testing-dev ros-jazzy-launch-testing-ros ros-jazzy-launch-testing-ros-dev ros-jazzy-rclpy-dev ros-jazzy-ros-environment-dev ros-jazzy-ros-workspace-dev ros-jazzy-ros2cli-dev ros-jazzy-std-msgs ros-jazzy-std-msgs-dev"
+makedepends="chrpath py3-pytest-timeout py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-copyright ros-jazzy-ament-copyright-dev ros-jazzy-ament-flake8 ros-jazzy-ament-flake8-dev ros-jazzy-ament-index-python-dev ros-jazzy-ament-pep257 ros-jazzy-ament-pep257-dev ros-jazzy-ament-xmllint ros-jazzy-ament-xmllint-dev ros-jazzy-launch ros-jazzy-launch-dev ros-jazzy-launch-ros ros-jazzy-launch-ros-dev ros-jazzy-launch-testing ros-jazzy-launch-testing-dev ros-jazzy-launch-testing-ros ros-jazzy-launch-testing-ros-dev ros-jazzy-rclpy-dev ros-jazzy-ros-environment-dev ros-jazzy-ros-workspace-dev ros-jazzy-ros2cli-dev ros-jazzy-std-msgs ros-jazzy-std-msgs-dev"
 depends_dev="ros-jazzy-ament-index-python-dev ros-jazzy-rclpy-dev ros-jazzy-ros-environment-dev ros-jazzy-ros-workspace-dev ros-jazzy-ros2cli-dev ros-jazzy-std-msgs-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: ros2doctor
     uri: https://github.com/ros2-gbp/ros2cli-release.git
-    version: release/jazzy/ros2doctor/0.32.6-1
+    version: release/jazzy/ros2doctor/0.32.7-1
 "
 
 prepare() {

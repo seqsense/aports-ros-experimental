@@ -8,7 +8,7 @@ arch="all"
 license="BSD License 2.0"
 
 depends="ros-jazzy-geometry-msgs ros-jazzy-rcl-interfaces ros-jazzy-rclpy ros-jazzy-ros-workspace"
-makedepends="chrpath py3-pytest py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-copyright ros-jazzy-ament-copyright-dev ros-jazzy-ament-flake8 ros-jazzy-ament-flake8-dev ros-jazzy-ament-pep257 ros-jazzy-ament-pep257-dev ros-jazzy-ament-xmllint ros-jazzy-ament-xmllint-dev ros-jazzy-geometry-msgs-dev ros-jazzy-rcl-interfaces-dev ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev"
+makedepends="chrpath py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-copyright ros-jazzy-ament-copyright-dev ros-jazzy-ament-flake8 ros-jazzy-ament-flake8-dev ros-jazzy-ament-pep257 ros-jazzy-ament-pep257-dev ros-jazzy-ament-xmllint ros-jazzy-ament-xmllint-dev ros-jazzy-geometry-msgs-dev ros-jazzy-rcl-interfaces-dev ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev"
 depends_dev="ros-jazzy-geometry-msgs-dev ros-jazzy-rcl-interfaces-dev ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
