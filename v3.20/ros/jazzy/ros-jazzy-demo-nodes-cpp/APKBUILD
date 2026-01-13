@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-demo-nodes-cpp
 _pkgname=demo_nodes_cpp
-pkgver=0.33.8
+pkgver=0.33.9
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: demo_nodes_cpp
     uri: https://github.com/ros2-gbp/demos-release.git
-    version: release/jazzy/demo_nodes_cpp/0.33.8-1
+    version: release/jazzy/demo_nodes_cpp/0.33.9-1
 "
 
 prepare() {

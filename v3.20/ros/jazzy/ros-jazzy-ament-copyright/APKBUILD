@@ -8,7 +8,7 @@ arch="all"
 license="Apache License 2.0"
 
 depends="py3-importlib-metadata ros-jazzy-ament-lint ros-jazzy-ros-workspace"
-makedepends="chrpath py3-pytest py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-flake8 ros-jazzy-ament-flake8-dev ros-jazzy-ament-lint-dev ros-jazzy-ament-pep257 ros-jazzy-ament-pep257-dev ros-jazzy-ros-workspace-dev"
+makedepends="chrpath py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-flake8 ros-jazzy-ament-flake8-dev ros-jazzy-ament-lint-dev ros-jazzy-ament-pep257 ros-jazzy-ament-pep257-dev ros-jazzy-ros-workspace-dev"
 depends_dev="ros-jazzy-ament-lint-dev ros-jazzy-ros-workspace-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"

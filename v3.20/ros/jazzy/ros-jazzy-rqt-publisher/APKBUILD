@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="py3-numpy ros-jazzy-ament-index-python ros-jazzy-python-qt-binding>=0.2.19 ros-jazzy-qt-gui-py-common ros-jazzy-rclpy ros-jazzy-ros-workspace ros-jazzy-rosidl-runtime-py ros-jazzy-rqt-gui ros-jazzy-rqt-gui-py ros-jazzy-rqt-py-common"
-makedepends="chrpath py3-numpy-dev py3-pytest py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-index-python-dev ros-jazzy-python-qt-binding-dev>=0.2.19 ros-jazzy-qt-gui-py-common-dev ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosidl-runtime-py-dev ros-jazzy-rqt-gui-dev ros-jazzy-rqt-gui-py-dev ros-jazzy-rqt-py-common-dev"
+makedepends="chrpath py3-numpy-dev py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-index-python-dev ros-jazzy-python-qt-binding-dev>=0.2.19 ros-jazzy-qt-gui-py-common-dev ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosidl-runtime-py-dev ros-jazzy-rqt-gui-dev ros-jazzy-rqt-gui-py-dev ros-jazzy-rqt-py-common-dev"
 depends_dev="py3-numpy-dev ros-jazzy-ament-index-python-dev ros-jazzy-python-qt-binding-dev>=0.2.19 ros-jazzy-qt-gui-py-common-dev ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosidl-runtime-py-dev ros-jazzy-rqt-gui-dev ros-jazzy-rqt-gui-py-dev ros-jazzy-rqt-py-common-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
