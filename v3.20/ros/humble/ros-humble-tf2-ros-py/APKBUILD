@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-humble-geometry-msgs ros-humble-rclpy ros-humble-ros-workspace ros-humble-sensor-msgs ros-humble-std-msgs ros-humble-tf2-msgs ros-humble-tf2-py"
-makedepends="chrpath py3-pytest py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-geometry-msgs-dev ros-humble-rclpy-dev ros-humble-ros-workspace-dev ros-humble-sensor-msgs ros-humble-sensor-msgs-dev ros-humble-std-msgs-dev ros-humble-tf2-msgs-dev ros-humble-tf2-py-dev"
+makedepends="chrpath py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-geometry-msgs-dev ros-humble-rclpy-dev ros-humble-ros-workspace-dev ros-humble-sensor-msgs ros-humble-sensor-msgs-dev ros-humble-std-msgs-dev ros-humble-tf2-msgs-dev ros-humble-tf2-py-dev"
 depends_dev="ros-humble-geometry-msgs-dev ros-humble-rclpy-dev ros-humble-ros-workspace-dev ros-humble-sensor-msgs-dev ros-humble-std-msgs-dev ros-humble-tf2-msgs-dev ros-humble-tf2-py-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"

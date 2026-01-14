@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-humble-qt-gui>=0.3.0 ros-humble-ros-workspace ros-humble-rqt-gui>=0.3.0"
-makedepends="chrpath py3-pytest py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-qt-gui-dev>=0.3.0 ros-humble-qt-gui>=0.3.0 ros-humble-ros-workspace-dev ros-humble-rqt-gui-dev>=0.3.0 ros-humble-rqt-gui>=0.3.0"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-qt-gui-dev>=0.3.0 ros-humble-qt-gui>=0.3.0 ros-humble-ros-workspace-dev ros-humble-rqt-gui-dev>=0.3.0 ros-humble-rqt-gui>=0.3.0"
 depends_dev="ros-humble-qt-gui-dev>=0.3.0 ros-humble-ros-workspace-dev ros-humble-rqt-gui-dev>=0.3.0"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"

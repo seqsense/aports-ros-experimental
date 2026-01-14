@@ -8,7 +8,7 @@ arch="all"
 license="Apache License 2.0"
 
 depends="py3-cryptography py3-importlib-resources py3-lxml ros-humble-ament-index-python ros-humble-rclpy ros-humble-ros-workspace ros-humble-ros2cli"
-makedepends="chrpath py3-pytest py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-copyright ros-humble-ament-copyright-dev ros-humble-ament-flake8 ros-humble-ament-flake8-dev ros-humble-ament-index-python-dev ros-humble-ament-mypy ros-humble-ament-mypy-dev ros-humble-ament-pep257 ros-humble-ament-pep257-dev ros-humble-rclpy ros-humble-rclpy-dev ros-humble-ros-testing ros-humble-ros-testing-dev ros-humble-ros-workspace-dev ros-humble-ros2cli ros-humble-ros2cli-dev ros-humble-test-msgs ros-humble-test-msgs-dev"
+makedepends="chrpath py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-copyright ros-humble-ament-copyright-dev ros-humble-ament-flake8 ros-humble-ament-flake8-dev ros-humble-ament-index-python-dev ros-humble-ament-mypy ros-humble-ament-mypy-dev ros-humble-ament-pep257 ros-humble-ament-pep257-dev ros-humble-rclpy ros-humble-rclpy-dev ros-humble-ros-testing ros-humble-ros-testing-dev ros-humble-ros-workspace-dev ros-humble-ros2cli ros-humble-ros2cli-dev ros-humble-test-msgs ros-humble-test-msgs-dev"
 depends_dev="ros-humble-ament-index-python-dev ros-humble-rclpy ros-humble-rclpy-dev ros-humble-ros-workspace-dev ros-humble-ros2cli ros-humble-ros2cli-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
