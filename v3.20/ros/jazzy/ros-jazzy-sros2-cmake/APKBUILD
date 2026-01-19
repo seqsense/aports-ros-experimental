@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-sros2-cmake
 _pkgname=sros2_cmake
-pkgver=0.13.4
+pkgver=0.13.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: sros2_cmake
     uri: https://github.com/ros2-gbp/sros2-release.git
-    version: release/jazzy/sros2_cmake/0.13.4-1
+    version: release/jazzy/sros2_cmake/0.13.5-1
 "
 
 prepare() {
