@@ -1,6 +1,6 @@
 pkgname=ros-humble-ament-index-cpp
 _pkgname=ament_index_cpp
-pkgver=1.4.0
+pkgver=1.4.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
@@ -8,7 +8,7 @@ arch="all"
 license="Apache License 2.0"
 
 depends="ros-humble-ros-workspace"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-cmake-gtest ros-humble-ament-cmake-gtest-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-ros-workspace-dev"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-cmake-gen-version-h ros-humble-ament-cmake-gen-version-h-dev ros-humble-ament-cmake-gtest ros-humble-ament-cmake-gtest-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-ros-workspace-dev"
 depends_dev="ros-humble-ros-workspace-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: ament_index_cpp
     uri: https://github.com/ros2-gbp/ament_index-release.git
-    version: release/humble/ament_index_cpp/1.4.0-2
+    version: release/humble/ament_index_cpp/1.4.1-1
 "
 
 prepare() {
