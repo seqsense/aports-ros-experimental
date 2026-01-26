@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-tf2-tools
 _pkgname=tf2_tools
-pkgver=0.36.18
+pkgver=0.36.19
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://www.ros.org/wiki/tf2_tools"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: tf2_tools
     uri: https://github.com/ros2-gbp/geometry2-release.git
-    version: release/jazzy/tf2_tools/0.36.18-1
+    version: release/jazzy/tf2_tools/0.36.19-1
 "
 
 prepare() {

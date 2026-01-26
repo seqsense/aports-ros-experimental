@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-rqt-action
 _pkgname=rqt_action
-pkgver=2.2.0
-pkgrel=1
+pkgver=2.2.1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://wiki.ros.org/rqt_action"
 arch="all"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rqt_action
     uri: https://github.com/ros2-gbp/rqt_action-release.git
-    version: release/jazzy/rqt_action/2.2.0-3
+    version: release/jazzy/rqt_action/2.2.1-1
 "
 
 prepare() {
