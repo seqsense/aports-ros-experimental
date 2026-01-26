@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-rqt-shell
 _pkgname=rqt_shell
-pkgver=1.2.2
-pkgrel=1
+pkgver=1.2.3
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://wiki.ros.org/rqt_shell"
 arch="all"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rqt_shell
     uri: https://github.com/ros2-gbp/rqt_shell-release.git
-    version: release/jazzy/rqt_shell/1.2.2-2
+    version: release/jazzy/rqt_shell/1.2.3-1
 "
 
 prepare() {
