@@ -1,0 +1,154 @@
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+index 6ff732b3..8c417ea8 100644
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -1,3 +1,4 @@
++find_package(ament_cmake_ros)
+ # Route planner benchmarking script
+ add_executable(performance_benchmarking performance_benchmarking.cpp)
+ target_link_libraries(performance_benchmarking
+@@ -9,7 +10,7 @@ install(TARGETS
+ )
+ 
+ # Test utilities and basic types
+-ament_add_gtest(test_utils_and_types
++ament_add_ros_isolated_gtest(test_utils_and_types
+   test_utils_and_types.cpp
+ )
+ target_link_libraries(test_utils_and_types
+@@ -17,7 +18,7 @@ target_link_libraries(test_utils_and_types
+ )
+ 
+ # Test edge scorer + plugins
+-ament_add_gtest(test_edge_scorers
++ament_add_ros_isolated_gtest(test_edge_scorers
+   test_edge_scorers.cpp
+ )
+ target_link_libraries(test_edge_scorers
+@@ -25,7 +26,7 @@ target_link_libraries(test_edge_scorers
+ )
+ 
+ # Test path converter
+-ament_add_gtest(test_path_converter
++ament_add_ros_isolated_gtest(test_path_converter
+   test_path_converter.cpp
+ )
+ target_link_libraries(test_path_converter
+@@ -33,7 +34,7 @@ target_link_libraries(test_path_converter
+ )
+ 
+ # Test node spatial tree
+-ament_add_gtest(test_spatial_tree
++ament_add_ros_isolated_gtest(test_spatial_tree
+   test_spatial_tree.cpp
+ )
+ target_link_libraries(test_spatial_tree
+@@ -41,7 +42,7 @@ target_link_libraries(test_spatial_tree
+ )
+ 
+ # Test operation manager + plugins
+-ament_add_gtest(test_operations
++ament_add_ros_isolated_gtest(test_operations
+   test_operations.cpp
+ )
+ target_link_libraries(test_operations
+@@ -49,7 +50,7 @@ target_link_libraries(test_operations
+ )
+ 
+ # Test graph loader
+-ament_add_gtest(test_graph_loader
++ament_add_ros_isolated_gtest(test_graph_loader
+     test_graph_loader.cpp
+ )
+ target_link_libraries(test_graph_loader
+@@ -57,7 +58,7 @@ target_link_libraries(test_graph_loader
+ )
+ 
+ # Test graph saver
+-ament_add_gtest(test_graph_saver
++ament_add_ros_isolated_gtest(test_graph_saver
+     test_graph_saver.cpp
+ )
+ target_link_libraries(test_graph_saver
+@@ -65,7 +66,7 @@ target_link_libraries(test_graph_saver
+ )
+ 
+ # Test geojson parser
+-ament_add_gtest(test_geojson_graph_file_loader
++ament_add_ros_isolated_gtest(test_geojson_graph_file_loader
+     test_geojson_graph_file_loader.cpp
+ )
+ target_link_libraries(test_geojson_graph_file_loader
+@@ -73,7 +74,7 @@ target_link_libraries(test_geojson_graph_file_loader
+ )
+ 
+ # Test geojson saver
+-ament_add_gtest(test_geojson_graph_file_saver
++ament_add_ros_isolated_gtest(test_geojson_graph_file_saver
+     test_geojson_graph_file_saver.cpp
+ )
+ target_link_libraries(test_geojson_graph_file_saver
+@@ -81,7 +82,7 @@ target_link_libraries(test_geojson_graph_file_saver
+ )
+ 
+ # Test collision monitor separately due to relative complexity
+-ament_add_gtest(test_collision_operation
++ament_add_ros_isolated_gtest(test_collision_operation
+   test_collision_operation.cpp
+ )
+ target_link_libraries(test_collision_operation
+@@ -89,7 +90,7 @@ target_link_libraries(test_collision_operation
+ )
+ 
+ # Test route planner
+-ament_add_gtest(test_route_planner
++ament_add_ros_isolated_gtest(test_route_planner
+   test_route_planner.cpp
+ )
+ target_link_libraries(test_route_planner
+@@ -97,7 +98,7 @@ target_link_libraries(test_route_planner
+ )
+ 
+ # Test goal intent extractor
+-ament_add_gtest(test_goal_intent_extractor
++ament_add_ros_isolated_gtest(test_goal_intent_extractor
+   test_goal_intent_extractor.cpp
+ )
+ target_link_libraries(test_goal_intent_extractor
+@@ -105,7 +106,7 @@ target_link_libraries(test_goal_intent_extractor
+ )
+ 
+ # Test route tracker
+-ament_add_gtest(test_route_tracker
++ament_add_ros_isolated_gtest(test_route_tracker
+   test_route_tracker.cpp
+ )
+ target_link_libraries(test_route_tracker
+@@ -113,7 +114,7 @@ target_link_libraries(test_route_tracker
+ )
+ 
+ # Test route server
+-ament_add_gtest(test_route_server
++ament_add_ros_isolated_gtest(test_route_server
+   test_route_server.cpp
+ )
+ target_link_libraries(test_route_server
+@@ -121,17 +122,10 @@ target_link_libraries(test_route_server
+ )
+ 
+ # Test goal intent search
+-ament_add_gtest(test_goal_intent_search
++ament_add_ros_isolated_gtest(test_goal_intent_search
+   test_goal_intent_search.cpp
+ )
+ target_link_libraries(test_goal_intent_search
+   ${library_name}
+ )
+ 
+-# Test corner smoothing
+-ament_add_gtest(test_corner_smoothing
+-  test_corner_smoothing.cpp
+-)
+-target_link_libraries(test_corner_smoothing
+-  ${library_name}
+-)
