@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-nav2-constrained-smoother
 _pkgname=nav2_constrained_smoother
-pkgver=1.3.10
+pkgver=1.3.11
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: nav2_constrained_smoother
     uri: https://github.com/SteveMacenski/navigation2-release.git
-    version: release/jazzy/nav2_constrained_smoother/1.3.10-1
+    version: release/jazzy/nav2_constrained_smoother/1.3.11-1
 "
 
 prepare() {

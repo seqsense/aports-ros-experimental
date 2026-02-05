@@ -1,0 +1,20 @@
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+index c5b9308e..72f5af22 100644
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -1,10 +1,11 @@
+-ament_add_gtest(vtest velocity_iterator_test.cpp)
++find_package(ament_cmake_ros)
++ament_add_ros_isolated_gtest(vtest velocity_iterator_test.cpp)
+ 
+-ament_add_gtest(twist_gen_test twist_gen.cpp)
++ament_add_ros_isolated_gtest(twist_gen_test twist_gen.cpp)
+ target_link_libraries(twist_gen_test standard_traj_generator)
+ 
+-ament_add_gtest(kinematic_parameters_test kinematic_parameters_test.cpp)
++ament_add_ros_isolated_gtest(kinematic_parameters_test kinematic_parameters_test.cpp)
+ target_link_libraries(kinematic_parameters_test standard_traj_generator)
+ 
+-ament_add_gtest(speed_limit_test speed_limit_test.cpp)
++ament_add_ros_isolated_gtest(speed_limit_test speed_limit_test.cpp)
+ target_link_libraries(speed_limit_test standard_traj_generator)
