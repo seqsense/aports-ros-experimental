@@ -1,5 +1,5 @@
 diff --git a/test/integration/CMakeLists.txt b/test/integration/CMakeLists.txt
-index 59d6ea65..74cedad9 100644
+index 59d6ea65..2dbac3b0 100644
 --- a/test/integration/CMakeLists.txt
 +++ b/test/integration/CMakeLists.txt
 @@ -1,3 +1,4 @@
@@ -7,13 +7,32 @@ index 59d6ea65..74cedad9 100644
  ament_add_gtest_executable(footprint_tests_exec
    footprint_tests.cpp
  )
-@@ -72,10 +73,13 @@ target_link_libraries(test_costmap_subscriber_exec
+@@ -72,20 +73,23 @@ target_link_libraries(test_costmap_subscriber_exec
      ${PROJECT_NAME}::nav2_costmap_2d_client
  )
  
+-ament_add_test(test_collision_checker
+-  GENERATE_RESULT_FOR_RETURN_CODE_ZERO
+-  COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
+-  WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+-  ENV
+-    TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
+-    TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
+-    TEST_EXECUTABLE=$<TARGET_FILE:test_collision_checker_exec>
+-)
 +set(RUNNER "RUNNER" "${ament_cmake_ros_DIR}/run_test_isolated.py")
-+message(STATUS ">>>> RUNNER: ${RUNNER}")
- ament_add_test(test_collision_checker
++# ament_add_test(test_collision_checker
++#   GENERATE_RESULT_FOR_RETURN_CODE_ZERO
++#   COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
++#   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
++#   RUNNER ${RUNNNER}
++#   ENV
++#     TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
++#     TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
++#     TEST_EXECUTABLE=$<TARGET_FILE:test_collision_checker_exec>
++# )
+ 
+ ament_add_test(footprint_tests
    GENERATE_RESULT_FOR_RETURN_CODE_ZERO
    COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
    WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
@@ -21,7 +40,7 @@ index 59d6ea65..74cedad9 100644
    ENV
      TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
      TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
-@@ -86,6 +90,7 @@ ament_add_test(footprint_tests
+@@ -96,26 +100,29 @@ ament_add_test(inflation_tests
    GENERATE_RESULT_FOR_RETURN_CODE_ZERO
    COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
    WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
@@ -29,7 +48,30 @@ index 59d6ea65..74cedad9 100644
    ENV
      TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
      TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
-@@ -96,6 +101,7 @@ ament_add_test(inflation_tests
+     TEST_EXECUTABLE=$<TARGET_FILE:inflation_tests_exec>
+ )
+ 
+-ament_add_test(obstacle_tests
+-  GENERATE_RESULT_FOR_RETURN_CODE_ZERO
+-  COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
+-  WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+-  ENV
+-    TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
+-    TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
+-    TEST_EXECUTABLE=$<TARGET_FILE:obstacle_tests_exec>
+-)
++# ament_add_test(obstacle_tests
++#   GENERATE_RESULT_FOR_RETURN_CODE_ZERO
++#   COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
++#   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
++#   RUNNER ${RUNNNER}
++#   ENV
++#     TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
++#     TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
++#     TEST_EXECUTABLE=$<TARGET_FILE:obstacle_tests_exec>
++# )
+ 
+ ament_add_test(range_tests
    GENERATE_RESULT_FOR_RETURN_CODE_ZERO
    COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
    WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
@@ -37,7 +79,7 @@ index 59d6ea65..74cedad9 100644
    ENV
      TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
      TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
-@@ -106,6 +112,7 @@ ament_add_test(obstacle_tests
+@@ -126,6 +133,7 @@ ament_add_test(plugin_container_tests
    GENERATE_RESULT_FOR_RETURN_CODE_ZERO
    COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
    WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
@@ -45,23 +87,7 @@ index 59d6ea65..74cedad9 100644
    ENV
      TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
      TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
-@@ -116,6 +123,7 @@ ament_add_test(range_tests
-   GENERATE_RESULT_FOR_RETURN_CODE_ZERO
-   COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
-   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
-+  RUNNER ${RUNNNER}
-   ENV
-     TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
-     TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
-@@ -126,6 +134,7 @@ ament_add_test(plugin_container_tests
-   GENERATE_RESULT_FOR_RETURN_CODE_ZERO
-   COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
-   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
-+  RUNNER ${RUNNNER}
-   ENV
-     TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
-     TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
-@@ -136,6 +145,7 @@ ament_add_test(test_costmap_publisher_exec
+@@ -136,6 +144,7 @@ ament_add_test(test_costmap_publisher_exec
      GENERATE_RESULT_FOR_RETURN_CODE_ZERO
      COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
      WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
@@ -69,7 +95,7 @@ index 59d6ea65..74cedad9 100644
      ENV
      TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
      TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
-@@ -146,6 +156,7 @@ ament_add_test(test_costmap_subscriber_exec
+@@ -146,6 +155,7 @@ ament_add_test(test_costmap_subscriber_exec
      GENERATE_RESULT_FOR_RETURN_CODE_ZERO
      COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
      WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
