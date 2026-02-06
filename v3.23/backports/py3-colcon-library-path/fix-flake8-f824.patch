@@ -1,0 +1,21 @@
+diff --git a/test/test_spell_check.py b/test/test_spell_check.py
+index 78fb811..ebc2969 100644
+--- a/test/test_spell_check.py
++++ b/test/test_spell_check.py
+@@ -11,8 +11,6 @@ spell_check_words_path = Path(__file__).parent / 'spell_check.words'
+ 
+ 
+ def test_spell_check():
+-    global spell_check_words_path
+-
+     try:
+         import enchant  # noqa: F401
+     except ImportError:  # pragma: no cover
+@@ -39,7 +37,6 @@ def test_spell_check():
+ 
+ 
+ def test_spell_check_word_list():
+-    global spell_check_words_path
+     with spell_check_words_path.open('r') as h:
+         lines = h.read().splitlines()
+     assert lines == sorted(lines), \
