@@ -1,0 +1,40 @@
+pkgname=py3-colcon-python-setup-py
+_pkgname=colcon-python-setup-py
+pkgver=0.2.9
+pkgrel=0
+pkgdesc="Extension for colcon to support Python packages with the metadata in the setup.py file."
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="python3 py3-colcon-core py3-setuptools"
+makedepends="py3-gpep517 py3-setuptools py3-wheel"
+checkdepends="py3-pip py3-pytest7 py3-flake8"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz
+        fix-lint-errors.patch"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        gpep517 build-wheel \
+                --wheel-dir .dist \
+                --output-fd 3 3>&1 >&2
+}
+
+check() {
+        python3 -m venv --clear --system-site-packages .testenv
+        .testenv/bin/python3 -m pip install -e .[test]
+        .testenv/bin/python3 -m pip uninstall -y "$_pkgname"
+        .testenv/bin/python3 -m pip install .dist/*.whl
+        .testenv/bin/python3 -m pytest
+}
+
+package() {
+        python3 -m installer -d "$pkgdir" \
+                .dist/*.whl
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="2b5a10e5486400364089445a4bba335e45e641acc23092869296631713fe3a39c63da0bfd4bcdb26dfaee82bfdd5ab4fbf2774185be34e32cbb5296f06686c1b  colcon-python-setup-py-0.2.9.tar.gz
+95da59a56f9c6a8c142167d7031a611046dae3af47aa34a8f99809eb261f5c92e683b6cb91f65e3dd152303a7192814a373e4d352d8cfd8cc2ecc5d2793cf4c5  fix-lint-errors.patch"

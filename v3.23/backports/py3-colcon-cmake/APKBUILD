@@ -1,0 +1,40 @@
+pkgname=py3-colcon-cmake
+_pkgname=colcon-cmake
+pkgver=0.2.29
+pkgrel=3
+pkgdesc="Extension for colcon to support CMake packages."
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="cmake python3 py3-colcon-core py3-colcon-library-path py3-colcon-test-result"
+makedepends="py3-gpep517 py3-setuptools py3-wheel"
+checkdepends="py3-pip py3-pytest7 py3-flake8"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz
+        fix-flake8-f824.patch"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        gpep517 build-wheel \
+                --wheel-dir .dist \
+                --output-fd 3 3>&1 >&2
+}
+
+check() {
+        python3 -m venv --clear --system-site-packages .testenv
+        .testenv/bin/python3 -m pip install -e .[test]
+        .testenv/bin/python3 -m pip uninstall -y "$_pkgname"
+        .testenv/bin/python3 -m pip install .dist/*.whl
+        .testenv/bin/python3 -m pytest
+}
+
+package() {
+        python3 -m installer -d "$pkgdir" \
+                .dist/*.whl
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="08eac0ee067bc7cae942a5d816571779409b9ac074b7c3d05b29eb29666d6fa691071f0a45c43a33ecfa39e3cc74464475816847628e034a2896d645ecc00422  colcon-cmake-0.2.29.tar.gz
+0c0cc81296e5177f9f88e91e07a325afad1766aa438ff9a8df0f0a90edb9cf37317579f6cafa8b475b9daced7aae8eea600743d3f6559a5d343c1c72d31ec703  fix-flake8-f824.patch"

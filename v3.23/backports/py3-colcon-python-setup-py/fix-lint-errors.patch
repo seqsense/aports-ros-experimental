@@ -1,0 +1,69 @@
+diff --git a/colcon_python_setup_py/package_augmentation/python_setup_py.py b/colcon_python_setup_py/package_augmentation/python_setup_py.py
+index b401440..99cb7b6 100644
+--- a/colcon_python_setup_py/package_augmentation/python_setup_py.py
++++ b/colcon_python_setup_py/package_augmentation/python_setup_py.py
+@@ -55,7 +55,6 @@ class PythonPackageAugmentation(PackageAugmentationExtensionPoint):
+             desc.dependencies)
+ 
+         def getter(env):
+-            nonlocal setup_py
+             return get_setup_information(setup_py, env=env)
+ 
+         desc.metadata['get_python_setup_options'] = getter
+diff --git a/colcon_python_setup_py/package_identification/python_setup_py.py b/colcon_python_setup_py/package_identification/python_setup_py.py
+index 466e68d..ac9f1b2 100644
+--- a/colcon_python_setup_py/package_identification/python_setup_py.py
++++ b/colcon_python_setup_py/package_identification/python_setup_py.py
+@@ -3,11 +3,6 @@
+ 
+ import ast
+ from contextlib import suppress
+-with suppress(ImportError):
+-    # needed before importing distutils
+-    # to avoid warning introduced in setuptools 49.2.0
+-    import setuptools
+-import distutils.core
+ import os
+ from pathlib import Path
+ import runpy
+@@ -16,12 +11,17 @@ import sys
+ from threading import Lock
+ import warnings
+ 
+-from colcon_core.package_identification import logger
+-from colcon_core.package_identification \
+-    import PackageIdentificationExtensionPoint
++with suppress(ImportError):
++    # needed before importing distutils
++    # to avoid warning introduced in setuptools 49.2.0
++    import setuptools
++
++from colcon_core.package_identification import (
++     logger, PackageIdentificationExtensionPoint)
+ from colcon_core.package_identification.python import \
+     create_dependency_descriptor
+ from colcon_core.plugin_system import satisfies_version
++import distutils.core
+ 
+ 
+ class PythonPackageIdentification(PackageIdentificationExtensionPoint):
+@@ -238,7 +238,6 @@ def get_setup_information(setup_py, *, env=None):
+     :return: dictionary of data describing the package.
+     :raise: RuntimeError if the setup script encountered an error
+     """
+-    global _setup_information_cache
+     if env is None:
+         env = os.environ
+     if 'DISTUTILS_DEBUG' in env:
+diff --git a/test/test_spell_check.py b/test/test_spell_check.py
+index 0d406de..2555de4 100644
+--- a/test/test_spell_check.py
++++ b/test/test_spell_check.py
+@@ -10,7 +10,6 @@ spell_check_words_path = Path(__file__).parent / 'spell_check.words'
+ 
+ @pytest.fixture(scope='module')
+ def known_words():
+-    global spell_check_words_path
+     return spell_check_words_path.read_text().splitlines()
+ 
+ 

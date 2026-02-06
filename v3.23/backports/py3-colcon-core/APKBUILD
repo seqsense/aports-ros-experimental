@@ -1,0 +1,38 @@
+pkgname=py3-colcon-core
+_pkgname=colcon-core
+pkgver=0.20.1
+pkgrel=0
+pkgdesc="Command line tool to build sets of software packages."
+url="https://pypi.org/project/colcon-core/"
+arch="noarch"
+license="Apache-2.0"
+depends="python3 py3-coloredlogs py3-distlib py3-empy py3-pytest7 py3-setuptools"
+makedepends="py3-gpep517 py3-setuptools py3-wheel"
+checkdepends="py3-pip py3-pytest7 py3-flake8"
+subpackages="$pkgname-doc"
+source="$_pkgname-$pkgver.tar.gz::https://github.com/colcon/colcon-core/archive/refs/tags/$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        gpep517 build-wheel \
+                --wheel-dir .dist \
+                --output-fd 3 3>&1 >&2
+}
+
+check() {
+        python3 -m venv --clear --system-site-packages .testenv
+        .testenv/bin/python3 -m pip install -e .[test]
+        .testenv/bin/python3 -m pip uninstall -y "$_pkgname"
+        .testenv/bin/python3 -m pip install .dist/*.whl
+        .testenv/bin/python3 -m pytest
+}
+
+package() {
+        python3 -m installer -d "$pkgdir" \
+                .dist/*.whl
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="1572cc655f4ebfc86adbce710ace3a1dd93a220569220cf1a7db20eb6dcd100147373788af662ef2adcb09f3c9430e9e1cd0420160cd840fbdff5d4df44a864e  colcon-core-0.20.1.tar.gz"
