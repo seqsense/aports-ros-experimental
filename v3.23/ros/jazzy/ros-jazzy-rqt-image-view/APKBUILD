@@ -7,11 +7,10 @@ url="http://wiki.ros.org/rqt_image_view"
 arch="all"
 license="BSD"
 
-depends="ros-jazzy-cv-bridge ros-jazzy-geometry-msgs ros-jazzy-image-transport ros-jazzy-qt-gui-cpp ros-jazzy-rclcpp ros-jazzy-ros-workspace ros-jazzy-rqt-gui ros-jazzy-rqt-gui-cpp ros-jazzy-sensor-msgs"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool qt5-qtbase-dev ros-jazzy-ament-cmake ros-jazzy-ament-cmake-dev ros-jazzy-cv-bridge ros-jazzy-cv-bridge-dev ros-jazzy-geometry-msgs ros-jazzy-geometry-msgs-dev ros-jazzy-image-transport ros-jazzy-image-transport-dev ros-jazzy-qt-gui-cpp ros-jazzy-qt-gui-cpp-dev ros-jazzy-rclcpp ros-jazzy-rclcpp-dev ros-jazzy-ros-workspace-dev ros-jazzy-rqt-gui ros-jazzy-rqt-gui-cpp ros-jazzy-rqt-gui-cpp-dev ros-jazzy-rqt-gui-dev ros-jazzy-sensor-msgs ros-jazzy-sensor-msgs-dev"
-depends_dev="ros-jazzy-cv-bridge-dev ros-jazzy-geometry-msgs-dev ros-jazzy-image-transport-dev ros-jazzy-qt-gui-cpp-dev ros-jazzy-rclcpp ros-jazzy-rclcpp-dev ros-jazzy-ros-workspace-dev ros-jazzy-rqt-gui-cpp-dev ros-jazzy-rqt-gui-dev ros-jazzy-sensor-msgs-dev"
+depends="ros-jazzy-cv-bridge ros-jazzy-geometry-msgs ros-jazzy-image-transport ros-jazzy-qt-gui-cpp ros-jazzy-rclcpp ros-jazzy-ros-workspace ros-jazzy-rqt-gui ros-jazzy-rqt-gui-cpp ros-jazzy-sensor-msgs ros-jazzy-rclcpp"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath qt5-qtbase-dev ros-jazzy-ament-cmake ros-jazzy-cv-bridge ros-jazzy-geometry-msgs ros-jazzy-image-transport ros-jazzy-qt-gui-cpp ros-jazzy-rclcpp ros-jazzy-rqt-gui ros-jazzy-rqt-gui-cpp ros-jazzy-sensor-msgs"
 
-subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
+subpackages="$pkgname-dbg $pkgname-doc"
 
 source=""
 builddir="$startdir/abuild"
@@ -62,7 +61,6 @@ build() {
   mkdir build
   cd build
   cmake ../src/$_pkgname \
-    -DCMAKE_INSTALL_RPATH=/usr/ros/jazzy/lib \
     -DCMAKE_INSTALL_PREFIX=/usr/ros/jazzy \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_LIBDIR=lib 2>&1 | tee $buildlog
@@ -251,27 +249,6 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
-}
-
-dev() {
-  local i=
-  mkdir -p $subpkgdir
-
-  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
-	depends="$depends_dev"
-	pkgdesc="$pkgdesc (development files)"
-
-  cd $pkgdir || return 0
-
-  for i in \
-    usr/ros/*/lib/pkgconfig \
-    usr/ros/*/share/*/cmake \
-    usr/ros/*/include \
-    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
-    if [ -e "$i" ] || [ -L "$i" ]; then
-      amove "$i"
-    fi
-  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

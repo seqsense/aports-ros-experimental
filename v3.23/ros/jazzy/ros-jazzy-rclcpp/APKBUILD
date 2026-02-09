@@ -1,17 +1,16 @@
 pkgname=ros-jazzy-rclcpp
 _pkgname=rclcpp
-pkgver=28.1.14
+pkgver=28.1.16
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="ros-jazzy-libstatistics-collector ros-jazzy-rcl ros-jazzy-rcl-logging-interface ros-jazzy-rcl-yaml-param-parser ros-jazzy-rcpputils ros-jazzy-rcutils ros-jazzy-rmw ros-jazzy-ros-workspace ros-jazzy-rosidl-dynamic-typesupport ros-jazzy-statistics-msgs ros-jazzy-tracetools"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool python3-dev ros-jazzy-ament-cmake-gen-version-h ros-jazzy-ament-cmake-gen-version-h-dev ros-jazzy-ament-cmake-gmock ros-jazzy-ament-cmake-gmock-dev ros-jazzy-ament-cmake-google-benchmark ros-jazzy-ament-cmake-google-benchmark-dev ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-gtest-dev ros-jazzy-ament-cmake-ros ros-jazzy-ament-cmake-ros-dev ros-jazzy-ament-index-cpp ros-jazzy-ament-index-cpp-dev ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-auto-dev ros-jazzy-ament-lint-common ros-jazzy-ament-lint-common-dev ros-jazzy-builtin-interfaces ros-jazzy-builtin-interfaces-dev ros-jazzy-libstatistics-collector ros-jazzy-libstatistics-collector-dev ros-jazzy-mimick-vendor ros-jazzy-mimick-vendor-dev ros-jazzy-performance-test-fixture ros-jazzy-performance-test-fixture-dev ros-jazzy-rcl ros-jazzy-rcl-dev ros-jazzy-rcl-interfaces ros-jazzy-rcl-interfaces-dev ros-jazzy-rcl-logging-interface ros-jazzy-rcl-logging-interface-dev ros-jazzy-rcl-yaml-param-parser ros-jazzy-rcl-yaml-param-parser-dev ros-jazzy-rcpputils ros-jazzy-rcpputils-dev ros-jazzy-rcutils ros-jazzy-rcutils-dev ros-jazzy-rmw ros-jazzy-rmw-dev ros-jazzy-rmw-implementation-cmake ros-jazzy-rmw-implementation-cmake-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosgraph-msgs ros-jazzy-rosgraph-msgs-dev ros-jazzy-rosidl-default-generators ros-jazzy-rosidl-default-generators-dev ros-jazzy-rosidl-dynamic-typesupport ros-jazzy-rosidl-dynamic-typesupport-dev ros-jazzy-rosidl-runtime-c ros-jazzy-rosidl-runtime-c-dev ros-jazzy-rosidl-runtime-cpp ros-jazzy-rosidl-runtime-cpp-dev ros-jazzy-rosidl-typesupport-c ros-jazzy-rosidl-typesupport-c-dev ros-jazzy-rosidl-typesupport-cpp ros-jazzy-rosidl-typesupport-cpp-dev ros-jazzy-statistics-msgs ros-jazzy-statistics-msgs-dev ros-jazzy-test-msgs ros-jazzy-test-msgs-dev ros-jazzy-tracetools ros-jazzy-tracetools-dev"
-depends_dev="ros-jazzy-ament-index-cpp ros-jazzy-ament-index-cpp-dev ros-jazzy-builtin-interfaces ros-jazzy-builtin-interfaces-dev ros-jazzy-libstatistics-collector ros-jazzy-libstatistics-collector-dev ros-jazzy-rcl ros-jazzy-rcl-dev ros-jazzy-rcl-interfaces ros-jazzy-rcl-interfaces-dev ros-jazzy-rcl-logging-interface ros-jazzy-rcl-logging-interface-dev ros-jazzy-rcl-yaml-param-parser ros-jazzy-rcl-yaml-param-parser-dev ros-jazzy-rcpputils ros-jazzy-rcpputils-dev ros-jazzy-rcutils ros-jazzy-rcutils-dev ros-jazzy-rmw ros-jazzy-rmw-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosgraph-msgs ros-jazzy-rosgraph-msgs-dev ros-jazzy-rosidl-dynamic-typesupport ros-jazzy-rosidl-dynamic-typesupport-dev ros-jazzy-rosidl-runtime-c ros-jazzy-rosidl-runtime-c-dev ros-jazzy-rosidl-runtime-cpp ros-jazzy-rosidl-runtime-cpp-dev ros-jazzy-rosidl-typesupport-c ros-jazzy-rosidl-typesupport-c-dev ros-jazzy-rosidl-typesupport-cpp ros-jazzy-rosidl-typesupport-cpp-dev ros-jazzy-statistics-msgs ros-jazzy-statistics-msgs-dev ros-jazzy-tracetools ros-jazzy-tracetools-dev"
+depends="ros-jazzy-libstatistics-collector ros-jazzy-rcl ros-jazzy-rcl-logging-interface ros-jazzy-rcl-yaml-param-parser ros-jazzy-rcpputils ros-jazzy-rcutils ros-jazzy-rmw ros-jazzy-ros-workspace ros-jazzy-rosidl-dynamic-typesupport ros-jazzy-statistics-msgs ros-jazzy-tracetools ros-jazzy-ament-index-cpp ros-jazzy-builtin-interfaces ros-jazzy-libstatistics-collector ros-jazzy-rcl ros-jazzy-rcl-interfaces ros-jazzy-rcl-logging-interface ros-jazzy-rcl-yaml-param-parser ros-jazzy-rcpputils ros-jazzy-rcutils ros-jazzy-rmw ros-jazzy-rosgraph-msgs ros-jazzy-rosidl-dynamic-typesupport ros-jazzy-rosidl-runtime-c ros-jazzy-rosidl-runtime-cpp ros-jazzy-rosidl-typesupport-c ros-jazzy-rosidl-typesupport-cpp ros-jazzy-statistics-msgs ros-jazzy-tracetools"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath python3-dev ros-jazzy-ament-cmake-gen-version-h ros-jazzy-ament-cmake-gmock ros-jazzy-ament-cmake-google-benchmark ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-ros ros-jazzy-ament-index-cpp ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-common ros-jazzy-builtin-interfaces ros-jazzy-libstatistics-collector ros-jazzy-mimick-vendor ros-jazzy-performance-test-fixture ros-jazzy-rcl ros-jazzy-rcl-interfaces ros-jazzy-rcl-logging-interface ros-jazzy-rcl-yaml-param-parser ros-jazzy-rcpputils ros-jazzy-rcutils ros-jazzy-rmw ros-jazzy-rmw-implementation-cmake ros-jazzy-rosgraph-msgs ros-jazzy-rosidl-default-generators ros-jazzy-rosidl-dynamic-typesupport ros-jazzy-rosidl-runtime-c ros-jazzy-rosidl-runtime-cpp ros-jazzy-rosidl-typesupport-c ros-jazzy-rosidl-typesupport-cpp ros-jazzy-statistics-msgs ros-jazzy-test-msgs ros-jazzy-tracetools"
 
-subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
+subpackages="$pkgname-dbg $pkgname-doc"
 
 source=""
 builddir="$startdir/abuild"
@@ -34,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: rclcpp
     uri: https://github.com/ros2-gbp/rclcpp-release.git
-    version: release/jazzy/rclcpp/28.1.14-1
+    version: release/jazzy/rclcpp/28.1.16-1
 "
 
 prepare() {
@@ -62,7 +61,6 @@ build() {
   mkdir build
   cd build
   cmake ../src/$_pkgname \
-    -DCMAKE_INSTALL_RPATH=/usr/ros/jazzy/lib \
     -DCMAKE_INSTALL_PREFIX=/usr/ros/jazzy \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_LIBDIR=lib 2>&1 | tee $buildlog
@@ -251,27 +249,6 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
-}
-
-dev() {
-  local i=
-  mkdir -p $subpkgdir
-
-  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
-	depends="$depends_dev"
-	pkgdesc="$pkgdesc (development files)"
-
-  cd $pkgdir || return 0
-
-  for i in \
-    usr/ros/*/lib/pkgconfig \
-    usr/ros/*/share/*/cmake \
-    usr/ros/*/include \
-    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
-    if [ -e "$i" ] || [ -L "$i" ]; then
-      amove "$i"
-    fi
-  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

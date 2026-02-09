@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-ament-flake8
 _pkgname=ament_flake8
-pkgver=0.17.3
+pkgver=0.17.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -8,10 +8,9 @@ arch="all"
 license="Apache License 2.0"
 
 depends="py3-flake8 py3-flake8-builtins py3-flake8-comprehensions py3-flake8-docstrings py3-flake8-import-order py3-flake8-quotes ros-jazzy-ament-lint ros-jazzy-ros-workspace"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-lint-dev ros-jazzy-ros-workspace-dev"
-depends_dev="ros-jazzy-ament-lint-dev ros-jazzy-ros-workspace-dev"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath"
 
-subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
+subpackages="$pkgname-dbg $pkgname-doc"
 
 source=""
 builddir="$startdir/abuild"
@@ -34,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: ament_flake8
     uri: https://github.com/ros2-gbp/ament_lint-release.git
-    version: release/jazzy/ament_flake8/0.17.3-1
+    version: release/jazzy/ament_flake8/0.17.4-1
 "
 
 prepare() {
@@ -263,27 +262,6 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
-}
-
-dev() {
-  local i=
-  mkdir -p $subpkgdir
-
-  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
-	depends="$depends_dev"
-	pkgdesc="$pkgdesc (development files)"
-
-  cd $pkgdir || return 0
-
-  for i in \
-    usr/ros/*/lib/pkgconfig \
-    usr/ros/*/share/*/cmake \
-    usr/ros/*/include \
-    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
-    if [ -e "$i" ] || [ -L "$i" ]; then
-      amove "$i"
-    fi
-  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

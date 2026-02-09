@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-ros2multicast
 _pkgname=ros2multicast
-pkgver=0.32.6
+pkgver=0.32.8
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -8,10 +8,9 @@ arch="all"
 license="Apache License 2.0"
 
 depends="ros-jazzy-ros-workspace ros-jazzy-ros2cli"
-makedepends="chrpath py3-pytest-timeout py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-copyright ros-jazzy-ament-copyright-dev ros-jazzy-ament-flake8 ros-jazzy-ament-flake8-dev ros-jazzy-ament-pep257 ros-jazzy-ament-pep257-dev ros-jazzy-ament-xmllint ros-jazzy-ament-xmllint-dev ros-jazzy-ros-workspace-dev ros-jazzy-ros2cli-dev"
-depends_dev="ros-jazzy-ros-workspace-dev ros-jazzy-ros2cli-dev"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-pytest-timeout py3-pytest7 ros-jazzy-ament-copyright ros-jazzy-ament-flake8 ros-jazzy-ament-pep257 ros-jazzy-ament-xmllint"
 
-subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
+subpackages="$pkgname-dbg $pkgname-doc"
 
 source=""
 builddir="$startdir/abuild"
@@ -34,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: ros2multicast
     uri: https://github.com/ros2-gbp/ros2cli-release.git
-    version: release/jazzy/ros2multicast/0.32.6-1
+    version: release/jazzy/ros2multicast/0.32.8-1
 "
 
 prepare() {
@@ -263,27 +262,6 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
-}
-
-dev() {
-  local i=
-  mkdir -p $subpkgdir
-
-  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
-	depends="$depends_dev"
-	pkgdesc="$pkgdesc (development files)"
-
-  cd $pkgdir || return 0
-
-  for i in \
-    usr/ros/*/lib/pkgconfig \
-    usr/ros/*/share/*/cmake \
-    usr/ros/*/include \
-    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
-    if [ -e "$i" ] || [ -L "$i" ]; then
-      amove "$i"
-    fi
-  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

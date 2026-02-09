@@ -1,17 +1,16 @@
 pkgname=ros-jazzy-google-benchmark-vendor
 _pkgname=google_benchmark_vendor
-pkgver=0.5.0
+pkgver=0.5.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://github.com/google/benchmark"
 arch="all"
 license="Apache License 2.0"
 
-depends="benchmark ros-jazzy-ros-workspace"
-makedepends="benchmark chrpath cmake git py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ros-workspace-dev"
-depends_dev="benchmark ros-jazzy-ros-workspace-dev"
+depends="benchmark ros-jazzy-ros-workspace benchmark"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath benchmark cmake git"
 
-subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
+subpackages="$pkgname-dbg $pkgname-doc"
 
 source=""
 builddir="$startdir/abuild"
@@ -34,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: google_benchmark_vendor
     uri: https://github.com/ros2-gbp/google_benchmark_vendor-release.git
-    version: release/jazzy/google_benchmark_vendor/0.5.0-2
+    version: release/jazzy/google_benchmark_vendor/0.5.1-1
 "
 
 prepare() {
@@ -62,7 +61,6 @@ build() {
   mkdir build
   cd build
   cmake ../src/$_pkgname \
-    -DCMAKE_INSTALL_RPATH=/usr/ros/jazzy/lib \
     -DCMAKE_INSTALL_PREFIX=/usr/ros/jazzy \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_LIBDIR=lib 2>&1 | tee $buildlog
@@ -245,27 +243,6 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
-}
-
-dev() {
-  local i=
-  mkdir -p $subpkgdir
-
-  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
-	depends="$depends_dev"
-	pkgdesc="$pkgdesc (development files)"
-
-  cd $pkgdir || return 0
-
-  for i in \
-    usr/ros/*/lib/pkgconfig \
-    usr/ros/*/share/*/cmake \
-    usr/ros/*/include \
-    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
-    if [ -e "$i" ] || [ -L "$i" ]; then
-      amove "$i"
-    fi
-  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-rqt-msg
 _pkgname=rqt_msg
-pkgver=1.5.1
+pkgver=1.5.2
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://wiki.ros.org/rqt_msg"
@@ -8,10 +8,9 @@ arch="all"
 license="BSD"
 
 depends="ros-jazzy-ament-index-python ros-jazzy-python-qt-binding>=0.2.19 ros-jazzy-rclpy ros-jazzy-ros-workspace ros-jazzy-rosidl-runtime-py ros-jazzy-rqt-console ros-jazzy-rqt-gui ros-jazzy-rqt-gui-py ros-jazzy-rqt-py-common"
-makedepends="chrpath py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-flake8 ros-jazzy-ament-flake8-dev ros-jazzy-ament-index-python-dev ros-jazzy-ament-xmllint ros-jazzy-ament-xmllint-dev ros-jazzy-python-qt-binding-dev>=0.2.19 ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosidl-runtime-py-dev ros-jazzy-rqt-console-dev ros-jazzy-rqt-gui-dev ros-jazzy-rqt-gui-py-dev ros-jazzy-rqt-py-common-dev"
-depends_dev="ros-jazzy-ament-index-python-dev ros-jazzy-python-qt-binding-dev>=0.2.19 ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev ros-jazzy-rosidl-runtime-py-dev ros-jazzy-rqt-console-dev ros-jazzy-rqt-gui-dev ros-jazzy-rqt-gui-py-dev ros-jazzy-rqt-py-common-dev"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath py3-pytest7 ros-jazzy-ament-flake8 ros-jazzy-ament-xmllint"
 
-subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
+subpackages="$pkgname-dbg $pkgname-doc"
 
 source=""
 builddir="$startdir/abuild"
@@ -34,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: rqt_msg
     uri: https://github.com/ros2-gbp/rqt_msg-release.git
-    version: release/jazzy/rqt_msg/1.5.1-3
+    version: release/jazzy/rqt_msg/1.5.2-1
 "
 
 prepare() {
@@ -263,27 +262,6 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
-}
-
-dev() {
-  local i=
-  mkdir -p $subpkgdir
-
-  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
-	depends="$depends_dev"
-	pkgdesc="$pkgdesc (development files)"
-
-  cd $pkgdir || return 0
-
-  for i in \
-    usr/ros/*/lib/pkgconfig \
-    usr/ros/*/share/*/cmake \
-    usr/ros/*/include \
-    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
-    if [ -e "$i" ] || [ -L "$i" ]; then
-      amove "$i"
-    fi
-  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

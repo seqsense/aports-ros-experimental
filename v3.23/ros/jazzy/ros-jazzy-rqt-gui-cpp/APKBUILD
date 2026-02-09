@@ -1,17 +1,16 @@
 pkgname=ros-jazzy-rqt-gui-cpp
 _pkgname=rqt_gui_cpp
-pkgver=1.6.2
+pkgver=1.6.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://ros.org/wiki/rqt_gui_cpp"
 arch="all"
 license="BSD"
 
-depends="ros-jazzy-pluginlib ros-jazzy-qt-gui-cpp>=0.3.0 ros-jazzy-rclcpp ros-jazzy-ros-workspace"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool qt5-qtbase-dev ros-jazzy-ament-cmake ros-jazzy-ament-cmake-dev ros-jazzy-pluginlib ros-jazzy-pluginlib-dev ros-jazzy-qt-gui-cpp-dev>=0.3.0 ros-jazzy-qt-gui-cpp>=0.3.0 ros-jazzy-rclcpp ros-jazzy-rclcpp-dev ros-jazzy-ros-workspace-dev"
-depends_dev="ros-jazzy-pluginlib ros-jazzy-pluginlib-dev ros-jazzy-qt-gui-cpp-dev>=0.3.0 ros-jazzy-rclcpp ros-jazzy-rclcpp-dev ros-jazzy-ros-workspace-dev"
+depends="ros-jazzy-pluginlib ros-jazzy-qt-gui-cpp>=0.3.0 ros-jazzy-rclcpp ros-jazzy-ros-workspace ros-jazzy-pluginlib ros-jazzy-rclcpp"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath qt5-qtbase-dev ros-jazzy-ament-cmake ros-jazzy-pluginlib ros-jazzy-qt-gui-cpp>=0.3.0 ros-jazzy-rclcpp"
 
-subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
+subpackages="$pkgname-dbg $pkgname-doc"
 
 source=""
 builddir="$startdir/abuild"
@@ -34,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: rqt_gui_cpp
     uri: https://github.com/ros2-gbp/rqt-release.git
-    version: release/jazzy/rqt_gui_cpp/1.6.2-2
+    version: release/jazzy/rqt_gui_cpp/1.6.3-1
 "
 
 prepare() {
@@ -62,7 +61,6 @@ build() {
   mkdir build
   cd build
   cmake ../src/$_pkgname \
-    -DCMAKE_INSTALL_RPATH=/usr/ros/jazzy/lib \
     -DCMAKE_INSTALL_PREFIX=/usr/ros/jazzy \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_LIBDIR=lib 2>&1 | tee $buildlog
@@ -251,27 +249,6 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
-}
-
-dev() {
-  local i=
-  mkdir -p $subpkgdir
-
-  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
-	depends="$depends_dev"
-	pkgdesc="$pkgdesc (development files)"
-
-  cd $pkgdir || return 0
-
-  for i in \
-    usr/ros/*/lib/pkgconfig \
-    usr/ros/*/share/*/cmake \
-    usr/ros/*/include \
-    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
-    if [ -e "$i" ] || [ -L "$i" ]; then
-      amove "$i"
-    fi
-  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then

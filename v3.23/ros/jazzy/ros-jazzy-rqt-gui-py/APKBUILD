@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-rqt-gui-py
 _pkgname=rqt_gui_py
-pkgver=1.6.2
+pkgver=1.6.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://ros.org/wiki/rqt_gui_py"
@@ -8,10 +8,9 @@ arch="all"
 license="BSD"
 
 depends="ros-jazzy-qt-gui>=0.3.0 ros-jazzy-ros-workspace ros-jazzy-rqt-gui>=0.3.0"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-auto-dev ros-jazzy-ament-lint-common ros-jazzy-ament-lint-common-dev ros-jazzy-qt-gui-dev>=0.3.0 ros-jazzy-qt-gui>=0.3.0 ros-jazzy-ros-workspace-dev ros-jazzy-rqt-gui-dev>=0.3.0 ros-jazzy-rqt-gui>=0.3.0"
-depends_dev="ros-jazzy-qt-gui-dev>=0.3.0 ros-jazzy-ros-workspace-dev ros-jazzy-rqt-gui-dev>=0.3.0"
+makedepends="py3-setuptools py3-rosdep py3-rosinstall-generator py3-vcstool chrpath ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-common ros-jazzy-qt-gui>=0.3.0 ros-jazzy-rqt-gui>=0.3.0"
 
-subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
+subpackages="$pkgname-dbg $pkgname-doc"
 
 source=""
 builddir="$startdir/abuild"
@@ -34,7 +33,7 @@ fi
 rosinstall="- git:
     local-name: rqt_gui_py
     uri: https://github.com/ros2-gbp/rqt-release.git
-    version: release/jazzy/rqt_gui_py/1.6.2-2
+    version: release/jazzy/rqt_gui_py/1.6.3-1
 "
 
 prepare() {
@@ -263,27 +262,6 @@ doc() {
   mkdir -p $subpkgdir
 
   default_doc
-}
-
-dev() {
-  local i=
-  mkdir -p $subpkgdir
-
-  install_if="${subpkgname%-dev}=$pkgver-r$pkgrel ros-dev"
-	depends="$depends_dev"
-	pkgdesc="$pkgdesc (development files)"
-
-  cd $pkgdir || return 0
-
-  for i in \
-    usr/ros/*/lib/pkgconfig \
-    usr/ros/*/share/*/cmake \
-    usr/ros/*/include \
-    $(find usr/ros/*/lib -name -name '*.[choa]' -o -name '*.prl' 2>/dev/null); do
-    if [ -e "$i" ] || [ -L "$i" ]; then
-      amove "$i"
-    fi
-  done
 }
 
 if [ -f ./apkbuild_hook.sh ]; then
