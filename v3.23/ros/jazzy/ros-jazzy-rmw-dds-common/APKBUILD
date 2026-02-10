@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-rmw-dds-common
 _pkgname=rmw_dds_common
-pkgver=3.1.0
+pkgver=3.1.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rmw_dds_common
     uri: https://github.com/ros2-gbp/rmw_dds_common-release.git
-    version: release/jazzy/rmw_dds_common/3.1.0-2
+    version: release/jazzy/rmw_dds_common/3.1.1-1
 "
 
 prepare() {

@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-rqt-bag
 _pkgname=rqt_bag
-pkgver=1.5.5
+pkgver=1.5.6
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://wiki.ros.org/rqt_bag"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rqt_bag
     uri: https://github.com/ros2-gbp/rqt_bag-release.git
-    version: release/jazzy/rqt_bag/1.5.5-1
+    version: release/jazzy/rqt_bag/1.5.6-1
 "
 
 prepare() {

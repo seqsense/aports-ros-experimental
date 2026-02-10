@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-tf2-sensor-msgs
 _pkgname=tf2_sensor_msgs
-pkgver=0.36.17
+pkgver=0.36.19
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://www.ros.org/wiki/tf2_ros"
@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="py3-numpy ros-jazzy-geometry-msgs ros-jazzy-ros-workspace ros-jazzy-sensor-msgs ros-jazzy-sensor-msgs-py ros-jazzy-std-msgs ros-jazzy-tf2 ros-jazzy-tf2-ros ros-jazzy-tf2-ros-py"
-makedepends="chrpath eigen-dev py3-numpy-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake ros-jazzy-ament-cmake-dev ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-gtest-dev ros-jazzy-ament-cmake-pytest ros-jazzy-ament-cmake-pytest-dev ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-auto-dev ros-jazzy-ament-lint-common ros-jazzy-ament-lint-common-dev ros-jazzy-eigen3-cmake-module ros-jazzy-eigen3-cmake-module-dev ros-jazzy-geometry-msgs ros-jazzy-geometry-msgs-dev ros-jazzy-python-cmake-module ros-jazzy-python-cmake-module-dev ros-jazzy-rclcpp ros-jazzy-rclcpp-dev ros-jazzy-ros-workspace-dev ros-jazzy-sensor-msgs ros-jazzy-sensor-msgs-dev ros-jazzy-sensor-msgs-py-dev ros-jazzy-std-msgs-dev ros-jazzy-tf2 ros-jazzy-tf2-dev ros-jazzy-tf2-ros ros-jazzy-tf2-ros-dev ros-jazzy-tf2-ros-py-dev"
+makedepends="chrpath eigen-dev py3-numpy-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake ros-jazzy-ament-cmake-dev ros-jazzy-ament-cmake-gtest ros-jazzy-ament-cmake-gtest-dev ros-jazzy-ament-cmake-pytest ros-jazzy-ament-cmake-pytest-dev ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-auto-dev ros-jazzy-ament-lint-common ros-jazzy-ament-lint-common-dev ros-jazzy-eigen3-cmake-module ros-jazzy-eigen3-cmake-module-dev ros-jazzy-geometry-msgs ros-jazzy-geometry-msgs-dev ros-jazzy-python-cmake-module ros-jazzy-python-cmake-module-dev ros-jazzy-rclcpp ros-jazzy-rclcpp-dev ros-jazzy-ros-workspace-dev ros-jazzy-sensor-msgs ros-jazzy-sensor-msgs-dev ros-jazzy-sensor-msgs-py-dev ros-jazzy-std-msgs-dev ros-jazzy-tf2 ros-jazzy-tf2-dev ros-jazzy-tf2-geometry-msgs ros-jazzy-tf2-geometry-msgs-dev ros-jazzy-tf2-ros ros-jazzy-tf2-ros-dev ros-jazzy-tf2-ros-py-dev"
 depends_dev="eigen-dev py3-numpy-dev ros-jazzy-eigen3-cmake-module ros-jazzy-eigen3-cmake-module-dev ros-jazzy-geometry-msgs ros-jazzy-geometry-msgs-dev ros-jazzy-ros-workspace-dev ros-jazzy-sensor-msgs ros-jazzy-sensor-msgs-dev ros-jazzy-sensor-msgs-py-dev ros-jazzy-std-msgs-dev ros-jazzy-tf2 ros-jazzy-tf2-dev ros-jazzy-tf2-ros ros-jazzy-tf2-ros-dev ros-jazzy-tf2-ros-py-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: tf2_sensor_msgs
     uri: https://github.com/ros2-gbp/geometry2-release.git
-    version: release/jazzy/tf2_sensor_msgs/0.36.17-1
+    version: release/jazzy/tf2_sensor_msgs/0.36.19-1
 "
 
 prepare() {

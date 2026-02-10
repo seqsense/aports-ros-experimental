@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-tango-icons-vendor
 _pkgname=tango_icons_vendor
-pkgver=0.3.0
+pkgver=0.3.1
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://ros.org/wiki/qt_gui_icons"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: tango_icons_vendor
     uri: https://github.com/ros2-gbp/tango_icons_vendor-release.git
-    version: release/jazzy/tango_icons_vendor/0.3.0-3
+    version: release/jazzy/tango_icons_vendor/0.3.1-1
 "
 
 prepare() {
