@@ -1,0 +1,26 @@
+diff --git a/test/test_component_manager_api.cpp b/test/test_component_manager_api.cpp
+index 5282e1fb..2ec49b2d 100644
+--- a/test/test_component_manager_api.cpp
++++ b/test/test_component_manager_api.cpp
+@@ -378,14 +383,12 @@ void test_components_api(bool use_dedicated_executor)
+   }
+ }
+
+-TEST_F(TestComponentManager, components_api)
++TEST_F(TestComponentManager, components_api_component_manager)
+ {
+-  {
+-    SCOPED_TRACE("ComponentManager");
+-    test_components_api(false);
+-  }
+-  {
+-    SCOPED_TRACE("ComponentManagerIsolated");
+-    test_components_api(true);
+-  }
++  test_components_api(false);
++}
++
++TEST_F(TestComponentManager, components_api_component_manager_isolated)
++{
++  test_components_api(true);
+ }
