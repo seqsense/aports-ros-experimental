@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-rqt-msg
 _pkgname=rqt_msg
-pkgver=1.5.1
+pkgver=1.5.2
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://wiki.ros.org/rqt_msg"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rqt_msg
     uri: https://github.com/ros2-gbp/rqt_msg-release.git
-    version: release/jazzy/rqt_msg/1.5.1-3
+    version: release/jazzy/rqt_msg/1.5.2-1
 "
 
 prepare() {

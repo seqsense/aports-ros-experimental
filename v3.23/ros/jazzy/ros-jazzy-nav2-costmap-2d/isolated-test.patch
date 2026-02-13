@@ -1,83 +1,88 @@
 diff --git a/test/integration/CMakeLists.txt b/test/integration/CMakeLists.txt
-index 59d6ea65..66d552ee 100644
+index 59d6ea65..1f22eb09 100644
 --- a/test/integration/CMakeLists.txt
 +++ b/test/integration/CMakeLists.txt
 @@ -1,3 +1,4 @@
-+find_package(ament_cmake_ros REQUIRED)
++find_package(ament_cmake_ros)
  ament_add_gtest_executable(footprint_tests_exec
    footprint_tests.cpp
  )
-@@ -80,6 +81,7 @@ ament_add_test(test_collision_checker
-     TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
-     TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
-     TEST_EXECUTABLE=$<TARGET_FILE:test_collision_checker_exec>
-+    ROS_DOMAIN_ID=1
+@@ -72,10 +73,12 @@ target_link_libraries(test_costmap_subscriber_exec
+     ${PROJECT_NAME}::nav2_costmap_2d_client
  )
  
- ament_add_test(footprint_tests
-@@ -90,6 +92,7 @@ ament_add_test(footprint_tests
++set(RUNNER "RUNNER" "${ament_cmake_ros_DIR}/run_test_isolated.py")
+ ament_add_test(test_collision_checker
+   GENERATE_RESULT_FOR_RETURN_CODE_ZERO
+   COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
+   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
++  RUNNER ${RUNNER}
+   ENV
      TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
      TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
-     TEST_EXECUTABLE=$<TARGET_FILE:footprint_tests_exec>
-+    ROS_DOMAIN_ID=2
- )
- 
- ament_add_test(inflation_tests
-@@ -100,6 +103,7 @@ ament_add_test(inflation_tests
+@@ -86,6 +89,7 @@ ament_add_test(footprint_tests
+   GENERATE_RESULT_FOR_RETURN_CODE_ZERO
+   COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
+   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
++  RUNNER ${RUNNER}
+   ENV
      TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
      TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
-     TEST_EXECUTABLE=$<TARGET_FILE:inflation_tests_exec>
-+    ROS_DOMAIN_ID=3
- )
- 
- ament_add_test(obstacle_tests
-@@ -110,6 +114,7 @@ ament_add_test(obstacle_tests
+@@ -96,6 +100,7 @@ ament_add_test(inflation_tests
+   GENERATE_RESULT_FOR_RETURN_CODE_ZERO
+   COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
+   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
++  RUNNER ${RUNNER}
+   ENV
      TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
      TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
-     TEST_EXECUTABLE=$<TARGET_FILE:obstacle_tests_exec>
-+    ROS_DOMAIN_ID=4
- )
- 
- ament_add_test(range_tests
-@@ -120,6 +125,7 @@ ament_add_test(range_tests
+@@ -106,6 +111,7 @@ ament_add_test(obstacle_tests
+   GENERATE_RESULT_FOR_RETURN_CODE_ZERO
+   COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
+   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
++  RUNNER ${RUNNER}
+   ENV
      TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
      TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
-     TEST_EXECUTABLE=$<TARGET_FILE:range_tests_exec>
-+    ROS_DOMAIN_ID=4
- )
- 
- ament_add_test(plugin_container_tests
-@@ -130,6 +136,7 @@ ament_add_test(plugin_container_tests
+@@ -116,6 +122,7 @@ ament_add_test(range_tests
+   GENERATE_RESULT_FOR_RETURN_CODE_ZERO
+   COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
+   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
++  RUNNER ${RUNNER}
+   ENV
      TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
      TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
-     TEST_EXECUTABLE=$<TARGET_FILE:plugin_container_tests_exec>
-+    ROS_DOMAIN_ID=5
- )
- 
- ament_add_test(test_costmap_publisher_exec
-@@ -140,6 +147,7 @@ ament_add_test(test_costmap_publisher_exec
+@@ -126,6 +133,7 @@ ament_add_test(plugin_container_tests
+   GENERATE_RESULT_FOR_RETURN_CODE_ZERO
+   COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
+   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
++  RUNNER ${RUNNER}
+   ENV
      TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
      TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
-     TEST_EXECUTABLE=$<TARGET_FILE:test_costmap_publisher_exec>
-+    ROS_DOMAIN_ID=6
- )
- 
- ament_add_test(test_costmap_subscriber_exec
-@@ -150,6 +158,7 @@ ament_add_test(test_costmap_subscriber_exec
+@@ -136,6 +144,7 @@ ament_add_test(test_costmap_publisher_exec
+     GENERATE_RESULT_FOR_RETURN_CODE_ZERO
+     COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
+     WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
++  RUNNER ${RUNNER}
+     ENV
      TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
      TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
-     TEST_EXECUTABLE=$<TARGET_FILE:test_costmap_subscriber_exec>
-+    ROS_DOMAIN_ID=7
- )
- 
- ## TODO(bpwilcox): this test (I believe) is intended to be launched with the simple_driving_test.xml,
+@@ -146,6 +155,7 @@ ament_add_test(test_costmap_subscriber_exec
+     GENERATE_RESULT_FOR_RETURN_CODE_ZERO
+     COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/costmap_tests_launch.py"
+     WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
++  RUNNER ${RUNNER}
+     ENV
+     TEST_MAP=${TEST_MAP_DIR}/TenByTen.yaml
+     TEST_LAUNCH_DIR=${TEST_LAUNCH_DIR}
 diff --git a/test/unit/CMakeLists.txt b/test/unit/CMakeLists.txt
-index 0d332a44..32cf18af 100644
+index 3b37976a..60e7e611 100644
 --- a/test/unit/CMakeLists.txt
 +++ b/test/unit/CMakeLists.txt
-@@ -1,63 +1,64 @@
+@@ -1,68 +1,69 @@
 -ament_add_gtest(collision_footprint_test footprint_collision_checker_test.cpp)
-+find_package(ament_cmake_ros REQUIRED)
++find_package(ament_cmake_ros)
 +ament_add_ros_isolated_gtest(collision_footprint_test footprint_collision_checker_test.cpp)
  target_link_libraries(collision_footprint_test
    ${PROJECT_NAME}::nav2_costmap_2d_core
@@ -151,6 +156,10 @@ index 0d332a44..32cf18af 100644
 +ament_add_ros_isolated_gtest(lifecycle_test lifecycle_test.cpp)
  target_link_libraries(lifecycle_test
    ${PROJECT_NAME}::nav2_costmap_2d_core
--)
-\ No newline at end of file
-+)
+ )
+ 
+-ament_add_gtest(obstacle_layer_test obstacle_layer_test.cpp)
++ament_add_ros_isolated_gtest(obstacle_layer_test obstacle_layer_test.cpp)
+ target_link_libraries(obstacle_layer_test
+   ${PROJECT_NAME}::nav2_costmap_2d_core
+   layers
