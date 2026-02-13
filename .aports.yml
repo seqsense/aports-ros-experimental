@@ -145,5 +145,5 @@ repos:
         paths: ["v3.23/ros/jazzy"]
         archive_paths: ["archives/v3.23/ros/jazzy"]
       - remote: "mirror"
-        paths: ["v3.23/ros/jazy"]
+        paths: ["v3.23/ros/jazzy"]
         archive_paths: ["archives/v3.23/ros/jazzy"]
