@@ -12,21 +12,26 @@ index ebc86ff6..1d825a36 100644
 +    rclcpp::shutdown();
 +  }
  };
- 
+
  TEST_F(TestComponentManager, get_component_resources_invalid)
 diff --git a/test/test_component_manager_api.cpp b/test/test_component_manager_api.cpp
-index 5282e1fb..feb12746 100644
+index 5282e1fb..27d02493 100644
 --- a/test/test_component_manager_api.cpp
 +++ b/test/test_component_manager_api.cpp
-@@ -34,6 +34,11 @@ protected:
+@@ -30,10 +30,15 @@ using namespace std::chrono_literals;
+ class TestComponentManager : public ::testing::Test
+ {
+ protected:
+-  static void SetUpTestCase()
++  void SetUp() final
    {
      rclcpp::init(0, nullptr);
    }
 +
-+  static void TearDownTestCase()
++  void TearDown() final
 +  {
 +    rclcpp::shutdown();
 +  }
  };
- 
+
  // TODO(hidmic): split up tests once Node bring up/tear down races
