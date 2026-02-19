@@ -1,0 +1,38 @@
+pkgname=py3-colcon-parallel-executor
+_pkgname=colcon-parallel-executor
+pkgver=0.4.0
+pkgrel=0
+pkgdesc="Extension for colcon to process packages in parallel."
+url="http://colcon.readthedocs.io"
+arch="noarch"
+license="Apache-2.0"
+depends="python3 py3-colcon-core"
+makedepends="py3-gpep517 py3-setuptools py3-wheel"
+checkdepends="py3-pip py3-pytest7"
+subpackages="$pkgname-doc"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+        gpep517 build-wheel \
+                --wheel-dir .dist \
+                --output-fd 3 3>&1 >&2
+}
+
+check() {
+        python3 -m venv --clear --system-site-packages .testenv
+        .testenv/bin/python3 -m pip install -e .[test]
+        .testenv/bin/python3 -m pip uninstall -y "$_pkgname"
+        .testenv/bin/python3 -m pip install .dist/*.whl
+        .testenv/bin/python3 -m pytest
+}
+
+package() {
+        python3 -m installer -d "$pkgdir" \
+                .dist/*.whl
+
+        # Install license files
+        install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="7365743aee7a7f9cbcfc8e3c5ff345d6c92ad048089eb40b3f7fa354ebd442d185dab543131ab1b08765f6f3dfa8e3b6f8b07ecf51a8fbbafad2568b9dfb74b8  colcon-parallel-executor-0.4.0.tar.gz"
