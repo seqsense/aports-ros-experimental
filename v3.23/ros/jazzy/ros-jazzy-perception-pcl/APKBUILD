@@ -1,11 +1,11 @@
 pkgname=ros-jazzy-perception-pcl
 _pkgname=perception_pcl
-pkgver=2.6.2
+pkgver=2.6.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://ros.org/wiki/perception_pcl"
 arch="all"
-license="BSD"
+license="BSD-3-Clause"
 
 depends="ros-jazzy-pcl-conversions ros-jazzy-pcl-msgs ros-jazzy-pcl-ros ros-jazzy-ros-workspace"
 makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake ros-jazzy-ament-cmake-dev ros-jazzy-pcl-conversions-dev ros-jazzy-pcl-msgs-dev ros-jazzy-pcl-ros-dev ros-jazzy-ros-workspace-dev"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: perception_pcl
     uri: https://github.com/ros2-gbp/perception_pcl-release.git
-    version: release/jazzy/perception_pcl/2.6.2-1
+    version: release/jazzy/perception_pcl/2.6.4-1
 "
 
 prepare() {
