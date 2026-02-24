@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 897c2e1..4fa24b5 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -246,6 +246,7 @@ rclcpp_components_register_node(combined_pointcloud_to_pcd_lib
+ if(BUILD_TESTING)
+   find_package(ament_lint_auto REQUIRED)
+   set(ament_cmake_copyright_FOUND TRUE)
++  set(ament_cmake_uncrustify_FOUND TRUE)
+   ament_lint_auto_find_test_dependencies()
+ 
+   find_package(ament_cmake_gtest REQUIRED)
