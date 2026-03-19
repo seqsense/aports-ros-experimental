@@ -1,7 +1,7 @@
 pkgname=py3-colcon-cmake
 _pkgname=colcon-cmake
-pkgver=0.2.28
-pkgrel=3
+pkgver=0.2.29
+pkgrel=0
 pkgdesc="Extension for colcon to support CMake packages."
 url="http://colcon.readthedocs.io"
 arch="noarch"
@@ -35,4 +35,4 @@ package() {
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="f62e6b60363ec68170226454eb61f40dc523729542da3609e8b8a73c88deb7403fd747fb1d7986449a6ffbd981823d6e9f4d999279f98796a3df7df28a6d3df6  colcon-cmake-0.2.28.tar.gz"
+sha512sums="08eac0ee067bc7cae942a5d816571779409b9ac074b7c3d05b29eb29666d6fa691071f0a45c43a33ecfa39e3cc74464475816847628e034a2896d645ecc00422  colcon-cmake-0.2.29.tar.gz"
