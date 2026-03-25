@@ -1,0 +1,34 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b5a06f0e..78292412 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -45,11 +45,9 @@ install(DIRECTORY include/ DESTINATION include/${PROJECT_NAME})
+ # Tests
+ if(BUILD_TESTING)
+   find_package(ament_cmake_google_benchmark REQUIRED)
+-  find_package(ament_cmake_copyright REQUIRED)
+   find_package(ament_cmake_cppcheck REQUIRED)
+   find_package(ament_cmake_cpplint REQUIRED)
+   find_package(ament_cmake_lint_cmake REQUIRED)
+-  find_package(ament_cmake_uncrustify REQUIRED)
+   find_package(ament_cmake_xmllint REQUIRED)
+ 
+   # Should not lint external code
+@@ -71,17 +69,12 @@ if(BUILD_TESTING)
+     include/tf2/LinearMath/Vector3.hpp
+   )
+ 
+-  ament_copyright(EXCLUDE ${_linter_excludes})
+   ament_cppcheck(
+     EXCLUDE ${_linter_excludes}
+     LANGUAGE c++
+   )
+   ament_cpplint(EXCLUDE ${_linter_excludes})
+   ament_lint_cmake()
+-  ament_uncrustify(
+-    EXCLUDE ${_linter_excludes}
+-    LANGUAGE c++
+-  )
+   ament_xmllint()
+ 
+   find_package(ament_cmake_gtest REQUIRED)

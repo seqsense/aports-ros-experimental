@@ -1,0 +1,13 @@
+diff --git a/test/utils_test.cpp b/test/utils_test.cpp
+index f554cd33..6867940b 100644
+--- a/test/utils_test.cpp
++++ b/test/utils_test.cpp
+@@ -110,5 +110,7 @@ int main(int argc, char ** argv)
+ {
+   rclcpp::init(argc, argv);
+   testing::InitGoogleTest(&argc, argv);
+-  return RUN_ALL_TESTS();
++  const int ret = RUN_ALL_TESTS();
++  rclcpp::shutdown();
++  return ret;
+ }

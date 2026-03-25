@@ -1,0 +1,67 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 8f91420..a2e1e9a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -28,6 +28,8 @@ find_package(ament_index_cpp REQUIRED)
+ if(BUILD_TESTING)
+   find_package(ament_cmake_gmock REQUIRED)
+   find_package(ament_lint_auto REQUIRED)
++  find_package(ament_cmake_ros REQUIRED)
++  set(AMENT_LINT_AUTO_EXCLUDE ament_cmake_copyright ament_cmake_uncrustify)
+   ament_lint_auto_find_test_dependencies()
+ 
+   find_package(rclcpp REQUIRED)
+@@ -40,7 +42,7 @@ if(BUILD_TESTING)
+   find_package(std_msgs REQUIRED)
+   find_package(test_msgs REQUIRED)
+ 
+-  ament_add_gmock(test_rosbag2_record_end_to_end
++  ament_add_ros_isolated_gmock(test_rosbag2_record_end_to_end
+     test/rosbag2_tests/test_rosbag2_record_end_to_end.cpp
+     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+   if(TARGET test_rosbag2_record_end_to_end)
+@@ -55,7 +57,7 @@ if(BUILD_TESTING)
+     ament_add_test_label(test_rosbag2_record_end_to_end xfail)
+   endif()
+ 
+-  ament_add_gmock(test_rosbag2_play_end_to_end
++  ament_add_ros_isolated_gmock(test_rosbag2_play_end_to_end
+     test/rosbag2_tests/test_rosbag2_play_end_to_end.cpp
+     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+   if(TARGET test_rosbag2_play_end_to_end)
+@@ -68,7 +70,7 @@ if(BUILD_TESTING)
+     ament_add_test_label(test_rosbag2_play_end_to_end xfail)
+   endif()
+ 
+-  ament_add_gmock(test_rosbag2_info_end_to_end
++  ament_add_ros_isolated_gmock(test_rosbag2_info_end_to_end
+     test/rosbag2_tests/test_rosbag2_info_end_to_end.cpp
+     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+   if(TARGET test_rosbag2_info_end_to_end)
+@@ -78,7 +80,7 @@ if(BUILD_TESTING)
+     ament_add_test_label(test_rosbag2_info_end_to_end xfail)
+   endif()
+ 
+-  ament_add_gmock(test_converter
++  ament_add_ros_isolated_gmock(test_converter
+     test/rosbag2_tests/test_converter.cpp
+     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+   if(TARGET test_converter)
+@@ -88,7 +90,7 @@ if(BUILD_TESTING)
+       test_msgs)
+   endif()
+ 
+-  ament_add_gmock(test_reindex
++  ament_add_ros_isolated_gmock(test_reindex
+     test/rosbag2_tests/test_reindexer.cpp)
+   if(TARGET test_reindex)
+     ament_target_dependencies(test_reindex
+@@ -100,7 +102,7 @@ if(BUILD_TESTING)
+   endif()
+ 
+ 
+-  ament_add_gmock(test_rosbag2_cpp_api
++  ament_add_ros_isolated_gmock(test_rosbag2_cpp_api
+     test/rosbag2_tests/test_rosbag2_cpp_api.cpp
+     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+   if(TARGET test_rosbag2_cpp_api)

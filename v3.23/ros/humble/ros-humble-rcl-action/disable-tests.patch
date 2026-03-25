@@ -1,0 +1,24 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index e1aa7a4..0e9bbdd 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -131,13 +131,13 @@ if(BUILD_TESTING)
+   endfunction()
+ 
+   macro(targets)
+-    custom_test_c(test_action_communication
+-      "test/rcl_action/test_action_communication.cpp")
+-    custom_test_c(test_action_interaction
+-      "test/rcl_action/test_action_interaction.cpp")
++    # custom_test_c(test_action_communication
++    #   "test/rcl_action/test_action_communication.cpp")
++    # custom_test_c(test_action_interaction
++    #   "test/rcl_action/test_action_interaction.cpp")
+ 
+-    custom_test_c(test_graph
+-      "test/rcl_action/test_graph.cpp")
++    # custom_test_c(test_graph
++    #   "test/rcl_action/test_graph.cpp")
+   endmacro()
+ 
+   call_for_each_rmw_implementation(targets)

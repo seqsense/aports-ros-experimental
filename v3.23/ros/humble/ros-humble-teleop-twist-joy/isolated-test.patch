@@ -1,0 +1,19 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d0e8f1a..5afc43c 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -84,11 +84,14 @@ if(BUILD_TESTING)
+   )
+ 
+   find_package(launch_testing_ament_cmake REQUIRED)
++  set(INDEX 0)
+   foreach(_test_path ${_teleop_twist_joy_launch_tests})
+     add_launch_test(${_test_path}
+       APPEND_ENV PYTHONPATH=${CMAKE_CURRENT_SOURCE_DIR}/test
+       TIMEOUT 10
++      ENV ROS_DOMAIN_ID=${INDEX}
+     )
++    math(EXPR INDEX "${INDEX} + 1")
+   endforeach()
+ endif()
+ 

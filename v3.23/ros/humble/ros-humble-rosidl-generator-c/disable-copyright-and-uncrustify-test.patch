@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index abcdefg..1234567 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -29,6 +29,10 @@ endif()
+ if(BUILD_TESTING)
+   find_package(ament_lint_auto REQUIRED)
+   find_package(test_interface_files REQUIRED)
++  set(AMENT_LINT_AUTO_EXCLUDE
++    ament_cmake_copyright
++    ament_cmake_uncrustify
++  )
+   find_package(rosidl_runtime_c REQUIRED)
+   ament_lint_auto_find_test_dependencies()

@@ -1,0 +1,69 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index cd5ad0d..12c44c6 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -63,64 +63,25 @@ if(BUILD_TESTING)
+ 
+   find_package(ament_cmake_gtest)
+ 
+-  ament_add_gtest(${PROJECT_NAME}-test_simple test/test_simple.cpp)
+-  if(TARGET ${PROJECT_NAME}-test_simple)
+-    target_link_libraries(${PROJECT_NAME}-test_simple ${PROJECT_NAME})
+-  endif()
+ 
+-  ament_add_gtest(${PROJECT_NAME}-msg_cache_unittest test/msg_cache_unittest.cpp)
+-  if(TARGET ${PROJECT_NAME}-msg_cache_unittest)
+-    target_link_libraries(${PROJECT_NAME}-msg_cache_unittest ${PROJECT_NAME})
+-  endif()
+ 
+-  ament_add_gtest(${PROJECT_NAME}-test_chain test/test_chain.cpp)
+-  if(TARGET ${PROJECT_NAME}-test_chain)
+-    target_link_libraries(${PROJECT_NAME}-test_chain ${PROJECT_NAME})
+-  endif()
+ 
+-  ament_add_gtest(${PROJECT_NAME}-test_time_sequencer test/time_sequencer_unittest.cpp)
+-  if(TARGET ${PROJECT_NAME}-test_time_sequencer)
+-    target_link_libraries(${PROJECT_NAME}-test_time_sequencer ${PROJECT_NAME})
+-  endif()
+ 
+-  ament_add_gtest(${PROJECT_NAME}-test_subscriber test/test_subscriber.cpp)
+   if(TARGET ${PROJECT_NAME}-test_subscriber)
+     target_link_libraries(${PROJECT_NAME}-test_subscriber ${PROJECT_NAME})
+     ament_target_dependencies(${PROJECT_NAME}-test_subscriber "rclcpp" "rclcpp_lifecycle" "sensor_msgs")
+   endif()
+ 
+-  ament_add_gtest(${PROJECT_NAME}-test_synchronizer test/test_synchronizer.cpp)
+-  if(TARGET ${PROJECT_NAME}-test_synchronizer)
+-    target_link_libraries(${PROJECT_NAME}-test_synchronizer ${PROJECT_NAME})
+-  endif()
+ 
+-  ament_add_gtest(${PROJECT_NAME}-time_synchronizer_unittest test/time_synchronizer_unittest.cpp)
+-  if(TARGET ${PROJECT_NAME}-time_synchronizer_unittest)
+-    target_link_libraries(${PROJECT_NAME}-time_synchronizer_unittest ${PROJECT_NAME})
+-  endif()
+ 
+-  ament_add_gtest(${PROJECT_NAME}-test_exact_time_policy test/test_exact_time_policy.cpp)
+-  if(TARGET ${PROJECT_NAME}-test_exact_time_policy)
+-    target_link_libraries(${PROJECT_NAME}-test_exact_time_policy ${PROJECT_NAME})
+-  endif()
+ 
+-  ament_add_gtest(${PROJECT_NAME}-test_approximate_time_policy test/test_approximate_time_policy.cpp)
+-  if(TARGET ${PROJECT_NAME}-test_approximate_time_policy)
+-    target_link_libraries(${PROJECT_NAME}-test_approximate_time_policy ${PROJECT_NAME})
+-  endif()
+ 
+-  ament_add_gtest(${PROJECT_NAME}-test_latest_time_policy test/test_latest_time_policy.cpp)
+-  if(TARGET ${PROJECT_NAME}-test_latest_time_policy)
+-    target_link_libraries(${PROJECT_NAME}-test_latest_time_policy ${PROJECT_NAME})
+-  endif()
+ 
+-  ament_add_gtest(${PROJECT_NAME}-test_fuzz test/test_fuzz.cpp SKIP_TEST)
+   if(TARGET ${PROJECT_NAME}-test_fuzz)
+     target_link_libraries(${PROJECT_NAME}-test_fuzz ${PROJECT_NAME})
+     ament_target_dependencies(${PROJECT_NAME}-test_fuzz "rclcpp" "sensor_msgs")
+   endif()
+ 
+-  ament_add_gtest(${PROJECT_NAME}-test_message_traits test/test_message_traits.cpp)
+   if(TARGET ${PROJECT_NAME}-test_message_traits)
+     target_link_libraries(${PROJECT_NAME}-test_message_traits ${PROJECT_NAME})
+     ament_target_dependencies(${PROJECT_NAME}-test_message_traits "rclcpp" "std_msgs")

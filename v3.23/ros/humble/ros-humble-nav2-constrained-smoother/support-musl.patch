@@ -1,0 +1,13 @@
+diff --git a/include/nav2_constrained_smoother/smoother_cost_function.hpp b/include/nav2_constrained_smoother/smoother_cost_function.hpp
+index 72531197..5234ea7d 100644
+--- a/include/nav2_constrained_smoother/smoother_cost_function.hpp
++++ b/include/nav2_constrained_smoother/smoother_cost_function.hpp
+@@ -24,6 +24,8 @@
+ #include <queue>
+ #include <utility>
+ 
++#include <sys/types.h>
++
+ #include "ceres/ceres.h"
+ #include "ceres/cubic_interpolation.h"
+ #include "Eigen/Core"

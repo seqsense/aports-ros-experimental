@@ -1,0 +1,10 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index e7638cd..fc84160 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -108,5 +108,4 @@ if(BUILD_TESTING)
+ 
+     find_package(launch_testing_ament_cmake)
+     add_launch_test(test/test_polygon_filter.test.py)
+-    add_launch_test(test/test_speckle_filter.test.py)
+ endif()

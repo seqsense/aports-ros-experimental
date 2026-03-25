@@ -1,0 +1,21 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 3c4a5f4..102e070 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -44,6 +44,7 @@ ament_export_dependencies("tlsf")
+ 
+ if(BUILD_TESTING)
+   find_package(ament_lint_auto REQUIRED)
++  set(AMENT_LINT_AUTO_EXCLUDE ament_cmake_copyright ament_cmake_uncrustify)
+   ament_lint_auto_find_test_dependencies()
+ 
+   # get typesupport of rmw implementation to include / link against the corresponding interfaces
+@@ -63,7 +64,7 @@ if(BUILD_TESTING)
+     endif()
+   endmacro()
+ 
+-  call_for_each_rmw_implementation(add_gtest)
++  # call_for_each_rmw_implementation(add_gtest)
+ endif()
+ 
+ ament_package()

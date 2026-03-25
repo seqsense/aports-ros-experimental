@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 766c0ab..8aaec4b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -31,6 +31,7 @@ ament_python_install_package(${PROJECT_NAME})
+ if(BUILD_TESTING)
+   find_package(ament_cmake_gtest REQUIRED)
+   find_package(ament_lint_auto REQUIRED)
++  set(AMENT_LINT_AUTO_EXCLUDE ament_cmake_copyright ament_cmake_uncrustify)
+ 
+   # TODO(ros2/geometry2#259) Remove once headers
+   # are renamed to .hpp

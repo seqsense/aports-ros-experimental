@@ -1,0 +1,155 @@
+diff --git a/fix-cmake-minimum-version.diff b/fix-cmake-minimum-version.diff
+new file mode 100644
+index 0000000..33a57ca
+--- /dev/null
++++ b/fix-cmake-minimum-version.diff
+@@ -0,0 +1,12 @@
++diff --git a/CMakeLists.txt b/CMakeLists.txt
++--- a/CMakeLists.txt
+++++ b/CMakeLists.txt
++@@ -14,7 +14,7 @@
++ # and provide build configuration options.
++ ######################################################################
++ 
++-cmake_minimum_required(VERSION 3.3.0)
+++cmake_minimum_required(VERSION 3.10)
++ 
++ set(CMAKE_CXX_STANDARD 11)
++ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+diff --git a/fix-ogre-str-functions.diff b/fix-ogre-str-functions.diff
+new file mode 100644
+index 0000000..24d9250
+--- /dev/null
++++ b/fix-ogre-str-functions.diff
+@@ -0,0 +1,10 @@
++diff --git a/OgreMain/src/OgreStringConverter.cpp b/OgreMain/src/OgreStringConverter.cpp
++--- a/OgreMain/src/OgreStringConverter.cpp
+++++ b/OgreMain/src/OgreStringConverter.cpp
++@@ -30,6 +30,7 @@
++ #include "OgreStringConverter.h"
++ #include "OgreException.h"
++ #include "OgreVector.h"
+++#include <cstdio>
++ 
++ namespace Ogre {
+diff --git a/fix-str-functions.patch b/fix-str-functions.patch
+new file mode 100644
+index 0000000..91ef578
+--- /dev/null
++++ b/fix-str-functions.patch
+@@ -0,0 +1,79 @@
++diff --git a/OgreMain/src/OgreStringConverter.cpp b/OgreMain/src/OgreStringConverter.cpp
++index 42dfb3d33..cbb577867 100644
++--- a/OgreMain/src/OgreStringConverter.cpp
++@@ -237,47 +237,75 @@ namespace Ogre {
++     bool StringConverter::parse(const String& val, float& ret)
++     {
++         char* end;
+++        #ifdef __GLIBC__
++         ret = (float)strtod_l(val.c_str(), &end, _numLocale);
+++        #else
+++        ret = (float)strtod(val.c_str(), &end);
+++        #endif  // __GLIBC__
++         return val.c_str() != end;
++     }
++     bool StringConverter::parse(const String& val, double& ret)
++     {
++         char* end;
+++        #ifdef __GLIBC__
++         ret = strtod_l(val.c_str(), &end, _numLocale);
+++        #else
+++        ret = strtod(val.c_str(), &end);
+++        #endif  // __GLIBC__
++         return val.c_str() != end;
++     }
++     //-----------------------------------------------------------------------
++     bool StringConverter::parse(const String& val, int32& ret)
++     {
++         char* end;
+++        #ifdef __GLIBC__
++         ret = (int32)strtol_l(val.c_str(), &end, 0, _numLocale);
+++        #else
+++        ret = (int32)strtol(val.c_str(), &end, 0);
+++        #endif  // __GLIBC__
++         return val.c_str() != end;
++     }
++     //-----------------------------------------------------------------------
++     bool StringConverter::parse(const String& val, int64& ret)
++     {
++         char* end;
+++        #ifdef __GLIBC__
++         ret = strtoll_l(val.c_str(), &end, 0, _numLocale);
+++        #else
+++        ret = strtoll(val.c_str(), &end, 0);
+++        #endif  // __GLIBC__
++         return val.c_str() != end;
++     }
++     //-----------------------------------------------------------------------
++     bool StringConverter::parse(const String& val, unsigned long& ret)
++     {
++         char* end;
+++        #ifdef __GLIBC__
++         ret = strtoull_l(val.c_str(), &end, 0, _numLocale);
+++        #else
+++        ret = strtoull(val.c_str(), &end, 0);
+++        #endif  // __GLIBC__
++         return val.c_str() != end;
++     }
++     bool StringConverter::parse(const String& val, unsigned long long& ret)
++     {
++         char* end;
+++        #ifdef __GLIBC__
++         ret = strtoull_l(val.c_str(), &end, 0, _numLocale);
+++        #else
+++        ret = strtoull(val.c_str(), &end, 0);
+++        #endif  // __GLIBC__
++         return val.c_str() != end;
++     }
++     //-----------------------------------------------------------------------
++     bool StringConverter::parse(const String& val, uint32& ret)
++     {
++         char* end;
+++        #ifdef __GLIBC__
++         ret = (uint32)strtoul_l(val.c_str(), &end, 0, _numLocale);
+++        #else
+++        ret = (uint32)strtoul(val.c_str(), &end, 0);
+++        #endif  // __GLIBC__
++         return val.c_str() != end;
++     }
++     bool StringConverter::parse(const String& val, bool& ret)
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d274cad..c51b9b9 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -52,6 +52,7 @@ macro(build_freetype)
+     CMAKE_ARGS
+       -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_BINARY_DIR}/freetype_install
+       ${extra_cmake_args}
++      -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+       -Wno-dev
+       -DWITH_ZLIB=OFF
+       -DWITH_BZip2=OFF
+@@ -95,6 +96,7 @@ macro(build_zlib)
+     CMAKE_ARGS
+       -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_BINARY_DIR}/zlib-install
+       ${extra_cmake_args}
++      -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+       -Wno-dev
+   )
+ 
+@@ -186,11 +188,14 @@ macro(build_ogre)
+       -DOGRE_BUILD_COMPONENT_CSHARP:BOOL=FALSE
+       -DOGRE_BUILD_COMPONENT_BITES:BOOL=FALSE
+       ${extra_cmake_args}
++      -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+       -Wno-dev
+     PATCH_COMMAND
++      ${Patch_EXECUTABLE} -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/fix-cmake-minimum-version.diff &&
+       ${Patch_EXECUTABLE} -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/pragma-patch.diff &&
+       ${Patch_EXECUTABLE} -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/fix-arm64.diff &&
+-      ${Patch_EXECUTABLE} -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/relocatable.patch
++      ${Patch_EXECUTABLE} -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/relocatable.patch &&
++      ${Patch_EXECUTABLE} -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/fix-str-functions.patch
+     COMMAND
+       ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/FindFreetype.cmake ${CMAKE_CURRENT_BINARY_DIR}/ogre-v1.12.1-prefix/src/ogre-v1.12.1/CMake/Packages/FindFreetype.cmake
+   )

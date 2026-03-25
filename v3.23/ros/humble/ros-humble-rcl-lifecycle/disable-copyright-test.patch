@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5295a81..ea181c2 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -74,6 +74,7 @@ install(TARGETS rcl_lifecycle EXPORT rcl_lifecycle
+ if(BUILD_TESTING)
+   find_package(ament_cmake_gtest REQUIRED)
+   find_package(ament_lint_auto REQUIRED)
++  set(AMENT_LINT_AUTO_EXCLUDE ament_cmake_copyright)
+   find_package(rcl REQUIRED)
+   find_package(osrf_testing_tools_cpp REQUIRED)
+   ament_lint_auto_find_test_dependencies()

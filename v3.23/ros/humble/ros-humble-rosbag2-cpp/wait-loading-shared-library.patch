@@ -1,0 +1,30 @@
+diff --git a/src/rosbag2_cpp/typesupport_helpers.cpp b/src/rosbag2_cpp/typesupport_helpers.cpp
+index 72d369bb..0c06fef1 100644
+--- a/src/rosbag2_cpp/typesupport_helpers.cpp
++++ b/src/rosbag2_cpp/typesupport_helpers.cpp
+@@ -14,10 +14,12 @@
+ 
+ #include "rosbag2_cpp/typesupport_helpers.hpp"
+ 
++#include <chrono>
+ #include <memory>
+ #include <sstream>
+ #include <stdexcept>
+ #include <string>
++#include <thread>
+ #include <tuple>
+ #include <utility>
+ 
+@@ -131,6 +133,12 @@ get_typesupport_handle(
+     auto symbol_name = typesupport_identifier + "__get_message_type_support_handle__" +
+       package_name + "__" + (middle_module.empty() ? "msg" : middle_module) + "__" + type_name;
+ 
++    for (size_t i=0; i < 10; ++i) {
++      if (library->has_symbol(symbol_name)) {
++        break;
++      }
++      std::this_thread::sleep_for(std::chrono::milliseconds(1));
++    }
+     if (!library->get_symbol(symbol_name)) {
+       throw std::runtime_error{
+               rcutils_dynamic_loading_error.str() +

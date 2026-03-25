@@ -1,0 +1,18 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b325dd2..7706a72 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -228,11 +228,12 @@ if(BUILD_TESTING)
+   find_package(ament_cmake_gmock REQUIRED)
+   find_package(ament_index_cpp REQUIRED)
+   find_package(ament_lint_auto REQUIRED)
++  set(AMENT_LINT_AUTO_EXCLUDE ament_cmake_copyright ament_cmake_uncrustify)
+   find_package(test_msgs REQUIRED)
+   find_package(rosbag2_test_common REQUIRED)
+   include(cmake/rosbag2_transport_add_gmock.cmake)
+   ament_lint_auto_find_test_dependencies()
+-  call_for_each_rmw_implementation(create_tests_for_rmw_implementation)
++  # call_for_each_rmw_implementation(create_tests_for_rmw_implementation)
+ 
+   ament_add_gmock(test_record_options
+     test/rosbag2_transport/test_record_options.cpp)

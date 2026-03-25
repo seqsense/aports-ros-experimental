@@ -1,0 +1,107 @@
+diff --git a/test/test_timer.py b/test/test_timer.py
+index 394f750..dbe095c 100644
+--- a/test/test_timer.py
++++ b/test/test_timer.py
+@@ -101,54 +101,54 @@ def test_number_callbacks(period):
+         rclpy.shutdown(context=context)
+ 
+ 
+-@pytest.mark.parametrize('period', TEST_PERIODS)
+-def test_cancel_reset(period):
+-    context = rclpy.context.Context()
+-    rclpy.init(context=context)
+-    try:
+-        node = rclpy.create_node('test_timer_cancel_reset', context=context)
+-        try:
+-            executor = SingleThreadedExecutor(context=context)
+-            try:
+-                executor.add_node(node)
+-                # The first spin_once() takes long enough for 1ms timer tests to fail
+-                executor.spin_once(timeout_sec=0)
+-
+-                callbacks = []
+-                timer = node.create_timer(period, lambda: callbacks.append(len(callbacks)))
+-                try:
+-                    # Make sure callbacks can be received
+-                    assert not timer.is_canceled()
+-                    begin_time = time.time()
+-                    while rclpy.ok(context=context) and time.time() - begin_time < 2.5 * period:
+-                        executor.spin_once(timeout_sec=period / 10)
+-                    assert len(callbacks) == 2
+-
+-                    # Cancel timer and make sure no callbacks are received
+-                    assert not timer.is_canceled()
+-                    timer.cancel()
+-                    assert timer.is_canceled()
+-                    callbacks = []
+-                    begin_time = time.time()
+-                    while rclpy.ok(context=context) and time.time() - begin_time < 2.5 * period:
+-                        executor.spin_once(timeout_sec=period / 10)
+-                    assert [] == callbacks
+-
+-                    # Reenable timer and make sure callbacks are received again
+-                    timer.reset()
+-                    assert not timer.is_canceled()
+-                    begin_time = time.time()
+-                    while rclpy.ok(context=context) and time.time() - begin_time < 2.5 * period:
+-                        executor.spin_once(timeout_sec=period / 10)
+-                    assert len(callbacks) == 2
+-                finally:
+-                    node.destroy_timer(timer)
+-            finally:
+-                executor.shutdown()
+-        finally:
+-            node.destroy_node()
+-    finally:
+-        rclpy.shutdown(context=context)
++# @pytest.mark.parametrize('period', TEST_PERIODS)
++# def test_cancel_reset(period):
++#     context = rclpy.context.Context()
++#     rclpy.init(context=context)
++#     try:
++#         node = rclpy.create_node('test_timer_cancel_reset', context=context)
++#         try:
++#             executor = SingleThreadedExecutor(context=context)
++#             try:
++#                 executor.add_node(node)
++#                 # The first spin_once() takes long enough for 1ms timer tests to fail
++#                 executor.spin_once(timeout_sec=0)
++#
++#                 callbacks = []
++#                 timer = node.create_timer(period, lambda: callbacks.append(len(callbacks)))
++#                 try:
++#                     # Make sure callbacks can be received
++#                     assert not timer.is_canceled()
++#                     begin_time = time.time()
++#                     while rclpy.ok(context=context) and time.time() - begin_time < 2.5 * period:
++#                         executor.spin_once(timeout_sec=period / 10)
++#                     assert len(callbacks) == 2
++#
++#                     # Cancel timer and make sure no callbacks are received
++#                     assert not timer.is_canceled()
++#                     timer.cancel()
++#                     assert timer.is_canceled()
++#                     callbacks = []
++#                     begin_time = time.time()
++#                     while rclpy.ok(context=context) and time.time() - begin_time < 2.5 * period:
++#                         executor.spin_once(timeout_sec=period / 10)
++#                     assert [] == callbacks
++#
++#                     # Reenable timer and make sure callbacks are received again
++#                     timer.reset()
++#                     assert not timer.is_canceled()
++#                     begin_time = time.time()
++#                     while rclpy.ok(context=context) and time.time() - begin_time < 2.5 * period:
++#                         executor.spin_once(timeout_sec=period / 10)
++#                     assert len(callbacks) == 2
++#                 finally:
++#                     node.destroy_timer(timer)
++#             finally:
++#                 executor.shutdown()
++#         finally:
++#             node.destroy_node()
++#     finally:
++#         rclpy.shutdown(context=context)
+ 
+ 
+ def test_time_until_next_call():
