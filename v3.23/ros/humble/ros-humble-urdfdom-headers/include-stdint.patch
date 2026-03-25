@@ -1,0 +1,12 @@
+diff --git a/include/urdf_model_state/model_state.h b/include/urdf_model_state/model_state.h
+index 0d04e56..cc32e0a 100644
+--- a/include/urdf_model_state/model_state.h
++++ b/include/urdf_model_state/model_state.h
+@@ -40,6 +40,7 @@
+ #include <string>
+ #include <vector>
+ #include <map>
++#include <stdint.h>
+
+ #include "urdf_model/pose.h"
+ #include <urdf_model/twist.h>

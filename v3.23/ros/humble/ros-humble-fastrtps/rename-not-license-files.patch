@@ -1,0 +1,17 @@
+diff --git a/src/cpp/rtps/builtin/data/ParticipantProxyData.cpp b/src/cpp/rtps/builtin/data/ParticipantProxyData.cpp
+index 7a14485..b784799 100644
+--- a/src/cpp/rtps/builtin/data/ParticipantProxyData.cpp
++++ b/src/cpp/rtps/builtin/data/ParticipantProxyData.cpp
+@@ -37,7 +37,7 @@
+ #include <rtps/network/NetworkFactory.h>
+ #include <rtps/transport/shared_mem/SHMLocator.hpp>
+
+-#include <utils/license/LicenseTools.hpp>
++#include <utils/_license/_LicenseTools.hpp>
+
+ #include "ProxyDataFilters.hpp"
+ #include "ProxyHashTables.hpp"
+diff --git a/src/cpp/utils/license/LicenseTools.hpp b/src/cpp/utils/_license/_LicenseTools.hpp
+similarity index 100%
+rename from src/cpp/utils/license/LicenseTools.hpp
+rename to src/cpp/utils/_license/_LicenseTools.hpp

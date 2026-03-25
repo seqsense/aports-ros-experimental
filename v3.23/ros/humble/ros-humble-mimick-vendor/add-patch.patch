@@ -1,0 +1,36 @@
+diff --git a/fix-elf-type.patch.origin b/fix-elf-type.patch.origin
+new file mode 100644
+index 0000000..9a64237
+--- /dev/null
++++ b/fix-elf-type.patch.origin
+@@ -0,0 +1,14 @@
++diff --git a/src/plt-elf.c b/src/plt-elf.c
++index 953f820..e454b97 100644
++--- a/src/plt-elf.c
+++++ b/src/plt-elf.c
++@@ -34,6 +34,9 @@
++ 
++ #include <sys/mman.h>
++ 
+++#define ElfAddr Elf64_Addr
+++#define ElfOff Elf64_Off
+++
++ #if MMK_BITS == 32
++ typedef Elf32_Word ElfWord;
++ typedef Elf32_Sword ElfSWord;
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index e0632bc..4671469 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -66,9 +66,11 @@ macro(build_mimick)
+     # Suppress git update due to https://gitlab.kitware.com/cmake/cmake/-/issues/16419
+     UPDATE_COMMAND ""
+     TIMEOUT 6000
++    PATCH_COMMAND git apply ${CMAKE_CURRENT_SOURCE_DIR}/fix-elf-type.patch.origin
+     ${cmake_commands}
+     CMAKE_ARGS
+       ${cmake_configure_args}
++      -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+   )
+ 
+   # The external project will install to the build folder, but we'll install that on make install.

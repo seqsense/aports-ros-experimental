@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index abcdefg..1234567 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -18,7 +18,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
+ endif()
+ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+-  add_compile_options(-Wall -Wextra -Wpedantic -Werror)
++  add_compile_options(-Wall -Wextra -Wpedantic)
++  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -include cstdint")
+ endif()
+ if (MSVC)

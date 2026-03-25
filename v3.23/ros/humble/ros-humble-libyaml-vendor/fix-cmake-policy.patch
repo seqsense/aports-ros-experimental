@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 05f5ff1..509e83f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -72,6 +72,7 @@ macro(build_libyaml)
+       -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_BINARY_DIR}/libyaml_install
+       -DINSTALL_INCLUDE_DIR:STRING=include/${PROJECT_NAME}
+       ${extra_cmake_args}
++      -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+     PATCH_COMMAND
+       ${CMAKE_COMMAND} -E chdir <SOURCE_DIR> git apply -p1 --ignore-space-change --whitespace=nowarn
+         ${CMAKE_CURRENT_SOURCE_DIR}/0001-Install-yaml.h-to-INSTALL_INCLUDE_DIR.patch

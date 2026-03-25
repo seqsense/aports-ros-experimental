@@ -1,0 +1,46 @@
+diff --git a/test/test_scan_shadows_filter.cpp b/test/test_scan_shadows_filter.cpp
+index a462167..687a681 100644
+--- a/test/test_scan_shadows_filter.cpp
++++ b/test/test_scan_shadows_filter.cpp
+@@ -109,7 +109,7 @@ TEST(ScanShadowsFilter, DistanceDeltaWithoutShadow_Angles_8_172) {
+     config.push_back(rclcpp::Parameter("remove_shadow_start_point", true));
+ 
+     filter.reconfigureCB(config);
+-    
++
+     float ranges[] = {5, 5, 5, 5, 5, 9, 9, 9, 9, 9};
+     sensor_msgs::msg::LaserScan input_scan = create_message(
+         ranges, sizeof(ranges) / sizeof(float)
+@@ -338,7 +338,7 @@ TEST(ScanShadowsFilter, SingleForwardShadow_AngleIncrementChanged) {
+     expect_ranges_equal(output_scan.ranges, expected, sizeof(expected) / sizeof(float));
+ 
+     // Smaller angle_increment, results in steeper angles and shadow detection
+-    input_scan.angle_increment /= 2;    
++    input_scan.angle_increment /= 2;
+     filter.update(input_scan, output_scan);
+ 
+     float new_expected[] = {5, 5, 5, 5, NAN, 4, 4, 4, 4, 4};
+@@ -412,5 +412,7 @@ int main(int argc, char **argv) {
+ 
+     testing::InitGoogleTest(&argc, argv);
+     rclcpp::init(argc, argv);
+-    return RUN_ALL_TESTS();
+-}
+\ No newline at end of file
++    const int ret = RUN_ALL_TESTS();
++    rclcpp::shutdown();
++    return ret;
++}
+diff --git a/test/test_speckle_filter.cpp b/test/test_speckle_filter.cpp
+index 75980d3..1bce2f2 100644
+--- a/test/test_speckle_filter.cpp
++++ b/test/test_speckle_filter.cpp
+@@ -354,5 +354,7 @@ TEST(SpeckleFilter_Distance, Performance) {
+ int main(int argc, char **argv) {
+     testing::InitGoogleTest(&argc, argv);
+     rclcpp::init(argc, argv);
+-    return RUN_ALL_TESTS();
++    const int ret = RUN_ALL_TESTS();
++    rclcpp::shutdown();
++    return ret;
+ }

@@ -1,0 +1,20 @@
+diff --git a/launch_pytest/plugin.py b/launch_pytest/plugin.py
+index c63fcf0..19a2b58 100644
+--- a/launch_pytest/plugin.py
++++ b/launch_pytest/plugin.py
+@@ -402,7 +402,6 @@ def wrap_generator(func, event_loop, on_shutdown):
+     gen = None
+ 
+     def shutdown():
+-        nonlocal gen
+         if gen is None:
+             skip('shutdown test skipped because the test failed before')
+         on_shutdown()
+@@ -453,7 +452,6 @@ def wrap_asyncgen(func, event_loop, on_shutdown):
+     agen = None
+ 
+     def shutdown(**kwargs):
+-        nonlocal agen
+         if agen is None:
+             skip('shutdown test skipped because the test failed before')
+         on_shutdown()

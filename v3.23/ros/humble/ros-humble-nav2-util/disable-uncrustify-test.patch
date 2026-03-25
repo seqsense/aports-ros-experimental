@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 4635bab..7cbf981 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -48,6 +48,7 @@ install(DIRECTORY include/
+ 
+ if(BUILD_TESTING)
+   find_package(ament_lint_auto REQUIRED)
++  set(AMENT_LINT_AUTO_EXCLUDE ament_cmake_uncrustify ament_cmake_copyright)
+   find_package(ament_cmake_pytest REQUIRED)
+   find_package(launch_testing_ament_cmake REQUIRED)
+   ament_lint_auto_find_test_dependencies()

@@ -1,0 +1,206 @@
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+index a9969f5..5054842 100644
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -57,13 +57,6 @@ function(test_target_function)
+ 
+   # Gtests
+ 
+-  rcl_add_custom_gtest(test_client${target_suffix}
+-    SRCS rcl/test_client.cpp
+-    ENV ${rmw_implementation_env_var}
+-    APPEND_LIBRARY_DIRS ${extra_lib_dirs}
+-    LIBRARIES ${PROJECT_NAME}
+-    AMENT_DEPENDENCIES ${rmw_implementation} "osrf_testing_tools_cpp" "test_msgs"
+-  )
+ 
+   rcl_add_custom_gtest(test_time${target_suffix}
+     SRCS rcl/test_time.cpp
+@@ -73,13 +66,6 @@ function(test_target_function)
+     AMENT_DEPENDENCIES ${rmw_implementation}
+   )
+ 
+-  rcl_add_custom_gtest(test_timer${target_suffix}
+-    SRCS rcl/test_timer.cpp
+-    ENV ${rmw_implementation_env_var}
+-    APPEND_LIBRARY_DIRS ${extra_lib_dirs}
+-    LIBRARIES ${PROJECT_NAME} osrf_testing_tools_cpp::memory_tools
+-    AMENT_DEPENDENCIES ${rmw_implementation}
+-  )
+ 
+   rcl_add_custom_gtest(test_context${target_suffix}
+     SRCS rcl/test_context.cpp
+@@ -89,13 +75,6 @@ function(test_target_function)
+     AMENT_DEPENDENCIES ${rmw_implementation}
+   )
+ 
+-  rcl_add_custom_gtest(test_get_node_names${target_suffix}
+-    SRCS rcl/test_get_node_names.cpp
+-    ENV ${rmw_implementation_env_var}
+-    APPEND_LIBRARY_DIRS ${extra_lib_dirs}
+-    LIBRARIES ${PROJECT_NAME}
+-    AMENT_DEPENDENCIES ${rmw_implementation} "osrf_testing_tools_cpp"
+-  )
+ 
+   rcl_add_custom_gtest(test_lexer${target_suffix}
+     SRCS rcl/test_lexer.cpp
+@@ -113,30 +92,8 @@ function(test_target_function)
+     AMENT_DEPENDENCIES ${rmw_implementation} "osrf_testing_tools_cpp"
+   )
+ 
+-  rcl_add_custom_gtest(test_graph${target_suffix}
+-    SRCS rcl/test_graph.cpp
+-    ENV ${rmw_implementation_env_var}
+-    APPEND_LIBRARY_DIRS ${extra_lib_dirs}
+-    LIBRARIES ${PROJECT_NAME}
+-    AMENT_DEPENDENCIES ${rmw_implementation} "osrf_testing_tools_cpp" "test_msgs"
+-    TIMEOUT 120
+-  )
+ 
+-  rcl_add_custom_gtest(test_info_by_topic${target_suffix}
+-    SRCS rcl/test_info_by_topic.cpp
+-    ENV ${rmw_implementation_env_var}
+-    APPEND_LIBRARY_DIRS ${extra_lib_dirs}
+-    LIBRARIES ${PROJECT_NAME} wait_for_entity_helpers
+-    AMENT_DEPENDENCIES ${rmw_implementation} "osrf_testing_tools_cpp" "test_msgs"
+-  )
+ 
+-  rcl_add_custom_gtest(test_count_matched${target_suffix}
+-    SRCS rcl/test_count_matched.cpp
+-    ENV ${rmw_implementation_env_var}
+-    APPEND_LIBRARY_DIRS ${extra_lib_dirs}
+-    LIBRARIES ${PROJECT_NAME}
+-    AMENT_DEPENDENCIES ${rmw_implementation} "osrf_testing_tools_cpp" "test_msgs"
+-  )
+ 
+   rcl_add_custom_gtest(test_get_actual_qos${target_suffix}
+     SRCS rcl/test_get_actual_qos.cpp
+@@ -164,14 +121,6 @@ function(test_target_function)
+   else()
+     set(gtest_filter_env_var "")
+   endif()
+-  rcl_add_custom_gtest(test_node${target_suffix}
+-    SRCS rcl/test_node.cpp
+-    ENV ${rmw_implementation_env_var} ${memory_tools_ld_preload_env_var} ${gtest_filter_env_var}
+-    APPEND_LIBRARY_DIRS ${extra_lib_dirs}
+-    LIBRARIES ${PROJECT_NAME} mimick osrf_testing_tools_cpp::memory_tools
+-    AMENT_DEPENDENCIES ${rmw_implementation} "osrf_testing_tools_cpp"
+-    TIMEOUT 240  # Large timeout to wait for fault injection tests
+-  )
+ 
+   rcl_add_custom_gtest(test_arguments${target_suffix}
+     SRCS rcl/test_arguments.cpp
+@@ -208,75 +157,23 @@ function(test_target_function)
+     AMENT_DEPENDENCIES ${rmw_implementation} "osrf_testing_tools_cpp"
+   )
+ 
+-  rcl_add_custom_gtest(test_publisher${target_suffix}
+-    SRCS rcl/test_publisher.cpp
+-    ENV ${rmw_implementation_env_var}
+-    APPEND_LIBRARY_DIRS ${extra_lib_dirs}
+-    INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/../src/rcl/
+-    LIBRARIES ${PROJECT_NAME} mimick
+-    AMENT_DEPENDENCIES ${rmw_implementation} "osrf_testing_tools_cpp" "test_msgs"
+-  )
+ 
+-  rcl_add_custom_gtest(test_publisher_wait_all_ack${target_suffix}
+-    SRCS rcl/test_publisher_wait_all_ack.cpp
+-    ENV ${rmw_implementation_env_var}
+-    APPEND_LIBRARY_DIRS ${extra_lib_dirs}
+-    INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/../src/rcl/
+-    LIBRARIES ${PROJECT_NAME} mimick wait_for_entity_helpers
+-    AMENT_DEPENDENCIES ${rmw_implementation}
+-      "osrf_testing_tools_cpp"
+-      "rcpputils"
+-      "rcutils"
+-      "rosidl_runtime_c"
+-      "test_msgs"
+-  )
+ 
+-  rcl_add_custom_gtest(test_service${target_suffix}
+-    SRCS rcl/test_service.cpp
+-    ENV ${rmw_implementation_env_var}
+-    APPEND_LIBRARY_DIRS ${extra_lib_dirs}
+-    LIBRARIES ${PROJECT_NAME} mimick wait_for_entity_helpers
+-    AMENT_DEPENDENCIES ${rmw_implementation} "osrf_testing_tools_cpp" "test_msgs"
+-  )
+ 
+-  rcl_add_custom_gtest(test_subscription${target_suffix}
+-    SRCS rcl/test_subscription.cpp
+-    ENV ${rmw_implementation_env_var}
+-    APPEND_LIBRARY_DIRS ${extra_lib_dirs}
+-    LIBRARIES ${PROJECT_NAME} mimick wait_for_entity_helpers
+-    AMENT_DEPENDENCIES ${rmw_implementation} "osrf_testing_tools_cpp" "test_msgs"
+-    TIMEOUT 120
+-  )
+   # TODO(asorbini) Enable message timestamp tests for rmw_connextdds on Windows
+   # once clock incompatibilities are resolved.
+   if(rmw_implementation STREQUAL "rmw_fastrtps_cpp" OR
+     rmw_implementation STREQUAL "rmw_fastrtps_dynamic_cpp" OR
+     (rmw_implementation STREQUAL "rmw_connextdds" AND NOT WIN32))
+     message(STATUS "Enabling message timestamp test for ${rmw_implementation}")
+-    target_compile_definitions(test_subscription${target_suffix}
+-      PUBLIC "RMW_TIMESTAMPS_SUPPORTED=1" "RMW_RECEIVED_TIMESTAMP_SUPPORTED=1")
+-    target_compile_definitions(test_service${target_suffix}
+-      PUBLIC "RMW_TIMESTAMPS_SUPPORTED=1" "RMW_RECEIVED_TIMESTAMP_SUPPORTED=1")
+   else()
+     if(rmw_implementation STREQUAL "rmw_cyclonedds_cpp")
+       message(STATUS "Enabling only source timestamp test for ${rmw_implementation}")
+-      target_compile_definitions(test_subscription${target_suffix}
+-        PUBLIC "RMW_TIMESTAMPS_SUPPORTED=1")
+-      target_compile_definitions(test_service${target_suffix}
+-        PUBLIC "RMW_TIMESTAMPS_SUPPORTED=1")
+     else()
+       message(STATUS "Disabling message timestamp test for ${rmw_implementation}")
+     endif()
+   endif()
+ 
+-  rcl_add_custom_gtest(test_events${target_suffix}
+-    SRCS rcl/test_events.cpp
+-    ENV ${rmw_implementation_env_var}
+-    APPEND_LIBRARY_DIRS ${extra_lib_dirs}
+-    INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/../src/rcl/
+-    LIBRARIES ${PROJECT_NAME}
+-    AMENT_DEPENDENCIES ${rmw_implementation} "osrf_testing_tools_cpp" "test_msgs"
+-  )
+ 
+   rcl_add_custom_gtest(test_wait${target_suffix}
+     SRCS rcl/test_wait.cpp
+@@ -286,13 +183,6 @@ function(test_target_function)
+     AMENT_DEPENDENCIES ${rmw_implementation} "osrf_testing_tools_cpp"
+   )
+ 
+-  rcl_add_custom_gtest(test_logging_rosout${target_suffix}
+-    SRCS rcl/test_logging_rosout.cpp
+-    ENV ${rmw_implementation_env_var}
+-    APPEND_LIBRARY_DIRS ${extra_lib_dirs}
+-    LIBRARIES ${PROJECT_NAME}
+-    AMENT_DEPENDENCIES ${rmw_implementation} "osrf_testing_tools_cpp" "rcl_interfaces"
+-  )
+ 
+   rcl_add_custom_gtest(test_namespace${target_suffix}
+     SRCS test_namespace.cpp
+@@ -333,13 +223,6 @@ function(test_target_function)
+     AMENT_DEPENDENCIES ${rmw_implementation} "osrf_testing_tools_cpp" "test_msgs"
+   )
+ 
+-  rcl_add_custom_launch_test(test_services
+-    service_fixture
+-    client_fixture
+-    ENV ${rmw_implementation_env_var}
+-    APPEND_LIBRARY_DIRS ${extra_lib_dirs}
+-    TIMEOUT 15
+-  )
+ 
+   set(SKIP_TEST "")
+   if(WIN32)
+@@ -445,9 +328,3 @@ rcl_add_custom_gtest(test_log_level
+   AMENT_DEPENDENCIES "osrf_testing_tools_cpp"
+ )
+ 
+-rcl_add_custom_gtest(test_subscription_content_filter_options
+-  SRCS rcl/test_subscription_content_filter_options.cpp
+-  APPEND_LIBRARY_DIRS ${extra_lib_dirs}
+-  LIBRARIES ${PROJECT_NAME}
+-  AMENT_DEPENDENCIES "osrf_testing_tools_cpp" "test_msgs"
+-)

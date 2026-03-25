@@ -1,0 +1,25 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index abcdefg..1234567 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,5 +1,7 @@
+ cmake_minimum_required(VERSION 3.5)
+
++set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
++
+ project(osrf_testing_tools_cpp)
+
+ set(osrf_testing_tools_cpp_VERSION 1.5.1)
+diff --git a/cmake/osrf_testing_tools_cpp_extract_and_build_googletest.cmake b/cmake/osrf_testing_tools_cpp_extract_and_build_googletest.cmake
+index abcdefg..1234567 100644
+--- a/cmake/osrf_testing_tools_cpp_extract_and_build_googletest.cmake
++++ b/cmake/osrf_testing_tools_cpp_extract_and_build_googletest.cmake
+@@ -46,7 +46,7 @@ macro(osrf_testing_tools_cpp_extract_and_build_googletest
+     @ONLY
+   )
+
+-  execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
++  execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" -DCMAKE_POLICY_VERSION_MINIMUM=3.5 .
+     RESULT_VARIABLE result
+     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/googletest-${GOOGLETEST_VERSION}-extracted)
+   if(result)

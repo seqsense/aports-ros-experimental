@@ -1,0 +1,13 @@
+diff --git a/test/regression/plugin_api_order.cpp b/test/regression/plugin_api_order.cpp
+index f7a00e90..64e24b9c 100644
+--- a/test/regression/plugin_api_order.cpp
++++ b/test/regression/plugin_api_order.cpp
+@@ -49,5 +49,7 @@ int main(int argc, char ** argv)
+ {
+   rclcpp::init(argc, argv);
+   testing::InitGoogleTest(&argc, argv);
+-  return RUN_ALL_TESTS();
++  const int ret = RUN_ALL_TESTS();
++  rclcpp::shutdown();
++  return ret;
+ }

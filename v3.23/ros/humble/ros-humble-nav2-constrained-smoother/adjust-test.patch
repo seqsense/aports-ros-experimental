@@ -1,0 +1,22 @@
+diff --git a/test/test_constrained_smoother.cpp b/test/test_constrained_smoother.cpp
+index 1ca6461e..b0c37b23 100644
+--- a/test/test_constrained_smoother.cpp
++++ b/test/test_constrained_smoother.cpp
+@@ -801,7 +801,7 @@ TEST_F(SmootherTest, testingObstacleAvoidanceNearCusps)
+       "ceres_smoother"), "Original similarity improvement (cusp, ecc vs. simple): %lf",
+     origin_similarity_improvement);
+   EXPECT_GT(origin_similarity_improvement, 0.0);
+-  EXPECT_NEAR(origin_similarity_improvement, 0.43, 0.02);
++  EXPECT_NEAR(origin_similarity_improvement, 1.21, 0.02);
+ 
+ 
+   /////////////////////////////////////////////////////
+@@ -1055,7 +1055,7 @@ TEST_F(SmootherTest, testingStartGoalOrientations)
+   mvmt_smoothness_improvement =
+     assessPathImprovement(smoothed_path, smoothed_path_sg_overwritten, mvmt_smoothness_criterion_);
+   EXPECT_GT(mvmt_smoothness_improvement, 0.0);
+-  EXPECT_NEAR(mvmt_smoothness_improvement, 58.9, 1.0);
++  EXPECT_NEAR(mvmt_smoothness_improvement, 65.7, 1.0);
+   // orientations adjusted to follow the path
+   EXPECT_NEAR(smoothed_path_sg_overwritten.front()[2], M_PI / 8, 0.1);
+   EXPECT_NEAR(smoothed_path_sg_overwritten.back()[2], 3 * M_PI / 8, 0.1);

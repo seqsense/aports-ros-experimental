@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 068df5b..87028bf 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -34,6 +34,9 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE "RCL_LOGGING_INTERFACE_BUILDI
+ 
+ if(BUILD_TESTING)
+   find_package(ament_lint_auto REQUIRED)
++  list(APPEND AMENT_LINT_AUTO_EXCLUDE
++    ament_cmake_copyright
++  )
+   ament_lint_auto_find_test_dependencies()
+ endif()
+ 

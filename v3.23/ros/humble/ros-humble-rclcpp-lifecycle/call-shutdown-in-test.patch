@@ -1,0 +1,48 @@
+diff --git a/test/test_callback_exceptions.cpp b/test/test_callback_exceptions.cpp
+index 7c4117ae..cd668345 100644
+--- a/test/test_callback_exceptions.cpp
++++ b/test/test_callback_exceptions.cpp
+@@ -34,6 +34,11 @@ protected:
+   {
+     rclcpp::init(0, nullptr);
+   }
++
++  static void TearDownTestCase()
++  {
++    rclcpp::shutdown();
++  }
+ };
+ 
+ class PositiveCallbackExceptionNode : public rclcpp_lifecycle::LifecycleNode
+diff --git a/test/test_register_custom_callbacks.cpp b/test/test_register_custom_callbacks.cpp
+index 3c146e42..731e8923 100644
+--- a/test/test_register_custom_callbacks.cpp
++++ b/test/test_register_custom_callbacks.cpp
+@@ -34,6 +34,11 @@ protected:
+   {
+     rclcpp::init(0, nullptr);
+   }
++
++  static void TearDownTestCase()
++  {
++    rclcpp::shutdown();
++  }
+ };
+ 
+ class CustomLifecycleNode : public rclcpp_lifecycle::LifecycleNode
+diff --git a/test/test_state_machine_info.cpp b/test/test_state_machine_info.cpp
+index 452002e5..addf7d12 100644
+--- a/test/test_state_machine_info.cpp
++++ b/test/test_state_machine_info.cpp
+@@ -34,6 +34,11 @@ protected:
+   {
+     rclcpp::init(0, nullptr);
+   }
++
++  static void TearDownTestCase()
++  {
++    rclcpp::shutdown();
++  }
+ };
+ 
+ TEST_F(TestStateMachineInfo, available_states) {

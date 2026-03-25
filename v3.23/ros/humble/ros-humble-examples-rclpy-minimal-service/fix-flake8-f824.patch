@@ -1,0 +1,12 @@
+diff --git a/examples_rclpy_minimal_service/service.py b/examples_rclpy_minimal_service/service.py
+index f80df11..aea1f1e 100644
+--- a/examples_rclpy_minimal_service/service.py
++++ b/examples_rclpy_minimal_service/service.py
+@@ -20,7 +20,6 @@ g_node = None
+ 
+ 
+ def add_two_ints_callback(request, response):
+-    global g_node
+     response.sum = request.a + request.b
+     g_node.get_logger().info(
+         'Incoming request\na: %d b: %d' % (request.a, request.b))
