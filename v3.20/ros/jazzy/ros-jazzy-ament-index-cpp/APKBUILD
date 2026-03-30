@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-ament-index-cpp
 _pkgname=ament_index_cpp
-pkgver=1.8.2
+pkgver=1.8.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: ament_index_cpp
     uri: https://github.com/ros2-gbp/ament_index-release.git
-    version: release/jazzy/ament_index_cpp/1.8.2-1
+    version: release/jazzy/ament_index_cpp/1.8.3-1
 "
 
 prepare() {
