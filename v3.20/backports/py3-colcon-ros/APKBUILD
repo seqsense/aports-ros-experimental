@@ -1,7 +1,7 @@
 pkgname=py3-colcon-ros
 _pkgname=colcon-ros
-pkgver=0.4.1
-pkgrel=3
+pkgver=0.5.0
+pkgrel=4
 pkgdesc="Extension for colcon to support ROS packages."
 url="http://colcon.readthedocs.io"
 arch="noarch"
@@ -10,7 +10,8 @@ depends="python3 py3-catkin-pkg py3-colcon-cmake py3-colcon-core py3-colcon-pkg-
 makedepends="py3-gpep517 py3-setuptools py3-wheel"
 checkdepends="py3-pip py3-pytest py3-flake8"
 subpackages="$pkgname-doc"
-source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz"
+source="${_pkgname}-${pkgver}.tar.gz::https://github.com/colcon/$_pkgname/archive/refs/tags/$pkgver.tar.gz
+        fix-flake8-f824.patch"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
@@ -35,4 +36,5 @@ package() {
         install -Dm644 $builddir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
-sha512sums="3dea3aa961518656b3bc5add702b556cd710e778312440073dd336f03ebc54c0d74c33a0a14558a59fe7142884b028214bb8b6620defc4d95da393d23bf45686  colcon-ros-0.4.1.tar.gz"
+sha512sums="3ff2b4cc07e85fdf0991a8a0e1ac0c998a68967835fbe9df2e46b69da61e5e9f364eb60f02ccecafcd4a474043fc0e0fdd4d0139aa15990b84c397227b0780f3  colcon-ros-0.5.0.tar.gz
+65ce3c7d850076b2d083d99595d31a9943686aa1ce97b0e23916589a9159f0e8a4f699ef2337d5a0d6c3162936709c66d08850f56cd14f0fe7bb56b0a3ea3664  fix-flake8-f824.patch"
