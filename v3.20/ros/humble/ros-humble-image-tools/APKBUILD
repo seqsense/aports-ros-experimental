@@ -1,15 +1,15 @@
 pkgname=ros-humble-image-tools
 _pkgname=image_tools
-pkgver=0.20.8
+pkgver=0.20.9
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-ros-workspace ros-humble-sensor-msgs ros-humble-std-msgs"
-makedepends="chrpath opencv-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-cmake-pytest ros-humble-ament-cmake-pytest-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-launch ros-humble-launch-dev ros-humble-launch-ros ros-humble-launch-ros-dev ros-humble-launch-testing ros-humble-launch-testing-ament-cmake ros-humble-launch-testing-ament-cmake-dev ros-humble-launch-testing-dev ros-humble-launch-testing-ros ros-humble-launch-testing-ros-dev ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-rclcpp-components-dev ros-humble-rclcpp-dev ros-humble-rmw-implementation-cmake ros-humble-rmw-implementation-cmake-dev ros-humble-ros-workspace-dev ros-humble-sensor-msgs ros-humble-sensor-msgs-dev ros-humble-std-msgs ros-humble-std-msgs-dev"
-depends_dev="opencv-dev ros-humble-rclcpp-components-dev ros-humble-rclcpp-dev ros-humble-ros-workspace-dev ros-humble-sensor-msgs-dev ros-humble-std-msgs-dev"
+depends="ros-humble-libopencv-core ros-humble-libopencv-highgui ros-humble-libopencv-imgcodecs ros-humble-libopencv-imgproc ros-humble-libopencv-videoio ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-ros-workspace ros-humble-sensor-msgs ros-humble-std-msgs"
+makedepends="chrpath opencv-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-cmake-pytest ros-humble-ament-cmake-pytest-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-launch ros-humble-launch-dev ros-humble-launch-ros ros-humble-launch-ros-dev ros-humble-launch-testing ros-humble-launch-testing-ament-cmake ros-humble-launch-testing-ament-cmake-dev ros-humble-launch-testing-dev ros-humble-launch-testing-ros ros-humble-launch-testing-ros-dev ros-humble-libopencv-core-dev ros-humble-libopencv-highgui-dev ros-humble-libopencv-imgcodecs-dev ros-humble-libopencv-imgproc-dev ros-humble-libopencv-videoio-dev ros-humble-rclcpp ros-humble-rclcpp-components ros-humble-rclcpp-components-dev ros-humble-rclcpp-dev ros-humble-rmw-implementation-cmake ros-humble-rmw-implementation-cmake-dev ros-humble-ros-workspace-dev ros-humble-sensor-msgs ros-humble-sensor-msgs-dev ros-humble-std-msgs ros-humble-std-msgs-dev"
+depends_dev="ros-humble-libopencv-core-dev ros-humble-libopencv-highgui-dev ros-humble-libopencv-imgcodecs-dev ros-humble-libopencv-imgproc-dev ros-humble-libopencv-videoio-dev ros-humble-rclcpp-components-dev ros-humble-rclcpp-dev ros-humble-ros-workspace-dev ros-humble-sensor-msgs-dev ros-humble-std-msgs-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: image_tools
     uri: https://github.com/ros2-gbp/demos-release.git
-    version: release/humble/image_tools/0.20.8-1
+    version: release/humble/image_tools/0.20.9-1
 "
 
 prepare() {
