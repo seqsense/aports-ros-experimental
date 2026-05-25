@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-pluginlib
 _pkgname=pluginlib
-pkgver=5.4.4
+pkgver=5.4.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://www.ros.org/wiki/pluginlib"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: pluginlib
     uri: https://github.com/ros2-gbp/pluginlib-release.git
-    version: release/jazzy/pluginlib/5.4.4-1
+    version: release/jazzy/pluginlib/5.4.5-1
 "
 
 prepare() {
