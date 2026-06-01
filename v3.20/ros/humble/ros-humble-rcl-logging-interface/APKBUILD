@@ -1,6 +1,6 @@
 pkgname=ros-humble-rcl-logging-interface
 _pkgname=rcl_logging_interface
-pkgver=2.3.1
+pkgver=2.3.2
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rcl_logging_interface
     uri: https://github.com/ros2-gbp/rcl_logging-release.git
-    version: release/humble/rcl_logging_interface/2.3.1-1
+    version: release/humble/rcl_logging_interface/2.3.2-1
 "
 
 prepare() {
