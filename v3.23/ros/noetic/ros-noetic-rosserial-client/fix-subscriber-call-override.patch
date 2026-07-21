@@ -1,0 +1,15 @@
+Ported from https://github.com/ros-drivers/rosserial/pull/523
+
+diff --git a/src/ros_lib/ros/service_client.h b/src/ros_lib/ros/service_client.h
+index 0b7e17b..b9cd3f6 100644
+--- a/src/ros_lib/ros/service_client.h
++++ b/src/ros_lib/ros/service_client.h
+@@ -54,7 +54,7 @@ public:
+     this->waiting = true;
+   }
+ 
+-  virtual void call(const MReq & request, MRes & response) override
++  virtual void call(const MReq & request, MRes & response)
+   {
+     if (!pub.nh_->connected()) return;
+     ret = &response;
