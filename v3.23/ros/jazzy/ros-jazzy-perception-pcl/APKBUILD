@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-perception-pcl
 _pkgname=perception_pcl
-pkgver=2.6.4
+pkgver=2.6.5
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://ros.org/wiki/perception_pcl"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: perception_pcl
     uri: https://github.com/ros2-gbp/perception_pcl-release.git
-    version: release/jazzy/perception_pcl/2.6.4-1
+    version: release/jazzy/perception_pcl/2.6.5-1
 "
 
 prepare() {
