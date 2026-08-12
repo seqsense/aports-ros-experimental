@@ -7,7 +7,7 @@ url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="clang py3-yaml ros-humble-ros-workspace"
+depends="clang-extra-tools py3-yaml ros-humble-ros-workspace"
 makedepends="chrpath py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-copyright ros-humble-ament-copyright-dev ros-humble-ament-flake8 ros-humble-ament-flake8-dev ros-humble-ament-pep257 ros-humble-ament-pep257-dev ros-humble-ros-workspace-dev"
 depends_dev="ros-humble-ros-workspace-dev"
 
