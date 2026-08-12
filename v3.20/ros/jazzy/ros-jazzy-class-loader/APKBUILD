@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-class-loader
 _pkgname=class_loader
-pkgver=2.7.0
-pkgrel=1
+pkgver=2.7.1
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://ros.org/wiki/class_loader"
 arch="all"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: class_loader
     uri: https://github.com/ros2-gbp/class_loader-release.git
-    version: release/jazzy/class_loader/2.7.0-3
+    version: release/jazzy/class_loader/2.7.1-1
 "
 
 prepare() {
