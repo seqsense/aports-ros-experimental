@@ -1,7 +1,7 @@
 pkgname=ros-jazzy-urdfdom-headers
 _pkgname=urdfdom_headers
-pkgver=1.1.2
-pkgrel=1
+pkgver=1.1.3
+pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://ros.org/wiki/urdf"
 arch="all"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: urdfdom_headers
     uri: https://github.com/ros2-gbp/urdfdom_headers-release.git
-    version: release/jazzy/urdfdom_headers/1.1.2-1
+    version: release/jazzy/urdfdom_headers/1.1.3-1
 "
 
 prepare() {
