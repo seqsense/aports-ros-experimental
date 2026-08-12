@@ -1,15 +1,15 @@
-pkgname=ros-humble-ament-cmake-pytest
-_pkgname=ament_cmake_pytest
-pkgver=1.3.14
+pkgname=ros-humble-rosidl-generator-rs
+_pkgname=rosidl_generator_rs
+pkgver=0.4.12
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="ros-humble-ros-workspace"
-makedepends="chrpath py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake-core ros-humble-ament-cmake-core-dev ros-humble-ament-cmake-test ros-humble-ament-cmake-test-dev ros-humble-ros-workspace-dev"
-depends_dev="py3-pytest7 ros-humble-ament-cmake-core ros-humble-ament-cmake-core-dev ros-humble-ament-cmake-test ros-humble-ament-cmake-test-dev ros-humble-ros-workspace-dev"
+depends="ros-humble-ros-workspace ros-humble-rosidl-generator-c ros-humble-rosidl-parser"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-cmake-gtest ros-humble-ament-cmake-gtest-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-ros-environment ros-humble-ros-environment-dev ros-humble-ros-workspace-dev ros-humble-rosidl-cmake ros-humble-rosidl-cmake-dev ros-humble-rosidl-generator-c ros-humble-rosidl-generator-c-dev ros-humble-rosidl-parser-dev ros-humble-rosidl-typesupport-c ros-humble-rosidl-typesupport-c-dev ros-humble-rosidl-typesupport-interface ros-humble-rosidl-typesupport-interface-dev"
+depends_dev="ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ros-environment ros-humble-ros-environment-dev ros-humble-ros-workspace-dev ros-humble-rosidl-cmake ros-humble-rosidl-cmake-dev ros-humble-rosidl-generator-c ros-humble-rosidl-generator-c-dev ros-humble-rosidl-parser-dev ros-humble-rosidl-typesupport-c ros-humble-rosidl-typesupport-c-dev ros-humble-rosidl-typesupport-interface ros-humble-rosidl-typesupport-interface-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
@@ -32,9 +32,9 @@ if [ ! -f /usr/ros/humble/setup.sh ]; then
   export AMENT_PREFIX_PATH=/usr/ros/humble
 fi
 rosinstall="- git:
-    local-name: ament_cmake_pytest
-    uri: https://github.com/ros2-gbp/ament_cmake-release.git
-    version: release/humble/ament_cmake_pytest/1.3.14-1
+    local-name: rosidl_generator_rs
+    uri: https://github.com/ros2-gbp/rosidl_rust-release.git
+    version: release/humble/rosidl_generator_rs/0.4.12-1
 "
 
 prepare() {

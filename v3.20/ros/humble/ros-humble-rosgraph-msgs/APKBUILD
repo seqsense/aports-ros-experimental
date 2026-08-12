@@ -1,15 +1,15 @@
 pkgname=ros-humble-rosgraph-msgs
 _pkgname=rosgraph_msgs
-pkgver=1.2.2
+pkgver=1.2.3
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="ros-humble-builtin-interfaces ros-humble-ros-workspace ros-humble-rosidl-default-runtime"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-builtin-interfaces ros-humble-builtin-interfaces-dev ros-humble-ros-workspace-dev ros-humble-rosidl-default-generators ros-humble-rosidl-default-generators-dev ros-humble-rosidl-default-runtime-dev"
-depends_dev="ros-humble-builtin-interfaces-dev ros-humble-ros-workspace-dev ros-humble-rosidl-default-runtime-dev"
+depends="ros-humble-builtin-interfaces ros-humble-rcl-interfaces ros-humble-ros-workspace ros-humble-rosidl-default-runtime"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-builtin-interfaces ros-humble-builtin-interfaces-dev ros-humble-rcl-interfaces ros-humble-rcl-interfaces-dev ros-humble-ros-workspace-dev ros-humble-rosidl-default-generators ros-humble-rosidl-default-generators-dev ros-humble-rosidl-default-runtime-dev"
+depends_dev="ros-humble-builtin-interfaces-dev ros-humble-rcl-interfaces-dev ros-humble-ros-workspace-dev ros-humble-rosidl-default-runtime-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rosgraph_msgs
     uri: https://github.com/ros2-gbp/rcl_interfaces-release.git
-    version: release/humble/rosgraph_msgs/1.2.2-1
+    version: release/humble/rosgraph_msgs/1.2.3-1
 "
 
 prepare() {
