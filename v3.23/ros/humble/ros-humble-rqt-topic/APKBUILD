@@ -9,6 +9,7 @@ license="BSD"
 
 depends="ros-humble-python-qt-binding>=0.2.19 ros-humble-ros-workspace ros-humble-rqt-gui ros-humble-rqt-gui-py ros-humble-rqt-py-common"
 makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-flake8 ros-humble-ament-flake8-dev ros-humble-ament-xmllint ros-humble-ament-xmllint-dev ros-humble-python-qt-binding-dev>=0.2.19 ros-humble-ros-workspace-dev ros-humble-rqt-gui-dev ros-humble-rqt-gui-py-dev ros-humble-rqt-py-common-dev"
+checkdepends="py3-pytest7"
 depends_dev="ros-humble-python-qt-binding-dev>=0.2.19 ros-humble-ros-workspace-dev ros-humble-rqt-gui-dev ros-humble-rqt-gui-py-dev ros-humble-rqt-py-common-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
@@ -175,6 +176,10 @@ package() {
       -iname "copying*" -or \
       -iname "gnu-*gpl*" \
     | while read file; do
+    if [ ! -f "$file" ]; then
+      # Omit directories named like a license file
+      continue
+    fi
     # Copy license files under the source
     if echo $file | grep -e '^\./\.'; then
       # Omit files under hidden directory
