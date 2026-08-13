@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 789ed61..e8dbacc 100644
+index fd3bc3d..3eb6237 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -104,15 +104,23 @@ endif()
@@ -25,6 +25,6 @@ index 789ed61..e8dbacc 100644
 +  ament_auto_add_gtest(rostest test/rostest.cpp
 +    ENV ROS_DOMAIN_ID=2
 +  )
- endif()
  
- ament_auto_package(INSTALL_TO_SHARE launch)
+   ament_auto_add_gtest(test_crop_non_zero test/test_crop_non_zero.cpp)
+   target_link_libraries(test_crop_non_zero crop_non_zero)
