@@ -9,6 +9,7 @@ license="Apache License 2.0"
 
 depends="ros-humble-ros-workspace ros-humble-ros2cli"
 makedepends="chrpath py3-pytest-timeout py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-copyright ros-humble-ament-copyright-dev ros-humble-ament-flake8 ros-humble-ament-flake8-dev ros-humble-ament-pep257 ros-humble-ament-pep257-dev ros-humble-ament-xmllint ros-humble-ament-xmllint-dev ros-humble-ros-workspace-dev ros-humble-ros2cli ros-humble-ros2cli-dev"
+checkdepends="py3-pytest7"
 depends_dev="ros-humble-ros-workspace-dev ros-humble-ros2cli ros-humble-ros2cli-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
@@ -175,6 +176,10 @@ package() {
       -iname "copying*" -or \
       -iname "gnu-*gpl*" \
     | while read file; do
+    if [ ! -f "$file" ]; then
+      # Omit directories named like a license file
+      continue
+    fi
     # Copy license files under the source
     if echo $file | grep -e '^\./\.'; then
       # Omit files under hidden directory
