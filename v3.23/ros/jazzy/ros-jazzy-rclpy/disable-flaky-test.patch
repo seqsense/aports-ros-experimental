@@ -1,5 +1,5 @@
 diff --git a/test/test_timer.py b/test/test_timer.py
-index 394f750..dbe095c 100644
+index 9ca7363..3ff1326 100644
 --- a/test/test_timer.py
 +++ b/test/test_timer.py
 @@ -101,54 +101,54 @@ def test_number_callbacks(period):
@@ -39,7 +39,7 @@ index 394f750..dbe095c 100644
 -                        executor.spin_once(timeout_sec=period / 10)
 -                    assert [] == callbacks
 -
--                    # Reenable timer and make sure callbacks are received again
+-                    # Re-enable timer and make sure callbacks are received again
 -                    timer.reset()
 -                    assert not timer.is_canceled()
 -                    begin_time = time.time()
@@ -87,7 +87,7 @@ index 394f750..dbe095c 100644
 +#                         executor.spin_once(timeout_sec=period / 10)
 +#                     assert [] == callbacks
 +#
-+#                     # Reenable timer and make sure callbacks are received again
++#                     # Re-enable timer and make sure callbacks are received again
 +#                     timer.reset()
 +#                     assert not timer.is_canceled()
 +#                     begin_time = time.time()
