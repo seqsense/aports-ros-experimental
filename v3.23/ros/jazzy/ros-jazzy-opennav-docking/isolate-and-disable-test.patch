@@ -1,5 +1,5 @@
 diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
-index 3400c1d8..ab6eb16e 100644
+index 667e419..c550acb 100644
 --- a/test/CMakeLists.txt
 +++ b/test/CMakeLists.txt
 @@ -1,5 +1,6 @@
@@ -54,8 +54,8 @@ index 3400c1d8..ab6eb16e 100644
 +ament_add_ros_isolated_gtest(test_simple_non_charging_dock
    test_simple_non_charging_dock.cpp
  )
- ament_target_dependencies(test_simple_non_charging_dock
-@@ -63,7 +64,7 @@ target_link_libraries(test_simple_non_charging_dock
+ target_link_libraries(test_simple_non_charging_dock
+@@ -66,7 +67,7 @@ target_link_libraries(test_simple_non_charging_dock
  )
  
  # Test Pose Filter (unit)
@@ -64,7 +64,7 @@ index 3400c1d8..ab6eb16e 100644
    test_pose_filter.cpp
  )
  ament_target_dependencies(test_pose_filter
-@@ -86,7 +87,7 @@ install(TARGETS test_dock
+@@ -89,7 +90,7 @@ install(TARGETS test_dock
  ament_export_libraries(test_dock)
  
  # Test docking server (unit)
@@ -73,9 +73,39 @@ index 3400c1d8..ab6eb16e 100644
    test_docking_server_unit.cpp
  )
  ament_target_dependencies(test_docking_server_unit
-@@ -97,4 +98,4 @@ target_link_libraries(test_docking_server_unit
+@@ -100,20 +101,20 @@ target_link_libraries(test_docking_server_unit
  )
  
  # Test docking server (smoke)
--ament_add_pytest_test("test_docking_server" test_docking_server.py)
-+# ament_add_ros_isolated_pytest_test("test_docking_server" test_docking_server.py)
+-ament_add_pytest_test(test_docking_server_with_charging_dock test_docking_server.py
+-  ENV
+-  NON_CHARGING_DOCK=False
+-  BACKWARD=False
+-)
++# ament_add_pytest_test(test_docking_server_with_charging_dock test_docking_server.py
++#   ENV
++#   NON_CHARGING_DOCK=False
++#   BACKWARD=False
++# )
+ 
+-ament_add_pytest_test(test_docking_server_with_non_charging_dock test_docking_server.py
+-  ENV
+-  NON_CHARGING_DOCK=True
+-  BACKWARD=False
+-)
++# ament_add_pytest_test(test_docking_server_with_non_charging_dock test_docking_server.py
++#   ENV
++#   NON_CHARGING_DOCK=True
++#   BACKWARD=False
++# )
+ 
+-ament_add_pytest_test(test_docking_server_backward test_docking_server.py
+-  ENV
+-  NON_CHARGING_DOCK=False
+-  BACKWARD=True
+-)
++# ament_add_pytest_test(test_docking_server_backward test_docking_server.py
++#   ENV
++#   NON_CHARGING_DOCK=False
++#   BACKWARD=True
++# )
