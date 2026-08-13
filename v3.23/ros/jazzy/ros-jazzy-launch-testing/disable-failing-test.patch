@@ -1,6 +1,6 @@
 diff --git a/test/launch_testing/test_io_handler_and_assertions.py b/test/launch_testing/test_io_handler_and_assertions.py
 deleted file mode 100644
-index 68f262f..0000000
+index d6bcea5..0000000
 --- a/test/launch_testing/test_io_handler_and_assertions.py
 +++ /dev/null
 @@ -1,188 +0,0 @@
@@ -112,7 +112,7 @@ index 68f262f..0000000
 -        matches = [t for t in text_lines if 'Called with arguments' in t]
 -        print('Called with arguments: {}'.format(matches))
 -
--        # Two process have args, because thats how process names are passed down
+-        # Two process have args, because that's how process names are passed down
 -        self.assertEqual(2, len(matches))
 -
 -        matches_extra = [t for t in matches if '--extra' in t]
