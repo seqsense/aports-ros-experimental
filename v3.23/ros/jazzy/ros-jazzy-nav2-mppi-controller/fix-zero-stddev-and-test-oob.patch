@@ -1,0 +1,57 @@
+diff --git a/src/noise_generator.cpp b/src/noise_generator.cpp
+index 5c839de..725acbc 100644
+--- a/src/noise_generator.cpp
++++ b/src/noise_generator.cpp
+@@ -108,16 +108,30 @@ void NoiseGenerator::generateNoisedControls()
+ {
+   auto & s = settings_;
+ 
+-  xt::noalias(noises_vx_) = xt::random::randn<float>(
+-    {s.batch_size, s.time_steps}, 0.0f,
+-    s.sampling_std.vx);
+-  xt::noalias(noises_wz_) = xt::random::randn<float>(
+-    {s.batch_size, s.time_steps}, 0.0f,
+-    s.sampling_std.wz);
+-  if (is_holonomic_) {
+-    xt::noalias(noises_vy_) = xt::random::randn<float>(
++  // std::normal_distribution requires a strictly positive stddev; a zero
++  // std (e.g. an axis excluded from sampling) must not reach it.
++  if (s.sampling_std.vx > 0.0f) {
++    xt::noalias(noises_vx_) = xt::random::randn<float>(
++      {s.batch_size, s.time_steps}, 0.0f,
++      s.sampling_std.vx);
++  } else {
++    xt::noalias(noises_vx_) = xt::zeros<float>({s.batch_size, s.time_steps});
++  }
++  if (s.sampling_std.wz > 0.0f) {
++    xt::noalias(noises_wz_) = xt::random::randn<float>(
+       {s.batch_size, s.time_steps}, 0.0f,
+-      s.sampling_std.vy);
++      s.sampling_std.wz);
++  } else {
++    xt::noalias(noises_wz_) = xt::zeros<float>({s.batch_size, s.time_steps});
++  }
++  if (is_holonomic_) {
++    if (s.sampling_std.vy > 0.0f) {
++      xt::noalias(noises_vy_) = xt::random::randn<float>(
++        {s.batch_size, s.time_steps}, 0.0f,
++        s.sampling_std.vy);
++    } else {
++      xt::noalias(noises_vy_) = xt::zeros<float>({s.batch_size, s.time_steps});
++    }
+   }
+ }
+ 
+diff --git a/test/critics_tests.cpp b/test/critics_tests.cpp
+index c6f54cd..169a980 100644
+--- a/test/critics_tests.cpp
++++ b/test/critics_tests.cpp
+@@ -701,6 +701,8 @@ TEST(CriticTests, PathAlignCritic)
+ 
+   // provide state pose and path far enough to enable, with data to pass condition
+   // but with empty trajectories and paths, should still be zero
++  data.path_pts_valid.reset();  // Recompute on a path long enough for the index
++  path.reset(22);
+   *data.furthest_reached_path_point = 21;
+   path.x(9) = 0.15;
+   goal.position.x = 0.15;
