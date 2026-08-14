@@ -1,0 +1,24 @@
+diff --git a/src/velocity_smoother.cpp b/src/velocity_smoother.cpp
+index 9ba546d..84cfbf5 100644
+--- a/src/velocity_smoother.cpp
++++ b/src/velocity_smoother.cpp
+@@ -74,6 +74,19 @@ VelocitySmoother::on_configure(const rclcpp_lifecycle::State & state)
+   node->get_parameter("max_accel", max_accels_);
+   node->get_parameter("max_decel", max_decels_);
+ 
++  // Validate the sizes before the element-wise checks below: they index
++  // [0..2] unconditionally, which is out of bounds for misconfigured arrays.
++  if (max_velocities_.size() != 3 || min_velocities_.size() != 3 ||
++    max_accels_.size() != 3 || max_decels_.size() != 3)
++  {
++    RCLCPP_ERROR(
++      get_logger(),
++      "Invalid setting of kinematic limits!"
++      " All limits must be size of 3 representing (x, y, theta).");
++    on_cleanup(state);
++    return nav2_util::CallbackReturn::FAILURE;
++  }
++
+   for (unsigned int i = 0; i != 3; i++) {
+     if (max_decels_[i] > 0.0) {
+       RCLCPP_ERROR(
