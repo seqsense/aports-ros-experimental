@@ -1,15 +1,15 @@
-pkgname=ros-humble-nav2-rviz-plugins
-_pkgname=nav2_rviz_plugins
-pkgver=1.1.20
+pkgname=ros-humble-rosidl-generator-rs
+_pkgname=rosidl_generator_rs
+pkgver=0.5.0
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
-license="Apache-2.0"
+license="Apache License 2.0"
 
-depends="ros-humble-geometry-msgs ros-humble-nav-msgs ros-humble-nav2-lifecycle-manager ros-humble-nav2-msgs ros-humble-nav2-util ros-humble-pluginlib ros-humble-rclcpp ros-humble-rclcpp-lifecycle ros-humble-resource-retriever ros-humble-ros-workspace ros-humble-rviz-common ros-humble-rviz-default-plugins ros-humble-rviz-ogre-vendor ros-humble-rviz-rendering ros-humble-std-msgs ros-humble-tf2-geometry-msgs ros-humble-visualization-msgs"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool qt5-qtbase-dev ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-geometry-msgs ros-humble-geometry-msgs-dev ros-humble-nav-msgs ros-humble-nav-msgs-dev ros-humble-nav2-lifecycle-manager ros-humble-nav2-lifecycle-manager-dev ros-humble-nav2-msgs ros-humble-nav2-msgs-dev ros-humble-nav2-util ros-humble-nav2-util-dev ros-humble-pluginlib ros-humble-pluginlib-dev ros-humble-rclcpp ros-humble-rclcpp-dev ros-humble-rclcpp-lifecycle ros-humble-rclcpp-lifecycle-dev ros-humble-resource-retriever ros-humble-resource-retriever-dev ros-humble-ros-workspace-dev ros-humble-rviz-common ros-humble-rviz-common-dev ros-humble-rviz-default-plugins ros-humble-rviz-default-plugins-dev ros-humble-rviz-ogre-vendor ros-humble-rviz-ogre-vendor-dev ros-humble-rviz-rendering ros-humble-rviz-rendering-dev ros-humble-std-msgs ros-humble-std-msgs-dev ros-humble-tf2-geometry-msgs ros-humble-tf2-geometry-msgs-dev ros-humble-visualization-msgs ros-humble-visualization-msgs-dev"
-depends_dev="qt5-qtbase-dev ros-humble-geometry-msgs ros-humble-geometry-msgs-dev ros-humble-nav-msgs ros-humble-nav-msgs-dev ros-humble-nav2-lifecycle-manager ros-humble-nav2-lifecycle-manager-dev ros-humble-nav2-msgs ros-humble-nav2-msgs-dev ros-humble-nav2-util ros-humble-nav2-util-dev ros-humble-pluginlib ros-humble-pluginlib-dev ros-humble-rclcpp ros-humble-rclcpp-dev ros-humble-rclcpp-lifecycle ros-humble-rclcpp-lifecycle-dev ros-humble-resource-retriever ros-humble-resource-retriever-dev ros-humble-ros-workspace-dev ros-humble-rviz-common ros-humble-rviz-common-dev ros-humble-rviz-default-plugins ros-humble-rviz-default-plugins-dev ros-humble-rviz-ogre-vendor ros-humble-rviz-ogre-vendor-dev ros-humble-rviz-rendering ros-humble-rviz-rendering-dev ros-humble-std-msgs ros-humble-std-msgs-dev ros-humble-tf2-geometry-msgs ros-humble-tf2-geometry-msgs-dev ros-humble-visualization-msgs ros-humble-visualization-msgs-dev"
+depends="ros-humble-ros-workspace ros-humble-rosidl-generator-c ros-humble-rosidl-parser"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-cmake-gtest ros-humble-ament-cmake-gtest-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-ros-environment ros-humble-ros-environment-dev ros-humble-ros-workspace-dev ros-humble-rosidl-cmake ros-humble-rosidl-cmake-dev ros-humble-rosidl-generator-c ros-humble-rosidl-generator-c-dev ros-humble-rosidl-parser-dev ros-humble-rosidl-typesupport-c ros-humble-rosidl-typesupport-c-dev ros-humble-rosidl-typesupport-interface ros-humble-rosidl-typesupport-interface-dev"
+depends_dev="ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ros-environment ros-humble-ros-environment-dev ros-humble-ros-workspace-dev ros-humble-rosidl-cmake ros-humble-rosidl-cmake-dev ros-humble-rosidl-generator-c ros-humble-rosidl-generator-c-dev ros-humble-rosidl-parser-dev ros-humble-rosidl-typesupport-c ros-humble-rosidl-typesupport-c-dev ros-humble-rosidl-typesupport-interface ros-humble-rosidl-typesupport-interface-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
@@ -32,9 +32,9 @@ if [ ! -f /usr/ros/humble/setup.sh ]; then
   export AMENT_PREFIX_PATH=/usr/ros/humble
 fi
 rosinstall="- git:
-    local-name: nav2_rviz_plugins
-    uri: https://github.com/SteveMacenski/navigation2-release.git
-    version: release/humble/nav2_rviz_plugins/1.1.20-1
+    local-name: rosidl_generator_rs
+    uri: https://github.com/ros2-gbp/rosidl_rust-release.git
+    version: release/humble/rosidl_generator_rs/0.5.0-1
 "
 
 prepare() {
