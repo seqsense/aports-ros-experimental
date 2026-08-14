@@ -1,5 +1,20 @@
+diff --git a/test/test_controller.cpp b/test/test_controller.cpp
+index e0156cf..fb104d0 100644
+--- a/test/test_controller.cpp
++++ b/test/test_controller.cpp
+@@ -217,8 +217,9 @@ TEST(ControllerTests, ObjectLifecycle)
+ 
+ TEST(ControllerTests, DynamicParameters) {
+   auto node = std::make_shared<rclcpp_lifecycle::LifecycleNode>("test");
++  auto tf = std::make_shared<tf2_ros::Buffer>(node->get_clock());
+   auto controller = std::make_unique<opennav_docking::Controller>(
+-    node, nullptr, "test_base_frame", "test_base_frame");
++    node, tf, "test_base_frame", "test_base_frame");
+ 
+   auto params = std::make_shared<rclcpp::AsyncParametersClient>(
+     node->get_node_base_interface(), node->get_node_topics_interface(),
 diff --git a/test/test_docking_server_unit.cpp b/test/test_docking_server_unit.cpp
-index f1274177..2b187b4c 100644
+index f127417..2b187b4 100644
 --- a/test/test_docking_server_unit.cpp
 +++ b/test/test_docking_server_unit.cpp
 @@ -178,7 +178,7 @@ TEST(DockingServerTests, testErrorExceptions)
