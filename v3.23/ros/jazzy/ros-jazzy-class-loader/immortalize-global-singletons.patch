@@ -1,0 +1,53 @@
+diff --git a/src/class_loader_core.cpp b/src/class_loader_core.cpp
+index 632f8c2..7605118 100644
+--- a/src/class_loader_core.cpp
++++ b/src/class_loader_core.cpp
+@@ -45,19 +45,22 @@ namespace impl
+ 
+ std::recursive_mutex & getLoadedLibraryVectorMutex()
+ {
+-  static std::recursive_mutex m;
++  // Leaked intentionally: on musl, dlclose() does not unload libraries, so
++  // static destructors of dlopen()ed plugin libraries run at process exit
++  // and may still call into these singletons after their normal destruction.
++  static std::recursive_mutex & m = *new std::recursive_mutex();
+   return m;
+ }
+ 
+ std::recursive_mutex & getPluginBaseToFactoryMapMapMutex()
+ {
+-  static std::recursive_mutex m;
++  static std::recursive_mutex & m = *new std::recursive_mutex();
+   return m;
+ }
+ 
+ BaseToFactoryMapMap & getGlobalPluginBaseToFactoryMapMap()
+ {
+-  static BaseToFactoryMapMap instance;
++  static BaseToFactoryMapMap & instance = *new BaseToFactoryMapMap();
+   return instance;
+ }
+ 
+@@ -74,19 +77,19 @@ FactoryMap & getFactoryMapForBaseClass(const std::string & typeid_base_class_nam
+ 
+ MetaObjectGraveyardVector & getMetaObjectGraveyard()
+ {
+-  static MetaObjectGraveyardVector instance;
++  static MetaObjectGraveyardVector & instance = *new MetaObjectGraveyardVector();
+   return instance;
+ }
+ 
+ LibraryVector & getLoadedLibraryVector()
+ {
+-  static LibraryVector instance;
++  static LibraryVector & instance = *new LibraryVector();
+   return instance;
+ }
+ 
+ std::string & getCurrentlyLoadingLibraryNameReference()
+ {
+-  static std::string library_name;
++  static std::string & library_name = *new std::string();
+   return library_name;
+ }
+ 
