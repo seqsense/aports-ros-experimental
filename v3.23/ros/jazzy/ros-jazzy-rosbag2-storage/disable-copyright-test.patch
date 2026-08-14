@@ -1,13 +1,14 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 5b51a731..c9e4448d 100644
+index 444d575..ae323a5 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -77,6 +77,9 @@ if(BUILD_TESTING)
+@@ -84,6 +84,10 @@ if(BUILD_TESTING)
    find_package(rosbag2_test_common REQUIRED)
  
    ament_lint_auto_find_test_dependencies()
 +  list(APPEND AMENT_LINT_AUTO_EXCLUDE
 +    ament_cmake_copyright
++    ament_cmake_uncrustify
 +  )
  
    add_library(
