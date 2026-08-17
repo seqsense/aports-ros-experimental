@@ -1,15 +1,15 @@
 pkgname=ros-jazzy-image-tools
 _pkgname=image_tools
-pkgver=0.33.9
+pkgver=0.33.11
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
 arch="all"
 license="Apache License 2.0"
 
-depends="ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-ros-workspace ros-jazzy-sensor-msgs ros-jazzy-std-msgs"
+depends="libopencv_core libopencv_highgui libopencv_imgcodecs libopencv_imgproc libopencv_videoio ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-ros-workspace ros-jazzy-sensor-msgs ros-jazzy-std-msgs"
 makedepends="chrpath opencv-dev py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-cmake ros-jazzy-ament-cmake-dev ros-jazzy-ament-cmake-pytest ros-jazzy-ament-cmake-pytest-dev ros-jazzy-ament-lint-auto ros-jazzy-ament-lint-auto-dev ros-jazzy-ament-lint-common ros-jazzy-ament-lint-common-dev ros-jazzy-launch ros-jazzy-launch-dev ros-jazzy-launch-ros ros-jazzy-launch-ros-dev ros-jazzy-launch-testing ros-jazzy-launch-testing-ament-cmake ros-jazzy-launch-testing-ament-cmake-dev ros-jazzy-launch-testing-dev ros-jazzy-launch-testing-ros ros-jazzy-launch-testing-ros-dev ros-jazzy-rclcpp ros-jazzy-rclcpp-components ros-jazzy-rclcpp-components-dev ros-jazzy-rclcpp-dev ros-jazzy-rmw-implementation-cmake ros-jazzy-rmw-implementation-cmake-dev ros-jazzy-ros-workspace-dev ros-jazzy-sensor-msgs ros-jazzy-sensor-msgs-dev ros-jazzy-std-msgs ros-jazzy-std-msgs-dev"
-depends_dev="opencv-dev ros-jazzy-rclcpp-components-dev ros-jazzy-rclcpp-dev ros-jazzy-ros-workspace-dev ros-jazzy-sensor-msgs-dev ros-jazzy-std-msgs-dev"
+depends_dev="ros-jazzy-rclcpp-components-dev ros-jazzy-rclcpp-dev ros-jazzy-ros-workspace-dev ros-jazzy-sensor-msgs-dev ros-jazzy-std-msgs-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
 
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: image_tools
     uri: https://github.com/ros2-gbp/demos-release.git
-    version: release/jazzy/image_tools/0.33.9-1
+    version: release/jazzy/image_tools/0.33.11-1
 "
 
 prepare() {
@@ -88,7 +88,10 @@ check() {
   cd build
   make install DESTDIR="$builddir"/tmp/pkg
   if [ $(make -q test > /dev/null 2> /dev/null; echo $?) -eq 1 ]; then
-    make test 2>&1 | tee $checklog
+    # Run tests one at a time: ROS tests share the default DDS domain, and
+    # upstream only ever runs them sequentially. The -j1 is explicit because
+    # ctest otherwise picks up parallelism from MAKEFLAGS.
+    ctest -j1 2>&1 | tee $checklog
   fi
 }
 
@@ -159,6 +162,10 @@ package() {
       -iname "copying*" -or \
       -iname "gnu-*gpl*" \
     | while read file; do
+    if [ ! -f "$file" ]; then
+      # Omit directories named like a license file
+      continue
+    fi
     # Copy license files under the source
     if echo $file | grep -e '^\./\.'; then
       # Omit files under hidden directory
