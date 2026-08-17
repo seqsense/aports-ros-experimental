@@ -1,6 +1,6 @@
 pkgname=ros-humble-rviz-visual-testing-framework
 _pkgname=rviz_visual_testing_framework
-pkgver=11.2.25
+pkgver=11.2.28
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="http://ros.org/wiki/rviz2"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: rviz_visual_testing_framework
     uri: https://github.com/ros2-gbp/rviz-release.git
-    version: release/humble/rviz_visual_testing_framework/11.2.25-1
+    version: release/humble/rviz_visual_testing_framework/11.2.28-1
 "
 
 prepare() {
@@ -87,7 +87,10 @@ check() {
   cd build
   make install DESTDIR="$builddir"/tmp/pkg
   if [ $(make -q test > /dev/null 2> /dev/null; echo $?) -eq 1 ]; then
-    make test 2>&1 | tee $checklog
+    # Run tests one at a time: ROS tests share the default DDS domain, and
+    # upstream only ever runs them sequentially. The -j1 is explicit because
+    # ctest otherwise picks up parallelism from MAKEFLAGS.
+    ctest -j1 2>&1 | tee $checklog
   fi
 }
 
@@ -158,6 +161,10 @@ package() {
       -iname "copying*" -or \
       -iname "gnu-*gpl*" \
     | while read file; do
+    if [ ! -f "$file" ]; then
+      # Omit directories named like a license file
+      continue
+    fi
     # Copy license files under the source
     if echo $file | grep -e '^\./\.'; then
       # Omit files under hidden directory
