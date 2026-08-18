@@ -9,6 +9,7 @@ license="BSD"
 
 depends="ros-jazzy-python-qt-binding>=0.2.19 ros-jazzy-rclpy ros-jazzy-ros-workspace ros-jazzy-ros2topic ros-jazzy-rqt-gui ros-jazzy-rqt-gui-py ros-jazzy-rqt-py-common"
 makedepends="chrpath py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-flake8 ros-jazzy-ament-flake8-dev ros-jazzy-ament-xmllint ros-jazzy-ament-xmllint-dev ros-jazzy-python-qt-binding-dev>=0.2.19 ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev ros-jazzy-ros2topic-dev ros-jazzy-rqt-gui-dev ros-jazzy-rqt-gui-py-dev ros-jazzy-rqt-py-common-dev"
+checkdepends="py3-pytest7"
 depends_dev="ros-jazzy-python-qt-binding-dev>=0.2.19 ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev ros-jazzy-ros2topic-dev ros-jazzy-rqt-gui-dev ros-jazzy-rqt-gui-py-dev ros-jazzy-rqt-py-common-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
@@ -175,6 +176,10 @@ package() {
       -iname "copying*" -or \
       -iname "gnu-*gpl*" \
     | while read file; do
+    if [ ! -f "$file" ]; then
+      # Omit directories named like a license file
+      continue
+    fi
     # Copy license files under the source
     if echo $file | grep -e '^\./\.'; then
       # Omit files under hidden directory
