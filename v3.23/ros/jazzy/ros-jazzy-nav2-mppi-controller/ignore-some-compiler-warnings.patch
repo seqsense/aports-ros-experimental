@@ -2,11 +2,13 @@ diff --git a/CMakeLists.txt b/CMakeLists.txt
 index 95eabf6c..738d876d 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -40,6 +40,7 @@ foreach(pkg IN LISTS dependencies_pkgs)
+@@ -40,6 +40,9 @@ foreach(pkg IN LISTS dependencies_pkgs)
  endforeach()
  
  nav2_package()
 +add_compile_options(-Wno-null-dereference)
++# GCC 15 raises maybe-uninitialized false positives inside xtensor's svector
++add_compile_options(-Wno-maybe-uninitialized)
  
  include(CheckCXXCompilerFlag)
  

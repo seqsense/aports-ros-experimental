@@ -1,0 +1,32 @@
+diff --git a/include/nav2_costmap_2d/denoise/image_processing.hpp b/include/nav2_costmap_2d/denoise/image_processing.hpp
+index 3a2f6a7..dddfe30 100644
+--- a/include/nav2_costmap_2d/denoise/image_processing.hpp
++++ b/include/nav2_costmap_2d/denoise/image_processing.hpp
+@@ -473,7 +473,9 @@ public:
+         ++k;
+       }
+     }
+-    labels_.resize(k);
++    // Do not shrink to k: the caller still remaps pixels carrying raw labels
++    // in [k, next_free_), so truncating makes those reads out of bounds.
++    // (On glibc the stale values survived past size() by luck.)
+     return labels_;
+   }
+ 
+@@ -870,11 +872,15 @@ Label connectedComponentsImpl(
+   const std::vector<Label> & labels_map = label_trees.getLabels();
+ 
+   // labeling phase
++  Label max_label = 0;
+   labels.forEach(
+     [&](Label & l) {
+       l = labels_map[l];
++      max_label = std::max(max_label, l);
+     });
+-  return labels_map.size();
++  // Compacted labels are consecutive, so the count is max + 1 (incl. zero
++  // for the background), matching the size the truncated map used to have.
++  return max_label + 1;
+ }
+ 
+ /**
