@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-rqt-reconfigure
 _pkgname=rqt_reconfigure
-pkgver=1.6.3
+pkgver=1.6.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="http://wiki.ros.org/rqt_reconfigure"
@@ -9,6 +9,7 @@ license="BSD"
 
 depends="py3-yaml ros-jazzy-ament-index-python ros-jazzy-python-qt-binding>=0.2.19 ros-jazzy-qt-gui-py-common ros-jazzy-rclpy ros-jazzy-ros-workspace ros-jazzy-rqt-console ros-jazzy-rqt-gui ros-jazzy-rqt-gui-py ros-jazzy-rqt-py-common"
 makedepends="chrpath py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-copyright ros-jazzy-ament-copyright-dev ros-jazzy-ament-flake8 ros-jazzy-ament-flake8-dev ros-jazzy-ament-index-python-dev ros-jazzy-ament-xmllint ros-jazzy-ament-xmllint-dev ros-jazzy-python-qt-binding-dev>=0.2.19 ros-jazzy-qt-gui-py-common-dev ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev ros-jazzy-rqt-console-dev ros-jazzy-rqt-gui-dev ros-jazzy-rqt-gui-py-dev ros-jazzy-rqt-py-common-dev"
+checkdepends="py3-pytest7"
 depends_dev="ros-jazzy-ament-index-python-dev ros-jazzy-python-qt-binding-dev>=0.2.19 ros-jazzy-qt-gui-py-common-dev ros-jazzy-rclpy-dev ros-jazzy-ros-workspace-dev ros-jazzy-rqt-console-dev ros-jazzy-rqt-gui-dev ros-jazzy-rqt-gui-py-dev ros-jazzy-rqt-py-common-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
@@ -34,7 +35,7 @@ fi
 rosinstall="- git:
     local-name: rqt_reconfigure
     uri: https://github.com/ros2-gbp/rqt_reconfigure-release.git
-    version: release/jazzy/rqt_reconfigure/1.6.3-1
+    version: release/jazzy/rqt_reconfigure/1.6.4-1
 "
 
 prepare() {
@@ -175,6 +176,10 @@ package() {
       -iname "copying*" -or \
       -iname "gnu-*gpl*" \
     | while read file; do
+    if [ ! -f "$file" ]; then
+      # Omit directories named like a license file
+      continue
+    fi
     # Copy license files under the source
     if echo $file | grep -e '^\./\.'; then
       # Omit files under hidden directory
