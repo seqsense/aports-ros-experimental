@@ -1,6 +1,6 @@
 pkgname=ros-humble-tf2-ros
 _pkgname=tf2_ros
-pkgver=0.25.18
+pkgver=0.25.22
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="http://www.ros.org/wiki/tf2_ros"
@@ -8,7 +8,7 @@ arch="all"
 license="BSD"
 
 depends="ros-humble-builtin-interfaces ros-humble-geometry-msgs ros-humble-message-filters ros-humble-rcl-interfaces ros-humble-rclcpp ros-humble-rclcpp-action ros-humble-rclcpp-components ros-humble-ros-workspace ros-humble-tf2 ros-humble-tf2-msgs"
-makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-cmake-gtest ros-humble-ament-cmake-gtest-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-builtin-interfaces ros-humble-builtin-interfaces-dev ros-humble-geometry-msgs ros-humble-geometry-msgs-dev ros-humble-message-filters ros-humble-message-filters-dev ros-humble-rcl-interfaces ros-humble-rcl-interfaces-dev ros-humble-rclcpp ros-humble-rclcpp-action ros-humble-rclcpp-action-dev ros-humble-rclcpp-components ros-humble-rclcpp-components-dev ros-humble-rclcpp-dev ros-humble-ros-workspace-dev ros-humble-rosgraph-msgs ros-humble-rosgraph-msgs-dev ros-humble-tf2 ros-humble-tf2-dev ros-humble-tf2-msgs ros-humble-tf2-msgs-dev"
+makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-cmake ros-humble-ament-cmake-dev ros-humble-ament-cmake-gen-version-h ros-humble-ament-cmake-gen-version-h-dev ros-humble-ament-cmake-gtest ros-humble-ament-cmake-gtest-dev ros-humble-ament-lint-auto ros-humble-ament-lint-auto-dev ros-humble-ament-lint-common ros-humble-ament-lint-common-dev ros-humble-builtin-interfaces ros-humble-builtin-interfaces-dev ros-humble-geometry-msgs ros-humble-geometry-msgs-dev ros-humble-message-filters ros-humble-message-filters-dev ros-humble-rcl-interfaces ros-humble-rcl-interfaces-dev ros-humble-rclcpp ros-humble-rclcpp-action ros-humble-rclcpp-action-dev ros-humble-rclcpp-components ros-humble-rclcpp-components-dev ros-humble-rclcpp-dev ros-humble-ros-workspace-dev ros-humble-rosgraph-msgs ros-humble-rosgraph-msgs-dev ros-humble-tf2 ros-humble-tf2-dev ros-humble-tf2-msgs ros-humble-tf2-msgs-dev"
 depends_dev="ros-humble-builtin-interfaces ros-humble-builtin-interfaces-dev ros-humble-geometry-msgs ros-humble-geometry-msgs-dev ros-humble-message-filters ros-humble-message-filters-dev ros-humble-rcl-interfaces ros-humble-rcl-interfaces-dev ros-humble-rclcpp ros-humble-rclcpp-action ros-humble-rclcpp-action-dev ros-humble-rclcpp-components ros-humble-rclcpp-components-dev ros-humble-rclcpp-dev ros-humble-ros-workspace-dev ros-humble-tf2 ros-humble-tf2-dev ros-humble-tf2-msgs ros-humble-tf2-msgs-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
@@ -34,7 +34,7 @@ fi
 rosinstall="- git:
     local-name: tf2_ros
     uri: https://github.com/ros2-gbp/geometry2-release.git
-    version: release/humble/tf2_ros/0.25.18-1
+    version: release/humble/tf2_ros/0.25.22-1
 "
 
 prepare() {
@@ -87,7 +87,12 @@ check() {
   cd build
   make install DESTDIR="$builddir"/tmp/pkg
   if [ $(make -q test > /dev/null 2> /dev/null; echo $?) -eq 1 ]; then
-    make test 2>&1 | tee $checklog
+    # Run tests one at a time: ROS tests share the default DDS domain, and
+    # upstream only ever runs them sequentially. The -j1 is explicit because
+    # ctest otherwise picks up parallelism from MAKEFLAGS. A package with
+    # known-flaky tests can set check_retries in its apkbuild_hook.sh to give
+    # failing tests that many attempts (like colcon's --retest-until-pass).
+    ctest -j1 ${check_retries:+--repeat "until-pass:${check_retries}"} 2>&1 | tee $checklog
   fi
 }
 
@@ -158,6 +163,10 @@ package() {
       -iname "copying*" -or \
       -iname "gnu-*gpl*" \
     | while read file; do
+    if [ ! -f "$file" ]; then
+      # Omit directories named like a license file
+      continue
+    fi
     # Copy license files under the source
     if echo $file | grep -e '^\./\.'; then
       # Omit files under hidden directory
