@@ -1,6 +1,6 @@
 pkgname=ros-jazzy-launch-yaml
 _pkgname=launch_yaml
-pkgver=3.4.10
+pkgver=3.4.11
 pkgrel=0
 pkgdesc="$_pkgname package for ROS jazzy"
 url="https://index.ros.org/p/$_pkgname"
@@ -9,6 +9,7 @@ license="Apache License 2.0"
 
 depends="ros-jazzy-launch ros-jazzy-ros-workspace"
 makedepends="chrpath py3-pytest7 py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-jazzy-ament-copyright ros-jazzy-ament-copyright-dev ros-jazzy-ament-flake8 ros-jazzy-ament-flake8-dev ros-jazzy-ament-pep257 ros-jazzy-ament-pep257-dev ros-jazzy-launch ros-jazzy-launch-dev ros-jazzy-ros-workspace-dev"
+checkdepends="py3-pytest7"
 depends_dev="ros-jazzy-launch ros-jazzy-launch-dev ros-jazzy-ros-workspace-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
@@ -34,7 +35,7 @@ fi
 rosinstall="- git:
     local-name: launch_yaml
     uri: https://github.com/ros2-gbp/launch-release.git
-    version: release/jazzy/launch_yaml/3.4.10-1
+    version: release/jazzy/launch_yaml/3.4.11-1
 "
 
 prepare() {
@@ -175,6 +176,10 @@ package() {
       -iname "copying*" -or \
       -iname "gnu-*gpl*" \
     | while read file; do
+    if [ ! -f "$file" ]; then
+      # Omit directories named like a license file
+      continue
+    fi
     # Copy license files under the source
     if echo $file | grep -e '^\./\.'; then
       # Omit files under hidden directory
