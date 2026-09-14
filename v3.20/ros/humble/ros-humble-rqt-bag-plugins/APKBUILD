@@ -1,6 +1,6 @@
 pkgname=ros-humble-rqt-bag-plugins
 _pkgname=rqt_bag_plugins
-pkgver=1.1.5
+pkgver=1.1.6
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="http://wiki.ros.org/rqt_bag"
@@ -9,6 +9,7 @@ license="BSD"
 
 depends="py3-cairo py3-pillow ros-humble-geometry-msgs ros-humble-rclpy ros-humble-ros-workspace ros-humble-rosbag2 ros-humble-rqt-bag ros-humble-rqt-gui ros-humble-rqt-gui-py ros-humble-rqt-plot ros-humble-sensor-msgs ros-humble-std-msgs"
 makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-geometry-msgs-dev ros-humble-rclpy-dev ros-humble-ros-workspace-dev ros-humble-rosbag2-dev ros-humble-rqt-bag-dev ros-humble-rqt-gui-dev ros-humble-rqt-gui-py-dev ros-humble-rqt-plot-dev ros-humble-sensor-msgs-dev ros-humble-std-msgs-dev"
+checkdepends="py3-pytest7"
 depends_dev="ros-humble-geometry-msgs-dev ros-humble-rclpy-dev ros-humble-ros-workspace-dev ros-humble-rosbag2-dev ros-humble-rqt-bag-dev ros-humble-rqt-gui-dev ros-humble-rqt-gui-py-dev ros-humble-rqt-plot-dev ros-humble-sensor-msgs-dev ros-humble-std-msgs-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
@@ -34,7 +35,7 @@ fi
 rosinstall="- git:
     local-name: rqt_bag_plugins
     uri: https://github.com/ros2-gbp/rqt_bag-release.git
-    version: release/humble/rqt_bag_plugins/1.1.5-1
+    version: release/humble/rqt_bag_plugins/1.1.6-1
 "
 
 prepare() {
@@ -175,6 +176,10 @@ package() {
       -iname "copying*" -or \
       -iname "gnu-*gpl*" \
     | while read file; do
+    if [ ! -f "$file" ]; then
+      # Omit directories named like a license file
+      continue
+    fi
     # Copy license files under the source
     if echo $file | grep -e '^\./\.'; then
       # Omit files under hidden directory
