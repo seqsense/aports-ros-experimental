@@ -1,6 +1,6 @@
 pkgname=ros-humble-rqt-reconfigure
 _pkgname=rqt_reconfigure
-pkgver=1.1.2
+pkgver=1.1.4
 pkgrel=0
 pkgdesc="$_pkgname package for ROS humble"
 url="http://wiki.ros.org/rqt_reconfigure"
@@ -9,6 +9,7 @@ license="BSD"
 
 depends="py3-yaml ros-humble-ament-index-python ros-humble-python-qt-binding>=0.2.19 ros-humble-qt-gui-py-common ros-humble-rclpy ros-humble-ros-workspace ros-humble-rqt-console ros-humble-rqt-gui ros-humble-rqt-gui-py ros-humble-rqt-py-common"
 makedepends="chrpath py3-rosdep py3-rosinstall-generator py3-setuptools py3-vcstool ros-humble-ament-copyright ros-humble-ament-copyright-dev ros-humble-ament-flake8 ros-humble-ament-flake8-dev ros-humble-ament-index-python-dev ros-humble-ament-xmllint ros-humble-ament-xmllint-dev ros-humble-python-qt-binding-dev>=0.2.19 ros-humble-qt-gui-py-common-dev ros-humble-rclpy-dev ros-humble-ros-workspace-dev ros-humble-rqt-console-dev ros-humble-rqt-gui-dev ros-humble-rqt-gui-py-dev ros-humble-rqt-py-common-dev"
+checkdepends="py3-pytest7"
 depends_dev="ros-humble-ament-index-python-dev ros-humble-python-qt-binding-dev>=0.2.19 ros-humble-qt-gui-py-common-dev ros-humble-rclpy-dev ros-humble-ros-workspace-dev ros-humble-rqt-console-dev ros-humble-rqt-gui-dev ros-humble-rqt-gui-py-dev ros-humble-rqt-py-common-dev"
 
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
@@ -34,7 +35,7 @@ fi
 rosinstall="- git:
     local-name: rqt_reconfigure
     uri: https://github.com/ros2-gbp/rqt_reconfigure-release.git
-    version: release/humble/rqt_reconfigure/1.1.2-1
+    version: release/humble/rqt_reconfigure/1.1.4-1
 "
 
 prepare() {
@@ -175,6 +176,10 @@ package() {
       -iname "copying*" -or \
       -iname "gnu-*gpl*" \
     | while read file; do
+    if [ ! -f "$file" ]; then
+      # Omit directories named like a license file
+      continue
+    fi
     # Copy license files under the source
     if echo $file | grep -e '^\./\.'; then
       # Omit files under hidden directory
